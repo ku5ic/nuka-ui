@@ -61,4 +61,4 @@ See `docs/DECISIONS.md` for architecture decisions and `CLAUDE.md` for developme
 
 ## License
 
-ISC
+MIT
