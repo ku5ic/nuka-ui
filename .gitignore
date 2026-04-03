@@ -200,3 +200,4 @@ dist
 storybook-static
 coverage
 *.local
+stories/
