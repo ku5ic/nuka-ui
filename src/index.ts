@@ -1,1 +1,4 @@
-// vault-ui public API — exports added as components are built
+// vault-ui public API
+
+export { Button, buttonVariants } from "./components/Button";
+export type { ButtonProps, ButtonVariantProps } from "./components/Button";
