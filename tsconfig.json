@@ -6,6 +6,7 @@
     "moduleResolution": "Bundler",
     "jsx": "react-jsx",
     "strict": true,
+    "allowImportingTsExtensions": true,
     "exactOptionalPropertyTypes": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
@@ -16,6 +17,6 @@
       "@vault/*": ["./src/*"]
     },
   },
-  "include": ["src", ".storybook"],
+  "include": ["src", ".storybook", "eslint.config.ts", "global.d.ts"],
   "exclude": ["node_modules", "dist"]
 }
