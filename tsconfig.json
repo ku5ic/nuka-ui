@@ -11,7 +11,10 @@
     "noImplicitOverride": true,
     "isolatedModules": true,
     "skipLibCheck": true,
-    "types": ["node"]
+    "types": ["node"],
+    "paths": {
+      "@vault/*": ["./src/*"]
+    },
   },
   "include": ["src", ".storybook"],
   "exclude": ["node_modules", "dist"]
