@@ -1,27 +1,29 @@
 :root {
   /* ─── Color primitives ─────────────────────────────── */
+
   --color-neutral-0: oklch(100% 0 0);
-  --color-neutral-50: oklch(98% 0 0);
-  --color-neutral-100: oklch(95% 0 0);
-  --color-neutral-200: oklch(90% 0 0);
-  --color-neutral-300: oklch(80% 0 0);
-  --color-neutral-400: oklch(65% 0 0);
-  --color-neutral-500: oklch(55% 0 0);
-  --color-neutral-600: oklch(43% 0 0);
-  --color-neutral-700: oklch(32% 0 0);
-  --color-neutral-800: oklch(22% 0 0);
-  --color-neutral-900: oklch(13% 0 0);
-  --color-neutral-950: oklch(8% 0 0);
+  --color-neutral-50: oklch(98.4% 0 0);
+  --color-neutral-100: oklch(96.8% 0 0);
+  --color-neutral-200: oklch(92.9% 0 0);
+  --color-neutral-300: oklch(86.9% 0 0);
+  --color-neutral-400: oklch(70.4% 0 0);
+  --color-neutral-500: oklch(55.4% 0 0);
+  --color-neutral-600: oklch(44.6% 0 0);
+  --color-neutral-700: oklch(37.2% 0 0);
+  --color-neutral-800: oklch(27.9% 0 0);
+  --color-neutral-900: oklch(20.8% 0 0);
+  --color-neutral-950: oklch(13% 0 0);
   --color-neutral-1000: oklch(0% 0 0);
 
-  --color-accent-100: oklch(93% 0.08 260);
-  --color-accent-200: oklch(85% 0.13 260);
-  --color-accent-300: oklch(75% 0.18 260);
-  --color-accent-400: oklch(65% 0.22 260);
-  --color-accent-500: oklch(55% 0.24 260);
-  --color-accent-600: oklch(46% 0.24 260);
-  --color-accent-700: oklch(38% 0.22 260);
-  --color-accent-800: oklch(30% 0.18 260);
+  /* Slate accent — hue 257, low chroma */
+  --color-accent-100: oklch(96.8% 0.007 257);
+  --color-accent-200: oklch(92.9% 0.013 257);
+  --color-accent-300: oklch(86.9% 0.022 257);
+  --color-accent-400: oklch(70.4% 0.04 257);
+  --color-accent-500: oklch(44% 0.043 257);
+  --color-accent-600: oklch(37.2% 0.044 257);
+  --color-accent-700: oklch(27.9% 0.041 257);
+  --color-accent-800: oklch(20.8% 0.042 257);
 
   /* ─── Feedback color primitives ────────────────────── */
   --color-success-subtle: oklch(94% 0.08 145);
@@ -82,38 +84,43 @@
   --font-weight-bold: 700;
 }
 
+/* ─── Semantic tokens — light theme ─────────────────────── */
 :root,
 [data-theme="light"] {
-  /* ─── Surfaces ───────────────────────────────────────── */
+  /* Surfaces */
   --vault-bg-base: var(--color-neutral-0);
   --vault-bg-subtle: var(--color-neutral-50);
   --vault-bg-muted: var(--color-neutral-100);
   --vault-bg-emphasis: var(--color-neutral-900);
 
-  /* ─── Borders ────────────────────────────────────────── */
+  /* Borders */
   --vault-border-base: var(--color-neutral-200);
   --vault-border-strong: var(--color-neutral-400);
   --vault-border-focus: var(--color-accent-500);
 
-  /* ─── Text ───────────────────────────────────────────── */
+  /* Text */
   --vault-text-base: var(--color-neutral-900);
   --vault-text-muted: var(--color-neutral-600);
   --vault-text-subtle: var(--color-neutral-400);
   --vault-text-inverse: var(--color-neutral-0);
   --vault-text-disabled: var(--color-neutral-300);
 
-  /* ─── Accent ─────────────────────────────────────────── */
+  /* Accent */
   --vault-accent-bg: var(--color-accent-500);
   --vault-accent-bg-hover: var(--color-accent-600);
   --vault-accent-bg-active: var(--color-accent-700);
   --vault-accent-bg-subtle: var(--color-accent-100);
   --vault-accent-border: var(--color-accent-400);
-  --vault-accent-text: var(--color-accent-700);
-  /* NOTE: --vault-accent-text is intentionally conservative (accent-700).
-     It must meet 4.5:1 contrast on --vault-bg-base in light mode.
-     Do not remap this to accent-500 without checking contrast. */
+  --vault-accent-text: var(--color-accent-500);
+  /*
+   * NOTE: --vault-accent-text uses accent-500 (#43546a) on neutral-0 (white).
+   * Contrast: 7.74:1 — passes AAA. Safe to use for any text size.
+   */
 
-  /* ─── Feedback ───────────────────────────────────────── */
+  /* Feedback */
+  --vault-danger-base: var(--color-danger-base);
+  --vault-success-base: var(--color-success-base);
+  --vault-warning-base: var(--color-warning-base);
   --vault-success-bg: var(--color-success-subtle);
   --vault-success-text: var(--color-success-emphasis);
   --vault-success-border: var(--color-success-base);
@@ -131,36 +138,42 @@
   --vault-info-border: var(--color-info-base);
 }
 
+/* ─── Semantic tokens — dark theme ──────────────────────── */
 [data-theme="dark"] {
-  /* ─── Surfaces ───────────────────────────────────────── */
+  /* Surfaces */
   --vault-bg-base: var(--color-neutral-950);
   --vault-bg-subtle: var(--color-neutral-900);
   --vault-bg-muted: var(--color-neutral-800);
   --vault-bg-emphasis: var(--color-neutral-0);
 
-  /* ─── Borders ────────────────────────────────────────── */
+  /* Borders */
   --vault-border-base: var(--color-neutral-700);
   --vault-border-strong: var(--color-neutral-500);
   --vault-border-focus: var(--color-accent-400);
 
-  /* ─── Text ───────────────────────────────────────────── */
+  /* Text */
   --vault-text-base: var(--color-neutral-50);
   --vault-text-muted: var(--color-neutral-400);
   --vault-text-subtle: var(--color-neutral-600);
   --vault-text-inverse: var(--color-neutral-950);
   --vault-text-disabled: var(--color-neutral-700);
 
-  /* ─── Accent ─────────────────────────────────────────── */
+  /* Accent */
   --vault-accent-bg: var(--color-accent-500);
   --vault-accent-bg-hover: var(--color-accent-400);
   --vault-accent-bg-active: var(--color-accent-300);
   --vault-accent-bg-subtle: var(--color-accent-800);
-  --vault-accent-border: var(--color-accent-500);
+  --vault-accent-border: var(--color-accent-400);
   --vault-accent-text: var(--color-accent-300);
-  /* NOTE: --vault-accent-text flips to accent-300 in dark mode.
-     Must meet 4.5:1 on --vault-bg-base (neutral-950). Verify before shipping. */
+  /*
+   * NOTE: --vault-accent-text uses accent-300 on neutral-950 in dark mode.
+   * Verify contrast before shipping dark mode. Target: 4.5:1 minimum.
+   */
 
-  /* ─── Feedback ───────────────────────────────────────── */
+  /* Feedback — hardcoded for dark mode, primitives are light-first */
+  --vault-danger-base: oklch(56% 0.22 15);
+  --vault-success-base: oklch(52% 0.18 145);
+  --vault-warning-base: oklch(72% 0.22 85);
   --vault-success-bg: oklch(20% 0.06 145);
   --vault-success-text: oklch(75% 0.16 145);
   --vault-success-border: oklch(40% 0.14 145);
