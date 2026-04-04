@@ -26,18 +26,18 @@ No Radix dependency. Pure HTML + CVA + tokens. Build these first.
 
 ## Tier 2 — Form primitives
 
-Radix for some. All require `Label` association and correct ARIA. Build as a group.
+All require `Label` association and correct ARIA. Build as a group.
 
 | Component              | Status | Notes                                                                  |
 | ---------------------- | ------ | ---------------------------------------------------------------------- |
 | `Label`                | —      | Associates with form controls. Required indicator.                     |
 | `Input`                | —      | Text input. Intent for validation state. Size variants.                |
 | `Textarea`             | —      | Multi-line input. Same API as Input.                                   |
-| `Select`               | —      | Radix Select. Styled to match Input.                                   |
-| `Checkbox`             | —      | Radix Checkbox. Intent for validation.                                 |
-| `Radio` / `RadioGroup` | —      | Radix RadioGroup.                                                      |
-| `Switch`               | —      | Radix Switch. Toggle.                                                  |
-| `Slider`               | —      | Radix Slider.                                                          |
+| `Select`               | —      | Custom select with keyboard navigation. Styled to match Input.         |
+| `Checkbox`             | —      | Custom checkbox. Intent for validation.                                |
+| `Radio` / `RadioGroup` | —      | Custom radio group.                                                    |
+| `Switch`               | —      | Custom toggle switch.                                                  |
+| `Slider`               | —      | Custom range slider.                                                   |
 | `FormField`            | —      | Layout wrapper — Label + control + error message. No styling opinions. |
 
 ---
@@ -49,11 +49,11 @@ Mostly simple. High visual value for the showcase.
 | Component           | Status | Notes                                                  |
 | ------------------- | ------ | ------------------------------------------------------ |
 | `Alert`             | —      | Inline feedback. variant + intent. Dismissible option. |
-| `Toast` / `Toaster` | —      | Radix Toast. Programmatic API.                         |
+| `Toast` / `Toaster` | —      | Custom toast with programmatic API.                    |
 | `Progress`          | —      | Linear progress bar. Intent for status.                |
 | `Skeleton`          | —      | Loading placeholder. Matches shapes of real content.   |
-| `Tooltip`           | —      | Radix Tooltip.                                         |
-| `Popover`           | —      | Radix Popover.                                         |
+| `Tooltip`           | —      | Custom tooltip with positioning.                       |
+| `Popover`           | —      | Custom popover with positioning.                       |
 
 ---
 
@@ -64,12 +64,12 @@ More complex. Composition patterns. Build after Tier 1–3 are solid.
 | Component          | Status | Notes                                        |
 | ------------------ | ------ | -------------------------------------------- |
 | `Card`             | —      | Surface container. Header/body/footer slots. |
-| `Tabs`             | —      | Radix Tabs.                                  |
-| `Accordion`        | —      | Radix Accordion.                             |
-| `Dialog` / `Modal` | —      | Radix Dialog.                                |
-| `Sheet`            | —      | Slide-in panel. Radix Dialog variant.        |
-| `DropdownMenu`     | —      | Radix DropdownMenu.                          |
-| `NavigationMenu`   | —      | Radix NavigationMenu.                        |
+| `Tabs`             | —      | Custom tabs with keyboard navigation.        |
+| `Accordion`        | —      | Custom accordion with keyboard navigation.   |
+| `Dialog` / `Modal` | —      | Custom modal dialog with focus trapping.     |
+| `Sheet`            | —      | Slide-in panel. Dialog variant.              |
+| `DropdownMenu`     | —      | Custom dropdown with keyboard navigation.    |
+| `NavigationMenu`   | —      | Custom navigation menu.                      |
 | `Breadcrumb`       | —      | Navigation trail.                            |
 | `Pagination`       | —      | Page navigation.                             |
 
@@ -83,9 +83,9 @@ Built from Tier 1–4 components. Highest complexity, highest value for the show
 | ------------- | ------ | ---------------------------------------------------- |
 | `Table`       | —      | Sortable, accessible. `thead`/`tbody`/`tfoot`.       |
 | `DataTable`   | —      | Table + pagination + filtering.                      |
-| `CommandMenu` | —      | Radix Command. Keyboard-first search/action palette. |
-| `DatePicker`  | —      | Radix Popover + calendar.                            |
-| `Combobox`    | —      | Radix Combobox. Searchable select.                   |
+| `CommandMenu` | —      | Keyboard-first search/action palette.                |
+| `DatePicker`  | —      | Popover + calendar.                                  |
+| `Combobox`    | —      | Custom searchable select.                            |
 
 ---
 

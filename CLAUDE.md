@@ -6,7 +6,7 @@ Context and instructions for Claude Code when working in this repository.
 
 vault-ui is a React component library built on Tailwind v4. It abstracts Tailwind utility classes behind a composable component API, customizable via CSS variables and props.
 
-**Stack:** React 19, TypeScript 6 (strict), Tailwind v4, Radix UI, CVA, Storybook 10, Vitest 4, Testing Library  
+**Stack:** React 19, TypeScript 6 (strict), Tailwind v4, CVA, Storybook 10, Vitest 4, Testing Library  
 **Package:** `vault-ui` on npm  
 **Repo:** github.com/ku5ic/vault-ui
 

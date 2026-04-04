@@ -238,3 +238,37 @@ Divider is not a polymorphic component. There is no valid use case for rendering
 - Divider is the first component to intentionally omit variant/intent, establishing that the pattern is opt-in per component, not mandatory
 - The conditional element rendering adds internal complexity but produces correct accessibility semantics for each configuration
 - Consumers who need a styled divider beyond the size variants use `className` directly
+
+---
+
+## ADR-009: Remove Radix UI — first-party Slot and composeRefs
+
+**Date:** 2026-04-04
+**Status:** Accepted
+
+### Context
+
+The project used `@radix-ui/react-slot` (and its transitive dependency `@radix-ui/react-compose-refs`) to implement the `asChild` composition pattern on Button and Badge. This was the only Radix package in `dependencies`.
+
+### Decision
+
+Removed all Radix UI dependencies. Implemented `Slot` and `composeRefs` from scratch in `src/utils/slot.tsx`. The public API (`asChild` prop on components) is unchanged.
+
+`Slot` merges props, refs, event handlers, className, and style from the Slot element onto its single child element. `composeRefs` composes multiple refs (function refs and ref objects) into a single ref callback.
+
+### Reasoning
+
+vault-ui is a portfolio project that demonstrates platform-level frontend engineering. Using a third-party primitive for composition — even a small, well-scoped one — obscures understanding of a well-known pattern. The `Slot` contract is stable and the implementation is non-trivial enough to be worth owning: ref composition, event handler merging, className concatenation, and style merging each require deliberate handling.
+
+### Consequences
+
+- No external UI primitive dependencies remain. All composition behavior is owned, tested, and visible in the repository.
+- Future components that need `asChild` import from `@vault/utils/slot` — no external dependency decision required.
+- `composeRefs` is available for any component that needs to compose a forwarded ref with an internal ref.
+- The implementation must be maintained internally — any edge cases in Slot behavior are our responsibility.
+
+### Alternatives considered
+
+**Keeping `@radix-ui/react-slot` as a sanctioned carve-out** — rejected. Inconsistent with the no-third-party-UI-primitives policy. If we carve out Slot, the boundary becomes subjective.
+
+**Dropping `asChild` entirely** — rejected. The `asChild` pattern is a genuine composition tool that strengthens the component API. Removing it would force consumers into less ergonomic patterns (wrapper elements, manual className forwarding) without good reason.

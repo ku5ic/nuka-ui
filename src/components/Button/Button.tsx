@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Slot } from "@radix-ui/react-slot";
+import { Slot } from "@vault/utils/slot";
 import { cva, type VariantProps } from "@vault/utils/variants";
 import { cn } from "@vault/utils/cn";
 
