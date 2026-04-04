@@ -117,6 +117,15 @@
    * Contrast: 7.74:1 — passes AAA. Safe to use for any text size.
    */
 
+  /* Input surfaces */
+  --vault-input-bg: var(--color-neutral-0);
+  --vault-input-bg-disabled: var(--color-neutral-100);
+  --vault-input-bg-readonly: var(--color-neutral-50);
+
+  /* Input borders */
+  --vault-input-border: var(--color-neutral-300);
+  --vault-input-border-hover: var(--color-neutral-400);
+
   /* Feedback */
   --vault-danger-base: var(--color-danger-base);
   --vault-success-base: var(--color-success-base);
@@ -169,6 +178,15 @@
    * NOTE: --vault-accent-text uses accent-300 on neutral-950 in dark mode.
    * Verify contrast before shipping dark mode. Target: 4.5:1 minimum.
    */
+
+  /* Input surfaces */
+  --vault-input-bg: var(--color-neutral-950);
+  --vault-input-bg-disabled: var(--color-neutral-800);
+  --vault-input-bg-readonly: var(--color-neutral-900);
+
+  /* Input borders */
+  --vault-input-border: var(--color-neutral-700);
+  --vault-input-border-hover: var(--color-neutral-500);
 
   /* Feedback — hardcoded for dark mode, primitives are light-first */
   --vault-danger-base: oklch(56% 0.22 15);

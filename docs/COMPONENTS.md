@@ -30,9 +30,9 @@ All require `Label` association and correct ARIA. Build as a group.
 
 | Component              | Status | Notes                                                                  |
 | ---------------------- | ------ | ---------------------------------------------------------------------- |
-| `Label`                | —      | Associates with form controls. Required indicator.                     |
-| `Input`                | —      | Text input. Intent for validation state. Size variants.                |
-| `Textarea`             | —      | Multi-line input. Same API as Input.                                   |
+| `Label`                | ✅ Done | Associates with form controls. Required indicator.                     |
+| `Input`                | ✅ Done | Text input. Intent for validation state. Size variants.                |
+| `Textarea`             | ✅ Done | Multi-line input. Same API as Input.                                   |
 | `Select`               | —      | Custom select with keyboard navigation. Styled to match Input.         |
 | `Checkbox`             | —      | Custom checkbox. Intent for validation.                                |
 | `Radio` / `RadioGroup` | —      | Custom radio group.                                                    |
