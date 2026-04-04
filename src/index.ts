@@ -33,6 +33,11 @@ export type { KbdProps, KbdVariantProps } from "./components/Kbd";
 export { Label } from "./components/Label";
 export type { LabelProps } from "./components/Label";
 
+export { Select, SelectTrigger, selectTriggerVariants, SelectContent, SelectItem, SelectSeparator } from "./components/Select";
+export type { SelectProps, SelectTriggerProps, SelectTriggerVariantProps, SelectContentProps, SelectItemProps } from "./components/Select";
+export { SelectContext, useSelect } from "./components/Select";
+export type { SelectContextValue } from "./components/Select";
+
 export { RadioGroup } from "./components/RadioGroup";
 export type { RadioGroupProps } from "./components/RadioGroup";
 export { Radio, radioVariants } from "./components/RadioGroup";

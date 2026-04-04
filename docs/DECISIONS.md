@@ -384,3 +384,43 @@ The HTML spec describes keyboard shortcuts as nested `<kbd>` elements: a wrappin
 - No `asChild` means no Slot import and no Radix-adjacent complexity
 - The composition model follows the HTML spec and is documented in the "Pattern: Keyboard Shortcut" story
 - `<kbd>` has no implicit ARIA role; no `role` attribute is added — this is correct per the spec
+
+---
+
+## ADR-013: Select — composable combobox pattern, `hidden` attribute, and Storybook a11y inconclusive
+
+**Date:** 2026-04-04
+**Status:** Accepted
+
+### Context
+
+Select is the most complex Tier 2 component. It requires a custom dropdown with keyboard navigation, styled to match `Input`, using the ARIA combobox pattern (`role="combobox"` + `role="listbox"`). A native `<select>` cannot be reliably styled to match across browsers.
+
+### Decisions
+
+**1. Composable multi-component API**
+
+Select is composed of five parts: `Select` (root context provider), `SelectTrigger` (combobox button), `SelectContent` (listbox container), `SelectItem` (option), and `SelectSeparator` (visual divider). Consumers compose them declaratively. This matches the pattern used by Radix Select and shadcn/ui, giving consumers control over content without forcing them to pass an array of option objects as props.
+
+**2. `hidden` attribute on listbox instead of conditional rendering**
+
+The listbox `<div role="listbox">` is always in the DOM with `hidden={!open}`. This ensures `aria-controls` on the trigger always resolves to a valid element. Conditional rendering (`{open && <div>}`) would leave `aria-controls` pointing to a non-existent element when closed — valid per ARIA 1.2 but flagged by axe-core. The `hidden` attribute removes the element from the accessibility tree while keeping it in the DOM, solving both concerns. It also allows `SelectItem` components to register their labels on mount, so the trigger can display the selected option's label without the listbox being visible.
+
+**3. Registry version counter for synchronous label display**
+
+`SelectItem` registers its value, label, and ref via `useLayoutEffect` on mount. The option registry is a `Map` stored in a ref for stable identity. A `registryVersion` state counter increments on each registration, included as a `useMemo` dependency for the context value. This forces context consumers (notably `SelectTrigger`) to re-render when options register, enabling the trigger to display the selected option's label immediately after mount.
+
+**4. `aria-label` fallback for combobox accessible name**
+
+`role="combobox"` has `nameFrom: author` — text content does not contribute to the accessible name. When no `aria-labelledby` is present (i.e., outside a `FormField`), the trigger derives `aria-label` from the selected option label, the `placeholder` prop, or a fallback `"Select"`. Inside `FormField`, `aria-labelledby` from the `Label` takes precedence and `aria-label` is omitted.
+
+**5. Known Storybook a11y panel inconclusive**
+
+The Storybook accessibility panel reports `aria-controls` as "inconclusive" on Select stories. This is a tooling limitation: axe-core runs in the parent frame and cannot resolve element IDs inside the story iframe. Console inspection confirms the DOM is correct — `aria-controls` on the trigger matches `id` on the listbox, which is present in the DOM with `hidden=""`. The IDs match. This is not a WCAG violation.
+
+### Consequences
+
+- The composable API requires five imports for full usage but matches industry convention and is self-documenting
+- The `hidden` attribute approach means option elements exist in the DOM when closed, but are excluded from the accessibility tree
+- The registry pattern adds a render cycle on mount but ensures labels are always available to the trigger
+- No third-party UI primitive dependencies — all keyboard navigation, type-ahead, and ARIA semantics are owned

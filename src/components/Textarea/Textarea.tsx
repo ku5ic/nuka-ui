@@ -10,7 +10,7 @@ const textareaVariants = cva(
     "border",
     "bg-[var(--vault-input-bg)]",
     "text-[var(--vault-text-base)]",
-    "placeholder:text-[var(--vault-text-subtle)]",
+    "placeholder:text-[var(--vault-text-muted)]",
     "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vault-border-focus)]",
     "disabled:cursor-not-allowed disabled:opacity-50",
     "resize-y",

@@ -33,7 +33,7 @@ All require `Label` association and correct ARIA. Build as a group.
 | `Label`                | ✅ Done | Associates with form controls. Required indicator.                     |
 | `Input`                | ✅ Done | Text input. Intent for validation state. Size variants.                |
 | `Textarea`             | ✅ Done | Multi-line input. Same API as Input.                                   |
-| `Select`               | —       | Custom select with keyboard navigation. Styled to match Input.         |
+| `Select`               | ✅ Done | Custom select with keyboard navigation. Styled to match Input.         |
 | `Checkbox`             | ✅ Done | Custom checkbox. Intent for validation.                                |
 | `Radio` / `RadioGroup` | ✅ Done | Custom radio group.                                                    |
 | `Switch`               | ✅ Done | Custom toggle switch.                                                  |

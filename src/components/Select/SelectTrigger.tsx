@@ -1,0 +1,363 @@
+import * as React from "react";
+import { cva, type VariantProps } from "@vault/utils/variants";
+import { cn } from "@vault/utils/cn";
+import { useSelect } from "@vault/components/Select/SelectContext";
+import { useFormField } from "@vault/components/FormField/FormFieldContext";
+
+const selectTriggerVariants = cva(
+  [
+    "w-full",
+    "inline-flex items-center justify-between",
+    "rounded-[var(--radius-md)]",
+    "border",
+    "bg-[var(--vault-input-bg)]",
+    "text-[var(--vault-text-base)]",
+    "text-left",
+    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vault-border-focus)]",
+    "disabled:cursor-not-allowed disabled:opacity-50",
+    "transition-colors duration-150",
+  ],
+  {
+    variants: {
+      intent: {
+        default:
+          "border-[var(--vault-input-border)] hover:border-[var(--vault-input-border-hover)]",
+        danger: "border-[var(--vault-danger-border)]",
+        success: "border-[var(--vault-success-border)]",
+        warning: "border-[var(--vault-warning-border)]",
+      },
+      size: {
+        sm: "px-[var(--space-3)] py-[var(--space-2)] text-xs",
+        md: "px-[var(--space-4)] py-[var(--space-3)] text-sm",
+        lg: "px-[var(--space-6)] py-[var(--space-4)] text-base",
+      },
+    },
+    defaultVariants: {
+      intent: "default",
+      size: "md",
+    },
+  },
+);
+
+export type SelectTriggerVariantProps = VariantProps<
+  typeof selectTriggerVariants
+>;
+
+export interface SelectTriggerProps
+  extends Omit<
+      React.ButtonHTMLAttributes<HTMLButtonElement>,
+      "children"
+    >,
+    SelectTriggerVariantProps {
+  placeholder?: string;
+}
+
+const TYPEAHEAD_TIMEOUT = 300;
+
+const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
+  ({ className, placeholder, intent, size, disabled: disabledProp, ...props }, ref) => {
+    const ctx = useSelect();
+    const formCtx = useFormField();
+
+    const typeaheadBufferRef = React.useRef("");
+    const typeaheadTimerRef = React.useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+    const resolvedDisabled = disabledProp ?? ctx.disabled;
+
+    const resolvedId = props.id ?? (formCtx.fieldId || undefined);
+
+    const ariaInvalid =
+      props["aria-invalid"] ??
+      (formCtx.hasError ? true : undefined);
+
+    const contextDescribedBy = [
+      formCtx.hasError ? formCtx.errorId : "",
+      formCtx.hintId || "",
+    ]
+      .filter(Boolean)
+      .join(" ");
+
+    const ariaDescribedBy =
+      [props["aria-describedby"], contextDescribedBy]
+        .filter(Boolean)
+        .join(" ") || undefined;
+
+    const ariaRequired =
+      props["aria-required"] ?? (formCtx.required ? true : undefined);
+
+    const ariaLabelledBy =
+      props["aria-labelledby"] ?? (formCtx.labelId || undefined);
+
+    const displayLabel = ctx.value !== undefined
+      ? ctx.getOptionLabel(ctx.value)
+      : undefined;
+
+    // Fallback aria-label when no aria-labelledby provides a name.
+    // role="combobox" has nameFrom:author — text content alone won't work.
+    const ariaLabel =
+      props["aria-label"] ??
+      (ariaLabelledBy === undefined
+        ? (displayLabel ?? placeholder ?? "Select")
+        : undefined);
+
+    const getEnabledOptions = React.useCallback((): string[] => {
+      return ctx.getOptions().filter((v) => !ctx.isOptionDisabled(v));
+    }, [ctx]);
+
+    const highlightOption = React.useCallback(
+      (optionValue: string | undefined) => {
+        ctx.onHighlightChange(optionValue);
+        if (optionValue !== undefined) {
+          const optionEl = ctx.getOptionRef(optionValue);
+          if (typeof optionEl?.scrollIntoView === "function") {
+            optionEl.scrollIntoView({ block: "nearest" });
+          }
+        }
+      },
+      [ctx],
+    );
+
+    const selectHighlighted = React.useCallback(() => {
+      if (ctx.highlightedValue !== undefined) {
+        ctx.onValueChange(ctx.highlightedValue);
+        ctx.onOpenChange(false);
+      }
+    }, [ctx]);
+
+    const moveHighlight = React.useCallback(
+      (direction: "next" | "prev" | "first" | "last") => {
+        const options = getEnabledOptions();
+        if (options.length === 0) return;
+
+        const currentIndex = ctx.highlightedValue !== undefined
+          ? options.indexOf(ctx.highlightedValue)
+          : -1;
+
+        let nextIndex: number;
+        switch (direction) {
+          case "next":
+            nextIndex = currentIndex < options.length - 1 ? currentIndex + 1 : 0;
+            break;
+          case "prev":
+            nextIndex = currentIndex > 0 ? currentIndex - 1 : options.length - 1;
+            break;
+          case "first":
+            nextIndex = 0;
+            break;
+          case "last":
+            nextIndex = options.length - 1;
+            break;
+        }
+
+        const nextValue = options[nextIndex];
+        if (nextValue !== undefined) {
+          highlightOption(nextValue);
+        }
+      },
+      [ctx.highlightedValue, getEnabledOptions, highlightOption],
+    );
+
+    const openAndHighlight = React.useCallback(
+      (direction: "first" | "last" | "current") => {
+        ctx.onOpenChange(true);
+        const options = getEnabledOptions();
+        if (options.length === 0) return;
+
+        if (direction === "current" && ctx.value !== undefined) {
+          const valueIndex = options.indexOf(ctx.value);
+          if (valueIndex !== -1) {
+            highlightOption(options[valueIndex]);
+            return;
+          }
+        }
+
+        if (direction === "last") {
+          highlightOption(options[options.length - 1]);
+        } else {
+          highlightOption(options[0]);
+        }
+      },
+      [ctx, getEnabledOptions, highlightOption],
+    );
+
+    const handleTypeahead = React.useCallback(
+      (char: string) => {
+        if (typeaheadTimerRef.current !== undefined) {
+          clearTimeout(typeaheadTimerRef.current);
+        }
+
+        typeaheadBufferRef.current += char.toLowerCase();
+
+        typeaheadTimerRef.current = setTimeout(() => {
+          typeaheadBufferRef.current = "";
+        }, TYPEAHEAD_TIMEOUT);
+
+        const options = getEnabledOptions();
+        const match = options.find((v) => {
+          const label = ctx.getOptionLabel(v);
+          return label?.toLowerCase().startsWith(typeaheadBufferRef.current);
+        });
+
+        if (match !== undefined) {
+          if (!ctx.open) {
+            ctx.onOpenChange(true);
+          }
+          highlightOption(match);
+        }
+      },
+      [ctx, getEnabledOptions, highlightOption],
+    );
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+      props.onKeyDown?.(e);
+      if (e.defaultPrevented) return;
+
+      switch (e.key) {
+        case "ArrowDown":
+          e.preventDefault();
+          if (!ctx.open) {
+            openAndHighlight("first");
+          } else {
+            moveHighlight("next");
+          }
+          break;
+
+        case "ArrowUp":
+          e.preventDefault();
+          if (!ctx.open) {
+            openAndHighlight("last");
+          } else {
+            moveHighlight("prev");
+          }
+          break;
+
+        case "Home":
+          if (ctx.open) {
+            e.preventDefault();
+            moveHighlight("first");
+          }
+          break;
+
+        case "End":
+          if (ctx.open) {
+            e.preventDefault();
+            moveHighlight("last");
+          }
+          break;
+
+        case "Enter":
+          e.preventDefault();
+          if (!ctx.open) {
+            openAndHighlight("current");
+          } else {
+            selectHighlighted();
+          }
+          break;
+
+        case " ":
+          e.preventDefault();
+          if (!ctx.open) {
+            openAndHighlight("current");
+          } else {
+            selectHighlighted();
+          }
+          break;
+
+        case "Escape":
+          if (ctx.open) {
+            e.preventDefault();
+            ctx.onOpenChange(false);
+          }
+          break;
+
+        case "Tab":
+          if (ctx.open) {
+            ctx.onOpenChange(false);
+            // Do not preventDefault — allow Tab to move focus naturally
+          }
+          break;
+
+        default:
+          if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+            handleTypeahead(e.key);
+          }
+          break;
+      }
+    };
+
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+      props.onClick?.(e);
+      if (e.defaultPrevented) return;
+      ctx.onOpenChange(!ctx.open);
+      if (!ctx.open) {
+        // Opening: highlight current value or first option
+        const options = getEnabledOptions();
+        if (ctx.value !== undefined && options.includes(ctx.value)) {
+          highlightOption(ctx.value);
+        }
+      }
+    };
+
+    // Compute aria-activedescendant — must be undefined (not empty string) when no highlight
+    const ariaActiveDescendant =
+      ctx.open && ctx.highlightedValue !== undefined
+        ? `${ctx.listboxId}-option-${ctx.highlightedValue}`
+        : undefined;
+
+    return (
+      <button
+        {...props}
+        ref={ref}
+        type="button"
+        id={resolvedId}
+        role="combobox"
+        aria-haspopup="listbox"
+        aria-expanded={ctx.open}
+        aria-controls={ctx.listboxId}
+        aria-activedescendant={ariaActiveDescendant}
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
+        aria-invalid={ariaInvalid}
+        aria-describedby={ariaDescribedBy}
+        aria-required={ariaRequired}
+        disabled={resolvedDisabled}
+        className={cn(
+          selectTriggerVariants({ intent, size }),
+          className,
+        )}
+        onClick={handleClick}
+        onKeyDown={handleKeyDown}
+      >
+        <span
+          className={cn(
+            "truncate",
+            displayLabel === undefined && "text-[var(--vault-text-muted)]",
+          )}
+        >
+          {displayLabel ?? placeholder}
+        </span>
+        <svg
+          aria-hidden="true"
+          className={cn(
+            "h-4 w-4 shrink-0 transition-transform duration-150",
+            "text-[var(--vault-text-muted)]",
+            ctx.open && "rotate-180",
+          )}
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </button>
+    );
+  },
+);
+
+SelectTrigger.displayName = "SelectTrigger";
+
+export { SelectTrigger, selectTriggerVariants };
