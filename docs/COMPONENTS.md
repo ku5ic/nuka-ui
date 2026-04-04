@@ -19,7 +19,7 @@ No Radix dependency. Pure HTML + CVA + tokens. Build these first.
 | `Spinner` | ✅ Done | Loading indicator. Size variants. Accessible.                   |
 | `Avatar`  | ✅ Done | Image with fallback initials. Size variants.                    |
 | `Icon`    | ✅ Done | Wrapper for icon libraries. Size + color tokens.                |
-| `Kbd`     | —       | Keyboard shortcut display.                                      |
+| `Kbd`     | ✅ Done | Keyboard shortcut display.                                      |
 | `Code`    | —       | Inline code. Monospace, subtle background.                      |
 
 ---

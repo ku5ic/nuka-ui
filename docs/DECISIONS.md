@@ -344,3 +344,43 @@ Following the Spinner precedent (ADR not previously recorded — Spinner uses `s
 - The `cloneElement` approach requires that icon library components forward arbitrary props to their root SVG — all major libraries (Lucide, Heroicons, Phosphor) do this.
 - `children: React.ReactElement` prevents passing strings, numbers, or fragments — this is intentional.
 - The `color="inherit"` default means Icon is transparent to parent color context, which is the desired behavior for inline icons.
+
+---
+
+## ADR-012: Kbd — no variant/intent, no asChild, `<kbd>` element, composition model
+
+**Date:** 2026-04-04
+**Status:** Accepted
+
+### Context
+
+Kbd is a display-only primitive that renders keyboard key labels. Its design requirements differ fundamentally from interactive or semantically-colored components.
+
+### Decisions
+
+**1. `<kbd>` element — non-negotiable**
+
+The HTML `<kbd>` element is semantically defined as keyboard input. It is the correct and only valid element for this component. No `<span>`, `<code>`, or other element is appropriate as the root.
+
+**2. No `variant` or `intent` props**
+
+Kbd is structural chrome. It carries no semantic color meaning — `intent="danger"` on a key label has no valid use case. A single visual treatment using `--vault-bg-subtle`, `--vault-border-base`, and `--vault-text-base` is correct. Consumers who need custom color use `className`.
+
+**3. No `asChild`**
+
+`<kbd>` is the semantic. There is no valid element to substitute for it. Including `asChild` would add complexity for zero benefit and would encourage incorrect usage.
+
+**4. `size` as the only variant axis**
+
+Three sizes (`sm`, `md`, `lg`) cover the real use cases: tooltips (small), body copy (medium), and command palettes (large). No other variant axis is meaningful for a key label.
+
+**5. Individual `<kbd>` composition model**
+
+The HTML spec describes keyboard shortcuts as nested `<kbd>` elements: a wrapping `<kbd>` containing individual `<kbd>` children. `Kbd` renders a single key. Consumers compose sequences themselves. No `KbdGroup` or `keys` prop — that is a separate concern.
+
+### Consequences
+
+- Kbd is the second component (after Divider) to intentionally omit variant/intent, reinforcing that the pattern is opt-in per component
+- No `asChild` means no Slot import and no Radix-adjacent complexity
+- The composition model follows the HTML spec and is documented in the "Pattern: Keyboard Shortcut" story
+- `<kbd>` has no implicit ARIA role; no `role` attribute is added — this is correct per the spec

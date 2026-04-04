@@ -15,6 +15,9 @@ export type { DividerProps, DividerVariantProps } from "./components/Divider";
 export { Icon, iconVariants, iconColorVariants } from "./components/Icon";
 export type { IconProps, IconVariantProps } from "./components/Icon";
 
+export { Kbd, kbdVariants } from "./components/Kbd";
+export type { KbdProps, KbdVariantProps } from "./components/Kbd";
+
 export { Heading, headingVariants } from "./components/Heading";
 export type {
   HeadingProps,
