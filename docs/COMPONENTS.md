@@ -12,7 +12,7 @@ No Radix dependency. Pure HTML + CVA + tokens. Build these first.
 | --------- | ------- | --------------------------------------------------------------- |
 | `Button`  | ✅ Done | Actions and form submissions. 5 variants × 4 intents × 3 sizes. |
 | `Badge`   | ✅ Done | Inline label. variant + intent. No interactive states.          |
-| `Tag`     | —       | Dismissible Badge variant. Adds close button.                   |
+| `Tag`     | ✅ Done | Dismissible Badge variant. Adds close button.                   |
 | `Text`    | —       | Typography component. size, weight, color variants.             |
 | `Heading` | —       | `h1`–`h6` via `as` prop. Semantic size scale.                   |
 | `Divider` | —       | Horizontal/vertical separator. Optional label.                  |
