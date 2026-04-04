@@ -201,3 +201,4 @@ storybook-static
 coverage
 *.local
 stories/
+.claude/projects/

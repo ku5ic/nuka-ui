@@ -197,3 +197,44 @@ A fully generic `as` prop (`<Text<T> as={T}>`) provides exact HTML attribute inf
 - Consumers who need to render Text styles on a custom component should use `className` directly with `textVariants()`
 - If a future `TextLink` component is needed, it would be a separate component, not an `asChild` extension of Text
 - The ref type is `HTMLElement` (common base) since the forwarded element varies — consumers who need a specific ref type should cast
+
+---
+
+## ADR-008: Divider — no variant/intent, no asChild, conditional element rendering
+
+**Date:** 2026-04-04
+**Status:** Accepted
+
+### Context
+
+Divider is a visual separator used to divide sections of content. It renders as either a horizontal rule or a vertical line, and optionally displays a centered text label. Its design requirements differ significantly from interactive or semantically-colored components like Button or Badge.
+
+### Decisions
+
+**1. No `variant` or `intent` props**
+
+Divider is structural chrome — it carries no semantic color meaning. Adding `intent` (danger, success, warning) to a line separator would be API noise with no valid use case. Its color comes from `--vault-border-base`, a single neutral token. If a consumer needs a colored divider, `className` is the correct escape hatch.
+
+**2. Conditional root element (`<hr>` vs `<div>`)**
+
+The root element varies based on props:
+
+- Horizontal without label: `<hr>` — has implicit `role="separator"` and `aria-orientation="horizontal"`, no redundant ARIA attributes needed
+- Vertical without label: `<div role="separator" aria-orientation="vertical">` — `<hr>` does not support vertical orientation in practice
+- Horizontal with label: `<div role="separator" aria-orientation="horizontal">` — the labeled layout is a flex container, not a semantic rule
+
+The ref type is `HTMLElement`, the correct common supertype for `HTMLHRElement` and `HTMLDivElement`. This is the same pattern used by Text (ADR-007).
+
+**3. Vertical + label is explicitly unsupported**
+
+A vertically-oriented divider with centered label text is visually problematic (requires 90° text rotation) and semantically unclear. Rather than implementing a half-broken feature, the component logs a `console.warn` in development and renders the vertical divider without the label. This is graceful degradation — no crash, clear feedback to the developer.
+
+**4. No `asChild`**
+
+Divider is not a polymorphic component. There is no valid use case for rendering a separator as another element. `asChild` would add Radix as a dependency for zero benefit.
+
+### Consequences
+
+- Divider is the first component to intentionally omit variant/intent, establishing that the pattern is opt-in per component, not mandatory
+- The conditional element rendering adds internal complexity but produces correct accessibility semantics for each configuration
+- Consumers who need a styled divider beyond the size variants use `className` directly
