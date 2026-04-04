@@ -39,13 +39,3 @@ Run after `cmd-test` passes clean. Act as a senior peer reviewer.
 7. Produce a review summary:
    - **Approved** — ready to commit, no changes needed
    - **Changes requested** — list specific issues, loop back to `cmd-implement`
-
-## Commit when approved
-
-```bash
-git add -A
-git commit -m "<type>(<scope>): <description>"
-```
-
-Commit types: `feat`, `fix`, `chore`, `docs`, `refactor`, `test`
-Example: `feat(badge): add Badge component with variant+intent API`
