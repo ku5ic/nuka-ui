@@ -38,6 +38,9 @@ export type { SelectProps, SelectTriggerProps, SelectTriggerVariantProps, Select
 export { SelectContext, useSelect } from "./components/Select";
 export type { SelectContextValue } from "./components/Select";
 
+export { Slider, sliderWrapperVariants, sliderTrackVariants, sliderFillVariants, sliderThumbVariants, sliderValueVariants } from "./components/Slider";
+export type { SliderProps, SliderVariantProps } from "./components/Slider";
+
 export { RadioGroup } from "./components/RadioGroup";
 export type { RadioGroupProps } from "./components/RadioGroup";
 export { Radio, radioVariants } from "./components/RadioGroup";

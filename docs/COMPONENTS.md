@@ -37,7 +37,7 @@ All require `Label` association and correct ARIA. Build as a group.
 | `Checkbox`             | ✅ Done | Custom checkbox. Intent for validation.                                |
 | `Radio` / `RadioGroup` | ✅ Done | Custom radio group.                                                    |
 | `Switch`               | ✅ Done | Custom toggle switch.                                                  |
-| `Slider`               | —       | Custom range slider.                                                   |
+| `Slider`               | ✅ Done | Custom range slider.                                                   |
 | `FormField`            | ✅ Done | Layout wrapper — Label + control + error message. No styling opinions. |
 
 ---
