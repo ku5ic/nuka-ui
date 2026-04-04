@@ -8,3 +8,6 @@ export type { ButtonProps, ButtonVariantProps } from "./components/Button";
 
 export { Tag, tagVariants } from "./components/Tag";
 export type { TagProps, TagVariantProps } from "./components/Tag";
+
+export { Text, textVariants } from "./components/Text";
+export type { TextProps, TextVariantProps } from "./components/Text";

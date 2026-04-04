@@ -168,3 +168,32 @@ Badge is not interactive and should never receive focus. Adding focus ring class
 - Badge variant names are decoupled from Button — each component uses names appropriate to its role
 - Future non-interactive display components (Tag, Alert) can follow Badge's naming pattern
 - `asChild` remains the escape hatch for interactive use cases without polluting Badge's base styles
+
+---
+
+## ADR-007: Text polymorphism — `as` prop with allow-list, not `asChild` or full generics
+
+**Date:** 2026-04-04
+**Status:** Accepted
+
+### Context
+
+Text is a typography primitive that renders different HTML elements depending on context: `<p>` for paragraphs, `<span>` for inline text, `<label>` for form labels, `<li>` for list items, `<time>` for timestamps. It needs a polymorphism mechanism.
+
+### Decisions
+
+**1. `as` prop instead of `asChild`**
+
+`asChild` (Radix Slot) is designed for component composition — merging styles onto an arbitrary consumer component (e.g., rendering a Button as a router Link). Text's polymorphism is element-switching: the component author controls which HTML tag renders. The consumer isn't compositing an external component — they're selecting a semantic element. `as` is the correct pattern for this use case. `asChild` would add Radix as a dependency for a component that has no Radix-native behavior.
+
+**2. Allow-list (`TextElement` union) instead of full generic polymorphism**
+
+A fully generic `as` prop (`<Text<T> as={T}>`) provides exact HTML attribute inference for any element. This is powerful but adds significant type complexity: generic component signatures, conditional ref types, and complex type narrowing. For Text, the set of valid elements is small and well-known: `p`, `span`, `label`, `li`, `time`, `abbr`, `figcaption`, `div`. An explicit union type documents intent, keeps the type signature simple, and prevents misuse (e.g., `as="button"` which should use Button instead).
+
+### Consequences
+
+- `Text` has no Radix dependency — it is a pure HTML + CVA component
+- The `TextElement` allow-list must be extended if new valid elements are identified (additive, non-breaking)
+- Consumers who need to render Text styles on a custom component should use `className` directly with `textVariants()`
+- If a future `TextLink` component is needed, it would be a separate component, not an `asChild` extension of Text
+- The ref type is `HTMLElement` (common base) since the forwarded element varies — consumers who need a specific ref type should cast
