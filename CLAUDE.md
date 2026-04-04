@@ -106,3 +106,7 @@ Full reasoning is in `docs/DECISIONS.md`. Summary:
 - **`data-theme` attribute** — enables nested themes, no class pollution
 - **No component-level tokens by default** — added per component only when semantic tokens are insufficient
 - **No relative imports** — `@vault/*` alias everywhere for consistency and refactor safety
+
+## Component inventory
+
+The full component scope, build order, and per-component status is tracked in `docs/COMPONENTS.md`. Update the status column there when components are completed.

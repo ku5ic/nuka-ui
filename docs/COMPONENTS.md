@@ -1,0 +1,117 @@
+# Component Inventory
+
+This document defines the full component scope for vault-ui, organized by complexity tier and recommended build order.
+
+---
+
+## Tier 1 — Primitives
+
+No Radix dependency. Pure HTML + CVA + tokens. Build these first.
+
+| Component | Status  | Notes                                                           |
+| --------- | ------- | --------------------------------------------------------------- |
+| `Button`  | ✅ Done | Actions and form submissions. 5 variants × 4 intents × 3 sizes. |
+| `Badge`   | —       | Inline label. variant + intent. No interactive states.          |
+| `Tag`     | —       | Dismissible Badge variant. Adds close button.                   |
+| `Text`    | —       | Typography component. size, weight, color variants.             |
+| `Heading` | —       | `h1`–`h6` via `as` prop. Semantic size scale.                   |
+| `Divider` | —       | Horizontal/vertical separator. Optional label.                  |
+| `Spinner` | —       | Loading indicator. Size variants. Accessible.                   |
+| `Avatar`  | —       | Image with fallback initials. Size variants.                    |
+| `Icon`    | —       | Wrapper for icon libraries. Size + color tokens.                |
+| `Kbd`     | —       | Keyboard shortcut display.                                      |
+| `Code`    | —       | Inline code. Monospace, subtle background.                      |
+
+---
+
+## Tier 2 — Form primitives
+
+Radix for some. All require `Label` association and correct ARIA. Build as a group.
+
+| Component              | Status | Notes                                                                  |
+| ---------------------- | ------ | ---------------------------------------------------------------------- |
+| `Label`                | —      | Associates with form controls. Required indicator.                     |
+| `Input`                | —      | Text input. Intent for validation state. Size variants.                |
+| `Textarea`             | —      | Multi-line input. Same API as Input.                                   |
+| `Select`               | —      | Radix Select. Styled to match Input.                                   |
+| `Checkbox`             | —      | Radix Checkbox. Intent for validation.                                 |
+| `Radio` / `RadioGroup` | —      | Radix RadioGroup.                                                      |
+| `Switch`               | —      | Radix Switch. Toggle.                                                  |
+| `Slider`               | —      | Radix Slider.                                                          |
+| `FormField`            | —      | Layout wrapper — Label + control + error message. No styling opinions. |
+
+---
+
+## Tier 3 — Feedback & display
+
+Mostly simple. High visual value for the showcase.
+
+| Component           | Status | Notes                                                  |
+| ------------------- | ------ | ------------------------------------------------------ |
+| `Alert`             | —      | Inline feedback. variant + intent. Dismissible option. |
+| `Toast` / `Toaster` | —      | Radix Toast. Programmatic API.                         |
+| `Progress`          | —      | Linear progress bar. Intent for status.                |
+| `Skeleton`          | —      | Loading placeholder. Matches shapes of real content.   |
+| `Tooltip`           | —      | Radix Tooltip.                                         |
+| `Popover`           | —      | Radix Popover.                                         |
+
+---
+
+## Tier 4 — Layout & navigation
+
+More complex. Composition patterns. Build after Tier 1–3 are solid.
+
+| Component          | Status | Notes                                        |
+| ------------------ | ------ | -------------------------------------------- |
+| `Card`             | —      | Surface container. Header/body/footer slots. |
+| `Tabs`             | —      | Radix Tabs.                                  |
+| `Accordion`        | —      | Radix Accordion.                             |
+| `Dialog` / `Modal` | —      | Radix Dialog.                                |
+| `Sheet`            | —      | Slide-in panel. Radix Dialog variant.        |
+| `DropdownMenu`     | —      | Radix DropdownMenu.                          |
+| `NavigationMenu`   | —      | Radix NavigationMenu.                        |
+| `Breadcrumb`       | —      | Navigation trail.                            |
+| `Pagination`       | —      | Page navigation.                             |
+
+---
+
+## Tier 5 — Composites
+
+Built from Tier 1–4 components. Highest complexity, highest value for the showcase.
+
+| Component     | Status | Notes                                                |
+| ------------- | ------ | ---------------------------------------------------- |
+| `Table`       | —      | Sortable, accessible. `thead`/`tbody`/`tfoot`.       |
+| `DataTable`   | —      | Table + pagination + filtering.                      |
+| `CommandMenu` | —      | Radix Command. Keyboard-first search/action palette. |
+| `DatePicker`  | —      | Radix Popover + calendar.                            |
+| `Combobox`    | —      | Radix Combobox. Searchable select.                   |
+
+---
+
+## Recommended build order
+
+For the showcase goal — depth and quality over breadth.
+
+**Phase 1** — proves the system works across component types:
+`Badge`, `Text`, `Alert`, `Input`, `Label`, `FormField`
+
+**Phase 2** — proves composability:
+`Card`, `Dialog`, `Toast`, `Tooltip`, `Select`
+
+**Phase 3** — proves scale:
+`Table`, `Tabs`, `CommandMenu`
+
+Tier 5 is optional. Two or three well-executed composites demonstrate more than a full list of shallow ones.
+
+---
+
+## Rules for every component
+
+- WCAG 2.2 AA — hard requirement, verified at token and component level
+- `React.forwardRef` — mandatory on all DOM-rendering components
+- `variant` + `intent` — applied where the component carries semantic meaning
+- `asChild` — included where polymorphism is genuinely useful
+- Full test coverage — rendering, variants, intent, attributes, ref, asChild
+- Storybook stories — one per variant, one per intent, AllVariants, AllSizes, at least one pattern story
+- TypeScript strict — no `any`, no suppressed errors
