@@ -1,0 +1,109 @@
+import * as React from "react";
+import { describe, it, expect } from "vitest";
+import { render, screen } from "@testing-library/react";
+import { EmptyState } from "./EmptyState";
+
+describe("EmptyState", () => {
+  describe("rendering", () => {
+    it("renders heading text", () => {
+      render(<EmptyState heading="No items" />);
+      expect(screen.getByText("No items")).toBeInTheDocument();
+    });
+
+    it("has role='status'", () => {
+      render(<EmptyState heading="No items" />);
+      expect(screen.getByRole("status")).toBeInTheDocument();
+    });
+
+    it("sets displayName correctly", () => {
+      expect(EmptyState.displayName).toBe("EmptyState");
+    });
+  });
+
+  describe("description", () => {
+    it("renders description when provided", () => {
+      render(
+        <EmptyState heading="No items" description="Try adding one." />,
+      );
+      expect(screen.getByText("Try adding one.")).toBeInTheDocument();
+    });
+
+    it("does not render description when not provided", () => {
+      render(<EmptyState heading="No items" />);
+      const status = screen.getByRole("status");
+      expect(status.querySelectorAll("p")).toHaveLength(1);
+    });
+  });
+
+  describe("visual slots", () => {
+    it("renders illustration when provided", () => {
+      render(
+        <EmptyState
+          heading="No items"
+          illustration={<svg data-testid="illustration" />}
+        />,
+      );
+      expect(screen.getByTestId("illustration")).toBeInTheDocument();
+    });
+
+    it("renders icon when no illustration is provided", () => {
+      render(
+        <EmptyState
+          heading="No items"
+          icon={<span data-testid="icon">📦</span>}
+        />,
+      );
+      expect(screen.getByTestId("icon")).toBeInTheDocument();
+    });
+
+    it("renders illustration and ignores icon when both are provided", () => {
+      render(
+        <EmptyState
+          heading="No items"
+          illustration={<svg data-testid="illustration" />}
+          icon={<span data-testid="icon">📦</span>}
+        />,
+      );
+      expect(screen.getByTestId("illustration")).toBeInTheDocument();
+      expect(screen.queryByTestId("icon")).not.toBeInTheDocument();
+    });
+
+    it("does not render visual region when neither illustration nor icon provided", () => {
+      const { container } = render(<EmptyState heading="No items" />);
+      expect(
+        container.querySelector(".flex.items-center.justify-center.text-\\[var\\(--nuka-text-muted\\)\\]"),
+      ).not.toBeInTheDocument();
+    });
+  });
+
+  describe("action slot", () => {
+    it("renders action when provided", () => {
+      render(
+        <EmptyState
+          heading="No items"
+          action={<button type="button">Add item</button>}
+        />,
+      );
+      expect(
+        screen.getByRole("button", { name: "Add item" }),
+      ).toBeInTheDocument();
+    });
+  });
+
+  describe("className override", () => {
+    it("merges consumer className", () => {
+      render(<EmptyState heading="No items" className="mt-8" />);
+      const el = screen.getByRole("status");
+      expect(el.className).toContain("mt-8");
+      expect(el.className).toContain("flex");
+    });
+  });
+
+  describe("ref forwarding", () => {
+    it("forwards ref to the div element", () => {
+      const ref = React.createRef<HTMLDivElement>();
+      render(<EmptyState ref={ref} heading="No items" />);
+      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+    });
+  });
+});

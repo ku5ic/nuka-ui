@@ -619,3 +619,125 @@ When `toast.dismiss(id)` is called, the toast is marked `dismissing: true` (trig
 - `__reset()` must be called in test/story setup to avoid state leaking between tests
 - The `action` slot is additive and does not affect consumers who don't use it
 - CSS keyframes for enter/exit animation live in `src/styles/index.css`, following the Spinner pattern — a `@media (prefers-reduced-motion: reduce)` override disables all `data-state` animations globally
+
+---
+
+## ADR-018: Banner — `role="region"` distinction from Alert, no portal, required `aria-label`
+
+**Date:** 2026-04-04
+**Status:** Accepted
+
+### Context
+
+Banner is a full-width informational strip for persistent, non-urgent messaging (announcements, maintenance notices, cookie consent). It is visually similar to Alert but has a fundamentally different semantic role.
+
+### Decisions
+
+**1. `role="region"` instead of `role="alert"`**
+
+Alert uses `role="alert"`, which triggers an assertive live-region announcement — appropriate for urgent, transient feedback (form errors, action results). Banner conveys persistent contextual information that should not interrupt the user. `role="region"` with a required `aria-label` creates a navigable landmark without assertive announcements. This is the key semantic distinction between the two components.
+
+**2. `aria-label` required at the type level**
+
+`role="region"` without an accessible name is a landmark without identity — screen reader users see an anonymous region, which is worse than no landmark. The `aria-label` prop is required in the TypeScript interface (not optional) by using `Omit<React.HTMLAttributes, 'aria-label'>` to remove the optional default and re-declaring it as required. This makes the accessibility requirement a compile-time error, not a runtime or audit discovery.
+
+**3. No portal, no fixed positioning**
+
+Banner does not render via `createPortal` and does not apply `position: fixed` or `position: sticky`. Consumers own placement — a Banner at the top of the page is the consumer's layout decision, not the component's. This avoids z-index conflicts, scroll behavior assumptions, and stacking context issues that would arise from opinionated positioning.
+
+**4. Intent-only CVA — no `variant` prop**
+
+Banner has one visual weight — full-width, border-left accent. There is no meaningful secondary, outline, or ghost treatment. Adding `variant` would create unused combinations. Intent alone (default, success, danger, warning) covers all real use cases. This is the first component to use intent-only CVA without compound variants.
+
+**5. `action` slot**
+
+An optional `action?: React.ReactNode` slot renders between the message content and the dismiss button. This covers common patterns like "Learn more" links and "Accept"/"Decline" button pairs. The slot accepts arbitrary React nodes rather than a structured `{ label, onClick }` shape (unlike Toast's action) because Banner actions are often multi-element layouts.
+
+### Consequences
+
+- Banner and Alert are clearly distinct: Banner is persistent context (`role="region"`), Alert is urgent feedback (`role="alert"`)
+- The required `aria-label` enforces accessibility at build time — no consumer can accidentally ship an anonymous region
+- No positioning opinions means Banner works in any layout context without fighting consumer CSS
+- Intent-only CVA is simpler than the standard variant × intent pattern — no compound variants needed
+
+---
+
+## ADR-019: EmptyState — dual illustration/icon slots, priority rule, no CVA
+
+**Date:** 2026-04-04
+**Status:** Accepted
+
+### Context
+
+EmptyState is a blank-slate component for empty lists, search results, and tables. It is a structural layout component with no semantic color meaning.
+
+### Decisions
+
+**1. `illustration` and `icon` as separate slots with priority**
+
+Two visual slots serve different fidelity levels: `illustration` for large artwork (SVGs, images, custom components) and `icon` for simpler icons. When both are provided, `illustration` takes precedence and `icon` is silently ignored. The implementation is `const visual = illustration ?? icon ?? null` — a single line that handles all cases without conditional branching.
+
+This dual-slot approach is preferred over a single `visual` slot because it makes the API self-documenting: consumers know exactly what fidelity level they're providing, and the component can apply appropriate container styling for each.
+
+**2. `heading` is required**
+
+An EmptyState without a heading is not a valid UI pattern — the user needs to know why the area is empty. Making `heading` required at the type level prevents consumers from rendering a bare icon with no explanation.
+
+**3. `role="status"`**
+
+EmptyState communicates that content is absent — a state condition, not an error or alert. `role="status"` is a polite live region that announces changes without interrupting the user. This is correct for content that transitions from populated to empty (e.g., after filtering).
+
+**4. No CVA, no variant, no intent**
+
+EmptyState is a neutral layout container. It has no semantic color meaning — there is no "danger empty state" or "success empty state." All visual treatment is structural (centering, spacing, max-width). Consumers who need custom styling use `className`. This follows the precedent set by Divider (ADR-008) and Kbd (ADR-012).
+
+### Consequences
+
+- The `illustration ?? icon ?? null` priority rule is simple and predictable — no surprising behavior when both slots are populated
+- Required `heading` prevents incomplete empty states at compile time
+- No CVA means no `EmptyStateVariantProps` export — the component has a smaller API surface than most nuka-ui components
+- `role="status"` ensures screen reader users are informed when content disappears
+
+---
+
+## ADR-020: Timeline — compound component, semantic HTML, intent on item only
+
+**Date:** 2026-04-04
+**Status:** Accepted
+
+### Context
+
+Timeline displays a vertical sequence of events. It is a display-only component with ordered data, distinct from interactive step indicators or progress trackers.
+
+### Decisions
+
+**1. Compound component: `Timeline` + `TimelineItem`**
+
+`Timeline` renders as `<ol>` (root) and `TimelineItem` renders as `<li>` (entry). This two-component pattern provides correct list semantics — screen readers announce "list with N items" — while giving consumers full control over each item's content. A single-component API with an `items` array prop would lose the ability to pass arbitrary children to individual items.
+
+**2. `<ol>` over `<ul>`**
+
+Timeline events have a defined sequence — they are ordered by time. An ordered list (`<ol>`) is semantically correct. An unordered list (`<ul>`) would misrepresent the data structure to assistive technology.
+
+**3. `<time>` element for timestamps**
+
+When `timestamp` is provided, it renders inside a `<time>` element. This is the semantically correct HTML element for temporal data. It enables assistive technology and user agents to recognize the content as a date/time value.
+
+**4. `intent` on `TimelineItem` only, not on `Timeline`**
+
+Individual events have different semantic states (success, danger, warning). The timeline as a whole does not. Placing `intent` on the root would require all items to share the same color, which contradicts the primary use case of mixed-status event sequences.
+
+**5. Marker-only CVA (`timelineItemMarkerVariants`)**
+
+Only the circular marker dot receives intent-based styling. The content area (title, description, timestamp) uses neutral text tokens regardless of intent. This keeps the visual emphasis on the timeline's structural elements without overwhelming the text content with color.
+
+**6. Connector line via CSS with `group`/`group-last:hidden`**
+
+The vertical connector between items is a `<div>` with `w-px` and `bg-[var(--nuka-border-base)]`. The `<li>` has the `group` class, and the connector has `group-last:hidden` — Tailwind's first-class utility for hiding an element when its group parent is the last child. This correctly hides the connector on the last item without SVG, pseudo-elements, or arbitrary CSS selectors.
+
+### Consequences
+
+- `Timeline` + `TimelineItem` is the third compound component in nuka-ui (after Select and Tooltip/Popover), establishing the pattern as standard for multi-element components
+- `<ol>`/`<li>` semantics give screen reader users accurate list structure information
+- Intent on individual items enables mixed-status timelines, the primary use case
+- The `group`/`group-last:hidden` connector approach uses only first-class Tailwind utilities — no custom CSS needed

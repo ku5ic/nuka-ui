@@ -3,6 +3,9 @@
 export { Alert, alertVariants } from "./components/Alert";
 export type { AlertProps, AlertVariantProps } from "./components/Alert";
 
+export { Banner, bannerVariants } from "./components/Banner";
+export type { BannerProps, BannerVariantProps } from "./components/Banner";
+
 export { Avatar, avatarVariants, getInitials } from "./components/Avatar";
 export type { AvatarProps, AvatarVariantProps } from "./components/Avatar";
 
@@ -19,6 +22,9 @@ export { Code, codeVariants } from "./components/Code";
 export type { CodeProps, CodeVariantProps } from "./components/Code";
 
 export { Divider, dividerVariants } from "./components/Divider";
+
+export { EmptyState } from "./components/EmptyState";
+export type { EmptyStateProps } from "./components/EmptyState";
 
 export { FormField, FormFieldContext, useFormField } from "./components/FormField";
 export type { FormFieldProps, FormFieldContextValue } from "./components/FormField";
@@ -88,6 +94,9 @@ export { Popover, PopoverTrigger, PopoverContent } from "./components/Popover";
 export type { PopoverProps, PopoverTriggerProps, PopoverContentProps } from "./components/Popover";
 export { PopoverContext, usePopoverContext } from "./components/Popover";
 export type { PopoverContextValue } from "./components/Popover";
+
+export { Timeline, TimelineItem, timelineItemMarkerVariants } from "./components/Timeline";
+export type { TimelineProps, TimelineItemProps, TimelineItemMarkerVariantProps } from "./components/Timeline";
 
 export { toast, Toast, toastVariants, Toaster } from "./components/Toast";
 export type { ToastItem, ToastIntent, ToastOptions, ToastAction, ToastProps, ToasterProps, ToasterPosition } from "./components/Toast";

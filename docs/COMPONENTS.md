@@ -54,9 +54,9 @@ Mostly simple. High visual value for the showcase.
 | `Skeleton`          | ✅ Done | Loading placeholder. Matches shapes of real content.                |
 | `Tooltip`           | ✅ Done | Custom tooltip with positioning.                                    |
 | `Popover`           | ✅ Done | Custom popover with positioning.                                    |
-| `Banner`            | —       | Full-width informational strip. Dismissible. Distinct from `Alert`. |
-| `EmptyState`        | —       | Blank slate. Illustration slot, heading, description, action.       |
-| `Timeline`          | —       | Vertical event sequence. Display-only.                              |
+| `Banner`            | ✅ Done | Full-width informational strip. Dismissible. Distinct from `Alert`. |
+| `EmptyState`        | ✅ Done | Blank slate. Illustration slot, heading, description, action.       |
+| `Timeline`          | ✅ Done | Vertical event sequence. Display-only.                              |
 
 ---
 
