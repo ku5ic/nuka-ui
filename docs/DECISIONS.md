@@ -137,3 +137,34 @@ Migrated to variant + intent before any other components were built. `danger`, `
 ### Future consideration
 
 If the need arises for `intent` to affect layout or shape (not just color), the prop contract remains stable — `intent` values can be extended additively.
+
+---
+
+## ADR-006: Badge variant naming, element choice, and focus ring
+
+**Date:** 2026-04-04
+**Status:** Accepted
+
+### Context
+
+Badge is a non-interactive display label. It uses the same variant + intent architecture as Button but needs different variant names and has no interactive states.
+
+### Decisions
+
+**1. `solid`/`subtle`/`outline` instead of `primary`/`secondary`/`ghost`**
+
+Button's variant names describe action weight — "primary" means "the main action." Badge has no actions. Its variants describe visual appearance: `solid` is a filled background, `subtle` is a tinted background, `outline` is a bordered label. Using action-semantic names for a display-only element would be misleading.
+
+**2. `<span>` as the default element**
+
+A `<span>` has no implicit ARIA role, which is correct for a non-interactive inline label. A `<div>` would break inline flow. A `<button>` would imply interactivity that Badge does not have. When interactivity is needed, consumers use `asChild` to render an appropriate interactive element.
+
+**3. No focus ring in base classes**
+
+Badge is not interactive and should never receive focus. Adding focus ring classes would be incorrect — they would either never fire (wasted classes) or incorrectly suggest interactivity. When `asChild` wraps an interactive child (e.g. `<a>`), the child's own focus styles apply. Badge adds nothing.
+
+### Consequences
+
+- Badge variant names are decoupled from Button — each component uses names appropriate to its role
+- Future non-interactive display components (Tag, Alert) can follow Badge's naming pattern
+- `asChild` remains the escape hatch for interactive use cases without polluting Badge's base styles
