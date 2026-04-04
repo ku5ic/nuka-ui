@@ -304,3 +304,43 @@ Implemented image loading state in React (`loaded`, `errored`) using `onLoad`/`o
 **Radix Avatar primitive** — rejected. Violates the no-third-party-UI-primitives policy (ADR-009). The load state management is straightforward enough to own.
 
 **`useEffect` with cleanup for `src` changes** — rejected. More code, more edge cases (stale closures, race conditions between effect cleanup and state updates). `key={src}` achieves the same reset with zero additional code.
+
+---
+
+## ADR-011: Icon — decorative-by-default accessibility contract and cloneElement child enforcement
+
+**Date:** 2026-04-04
+**Status:** Accepted
+
+### Context
+
+Icon is a sizing and accessibility wrapper for SVG-based icons from any library. It needs to handle two accessibility modes (decorative and labelled) and ensure child SVGs are always correctly hidden from the accessibility tree regardless of what the consumer passes.
+
+### Decisions
+
+**1. Decorative by default**
+
+Without a `label` prop, Icon renders with `aria-hidden="true"` on the wrapper. This is the correct default because the vast majority of icon usage is decorative — icons placed alongside visible text that already conveys meaning. Requiring consumers to opt into `aria-hidden` on every decorative icon would be error-prone and would lead to accessibility violations when forgotten. The `label` prop switches to labelled mode (`role="img"` + `aria-label`), which is the minority case for standalone icons.
+
+**2. `React.cloneElement` to inject `aria-hidden` onto child SVGs**
+
+The child SVG must always have `aria-hidden="true"` — the accessible name lives on the wrapper, not on the SVG. Rather than requiring consumers to remember to pass `aria-hidden={true}` to every icon library component, Icon enforces this by cloning the child element and injecting `aria-hidden="true"`, `width="100%"`, and `height="100%"`. This is defensive and correct: the wrapper owns the accessibility contract, not the consumer.
+
+**3. `children: React.ReactElement` constraint**
+
+`React.cloneElement` only works on a single React element. The type is `React.ReactElement` (not `React.ReactNode`) to enforce this at the type level. In development, a runtime warning fires if `children` is not a valid element. This trades flexibility (no string children, no fragments) for safety — Icon's purpose is to wrap a single SVG element, and accepting anything else would be a misuse.
+
+**4. No `variant` or `intent`**
+
+Icon has no semantic color role — it is a utility wrapper. Its `color` prop maps directly to `--vault-text-*` tokens with `"inherit"` as the default, meaning the icon inherits `currentColor` from its parent. This is the correct default for inline icons where the parent text color should flow through.
+
+**5. Dual CVA instances (`iconVariants` + `iconColorVariants`)**
+
+Following the Spinner precedent (ADR not previously recorded — Spinner uses `spinnerVariants` + `spinnerColorVariants`). Separating size and color into distinct CVA instances keeps each concern isolated and composable. The `color` prop conflicts with the native HTML `color` attribute on `HTMLSpanElement`, resolved via `Omit<React.HTMLAttributes<HTMLSpanElement>, "color">` — same pattern as Spinner.
+
+### Consequences
+
+- Icons are accessible by default with zero consumer effort for the common decorative case.
+- The `cloneElement` approach requires that icon library components forward arbitrary props to their root SVG — all major libraries (Lucide, Heroicons, Phosphor) do this.
+- `children: React.ReactElement` prevents passing strings, numbers, or fragments — this is intentional.
+- The `color="inherit"` default means Icon is transparent to parent color context, which is the desired behavior for inline icons.

@@ -12,6 +12,9 @@ export type { ButtonProps, ButtonVariantProps } from "./components/Button";
 export { Divider, dividerVariants } from "./components/Divider";
 export type { DividerProps, DividerVariantProps } from "./components/Divider";
 
+export { Icon, iconVariants, iconColorVariants } from "./components/Icon";
+export type { IconProps, IconVariantProps } from "./components/Icon";
+
 export { Heading, headingVariants } from "./components/Heading";
 export type {
   HeadingProps,
