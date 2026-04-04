@@ -14,7 +14,7 @@ No Radix dependency. Pure HTML + CVA + tokens. Build these first.
 | `Badge`   | ✅ Done | Inline label. variant + intent. No interactive states.          |
 | `Tag`     | ✅ Done | Dismissible Badge variant. Adds close button.                   |
 | `Text`    | ✅ Done | Typography component. size, weight, color variants.             |
-| `Heading` | —       | `h1`–`h6` via `as` prop. Semantic size scale.                   |
+| `Heading` | ✅ Done | `h1`–`h6` via `as` prop. Semantic size scale.                   |
 | `Divider` | —       | Horizontal/vertical separator. Optional label.                  |
 | `Spinner` | —       | Loading indicator. Size variants. Accessible.                   |
 | `Avatar`  | —       | Image with fallback initials. Size variants.                    |

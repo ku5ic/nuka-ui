@@ -6,6 +6,13 @@ export type { BadgeProps, BadgeVariantProps } from "./components/Badge";
 export { Button, buttonVariants } from "./components/Button";
 export type { ButtonProps, ButtonVariantProps } from "./components/Button";
 
+export { Heading, headingVariants } from "./components/Heading";
+export type {
+  HeadingProps,
+  HeadingVariantProps,
+  HeadingElement,
+} from "./components/Heading";
+
 export { Tag, tagVariants } from "./components/Tag";
 export type { TagProps, TagVariantProps } from "./components/Tag";
 
