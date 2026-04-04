@@ -13,6 +13,9 @@ export { Code, codeVariants } from "./components/Code";
 export type { CodeProps, CodeVariantProps } from "./components/Code";
 
 export { Divider, dividerVariants } from "./components/Divider";
+
+export { FormField, FormFieldContext, useFormField } from "./components/FormField";
+export type { FormFieldProps, FormFieldContextValue } from "./components/FormField";
 export type { DividerProps, DividerVariantProps } from "./components/Divider";
 
 export { Icon, iconVariants, iconColorVariants } from "./components/Icon";

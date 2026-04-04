@@ -38,7 +38,7 @@ All require `Label` association and correct ARIA. Build as a group.
 | `Radio` / `RadioGroup` | —      | Custom radio group.                                                    |
 | `Switch`               | —      | Custom toggle switch.                                                  |
 | `Slider`               | —      | Custom range slider.                                                   |
-| `FormField`            | —      | Layout wrapper — Label + control + error message. No styling opinions. |
+| `FormField`            | ✅ Done | Layout wrapper — Label + control + error message. No styling opinions. |
 
 ---
 

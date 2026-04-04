@@ -1,0 +1,64 @@
+import * as React from "react";
+import { cn } from "@vault/utils/cn";
+import { FormFieldContext } from "@vault/components/FormField/FormFieldContext";
+import type { FormFieldContextValue } from "@vault/components/FormField/FormFieldContext";
+
+export interface FormFieldProps extends React.HTMLAttributes<HTMLDivElement> {
+  id?: string;
+  error?: string;
+  hint?: string;
+  required?: boolean;
+  disabled?: boolean;
+}
+
+const FormField = React.forwardRef<HTMLDivElement, FormFieldProps>(
+  ({ className, children, id, error, hint, required = false, disabled = false, ...props }, ref) => {
+    const generatedId = React.useId();
+    const baseId = id ?? generatedId;
+
+    const contextValue: FormFieldContextValue = React.useMemo(
+      () => ({
+        fieldId: baseId,
+        labelId: `${baseId}-label`,
+        errorId: `${baseId}-error`,
+        hintId: `${baseId}-hint`,
+        hasError: !!error,
+        required,
+        disabled,
+      }),
+      [baseId, error, required, disabled],
+    );
+
+    return (
+      <FormFieldContext value={contextValue}>
+        <div
+          ref={ref}
+          className={cn("flex flex-col gap-[var(--space-1)]", className)}
+          {...props}
+        >
+          {children}
+          {hint && (
+            <p
+              id={contextValue.hintId}
+              className="text-sm text-[var(--vault-text-muted)]"
+            >
+              {hint}
+            </p>
+          )}
+          {error && (
+            <p
+              id={contextValue.errorId}
+              className="text-sm text-[var(--vault-danger-text)]"
+            >
+              {error}
+            </p>
+          )}
+        </div>
+      </FormFieldContext>
+    );
+  },
+);
+
+FormField.displayName = "FormField";
+
+export { FormField };

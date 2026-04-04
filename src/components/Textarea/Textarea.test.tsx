@@ -2,6 +2,7 @@ import * as React from "react";
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { Textarea } from "./Textarea";
+import { FormField } from "@vault/components/FormField";
 
 describe("Textarea", () => {
   describe("rendering", () => {
@@ -120,6 +121,90 @@ describe("Textarea", () => {
       const ref = React.createRef<HTMLTextAreaElement>();
       render(<Textarea ref={ref} />);
       expect(ref.current).toBeInstanceOf(HTMLTextAreaElement);
+    });
+  });
+
+  describe("FormField integration", () => {
+    it("applies aria-invalid when FormField has error", () => {
+      render(
+        <FormField id="message" error="Required">
+          <Textarea aria-label="Message" />
+        </FormField>,
+      );
+      expect(screen.getByRole("textbox", { name: "Message" })).toHaveAttribute("aria-invalid", "true");
+    });
+
+    it("includes error id in aria-describedby when FormField has error", () => {
+      render(
+        <FormField id="message" error="Required">
+          <Textarea aria-label="Message" />
+        </FormField>,
+      );
+      expect(screen.getByRole("textbox", { name: "Message" })).toHaveAttribute(
+        "aria-describedby",
+        expect.stringContaining("message-error"),
+      );
+    });
+
+    it("includes hint id in aria-describedby when FormField has hint", () => {
+      render(
+        <FormField id="message" hint="Max 500 characters">
+          <Textarea aria-label="Message" />
+        </FormField>,
+      );
+      expect(screen.getByRole("textbox", { name: "Message" })).toHaveAttribute(
+        "aria-describedby",
+        expect.stringContaining("message-hint"),
+      );
+    });
+
+    it("includes both error and hint ids in aria-describedby", () => {
+      render(
+        <FormField id="message" error="Required" hint="Max 500 characters">
+          <Textarea aria-label="Message" />
+        </FormField>,
+      );
+      const textarea = screen.getByRole("textbox", { name: "Message" });
+      const describedBy = textarea.getAttribute("aria-describedby") ?? "";
+      expect(describedBy).toContain("message-error");
+      expect(describedBy).toContain("message-hint");
+    });
+
+    it("applies aria-required when FormField has required", () => {
+      render(
+        <FormField id="message" required>
+          <Textarea aria-label="Message" />
+        </FormField>,
+      );
+      expect(screen.getByRole("textbox", { name: "Message" })).toHaveAttribute("aria-required", "true");
+    });
+
+    it("preserves consumer-supplied aria-describedby alongside context ids", () => {
+      render(
+        <FormField id="message" hint="Hint text">
+          <Textarea aria-label="Message" aria-describedby="custom-desc" />
+        </FormField>,
+      );
+      const describedBy = screen.getByRole("textbox", { name: "Message" }).getAttribute("aria-describedby") ?? "";
+      expect(describedBy).toContain("custom-desc");
+      expect(describedBy).toContain("message-hint");
+    });
+
+    it("behaves unchanged when outside FormField", () => {
+      render(<Textarea aria-label="Message" />);
+      const textarea = screen.getByRole("textbox", { name: "Message" });
+      expect(textarea).not.toHaveAttribute("aria-invalid");
+      expect(textarea).not.toHaveAttribute("aria-describedby");
+      expect(textarea).not.toHaveAttribute("aria-required");
+    });
+
+    it("consumer aria-invalid=false overrides context hasError", () => {
+      render(
+        <FormField id="message" error="Required">
+          <Textarea aria-label="Message" aria-invalid={false} />
+        </FormField>,
+      );
+      expect(screen.getByRole("textbox", { name: "Message" })).toHaveAttribute("aria-invalid", "false");
     });
   });
 });

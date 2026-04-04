@@ -2,6 +2,7 @@ import * as React from "react";
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { Input } from "./Input";
+import { FormField } from "@vault/components/FormField";
 
 describe("Input", () => {
   describe("rendering", () => {
@@ -120,6 +121,90 @@ describe("Input", () => {
       const ref = React.createRef<HTMLInputElement>();
       render(<Input ref={ref} />);
       expect(ref.current).toBeInstanceOf(HTMLInputElement);
+    });
+  });
+
+  describe("FormField integration", () => {
+    it("applies aria-invalid when FormField has error", () => {
+      render(
+        <FormField id="email" error="Required">
+          <Input aria-label="Email" />
+        </FormField>,
+      );
+      expect(screen.getByRole("textbox", { name: "Email" })).toHaveAttribute("aria-invalid", "true");
+    });
+
+    it("includes error id in aria-describedby when FormField has error", () => {
+      render(
+        <FormField id="email" error="Required">
+          <Input aria-label="Email" />
+        </FormField>,
+      );
+      expect(screen.getByRole("textbox", { name: "Email" })).toHaveAttribute(
+        "aria-describedby",
+        expect.stringContaining("email-error"),
+      );
+    });
+
+    it("includes hint id in aria-describedby when FormField has hint", () => {
+      render(
+        <FormField id="email" hint="We won't share it">
+          <Input aria-label="Email" />
+        </FormField>,
+      );
+      expect(screen.getByRole("textbox", { name: "Email" })).toHaveAttribute(
+        "aria-describedby",
+        expect.stringContaining("email-hint"),
+      );
+    });
+
+    it("includes both error and hint ids in aria-describedby", () => {
+      render(
+        <FormField id="email" error="Required" hint="We won't share it">
+          <Input aria-label="Email" />
+        </FormField>,
+      );
+      const input = screen.getByRole("textbox", { name: "Email" });
+      const describedBy = input.getAttribute("aria-describedby") ?? "";
+      expect(describedBy).toContain("email-error");
+      expect(describedBy).toContain("email-hint");
+    });
+
+    it("applies aria-required when FormField has required", () => {
+      render(
+        <FormField id="email" required>
+          <Input aria-label="Email" />
+        </FormField>,
+      );
+      expect(screen.getByRole("textbox", { name: "Email" })).toHaveAttribute("aria-required", "true");
+    });
+
+    it("preserves consumer-supplied aria-describedby alongside context ids", () => {
+      render(
+        <FormField id="email" hint="Hint text">
+          <Input aria-label="Email" aria-describedby="custom-desc" />
+        </FormField>,
+      );
+      const describedBy = screen.getByRole("textbox", { name: "Email" }).getAttribute("aria-describedby") ?? "";
+      expect(describedBy).toContain("custom-desc");
+      expect(describedBy).toContain("email-hint");
+    });
+
+    it("behaves unchanged when outside FormField", () => {
+      render(<Input aria-label="Email" />);
+      const input = screen.getByRole("textbox", { name: "Email" });
+      expect(input).not.toHaveAttribute("aria-invalid");
+      expect(input).not.toHaveAttribute("aria-describedby");
+      expect(input).not.toHaveAttribute("aria-required");
+    });
+
+    it("consumer aria-invalid=false overrides context hasError", () => {
+      render(
+        <FormField id="email" error="Required">
+          <Input aria-label="Email" aria-invalid={false} />
+        </FormField>,
+      );
+      expect(screen.getByRole("textbox", { name: "Email" })).toHaveAttribute("aria-invalid", "false");
     });
   });
 });

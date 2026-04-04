@@ -1,6 +1,7 @@
 import * as React from "react";
 import { cva, type VariantProps } from "@vault/utils/variants";
 import { cn } from "@vault/utils/cn";
+import { useFormField } from "@vault/components/FormField/FormFieldContext";
 
 const inputVariants = cva(
   [
@@ -43,15 +44,40 @@ export interface InputProps
     InputVariantProps {}
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, intent, size, ...props }, ref) => {
-    const ariaInvalid = props["aria-invalid"] ?? (intent === "danger" ? true : undefined);
+  ({ className, intent, size, id, ...props }, ref) => {
+    const ctx = useFormField();
+
+    const resolvedId = id ?? (ctx.fieldId || undefined);
+
+    const ariaInvalid =
+      props["aria-invalid"] ??
+      (ctx.hasError ? true : undefined) ??
+      (intent === "danger" ? true : undefined);
+
+    const contextDescribedBy = [
+      ctx.hasError ? ctx.errorId : "",
+      ctx.hintId || "",
+    ]
+      .filter(Boolean)
+      .join(" ");
+
+    const ariaDescribedBy =
+      [props["aria-describedby"], contextDescribedBy]
+        .filter(Boolean)
+        .join(" ") || undefined;
+
+    const ariaRequired =
+      props["aria-required"] ?? (ctx.required ? true : undefined);
 
     return (
       <input
         ref={ref}
+        id={resolvedId}
         className={cn(inputVariants({ intent, size }), className)}
         {...props}
         aria-invalid={ariaInvalid}
+        aria-describedby={ariaDescribedBy}
+        aria-required={ariaRequired}
       />
     );
   },
