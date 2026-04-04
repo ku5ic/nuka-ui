@@ -208,3 +208,26 @@
   --vault-info-text: oklch(75% 0.16 230);
   --vault-info-border: oklch(48% 0.14 230);
 }
+
+/* ─── Keyframes ────────────────────────────────────────── */
+
+@keyframes vault-progress-indeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(400%);
+  }
+}
+
+/* ─── Reduced motion ───────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .vault-progress-indeterminate {
+    animation: none;
+  }
+
+  .animate-pulse {
+    animation: none;
+  }
+}

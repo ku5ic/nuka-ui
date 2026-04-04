@@ -1,5 +1,8 @@
 // vault-ui public API
 
+export { Alert, alertVariants } from "./components/Alert";
+export type { AlertProps, AlertVariantProps } from "./components/Alert";
+
 export { Avatar, avatarVariants, getInitials } from "./components/Avatar";
 export type { AvatarProps, AvatarVariantProps } from "./components/Avatar";
 
@@ -38,6 +41,9 @@ export type { SelectProps, SelectTriggerProps, SelectTriggerVariantProps, Select
 export { SelectContext, useSelect } from "./components/Select";
 export type { SelectContextValue } from "./components/Select";
 
+export { Skeleton, skeletonVariants } from "./components/Skeleton";
+export type { SkeletonProps } from "./components/Skeleton";
+
 export { Slider, sliderWrapperVariants, sliderTrackVariants, sliderFillVariants, sliderThumbVariants, sliderValueVariants } from "./components/Slider";
 export type { SliderProps, SliderVariantProps } from "./components/Slider";
 
@@ -47,6 +53,9 @@ export { Radio, radioVariants } from "./components/RadioGroup";
 export type { RadioProps, RadioVariantProps } from "./components/RadioGroup";
 export { RadioGroupContext, useRadioGroup } from "./components/RadioGroup";
 export type { RadioGroupContextValue } from "./components/RadioGroup";
+
+export { Progress, progressTrackVariants, progressFillVariants } from "./components/Progress";
+export type { ProgressProps, ProgressVariantProps, ProgressTrackVariantProps, ProgressFillVariantProps } from "./components/Progress";
 
 export { Heading, headingVariants } from "./components/Heading";
 export type {

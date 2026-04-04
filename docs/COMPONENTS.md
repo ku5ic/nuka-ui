@@ -46,14 +46,14 @@ All require `Label` association and correct ARIA. Build as a group.
 
 Mostly simple. High visual value for the showcase.
 
-| Component           | Status | Notes                                                  |
-| ------------------- | ------ | ------------------------------------------------------ |
-| `Alert`             | —      | Inline feedback. variant + intent. Dismissible option. |
-| `Toast` / `Toaster` | —      | Custom toast with programmatic API.                    |
-| `Progress`          | —      | Linear progress bar. Intent for status.                |
-| `Skeleton`          | —      | Loading placeholder. Matches shapes of real content.   |
-| `Tooltip`           | —      | Custom tooltip with positioning.                       |
-| `Popover`           | —      | Custom popover with positioning.                       |
+| Component           | Status  | Notes                                                  |
+| ------------------- | ------- | ------------------------------------------------------ |
+| `Alert`             | ✅ Done | Inline feedback. variant + intent. Dismissible option. |
+| `Toast` / `Toaster` | —       | Custom toast with programmatic API.                    |
+| `Progress`          | ✅ Done | Linear progress bar. Intent for status.                |
+| `Skeleton`          | ✅ Done | Loading placeholder. Matches shapes of real content.   |
+| `Tooltip`           | —       | Custom tooltip with positioning.                       |
+| `Popover`           | —       | Custom popover with positioning.                       |
 
 ---
 

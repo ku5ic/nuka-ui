@@ -424,3 +424,39 @@ The Storybook accessibility panel reports `aria-controls` as "inconclusive" on S
 - The `hidden` attribute approach means option elements exist in the DOM when closed, but are excluded from the accessibility tree
 - The registry pattern adds a render cycle on mount but ensures labels are always available to the trigger
 - No third-party UI primitive dependencies — all keyboard navigation, type-ahead, and ARIA semantics are owned
+
+---
+
+## ADR-014: Tier 3 Batch 1 — Alert, Progress, and Skeleton design decisions
+
+**Date:** 2026-04-04
+**Status:** Accepted
+
+### Context
+
+Alert, Progress, and Skeleton are the first Tier 3 (feedback & display) components. Each has distinct design requirements that diverge from the interactive component patterns established in Tiers 1–2.
+
+### Decisions
+
+**1. Alert — controlled-only dismiss, no internal state**
+
+Alert accepts an optional `onDismiss?: () => void` prop. When provided, a dismiss button renders. There is no internal `open`/`isOpen` state — the consumer owns visibility entirely. This is consistent with React's controlled component pattern and avoids the complexity of dual controlled/uncontrolled modes for a simple presentational component. The dismiss button is a plain `<button>` element with ghost styling, not a `Button` component — this avoids circular import risk and over-engineering for a single icon button.
+
+**2. Progress — two CVA instances (track vs. fill)**
+
+Progress uses `progressTrackVariants` for the outer track (owns `size`) and `progressFillVariants` for the inner fill (owns `intent`). This separation exists because `size` and `intent` apply to different DOM elements. Combining them in a single CVA instance would require passing the full variant set to both elements, with unused variants on each. The two-instance approach keeps each CVA focused on the element it styles.
+
+**3. Skeleton — no variant/intent, no size prop, hardcoded `aria-hidden`**
+
+Skeleton is a purely structural component with no semantic color meaning. It has a `shape` prop (`rect`, `circle`, `text`) but no `variant`, `intent`, or `size`. Consumers control dimensions via `className` or `style` — this is intentional because skeleton dimensions must match the content they replace, which varies per usage. `aria-hidden="true"` is hardcoded and not overridable via props. Skeleton is purely visual decoration; screen reader announcements for loading state belong to the parent context (e.g., `aria-busy` on a container), never on the skeleton itself. Allowing consumers to remove `aria-hidden` would create an accessibility antipattern.
+
+**4. Progress indeterminate mode — CSS animation with reduced-motion support**
+
+When `value` is `undefined`, Progress enters indeterminate mode with a CSS animation (`vault-progress-indeterminate` keyframe). `aria-valuenow` is genuinely omitted (not set to `undefined` as a string) per the ARIA progressbar specification. `@media (prefers-reduced-motion: reduce)` disables the animation — no JavaScript prop needed.
+
+### Consequences
+
+- Alert's controlled-only pattern is simpler to implement and test; consumers who need uncontrolled dismiss wrap it in their own state
+- The two-CVA-instance approach for Progress establishes a pattern for future components with multi-element styling (e.g., Slider already uses this)
+- Skeleton's lack of variant/intent reinforces that the pattern is opt-in per component, not mandatory — joining Divider (ADR-008) and Kbd (ADR-012) in this category
+- Reduced-motion handling via CSS `@media` query is consistent across Progress and Skeleton, with no per-component JavaScript required
