@@ -46,14 +46,17 @@ All require `Label` association and correct ARIA. Build as a group.
 
 Mostly simple. High visual value for the showcase.
 
-| Component           | Status  | Notes                                                  |
-| ------------------- | ------- | ------------------------------------------------------ |
-| `Alert`             | ✅ Done | Inline feedback. variant + intent. Dismissible option. |
-| `Toast` / `Toaster` | ✅ Done | Custom toast with programmatic API.                    |
-| `Progress`          | ✅ Done | Linear progress bar. Intent for status.                |
-| `Skeleton`          | ✅ Done | Loading placeholder. Matches shapes of real content.   |
-| `Tooltip`           | ✅ Done | Custom tooltip with positioning.                       |
-| `Popover`           | ✅ Done | Custom popover with positioning.                       |
+| Component           | Status  | Notes                                                               |
+| ------------------- | ------- | ------------------------------------------------------------------- |
+| `Alert`             | ✅ Done | Inline feedback. variant + intent. Dismissible option.              |
+| `Toast` / `Toaster` | ✅ Done | Custom toast with programmatic API.                                 |
+| `Progress`          | ✅ Done | Linear progress bar. Intent for status.                             |
+| `Skeleton`          | ✅ Done | Loading placeholder. Matches shapes of real content.                |
+| `Tooltip`           | ✅ Done | Custom tooltip with positioning.                                    |
+| `Popover`           | ✅ Done | Custom popover with positioning.                                    |
+| `Banner`            | —       | Full-width informational strip. Dismissible. Distinct from `Alert`. |
+| `EmptyState`        | —       | Blank slate. Illustration slot, heading, description, action.       |
+| `Timeline`          | —       | Vertical event sequence. Display-only.                              |
 
 ---
 
@@ -61,17 +64,35 @@ Mostly simple. High visual value for the showcase.
 
 More complex. Composition patterns. Build after Tier 1–3 are solid.
 
-| Component          | Status | Notes                                        |
-| ------------------ | ------ | -------------------------------------------- |
-| `Card`             | —      | Surface container. Header/body/footer slots. |
-| `Tabs`             | —      | Custom tabs with keyboard navigation.        |
-| `Accordion`        | —      | Custom accordion with keyboard navigation.   |
-| `Dialog` / `Modal` | —      | Custom modal dialog with focus trapping.     |
-| `Sheet`            | —      | Slide-in panel. Dialog variant.              |
-| `DropdownMenu`     | —      | Custom dropdown with keyboard navigation.    |
-| `NavigationMenu`   | —      | Custom navigation menu.                      |
-| `Breadcrumb`       | —      | Navigation trail.                            |
-| `Pagination`       | —      | Page navigation.                             |
+Layout primitives (`Stack`, `Grid`, `Container`) are prerequisites for the
+components that follow — build them first within this tier.
+
+### Layout primitives
+
+| Component   | Status | Notes                                                   |
+| ----------- | ------ | ------------------------------------------------------- |
+| `Stack`     | —      | Flex container. `direction`, `gap`, `align`, `justify`. |
+| `Grid`      | —      | Grid container. `cols`, `gap`.                          |
+| `Container` | —      | Max-width centered wrapper. `size` variants.            |
+
+### Composed components
+
+| Component          | Status | Notes                                                                                 |
+| ------------------ | ------ | ------------------------------------------------------------------------------------- |
+| `Card`             | —      | Surface container. Header/body/footer slots.                                          |
+| `Collapsible`      | —      | Generic expand/collapse primitive. Base for `Accordion`.                              |
+| `Accordion`        | —      | Expand/collapse group with keyboard navigation. Builds on `Collapsible`.              |
+| `Tabs`             | —      | Tab group with keyboard navigation.                                                   |
+| `Dialog` / `Modal` | —      | Modal dialog with focus trapping.                                                     |
+| `Sheet`            | —      | Slide-in panel. Dialog variant.                                                       |
+| `DropdownMenu`     | —      | Dropdown with keyboard navigation.                                                    |
+| `ContextMenu`      | —      | Right-click menu. Shares keyboard nav logic with `DropdownMenu`.                      |
+| `Menubar`          | —      | Horizontal application menu. Composes `DropdownMenu`. Complex keyboard nav.           |
+| `NavigationMenu`   | —      | Site-level navigation with submenus.                                                  |
+| `Breadcrumb`       | —      | Navigation trail.                                                                     |
+| `Pagination`       | —      | Page navigation.                                                                      |
+| `Stepper`          | —      | Multi-step flow indicator. No Radix primitive — fully custom.                         |
+| `Sidebar`          | —      | App navigation panel. Collapsible. Sheet-based drawer on mobile. Needs `Sheet` first. |
 
 ---
 
@@ -79,13 +100,14 @@ More complex. Composition patterns. Build after Tier 1–3 are solid.
 
 Built from Tier 1–4 components. Highest complexity, highest value for the showcase.
 
-| Component     | Status | Notes                                          |
-| ------------- | ------ | ---------------------------------------------- |
-| `Table`       | —      | Sortable, accessible. `thead`/`tbody`/`tfoot`. |
-| `DataTable`   | —      | Table + pagination + filtering.                |
-| `CommandMenu` | —      | Keyboard-first search/action palette.          |
-| `DatePicker`  | —      | Popover + calendar.                            |
-| `Combobox`    | —      | Custom searchable select.                      |
+| Component     | Status | Notes                                                                                |
+| ------------- | ------ | ------------------------------------------------------------------------------------ |
+| `AppShell`    | —      | Top-level layout: sidebar + header + main. Composes `Sidebar`, `Stack`, `Container`. |
+| `Table`       | —      | Sortable, accessible. `thead`/`tbody`/`tfoot`.                                       |
+| `DataTable`   | —      | Table + pagination + filtering.                                                      |
+| `CommandMenu` | —      | Keyboard-first search/action palette.                                                |
+| `DatePicker`  | —      | Popover + calendar.                                                                  |
+| `Combobox`    | —      | Custom searchable select.                                                            |
 
 ---
 
@@ -97,10 +119,10 @@ For the showcase goal — depth and quality over breadth.
 `Badge`, `Text`, `Alert`, `Input`, `Label`, `FormField`
 
 **Phase 2** — proves composability:
-`Card`, `Dialog`, `Toast`, `Tooltip`, `Select`
+`Stack`, `Container`, `Card`, `Dialog`, `Toast`, `Tooltip`, `Select`
 
 **Phase 3** — proves scale:
-`Table`, `Tabs`, `CommandMenu`
+`Sidebar`, `AppShell`, `Table`, `Tabs`, `CommandMenu`
 
 Tier 5 is optional. Two or three well-executed composites demonstrate more than a full list of shallow ones.
 
