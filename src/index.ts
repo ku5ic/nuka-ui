@@ -1,5 +1,8 @@
 // vault-ui public API
 
+export { Avatar, avatarVariants, getInitials } from "./components/Avatar";
+export type { AvatarProps, AvatarVariantProps } from "./components/Avatar";
+
 export { Badge, badgeVariants } from "./components/Badge";
 export type { BadgeProps, BadgeVariantProps } from "./components/Badge";
 

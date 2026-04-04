@@ -272,3 +272,35 @@ vault-ui is a portfolio project that demonstrates platform-level frontend engine
 **Keeping `@radix-ui/react-slot` as a sanctioned carve-out** — rejected. Inconsistent with the no-third-party-UI-primitives policy. If we carve out Slot, the boundary becomes subjective.
 
 **Dropping `asChild` entirely** — rejected. The `asChild` pattern is a genuine composition tool that strengthens the component API. Removing it would force consumers into less ergonomic patterns (wrapper elements, manual className forwarding) without good reason.
+
+---
+
+## ADR-010: Avatar image loading strategy — layered fallback with `key` remount
+
+**Date:** 2026-04-04
+**Status:** Accepted
+
+### Context
+
+Avatar needs image loading state management to avoid flash-of-broken-image. When an `<img>` element fails to load, the browser briefly renders a broken image icon before `onError` fires — this is visible to the user and disrupts layout. Radix UI's Avatar primitive handles this natively, but vault-ui has adopted a no-third-party-UI-primitives policy (ADR-009).
+
+### Decision
+
+Implemented image loading state in React (`loaded`, `errored`) using `onLoad`/`onError` handlers. The fallback layer (initials or icon) is always rendered as the visible base layer. The `<img>` element is layered on top with `opacity-0` initially, revealed via `opacity-100` on successful load. On error, the `<img>` is removed from the DOM entirely, leaving the fallback visible.
+
+`key={src}` on the `<img>` element forces a clean DOM remount when `src` changes, ensuring no stale image is displayed. The parent component detects the `src` change via a previous-value ref and resets `loaded`/`errored` state synchronously during render. This is simpler and more reliable than a `useEffect` with cleanup that manually resets state variables.
+
+### Consequences
+
+- No flash of broken image. The fallback is always visible until the image has fully loaded.
+- Load state is fully owned and visible — no hidden browser behavior.
+- The `key` + ref approach is simpler than a `useEffect` with cleanup but means the `<img>` element remounts on every `src` change — acceptable for an avatar where `src` changes are infrequent.
+- The three-tier fallback resolution (image → initials → icon) is explicit and testable.
+
+### Alternatives considered
+
+**`onError` only** — rejected. The broken image icon is visible during the network round-trip before `onError` fires. This is the flash-of-broken-image problem the layered approach solves.
+
+**Radix Avatar primitive** — rejected. Violates the no-third-party-UI-primitives policy (ADR-009). The load state management is straightforward enough to own.
+
+**`useEffect` with cleanup for `src` changes** — rejected. More code, more edge cases (stale closures, race conditions between effect cleanup and state updates). `key={src}` achieves the same reset with zero additional code.

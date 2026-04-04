@@ -17,7 +17,7 @@ No Radix dependency. Pure HTML + CVA + tokens. Build these first.
 | `Heading` | ✅ Done | `h1`–`h6` via `as` prop. Semantic size scale.                   |
 | `Divider` | ✅ Done | Horizontal/vertical separator. Optional label.                  |
 | `Spinner` | ✅ Done | Loading indicator. Size variants. Accessible.                   |
-| `Avatar`  | —       | Image with fallback initials. Size variants.                    |
+| `Avatar`  | ✅ Done | Image with fallback initials. Size variants.                    |
 | `Icon`    | —       | Wrapper for icon libraries. Size + color tokens.                |
 | `Kbd`     | —       | Keyboard shortcut display.                                      |
 | `Code`    | —       | Inline code. Monospace, subtle background.                      |
