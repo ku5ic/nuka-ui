@@ -78,3 +78,13 @@ export type { TextProps, TextVariantProps } from "./components/Text";
 
 export { Textarea, textareaVariants } from "./components/Textarea";
 export type { TextareaProps, TextareaVariantProps } from "./components/Textarea";
+
+export { Tooltip, TooltipTrigger, TooltipContent } from "./components/Tooltip";
+export type { TooltipProps, TooltipTriggerProps, TooltipContentProps } from "./components/Tooltip";
+export { TooltipContext, useTooltipContext } from "./components/Tooltip";
+export type { TooltipContextValue } from "./components/Tooltip";
+
+export { Popover, PopoverTrigger, PopoverContent } from "./components/Popover";
+export type { PopoverProps, PopoverTriggerProps, PopoverContentProps } from "./components/Popover";
+export { PopoverContext, usePopoverContext } from "./components/Popover";
+export type { PopoverContextValue } from "./components/Popover";

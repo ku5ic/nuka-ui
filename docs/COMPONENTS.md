@@ -52,8 +52,8 @@ Mostly simple. High visual value for the showcase.
 | `Toast` / `Toaster` | —       | Custom toast with programmatic API.                    |
 | `Progress`          | ✅ Done | Linear progress bar. Intent for status.                |
 | `Skeleton`          | ✅ Done | Loading placeholder. Matches shapes of real content.   |
-| `Tooltip`           | —       | Custom tooltip with positioning.                       |
-| `Popover`           | —       | Custom popover with positioning.                       |
+| `Tooltip`           | ✅ Done | Custom tooltip with positioning.                       |
+| `Popover`           | ✅ Done | Custom popover with positioning.                       |
 
 ---
 

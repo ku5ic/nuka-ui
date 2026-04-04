@@ -460,3 +460,113 @@ When `value` is `undefined`, Progress enters indeterminate mode with a CSS anima
 - The two-CVA-instance approach for Progress establishes a pattern for future components with multi-element styling (e.g., Slider already uses this)
 - Skeleton's lack of variant/intent reinforces that the pattern is opt-in per component, not mandatory — joining Divider (ADR-008) and Kbd (ADR-012) in this category
 - Reduced-motion handling via CSS `@media` query is consistent across Progress and Skeleton, with no per-component JavaScript required
+
+---
+
+## ADR-015: `@floating-ui/react` as sanctioned external dependency
+
+**Date:** 2026-04-04
+**Status:** Accepted
+
+### Context
+
+Tooltip and Popover require floating position logic: scroll observation, overflow boundary detection, flip/shift/arrow middleware, cross-browser measurement, and real-time repositioning on scroll/resize. This is the same class of problem that motivated ADR-009's removal of Radix UI — but the scope and nature of the dependency are fundamentally different.
+
+### Decision
+
+`@floating-ui/react` is added to `dependencies` as the only deliberate exception to the no-third-party-UI-primitives policy established in ADR-009.
+
+### Reasoning
+
+The distinction from Radix UI is categorical, not a matter of degree:
+
+- **Radix UI** imposes a full component API — it owns rendering, ARIA semantics, keyboard navigation, and state management. Using it means delegating the entire component contract to a third party.
+- **Floating UI** provides a positioning primitive. It computes `{ x, y }` coordinates and exposes hooks for interaction detection (`useHover`, `useClick`, `useDismiss`). It does not render any DOM elements, impose any component structure, or manage accessible names/roles beyond what the consumer explicitly configures.
+
+Rolling floating position logic first-party would produce a worse implementation with real edge cases around:
+- `ResizeObserver` and `IntersectionObserver` cross-browser behavior
+- Scroll container detection across shadow DOM boundaries
+- Overflow boundary calculation with nested scrolling contexts
+- Sub-pixel measurement rounding errors
+
+These are positioning math problems, not component design problems. Owning them adds maintenance burden without demonstrating any component architecture skill.
+
+### Consequences
+
+- `@floating-ui/react` is the sole external UI-adjacent dependency. This exception is narrow and deliberate.
+- Future floating components (DropdownMenu, Dialog popover mode, DatePicker) reuse this dependency — no additional dependency decisions required.
+- The library is used as a primitive: all ARIA semantics, focus management, and component structure remain first-party.
+- If `@floating-ui/react` is ever abandoned, the migration surface is limited to positioning logic — no component APIs would need rewriting.
+
+### Alternatives considered
+
+**First-party positioning engine** — rejected. The implementation complexity is high, the edge cases are browser-specific, and the result would be strictly worse than Floating UI's battle-tested solution. This is not a learning opportunity; it is a solved problem.
+
+**CSS Anchor Positioning (`anchor()`)** — not yet viable. Browser support is insufficient (no Firefox, no Safari stable as of early 2026). Revisit when baseline support reaches 90%+.
+
+---
+
+## ADR-016: Tooltip and Popover compound component design
+
+**Date:** 2026-04-04
+**Status:** Accepted
+
+### Context
+
+Tooltip and Popover are the first floating UI components in vault-ui. They share positioning infrastructure (`@floating-ui/react`) but have distinct interaction models, ARIA patterns, and focus management requirements.
+
+### Decisions
+
+**1. Compound component pattern (Root + Trigger + Content)**
+
+Both components use the same compound structure:
+
+```tsx
+<Tooltip>
+  <TooltipTrigger>...</TooltipTrigger>
+  <TooltipContent>...</TooltipContent>
+</Tooltip>
+```
+
+The Root component (`Tooltip`, `Popover`) is a context provider that owns state and Floating UI configuration. It renders no DOM element. Trigger and Content are separate components that consume context.
+
+This pattern was chosen over a single-prop wrapper (`<Tooltip content="...">`) because:
+- It allows arbitrary trigger elements via `asChild` — tooltips on icon buttons, links, or custom components
+- It gives consumers full control over content rendering — Popover content can contain forms, lists, or any interactive elements
+- It aligns with the compound pattern established by `Select` (ADR-013) and anticipated by Tier 4 components (Dialog, DropdownMenu, Tabs)
+
+**2. Tooltip interaction model: hover + focus, non-interactive content**
+
+- Opens on hover (with configurable delay, default 600ms) and focus (immediate, no delay)
+- Closes on mouseleave, blur, and Escape
+- Content has `role="tooltip"` and `pointer-events-none` — tooltips are never interactive
+- Trigger uses `aria-describedby` pointing to the tooltip's `id`
+- `side` prop on the Root controls placement (`top`, `right`, `bottom`, `left`)
+
+The delay applies only to hover-open, not focus-open. Focus-triggered tooltips must be immediate per WCAG 1.4.13 (Content on Hover or Focus) — the user has already made an explicit action.
+
+**3. Popover interaction model: click, interactive content**
+
+- Opens on click, closes on Escape and outside click
+- Content has `role="dialog"` — Popover panels are interactive regions
+- Focus moves into the panel on open (first focusable child, or the panel itself via `tabIndex={-1}`)
+- Focus returns to the trigger on close (handled natively by Floating UI's `useDismiss`)
+- Trigger uses `aria-expanded` and `aria-controls`
+- No focus trap — that belongs to Dialog (Tier 4), not Popover
+
+**4. Portal rendering for both**
+
+Both render content via `ReactDOM.createPortal(…, document.body)` to escape stacking contexts. Content is conditionally rendered (`{open && <portal>}`), not hidden with `hidden` attribute — unlike Select (ADR-013), there is no registry pattern that requires options to be in the DOM when closed.
+
+SSR safety: both Content components guard with `typeof document === 'undefined'`.
+
+**5. No variant/intent on either component**
+
+Tooltip and Popover are structural chrome — they carry no semantic color meaning. Tooltip has a single dark surface style; Popover has a single bordered surface style. This follows the precedent set by Divider (ADR-008), Kbd (ADR-012), and Skeleton (ADR-014).
+
+### Consequences
+
+- The compound pattern adds import count (3 per component) but is self-documenting and matches industry convention (Radix, shadcn/ui, Ark UI)
+- Tooltip and Popover establish the Floating UI integration pattern for all future floating components
+- The clear separation between Tooltip (non-interactive, `role="tooltip"`) and Popover (interactive, `role="dialog"`) prevents misuse — consumers cannot accidentally put interactive content in a tooltip
+- `side` on Tooltip Root (not Content) keeps placement configuration where it belongs — at the `useFloating` call site
