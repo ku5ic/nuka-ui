@@ -1,7 +1,7 @@
 import * as React from "react";
-import { cn } from "@vault/utils/cn";
-import { FormFieldContext } from "@vault/components/FormField/FormFieldContext";
-import type { FormFieldContextValue } from "@vault/components/FormField/FormFieldContext";
+import { cn } from "@nuka/utils/cn";
+import { FormFieldContext } from "@nuka/components/FormField/FormFieldContext";
+import type { FormFieldContextValue } from "@nuka/components/FormField/FormFieldContext";
 
 export interface FormFieldProps extends React.HTMLAttributes<HTMLDivElement> {
   id?: string;
@@ -40,7 +40,7 @@ const FormField = React.forwardRef<HTMLDivElement, FormFieldProps>(
           {hint && (
             <p
               id={contextValue.hintId}
-              className="text-sm text-[var(--vault-text-muted)]"
+              className="text-sm text-[var(--nuka-text-muted)]"
             >
               {hint}
             </p>
@@ -48,7 +48,7 @@ const FormField = React.forwardRef<HTMLDivElement, FormFieldProps>(
           {error && (
             <p
               id={contextValue.errorId}
-              className="text-sm text-[var(--vault-danger-text)]"
+              className="text-sm text-[var(--nuka-danger-text)]"
             >
               {error}
             </p>

@@ -1,6 +1,6 @@
 # Component Inventory
 
-This document defines the full component scope for vault-ui, organized by complexity tier and recommended build order.
+This document defines the full component scope for nuka-ui, organized by complexity tier and recommended build order.
 
 ---
 

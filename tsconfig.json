@@ -14,9 +14,9 @@
     "skipLibCheck": true,
     "types": ["node"],
     "paths": {
-      "@vault/*": ["./src/*"]
+      "@nuka/*": ["./src/*"]
     },
   },
-  "include": ["src", ".storybook", "eslint.config.ts", "global.d.ts"],
+  "include": ["src", ".storybook", "eslint.config.ts", "vite.config.ts", "vitest.config.ts", "global.d.ts"],
   "exclude": ["node_modules", "dist"]
 }

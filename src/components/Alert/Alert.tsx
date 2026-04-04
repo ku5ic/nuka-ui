@@ -1,6 +1,6 @@
 import * as React from "react";
-import { cva, type VariantProps } from "@vault/utils/variants";
-import { cn } from "@vault/utils/cn";
+import { cva, type VariantProps } from "@nuka/utils/variants";
+import { cn } from "@nuka/utils/cn";
 
 const alertVariants = cva(
   [
@@ -35,32 +35,32 @@ const alertVariants = cva(
         variant: "primary",
         intent: "default",
         className: [
-          "bg-[var(--vault-accent-bg)]",
-          "text-[var(--vault-text-inverse)]",
+          "bg-[var(--nuka-accent-bg)]",
+          "text-[var(--nuka-text-inverse)]",
         ],
       },
       {
         variant: "primary",
         intent: "danger",
         className: [
-          "bg-[var(--vault-danger-base)]",
-          "text-[var(--vault-text-inverse)]",
+          "bg-[var(--nuka-danger-base)]",
+          "text-[var(--nuka-text-inverse)]",
         ],
       },
       {
         variant: "primary",
         intent: "success",
         className: [
-          "bg-[var(--vault-success-base)]",
-          "text-[var(--vault-text-inverse)]",
+          "bg-[var(--nuka-success-base)]",
+          "text-[var(--nuka-text-inverse)]",
         ],
       },
       {
         variant: "primary",
         intent: "warning",
         className: [
-          "bg-[var(--vault-warning-base)]",
-          "text-[var(--vault-text-inverse)]",
+          "bg-[var(--nuka-warning-base)]",
+          "text-[var(--nuka-text-inverse)]",
         ],
       },
 
@@ -69,36 +69,36 @@ const alertVariants = cva(
         variant: "secondary",
         intent: "default",
         className: [
-          "bg-[var(--vault-accent-bg-subtle)]",
-          "text-[var(--vault-accent-text)]",
-          "border-[var(--vault-accent-border)]",
+          "bg-[var(--nuka-accent-bg-subtle)]",
+          "text-[var(--nuka-accent-text)]",
+          "border-[var(--nuka-accent-border)]",
         ],
       },
       {
         variant: "secondary",
         intent: "danger",
         className: [
-          "bg-[var(--vault-danger-bg)]",
-          "text-[var(--vault-danger-text)]",
-          "border-[var(--vault-danger-border)]",
+          "bg-[var(--nuka-danger-bg)]",
+          "text-[var(--nuka-danger-text)]",
+          "border-[var(--nuka-danger-border)]",
         ],
       },
       {
         variant: "secondary",
         intent: "success",
         className: [
-          "bg-[var(--vault-success-bg)]",
-          "text-[var(--vault-success-text)]",
-          "border-[var(--vault-success-border)]",
+          "bg-[var(--nuka-success-bg)]",
+          "text-[var(--nuka-success-text)]",
+          "border-[var(--nuka-success-border)]",
         ],
       },
       {
         variant: "secondary",
         intent: "warning",
         className: [
-          "bg-[var(--vault-warning-bg)]",
-          "text-[var(--vault-warning-text)]",
-          "border-[var(--vault-warning-border)]",
+          "bg-[var(--nuka-warning-bg)]",
+          "text-[var(--nuka-warning-text)]",
+          "border-[var(--nuka-warning-border)]",
         ],
       },
 
@@ -107,32 +107,32 @@ const alertVariants = cva(
         variant: "outline",
         intent: "default",
         className: [
-          "border-[var(--vault-accent-border)]",
-          "text-[var(--vault-accent-text)]",
+          "border-[var(--nuka-accent-border)]",
+          "text-[var(--nuka-accent-text)]",
         ],
       },
       {
         variant: "outline",
         intent: "danger",
         className: [
-          "border-[var(--vault-danger-border)]",
-          "text-[var(--vault-danger-text)]",
+          "border-[var(--nuka-danger-border)]",
+          "text-[var(--nuka-danger-text)]",
         ],
       },
       {
         variant: "outline",
         intent: "success",
         className: [
-          "border-[var(--vault-success-border)]",
-          "text-[var(--vault-success-text)]",
+          "border-[var(--nuka-success-border)]",
+          "text-[var(--nuka-success-text)]",
         ],
       },
       {
         variant: "outline",
         intent: "warning",
         className: [
-          "border-[var(--vault-warning-border)]",
-          "text-[var(--vault-warning-text)]",
+          "border-[var(--nuka-warning-border)]",
+          "text-[var(--nuka-warning-text)]",
         ],
       },
 
@@ -140,22 +140,22 @@ const alertVariants = cva(
       {
         variant: "ghost",
         intent: "default",
-        className: ["text-[var(--vault-text-base)]"],
+        className: ["text-[var(--nuka-text-base)]"],
       },
       {
         variant: "ghost",
         intent: "danger",
-        className: ["text-[var(--vault-danger-text)]"],
+        className: ["text-[var(--nuka-danger-text)]"],
       },
       {
         variant: "ghost",
         intent: "success",
-        className: ["text-[var(--vault-success-text)]"],
+        className: ["text-[var(--nuka-success-text)]"],
       },
       {
         variant: "ghost",
         intent: "warning",
-        className: ["text-[var(--vault-warning-text)]"],
+        className: ["text-[var(--nuka-warning-text)]"],
       },
     ],
 

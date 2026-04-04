@@ -1,8 +1,8 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { cn } from "@vault/utils/cn";
-import { composeRefs } from "@vault/utils/slot";
-import { usePopoverContext } from "@vault/components/Popover/PopoverContext";
+import { cn } from "@nuka/utils/cn";
+import { composeRefs } from "@nuka/utils/slot";
+import { usePopoverContext } from "@nuka/components/Popover/PopoverContext";
 
 export interface PopoverContentProps
   extends React.HTMLAttributes<HTMLDivElement> {}
@@ -41,8 +41,8 @@ function PopoverContent({ className, ...props }: PopoverContentProps) {
       tabIndex={-1}
       {...(floatingProps as React.HTMLAttributes<HTMLDivElement>)}
       className={cn(
-        "z-50 rounded-[var(--radius-md)] border border-[var(--vault-border-base)]",
-        "bg-[var(--vault-bg-base)] shadow-md p-[var(--space-4)]",
+        "z-50 rounded-[var(--radius-md)] border border-[var(--nuka-border-base)]",
+        "bg-[var(--nuka-bg-base)] shadow-md p-[var(--space-4)]",
         "focus:outline-none",
         className,
       )}

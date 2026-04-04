@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Heading } from "@vault/components/Heading";
-import { Text } from "@vault/components/Text";
+import { Heading } from "@nuka/components/Heading";
+import { Text } from "@nuka/components/Text";
 
 const meta = {
   title: "Components/Heading",
@@ -77,7 +77,7 @@ export const AllLevels: Story = {
         style={{
           marginTop: "0.5rem",
           paddingTop: "0.75rem",
-          borderTop: "1px solid var(--vault-border-base)",
+          borderTop: "1px solid var(--nuka-border-base)",
         }}
       >
         <Text size="xl" weight="bold">
@@ -135,7 +135,7 @@ export const AllColors: Story = {
       </Heading>
       <div
         style={{
-          backgroundColor: "var(--vault-bg-emphasis)",
+          backgroundColor: "var(--nuka-bg-emphasis)",
           padding: "0.75rem 1rem",
           borderRadius: "var(--radius-md)",
         }}
@@ -156,8 +156,8 @@ export const AllColors: Story = {
         style={{
           marginTop: "0.5rem",
           padding: "1rem",
-          backgroundColor: "var(--vault-danger-bg)",
-          borderLeft: "3px solid var(--vault-danger-border)",
+          backgroundColor: "var(--nuka-danger-bg)",
+          borderLeft: "3px solid var(--nuka-danger-border)",
           borderRadius: "var(--radius-md)",
         }}
       >
@@ -171,8 +171,8 @@ export const AllColors: Story = {
       <div
         style={{
           padding: "1rem",
-          backgroundColor: "var(--vault-success-bg)",
-          borderLeft: "3px solid var(--vault-success-border)",
+          backgroundColor: "var(--nuka-success-bg)",
+          borderLeft: "3px solid var(--nuka-success-border)",
           borderRadius: "var(--radius-md)",
         }}
       >
@@ -186,8 +186,8 @@ export const AllColors: Story = {
       <div
         style={{
           padding: "1rem",
-          backgroundColor: "var(--vault-warning-bg)",
-          borderLeft: "3px solid var(--vault-warning-border)",
+          backgroundColor: "var(--nuka-warning-bg)",
+          borderLeft: "3px solid var(--nuka-warning-border)",
           borderRadius: "var(--radius-md)",
         }}
       >

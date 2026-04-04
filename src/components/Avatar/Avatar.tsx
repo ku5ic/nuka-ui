@@ -1,14 +1,14 @@
 import * as React from "react";
-import { cva, type VariantProps } from "@vault/utils/variants";
-import { cn } from "@vault/utils/cn";
+import { cva, type VariantProps } from "@nuka/utils/variants";
+import { cn } from "@nuka/utils/cn";
 
 const avatarVariants = cva(
   [
     "relative inline-flex items-center justify-center",
     "shrink-0 overflow-hidden",
-    "border border-[var(--vault-border-base)]",
-    "bg-[var(--vault-bg-muted)]",
-    "text-[var(--vault-text-muted)]",
+    "border border-[var(--nuka-border-base)]",
+    "bg-[var(--nuka-bg-muted)]",
+    "text-[var(--nuka-text-muted)]",
     "font-medium",
   ],
   {

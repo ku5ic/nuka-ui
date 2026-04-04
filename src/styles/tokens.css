@@ -88,130 +88,130 @@
 :root,
 [data-theme="light"] {
   /* Surfaces */
-  --vault-bg-base: var(--color-neutral-0);
-  --vault-bg-subtle: var(--color-neutral-50);
-  --vault-bg-muted: var(--color-neutral-100);
-  --vault-bg-emphasis: var(--color-neutral-900);
+  --nuka-bg-base: var(--color-neutral-0);
+  --nuka-bg-subtle: var(--color-neutral-50);
+  --nuka-bg-muted: var(--color-neutral-100);
+  --nuka-bg-emphasis: var(--color-neutral-900);
 
   /* Borders */
-  --vault-border-base: var(--color-neutral-200);
-  --vault-border-strong: var(--color-neutral-400);
-  --vault-border-focus: var(--color-accent-500);
+  --nuka-border-base: var(--color-neutral-200);
+  --nuka-border-strong: var(--color-neutral-400);
+  --nuka-border-focus: var(--color-accent-500);
 
   /* Text */
-  --vault-text-base: var(--color-neutral-900);
-  --vault-text-muted: var(--color-neutral-600);
-  --vault-text-subtle: var(--color-neutral-400);
-  --vault-text-inverse: var(--color-neutral-0);
-  --vault-text-disabled: var(--color-neutral-300);
+  --nuka-text-base: var(--color-neutral-900);
+  --nuka-text-muted: var(--color-neutral-600);
+  --nuka-text-subtle: var(--color-neutral-400);
+  --nuka-text-inverse: var(--color-neutral-0);
+  --nuka-text-disabled: var(--color-neutral-300);
 
   /* Accent */
-  --vault-accent-bg: var(--color-accent-500);
-  --vault-accent-bg-hover: var(--color-accent-600);
-  --vault-accent-bg-active: var(--color-accent-700);
-  --vault-accent-bg-subtle: var(--color-accent-100);
-  --vault-accent-border: var(--color-accent-400);
-  --vault-accent-text: var(--color-accent-500);
+  --nuka-accent-bg: var(--color-accent-500);
+  --nuka-accent-bg-hover: var(--color-accent-600);
+  --nuka-accent-bg-active: var(--color-accent-700);
+  --nuka-accent-bg-subtle: var(--color-accent-100);
+  --nuka-accent-border: var(--color-accent-400);
+  --nuka-accent-text: var(--color-accent-500);
   /*
-   * NOTE: --vault-accent-text uses accent-500 (#43546a) on neutral-0 (white).
+   * NOTE: --nuka-accent-text uses accent-500 (#43546a) on neutral-0 (white).
    * Contrast: 7.74:1 — passes AAA. Safe to use for any text size.
    */
 
   /* Input surfaces */
-  --vault-input-bg: var(--color-neutral-0);
-  --vault-input-bg-disabled: var(--color-neutral-100);
-  --vault-input-bg-readonly: var(--color-neutral-50);
+  --nuka-input-bg: var(--color-neutral-0);
+  --nuka-input-bg-disabled: var(--color-neutral-100);
+  --nuka-input-bg-readonly: var(--color-neutral-50);
 
   /* Input borders */
-  --vault-input-border: var(--color-neutral-300);
-  --vault-input-border-hover: var(--color-neutral-400);
+  --nuka-input-border: var(--color-neutral-300);
+  --nuka-input-border-hover: var(--color-neutral-400);
 
   /* Feedback */
-  --vault-danger-base: var(--color-danger-base);
-  --vault-success-base: var(--color-success-base);
-  --vault-warning-base: var(--color-warning-base);
-  --vault-success-bg: var(--color-success-subtle);
-  --vault-success-text: var(--color-success-emphasis);
-  --vault-success-border: var(--color-success-base);
+  --nuka-danger-base: var(--color-danger-base);
+  --nuka-success-base: var(--color-success-base);
+  --nuka-warning-base: var(--color-warning-base);
+  --nuka-success-bg: var(--color-success-subtle);
+  --nuka-success-text: var(--color-success-emphasis);
+  --nuka-success-border: var(--color-success-base);
 
-  --vault-warning-bg: var(--color-warning-subtle);
-  --vault-warning-text: var(--color-warning-emphasis);
-  --vault-warning-border: var(--color-warning-base);
+  --nuka-warning-bg: var(--color-warning-subtle);
+  --nuka-warning-text: var(--color-warning-emphasis);
+  --nuka-warning-border: var(--color-warning-base);
 
-  --vault-danger-bg: var(--color-danger-subtle);
-  --vault-danger-text: var(--color-danger-emphasis);
-  --vault-danger-border: var(--color-danger-base);
+  --nuka-danger-bg: var(--color-danger-subtle);
+  --nuka-danger-text: var(--color-danger-emphasis);
+  --nuka-danger-border: var(--color-danger-base);
 
-  --vault-info-bg: var(--color-info-subtle);
-  --vault-info-text: var(--color-info-emphasis);
-  --vault-info-border: var(--color-info-base);
+  --nuka-info-bg: var(--color-info-subtle);
+  --nuka-info-text: var(--color-info-emphasis);
+  --nuka-info-border: var(--color-info-base);
 }
 
 /* ─── Semantic tokens — dark theme ──────────────────────── */
 [data-theme="dark"] {
   /* Surfaces */
-  --vault-bg-base: var(--color-neutral-950);
-  --vault-bg-subtle: var(--color-neutral-900);
-  --vault-bg-muted: var(--color-neutral-800);
-  --vault-bg-emphasis: var(--color-neutral-0);
+  --nuka-bg-base: var(--color-neutral-950);
+  --nuka-bg-subtle: var(--color-neutral-900);
+  --nuka-bg-muted: var(--color-neutral-800);
+  --nuka-bg-emphasis: var(--color-neutral-0);
 
   /* Borders */
-  --vault-border-base: var(--color-neutral-700);
-  --vault-border-strong: var(--color-neutral-500);
-  --vault-border-focus: var(--color-accent-400);
+  --nuka-border-base: var(--color-neutral-700);
+  --nuka-border-strong: var(--color-neutral-500);
+  --nuka-border-focus: var(--color-accent-400);
 
   /* Text */
-  --vault-text-base: var(--color-neutral-50);
-  --vault-text-muted: var(--color-neutral-400);
-  --vault-text-subtle: var(--color-neutral-600);
-  --vault-text-inverse: var(--color-neutral-950);
-  --vault-text-disabled: var(--color-neutral-700);
+  --nuka-text-base: var(--color-neutral-50);
+  --nuka-text-muted: var(--color-neutral-400);
+  --nuka-text-subtle: var(--color-neutral-600);
+  --nuka-text-inverse: var(--color-neutral-950);
+  --nuka-text-disabled: var(--color-neutral-700);
 
   /* Accent */
-  --vault-accent-bg: var(--color-accent-500);
-  --vault-accent-bg-hover: var(--color-accent-400);
-  --vault-accent-bg-active: var(--color-accent-300);
-  --vault-accent-bg-subtle: var(--color-accent-800);
-  --vault-accent-border: var(--color-accent-400);
-  --vault-accent-text: var(--color-accent-300);
+  --nuka-accent-bg: var(--color-accent-500);
+  --nuka-accent-bg-hover: var(--color-accent-400);
+  --nuka-accent-bg-active: var(--color-accent-300);
+  --nuka-accent-bg-subtle: var(--color-accent-800);
+  --nuka-accent-border: var(--color-accent-400);
+  --nuka-accent-text: var(--color-accent-300);
   /*
-   * NOTE: --vault-accent-text uses accent-300 on neutral-950 in dark mode.
+   * NOTE: --nuka-accent-text uses accent-300 on neutral-950 in dark mode.
    * Verify contrast before shipping dark mode. Target: 4.5:1 minimum.
    */
 
   /* Input surfaces */
-  --vault-input-bg: var(--color-neutral-950);
-  --vault-input-bg-disabled: var(--color-neutral-800);
-  --vault-input-bg-readonly: var(--color-neutral-900);
+  --nuka-input-bg: var(--color-neutral-950);
+  --nuka-input-bg-disabled: var(--color-neutral-800);
+  --nuka-input-bg-readonly: var(--color-neutral-900);
 
   /* Input borders */
-  --vault-input-border: var(--color-neutral-700);
-  --vault-input-border-hover: var(--color-neutral-500);
+  --nuka-input-border: var(--color-neutral-700);
+  --nuka-input-border-hover: var(--color-neutral-500);
 
   /* Feedback — hardcoded for dark mode, primitives are light-first */
-  --vault-danger-base: oklch(56% 0.22 15);
-  --vault-success-base: oklch(52% 0.18 145);
-  --vault-warning-base: oklch(72% 0.22 85);
-  --vault-success-bg: oklch(20% 0.06 145);
-  --vault-success-text: oklch(75% 0.16 145);
-  --vault-success-border: oklch(40% 0.14 145);
+  --nuka-danger-base: oklch(56% 0.22 15);
+  --nuka-success-base: oklch(52% 0.18 145);
+  --nuka-warning-base: oklch(72% 0.22 85);
+  --nuka-success-bg: oklch(20% 0.06 145);
+  --nuka-success-text: oklch(75% 0.16 145);
+  --nuka-success-border: oklch(40% 0.14 145);
 
-  --vault-warning-bg: oklch(20% 0.06 85);
-  --vault-warning-text: oklch(82% 0.18 85);
-  --vault-warning-border: oklch(55% 0.18 85);
+  --nuka-warning-bg: oklch(20% 0.06 85);
+  --nuka-warning-text: oklch(82% 0.18 85);
+  --nuka-warning-border: oklch(55% 0.18 85);
 
-  --vault-danger-bg: oklch(20% 0.05 15);
-  --vault-danger-text: oklch(75% 0.18 15);
-  --vault-danger-border: oklch(50% 0.18 15);
+  --nuka-danger-bg: oklch(20% 0.05 15);
+  --nuka-danger-text: oklch(75% 0.18 15);
+  --nuka-danger-border: oklch(50% 0.18 15);
 
-  --vault-info-bg: oklch(18% 0.05 230);
-  --vault-info-text: oklch(75% 0.16 230);
-  --vault-info-border: oklch(48% 0.14 230);
+  --nuka-info-bg: oklch(18% 0.05 230);
+  --nuka-info-text: oklch(75% 0.16 230);
+  --nuka-info-border: oklch(48% 0.14 230);
 }
 
 /* ─── Keyframes ────────────────────────────────────────── */
 
-@keyframes vault-progress-indeterminate {
+@keyframes nuka-progress-indeterminate {
   0% {
     transform: translateX(-100%);
   }
@@ -223,7 +223,7 @@
 /* ─── Reduced motion ───────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
-  .vault-progress-indeterminate {
+  .nuka-progress-indeterminate {
     animation: none;
   }
 

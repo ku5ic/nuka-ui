@@ -3,7 +3,7 @@ import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Checkbox } from "./Checkbox";
-import { FormField } from "@vault/components/FormField";
+import { FormField } from "@nuka/components/FormField";
 
 function noop() { /* empty */ }
 
@@ -77,31 +77,31 @@ describe("Checkbox", () => {
     it("applies default intent border class", () => {
       const { container } = render(<Checkbox aria-label="Accept" />);
       const indicator = container.querySelector('span[aria-hidden="true"]');
-      expect(indicator?.className).toContain("border-[var(--vault-input-border)]");
+      expect(indicator?.className).toContain("border-[var(--nuka-input-border)]");
     });
 
     it("applies danger intent border class", () => {
       const { container } = render(<Checkbox intent="danger" aria-label="Accept" />);
       const indicator = container.querySelector('span[aria-hidden="true"]');
-      expect(indicator?.className).toContain("border-[var(--vault-danger-border)]");
+      expect(indicator?.className).toContain("border-[var(--nuka-danger-border)]");
     });
 
     it("applies success intent border class", () => {
       const { container } = render(<Checkbox intent="success" aria-label="Accept" />);
       const indicator = container.querySelector('span[aria-hidden="true"]');
-      expect(indicator?.className).toContain("border-[var(--vault-success-border)]");
+      expect(indicator?.className).toContain("border-[var(--nuka-success-border)]");
     });
 
     it("applies warning intent border class", () => {
       const { container } = render(<Checkbox intent="warning" aria-label="Accept" />);
       const indicator = container.querySelector('span[aria-hidden="true"]');
-      expect(indicator?.className).toContain("border-[var(--vault-warning-border)]");
+      expect(indicator?.className).toContain("border-[var(--nuka-warning-border)]");
     });
 
     it("applies danger checked background class", () => {
       const { container } = render(<Checkbox intent="danger" aria-label="Accept" />);
       const indicator = container.querySelector('span[aria-hidden="true"]');
-      expect(indicator?.className).toContain("peer-checked:bg-[var(--vault-danger-base)]");
+      expect(indicator?.className).toContain("peer-checked:bg-[var(--nuka-danger-base)]");
     });
   });
 
@@ -130,7 +130,7 @@ describe("Checkbox", () => {
       const { container } = render(<Checkbox aria-label="Accept" />);
       const indicator = container.querySelector('span[aria-hidden="true"]');
       expect(indicator?.className).toContain("peer-focus-visible:outline-2");
-      expect(indicator?.className).toContain("peer-focus-visible:outline-[var(--vault-border-focus)]");
+      expect(indicator?.className).toContain("peer-focus-visible:outline-[var(--nuka-border-focus)]");
     });
   });
 

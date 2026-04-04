@@ -1,9 +1,9 @@
 import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { Slider } from "@vault/components/Slider";
-import { FormField } from "@vault/components/FormField";
-import { Label } from "@vault/components/Label";
-import { Text } from "@vault/components/Text";
+import { Slider } from "@nuka/components/Slider";
+import { FormField } from "@nuka/components/FormField";
+import { Label } from "@nuka/components/Label";
+import { Text } from "@nuka/components/Text";
 
 const meta = {
   title: "Components/Slider",

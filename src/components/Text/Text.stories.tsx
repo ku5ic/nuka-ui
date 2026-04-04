@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Text } from "@vault/components/Text";
+import { Text } from "@nuka/components/Text";
 
 const meta = {
   title: "Components/Text",
@@ -85,7 +85,7 @@ export const AllColors: Story = {
       <Text color="subtle">subtle — Tertiary text</Text>
       <div
         style={{
-          backgroundColor: "var(--vault-bg-emphasis)",
+          backgroundColor: "var(--nuka-bg-emphasis)",
           padding: "0.5rem 0.75rem",
           borderRadius: "var(--radius-md)",
         }}
@@ -160,9 +160,9 @@ export const RealWorldExample: Story = {
       style={{
         maxWidth: "24rem",
         padding: "1.5rem",
-        border: "1px solid var(--vault-border-base)",
+        border: "1px solid var(--nuka-border-base)",
         borderRadius: "var(--radius-lg)",
-        backgroundColor: "var(--vault-bg-base)",
+        backgroundColor: "var(--nuka-bg-base)",
       }}
     >
       <Text size="lg" weight="semibold">
@@ -172,7 +172,7 @@ export const RealWorldExample: Story = {
         April 4, 2026
       </Text>
       <Text style={{ marginTop: "0.75rem" }}>
-        The vault-ui component library now includes Button, Badge, Tag, and Text
+        The nuka-ui component library now includes Button, Badge, Tag, and Text
         primitives. The token system is fully operational with light and dark
         theme support.
       </Text>

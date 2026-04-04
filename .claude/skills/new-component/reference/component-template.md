@@ -15,8 +15,8 @@ src/components/<Name>/
 ```tsx
 import * as React from 'react'
 import { Slot } from '@radix-ui/react-slot'
-import { cva, type VariantProps } from '@vault/utils/variants'
-import { cn } from '@vault/utils/cn'
+import { cva, type VariantProps } from '@nuka/utils/variants'
+import { cn } from '@nuka/utils/cn'
 
 const <name>Variants = cva(
   [
@@ -93,9 +93,9 @@ export type { <Name>Props, <Name>VariantProps } from './<Name>'
 
 Always reference semantic tokens via CSS variable syntax:
 
-- Background: `bg-[var(--vault-accent-bg)]`
-- Text: `text-[var(--vault-text-base)]`
-- Border: `border-[var(--vault-border-base)]`
+- Background: `bg-[var(--nuka-accent-bg)]`
+- Text: `text-[var(--nuka-text-base)]`
+- Border: `border-[var(--nuka-border-base)]`
 
 Never use raw Tailwind color utilities like `bg-blue-500`.
 
@@ -107,10 +107,10 @@ Never use raw Tailwind color utilities like `bg-blue-500`.
   variant: 'primary',
   intent: 'default',
   className: [
-    'bg-[var(--vault-accent-bg)]',
-    'text-[var(--vault-text-inverse)]',
-    'hover:bg-[var(--vault-accent-bg-hover)]',
-    'active:bg-[var(--vault-accent-bg-active)]',
+    'bg-[var(--nuka-accent-bg)]',
+    'text-[var(--nuka-text-inverse)]',
+    'hover:bg-[var(--nuka-accent-bg-hover)]',
+    'active:bg-[var(--nuka-accent-bg-active)]',
   ],
 },
 // primary × danger
@@ -118,8 +118,8 @@ Never use raw Tailwind color utilities like `bg-blue-500`.
   variant: 'primary',
   intent: 'danger',
   className: [
-    'bg-[var(--vault-danger-base)]',
-    'text-[var(--vault-text-inverse)]',
+    'bg-[var(--nuka-danger-base)]',
+    'text-[var(--nuka-text-inverse)]',
     'hover:brightness-90',
     'active:brightness-80',
   ],

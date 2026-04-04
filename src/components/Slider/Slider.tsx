@@ -1,7 +1,7 @@
 import * as React from "react";
-import { cva, type VariantProps } from "@vault/utils/variants";
-import { cn } from "@vault/utils/cn";
-import { useFormField } from "@vault/components/FormField/FormFieldContext";
+import { cva, type VariantProps } from "@nuka/utils/variants";
+import { cn } from "@nuka/utils/cn";
+import { useFormField } from "@nuka/components/FormField/FormFieldContext";
 
 /* ─── CVA: Wrapper ─────────────────────────────────────── */
 
@@ -28,7 +28,7 @@ const sliderWrapperVariants = cva(
 const sliderTrackVariants = cva(
   [
     "relative w-full rounded-full",
-    "bg-[var(--vault-border-base)]",
+    "bg-[var(--nuka-border-base)]",
   ],
   {
     variants: {
@@ -54,10 +54,10 @@ const sliderFillVariants = cva(
   {
     variants: {
       intent: {
-        default: "bg-[var(--vault-accent-bg)]",
-        danger: "bg-[var(--vault-danger-base)]",
-        success: "bg-[var(--vault-success-base)]",
-        warning: "bg-[var(--vault-warning-base)]",
+        default: "bg-[var(--nuka-accent-bg)]",
+        danger: "bg-[var(--nuka-danger-base)]",
+        success: "bg-[var(--nuka-success-base)]",
+        warning: "bg-[var(--nuka-warning-base)]",
       },
     },
     defaultVariants: {
@@ -72,7 +72,7 @@ const sliderThumbVariants = cva(
   [
     "absolute top-1/2 -translate-y-1/2",
     "rounded-full",
-    "border-2 border-[var(--vault-bg-base)]",
+    "border-2 border-[var(--nuka-bg-base)]",
     "shadow-sm",
     "transition-[left] duration-75",
     "pointer-events-none",
@@ -80,10 +80,10 @@ const sliderThumbVariants = cva(
   {
     variants: {
       intent: {
-        default: "bg-[var(--vault-accent-bg)]",
-        danger: "bg-[var(--vault-danger-base)]",
-        success: "bg-[var(--vault-success-base)]",
-        warning: "bg-[var(--vault-warning-base)]",
+        default: "bg-[var(--nuka-accent-bg)]",
+        danger: "bg-[var(--nuka-danger-base)]",
+        success: "bg-[var(--nuka-success-base)]",
+        warning: "bg-[var(--nuka-warning-base)]",
       },
       size: {
         sm: "w-3.5 h-3.5",
@@ -102,7 +102,7 @@ const sliderThumbVariants = cva(
 
 const sliderValueVariants = cva(
   [
-    "tabular-nums text-[var(--vault-text-muted)]",
+    "tabular-nums text-[var(--nuka-text-muted)]",
     "ml-[var(--space-3)]",
     "select-none",
   ],
@@ -253,7 +253,7 @@ const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
           <div
             className={cn(
               sliderThumbVariants({ intent, size }),
-              focused && "outline-2 outline-offset-2 outline-[var(--vault-border-focus)]",
+              focused && "outline-2 outline-offset-2 outline-[var(--nuka-border-focus)]",
             )}
             style={{ left: `calc(${String(percentage)}% - ${String(thumbOffset)}px)` }}
             data-testid="slider-thumb"

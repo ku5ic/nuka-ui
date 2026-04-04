@@ -2,7 +2,7 @@ import * as React from "react";
 import { describe, it, expect } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { Slider } from "./Slider";
-import { FormField } from "@vault/components/FormField";
+import { FormField } from "@nuka/components/FormField";
 
 describe("Slider", () => {
   describe("rendering", () => {
@@ -112,42 +112,42 @@ describe("Slider", () => {
     it("default intent uses accent token on fill", () => {
       render(<Slider aria-label="Volume" />);
       expect(screen.getByTestId("slider-fill").className).toContain(
-        "bg-[var(--vault-accent-bg)]",
+        "bg-[var(--nuka-accent-bg)]",
       );
     });
 
     it("danger intent applies danger fill class", () => {
       render(<Slider intent="danger" aria-label="Volume" />);
       expect(screen.getByTestId("slider-fill").className).toContain(
-        "bg-[var(--vault-danger-base)]",
+        "bg-[var(--nuka-danger-base)]",
       );
     });
 
     it("success intent applies success fill class", () => {
       render(<Slider intent="success" aria-label="Volume" />);
       expect(screen.getByTestId("slider-fill").className).toContain(
-        "bg-[var(--vault-success-base)]",
+        "bg-[var(--nuka-success-base)]",
       );
     });
 
     it("warning intent applies warning fill class", () => {
       render(<Slider intent="warning" aria-label="Volume" />);
       expect(screen.getByTestId("slider-fill").className).toContain(
-        "bg-[var(--vault-warning-base)]",
+        "bg-[var(--nuka-warning-base)]",
       );
     });
 
     it("default intent applies accent token on thumb", () => {
       render(<Slider aria-label="Volume" />);
       expect(screen.getByTestId("slider-thumb").className).toContain(
-        "bg-[var(--vault-accent-bg)]",
+        "bg-[var(--nuka-accent-bg)]",
       );
     });
 
     it("danger intent applies danger thumb class", () => {
       render(<Slider intent="danger" aria-label="Volume" />);
       expect(screen.getByTestId("slider-thumb").className).toContain(
-        "bg-[var(--vault-danger-base)]",
+        "bg-[var(--nuka-danger-base)]",
       );
     });
   });
@@ -160,7 +160,7 @@ describe("Slider", () => {
         "outline-2",
       );
       expect(screen.getByTestId("slider-thumb").className).toContain(
-        "outline-[var(--vault-border-focus)]",
+        "outline-[var(--nuka-border-focus)]",
       );
     });
 

@@ -1,6 +1,6 @@
 # Skill: New Token
 
-Adds a new CSS custom property token to the vault-ui token system correctly.
+Adds a new CSS custom property token to the nuka-ui token system correctly.
 
 Use this skill when adding any new design token to `src/styles/tokens.css`.
 
@@ -19,8 +19,8 @@ Use this skill when adding any new design token to `src/styles/tokens.css`.
 2. Read `src/styles/tokens.css` in full to understand existing scale.
 
 3. Determine token type:
-   - **Primitive** — a raw scale value (color, space, radius, etc.). No `--vault-` prefix. Lives in `:root`.
-   - **Semantic** — references a primitive, has `--vault-` prefix. Lives in `:root, [data-theme="light"]` and `[data-theme="dark"]`.
+   - **Primitive** — a raw scale value (color, space, radius, etc.). No `--nuka-` prefix. Lives in `:root`.
+   - **Semantic** — references a primitive, has `--nuka-` prefix. Lives in `:root, [data-theme="light"]` and `[data-theme="dark"]`.
 
 4. If adding a **primitive** token:
    - Find the correct scale section in `:root`
@@ -33,7 +33,7 @@ Use this skill when adding any new design token to `src/styles/tokens.css`.
    - Add to `[data-theme="light"]` block, referencing the primitive via `var()`
    - Add matching entry to `[data-theme="dark"]` block
    - If the dark value cannot map cleanly to an existing primitive, hardcode an `oklch()` value and add a comment explaining why
-   - Name must follow pattern: `--vault-<category>-<role>` (e.g. `--vault-accent-bg-disabled`)
+   - Name must follow pattern: `--nuka-<category>-<role>` (e.g. `--nuka-accent-bg-disabled`)
 
 6. If the token is a color used for text on a background:
    - Run contrast verification per `reference/contrast-verification.md`

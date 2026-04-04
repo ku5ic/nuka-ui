@@ -6,8 +6,8 @@ import { Select } from "./Select";
 import { SelectTrigger } from "./SelectTrigger";
 import { SelectContent } from "./SelectContent";
 import { SelectItem } from "./SelectItem";
-import { FormField } from "@vault/components/FormField";
-import { Label } from "@vault/components/Label";
+import { FormField } from "@nuka/components/FormField";
+import { Label } from "@nuka/components/Label";
 
 function renderSelect(props: {
   value?: string;

@@ -1,6 +1,6 @@
 # WCAG 2.2 AA Requirements
 
-WCAG 2.2 AA compliance is a hard requirement for vault-ui. Not a preference.
+WCAG 2.2 AA compliance is a hard requirement for nuka-ui. Not a preference.
 
 ## Contrast ratios
 
@@ -16,7 +16,7 @@ WCAG 2.2 AA compliance is a hard requirement for vault-ui. Not a preference.
 
 - Focus indicator must have minimum area of the component perimeter × 2px
 - Contrast of focus indicator against adjacent colors: 3:1 minimum
-- vault-ui uses `focus-visible:outline-2 focus-visible:outline-offset-2` — verify the outline color meets 3:1
+- nuka-ui uses `focus-visible:outline-2 focus-visible:outline-offset-2` — verify the outline color meets 3:1
 
 ## Target size (2.5.8 — new in WCAG 2.2)
 

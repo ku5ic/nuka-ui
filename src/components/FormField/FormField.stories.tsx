@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { FormField } from "@vault/components/FormField";
-import { Label } from "@vault/components/Label";
-import { Input } from "@vault/components/Input";
-import { Textarea } from "@vault/components/Textarea";
+import { FormField } from "@nuka/components/FormField";
+import { Label } from "@nuka/components/Label";
+import { Input } from "@nuka/components/Input";
+import { Textarea } from "@nuka/components/Textarea";
 
 const meta = {
   title: "Components/FormField",

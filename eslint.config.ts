@@ -45,7 +45,7 @@ export default defineConfig(
     },
   },
   {
-    files: ["eslint.config.ts"],
+    files: ["eslint.config.ts", "vite.config.ts", "vitest.config.ts"],
     extends: [tseslint.configs.disableTypeChecked],
   },
   {

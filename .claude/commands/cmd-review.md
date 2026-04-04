@@ -16,8 +16,8 @@ Run after `cmd-test` passes clean. Act as a senior peer reviewer.
 
 3. Check implementation quality:
    - Is `React.forwardRef` used on all DOM-rendering components?
-   - Are all imports using `@vault/*` alias?
-   - Are only `--vault-*` semantic tokens referenced?
+   - Are all imports using `@nuka/*` alias?
+   - Are only `--nuka-*` semantic tokens referenced?
    - Is CVA structured correctly — base, variants, compoundVariants, defaults?
    - Is `cn()` used for className composition everywhere?
    - Are there any unnecessary abstractions?

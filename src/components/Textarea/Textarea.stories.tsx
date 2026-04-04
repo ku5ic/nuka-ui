@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Textarea } from "@vault/components/Textarea";
-import { Label } from "@vault/components/Label";
+import { Textarea } from "@nuka/components/Textarea";
+import { Label } from "@nuka/components/Label";
 
 const meta = {
   title: "Components/Textarea",
@@ -115,7 +115,7 @@ export const WithError: Story = {
       />
       <p
         id="textarea-error"
-        style={{ fontSize: "0.875rem", color: "var(--vault-danger-text)", margin: 0 }}
+        style={{ fontSize: "0.875rem", color: "var(--nuka-danger-text)", margin: 0 }}
       >
         Description must be at least 20 characters.
       </p>
@@ -133,7 +133,7 @@ export const MessageField: Story = {
         placeholder="Write your thoughts..."
         rows={5}
       />
-      <p style={{ fontSize: "0.75rem", color: "var(--vault-text-muted)", margin: 0 }}>
+      <p style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)", margin: 0 }}>
         Markdown is supported. Be kind and constructive.
       </p>
     </div>

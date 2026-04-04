@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Input } from "@vault/components/Input";
-import { Label } from "@vault/components/Label";
+import { Input } from "@nuka/components/Input";
+import { Label } from "@nuka/components/Label";
 
 const meta = {
   title: "Components/Input",
@@ -111,7 +111,7 @@ export const WithError: Story = {
       />
       <p
         id="error-message"
-        style={{ fontSize: "0.875rem", color: "var(--vault-danger-text)", margin: 0 }}
+        style={{ fontSize: "0.875rem", color: "var(--nuka-danger-text)", margin: 0 }}
       >
         Please enter a valid email address.
       </p>
@@ -125,7 +125,7 @@ export const FormRow: Story = {
     <div style={{ display: "flex", flexDirection: "column", gap: "0.375rem", width: "20rem" }}>
       <Label htmlFor="name-input">Full name</Label>
       <Input id="name-input" placeholder="Jane Doe" />
-      <p style={{ fontSize: "0.75rem", color: "var(--vault-text-muted)", margin: 0 }}>
+      <p style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)", margin: 0 }}>
         Enter your first and last name.
       </p>
     </div>

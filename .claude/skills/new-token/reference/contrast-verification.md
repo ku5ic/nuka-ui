@@ -23,22 +23,22 @@ AAA (7:1 for normal text) is the target where achievable without compromising ae
 
 When adding a text token, verify against:
 
-- `--vault-bg-base` (primary surface)
-- `--vault-bg-subtle` (secondary surface)
-- `--vault-bg-muted` (tertiary surface)
+- `--nuka-bg-base` (primary surface)
+- `--nuka-bg-subtle` (secondary surface)
+- `--nuka-bg-muted` (tertiary surface)
 
 When adding a background token for a filled component, verify:
 
-- White text (`--vault-text-inverse`) against the new background
-- The background against `--vault-bg-base`
+- White text (`--nuka-text-inverse`) against the new background
+- The background against `--nuka-bg-base`
 
 ## Verified anchor values
 
 | Token                     | Hex        | Luminance       |
 | ------------------------- | ---------- | --------------- |
-| `--vault-accent-500`      | `#43546a`  | 7.74:1 on white |
-| `--vault-bg-base` (light) | `#ffffff`  | —               |
-| `--vault-bg-base` (dark)  | ~`#0d0d0d` | —               |
+| `--nuka-accent-500`      | `#43546a`  | 7.74:1 on white |
+| `--nuka-bg-base` (light) | `#ffffff`  | —               |
+| `--nuka-bg-base` (dark)  | ~`#0d0d0d` | —               |
 
 ## If a color fails contrast
 

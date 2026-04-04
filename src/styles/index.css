@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "./tokens.css";
 
-@keyframes vault-spinner-rotate {
+@keyframes nuka-spinner-rotate {
   from {
     transform: rotate(0deg);
   }
@@ -10,17 +10,17 @@
   }
 }
 
-.vault-spinner {
-  animation: vault-spinner-rotate 750ms linear infinite;
+.nuka-spinner {
+  animation: nuka-spinner-rotate 750ms linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .vault-spinner {
+  .nuka-spinner {
     animation: none;
   }
 }
 
-@keyframes vault-toast-enter {
+@keyframes nuka-toast-enter {
   from {
     opacity: 0;
     transform: translateY(8px) scale(0.96);
@@ -31,7 +31,7 @@
   }
 }
 
-@keyframes vault-toast-exit {
+@keyframes nuka-toast-exit {
   from {
     opacity: 1;
     transform: translateY(0) scale(1);

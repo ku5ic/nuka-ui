@@ -1,9 +1,9 @@
 import * as React from "react";
-import { cva } from "@vault/utils/variants";
-import { cn } from "@vault/utils/cn";
+import { cva } from "@nuka/utils/variants";
+import { cn } from "@nuka/utils/cn";
 
 const skeletonVariants = cva(
-  ["animate-pulse bg-[var(--vault-bg-muted)]"],
+  ["animate-pulse bg-[var(--nuka-bg-muted)]"],
   {
     variants: {
       shape: {

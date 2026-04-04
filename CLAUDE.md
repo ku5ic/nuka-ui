@@ -4,11 +4,11 @@ Context and instructions for Claude Code when working in this repository.
 
 ## Project
 
-vault-ui is a React component library built on Tailwind v4. It abstracts Tailwind utility classes behind a composable component API, customizable via CSS variables and props.
+nuka-ui is a React component library built on Tailwind v4. It abstracts Tailwind utility classes behind a composable component API, customizable via CSS variables and props.
 
 **Stack:** React 19, TypeScript 6 (strict), Tailwind v4, CVA, Storybook 10, Vitest 4, Testing Library  
-**Package:** `vault-ui` on npm  
-**Repo:** github.com/ku5ic/vault-ui
+**Package:** `nuka-ui` on npm  
+**Repo:** github.com/ku5ic/nuka-ui
 
 ## Commands
 
@@ -24,16 +24,16 @@ npm run build         # Vite build + tsc declaration emit
 
 ### Path alias
 
-`@vault/*` maps to `src/*`. Use it everywhere. No relative imports.
+`@nuka/*` maps to `src/*`. Use it everywhere. No relative imports.
 
 ### Token system
 
 Two-layer CSS custom property architecture:
 
 - **Primitive tokens** — raw scale values, no prefix (`--color-accent-500`, `--space-4`)
-- **Semantic tokens** — purpose-driven, `--vault-` prefixed, reference primitives (`--vault-accent-bg`)
+- **Semantic tokens** — purpose-driven, `--nuka-` prefixed, reference primitives (`--nuka-accent-bg`)
 
-Components reference only semantic tokens. Never use raw Tailwind color utilities — always `bg-[var(--vault-accent-bg)]`, never `bg-blue-500`.
+Components reference only semantic tokens. Never use raw Tailwind color utilities — always `bg-[var(--nuka-accent-bg)]`, never `bg-blue-500`.
 
 Theming uses `data-theme` attribute, not classes. Token definitions live in `src/styles/tokens.css`.
 
@@ -105,7 +105,7 @@ Full reasoning is in `docs/DECISIONS.md`. Summary:
 - **Two-layer tokens** — primitives for scale, semantic for meaning, components only reference semantic
 - **`data-theme` attribute** — enables nested themes, no class pollution
 - **No component-level tokens by default** — added per component only when semantic tokens are insufficient
-- **No relative imports** — `@vault/*` alias everywhere for consistency and refactor safety
+- **No relative imports** — `@nuka/*` alias everywhere for consistency and refactor safety
 
 ## Component inventory
 

@@ -11,8 +11,8 @@ import {
   autoUpdate,
 } from "@floating-ui/react";
 import type { Placement } from "@floating-ui/react";
-import { PopoverContext } from "@vault/components/Popover/PopoverContext";
-import type { PopoverContextValue } from "@vault/components/Popover/PopoverContext";
+import { PopoverContext } from "@nuka/components/Popover/PopoverContext";
+import type { PopoverContextValue } from "@nuka/components/Popover/PopoverContext";
 
 export interface PopoverProps {
   children: React.ReactNode;

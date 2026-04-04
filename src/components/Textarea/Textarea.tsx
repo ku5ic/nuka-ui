@@ -1,17 +1,17 @@
 import * as React from "react";
-import { cva, type VariantProps } from "@vault/utils/variants";
-import { cn } from "@vault/utils/cn";
-import { useFormField } from "@vault/components/FormField/FormFieldContext";
+import { cva, type VariantProps } from "@nuka/utils/variants";
+import { cn } from "@nuka/utils/cn";
+import { useFormField } from "@nuka/components/FormField/FormFieldContext";
 
 const textareaVariants = cva(
   [
     "w-full",
     "rounded-[var(--radius-md)]",
     "border",
-    "bg-[var(--vault-input-bg)]",
-    "text-[var(--vault-text-base)]",
-    "placeholder:text-[var(--vault-text-muted)]",
-    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vault-border-focus)]",
+    "bg-[var(--nuka-input-bg)]",
+    "text-[var(--nuka-text-base)]",
+    "placeholder:text-[var(--nuka-text-muted)]",
+    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--nuka-border-focus)]",
     "disabled:cursor-not-allowed disabled:opacity-50",
     "resize-y",
     "transition-colors duration-150",
@@ -19,10 +19,10 @@ const textareaVariants = cva(
   {
     variants: {
       intent: {
-        default: "border-[var(--vault-input-border)] hover:border-[var(--vault-input-border-hover)]",
-        danger: "border-[var(--vault-danger-border)]",
-        success: "border-[var(--vault-success-border)]",
-        warning: "border-[var(--vault-warning-border)]",
+        default: "border-[var(--nuka-input-border)] hover:border-[var(--nuka-input-border-hover)]",
+        danger: "border-[var(--nuka-danger-border)]",
+        success: "border-[var(--nuka-success-border)]",
+        warning: "border-[var(--nuka-warning-border)]",
       },
       size: {
         sm: "px-[var(--space-3)] py-[var(--space-2)] text-xs",

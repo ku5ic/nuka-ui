@@ -80,7 +80,7 @@ describe("Icon", () => {
         </Icon>,
       );
       const cls = screen.getByTestId("icon").className;
-      expect(cls).not.toContain("text-[var(--vault-text-");
+      expect(cls).not.toContain("text-[var(--nuka-text-");
     });
 
     it("color='base' applies correct class", () => {
@@ -90,7 +90,7 @@ describe("Icon", () => {
         </Icon>,
       );
       expect(screen.getByTestId("icon").className).toContain(
-        "text-[var(--vault-text-base)]",
+        "text-[var(--nuka-text-base)]",
       );
     });
 
@@ -101,7 +101,7 @@ describe("Icon", () => {
         </Icon>,
       );
       expect(screen.getByTestId("icon").className).toContain(
-        "text-[var(--vault-text-muted)]",
+        "text-[var(--nuka-text-muted)]",
       );
     });
 
@@ -112,7 +112,7 @@ describe("Icon", () => {
         </Icon>,
       );
       expect(screen.getByTestId("icon").className).toContain(
-        "text-[var(--vault-text-subtle)]",
+        "text-[var(--nuka-text-subtle)]",
       );
     });
 
@@ -123,7 +123,7 @@ describe("Icon", () => {
         </Icon>,
       );
       expect(screen.getByTestId("icon").className).toContain(
-        "text-[var(--vault-text-inverse)]",
+        "text-[var(--nuka-text-inverse)]",
       );
     });
 
@@ -134,7 +134,7 @@ describe("Icon", () => {
         </Icon>,
       );
       expect(screen.getByTestId("icon").className).toContain(
-        "text-[var(--vault-text-disabled)]",
+        "text-[var(--nuka-text-disabled)]",
       );
     });
   });

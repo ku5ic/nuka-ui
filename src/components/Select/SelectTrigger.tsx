@@ -1,8 +1,8 @@
 import * as React from "react";
-import { cva, type VariantProps } from "@vault/utils/variants";
-import { cn } from "@vault/utils/cn";
-import { useSelect } from "@vault/components/Select/SelectContext";
-import { useFormField } from "@vault/components/FormField/FormFieldContext";
+import { cva, type VariantProps } from "@nuka/utils/variants";
+import { cn } from "@nuka/utils/cn";
+import { useSelect } from "@nuka/components/Select/SelectContext";
+import { useFormField } from "@nuka/components/FormField/FormFieldContext";
 
 const selectTriggerVariants = cva(
   [
@@ -10,10 +10,10 @@ const selectTriggerVariants = cva(
     "inline-flex items-center justify-between",
     "rounded-[var(--radius-md)]",
     "border",
-    "bg-[var(--vault-input-bg)]",
-    "text-[var(--vault-text-base)]",
+    "bg-[var(--nuka-input-bg)]",
+    "text-[var(--nuka-text-base)]",
     "text-left",
-    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vault-border-focus)]",
+    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--nuka-border-focus)]",
     "disabled:cursor-not-allowed disabled:opacity-50",
     "transition-colors duration-150",
   ],
@@ -21,10 +21,10 @@ const selectTriggerVariants = cva(
     variants: {
       intent: {
         default:
-          "border-[var(--vault-input-border)] hover:border-[var(--vault-input-border-hover)]",
-        danger: "border-[var(--vault-danger-border)]",
-        success: "border-[var(--vault-success-border)]",
-        warning: "border-[var(--vault-warning-border)]",
+          "border-[var(--nuka-input-border)] hover:border-[var(--nuka-input-border-hover)]",
+        danger: "border-[var(--nuka-danger-border)]",
+        success: "border-[var(--nuka-success-border)]",
+        warning: "border-[var(--nuka-warning-border)]",
       },
       size: {
         sm: "px-[var(--space-3)] py-[var(--space-2)] text-xs",
@@ -331,7 +331,7 @@ const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
         <span
           className={cn(
             "truncate",
-            displayLabel === undefined && "text-[var(--vault-text-muted)]",
+            displayLabel === undefined && "text-[var(--nuka-text-muted)]",
           )}
         >
           {displayLabel ?? placeholder}
@@ -340,7 +340,7 @@ const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
           aria-hidden="true"
           className={cn(
             "h-4 w-4 shrink-0 transition-transform duration-150",
-            "text-[var(--vault-text-muted)]",
+            "text-[var(--nuka-text-muted)]",
             ctx.open && "rotate-180",
           )}
           xmlns="http://www.w3.org/2000/svg"

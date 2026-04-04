@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Label } from "@vault/components/Label";
-import { Input } from "@vault/components/Input";
+import { Label } from "@nuka/components/Label";
+import { Input } from "@nuka/components/Input";
 
 const meta = {
   title: "Components/Label",

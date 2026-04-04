@@ -8,7 +8,7 @@ Co-located with the component: `src/components/<Name>/<Name>.stories.tsx`
 
 ```tsx
 import type { Meta, StoryObj } from "@storybook/react";
-import { ComponentName } from "@vault/components/ComponentName";
+import { ComponentName } from "@nuka/components/ComponentName";
 
 const meta = {
   title: "Components/ComponentName",

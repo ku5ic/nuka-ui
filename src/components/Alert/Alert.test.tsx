@@ -25,14 +25,14 @@ describe("Alert", () => {
     it("applies secondary variant classes by default", () => {
       render(<Alert>Default</Alert>);
       expect(screen.getByRole("alert").className).toContain(
-        "bg-[var(--vault-accent-bg-subtle)]",
+        "bg-[var(--nuka-accent-bg-subtle)]",
       );
     });
 
     it("applies primary variant classes", () => {
       render(<Alert variant="primary">Primary</Alert>);
       expect(screen.getByRole("alert").className).toContain(
-        "bg-[var(--vault-accent-bg)]",
+        "bg-[var(--nuka-accent-bg)]",
       );
     });
 
@@ -52,21 +52,21 @@ describe("Alert", () => {
     it("applies danger intent classes", () => {
       render(<Alert intent="danger">Danger</Alert>);
       expect(screen.getByRole("alert").className).toContain(
-        "bg-[var(--vault-danger-bg)]",
+        "bg-[var(--nuka-danger-bg)]",
       );
     });
 
     it("applies success intent classes", () => {
       render(<Alert intent="success">Success</Alert>);
       expect(screen.getByRole("alert").className).toContain(
-        "bg-[var(--vault-success-bg)]",
+        "bg-[var(--nuka-success-bg)]",
       );
     });
 
     it("applies warning intent classes", () => {
       render(<Alert intent="warning">Warning</Alert>);
       expect(screen.getByRole("alert").className).toContain(
-        "bg-[var(--vault-warning-bg)]",
+        "bg-[var(--nuka-warning-bg)]",
       );
     });
 
@@ -77,8 +77,8 @@ describe("Alert", () => {
         </Alert>,
       );
       const el = screen.getByRole("alert");
-      expect(el.className).toContain("border-[var(--vault-danger-border)]");
-      expect(el.className).toContain("text-[var(--vault-danger-text)]");
+      expect(el.className).toContain("border-[var(--nuka-danger-border)]");
+      expect(el.className).toContain("text-[var(--nuka-danger-text)]");
     });
   });
 
@@ -123,7 +123,7 @@ describe("Alert", () => {
       render(<Alert className="mt-4">Styled</Alert>);
       const el = screen.getByRole("alert");
       expect(el.className).toContain("mt-4");
-      expect(el.className).toContain("bg-[var(--vault-accent-bg-subtle)]");
+      expect(el.className).toContain("bg-[var(--nuka-accent-bg-subtle)]");
     });
   });
 

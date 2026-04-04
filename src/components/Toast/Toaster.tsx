@@ -1,9 +1,9 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
-import { cn } from "@vault/utils/cn"
-import { toast, toastStore } from "@vault/components/Toast/toastStore"
-import type { ToastItem } from "@vault/components/Toast/toastStore"
-import { Toast } from "@vault/components/Toast/Toast"
+import { cn } from "@nuka/utils/cn"
+import { toast, toastStore } from "@nuka/components/Toast/toastStore"
+import type { ToastItem } from "@nuka/components/Toast/toastStore"
+import { Toast } from "@nuka/components/Toast/Toast"
 
 export type ToasterPosition =
   | "top-right"

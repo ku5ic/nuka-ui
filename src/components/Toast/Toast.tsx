@@ -1,7 +1,7 @@
 import * as React from "react"
-import { cva } from "@vault/utils/variants"
-import { cn } from "@vault/utils/cn"
-import type { ToastItem } from "@vault/components/Toast/toastStore"
+import { cva } from "@nuka/utils/variants"
+import { cn } from "@nuka/utils/cn"
+import type { ToastItem } from "@nuka/components/Toast/toastStore"
 
 const toastVariants = cva(
   [
@@ -9,31 +9,31 @@ const toastVariants = cva(
     "w-80 rounded-[var(--radius-md)] border p-[var(--space-4)]",
     "shadow-lg",
     "transition-all duration-300",
-    "data-[state=open]:animate-[vault-toast-enter_200ms_ease-out]",
-    "data-[state=closed]:animate-[vault-toast-exit_300ms_ease-in_forwards]",
+    "data-[state=open]:animate-[nuka-toast-enter_200ms_ease-out]",
+    "data-[state=closed]:animate-[nuka-toast-exit_300ms_ease-in_forwards]",
   ],
   {
     variants: {
       intent: {
         default: [
-          "bg-[var(--vault-bg-base)]",
-          "border-[var(--vault-border-base)]",
-          "text-[var(--vault-text-base)]",
+          "bg-[var(--nuka-bg-base)]",
+          "border-[var(--nuka-border-base)]",
+          "text-[var(--nuka-text-base)]",
         ],
         success: [
-          "bg-[var(--vault-success-bg)]",
-          "border-[var(--vault-success-border)]",
-          "text-[var(--vault-success-text)]",
+          "bg-[var(--nuka-success-bg)]",
+          "border-[var(--nuka-success-border)]",
+          "text-[var(--nuka-success-text)]",
         ],
         danger: [
-          "bg-[var(--vault-danger-bg)]",
-          "border-[var(--vault-danger-border)]",
-          "text-[var(--vault-danger-text)]",
+          "bg-[var(--nuka-danger-bg)]",
+          "border-[var(--nuka-danger-border)]",
+          "text-[var(--nuka-danger-text)]",
         ],
         warning: [
-          "bg-[var(--vault-warning-bg)]",
-          "border-[var(--vault-warning-border)]",
-          "text-[var(--vault-warning-text)]",
+          "bg-[var(--nuka-warning-bg)]",
+          "border-[var(--nuka-warning-border)]",
+          "text-[var(--nuka-warning-text)]",
         ],
       },
     },
@@ -79,7 +79,7 @@ function Toast({ toast: toastItem, onDismiss }: ToastProps) {
           "opacity-60 hover:opacity-100",
           "transition-opacity duration-150 cursor-pointer",
           "focus-visible:outline-2 focus-visible:outline-offset-2",
-          "focus-visible:outline-[var(--vault-border-focus)]",
+          "focus-visible:outline-[var(--nuka-border-focus)]",
         )}
       >
         <span aria-hidden="true">&#10005;</span>

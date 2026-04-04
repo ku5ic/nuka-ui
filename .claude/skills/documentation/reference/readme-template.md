@@ -1,13 +1,13 @@
 # README Template
 
-# vault-ui
+# nuka-ui
 
 A React component library built on Tailwind v4. Clean, composable components customizable via CSS variables and props.
 
 ## Installation
 
 ```bash
-npm install vault-ui
+npm install nuka-ui
 ```
 
 ## Setup
@@ -15,13 +15,13 @@ npm install vault-ui
 Import the styles once at your app entry point:
 
 ```tsx
-import "vault-ui/styles";
+import "nuka-ui/styles";
 ```
 
 ## Usage
 
 ```tsx
-import { Button } from 'vault-ui'
+import { Button } from 'nuka-ui'
 
 <Button variant="primary" intent="default">
   Save changes
@@ -34,7 +34,7 @@ import { Button } from 'vault-ui'
 
 ## Theming
 
-vault-ui uses CSS custom properties for theming. Add `data-theme="light"` or `data-theme="dark"` to your root element:
+nuka-ui uses CSS custom properties for theming. Add `data-theme="light"` or `data-theme="dark"` to your root element:
 
 ```html
 <html data-theme="light"></html>
@@ -44,8 +44,8 @@ Override semantic tokens to customize the design system:
 
 ```css
 [data-theme="light"] {
-  --vault-accent-bg: oklch(44% 0.043 257);
-  --vault-accent-bg-hover: oklch(37.2% 0.044 257);
+  --nuka-accent-bg: oklch(44% 0.043 257);
+  --nuka-accent-bg-hover: oklch(37.2% 0.044 257);
 }
 ```
 

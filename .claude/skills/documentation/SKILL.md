@@ -1,6 +1,6 @@
 # Skill: Documentation
 
-Writes or updates documentation for vault-ui components, tokens, and architecture decisions.
+Writes or updates documentation for nuka-ui components, tokens, and architecture decisions.
 
 Use this skill when adding docs for a new component, updating existing docs, or recording an architecture decision.
 
@@ -25,7 +25,7 @@ Use this skill when adding docs for a new component, updating existing docs, or 
    - Props table — all props with types, defaults, descriptions
    - Variant × intent matrix — what each combination looks like
    - Accessibility notes — role, keyboard behavior, ARIA attributes
-   - Token customization — which `--vault-*` tokens affect this component
+   - Token customization — which `--nuka-*` tokens affect this component
 
 5. Verify all code examples are correct by cross-referencing the component source.
 
@@ -61,7 +61,7 @@ Use this skill when adding docs for a new component, updating existing docs, or 
 2. Read current `README.md` if it exists.
 
 3. Update or create `README.md` at repo root:
-   - What vault-ui is
+   - What nuka-ui is
    - Installation
    - Usage — import CSS, import component, basic example
    - Token customization
@@ -72,4 +72,4 @@ Use this skill when adding docs for a new component, updating existing docs, or 
 
 ## Output
 
-Documentation that is accurate, concise, and useful to a developer encountering vault-ui for the first time. No aspirational content — only document what exists and works.
+Documentation that is accurate, concise, and useful to a developer encountering nuka-ui for the first time. No aspirational content — only document what exists and works.

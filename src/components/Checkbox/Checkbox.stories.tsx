@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Checkbox } from "@vault/components/Checkbox";
-import { FormField } from "@vault/components/FormField";
-import { Label } from "@vault/components/Label";
+import { Checkbox } from "@nuka/components/Checkbox";
+import { FormField } from "@nuka/components/FormField";
+import { Label } from "@nuka/components/Label";
 
 const meta = {
   title: "Components/Checkbox",

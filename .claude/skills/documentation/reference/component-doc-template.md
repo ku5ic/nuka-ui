@@ -7,8 +7,8 @@ One sentence describing what this component is and when to use it.
 ## Usage
 
 ```tsx
-import { ComponentName } from "vault-ui";
-import "vault-ui/styles";
+import { ComponentName } from "nuka-ui";
+import "nuka-ui/styles";
 
 <ComponentName variant="primary" intent="default">
   Label
@@ -43,7 +43,7 @@ Extends all native `<element>` HTML attributes.
 
 - **Role:** `button` (or inherited from child when `asChild` is true)
 - **Keyboard:** Tab to focus, Enter or Space to activate
-- **Focus:** `focus-visible` outline using `--vault-border-focus`
+- **Focus:** `focus-visible` outline using `--nuka-border-focus`
 - **Disabled:** Native `disabled` attribute — removes from tab order, suppresses events
 
 ## Token customization
@@ -52,11 +52,11 @@ Override these semantic tokens to customize appearance:
 
 ```css
 [data-theme="light"] {
-  --vault-accent-bg: /* your color */;
-  --vault-accent-bg-hover: /* your color */;
-  --vault-accent-bg-active: /* your color */;
-  --vault-accent-text: /* your color */;
+  --nuka-accent-bg: /* your color */;
+  --nuka-accent-bg-hover: /* your color */;
+  --nuka-accent-bg-active: /* your color */;
+  --nuka-accent-text: /* your color */;
 }
 ```
 
-All `--vault-*` tokens are available for override. See `src/styles/tokens.css` for the full list.
+All `--nuka-*` tokens are available for override. See `src/styles/tokens.css` for the full list.

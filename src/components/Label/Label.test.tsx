@@ -2,7 +2,7 @@ import * as React from "react";
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { Label } from "./Label";
-import { FormField } from "@vault/components/FormField";
+import { FormField } from "@nuka/components/FormField";
 
 describe("Label", () => {
   describe("rendering", () => {

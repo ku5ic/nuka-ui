@@ -1,6 +1,6 @@
 # Skill: New Component
 
-Creates a new vault-ui component following established architecture patterns.
+Creates a new nuka-ui component following established architecture patterns.
 
 Use this skill when adding any new component to `src/components/`.
 
@@ -29,9 +29,9 @@ Use this skill when adding any new component to `src/components/`.
    - Export type `<ComponentName>VariantProps`
    - Export interface `<ComponentName>Props`
    - Set `displayName`
-   - Import `cva` and `VariantProps` from `@vault/utils/variants`
-   - Import `cn` from `@vault/utils/cn`
-   - Reference only `--vault-*` semantic tokens, never raw Tailwind colors
+   - Import `cva` and `VariantProps` from `@nuka/utils/variants`
+   - Import `cn` from `@nuka/utils/cn`
+   - Reference only `--nuka-*` semantic tokens, never raw Tailwind colors
 
 6. Create `index.ts`:
    - Export component, variants instance, Props type, VariantProps type

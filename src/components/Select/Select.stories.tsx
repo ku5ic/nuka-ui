@@ -1,12 +1,12 @@
 import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { Select } from "@vault/components/Select/Select";
-import { SelectTrigger } from "@vault/components/Select/SelectTrigger";
-import { SelectContent } from "@vault/components/Select/SelectContent";
-import { SelectItem } from "@vault/components/Select/SelectItem";
-import { SelectSeparator } from "@vault/components/Select/SelectSeparator";
-import { FormField } from "@vault/components/FormField";
-import { Label } from "@vault/components/Label";
+import { Select } from "@nuka/components/Select/Select";
+import { SelectTrigger } from "@nuka/components/Select/SelectTrigger";
+import { SelectContent } from "@nuka/components/Select/SelectContent";
+import { SelectItem } from "@nuka/components/Select/SelectItem";
+import { SelectSeparator } from "@nuka/components/Select/SelectSeparator";
+import { FormField } from "@nuka/components/FormField";
+import { Label } from "@nuka/components/Label";
 
 const meta: Meta = {
   title: "Components/Select",
@@ -62,7 +62,7 @@ function ControlledSelect() {
           <SelectItem value="c">Option C</SelectItem>
         </SelectContent>
       </Select>
-      <p style={{ fontSize: "0.875rem", color: "var(--vault-text-muted)", margin: 0 }}>
+      <p style={{ fontSize: "0.875rem", color: "var(--nuka-text-muted)", margin: 0 }}>
         Selected: {value}
       </p>
     </div>

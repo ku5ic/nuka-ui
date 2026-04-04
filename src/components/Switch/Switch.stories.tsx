@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Switch } from "@vault/components/Switch";
-import { FormField } from "@vault/components/FormField";
-import { Label } from "@vault/components/Label";
+import { Switch } from "@nuka/components/Switch";
+import { FormField } from "@nuka/components/FormField";
+import { Label } from "@nuka/components/Label";
 
 const meta = {
   title: "Components/Switch",
@@ -82,7 +82,7 @@ export const NotificationsPanel: Story = {
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <div>
           <div style={{ fontWeight: 500 }}>Email notifications</div>
-          <div style={{ fontSize: "0.875rem", color: "var(--vault-text-muted)" }}>
+          <div style={{ fontSize: "0.875rem", color: "var(--nuka-text-muted)" }}>
             Receive email updates about your account
           </div>
         </div>
@@ -91,7 +91,7 @@ export const NotificationsPanel: Story = {
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <div>
           <div style={{ fontWeight: 500 }}>Push notifications</div>
-          <div style={{ fontSize: "0.875rem", color: "var(--vault-text-muted)" }}>
+          <div style={{ fontSize: "0.875rem", color: "var(--nuka-text-muted)" }}>
             Get push notifications on your device
           </div>
         </div>
@@ -100,7 +100,7 @@ export const NotificationsPanel: Story = {
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <div>
           <div style={{ fontWeight: 500 }}>SMS notifications</div>
-          <div style={{ fontSize: "0.875rem", color: "var(--vault-text-muted)" }}>
+          <div style={{ fontSize: "0.875rem", color: "var(--nuka-text-muted)" }}>
             Receive text messages for critical alerts
           </div>
         </div>
@@ -109,7 +109,7 @@ export const NotificationsPanel: Story = {
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <div>
           <div style={{ fontWeight: 500 }}>Marketing emails</div>
-          <div style={{ fontSize: "0.875rem", color: "var(--vault-text-muted)" }}>
+          <div style={{ fontSize: "0.875rem", color: "var(--nuka-text-muted)" }}>
             Receive news and promotional offers
           </div>
         </div>

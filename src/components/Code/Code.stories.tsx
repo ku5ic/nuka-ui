@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Code } from "@vault/components/Code";
-import { Text } from "@vault/components/Text";
+import { Code } from "@nuka/components/Code";
+import { Text } from "@nuka/components/Text";
 
 const meta = {
   title: "Components/Code",

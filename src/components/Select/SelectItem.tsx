@@ -1,7 +1,7 @@
 import * as React from "react";
-import { cn } from "@vault/utils/cn";
-import { composeRefs } from "@vault/utils/slot";
-import { useSelect } from "@vault/components/Select/SelectContext";
+import { cn } from "@nuka/utils/cn";
+import { composeRefs } from "@nuka/utils/slot";
+import { useSelect } from "@nuka/components/Select/SelectContext";
 
 export interface SelectItemProps {
   value: string;
@@ -57,16 +57,16 @@ const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
           "text-sm",
           "cursor-pointer",
           "select-none",
-          "text-[var(--vault-text-base)]",
+          "text-[var(--nuka-text-base)]",
           disabled && "opacity-50 cursor-not-allowed pointer-events-none",
           isSelected &&
             !isHighlighted &&
-            "bg-[var(--vault-accent-bg-subtle)] text-[var(--vault-accent-text)]",
-          isHighlighted && "bg-[var(--vault-bg-muted)] outline-none",
+            "bg-[var(--nuka-accent-bg-subtle)] text-[var(--nuka-accent-text)]",
+          isHighlighted && "bg-[var(--nuka-bg-muted)] outline-none",
           !isSelected &&
             !isHighlighted &&
             !disabled &&
-            "hover:bg-[var(--vault-bg-muted)]",
+            "hover:bg-[var(--nuka-bg-muted)]",
           className,
         )}
         onClick={handleClick}

@@ -1,9 +1,9 @@
 import * as React from "react";
-import { cva, type VariantProps } from "@vault/utils/variants";
-import { cn } from "@vault/utils/cn";
+import { cva, type VariantProps } from "@nuka/utils/variants";
+import { cn } from "@nuka/utils/cn";
 
 const progressTrackVariants = cva(
-  ["w-full overflow-hidden rounded-full bg-[var(--vault-bg-muted)]"],
+  ["w-full overflow-hidden rounded-full bg-[var(--nuka-bg-muted)]"],
   {
     variants: {
       size: {
@@ -32,19 +32,19 @@ const progressFillVariants = cva(
     compoundVariants: [
       {
         intent: "default",
-        className: "bg-[var(--vault-accent-bg)]",
+        className: "bg-[var(--nuka-accent-bg)]",
       },
       {
         intent: "danger",
-        className: "bg-[var(--vault-danger-base)]",
+        className: "bg-[var(--nuka-danger-base)]",
       },
       {
         intent: "success",
-        className: "bg-[var(--vault-success-base)]",
+        className: "bg-[var(--nuka-success-base)]",
       },
       {
         intent: "warning",
-        className: "bg-[var(--vault-warning-base)]",
+        className: "bg-[var(--nuka-warning-base)]",
       },
     ],
     defaultVariants: {
@@ -83,7 +83,7 @@ const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
           className={cn(
             progressFillVariants({ intent }),
             isIndeterminate &&
-              "w-[33%] vault-progress-indeterminate animate-[vault-progress-indeterminate_1.5s_ease-in-out_infinite]",
+              "w-[33%] nuka-progress-indeterminate animate-[nuka-progress-indeterminate_1.5s_ease-in-out_infinite]",
           )}
           style={isIndeterminate ? undefined : { width: `${String(value)}%` }}
         />

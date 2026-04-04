@@ -25,14 +25,14 @@ describe("Badge", () => {
     it("applies solid variant classes by default", () => {
       render(<Badge>Solid</Badge>);
       expect(screen.getByText("Solid").className).toContain(
-        "bg-[var(--vault-accent-bg)]",
+        "bg-[var(--nuka-accent-bg)]",
       );
     });
 
     it("applies subtle variant classes when specified", () => {
       render(<Badge variant="subtle">Subtle</Badge>);
       expect(screen.getByText("Subtle").className).toContain(
-        "bg-[var(--vault-bg-muted)]",
+        "bg-[var(--nuka-bg-muted)]",
       );
     });
 
@@ -63,21 +63,21 @@ describe("Badge", () => {
     it("applies danger intent classes when specified", () => {
       render(<Badge intent="danger">Danger</Badge>);
       expect(screen.getByText("Danger").className).toContain(
-        "bg-[var(--vault-danger-base)]",
+        "bg-[var(--nuka-danger-base)]",
       );
     });
 
     it("applies success intent classes when specified", () => {
       render(<Badge intent="success">Success</Badge>);
       expect(screen.getByText("Success").className).toContain(
-        "bg-[var(--vault-success-base)]",
+        "bg-[var(--nuka-success-base)]",
       );
     });
 
     it("applies warning intent classes when specified", () => {
       render(<Badge intent="warning">Warning</Badge>);
       expect(screen.getByText("Warning").className).toContain(
-        "bg-[var(--vault-warning-base)]",
+        "bg-[var(--nuka-warning-base)]",
       );
     });
 
@@ -88,8 +88,8 @@ describe("Badge", () => {
         </Badge>,
       );
       const el = screen.getByText("Subtle Danger");
-      expect(el.className).toContain("bg-[var(--vault-danger-bg)]");
-      expect(el.className).toContain("text-[var(--vault-danger-text)]");
+      expect(el.className).toContain("bg-[var(--nuka-danger-bg)]");
+      expect(el.className).toContain("text-[var(--nuka-danger-text)]");
     });
   });
 
@@ -98,7 +98,7 @@ describe("Badge", () => {
       render(<Badge className="mt-4">Badge</Badge>);
       const el = screen.getByText("Badge");
       expect(el.className).toContain("mt-4");
-      expect(el.className).toContain("bg-[var(--vault-accent-bg)]");
+      expect(el.className).toContain("bg-[var(--nuka-accent-bg)]");
     });
   });
 
@@ -141,7 +141,7 @@ describe("Badge", () => {
         </Badge>,
       );
       expect(screen.getByText("WIP").className).toContain(
-        "bg-[var(--vault-accent-bg)]",
+        "bg-[var(--nuka-accent-bg)]",
       );
     });
   });

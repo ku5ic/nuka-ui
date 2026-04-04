@@ -1,10 +1,10 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import { toast, toastStore } from "@vault/components/Toast/toastStore"
-import type { ToastItem } from "@vault/components/Toast/toastStore"
-import { Toast } from "@vault/components/Toast/Toast"
-import { Toaster } from "@vault/components/Toast/Toaster"
+import { toast, toastStore } from "@nuka/components/Toast/toastStore"
+import type { ToastItem } from "@nuka/components/Toast/toastStore"
+import { Toast } from "@nuka/components/Toast/Toast"
+import { Toaster } from "@nuka/components/Toast/Toaster"
 
 // ---------------------------------------------------------------------------
 // Store unit tests
@@ -246,7 +246,7 @@ describe("Toast", () => {
       <Toast toast={{ ...baseToast, intent: "success" }} onDismiss={onDismiss} />,
     )
     const el = screen.getByRole("status")
-    expect(el.className).toContain("bg-[var(--vault-success-bg)]")
+    expect(el.className).toContain("bg-[var(--nuka-success-bg)]")
   })
 
   it("applies intent classes for danger", () => {
@@ -255,7 +255,7 @@ describe("Toast", () => {
       <Toast toast={{ ...baseToast, intent: "danger" }} onDismiss={onDismiss} />,
     )
     const el = screen.getByRole("status")
-    expect(el.className).toContain("bg-[var(--vault-danger-bg)]")
+    expect(el.className).toContain("bg-[var(--nuka-danger-bg)]")
   })
 
   it("applies intent classes for warning", () => {
@@ -264,7 +264,7 @@ describe("Toast", () => {
       <Toast toast={{ ...baseToast, intent: "warning" }} onDismiss={onDismiss} />,
     )
     const el = screen.getByRole("status")
-    expect(el.className).toContain("bg-[var(--vault-warning-bg)]")
+    expect(el.className).toContain("bg-[var(--nuka-warning-bg)]")
   })
 
   it("renders action button when action is provided", () => {

@@ -5,7 +5,7 @@
 ### Layer 1: Primitive tokens
 
 - Live in `:root`
-- No `--vault-` prefix
+- No `--nuka-` prefix
 - Raw scale values only — no semantic meaning
 - Examples: `--color-accent-500`, `--space-4`, `--radius-md`
 - Color format: `oklch()` only
@@ -13,16 +13,16 @@
 ### Layer 2: Semantic tokens
 
 - Live in `:root, [data-theme="light"]` and `[data-theme="dark"]`
-- Always prefixed with `--vault-`
+- Always prefixed with `--nuka-`
 - Always reference primitives via `var()` where possible
 - Express purpose, not appearance
-- Examples: `--vault-accent-bg`, `--vault-text-base`, `--vault-border-focus`
+- Examples: `--nuka-accent-bg`, `--nuka-text-base`, `--nuka-border-focus`
 
 ## Naming convention
 
 ```
---vault-<category>-<role>
---vault-<category>-<role>-<modifier>
+--nuka-<category>-<role>
+--nuka-<category>-<role>-<modifier>
 ```
 
 Categories: `bg`, `text`, `border`, `accent`, `danger`, `success`, `warning`, `info`
@@ -33,19 +33,19 @@ Modifiers: `hover`, `active`, `focus`, `subtle`
 
 ### Surfaces
 
-`--vault-bg-base`, `--vault-bg-subtle`, `--vault-bg-muted`, `--vault-bg-emphasis`
+`--nuka-bg-base`, `--nuka-bg-subtle`, `--nuka-bg-muted`, `--nuka-bg-emphasis`
 
 ### Borders
 
-`--vault-border-base`, `--vault-border-strong`, `--vault-border-focus`
+`--nuka-border-base`, `--nuka-border-strong`, `--nuka-border-focus`
 
 ### Text
 
-`--vault-text-base`, `--vault-text-muted`, `--vault-text-subtle`, `--vault-text-inverse`, `--vault-text-disabled`
+`--nuka-text-base`, `--nuka-text-muted`, `--nuka-text-subtle`, `--nuka-text-inverse`, `--nuka-text-disabled`
 
 ### Accent
 
-`--vault-accent-bg`, `--vault-accent-bg-hover`, `--vault-accent-bg-active`, `--vault-accent-bg-subtle`, `--vault-accent-border`, `--vault-accent-text`
+`--nuka-accent-bg`, `--nuka-accent-bg-hover`, `--nuka-accent-bg-active`, `--nuka-accent-bg-subtle`, `--nuka-accent-border`, `--nuka-accent-text`
 
 ### Feedback (danger, success, warning, info)
 

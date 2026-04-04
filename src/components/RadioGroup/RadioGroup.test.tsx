@@ -4,7 +4,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { RadioGroup } from "./RadioGroup";
 import { Radio } from "./Radio";
-import { FormField } from "@vault/components/FormField";
+import { FormField } from "@nuka/components/FormField";
 
 function noop() { /* empty */ }
 

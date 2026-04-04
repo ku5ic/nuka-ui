@@ -15,8 +15,8 @@ Run after `cmd-plan` is confirmed. Follow the plan exactly — do not improvise.
    - State what is next
 
 4. Follow all conventions from `CLAUDE.md`:
-   - `@vault/*` alias — no relative imports
-   - `--vault-*` semantic tokens only — no raw Tailwind colors
+   - `@nuka/*` alias — no relative imports
+   - `--nuka-*` semantic tokens only — no raw Tailwind colors
    - `React.forwardRef` on all DOM-rendering components
    - Type imports: `import type { ... }`
 

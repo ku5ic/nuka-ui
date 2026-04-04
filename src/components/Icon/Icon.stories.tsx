@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Icon } from "@vault/components/Icon";
-import { Button } from "@vault/components/Button";
-import { Text } from "@vault/components/Text";
+import { Icon } from "@nuka/components/Icon";
+import { Button } from "@nuka/components/Button";
+import { Text } from "@nuka/components/Text";
 
 const MockIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
@@ -112,7 +112,7 @@ export const AllSizes: Story = {
           <span
             style={{
               fontSize: "0.75rem",
-              color: "var(--vault-text-muted)",
+              color: "var(--nuka-text-muted)",
             }}
           >
             {size} ({px})
@@ -167,7 +167,7 @@ export const ColorInverse: Story = {
         style={{
           padding: "1.5rem",
           borderRadius: "var(--radius-lg)",
-          backgroundColor: "var(--vault-bg-emphasis)",
+          backgroundColor: "var(--nuka-bg-emphasis)",
         }}
       >
         <Story />

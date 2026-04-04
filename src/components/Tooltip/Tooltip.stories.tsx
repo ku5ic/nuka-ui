@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import * as React from "react";
-import { Tooltip } from "@vault/components/Tooltip/Tooltip";
-import { TooltipTrigger } from "@vault/components/Tooltip/TooltipTrigger";
-import { TooltipContent } from "@vault/components/Tooltip/TooltipContent";
-import { Button } from "@vault/components/Button";
+import { Tooltip } from "@nuka/components/Tooltip/Tooltip";
+import { TooltipTrigger } from "@nuka/components/Tooltip/TooltipTrigger";
+import { TooltipContent } from "@nuka/components/Tooltip/TooltipContent";
+import { Button } from "@nuka/components/Button";
 
 const meta: Meta = {
   title: "Components/Tooltip",
@@ -112,7 +112,7 @@ export const ControlledOpen: Story = {
     const [open, setOpen] = React.useState(false);
     return (
       <div className="flex flex-col items-center gap-4">
-        <label className="flex items-center gap-2 text-sm text-[var(--vault-text-base)]">
+        <label className="flex items-center gap-2 text-sm text-[var(--nuka-text-base)]">
           <input
             type="checkbox"
             checked={open}
@@ -169,14 +169,14 @@ export const TableRowActions: Story = {
 export const FormFieldHelper: Story = {
   render: () => (
     <div className="flex items-center gap-2">
-      <span className="text-sm font-medium text-[var(--vault-text-base)]">
+      <span className="text-sm font-medium text-[var(--nuka-text-base)]">
         Email address
       </span>
       <Tooltip delay={0}>
         <TooltipTrigger asChild>
           <button
             type="button"
-            className="inline-flex items-center justify-center rounded-full text-[var(--vault-text-muted)] hover:text-[var(--vault-text-base)]"
+            className="inline-flex items-center justify-center rounded-full text-[var(--nuka-text-muted)] hover:text-[var(--nuka-text-base)]"
             aria-label="More info"
           >
             <svg

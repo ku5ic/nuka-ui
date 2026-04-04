@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { RadioGroup } from "@vault/components/RadioGroup/RadioGroup";
-import { Radio } from "@vault/components/RadioGroup/Radio";
-import { FormField } from "@vault/components/FormField";
-import { Label } from "@vault/components/Label";
+import { RadioGroup } from "@nuka/components/RadioGroup/RadioGroup";
+import { Radio } from "@nuka/components/RadioGroup/Radio";
+import { FormField } from "@nuka/components/FormField";
+import { Label } from "@nuka/components/Label";
 
 const meta = {
   title: "Components/RadioGroup",

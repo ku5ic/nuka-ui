@@ -1,7 +1,7 @@
 import * as React from "react";
-import { Slot } from "@vault/utils/slot";
-import { cva, type VariantProps } from "@vault/utils/variants";
-import { cn } from "@vault/utils/cn";
+import { Slot } from "@nuka/utils/slot";
+import { cva, type VariantProps } from "@nuka/utils/variants";
+import { cn } from "@nuka/utils/cn";
 
 const buttonVariants = cva(
   [
@@ -11,7 +11,7 @@ const buttonVariants = cva(
     "border",
     "transition-colors duration-150",
     "focus-visible:outline-2 focus-visible:outline-offset-2",
-    "focus-visible:outline-[var(--vault-border-focus)]",
+    "focus-visible:outline-[var(--nuka-border-focus)]",
     "disabled:pointer-events-none disabled:opacity-50",
     "cursor-pointer",
   ],
@@ -50,18 +50,18 @@ const buttonVariants = cva(
         variant: "primary",
         intent: "default",
         className: [
-          "bg-[var(--vault-accent-bg)]",
-          "text-[var(--vault-text-inverse)]",
-          "hover:bg-[var(--vault-accent-bg-hover)]",
-          "active:bg-[var(--vault-accent-bg-active)]",
+          "bg-[var(--nuka-accent-bg)]",
+          "text-[var(--nuka-text-inverse)]",
+          "hover:bg-[var(--nuka-accent-bg-hover)]",
+          "active:bg-[var(--nuka-accent-bg-active)]",
         ],
       },
       {
         variant: "primary",
         intent: "danger",
         className: [
-          "bg-[var(--vault-danger-base)]",
-          "text-[var(--vault-text-inverse)]",
+          "bg-[var(--nuka-danger-base)]",
+          "text-[var(--nuka-text-inverse)]",
           "hover:brightness-90",
           "active:brightness-80",
         ],
@@ -70,8 +70,8 @@ const buttonVariants = cva(
         variant: "primary",
         intent: "success",
         className: [
-          "bg-[var(--vault-success-base)]",
-          "text-[var(--vault-text-inverse)]",
+          "bg-[var(--nuka-success-base)]",
+          "text-[var(--nuka-text-inverse)]",
           "hover:brightness-90",
           "active:brightness-80",
         ],
@@ -80,8 +80,8 @@ const buttonVariants = cva(
         variant: "primary",
         intent: "warning",
         className: [
-          "bg-[var(--vault-warning-base)]",
-          "text-[var(--vault-text-inverse)]",
+          "bg-[var(--nuka-warning-base)]",
+          "text-[var(--nuka-text-inverse)]",
           "hover:brightness-90",
           "active:brightness-80",
         ],
@@ -92,20 +92,20 @@ const buttonVariants = cva(
         variant: "secondary",
         intent: "default",
         className: [
-          "bg-[var(--vault-bg-muted)]",
-          "text-[var(--vault-text-base)]",
-          "border-[var(--vault-border-base)]",
-          "hover:bg-[var(--vault-bg-subtle)]",
-          "hover:border-[var(--vault-border-strong)]",
+          "bg-[var(--nuka-bg-muted)]",
+          "text-[var(--nuka-text-base)]",
+          "border-[var(--nuka-border-base)]",
+          "hover:bg-[var(--nuka-bg-subtle)]",
+          "hover:border-[var(--nuka-border-strong)]",
         ],
       },
       {
         variant: "secondary",
         intent: "danger",
         className: [
-          "bg-[var(--vault-danger-bg)]",
-          "text-[var(--vault-danger-text)]",
-          "border-[var(--vault-danger-border)]",
+          "bg-[var(--nuka-danger-bg)]",
+          "text-[var(--nuka-danger-text)]",
+          "border-[var(--nuka-danger-border)]",
           "hover:brightness-95",
         ],
       },
@@ -113,9 +113,9 @@ const buttonVariants = cva(
         variant: "secondary",
         intent: "success",
         className: [
-          "bg-[var(--vault-success-bg)]",
-          "text-[var(--vault-success-text)]",
-          "border-[var(--vault-success-border)]",
+          "bg-[var(--nuka-success-bg)]",
+          "text-[var(--nuka-success-text)]",
+          "border-[var(--nuka-success-border)]",
           "hover:brightness-95",
         ],
       },
@@ -123,9 +123,9 @@ const buttonVariants = cva(
         variant: "secondary",
         intent: "warning",
         className: [
-          "bg-[var(--vault-warning-bg)]",
-          "text-[var(--vault-warning-text)]",
-          "border-[var(--vault-warning-border)]",
+          "bg-[var(--nuka-warning-bg)]",
+          "text-[var(--nuka-warning-text)]",
+          "border-[var(--nuka-warning-border)]",
           "hover:brightness-95",
         ],
       },
@@ -135,36 +135,36 @@ const buttonVariants = cva(
         variant: "outline",
         intent: "default",
         className: [
-          "border-[var(--vault-accent-border)]",
-          "text-[var(--vault-accent-text)]",
-          "hover:bg-[var(--vault-accent-bg-subtle)]",
+          "border-[var(--nuka-accent-border)]",
+          "text-[var(--nuka-accent-text)]",
+          "hover:bg-[var(--nuka-accent-bg-subtle)]",
         ],
       },
       {
         variant: "outline",
         intent: "danger",
         className: [
-          "border-[var(--vault-danger-border)]",
-          "text-[var(--vault-danger-text)]",
-          "hover:bg-[var(--vault-danger-bg)]",
+          "border-[var(--nuka-danger-border)]",
+          "text-[var(--nuka-danger-text)]",
+          "hover:bg-[var(--nuka-danger-bg)]",
         ],
       },
       {
         variant: "outline",
         intent: "success",
         className: [
-          "border-[var(--vault-success-border)]",
-          "text-[var(--vault-success-text)]",
-          "hover:bg-[var(--vault-success-bg)]",
+          "border-[var(--nuka-success-border)]",
+          "text-[var(--nuka-success-text)]",
+          "hover:bg-[var(--nuka-success-bg)]",
         ],
       },
       {
         variant: "outline",
         intent: "warning",
         className: [
-          "border-[var(--vault-warning-border)]",
-          "text-[var(--vault-warning-text)]",
-          "hover:bg-[var(--vault-warning-bg)]",
+          "border-[var(--nuka-warning-border)]",
+          "text-[var(--nuka-warning-text)]",
+          "hover:bg-[var(--nuka-warning-bg)]",
         ],
       },
 
@@ -173,32 +173,32 @@ const buttonVariants = cva(
         variant: "ghost",
         intent: "default",
         className: [
-          "text-[var(--vault-text-base)]",
-          "hover:bg-[var(--vault-bg-muted)]",
+          "text-[var(--nuka-text-base)]",
+          "hover:bg-[var(--nuka-bg-muted)]",
         ],
       },
       {
         variant: "ghost",
         intent: "danger",
         className: [
-          "text-[var(--vault-danger-text)]",
-          "hover:bg-[var(--vault-danger-bg)]",
+          "text-[var(--nuka-danger-text)]",
+          "hover:bg-[var(--nuka-danger-bg)]",
         ],
       },
       {
         variant: "ghost",
         intent: "success",
         className: [
-          "text-[var(--vault-success-text)]",
-          "hover:bg-[var(--vault-success-bg)]",
+          "text-[var(--nuka-success-text)]",
+          "hover:bg-[var(--nuka-success-bg)]",
         ],
       },
       {
         variant: "ghost",
         intent: "warning",
         className: [
-          "text-[var(--vault-warning-text)]",
-          "hover:bg-[var(--vault-warning-bg)]",
+          "text-[var(--nuka-warning-text)]",
+          "hover:bg-[var(--nuka-warning-bg)]",
         ],
       },
 
@@ -206,22 +206,22 @@ const buttonVariants = cva(
       {
         variant: "link",
         intent: "default",
-        className: ["text-[var(--vault-accent-text)]"],
+        className: ["text-[var(--nuka-accent-text)]"],
       },
       {
         variant: "link",
         intent: "danger",
-        className: ["text-[var(--vault-danger-text)]"],
+        className: ["text-[var(--nuka-danger-text)]"],
       },
       {
         variant: "link",
         intent: "success",
-        className: ["text-[var(--vault-success-text)]"],
+        className: ["text-[var(--nuka-success-text)]"],
       },
       {
         variant: "link",
         intent: "warning",
-        className: ["text-[var(--vault-warning-text)]"],
+        className: ["text-[var(--nuka-warning-text)]"],
       },
     ],
 

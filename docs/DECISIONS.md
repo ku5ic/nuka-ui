@@ -1,6 +1,6 @@
 # Architecture Decisions
 
-This document records significant architectural decisions made during the development of vault-ui, including context, reasoning, and tradeoffs.
+This document records significant architectural decisions made during the development of nuka-ui, including context, reasoning, and tradeoffs.
 
 ---
 
@@ -50,14 +50,14 @@ CSS custom properties need to serve two masters: design system internals (consis
 
 Two-layer token architecture:
 
-- **Primitive tokens** — raw scale values, no `--vault-` prefix (e.g. `--color-accent-500`, `--space-4`)
-- **Semantic tokens** — purpose-driven, `--vault-` prefixed, reference primitives (e.g. `--vault-accent-bg: var(--color-accent-500)`)
+- **Primitive tokens** — raw scale values, no `--nuka-` prefix (e.g. `--color-accent-500`, `--space-4`)
+- **Semantic tokens** — purpose-driven, `--nuka-` prefixed, reference primitives (e.g. `--nuka-accent-bg: var(--color-accent-500)`)
 
 Components reference only semantic tokens. Consumers can remap semantic tokens without touching primitives.
 
 ### Consequences
 
-- Theming is done by overriding `--vault-*` tokens on `[data-theme]`
+- Theming is done by overriding `--nuka-*` tokens on `[data-theme]`
 - Primitives are stable — adding a new color to the scale doesn't affect existing components
 - Component-level tokens are added only when semantic tokens are insufficient
 
@@ -213,7 +213,7 @@ Divider is a visual separator used to divide sections of content. It renders as 
 
 **1. No `variant` or `intent` props**
 
-Divider is structural chrome — it carries no semantic color meaning. Adding `intent` (danger, success, warning) to a line separator would be API noise with no valid use case. Its color comes from `--vault-border-base`, a single neutral token. If a consumer needs a colored divider, `className` is the correct escape hatch.
+Divider is structural chrome — it carries no semantic color meaning. Adding `intent` (danger, success, warning) to a line separator would be API noise with no valid use case. Its color comes from `--nuka-border-base`, a single neutral token. If a consumer needs a colored divider, `className` is the correct escape hatch.
 
 **2. Conditional root element (`<hr>` vs `<div>`)**
 
@@ -258,12 +258,12 @@ Removed all Radix UI dependencies. Implemented `Slot` and `composeRefs` from scr
 
 ### Reasoning
 
-vault-ui is a portfolio project that demonstrates platform-level frontend engineering. Using a third-party primitive for composition — even a small, well-scoped one — obscures understanding of a well-known pattern. The `Slot` contract is stable and the implementation is non-trivial enough to be worth owning: ref composition, event handler merging, className concatenation, and style merging each require deliberate handling.
+nuka-ui is a portfolio project that demonstrates platform-level frontend engineering. Using a third-party primitive for composition — even a small, well-scoped one — obscures understanding of a well-known pattern. The `Slot` contract is stable and the implementation is non-trivial enough to be worth owning: ref composition, event handler merging, className concatenation, and style merging each require deliberate handling.
 
 ### Consequences
 
 - No external UI primitive dependencies remain. All composition behavior is owned, tested, and visible in the repository.
-- Future components that need `asChild` import from `@vault/utils/slot` — no external dependency decision required.
+- Future components that need `asChild` import from `@nuka/utils/slot` — no external dependency decision required.
 - `composeRefs` is available for any component that needs to compose a forwarded ref with an internal ref.
 - The implementation must be maintained internally — any edge cases in Slot behavior are our responsibility.
 
@@ -282,7 +282,7 @@ vault-ui is a portfolio project that demonstrates platform-level frontend engine
 
 ### Context
 
-Avatar needs image loading state management to avoid flash-of-broken-image. When an `<img>` element fails to load, the browser briefly renders a broken image icon before `onError` fires — this is visible to the user and disrupts layout. Radix UI's Avatar primitive handles this natively, but vault-ui has adopted a no-third-party-UI-primitives policy (ADR-009).
+Avatar needs image loading state management to avoid flash-of-broken-image. When an `<img>` element fails to load, the browser briefly renders a broken image icon before `onError` fires — this is visible to the user and disrupts layout. Radix UI's Avatar primitive handles this natively, but nuka-ui has adopted a no-third-party-UI-primitives policy (ADR-009).
 
 ### Decision
 
@@ -332,7 +332,7 @@ The child SVG must always have `aria-hidden="true"` — the accessible name live
 
 **4. No `variant` or `intent`**
 
-Icon has no semantic color role — it is a utility wrapper. Its `color` prop maps directly to `--vault-text-*` tokens with `"inherit"` as the default, meaning the icon inherits `currentColor` from its parent. This is the correct default for inline icons where the parent text color should flow through.
+Icon has no semantic color role — it is a utility wrapper. Its `color` prop maps directly to `--nuka-text-*` tokens with `"inherit"` as the default, meaning the icon inherits `currentColor` from its parent. This is the correct default for inline icons where the parent text color should flow through.
 
 **5. Dual CVA instances (`iconVariants` + `iconColorVariants`)**
 
@@ -364,7 +364,7 @@ The HTML `<kbd>` element is semantically defined as keyboard input. It is the co
 
 **2. No `variant` or `intent` props**
 
-Kbd is structural chrome. It carries no semantic color meaning — `intent="danger"` on a key label has no valid use case. A single visual treatment using `--vault-bg-subtle`, `--vault-border-base`, and `--vault-text-base` is correct. Consumers who need custom color use `className`.
+Kbd is structural chrome. It carries no semantic color meaning — `intent="danger"` on a key label has no valid use case. A single visual treatment using `--nuka-bg-subtle`, `--nuka-border-base`, and `--nuka-text-base` is correct. Consumers who need custom color use `className`.
 
 **3. No `asChild`**
 
@@ -452,7 +452,7 @@ Skeleton is a purely structural component with no semantic color meaning. It has
 
 **4. Progress indeterminate mode — CSS animation with reduced-motion support**
 
-When `value` is `undefined`, Progress enters indeterminate mode with a CSS animation (`vault-progress-indeterminate` keyframe). `aria-valuenow` is genuinely omitted (not set to `undefined` as a string) per the ARIA progressbar specification. `@media (prefers-reduced-motion: reduce)` disables the animation — no JavaScript prop needed.
+When `value` is `undefined`, Progress enters indeterminate mode with a CSS animation (`nuka-progress-indeterminate` keyframe). `aria-valuenow` is genuinely omitted (not set to `undefined` as a string) per the ARIA progressbar specification. `@media (prefers-reduced-motion: reduce)` disables the animation — no JavaScript prop needed.
 
 ### Consequences
 
@@ -513,7 +513,7 @@ These are positioning math problems, not component design problems. Owning them 
 
 ### Context
 
-Tooltip and Popover are the first floating UI components in vault-ui. They share positioning infrastructure (`@floating-ui/react`) but have distinct interaction models, ARIA patterns, and focus management requirements.
+Tooltip and Popover are the first floating UI components in nuka-ui. They share positioning infrastructure (`@floating-ui/react`) but have distinct interaction models, ARIA patterns, and focus management requirements.
 
 ### Decisions
 
@@ -580,7 +580,7 @@ Tooltip and Popover are structural chrome — they carry no semantic color meani
 
 ### Context
 
-Toast is a programmatic notification system. Unlike other vault-ui components, it is invoked imperatively (`toast('message')`) rather than declaratively. This requires a state management pattern that works outside the React render tree.
+Toast is a programmatic notification system. Unlike other nuka-ui components, it is invoked imperatively (`toast('message')`) rather than declaratively. This requires a state management pattern that works outside the React render tree.
 
 ### Decisions
 

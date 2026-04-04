@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Divider } from "@vault/components/Divider";
+import { Divider } from "@nuka/components/Divider";
 
 const meta = {
   title: "Components/Divider",
@@ -105,13 +105,13 @@ export const AllOrientations: Story = {
   render: () => (
     <div style={{ display: "flex", gap: "2rem", alignItems: "stretch" }}>
       <div style={{ width: "16rem", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-        <span style={{ fontSize: "0.875rem", color: "var(--vault-text-muted)" }}>Horizontal</span>
+        <span style={{ fontSize: "0.875rem", color: "var(--nuka-text-muted)" }}>Horizontal</span>
         <Divider />
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-        <span style={{ fontSize: "0.875rem", color: "var(--vault-text-muted)" }}>Vertical</span>
+        <span style={{ fontSize: "0.875rem", color: "var(--nuka-text-muted)" }}>Vertical</span>
         <Divider orientation="vertical" />
-        <span style={{ fontSize: "0.875rem", color: "var(--vault-text-muted)" }}>between</span>
+        <span style={{ fontSize: "0.875rem", color: "var(--nuka-text-muted)" }}>between</span>
       </div>
     </div>
   ),
@@ -121,15 +121,15 @@ export const AllSizes: Story = {
   render: () => (
     <div style={{ width: "24rem", display: "flex", flexDirection: "column", gap: "1.5rem" }}>
       <div>
-        <span style={{ fontSize: "0.75rem", color: "var(--vault-text-muted)" }}>sm (1px)</span>
+        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>sm (1px)</span>
         <Divider size="sm" style={{ marginTop: "0.5rem" }} />
       </div>
       <div>
-        <span style={{ fontSize: "0.75rem", color: "var(--vault-text-muted)" }}>md (1px, default)</span>
+        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>md (1px, default)</span>
         <Divider size="md" style={{ marginTop: "0.5rem" }} />
       </div>
       <div>
-        <span style={{ fontSize: "0.75rem", color: "var(--vault-text-muted)" }}>lg (2px)</span>
+        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>lg (2px)</span>
         <Divider size="lg" style={{ marginTop: "0.5rem" }} />
       </div>
     </div>
@@ -143,18 +143,18 @@ export const PatternSectionSeparator: Story = {
       style={{
         maxWidth: "24rem",
         padding: "1.5rem",
-        border: "1px solid var(--vault-border-base)",
+        border: "1px solid var(--nuka-border-base)",
         borderRadius: "var(--radius-lg)",
-        backgroundColor: "var(--vault-bg-base)",
+        backgroundColor: "var(--nuka-bg-base)",
       }}
     >
       <h3 style={{ margin: 0, fontSize: "1rem", fontWeight: 600 }}>Account settings</h3>
-      <p style={{ margin: "0.5rem 0 0", fontSize: "0.875rem", color: "var(--vault-text-muted)" }}>
+      <p style={{ margin: "0.5rem 0 0", fontSize: "0.875rem", color: "var(--nuka-text-muted)" }}>
         Manage your profile and preferences.
       </p>
       <Divider style={{ margin: "1rem 0" }} />
       <h3 style={{ margin: 0, fontSize: "1rem", fontWeight: 600 }}>Danger zone</h3>
-      <p style={{ margin: "0.5rem 0 0", fontSize: "0.875rem", color: "var(--vault-text-muted)" }}>
+      <p style={{ margin: "0.5rem 0 0", fontSize: "0.875rem", color: "var(--nuka-text-muted)" }}>
         Irreversible actions like account deletion.
       </p>
     </div>
@@ -172,9 +172,9 @@ export const PatternLabeledDivider: Story = {
           padding: "0.625rem 1rem",
           fontSize: "0.875rem",
           fontWeight: 500,
-          border: "1px solid var(--vault-border-base)",
+          border: "1px solid var(--nuka-border-base)",
           borderRadius: "var(--radius-md)",
-          backgroundColor: "var(--vault-bg-base)",
+          backgroundColor: "var(--nuka-bg-base)",
           cursor: "pointer",
         }}
       >
@@ -189,9 +189,9 @@ export const PatternLabeledDivider: Story = {
             width: "100%",
             padding: "0.625rem 0.75rem",
             fontSize: "0.875rem",
-            border: "1px solid var(--vault-border-base)",
+            border: "1px solid var(--nuka-border-base)",
             borderRadius: "var(--radius-md)",
-            backgroundColor: "var(--vault-bg-base)",
+            backgroundColor: "var(--nuka-bg-base)",
             boxSizing: "border-box",
           }}
         />
@@ -202,9 +202,9 @@ export const PatternLabeledDivider: Story = {
             width: "100%",
             padding: "0.625rem 0.75rem",
             fontSize: "0.875rem",
-            border: "1px solid var(--vault-border-base)",
+            border: "1px solid var(--nuka-border-base)",
             borderRadius: "var(--radius-md)",
-            backgroundColor: "var(--vault-bg-base)",
+            backgroundColor: "var(--nuka-bg-base)",
             boxSizing: "border-box",
           }}
         />
@@ -222,17 +222,17 @@ export const PatternVerticalInNav: Story = {
         alignItems: "center",
         gap: "0.75rem",
         padding: "0.5rem 1rem",
-        border: "1px solid var(--vault-border-base)",
+        border: "1px solid var(--nuka-border-base)",
         borderRadius: "var(--radius-md)",
-        backgroundColor: "var(--vault-bg-base)",
+        backgroundColor: "var(--nuka-bg-base)",
         fontSize: "0.875rem",
       }}
     >
       <span style={{ fontWeight: 500 }}>Home</span>
       <span>Projects</span>
       <Divider orientation="vertical" style={{ height: "1.25rem" }} />
-      <span style={{ color: "var(--vault-text-muted)" }}>Settings</span>
-      <span style={{ color: "var(--vault-text-muted)" }}>Help</span>
+      <span style={{ color: "var(--nuka-text-muted)" }}>Settings</span>
+      <span style={{ color: "var(--nuka-text-muted)" }}>Help</span>
     </nav>
   ),
 };

@@ -1,5 +1,5 @@
 /**
- * CVA conventions for vault-ui components
+ * CVA conventions for nuka-ui components
  *
  * Structure every component's variants file as follows:
  *
@@ -16,12 +16,12 @@
  *
  * Token usage:
  *   - Always reference CSS custom properties, never raw Tailwind color utilities
- *   - Correct:   bg-[var(--vault-accent-bg)]
+ *   - Correct:   bg-[var(--nuka-accent-bg)]
  *   - Incorrect: bg-blue-500
  *
  * Class ordering within a variant value:
  *   - Layout first, then visual, then interactive
- *   - e.g. 'px-4 py-2 rounded-md bg-[var(--vault-accent-bg)] hover:bg-[var(--vault-accent-bg-hover)]'
+ *   - e.g. 'px-4 py-2 rounded-md bg-[var(--nuka-accent-bg)] hover:bg-[var(--nuka-accent-bg-hover)]'
  */
 
 export { cva, type VariantProps } from "class-variance-authority";

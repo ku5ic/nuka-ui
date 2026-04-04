@@ -1,6 +1,6 @@
 import * as React from "react";
-import { SelectContext } from "@vault/components/Select/SelectContext";
-import type { SelectContextValue } from "@vault/components/Select/SelectContext";
+import { SelectContext } from "@nuka/components/Select/SelectContext";
+import type { SelectContextValue } from "@nuka/components/Select/SelectContext";
 
 export interface SelectProps {
   children: React.ReactNode;

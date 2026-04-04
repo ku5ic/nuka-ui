@@ -11,13 +11,13 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
-      "@vault": resolve(__dirname, "./src/"),
+      "@nuka": resolve(__dirname, "./src/"),
     },
   },
   build: {
     lib: {
       entry: resolve(__dirname, "src/index.ts"),
-      name: "VaultUI",
+      name: "NukaUI",
       formats: ["es", "cjs"],
       fileName: (format) => `index.${format === "es" ? "js" : "cjs"}`,
     },
@@ -29,7 +29,7 @@ export default defineConfig({
           "react-dom": "ReactDOM",
         },
         assetFileNames: (assetInfo) => {
-          const name = assetInfo.names?.[0];
+          const name = assetInfo.names[0];
           if (name === "style.css") return "styles.css";
           return name ?? "asset";
         },

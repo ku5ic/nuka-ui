@@ -1,15 +1,15 @@
 import * as React from "react";
-import { cva, type VariantProps } from "@vault/utils/variants";
-import { cn } from "@vault/utils/cn";
+import { cva, type VariantProps } from "@nuka/utils/variants";
+import { cn } from "@nuka/utils/cn";
 
 const kbdVariants = cva(
   [
     "inline-flex items-center justify-center",
     "font-mono",
     "rounded-[var(--radius-sm)]",
-    "border border-[var(--vault-border-base)]",
-    "bg-[var(--vault-bg-subtle)]",
-    "text-[var(--vault-text-base)]",
+    "border border-[var(--nuka-border-base)]",
+    "bg-[var(--nuka-bg-subtle)]",
+    "text-[var(--nuka-text-base)]",
   ],
   {
     variants: {

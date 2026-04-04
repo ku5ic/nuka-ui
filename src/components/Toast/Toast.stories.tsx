@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite"
-import { toast } from "@vault/components/Toast/toastStore"
-import { toastStore } from "@vault/components/Toast/toastStore"
-import { Toaster } from "@vault/components/Toast/Toaster"
-import type { ToasterPosition } from "@vault/components/Toast/Toaster"
-import { Button } from "@vault/components/Button"
+import { toast } from "@nuka/components/Toast/toastStore"
+import { toastStore } from "@nuka/components/Toast/toastStore"
+import { Toaster } from "@nuka/components/Toast/Toaster"
+import type { ToasterPosition } from "@nuka/components/Toast/Toaster"
+import { Button } from "@nuka/components/Button"
 import * as React from "react"
 
 const meta = {
@@ -228,7 +228,7 @@ function UndoActionExample() {
   return (
     <div className="flex flex-col gap-[var(--space-3)]">
       {items.length === 0 && (
-        <p className="text-sm text-[var(--vault-text-muted)]">
+        <p className="text-sm text-[var(--nuka-text-muted)]">
           No items remaining
         </p>
       )}

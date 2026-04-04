@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { cn } from "@vault/utils/cn";
-import { useTooltipContext } from "@vault/components/Tooltip/TooltipContext";
+import { cn } from "@nuka/utils/cn";
+import { useTooltipContext } from "@nuka/components/Tooltip/TooltipContext";
 
 export interface TooltipContentProps
   extends React.HTMLAttributes<HTMLDivElement> {}
@@ -21,7 +21,7 @@ function TooltipContent({ className, ...props }: TooltipContentProps) {
       {...(floatingProps as React.HTMLAttributes<HTMLDivElement>)}
       className={cn(
         "z-50 max-w-xs rounded-[var(--radius-md)] px-[var(--space-2)] py-[var(--space-1)]",
-        "text-xs bg-[var(--vault-bg-emphasis)] text-[var(--vault-text-inverse)]",
+        "text-xs bg-[var(--nuka-bg-emphasis)] text-[var(--nuka-text-inverse)]",
         "shadow-md pointer-events-none",
         className,
       )}

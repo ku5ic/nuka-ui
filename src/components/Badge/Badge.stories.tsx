@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Badge } from "@vault/components/Badge";
+import { Badge } from "@nuka/components/Badge";
 
 const meta = {
   title: "Components/Badge",

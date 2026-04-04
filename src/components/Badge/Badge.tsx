@@ -1,7 +1,7 @@
 import * as React from "react";
-import { Slot } from "@vault/utils/slot";
-import { cva, type VariantProps } from "@vault/utils/variants";
-import { cn } from "@vault/utils/cn";
+import { Slot } from "@nuka/utils/slot";
+import { cva, type VariantProps } from "@nuka/utils/variants";
+import { cn } from "@nuka/utils/cn";
 
 const badgeVariants = cva(
   [
@@ -35,32 +35,32 @@ const badgeVariants = cva(
         variant: "solid",
         intent: "default",
         className: [
-          "bg-[var(--vault-accent-bg)]",
-          "text-[var(--vault-text-inverse)]",
+          "bg-[var(--nuka-accent-bg)]",
+          "text-[var(--nuka-text-inverse)]",
         ],
       },
       {
         variant: "solid",
         intent: "danger",
         className: [
-          "bg-[var(--vault-danger-base)]",
-          "text-[var(--vault-text-inverse)]",
+          "bg-[var(--nuka-danger-base)]",
+          "text-[var(--nuka-text-inverse)]",
         ],
       },
       {
         variant: "solid",
         intent: "success",
         className: [
-          "bg-[var(--vault-success-base)]",
-          "text-[var(--vault-text-inverse)]",
+          "bg-[var(--nuka-success-base)]",
+          "text-[var(--nuka-text-inverse)]",
         ],
       },
       {
         variant: "solid",
         intent: "warning",
         className: [
-          "bg-[var(--vault-warning-base)]",
-          "text-[var(--vault-text-inverse)]",
+          "bg-[var(--nuka-warning-base)]",
+          "text-[var(--nuka-text-inverse)]",
         ],
       },
 
@@ -69,32 +69,32 @@ const badgeVariants = cva(
         variant: "subtle",
         intent: "default",
         className: [
-          "bg-[var(--vault-bg-muted)]",
-          "text-[var(--vault-text-base)]",
+          "bg-[var(--nuka-bg-muted)]",
+          "text-[var(--nuka-text-base)]",
         ],
       },
       {
         variant: "subtle",
         intent: "danger",
         className: [
-          "bg-[var(--vault-danger-bg)]",
-          "text-[var(--vault-danger-text)]",
+          "bg-[var(--nuka-danger-bg)]",
+          "text-[var(--nuka-danger-text)]",
         ],
       },
       {
         variant: "subtle",
         intent: "success",
         className: [
-          "bg-[var(--vault-success-bg)]",
-          "text-[var(--vault-success-text)]",
+          "bg-[var(--nuka-success-bg)]",
+          "text-[var(--nuka-success-text)]",
         ],
       },
       {
         variant: "subtle",
         intent: "warning",
         className: [
-          "bg-[var(--vault-warning-bg)]",
-          "text-[var(--vault-warning-text)]",
+          "bg-[var(--nuka-warning-bg)]",
+          "text-[var(--nuka-warning-text)]",
         ],
       },
 
@@ -103,32 +103,32 @@ const badgeVariants = cva(
         variant: "outline",
         intent: "default",
         className: [
-          "border-[var(--vault-accent-border)]",
-          "text-[var(--vault-accent-text)]",
+          "border-[var(--nuka-accent-border)]",
+          "text-[var(--nuka-accent-text)]",
         ],
       },
       {
         variant: "outline",
         intent: "danger",
         className: [
-          "border-[var(--vault-danger-border)]",
-          "text-[var(--vault-danger-text)]",
+          "border-[var(--nuka-danger-border)]",
+          "text-[var(--nuka-danger-text)]",
         ],
       },
       {
         variant: "outline",
         intent: "success",
         className: [
-          "border-[var(--vault-success-border)]",
-          "text-[var(--vault-success-text)]",
+          "border-[var(--nuka-success-border)]",
+          "text-[var(--nuka-success-text)]",
         ],
       },
       {
         variant: "outline",
         intent: "warning",
         className: [
-          "border-[var(--vault-warning-border)]",
-          "text-[var(--vault-warning-text)]",
+          "border-[var(--nuka-warning-border)]",
+          "text-[var(--nuka-warning-text)]",
         ],
       },
     ],

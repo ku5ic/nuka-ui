@@ -11,8 +11,8 @@ import {
   shift,
   autoUpdate,
 } from "@floating-ui/react";
-import { TooltipContext } from "@vault/components/Tooltip/TooltipContext";
-import type { TooltipContextValue } from "@vault/components/Tooltip/TooltipContext";
+import { TooltipContext } from "@nuka/components/Tooltip/TooltipContext";
+import type { TooltipContextValue } from "@nuka/components/Tooltip/TooltipContext";
 
 export interface TooltipProps {
   children: React.ReactNode;

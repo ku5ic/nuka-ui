@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Progress } from "@vault/components/Progress";
+import { Progress } from "@nuka/components/Progress";
 
 const meta = {
   title: "Components/Progress",

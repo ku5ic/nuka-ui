@@ -155,28 +155,28 @@ describe("Heading", () => {
       render(<Heading>Base</Heading>);
       expect(
         screen.getByRole("heading", { name: "Base" }).className,
-      ).toContain("text-[var(--vault-text-base)]");
+      ).toContain("text-[var(--nuka-text-base)]");
     });
 
     it("applies muted color", () => {
       render(<Heading color="muted">Muted</Heading>);
       expect(
         screen.getByRole("heading", { name: "Muted" }).className,
-      ).toContain("text-[var(--vault-text-muted)]");
+      ).toContain("text-[var(--nuka-text-muted)]");
     });
 
     it("applies danger color", () => {
       render(<Heading color="danger">Danger</Heading>);
       expect(
         screen.getByRole("heading", { name: "Danger" }).className,
-      ).toContain("text-[var(--vault-danger-text)]");
+      ).toContain("text-[var(--nuka-danger-text)]");
     });
 
     it("applies inverse color", () => {
       render(<Heading color="inverse">Inverse</Heading>);
       expect(
         screen.getByRole("heading", { name: "Inverse" }).className,
-      ).toContain("text-[var(--vault-text-inverse)]");
+      ).toContain("text-[var(--nuka-text-inverse)]");
     });
   });
 
@@ -201,7 +201,7 @@ describe("Heading", () => {
       render(<Heading className="mt-8">Styled</Heading>);
       const el = screen.getByRole("heading", { name: "Styled" });
       expect(el.className).toContain("mt-8");
-      expect(el.className).toContain("text-[var(--vault-text-base)]");
+      expect(el.className).toContain("text-[var(--nuka-text-base)]");
     });
   });
 

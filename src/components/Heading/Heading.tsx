@@ -1,11 +1,11 @@
 import * as React from "react";
-import { cva, type VariantProps } from "@vault/utils/variants";
-import { cn } from "@vault/utils/cn";
+import { cva, type VariantProps } from "@nuka/utils/variants";
+import { cn } from "@nuka/utils/cn";
 
 const headingVariants = cva(
   [
     "font-[number:var(--font-weight-bold)]",
-    "text-[var(--vault-text-base)]",
+    "text-[var(--nuka-text-base)]",
   ],
   {
     variants: {
@@ -25,15 +25,15 @@ const headingVariants = cva(
         bold: "font-[number:var(--font-weight-bold)]",
       },
       color: {
-        base: "text-[var(--vault-text-base)]",
-        muted: "text-[var(--vault-text-muted)]",
-        subtle: "text-[var(--vault-text-subtle)]",
-        inverse: "text-[var(--vault-text-inverse)]",
-        disabled: "text-[var(--vault-text-disabled)]",
-        accent: "text-[var(--vault-accent-text)]",
-        danger: "text-[var(--vault-danger-text)]",
-        success: "text-[var(--vault-success-text)]",
-        warning: "text-[var(--vault-warning-text)]",
+        base: "text-[var(--nuka-text-base)]",
+        muted: "text-[var(--nuka-text-muted)]",
+        subtle: "text-[var(--nuka-text-subtle)]",
+        inverse: "text-[var(--nuka-text-inverse)]",
+        disabled: "text-[var(--nuka-text-disabled)]",
+        accent: "text-[var(--nuka-accent-text)]",
+        danger: "text-[var(--nuka-danger-text)]",
+        success: "text-[var(--nuka-success-text)]",
+        warning: "text-[var(--nuka-warning-text)]",
       },
       truncate: {
         true: "truncate",

@@ -1,20 +1,20 @@
-# vault-ui
+# nuka-ui
 
 A production-grade React component library built on Tailwind v4. Composable, accessible, and designed from the ground up with the kind of API and architectural rigour that scales — not just to more components, but to more developers, more products, and more edge cases.
 
-[![npm](https://img.shields.io/npm/v/vault-ui)](https://www.npmjs.com/package/vault-ui)
-[![license](https://img.shields.io/npm/l/vault-ui)](./LICENSE)
-[![storybook](https://img.shields.io/badge/storybook-live-ff4785)](https://ku5ic.github.io/vault-ui)
+[![npm](https://img.shields.io/npm/v/nuka-ui)](https://www.npmjs.com/package/nuka-ui)
+[![license](https://img.shields.io/npm/l/nuka-ui)](./LICENSE)
+[![storybook](https://img.shields.io/badge/storybook-live-ff4785)](https://ku5ic.github.io/nuka-ui)
 [![typescript](https://img.shields.io/badge/TypeScript-strict-3178c6)](./tsconfig.json)
 [![wcag](https://img.shields.io/badge/WCAG_2.2-AA-00857C)](./docs/DECISIONS.md)
 
 ---
 
-## Why vault-ui
+## Why nuka-ui
 
 Most component libraries make one of two mistakes: they either expose too much (every Tailwind class, every CSS variable, infinite flexibility with no guardrails) or too little (hardcoded styles, no theming, take it or leave it).
 
-vault-ui takes a different position. It is opinionated about the things that should be consistent — accessibility, token structure, API shape — and flexible about the things that should be customisable — color, spacing, radius, theming. Every decision has been made deliberately and documented. Nothing is accidental.
+nuka-ui takes a different position. It is opinionated about the things that should be consistent — accessibility, token structure, API shape — and flexible about the things that should be customisable — color, spacing, radius, theming. Every decision has been made deliberately and documented. Nothing is accidental.
 
 **What this project demonstrates:**
 
@@ -45,13 +45,13 @@ vault-ui takes a different position. It is opinionated about the things that sho
 ## Installation
 
 ```bash
-npm install vault-ui
+npm install nuka-ui
 ```
 
 Import the stylesheet once at your application entry point:
 
 ```tsx
-import "vault-ui/styles";
+import "nuka-ui/styles";
 ```
 
 Add `data-theme` to your root element:
@@ -67,7 +67,7 @@ Add `data-theme` to your root element:
 ### Basic
 
 ```tsx
-import { Button } from "vault-ui";
+import { Button } from "nuka-ui";
 
 export function SaveButton() {
   return <Button variant="primary">Save changes</Button>;
@@ -113,7 +113,7 @@ Render as any element or component while preserving all styles and behaviour. Bu
 
 ```tsx
 import { Link } from "react-router-dom";
-import { Button } from "vault-ui";
+import { Button } from "nuka-ui";
 
 // Renders as <a> with full Button styles
 <Button asChild variant="primary">
@@ -137,16 +137,16 @@ const ref = useRef<HTMLButtonElement>(null)
 
 ## Theming
 
-vault-ui uses a two-layer CSS custom property system.
+nuka-ui uses a two-layer CSS custom property system.
 
-**Primitive tokens** define the raw scale — color steps, spacing, radius, typography. They have no semantic meaning and no `--vault-` prefix.
+**Primitive tokens** define the raw scale — color steps, spacing, radius, typography. They have no semantic meaning and no `--nuka-` prefix.
 
-**Semantic tokens** define purpose. They reference primitives and carry the `--vault-` prefix. These are the tokens components actually use.
+**Semantic tokens** define purpose. They reference primitives and carry the `--nuka-` prefix. These are the tokens components actually use.
 
 ```
 --color-accent-500        ← primitive (raw oklch value)
---vault-accent-bg         ← semantic (references the primitive)
-bg-[var(--vault-accent-bg)]  ← component (references the semantic token)
+--nuka-accent-bg         ← semantic (references the primitive)
+bg-[var(--nuka-accent-bg)]  ← component (references the semantic token)
 ```
 
 This indirection means you can retheme the entire library by overriding semantic tokens — without touching a single component file.
@@ -156,16 +156,16 @@ This indirection means you can retheme the entire library by overriding semantic
 ```css
 /* Override semantic tokens on your theme root */
 [data-theme="light"] {
-  --vault-accent-bg: oklch(44% 0.043 257);
-  --vault-accent-bg-hover: oklch(37.2% 0.044 257);
-  --vault-accent-bg-active: oklch(27.9% 0.041 257);
-  --vault-accent-text: oklch(44% 0.043 257);
+  --nuka-accent-bg: oklch(44% 0.043 257);
+  --nuka-accent-bg-hover: oklch(37.2% 0.044 257);
+  --nuka-accent-bg-active: oklch(27.9% 0.041 257);
+  --nuka-accent-text: oklch(44% 0.043 257);
 }
 
 [data-theme="dark"] {
-  --vault-accent-bg: oklch(44% 0.043 257);
-  --vault-accent-bg-hover: oklch(70.4% 0.04 257);
-  --vault-accent-text: oklch(86.9% 0.022 257);
+  --nuka-accent-bg: oklch(44% 0.043 257);
+  --nuka-accent-bg-hover: oklch(70.4% 0.04 257);
+  --nuka-accent-text: oklch(86.9% 0.022 257);
 }
 ```
 
@@ -217,7 +217,7 @@ More components are in development. Each ships only when it meets the same bar a
 ## Button API
 
 ```tsx
-import { Button, type ButtonProps } from "vault-ui";
+import { Button, type ButtonProps } from "nuka-ui";
 ```
 
 | Prop        | Type                                                         | Default     | Description                                        |

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Button } from "@vault/components/Button";
+import { Button } from "@nuka/components/Button";
 
 const meta = {
   title: "Components/Button",

@@ -1,6 +1,6 @@
 import * as React from "react";
-import { cva, type VariantProps } from "@vault/utils/variants";
-import { cn } from "@vault/utils/cn";
+import { cva, type VariantProps } from "@nuka/utils/variants";
+import { cn } from "@nuka/utils/cn";
 
 const iconVariants = cva(
   ["inline-flex", "items-center", "justify-center", "shrink-0"],
@@ -21,11 +21,11 @@ const iconColorVariants = cva([], {
   variants: {
     color: {
       inherit: "",
-      base: "text-[var(--vault-text-base)]",
-      muted: "text-[var(--vault-text-muted)]",
-      subtle: "text-[var(--vault-text-subtle)]",
-      inverse: "text-[var(--vault-text-inverse)]",
-      disabled: "text-[var(--vault-text-disabled)]",
+      base: "text-[var(--nuka-text-base)]",
+      muted: "text-[var(--nuka-text-muted)]",
+      subtle: "text-[var(--nuka-text-subtle)]",
+      inverse: "text-[var(--nuka-text-inverse)]",
+      disabled: "text-[var(--nuka-text-disabled)]",
     },
   },
   defaultVariants: { color: "inherit" },
@@ -46,7 +46,7 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
     if (process.env.NODE_ENV !== "production") {
       if (!React.isValidElement(children)) {
         console.error(
-          "[vault-ui] Icon: children must be a single React element.",
+          "[nuka-ui] Icon: children must be a single React element.",
         );
       }
     }

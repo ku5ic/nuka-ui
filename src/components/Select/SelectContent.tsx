@@ -1,6 +1,6 @@
 import * as React from "react";
-import { cn } from "@vault/utils/cn";
-import { useSelect } from "@vault/components/Select/SelectContext";
+import { cn } from "@nuka/utils/cn";
+import { useSelect } from "@nuka/components/Select/SelectContext";
 
 export interface SelectContentProps {
   className?: string;
@@ -20,8 +20,8 @@ const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps>(
         className={cn(
           "absolute left-0 w-full",
           "z-10",
-          "bg-[var(--vault-bg-base)]",
-          "border border-[var(--vault-border-base)]",
+          "bg-[var(--nuka-bg-base)]",
+          "border border-[var(--nuka-border-base)]",
           "rounded-[var(--radius-md)]",
           "shadow-md",
           "py-[var(--space-1)]",

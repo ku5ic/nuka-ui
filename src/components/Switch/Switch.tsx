@@ -1,7 +1,7 @@
 import * as React from "react";
-import { cva, type VariantProps } from "@vault/utils/variants";
-import { cn } from "@vault/utils/cn";
-import { useFormField } from "@vault/components/FormField/FormFieldContext";
+import { cva, type VariantProps } from "@nuka/utils/variants";
+import { cn } from "@nuka/utils/cn";
+import { useFormField } from "@nuka/components/FormField/FormFieldContext";
 
 const switchVariants = cva(
   [
@@ -11,7 +11,7 @@ const switchVariants = cva(
     "transition-colors duration-150",
     "cursor-pointer",
     "focus-visible:outline-2 focus-visible:outline-offset-2",
-    "focus-visible:outline-[var(--vault-border-focus)]",
+    "focus-visible:outline-[var(--nuka-border-focus)]",
     "disabled:cursor-not-allowed disabled:opacity-50",
   ],
   {
@@ -31,7 +31,7 @@ const switchVariants = cva(
 const switchThumbVariants = cva(
   [
     "block rounded-full",
-    "bg-[var(--vault-text-inverse)]",
+    "bg-[var(--nuka-text-inverse)]",
     "transition-transform duration-150",
     "pointer-events-none",
   ],
@@ -109,8 +109,8 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
           className={cn(
             switchVariants({ size }),
             isChecked
-              ? "bg-[var(--vault-accent-bg)]"
-              : "bg-[var(--vault-border-strong)]",
+              ? "bg-[var(--nuka-accent-bg)]"
+              : "bg-[var(--nuka-border-strong)]",
             className,
           )}
           onClick={handleClick}
@@ -122,7 +122,7 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
           />
         </button>
         {children && (
-          <span className="text-sm text-[var(--vault-text-base)]">{children}</span>
+          <span className="text-sm text-[var(--nuka-text-base)]">{children}</span>
         )}
       </div>
     );

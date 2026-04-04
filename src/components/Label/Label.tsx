@@ -1,6 +1,6 @@
 import * as React from "react";
-import { cn } from "@vault/utils/cn";
-import { useFormField } from "@vault/components/FormField/FormFieldContext";
+import { cn } from "@nuka/utils/cn";
+import { useFormField } from "@nuka/components/FormField/FormFieldContext";
 
 export interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
   required?: boolean;
@@ -20,14 +20,14 @@ const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
         id={resolvedId}
         htmlFor={resolvedHtmlFor}
         className={cn(
-          "text-sm font-medium leading-none text-[var(--vault-text-base)]",
+          "text-sm font-medium leading-none text-[var(--nuka-text-base)]",
           className,
         )}
         {...props}
       >
         {children}
         {resolvedRequired && (
-          <span aria-hidden="true" className="ml-1 text-[var(--vault-danger-text)]">
+          <span aria-hidden="true" className="ml-1 text-[var(--nuka-danger-text)]">
             *
           </span>
         )}

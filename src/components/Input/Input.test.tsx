@@ -2,7 +2,7 @@ import * as React from "react";
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { Input } from "./Input";
-import { FormField } from "@vault/components/FormField";
+import { FormField } from "@nuka/components/FormField";
 
 describe("Input", () => {
   describe("rendering", () => {
@@ -37,28 +37,28 @@ describe("Input", () => {
     it("applies default intent border class", () => {
       const { container } = render(<Input />);
       expect(container.querySelector("input")?.className).toContain(
-        "border-[var(--vault-input-border)]",
+        "border-[var(--nuka-input-border)]",
       );
     });
 
     it("applies danger intent border class", () => {
       const { container } = render(<Input intent="danger" />);
       expect(container.querySelector("input")?.className).toContain(
-        "border-[var(--vault-danger-border)]",
+        "border-[var(--nuka-danger-border)]",
       );
     });
 
     it("applies success intent border class", () => {
       const { container } = render(<Input intent="success" />);
       expect(container.querySelector("input")?.className).toContain(
-        "border-[var(--vault-success-border)]",
+        "border-[var(--nuka-success-border)]",
       );
     });
 
     it("applies warning intent border class", () => {
       const { container } = render(<Input intent="warning" />);
       expect(container.querySelector("input")?.className).toContain(
-        "border-[var(--vault-warning-border)]",
+        "border-[var(--nuka-warning-border)]",
       );
     });
   });
@@ -112,7 +112,7 @@ describe("Input", () => {
       const { container } = render(<Input className="mt-4" />);
       const el = container.querySelector("input");
       expect(el?.className).toContain("mt-4");
-      expect(el?.className).toContain("border-[var(--vault-input-border)]");
+      expect(el?.className).toContain("border-[var(--nuka-input-border)]");
     });
   });
 

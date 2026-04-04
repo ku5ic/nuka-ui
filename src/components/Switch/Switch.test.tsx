@@ -3,7 +3,7 @@ import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Switch } from "./Switch";
-import { FormField } from "@vault/components/FormField";
+import { FormField } from "@nuka/components/FormField";
 
 function noop() { /* empty */ }
 
@@ -119,7 +119,7 @@ describe("Switch", () => {
       render(<Switch aria-label="Toggle" />);
       const el = screen.getByRole("switch", { name: "Toggle" });
       expect(el.className).toContain("focus-visible:outline-2");
-      expect(el.className).toContain("focus-visible:outline-[var(--vault-border-focus)]");
+      expect(el.className).toContain("focus-visible:outline-[var(--nuka-border-focus)]");
     });
   });
 

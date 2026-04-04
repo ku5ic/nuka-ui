@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Spinner } from "@vault/components/Spinner";
+import { Spinner } from "@nuka/components/Spinner";
 
 const meta = {
   title: "Components/Spinner",
@@ -74,7 +74,7 @@ export const ColorInverse: Story = {
         style={{
           padding: "1.5rem",
           borderRadius: "var(--radius-lg)",
-          backgroundColor: "var(--vault-bg-emphasis)",
+          backgroundColor: "var(--nuka-bg-emphasis)",
         }}
       >
         <Story />
@@ -88,15 +88,15 @@ export const AllSizes: Story = {
     <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem" }}>
         <Spinner size="sm" />
-        <span style={{ fontSize: "0.75rem", color: "var(--vault-text-muted)" }}>sm (16px)</span>
+        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>sm (16px)</span>
       </div>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem" }}>
         <Spinner size="md" />
-        <span style={{ fontSize: "0.75rem", color: "var(--vault-text-muted)" }}>md (24px)</span>
+        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>md (24px)</span>
       </div>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem" }}>
         <Spinner size="lg" />
-        <span style={{ fontSize: "0.75rem", color: "var(--vault-text-muted)" }}>lg (32px)</span>
+        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>lg (32px)</span>
       </div>
     </div>
   ),
@@ -135,8 +135,8 @@ export const PatternButtonLoading: Story = {
         padding: "0.625rem 1rem",
         fontSize: "0.875rem",
         fontWeight: 500,
-        color: "var(--vault-text-inverse)",
-        backgroundColor: "var(--vault-accent-bg)",
+        color: "var(--nuka-text-inverse)",
+        backgroundColor: "var(--nuka-accent-bg)",
         borderRadius: "var(--radius-md)",
         cursor: "not-allowed",
         opacity: 0.9,
@@ -160,16 +160,16 @@ export const PatternPageLoading: Story = {
         gap: "1rem",
         height: "16rem",
         width: "24rem",
-        border: "1px solid var(--vault-border-base)",
+        border: "1px solid var(--nuka-border-base)",
         borderRadius: "var(--radius-lg)",
-        backgroundColor: "var(--vault-bg-base)",
+        backgroundColor: "var(--nuka-bg-base)",
       }}
     >
       <Spinner size="lg" label="Loading page" />
       <span
         style={{
           fontSize: "0.875rem",
-          color: "var(--vault-text-muted)",
+          color: "var(--nuka-text-muted)",
         }}
       >
         Loading…

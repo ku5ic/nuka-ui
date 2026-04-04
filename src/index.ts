@@ -1,4 +1,4 @@
-// vault-ui public API
+// nuka-ui public API
 
 export { Alert, alertVariants } from "./components/Alert";
 export type { AlertProps, AlertVariantProps } from "./components/Alert";

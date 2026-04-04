@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Avatar } from "@vault/components/Avatar";
+import { Avatar } from "@nuka/components/Avatar";
 
 const meta = {
   title: "Components/Avatar",
@@ -29,7 +29,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    src: "https://i.pravatar.cc/150?u=vault-ui",
+    src: "https://i.pravatar.cc/150?u=nuka-ui",
     alt: "User avatar",
     size: "md",
     shape: "circle",
@@ -66,7 +66,7 @@ export const AllSizes: Story = {
           <span
             style={{
               fontSize: "0.75rem",
-              color: "var(--vault-text-muted)",
+              color: "var(--nuka-text-muted)",
             }}
           >
             {size}
@@ -103,7 +103,7 @@ export const PatternUserProfile: Story = {
           style={{
             fontSize: "var(--font-size-sm)",
             fontWeight: 500,
-            color: "var(--vault-text-base)",
+            color: "var(--nuka-text-base)",
           }}
         >
           Jane Smith
@@ -111,7 +111,7 @@ export const PatternUserProfile: Story = {
         <span
           style={{
             fontSize: "var(--font-size-xs)",
-            color: "var(--vault-text-muted)",
+            color: "var(--nuka-text-muted)",
           }}
         >
           Product Designer
@@ -148,7 +148,7 @@ export const PatternAvatarStack: Story = {
               {...(user.src ? { src: user.src, alt: user.name } : {})}
               size="sm"
               style={{
-                boxShadow: "0 0 0 2px var(--vault-bg-base)",
+                boxShadow: "0 0 0 2px var(--nuka-bg-base)",
               }}
             />
           </div>

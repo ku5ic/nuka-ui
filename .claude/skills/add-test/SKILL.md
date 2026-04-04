@@ -1,6 +1,6 @@
 # Skill: Add Test
 
-Adds a complete test suite for an existing vault-ui component.
+Adds a complete test suite for an existing nuka-ui component.
 
 Use this skill when adding or completing tests for a component in `src/components/`.
 

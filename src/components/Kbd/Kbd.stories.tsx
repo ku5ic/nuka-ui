@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Kbd } from "@vault/components/Kbd";
+import { Kbd } from "@nuka/components/Kbd";
 
 const meta = {
   title: "Components/Kbd",
@@ -55,15 +55,15 @@ export const AllSizes: Story = {
     <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem" }}>
         <Kbd size="sm">Esc</Kbd>
-        <span style={{ fontSize: "0.75rem", color: "var(--vault-text-muted)" }}>sm</span>
+        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>sm</span>
       </div>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem" }}>
         <Kbd size="md">Tab</Kbd>
-        <span style={{ fontSize: "0.75rem", color: "var(--vault-text-muted)" }}>md</span>
+        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>md</span>
       </div>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem" }}>
         <Kbd size="lg">Enter</Kbd>
-        <span style={{ fontSize: "0.75rem", color: "var(--vault-text-muted)" }}>lg</span>
+        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>lg</span>
       </div>
     </div>
   ),
@@ -74,7 +74,7 @@ export const PatternKeyboardShortcut: Story = {
   render: () => (
     <kbd style={{ display: "inline-flex", alignItems: "center", gap: "0.25rem" }}>
       <Kbd>Ctrl</Kbd>
-      <span style={{ color: "var(--vault-text-muted)" }}>+</span>
+      <span style={{ color: "var(--nuka-text-muted)" }}>+</span>
       <Kbd>K</Kbd>
     </kbd>
   ),
@@ -95,12 +95,12 @@ export const PatternInlineInText: Story = {
       style={{
         fontSize: "0.875rem",
         lineHeight: 1.5,
-        color: "var(--vault-text-base)",
+        color: "var(--nuka-text-base)",
         maxWidth: "28rem",
       }}
     >
       Press <Kbd size="sm">Ctrl</Kbd>
-      <span style={{ color: "var(--vault-text-muted)" }}>+</span>
+      <span style={{ color: "var(--nuka-text-muted)" }}>+</span>
       <Kbd size="sm">K</Kbd> to open the command palette, or press{" "}
       <Kbd size="sm">Esc</Kbd> to close it.
     </p>

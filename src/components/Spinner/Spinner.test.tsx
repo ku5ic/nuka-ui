@@ -68,7 +68,7 @@ describe("Spinner", () => {
       render(<Spinner data-testid="spinner" />);
       const arc = screen.getByTestId("spinner").querySelectorAll("circle")[1];
       expect(arc?.getAttribute("class")).toContain(
-        "stroke-[var(--vault-accent-bg)]",
+        "stroke-[var(--nuka-accent-bg)]",
       );
     });
 
@@ -76,7 +76,7 @@ describe("Spinner", () => {
       render(<Spinner color="muted" data-testid="spinner" />);
       const arc = screen.getByTestId("spinner").querySelectorAll("circle")[1];
       expect(arc?.getAttribute("class")).toContain(
-        "stroke-[var(--vault-text-muted)]",
+        "stroke-[var(--nuka-text-muted)]",
       );
     });
 
@@ -84,14 +84,14 @@ describe("Spinner", () => {
       render(<Spinner color="inverse" data-testid="spinner" />);
       const arc = screen.getByTestId("spinner").querySelectorAll("circle")[1];
       expect(arc?.getAttribute("class")).toContain(
-        "stroke-[var(--vault-text-inverse)]",
+        "stroke-[var(--nuka-text-inverse)]",
       );
     });
 
-    it("track circle always uses --vault-border-base", () => {
+    it("track circle always uses --nuka-border-base", () => {
       render(<Spinner color="inverse" data-testid="spinner" />);
       const track = screen.getByTestId("spinner").querySelectorAll("circle")[0];
-      expect(track?.getAttribute("stroke")).toBe("var(--vault-border-base)");
+      expect(track?.getAttribute("stroke")).toBe("var(--nuka-border-base)");
     });
   });
 

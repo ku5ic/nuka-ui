@@ -11,7 +11,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@vault": resolve(__dirname, "src"),
+      "@nuka": resolve(__dirname, "src"),
     },
   },
   test: {

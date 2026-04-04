@@ -1,6 +1,6 @@
 import * as React from "react";
-import { cva, type VariantProps } from "@vault/utils/variants";
-import { cn } from "@vault/utils/cn";
+import { cva, type VariantProps } from "@nuka/utils/variants";
+import { cn } from "@nuka/utils/cn";
 
 const dividerVariants = cva([], {
   variants: {
@@ -60,7 +60,7 @@ const Divider = React.forwardRef<HTMLElement, DividerProps>(
           role="separator"
           aria-orientation="vertical"
           className={cn(
-            "bg-[var(--vault-border-base)]",
+            "bg-[var(--nuka-border-base)]",
             dividerVariants({ orientation: "vertical", size }),
             className,
           )}
@@ -81,17 +81,17 @@ const Divider = React.forwardRef<HTMLElement, DividerProps>(
         >
           <div
             className={cn(
-              "flex-1 bg-[var(--vault-border-base)]",
+              "flex-1 bg-[var(--nuka-border-base)]",
               dividerVariants({ orientation: "horizontal", size }),
             )}
             aria-hidden="true"
           />
-          <span className="shrink-0 px-[var(--space-2)] text-xs text-[var(--vault-text-muted)] whitespace-nowrap">
+          <span className="shrink-0 px-[var(--space-2)] text-xs text-[var(--nuka-text-muted)] whitespace-nowrap">
             {label}
           </span>
           <div
             className={cn(
-              "flex-1 bg-[var(--vault-border-base)]",
+              "flex-1 bg-[var(--nuka-border-base)]",
               dividerVariants({ orientation: "horizontal", size }),
             )}
             aria-hidden="true"
@@ -108,7 +108,7 @@ const Divider = React.forwardRef<HTMLElement, DividerProps>(
           role="separator"
           aria-orientation="vertical"
           className={cn(
-            "bg-[var(--vault-border-base)]",
+            "bg-[var(--nuka-border-base)]",
             dividerVariants({ orientation: "vertical", size }),
             className,
           )}
@@ -122,7 +122,7 @@ const Divider = React.forwardRef<HTMLElement, DividerProps>(
       <hr
         ref={ref as React.Ref<HTMLHRElement>}
         className={cn(
-          "border-0 bg-[var(--vault-border-base)]",
+          "border-0 bg-[var(--nuka-border-base)]",
           dividerVariants({ orientation: "horizontal", size }),
           className,
         )}

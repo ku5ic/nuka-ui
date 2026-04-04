@@ -1,6 +1,6 @@
 # Skill: Add Story
 
-Adds a complete Storybook story set for an existing vault-ui component.
+Adds a complete Storybook story set for an existing nuka-ui component.
 
 Use this skill when adding or completing stories for a component in `src/components/`.
 

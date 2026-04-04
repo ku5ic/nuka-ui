@@ -1,6 +1,6 @@
 import * as React from "react";
-import { cva, type VariantProps } from "@vault/utils/variants";
-import { cn } from "@vault/utils/cn";
+import { cva, type VariantProps } from "@nuka/utils/variants";
+import { cn } from "@nuka/utils/cn";
 
 const spinnerVariants = cva(
   ["inline-flex items-center justify-center", "shrink-0"],
@@ -21,9 +21,9 @@ const spinnerVariants = cva(
 const spinnerColorVariants = cva([], {
   variants: {
     color: {
-      default: "stroke-[var(--vault-accent-bg)]",
-      muted: "stroke-[var(--vault-text-muted)]",
-      inverse: "stroke-[var(--vault-text-inverse)]",
+      default: "stroke-[var(--nuka-accent-bg)]",
+      muted: "stroke-[var(--nuka-text-muted)]",
+      inverse: "stroke-[var(--nuka-text-inverse)]",
     },
   },
   defaultVariants: {
@@ -74,14 +74,14 @@ const Spinner = React.forwardRef<HTMLSpanElement, SpinnerProps>(
           viewBox="0 0 24 24"
           fill="none"
           aria-hidden="true"
-          className="vault-spinner size-full"
+          className="nuka-spinner size-full"
         >
           {/* Track ring */}
           <circle
             cx="12"
             cy="12"
             r="9"
-            stroke="var(--vault-border-base)"
+            stroke="var(--nuka-border-base)"
             strokeWidth={strokeWidth}
             strokeLinecap="round"
             fill="none"
