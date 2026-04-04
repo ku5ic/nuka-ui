@@ -1,0 +1,63 @@
+import * as React from "react"
+import * as ReactDOM from "react-dom"
+import { cn } from "@vault/utils/cn"
+import { toast, toastStore } from "@vault/components/Toast/toastStore"
+import type { ToastItem } from "@vault/components/Toast/toastStore"
+import { Toast } from "@vault/components/Toast/Toast"
+
+export type ToasterPosition =
+  | "top-right"
+  | "top-left"
+  | "top-center"
+  | "bottom-right"
+  | "bottom-left"
+  | "bottom-center"
+
+const positionClasses: Record<ToasterPosition, string> = {
+  "top-right": "top-0 right-0 items-end",
+  "top-left": "top-0 left-0 items-start",
+  "top-center": "top-0 left-1/2 -translate-x-1/2 items-center",
+  "bottom-right": "bottom-0 right-0 items-end",
+  "bottom-left": "bottom-0 left-0 items-start",
+  "bottom-center": "bottom-0 left-1/2 -translate-x-1/2 items-center",
+}
+
+const emptySnapshot: ToastItem[] = []
+
+export interface ToasterProps {
+  position?: ToasterPosition
+  className?: string
+}
+
+function Toaster({ position = "bottom-right", className }: ToasterProps) {
+  const toasts = React.useSyncExternalStore(
+    toastStore.subscribe,
+    toastStore.getSnapshot,
+    () => emptySnapshot,
+  )
+
+  const visibleToasts = toasts.filter((t) => t.visible)
+
+  if (typeof document === "undefined") return null
+  if (visibleToasts.length === 0) return null
+
+  return ReactDOM.createPortal(
+    <div
+      aria-label="Notifications"
+      className={cn(
+        "fixed z-50 flex flex-col gap-[var(--space-2)] p-[var(--space-4)]",
+        positionClasses[position],
+        className,
+      )}
+    >
+      {visibleToasts.map((t) => (
+        <Toast key={t.id} toast={t} onDismiss={toast.dismiss} />
+      ))}
+    </div>,
+    document.body,
+  )
+}
+
+Toaster.displayName = "Toaster"
+
+export { Toaster }

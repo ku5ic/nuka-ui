@@ -88,3 +88,6 @@ export { Popover, PopoverTrigger, PopoverContent } from "./components/Popover";
 export type { PopoverProps, PopoverTriggerProps, PopoverContentProps } from "./components/Popover";
 export { PopoverContext, usePopoverContext } from "./components/Popover";
 export type { PopoverContextValue } from "./components/Popover";
+
+export { toast, Toast, toastVariants, Toaster } from "./components/Toast";
+export type { ToastItem, ToastIntent, ToastOptions, ToastAction, ToastProps, ToasterProps, ToasterPosition } from "./components/Toast";

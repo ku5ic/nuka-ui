@@ -570,3 +570,52 @@ Tooltip and Popover are structural chrome — they carry no semantic color meani
 - Tooltip and Popover establish the Floating UI integration pattern for all future floating components
 - The clear separation between Tooltip (non-interactive, `role="tooltip"`) and Popover (interactive, `role="dialog"`) prevents misuse — consumers cannot accidentally put interactive content in a tooltip
 - `side` on Tooltip Root (not Content) keeps placement configuration where it belongs — at the `useFloating` call site
+
+---
+
+## ADR-017: Toast — singleton store, no provider, queue design, and action slot
+
+**Date:** 2026-04-04
+**Status:** Accepted
+
+### Context
+
+Toast is a programmatic notification system. Unlike other vault-ui components, it is invoked imperatively (`toast('message')`) rather than declaratively. This requires a state management pattern that works outside the React render tree.
+
+### Decisions
+
+**1. Module-level singleton store instead of Context/Provider**
+
+The store is a plain TypeScript module (`toastStore.ts`) with no React dependency. State lives in a module-level `let state: ToastItem[]` variable. React subscribes via `useSyncExternalStore(store.subscribe, store.getSnapshot)`. This means `toast()` works from event handlers, async callbacks, and non-React code without any provider in the component tree. A Context-based approach would require `<ToastProvider>` wrapping the app, which adds ceremony for no benefit — toast state is inherently global (one notification queue per page).
+
+**2. `useSyncExternalStore` over `useState` + `useEffect`**
+
+`useSyncExternalStore` is React's sanctioned API for reading external mutable state. It handles concurrent mode tearing, server-side rendering (via `getServerSnapshot`), and automatic re-rendering. Using `useState` + `useEffect` to sync external state is fragile and prone to tearing in React 18+ concurrent features.
+
+**3. Queue with max 5 visible toasts**
+
+More than 5 simultaneous toasts overwhelm the user. New toasts beyond the limit are queued (`visible: false`) and promoted FIFO as visible toasts dismiss. The queue is transparent to the consumer — `toast()` always accepts calls regardless of current count. Auto-dismiss timers start when a toast becomes visible, not when it's queued.
+
+**4. `dismissing` flag for exit animation**
+
+When `toast.dismiss(id)` is called, the toast is marked `dismissing: true` (triggering `data-state="closed"` CSS animation) but remains in the DOM for 300ms — the exit animation duration. After 300ms, `remove(id)` filters it from state. This decouples animation timing from React rendering.
+
+**5. `duration: Infinity` for persistent toasts**
+
+`Infinity` is a valid JavaScript number that naturally passes `if (duration === Infinity) return` checks without special-casing string sentinels or nullable types. The timer simply never starts.
+
+**6. `__reset()` — dev/test only, not part of public API**
+
+`toastStore.__reset()` clears all toasts synchronously. It is exported from `toastStore.ts` but intentionally not re-exported from `src/index.ts`. The double-underscore prefix is a conventional signal that this is internal. It is necessary for Storybook story isolation and test `beforeEach` cleanup.
+
+**7. `action` slot on `ToastItem`**
+
+`ToastItem.action` is an optional `{ label: string; onClick: () => void }` that renders an inline action button (e.g., "Undo") in the toast. This is a common real-world pattern that cannot be achieved with message strings alone. The action button dismisses the toast after executing the callback. The slot is minimal — a single label and callback — rather than accepting arbitrary React nodes, which would complicate the store's serializable-friendly shape.
+
+### Consequences
+
+- No `<ToastProvider>` needed — consumers render `<Toaster />` once, call `toast()` anywhere
+- The singleton pattern means only one toast queue per JavaScript context — multiple `<Toaster />` instances would render duplicate toasts (documented, not prevented)
+- `__reset()` must be called in test/story setup to avoid state leaking between tests
+- The `action` slot is additive and does not affect consumers who don't use it
+- CSS keyframes for enter/exit animation live in `src/styles/index.css`, following the Spinner pattern — a `@media (prefers-reduced-motion: reduce)` override disables all `data-state` animations globally

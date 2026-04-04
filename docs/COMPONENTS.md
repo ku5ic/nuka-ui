@@ -49,7 +49,7 @@ Mostly simple. High visual value for the showcase.
 | Component           | Status  | Notes                                                  |
 | ------------------- | ------- | ------------------------------------------------------ |
 | `Alert`             | ✅ Done | Inline feedback. variant + intent. Dismissible option. |
-| `Toast` / `Toaster` | —       | Custom toast with programmatic API.                    |
+| `Toast` / `Toaster` | ✅ Done | Custom toast with programmatic API.                    |
 | `Progress`          | ✅ Done | Linear progress bar. Intent for status.                |
 | `Skeleton`          | ✅ Done | Loading placeholder. Matches shapes of real content.   |
 | `Tooltip`           | ✅ Done | Custom tooltip with positioning.                       |
