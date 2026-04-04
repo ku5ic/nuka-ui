@@ -9,6 +9,9 @@ export type { BadgeProps, BadgeVariantProps } from "./components/Badge";
 export { Button, buttonVariants } from "./components/Button";
 export type { ButtonProps, ButtonVariantProps } from "./components/Button";
 
+export { Code, codeVariants } from "./components/Code";
+export type { CodeProps, CodeVariantProps } from "./components/Code";
+
 export { Divider, dividerVariants } from "./components/Divider";
 export type { DividerProps, DividerVariantProps } from "./components/Divider";
 
