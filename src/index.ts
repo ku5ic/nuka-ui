@@ -16,6 +16,9 @@ export type {
   HeadingElement,
 } from "./components/Heading";
 
+export { Spinner, spinnerVariants, spinnerColorVariants } from "./components/Spinner";
+export type { SpinnerProps, SpinnerVariantProps } from "./components/Spinner";
+
 export { Tag, tagVariants } from "./components/Tag";
 export type { TagProps, TagVariantProps } from "./components/Tag";
 

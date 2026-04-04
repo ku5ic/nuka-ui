@@ -1,2 +1,21 @@
 @import "tailwindcss";
 @import "./tokens.css";
+
+@keyframes vault-spinner-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.vault-spinner {
+  animation: vault-spinner-rotate 750ms linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vault-spinner {
+    animation: none;
+  }
+}
