@@ -28,16 +28,16 @@ No Radix dependency. Pure HTML + CVA + tokens. Build these first.
 
 All require `Label` association and correct ARIA. Build as a group.
 
-| Component              | Status | Notes                                                                  |
-| ---------------------- | ------ | ---------------------------------------------------------------------- |
+| Component              | Status  | Notes                                                                  |
+| ---------------------- | ------- | ---------------------------------------------------------------------- |
 | `Label`                | ✅ Done | Associates with form controls. Required indicator.                     |
 | `Input`                | ✅ Done | Text input. Intent for validation state. Size variants.                |
 | `Textarea`             | ✅ Done | Multi-line input. Same API as Input.                                   |
-| `Select`               | —      | Custom select with keyboard navigation. Styled to match Input.         |
-| `Checkbox`             | —      | Custom checkbox. Intent for validation.                                |
-| `Radio` / `RadioGroup` | —      | Custom radio group.                                                    |
-| `Switch`               | —      | Custom toggle switch.                                                  |
-| `Slider`               | —      | Custom range slider.                                                   |
+| `Select`               | —       | Custom select with keyboard navigation. Styled to match Input.         |
+| `Checkbox`             | ✅ Done | Custom checkbox. Intent for validation.                                |
+| `Radio` / `RadioGroup` | ✅ Done | Custom radio group.                                                    |
+| `Switch`               | ✅ Done | Custom toggle switch.                                                  |
+| `Slider`               | —       | Custom range slider.                                                   |
 | `FormField`            | ✅ Done | Layout wrapper — Label + control + error message. No styling opinions. |
 
 ---
@@ -79,13 +79,13 @@ More complex. Composition patterns. Build after Tier 1–3 are solid.
 
 Built from Tier 1–4 components. Highest complexity, highest value for the showcase.
 
-| Component     | Status | Notes                                                |
-| ------------- | ------ | ---------------------------------------------------- |
-| `Table`       | —      | Sortable, accessible. `thead`/`tbody`/`tfoot`.       |
-| `DataTable`   | —      | Table + pagination + filtering.                      |
-| `CommandMenu` | —      | Keyboard-first search/action palette.                |
-| `DatePicker`  | —      | Popover + calendar.                                  |
-| `Combobox`    | —      | Custom searchable select.                            |
+| Component     | Status | Notes                                          |
+| ------------- | ------ | ---------------------------------------------- |
+| `Table`       | —      | Sortable, accessible. `thead`/`tbody`/`tfoot`. |
+| `DataTable`   | —      | Table + pagination + filtering.                |
+| `CommandMenu` | —      | Keyboard-first search/action palette.          |
+| `DatePicker`  | —      | Popover + calendar.                            |
+| `Combobox`    | —      | Custom searchable select.                      |
 
 ---
 

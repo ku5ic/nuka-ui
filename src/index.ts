@@ -9,6 +9,9 @@ export type { BadgeProps, BadgeVariantProps } from "./components/Badge";
 export { Button, buttonVariants } from "./components/Button";
 export type { ButtonProps, ButtonVariantProps } from "./components/Button";
 
+export { Checkbox, checkboxVariants, checkboxWrapperVariants } from "./components/Checkbox";
+export type { CheckboxProps, CheckboxVariantProps } from "./components/Checkbox";
+
 export { Code, codeVariants } from "./components/Code";
 export type { CodeProps, CodeVariantProps } from "./components/Code";
 
@@ -30,12 +33,22 @@ export type { KbdProps, KbdVariantProps } from "./components/Kbd";
 export { Label } from "./components/Label";
 export type { LabelProps } from "./components/Label";
 
+export { RadioGroup } from "./components/RadioGroup";
+export type { RadioGroupProps } from "./components/RadioGroup";
+export { Radio, radioVariants } from "./components/RadioGroup";
+export type { RadioProps, RadioVariantProps } from "./components/RadioGroup";
+export { RadioGroupContext, useRadioGroup } from "./components/RadioGroup";
+export type { RadioGroupContextValue } from "./components/RadioGroup";
+
 export { Heading, headingVariants } from "./components/Heading";
 export type {
   HeadingProps,
   HeadingVariantProps,
   HeadingElement,
 } from "./components/Heading";
+
+export { Switch, switchVariants, switchThumbVariants } from "./components/Switch";
+export type { SwitchProps, SwitchVariantProps } from "./components/Switch";
 
 export { Spinner, spinnerVariants, spinnerColorVariants } from "./components/Spinner";
 export type { SpinnerProps, SpinnerVariantProps } from "./components/Spinner";
