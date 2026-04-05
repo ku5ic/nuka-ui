@@ -1,6 +1,6 @@
 # nuka-ui
 
-A production-grade React component library built on Tailwind v4. Composable, accessible, and designed from the ground up with the kind of API and architectural rigour that scales — not just to more components, but to more developers, more products, and more edge cases.
+A production-grade React component library built on Tailwind v4. Composable, accessible, and designed from the ground up with the kind of API and architectural rigor that scales to more components, more developers, more products, and more edge cases.
 
 [![npm](https://img.shields.io/npm/v/nuka-ui)](https://www.npmjs.com/package/nuka-ui)
 [![license](https://img.shields.io/npm/l/nuka-ui)](./LICENSE)
@@ -14,14 +14,14 @@ A production-grade React component library built on Tailwind v4. Composable, acc
 
 Most component libraries make one of two mistakes: they either expose too much (every Tailwind class, every CSS variable, infinite flexibility with no guardrails) or too little (hardcoded styles, no theming, take it or leave it).
 
-nuka-ui takes a different position. It is opinionated about the things that should be consistent — accessibility, token structure, API shape — and flexible about the things that should be customisable — color, spacing, radius, theming. Every decision has been made deliberately and documented. Nothing is accidental.
+nuka-ui takes a different position. It is opinionated about the things that should be consistent (accessibility, token structure, API shape) and flexible about the things that should be customizable (color, spacing, radius, theming). Every decision has been made deliberately and documented. Nothing is accidental.
 
 **What this project demonstrates:**
 
 - Component API design that separates concerns correctly from the start, not after a painful refactor
 - A two-layer CSS token architecture that makes theming predictable and safe
 - WCAG 2.2 AA compliance treated as a constraint, not an afterthought
-- TypeScript strict mode with `exactOptionalPropertyTypes` and `noUncheckedIndexedAccess` — the flags most projects turn off
+- TypeScript strict mode with `exactOptionalPropertyTypes` and `noUncheckedIndexedAccess`, the flags most projects turn off
 - A testing discipline that covers behavior, not implementation, with full coverage of the variant system
 - Storybook stories that document real-world usage patterns alongside isolated component states
 
@@ -34,7 +34,7 @@ nuka-ui takes a different position. It is opinionated about the things that shou
 | Framework     | React 19                 |
 | Language      | TypeScript 6 (strict)    |
 | Styling       | Tailwind v4              |
-| Primitives    | Radix UI                 |
+| Positioning   | Floating UI              |
 | Variants      | class-variance-authority |
 | Testing       | Vitest + Testing Library |
 | Documentation | Storybook 10             |
@@ -78,8 +78,8 @@ export function SaveButton() {
 
 Every component exposes two independent style axes:
 
-- `variant` controls **visual weight** — how much attention the component demands
-- `intent` controls **semantic meaning** — what the action communicates
+- `variant` controls **visual weight**: how much attention the component demands
+- `intent` controls **semantic meaning**: what the action communicates
 
 ```tsx
 // Visual weight only
@@ -92,7 +92,7 @@ Every component exposes two independent style axes:
 <Button intent="success">Confirm order</Button>
 <Button intent="warning">Proceed anyway</Button>
 
-// Combined — the real power
+// Combined
 <Button variant="ghost" intent="danger">Remove item</Button>
 <Button variant="outline" intent="success">Mark as complete</Button>
 ```
@@ -109,7 +109,7 @@ This composability means you never need `variant="ghost-danger"` or `variant="ou
 
 ### Polymorphism via `asChild`
 
-Render as any element or component while preserving all styles and behaviour. Built on Radix UI's `Slot` primitive.
+Render as any element or component while preserving all styles and behavior. Built on a first-party `Slot` utility.
 
 ```tsx
 import { Link } from "react-router-dom";
@@ -139,19 +139,19 @@ const ref = useRef<HTMLButtonElement>(null)
 
 nuka-ui uses a two-layer CSS custom property system.
 
-**Primitive tokens** define the raw scale — color steps, spacing, radius, typography. They have no semantic meaning and no `--nuka-` prefix.
+**Primitive tokens** define the raw scale: color steps, spacing, radius, typography. They have no semantic meaning and no `--nuka-` prefix.
 
 **Semantic tokens** define purpose. They reference primitives and carry the `--nuka-` prefix. These are the tokens components actually use.
 
 ```
---color-accent-500        ← primitive (raw oklch value)
---nuka-accent-bg         ← semantic (references the primitive)
-bg-[var(--nuka-accent-bg)]  ← component (references the semantic token)
+--color-accent-500        <- primitive (raw oklch value)
+--nuka-accent-bg         <- semantic (references the primitive)
+bg-[var(--nuka-accent-bg)]  <- component (references the semantic token)
 ```
 
-This indirection means you can retheme the entire library by overriding semantic tokens — without touching a single component file.
+This indirection means you can retheme the entire library by overriding semantic tokens, without touching a single component file.
 
-### Customising the theme
+### Customizing the theme
 
 ```css
 /* Override semantic tokens on your theme root */
@@ -196,9 +196,9 @@ WCAG 2.2 AA compliance is a hard constraint, not a goal. It is verified at the t
 **What this means in practice:**
 
 - All text color tokens are verified at 4.5:1 minimum contrast ratio against their intended backgrounds
-- The primary accent color (`#43546a`) achieves 7.74:1 on white — AAA
+- The primary accent color (`#43546a`) achieves 7.74:1 on white (AAA)
 - Focus indicators meet WCAG 2.2's updated 2.4.11 requirements
-- Interactive target sizes meet 2.5.8 (24×24px minimum)
+- Interactive target sizes meet 2.5.8 (24x24px minimum)
 - `asChild` correctly delegates accessible names to child elements
 - Disabled states use the native `disabled` attribute, not just visual opacity
 
@@ -206,54 +206,80 @@ WCAG 2.2 AA compliance is a hard constraint, not a goal. It is verified at the t
 
 ## Components
 
-| Component | Status    | Description                                                     |
-| --------- | --------- | --------------------------------------------------------------- |
-| `Button`  | ✅ Stable | Actions and form submissions. 5 variants × 4 intents × 3 sizes. |
+### Actions
 
-More components are in development. Each ships only when it meets the same bar as `Button` — full test coverage, Storybook stories, accessibility verified.
+| Component | Description                                                     |
+| --------- | --------------------------------------------------------------- |
+| `Button`  | Actions and form submissions. 5 variants x 4 intents x 3 sizes. |
 
----
+### Typography
 
-## Button API
+| Component | Description                                         |
+| --------- | --------------------------------------------------- |
+| `Heading` | `h1`-`h6` via `as` prop. Semantic size scale.       |
+| `Text`    | Typography component. Size, weight, color variants. |
+| `Code`    | Inline code. Monospace, subtle background.          |
+| `Kbd`     | Keyboard shortcut display.                          |
 
-```tsx
-import { Button, type ButtonProps } from "nuka-ui";
-```
+### Forms
 
-| Prop        | Type                                                         | Default     | Description                                        |
-| ----------- | ------------------------------------------------------------ | ----------- | -------------------------------------------------- |
-| `variant`   | `'primary' \| 'secondary' \| 'outline' \| 'ghost' \| 'link'` | `'primary'` | Visual weight                                      |
-| `intent`    | `'default' \| 'danger' \| 'success' \| 'warning'`            | `'default'` | Semantic color                                     |
-| `size`      | `'sm' \| 'md' \| 'lg'`                                       | `'md'`      | Size scale                                         |
-| `asChild`   | `boolean`                                                    | `false`     | Render as child element via Radix Slot             |
-| `disabled`  | `boolean`                                                    | `false`     | Disabled state                                     |
-| `className` | `string`                                                     | —           | Merged with component classes via `tailwind-merge` |
-| `ref`       | `React.Ref<HTMLButtonElement>`                               | —           | Forwarded to the root element                      |
+| Component    | Description                                                    |
+| ------------ | -------------------------------------------------------------- |
+| `Input`      | Text input. Intent for validation state. Size variants.        |
+| `Textarea`   | Multi-line input. Same API as Input.                           |
+| `Select`     | Custom select with keyboard navigation. Styled to match Input. |
+| `Checkbox`   | Custom checkbox. Intent for validation.                        |
+| `RadioGroup` | Custom radio group.                                            |
+| `Switch`     | Custom toggle switch.                                          |
+| `Slider`     | Custom range slider.                                           |
+| `Label`      | Associates with form controls. Required indicator.             |
+| `FormField`  | Layout wrapper: Label + control + error message.               |
 
-Extends all native `HTMLButtonElement` attributes.
+### Feedback
 
-### Variant × Intent matrix
+| Component  | Description                                            |
+| ---------- | ------------------------------------------------------ |
+| `Alert`    | Inline feedback. variant + intent. Dismissible option. |
+| `Toast`    | Programmatic toast notifications via `Toaster`.        |
+| `Banner`   | Full-width informational strip. Dismissible.           |
+| `Progress` | Linear progress bar. Intent for status.                |
+| `Skeleton` | Loading placeholder. Matches shapes of real content.   |
+| `Spinner`  | Loading indicator. Size variants. Accessible.          |
+| `Tooltip`  | Positioned tooltip with Floating UI.                   |
+| `Popover`  | Positioned popover with Floating UI.                   |
 
-|             | `default`                       | `danger`                    | `success`                    | `warning`                    |
-| ----------- | ------------------------------- | --------------------------- | ---------------------------- | ---------------------------- |
-| `primary`   | Filled accent                   | Filled red                  | Filled green                 | Filled amber                 |
-| `secondary` | Muted bg + border               | Danger tint                 | Success tint                 | Warning tint                 |
-| `outline`   | Transparent + accent border     | Transparent + danger border | Transparent + success border | Transparent + warning border |
-| `ghost`     | Transparent, accent hover       | Transparent, danger hover   | Transparent, success hover   | Transparent, warning hover   |
-| `link`      | Accent text, underline on hover | Danger text                 | Success text                 | Warning text                 |
+### Display
+
+| Component    | Description                                                   |
+| ------------ | ------------------------------------------------------------- |
+| `Badge`      | Inline label. variant + intent. No interactive states.        |
+| `Tag`        | Dismissible Badge variant. Adds close button.                 |
+| `Avatar`     | Image with fallback initials. Size variants.                  |
+| `Icon`       | Wrapper for icon libraries. Size + color tokens.              |
+| `Divider`    | Horizontal/vertical separator. Optional label.                |
+| `EmptyState` | Blank slate. Illustration slot, heading, description, action. |
+| `Timeline`   | Vertical event sequence. Display-only.                        |
+
+### Layout
+
+| Component   | Description                                             |
+| ----------- | ------------------------------------------------------- |
+| `Stack`     | Flex container. `direction`, `gap`, `align`, `justify`. |
+| `Grid`      | Grid container. `cols`, `gap`.                          |
+| `Container` | Max-width centered wrapper. `size` variants.            |
 
 ---
 
 ## Architecture
 
-The key decisions that shaped this library are documented in [`docs/DECISIONS.md`](./docs/DECISIONS.md). Reading it gives you a clear picture of not just what was built, but why — which tradeoffs were accepted, which alternatives were considered, and which decisions are explicitly deferred.
+The key decisions that shaped this library are documented in [`docs/DECISIONS.md`](./docs/DECISIONS.md). Reading it gives a clear picture of not just what was built, but why: which tradeoffs were accepted, which alternatives were considered, and which decisions are explicitly deferred.
 
 Short version:
 
-- **Variant + intent** over flat variants — `ghost` + `danger` is cleaner than `ghost-danger` and scales to any combination
-- **Two-layer tokens** — primitives for scale, semantics for purpose, components touch only semantics
-- **`data-theme` attribute** — enables nested themes and avoids class pollution
-- **No component-level tokens by default** — added only when semantic tokens are genuinely insufficient
+- **Variant + intent**: over flat variants, `ghost` + `danger` is cleaner than `ghost-danger` and scales to any combination
+- **Two-layer tokens**: primitives for scale, semantics for purpose, components touch only semantics
+- **`data-theme` attribute**: enables nested themes and avoids class pollution
+- **No component-level tokens by default**: added only when semantic tokens are genuinely insufficient
 
 ---
 
