@@ -1,5 +1,7 @@
 // nuka-ui public API
 
+export type { Responsive, Breakpoint, GapScale } from "./utils/responsive";
+
 export { Alert, alertVariants } from "./components/Alert";
 export type { AlertProps, AlertVariantProps } from "./components/Alert";
 
@@ -21,7 +23,13 @@ export type { CheckboxProps, CheckboxVariantProps } from "./components/Checkbox"
 export { Code, codeVariants } from "./components/Code";
 export type { CodeProps, CodeVariantProps } from "./components/Code";
 
+export { Container } from "./components/Container";
+export type { ContainerProps, ContainerSize } from "./components/Container";
+
 export { Divider, dividerVariants } from "./components/Divider";
+
+export { Grid } from "./components/Grid";
+export type { GridProps } from "./components/Grid";
 
 export { EmptyState } from "./components/EmptyState";
 export type { EmptyStateProps } from "./components/EmptyState";
@@ -72,6 +80,9 @@ export type {
 
 export { Switch, switchVariants, switchThumbVariants } from "./components/Switch";
 export type { SwitchProps, SwitchVariantProps } from "./components/Switch";
+
+export { Stack } from "./components/Stack";
+export type { StackProps } from "./components/Stack";
 
 export { Spinner, spinnerVariants, spinnerColorVariants } from "./components/Spinner";
 export type { SpinnerProps, SpinnerVariantProps } from "./components/Spinner";

@@ -69,11 +69,11 @@ components that follow — build them first within this tier.
 
 ### Layout primitives
 
-| Component   | Status | Notes                                                   |
-| ----------- | ------ | ------------------------------------------------------- |
-| `Stack`     | —      | Flex container. `direction`, `gap`, `align`, `justify`. |
-| `Grid`      | —      | Grid container. `cols`, `gap`.                          |
-| `Container` | —      | Max-width centered wrapper. `size` variants.            |
+| Component   | Status  | Notes                                                   |
+| ----------- | ------- | ------------------------------------------------------- |
+| `Stack`     | ✅ Done | Flex container. `direction`, `gap`, `align`, `justify`. |
+| `Grid`      | ✅ Done | Grid container. `cols`, `gap`.                          |
+| `Container` | ✅ Done | Max-width centered wrapper. `size` variants.            |
 
 ### Composed components
 

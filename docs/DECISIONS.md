@@ -741,3 +741,66 @@ The vertical connector between items is a `<div>` with `w-px` and `bg-[var(--nuk
 - `<ol>`/`<li>` semantics give screen reader users accurate list structure information
 - Intent on individual items enables mixed-status timelines, the primary use case
 - The `group`/`group-last:hidden` connector approach uses only first-class Tailwind utilities — no custom CSS needed
+
+---
+
+## ADR-021: Responsive prop pattern for layout primitives
+
+**Date:** 2026-04-05
+**Status:** Accepted
+
+### Context
+
+Layout components (Stack, Grid, Container) need per-breakpoint control over direction, gap, column count, alignment, and other geometric properties. A fixed set of props (`direction`, `directionSm`, `directionMd`, ...) causes prop explosion. Inline styles bypass Tailwind's design system integration.
+
+### Decision
+
+Introduce a `Responsive<T>` type that accepts either a scalar value or a breakpoint object:
+
+```ts
+type Breakpoint = "base" | "sm" | "md" | "lg" | "xl" | "2xl";
+type Responsive<T> = T | Partial<Record<Breakpoint, T>>;
+```
+
+Uses Tailwind v4 default breakpoints. The `base` key represents mobile-first defaults (no breakpoint prefix). Both `direction="row"` and `direction={{ base: "column", md: "row" }}` are valid.
+
+### Consequences
+
+- Scalar and object forms both valid — simple cases stay simple, complex cases are possible
+- `resolveResponsiveClasses` utility handles resolution for all layout components
+- All emitted classes must be statically present in source for Tailwind scanning (see ADR-022)
+- Adding new breakpoints would be additive and non-breaking
+
+### Alternatives considered
+
+**Per-breakpoint prop suffixes** (`directionSm`, `directionMd`, ...) — rejected due to prop explosion. Every layout prop would multiply by the number of breakpoints.
+
+**Inline styles** — rejected because they bypass Tailwind's class-based system, lose theming coherence, and make responsive behavior impossible without JavaScript media query listeners.
+
+---
+
+## ADR-022: Lookup table strategy for responsive classes
+
+**Date:** 2026-04-05
+**Status:** Accepted
+
+### Context
+
+Tailwind v4 scans source files for complete class strings at build time. Dynamically constructed class strings (e.g., `` `${prefix}:flex-row` ``) are not detectable by the scanner and will be purged from the output CSS.
+
+### Decision
+
+Use static lookup tables mapping every (breakpoint, prop value) pair to a complete Tailwind class string. A `buildLookup` helper generates breakpoint-keyed records from a base map at module initialization. The `resolveResponsiveClasses` utility resolves `Responsive<T>` values against these tables, returning an array of class strings for `cn()` to spread.
+
+### Consequences
+
+- Every valid class is enumerable and statically present as a complete string literal in source
+- Tables are verbose but explicit and safe — no runtime string construction
+- The utility is independently testable with pure function tests
+- Adding a new prop value or breakpoint requires adding entries to the lookup table — the type system enforces completeness
+
+### Alternatives considered
+
+**CSS custom properties with inline styles** — rejected because it loses Tailwind integration and theming coherence. Gap would need `style={{ gap: 'var(--space-4)' }}` instead of `gap-4`.
+
+**Dynamic string construction** (`` `${bp}:gap-${n}` ``) — rejected because classes are not detectable by Tailwind's scanner and would be purged.
