@@ -61,6 +61,13 @@ export default defineConfig(
     },
   },
   {
+    files: ["**/*.stories.tsx"],
+    rules: {
+      "@typescript-eslint/await-thenable": "off",
+      // disable other typed rules as needed
+    },
+  },
+  {
     ignores: [
       "dist/**",
       "coverage/**",
