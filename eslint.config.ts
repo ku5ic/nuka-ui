@@ -15,7 +15,7 @@ export default defineConfig(
     },
     languageOptions: {
       parserOptions: {
-        projectService: false,
+        projectService: true,
         tsconfigRootDir: import.meta.dirname,
       },
     },
@@ -58,13 +58,6 @@ export default defineConfig(
     rules: {
       "@typescript-eslint/no-non-null-assertion": "off",
       "@typescript-eslint/no-explicit-any": "off",
-    },
-  },
-  {
-    files: ["**/*.stories.tsx"],
-    rules: {
-      "@typescript-eslint/await-thenable": "off",
-      // disable other typed rules as needed
     },
   },
   {
