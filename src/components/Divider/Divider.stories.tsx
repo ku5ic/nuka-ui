@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Divider } from "@nuka/components/Divider";
+import { Heading } from "@nuka/components/Heading";
+import { Text } from "@nuka/components/Text";
 
 const meta = {
-  title: "Components/Divider",
+  title: "Display/Divider",
   component: Divider,
   parameters: {
     layout: "centered",
@@ -139,6 +141,7 @@ export const AllSizes: Story = {
 export const PatternSectionSeparator: Story = {
   name: "Pattern: Section separator",
   render: () => (
+    /* TODO: replace outer div with <Card> once implemented */
     <div
       style={{
         maxWidth: "24rem",
@@ -148,17 +151,32 @@ export const PatternSectionSeparator: Story = {
         backgroundColor: "var(--nuka-bg-base)",
       }}
     >
-      <h3 style={{ margin: 0, fontSize: "1rem", fontWeight: 600 }}>Account settings</h3>
-      <p style={{ margin: "0.5rem 0 0", fontSize: "0.875rem", color: "var(--nuka-text-muted)" }}>
+      <Heading as="h3" size="xl" weight="semibold">Account settings</Heading>
+      <Text size="sm" color="muted" style={{ marginTop: "0.5rem" }}>
         Manage your profile and preferences.
-      </p>
+      </Text>
       <Divider style={{ margin: "1rem 0" }} />
-      <h3 style={{ margin: 0, fontSize: "1rem", fontWeight: 600 }}>Danger zone</h3>
-      <p style={{ margin: "0.5rem 0 0", fontSize: "0.875rem", color: "var(--nuka-text-muted)" }}>
+      <Heading as="h3" size="xl" weight="semibold">Danger zone</Heading>
+      <Text size="sm" color="muted" style={{ marginTop: "0.5rem" }}>
         Irreversible actions like account deletion.
-      </p>
+      </Text>
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Heading as="h3" size="xl" weight="semibold">Account settings</Heading>
+<Text size="sm" color="muted">Manage your profile and preferences.</Text>
+
+<Divider />
+
+<Heading as="h3" size="xl" weight="semibold">Danger zone</Heading>
+<Text size="sm" color="muted">Irreversible actions like account deletion.</Text>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const PatternLabeledDivider: Story = {

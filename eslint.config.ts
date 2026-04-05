@@ -15,7 +15,7 @@ export default defineConfig(
     },
     languageOptions: {
       parserOptions: {
-        projectService: true,
+        projectService: false,
         tsconfigRootDir: import.meta.dirname,
       },
     },
@@ -45,7 +45,12 @@ export default defineConfig(
     },
   },
   {
-    files: ["eslint.config.ts", "vite.config.ts", "vitest.config.ts"],
+    files: [
+      "eslint.config.ts",
+      "vite.config.ts",
+      "vitest.config.ts",
+      ".storybook/*.ts",
+    ],
     extends: [tseslint.configs.disableTypeChecked],
   },
   {

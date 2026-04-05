@@ -6,7 +6,7 @@ import { TooltipContent } from "@nuka/components/Tooltip/TooltipContent";
 import { Button } from "@nuka/components/Button";
 
 const meta: Meta = {
-  title: "Components/Tooltip",
+  title: "Feedback/Tooltip",
   component: Tooltip,
   parameters: {
     layout: "centered",

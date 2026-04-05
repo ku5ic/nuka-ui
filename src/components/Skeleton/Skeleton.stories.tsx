@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Skeleton } from "@nuka/components/Skeleton";
 
 const meta = {
-  title: "Components/Skeleton",
+  title: "Feedback/Skeleton",
   component: Skeleton,
   parameters: {
     layout: "centered",

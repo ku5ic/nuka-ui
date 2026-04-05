@@ -5,7 +5,7 @@ import { Input } from "@nuka/components/Input";
 import { Textarea } from "@nuka/components/Textarea";
 
 const meta = {
-  title: "Components/FormField",
+  title: "Forms/Structure/FormField",
   component: FormField,
   parameters: {
     layout: "centered",

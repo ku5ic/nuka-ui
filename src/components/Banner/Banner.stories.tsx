@@ -1,9 +1,11 @@
 import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { Banner } from "@nuka/components/Banner";
+import { Button } from "@nuka/components/Button";
+import { Stack } from "@nuka/components/Stack";
 
 const meta = {
-  title: "Components/Banner",
+  title: "Feedback/Banner",
   component: Banner,
   parameters: {
     layout: "padded",
@@ -62,9 +64,9 @@ export const Dismissible: Story = {
     const [visible, setVisible] = React.useState(true);
     if (!visible) {
       return (
-        <button type="button" onClick={() => setVisible(true)} style={{ fontSize: 14 }}>
+        <Button variant="ghost" size="sm" onClick={() => setVisible(true)}>
           Show banner again
-        </button>
+        </Button>
       );
     }
     return (
@@ -85,21 +87,7 @@ export const WithAction: Story = {
     "aria-label": "Update notice",
     children: "A new version is available.",
     intent: "default",
-    action: (
-      <button
-        type="button"
-        style={{
-          fontSize: 13,
-          fontWeight: 500,
-          textDecoration: "underline",
-          background: "none",
-          border: "none",
-          cursor: "pointer",
-        }}
-      >
-        Learn more
-      </button>
-    ),
+    action: <Button variant="link" size="sm">Learn more</Button>,
   },
 };
 
@@ -110,30 +98,16 @@ export const WithActionAndDismiss: Story = {
     const [visible, setVisible] = React.useState(true);
     if (!visible) {
       return (
-        <button type="button" onClick={() => setVisible(true)} style={{ fontSize: 14 }}>
+        <Button variant="ghost" size="sm" onClick={() => setVisible(true)}>
           Show banner again
-        </button>
+        </Button>
       );
     }
     return (
       <Banner
         aria-label="Update notice"
         intent="success"
-        action={
-          <button
-            type="button"
-            style={{
-              fontSize: 13,
-              fontWeight: 500,
-              textDecoration: "underline",
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
-            View changelog
-          </button>
-        }
+        action={<Button variant="link" size="sm">View changelog</Button>}
         onDismiss={() => setVisible(false)}
       >
         Deployment complete. All services are operational.
@@ -149,9 +123,9 @@ export const MaintenanceNotice: Story = {
     const [visible, setVisible] = React.useState(true);
     if (!visible) {
       return (
-        <button type="button" onClick={() => setVisible(true)} style={{ fontSize: 14 }}>
+        <Button variant="ghost" size="sm" onClick={() => setVisible(true)}>
           Show banner again
-        </button>
+        </Button>
       );
     }
     return (
@@ -175,41 +149,34 @@ export const CookieConsent: Story = {
       aria-label="Cookie consent"
       intent="default"
       action={
-        <div style={{ display: "flex", gap: "0.5rem" }}>
-          <button
-            type="button"
-            style={{
-              fontSize: 13,
-              fontWeight: 600,
-              padding: "0.25rem 0.75rem",
-              borderRadius: "0.25rem",
-              border: "1px solid currentColor",
-              background: "none",
-              cursor: "pointer",
-            }}
-          >
-            Decline
-          </button>
-          <button
-            type="button"
-            style={{
-              fontSize: 13,
-              fontWeight: 600,
-              padding: "0.25rem 0.75rem",
-              borderRadius: "0.25rem",
-              border: "1px solid transparent",
-              background: "currentColor",
-              color: "white",
-              cursor: "pointer",
-            }}
-          >
-            Accept
-          </button>
-        </div>
+        <Stack direction="row" gap="xs">
+          <Button variant="outline" size="sm">Decline</Button>
+          <Button variant="primary" size="sm">Accept</Button>
+        </Stack>
       }
     >
       We use cookies to improve your experience. By continuing, you agree to our
       cookie policy.
     </Banner>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Banner
+  aria-label="Cookie consent"
+  intent="default"
+  action={
+    <Stack direction="row" gap="xs">
+      <Button variant="outline" size="sm">Decline</Button>
+      <Button variant="primary" size="sm">Accept</Button>
+    </Stack>
+  }
+>
+  We use cookies to improve your experience.
+</Banner>
+        `.trim(),
+      },
+    },
+  },
 };

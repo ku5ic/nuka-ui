@@ -9,7 +9,7 @@ import { FormField } from "@nuka/components/FormField";
 import { Label } from "@nuka/components/Label";
 
 const meta: Meta = {
-  title: "Components/Select",
+  title: "Forms/Inputs/Select",
   component: Select,
   parameters: {
     layout: "centered",

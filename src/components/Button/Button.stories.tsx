@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "@nuka/components/Button";
 
 const meta = {
-  title: "Components/Button",
+  title: "Actions/Button",
   component: Button,
   parameters: {
     layout: "centered",
@@ -176,4 +176,14 @@ export const ConfirmationDialog: Story = {
       </Button>
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Button variant="ghost">Cancel</Button>
+<Button variant="ghost" intent="danger">Delete</Button>
+        `.trim(),
+      },
+    },
+  },
 };

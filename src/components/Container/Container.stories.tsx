@@ -1,7 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Container } from "@nuka/components/Container";
 import { Stack } from "@nuka/components/Stack";
+import { Heading } from "@nuka/components/Heading";
+import { Text } from "@nuka/components/Text";
 
+// Story-only placeholder — demonstrates layout structure, not a nuka-ui component
 const Placeholder = ({ label }: { label: string }) => (
   <div
     style={{
@@ -16,7 +19,7 @@ const Placeholder = ({ label }: { label: string }) => (
 );
 
 const meta = {
-  title: "Components/Container",
+  title: "Layout/Container",
   component: Container,
   parameters: {
     layout: "fullscreen",
@@ -102,6 +105,23 @@ export const Padded: Story = {
       </Container>
     </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+{/* padded (default) */}
+<Container size="md">
+  <p>Content with responsive horizontal padding</p>
+</Container>
+
+{/* padded={false} */}
+<Container size="md" padded={false}>
+  <p>Content without horizontal padding</p>
+</Container>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const Centered: Story = {
@@ -116,6 +136,23 @@ export const Centered: Story = {
       </Container>
     </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+{/* centered (default) */}
+<Container size="md">
+  <p>Centered content</p>
+</Container>
+
+{/* centered={false} */}
+<Container size="md" centered={false}>
+  <p>Left-aligned content</p>
+</Container>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const PageLayout: Story = {
@@ -130,7 +167,8 @@ export const PageLayout: Story = {
           }}
         >
           <Stack direction="row" justify="between" align="center">
-            <div style={{ fontWeight: 700, fontSize: "1.25rem" }}>App Name</div>
+            <Text size="lg" weight="bold">App Name</Text>
+            {/* TODO: replace nav spans with nav link component once implemented */}
             <Stack direction="row" gap="md">
               <span>Home</span>
               <span>About</span>
@@ -140,12 +178,12 @@ export const PageLayout: Story = {
         </header>
         <main>
           <Stack direction="column" gap="md">
-            <h1 style={{ fontSize: "1.5rem", fontWeight: 700 }}>
+            <Heading as="h1" size="3xl">
               Welcome to the app
-            </h1>
-            <p style={{ color: "var(--nuka-text-muted)" }}>
+            </Heading>
+            <Text color="muted">
               This is a typical page layout using Container and Stack together.
-            </p>
+            </Text>
             <Placeholder label="Main content area" />
             <Placeholder label="Additional content" />
           </Stack>
@@ -154,13 +192,39 @@ export const PageLayout: Story = {
           style={{
             padding: "1rem 0",
             borderTop: "1px solid var(--nuka-border-base)",
-            color: "var(--nuka-text-muted)",
-            fontSize: "0.875rem",
           }}
         >
-          Footer content
+          <Text size="sm" color="muted">Footer content</Text>
         </footer>
       </Stack>
     </Container>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Container size="lg">
+  <Stack direction="column" gap="lg">
+    <header>
+      <Stack direction="row" justify="between" align="center">
+        <Text size="lg" weight="bold">App Name</Text>
+        <Stack direction="row" gap="md">
+          <a href="/">Home</a>
+          <a href="/about">About</a>
+        </Stack>
+      </Stack>
+    </header>
+    <main>
+      <Heading as="h1" size="3xl">Welcome to the app</Heading>
+      <Text color="muted">Page description text.</Text>
+    </main>
+    <footer>
+      <Text size="sm" color="muted">Footer content</Text>
+    </footer>
+  </Stack>
+</Container>
+        `.trim(),
+      },
+    },
+  },
 };

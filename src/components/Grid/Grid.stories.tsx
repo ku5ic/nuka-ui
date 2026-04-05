@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Grid } from "@nuka/components/Grid";
 
+// Story-only placeholder — demonstrates layout structure, not a nuka-ui component
 const Cell = ({ children }: { children: React.ReactNode }) => (
   <div
     style={{
@@ -16,7 +17,7 @@ const Cell = ({ children }: { children: React.ReactNode }) => (
 );
 
 const meta = {
-  title: "Components/Grid",
+  title: "Layout/Grid",
   component: Grid,
   parameters: {
     layout: "padded",
@@ -61,6 +62,20 @@ export const TwoColumn: Story = {
       </>
     ),
   },
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Grid cols={2} gap="md">
+  <div>Column 1</div>
+  <div>Column 2</div>
+  <div>Column 3</div>
+  <div>Column 4</div>
+</Grid>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const ThreeColumn: Story = {
@@ -78,6 +93,22 @@ export const ThreeColumn: Story = {
       </>
     ),
   },
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Grid cols={3} gap="md">
+  <div>One</div>
+  <div>Two</div>
+  <div>Three</div>
+  <div>Four</div>
+  <div>Five</div>
+  <div>Six</div>
+</Grid>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const ResponsiveCols: Story = {
@@ -92,6 +123,22 @@ export const ResponsiveCols: Story = {
       <Cell>Six</Cell>
     </Grid>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Grid cols={{ base: 1, sm: 2, lg: 3 }} gap="md">
+  <div>One</div>
+  <div>Two</div>
+  <div>Three</div>
+  <div>Four</div>
+  <div>Five</div>
+  <div>Six</div>
+</Grid>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const WithGap: Story = {
@@ -112,6 +159,19 @@ export const WithGap: Story = {
       ))}
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Grid cols={3} gap="md">
+  <div>A</div>
+  <div>B</div>
+  <div>C</div>
+</Grid>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const AsymmetricGap: Story = {
@@ -126,6 +186,22 @@ export const AsymmetricGap: Story = {
       <Cell>6</Cell>
     </Grid>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Grid cols={3} colGap="xl" rowGap="xs">
+  <div>1</div>
+  <div>2</div>
+  <div>3</div>
+  <div>4</div>
+  <div>5</div>
+  <div>6</div>
+</Grid>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const CardGrid: Story = {
@@ -134,6 +210,7 @@ export const CardGrid: Story = {
     <Grid cols={{ base: 1, sm: 2, lg: 3 }} gap="lg">
       {["Dashboard", "Analytics", "Reports", "Settings", "Users", "Billing"].map(
         (title) => (
+          /* TODO: replace card div with <Card> once implemented */
           <div
             key={title}
             style={{
@@ -156,4 +233,23 @@ export const CardGrid: Story = {
       )}
     </Grid>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Grid cols={{ base: 1, sm: 2, lg: 3 }} gap="lg">
+  <Card>
+    <Heading size="xl">Dashboard</Heading>
+    <Text color="muted">Manage your dashboard settings.</Text>
+  </Card>
+  <Card>
+    <Heading size="xl">Analytics</Heading>
+    <Text color="muted">Manage your analytics settings.</Text>
+  </Card>
+  {/* ... */}
+</Grid>
+        `.trim(),
+      },
+    },
+  },
 };

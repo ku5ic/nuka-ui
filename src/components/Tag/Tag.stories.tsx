@@ -5,7 +5,7 @@ import { Tag } from "@nuka/components/Tag";
 const noop = () => undefined;
 
 const meta = {
-  title: "Components/Tag",
+  title: "Display/Tag",
   component: Tag,
   parameters: {
     layout: "centered",

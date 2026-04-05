@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Stack } from "@nuka/components/Stack";
 
+// Story-only placeholder — demonstrates layout structure, not a nuka-ui component
 const Box = ({ children }: { children: React.ReactNode }) => (
   <div
     style={{
@@ -16,7 +17,7 @@ const Box = ({ children }: { children: React.ReactNode }) => (
 );
 
 const meta = {
-  title: "Components/Stack",
+  title: "Layout/Stack",
   component: Stack,
   parameters: {
     layout: "centered",
@@ -64,6 +65,19 @@ export const Vertical: Story = {
       </>
     ),
   },
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="column" gap="md">
+  <div>First</div>
+  <div>Second</div>
+  <div>Third</div>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const Horizontal: Story = {
@@ -78,6 +92,19 @@ export const Horizontal: Story = {
       </>
     ),
   },
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" gap="md">
+  <div>First</div>
+  <div>Second</div>
+  <div>Third</div>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const Responsive: Story = {
@@ -89,6 +116,19 @@ export const Responsive: Story = {
       <Box>Third</Box>
     </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction={{ base: "column", md: "row" }} gap="md">
+  <div>First</div>
+  <div>Second</div>
+  <div>Third</div>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const Gap: Story = {
@@ -109,6 +149,19 @@ export const Gap: Story = {
       ))}
     </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" gap="md">
+  <div>A</div>
+  <div>B</div>
+  <div>C</div>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const Alignment: Story = {
@@ -136,6 +189,19 @@ export const Alignment: Story = {
       )}
     </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" gap="sm" align="center">
+  <div>Short</div>
+  <div>Taller item</div>
+  <div>A</div>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const Justification: Story = {
@@ -163,6 +229,19 @@ export const Justification: Story = {
       )}
     </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" gap="sm" justify="between">
+  <div>A</div>
+  <div>B</div>
+  <div>C</div>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const AsChild: Story = {
@@ -176,6 +255,21 @@ export const AsChild: Story = {
       </nav>
     </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack asChild direction="row" gap="md" align="center">
+  <nav>
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+  </nav>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const NavBar: Story = {
@@ -203,4 +297,20 @@ export const NavBar: Story = {
       </Stack>
     </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" justify="between" align="center" gap="md">
+  <Text weight="semibold">Logo</Text>
+  <Stack direction="row" gap="sm">
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+  </Stack>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };

@@ -3,7 +3,7 @@ import { Input } from "@nuka/components/Input";
 import { Label } from "@nuka/components/Label";
 
 const meta = {
-  title: "Components/Input",
+  title: "Forms/Inputs/Input",
   component: Input,
   parameters: {
     layout: "centered",

@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Spinner } from "@nuka/components/Spinner";
+import { Button } from "@nuka/components/Button";
 
 const meta = {
-  title: "Components/Spinner",
+  title: "Feedback/Spinner",
   component: Spinner,
   parameters: {
     layout: "centered",
@@ -126,31 +127,29 @@ export const AriaHidden: Story = {
 export const PatternButtonLoading: Story = {
   name: "Pattern: Button Loading",
   render: () => (
-    <div
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: "0.5rem",
-        padding: "0.625rem 1rem",
-        fontSize: "0.875rem",
-        fontWeight: 500,
-        color: "var(--nuka-text-inverse)",
-        backgroundColor: "var(--nuka-accent-bg)",
-        borderRadius: "var(--radius-md)",
-        cursor: "not-allowed",
-        opacity: 0.9,
-      }}
-    >
+    <Button variant="primary" disabled>
       <Spinner size="sm" color="inverse" aria-hidden={true} />
       Saving…
-    </div>
+    </Button>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Button variant="primary" disabled>
+  <Spinner size="sm" color="inverse" aria-hidden={true} />
+  Saving…
+</Button>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const PatternPageLoading: Story = {
   name: "Pattern: Page Loading",
   render: () => (
+    /* TODO: replace outer div with <Card> once implemented */
     <div
       style={{
         display: "flex",

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Timeline, TimelineItem } from "@nuka/components/Timeline";
 
 const meta = {
-  title: "Components/Timeline",
+  title: "Display/Timeline",
   component: Timeline,
   parameters: {
     layout: "centered",
@@ -13,6 +13,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+// Story-only placeholder — inline SVG icons for demonstration, not nuka-ui components
 const CheckIcon = () => (
   <svg
     width="14"

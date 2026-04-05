@@ -3,7 +3,7 @@ import { Textarea } from "@nuka/components/Textarea";
 import { Label } from "@nuka/components/Label";
 
 const meta = {
-  title: "Components/Textarea",
+  title: "Forms/Inputs/Textarea",
   component: Textarea,
   parameters: {
     layout: "centered",

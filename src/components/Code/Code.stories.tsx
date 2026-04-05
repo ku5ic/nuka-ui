@@ -3,7 +3,7 @@ import { Code } from "@nuka/components/Code";
 import { Text } from "@nuka/components/Text";
 
 const meta = {
-  title: "Components/Code",
+  title: "Typography/Code",
   component: Code,
   parameters: {
     layout: "centered",

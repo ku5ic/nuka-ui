@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Text } from "@nuka/components/Text";
 
 const meta = {
-  title: "Components/Text",
+  title: "Typography/Text",
   component: Text,
   parameters: {
     layout: "centered",

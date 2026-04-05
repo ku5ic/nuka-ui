@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Progress } from "@nuka/components/Progress";
+import { Text } from "@nuka/components/Text";
+import { Stack } from "@nuka/components/Stack";
 
 const meta = {
-  title: "Components/Progress",
+  title: "Feedback/Progress",
   component: Progress,
   parameters: {
     layout: "centered",
@@ -98,57 +100,93 @@ export const Sizes: Story = {
 export const FileUpload: Story = {
   name: "Pattern: File Upload",
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+    <Stack gap="md">
       <div>
-        <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.875rem", marginBottom: "0.25rem" }}>
-          <span>report.pdf</span>
-          <span>100%</span>
-        </div>
+        <Stack direction="row" justify="between" style={{ marginBottom: "0.25rem" }}>
+          <Text size="sm">report.pdf</Text>
+          <Text size="sm">100%</Text>
+        </Stack>
         <Progress value={100} intent="success" />
       </div>
       <div>
-        <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.875rem", marginBottom: "0.25rem" }}>
-          <span>photo.jpg</span>
-          <span>67%</span>
-        </div>
+        <Stack direction="row" justify="between" style={{ marginBottom: "0.25rem" }}>
+          <Text size="sm">photo.jpg</Text>
+          <Text size="sm">67%</Text>
+        </Stack>
         <Progress value={67} />
       </div>
       <div>
-        <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.875rem", marginBottom: "0.25rem" }}>
-          <span>archive.zip</span>
-          <span>23%</span>
-        </div>
+        <Stack direction="row" justify="between" style={{ marginBottom: "0.25rem" }}>
+          <Text size="sm">archive.zip</Text>
+          <Text size="sm">23%</Text>
+        </Stack>
         <Progress value={23} />
       </div>
-    </div>
+    </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack gap="md">
+  <div>
+    <Stack direction="row" justify="between">
+      <Text size="sm">report.pdf</Text>
+      <Text size="sm">100%</Text>
+    </Stack>
+    <Progress value={100} intent="success" />
+  </div>
+  {/* ...more files */}
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const StepProgress: Story = {
   name: "Pattern: Step Progress",
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+    <Stack gap="md">
       <div>
-        <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.875rem", marginBottom: "0.25rem" }}>
-          <span>Step 1: Upload</span>
-          <span>Complete</span>
-        </div>
+        <Stack direction="row" justify="between" style={{ marginBottom: "0.25rem" }}>
+          <Text size="sm">Step 1: Upload</Text>
+          <Text size="sm">Complete</Text>
+        </Stack>
         <Progress value={100} intent="success" size="sm" />
       </div>
       <div>
-        <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.875rem", marginBottom: "0.25rem" }}>
-          <span>Step 2: Processing</span>
-          <span>45%</span>
-        </div>
+        <Stack direction="row" justify="between" style={{ marginBottom: "0.25rem" }}>
+          <Text size="sm">Step 2: Processing</Text>
+          <Text size="sm">45%</Text>
+        </Stack>
         <Progress value={45} size="sm" />
       </div>
       <div>
-        <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.875rem", marginBottom: "0.25rem" }}>
-          <span>Step 3: Publish</span>
-          <span>Not started</span>
-        </div>
+        <Stack direction="row" justify="between" style={{ marginBottom: "0.25rem" }}>
+          <Text size="sm">Step 3: Publish</Text>
+          <Text size="sm">Not started</Text>
+        </Stack>
         <Progress value={0} size="sm" />
       </div>
-    </div>
+    </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack gap="md">
+  <div>
+    <Stack direction="row" justify="between">
+      <Text size="sm">Step 1: Upload</Text>
+      <Text size="sm">Complete</Text>
+    </Stack>
+    <Progress value={100} intent="success" size="sm" />
+  </div>
+  {/* ...more steps */}
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };

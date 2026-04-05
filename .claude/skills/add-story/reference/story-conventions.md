@@ -11,7 +11,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ComponentName } from "@nuka/components/ComponentName";
 
 const meta = {
-  title: "Components/ComponentName",
+  title: "Folder/ComponentName", // e.g. "Actions/Button", "Display/Badge", "Forms/Inputs/Input"
   component: ComponentName,
   parameters: {
     layout: "centered",
@@ -42,6 +42,20 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 ```
+
+## Sidebar taxonomy
+
+Story titles use a semantic folder structure. See `docs/COMPONENTS.md` for the canonical mapping.
+
+| Folder            | Components                                                          |
+| ----------------- | ------------------------------------------------------------------- |
+| `Actions`         | Button                                                              |
+| `Typography`      | Heading, Text, Code, Kbd                                            |
+| `Forms/Inputs`    | Input, Textarea, Select, Checkbox, Radio, Switch, Slider            |
+| `Forms/Structure` | Label, FormField                                                    |
+| `Feedback`        | Alert, Toast, Banner, Progress, Skeleton, Spinner, Tooltip, Popover |
+| `Display`         | Badge, Tag, Avatar, Icon, Divider, EmptyState, Timeline             |
+| `Layout`          | Stack, Grid, Container                                              |
 
 ## Story types required
 

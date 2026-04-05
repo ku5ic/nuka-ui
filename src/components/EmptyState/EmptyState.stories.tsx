@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { EmptyState } from "@nuka/components/EmptyState";
+import { Button } from "@nuka/components/Button";
 
 const meta = {
-  title: "Components/EmptyState",
+  title: "Display/EmptyState",
   component: EmptyState,
   parameters: {
     layout: "centered",
@@ -13,6 +14,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+// Story-only placeholder — inline SVG illustrations for demonstration, not nuka-ui components
 const PlaceholderIllustration = () => (
   <svg
     width="120"
@@ -102,23 +104,7 @@ export const WithAction: Story = {
   args: {
     heading: "No items found",
     description: "Start by adding your first item.",
-    action: (
-      <button
-        type="button"
-        style={{
-          fontSize: 14,
-          fontWeight: 600,
-          padding: "0.5rem 1rem",
-          borderRadius: "0.375rem",
-          border: "none",
-          background: "#1a1a2e",
-          color: "white",
-          cursor: "pointer",
-        }}
-      >
-        Add item
-      </button>
-    ),
+    action: <Button variant="primary" size="sm">Add item</Button>,
   },
 };
 
@@ -129,23 +115,7 @@ export const Full: Story = {
     description: "Projects help you organize your work. Create one to get started.",
     illustration: <PlaceholderIllustration />,
     icon: <SearchIcon />,
-    action: (
-      <button
-        type="button"
-        style={{
-          fontSize: 14,
-          fontWeight: 600,
-          padding: "0.5rem 1rem",
-          borderRadius: "0.375rem",
-          border: "none",
-          background: "#1a1a2e",
-          color: "white",
-          cursor: "pointer",
-        }}
-      >
-        Create project
-      </button>
-    ),
+    action: <Button variant="primary" size="sm">Create project</Button>,
   },
 };
 
@@ -157,24 +127,23 @@ export const NoSearchResults: Story = {
       heading="No results found"
       description='We couldn&apos;t find anything matching your search. Try adjusting your filters.'
       icon={<SearchIcon />}
-      action={
-        <button
-          type="button"
-          style={{
-            fontSize: 14,
-            fontWeight: 500,
-            padding: "0.5rem 1rem",
-            borderRadius: "0.375rem",
-            border: "1px solid #d1d5db",
-            background: "white",
-            cursor: "pointer",
-          }}
-        >
-          Clear filters
-        </button>
-      }
+      action={<Button variant="outline" size="sm">Clear filters</Button>}
     />
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<EmptyState
+  heading="No results found"
+  description="We couldn't find anything matching your search."
+  icon={<SearchIcon />}
+  action={<Button variant="outline" size="sm">Clear filters</Button>}
+/>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const EmptyInbox: Story = {
@@ -193,6 +162,7 @@ export const EmptyTable: Story = {
   name: "Pattern: Empty Table",
   args: { heading: "No records" },
   render: () => (
+    /* TODO: replace table wrapper with <Table> once implemented */
     <div
       style={{
         border: "1px solid #e5e7eb",
@@ -218,24 +188,24 @@ export const EmptyTable: Story = {
       <EmptyState
         heading="No records"
         description="Add a record to see it here."
-        action={
-          <button
-            type="button"
-            style={{
-              fontSize: 13,
-              fontWeight: 500,
-              padding: "0.375rem 0.75rem",
-              borderRadius: "0.25rem",
-              border: "none",
-              background: "#1a1a2e",
-              color: "white",
-              cursor: "pointer",
-            }}
-          >
-            Add record
-          </button>
-        }
+        action={<Button variant="primary" size="sm">Add record</Button>}
       />
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Table>
+  <TableHeader>...</TableHeader>
+  <EmptyState
+    heading="No records"
+    description="Add a record to see it here."
+    action={<Button variant="primary" size="sm">Add record</Button>}
+  />
+</Table>
+        `.trim(),
+      },
+    },
+  },
 };

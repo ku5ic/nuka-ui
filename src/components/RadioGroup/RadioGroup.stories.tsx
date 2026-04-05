@@ -5,7 +5,7 @@ import { FormField } from "@nuka/components/FormField";
 import { Label } from "@nuka/components/Label";
 
 const meta = {
-  title: "Components/RadioGroup",
+  title: "Forms/Inputs/Radio",
   component: RadioGroup,
   parameters: {
     layout: "centered",

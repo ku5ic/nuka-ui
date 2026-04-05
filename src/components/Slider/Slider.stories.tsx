@@ -6,7 +6,7 @@ import { Label } from "@nuka/components/Label";
 import { Text } from "@nuka/components/Text";
 
 const meta = {
-  title: "Components/Slider",
+  title: "Forms/Inputs/Slider",
   component: Slider,
   parameters: {
     layout: "centered",

@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Avatar } from "@nuka/components/Avatar";
+import { Stack } from "@nuka/components/Stack";
+import { Text } from "@nuka/components/Text";
 
 const meta = {
-  title: "Components/Avatar",
+  title: "Display/Avatar",
   component: Avatar,
   parameters: {
     layout: "centered",
@@ -96,29 +98,29 @@ export const BrokenImage: Story = {
 export const PatternUserProfile: Story = {
   name: "Pattern: User Profile",
   render: () => (
-    <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+    <Stack direction="row" align="center" gap="sm">
       <Avatar name="Jane Smith" size="lg" />
-      <div style={{ display: "flex", flexDirection: "column", gap: "0.125rem" }}>
-        <span
-          style={{
-            fontSize: "var(--font-size-sm)",
-            fontWeight: 500,
-            color: "var(--nuka-text-base)",
-          }}
-        >
-          Jane Smith
-        </span>
-        <span
-          style={{
-            fontSize: "var(--font-size-xs)",
-            color: "var(--nuka-text-muted)",
-          }}
-        >
-          Product Designer
-        </span>
-      </div>
-    </div>
+      <Stack gap="none">
+        <Text size="sm" weight="medium">Jane Smith</Text>
+        <Text size="xs" color="muted">Product Designer</Text>
+      </Stack>
+    </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" align="center" gap="sm">
+  <Avatar name="Jane Smith" size="lg" />
+  <Stack gap="none">
+    <Text size="sm" weight="medium">Jane Smith</Text>
+    <Text size="xs" color="muted">Product Designer</Text>
+  </Stack>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const PatternAvatarStack: Story = {

@@ -46,6 +46,7 @@ Use this skill when adding any new component to `src/components/`.
 
 9. Create `<ComponentName>.stories.tsx`:
    - Read `src/components/Button/Button.stories.tsx` as reference
+   - Set `title` to the correct taxonomy folder based on the component type (e.g. `"Actions/Button"`, `"Display/Badge"`, `"Forms/Inputs/Input"`). Check `docs/COMPONENTS.md` for the canonical folder assignment.
    - Include: one story per variant, one per intent, AllVariants, AllSizes, at least one real-world pattern story
    - Set `asChild` to `control: false` if present
 

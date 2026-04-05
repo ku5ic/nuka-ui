@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Kbd } from "@nuka/components/Kbd";
+import { Text } from "@nuka/components/Text";
 
 const meta = {
-  title: "Components/Kbd",
+  title: "Typography/Kbd",
   component: Kbd,
   parameters: {
     layout: "centered",
@@ -91,22 +92,25 @@ export const PatternKeyboardShortcut: Story = {
 export const PatternInlineInText: Story = {
   name: "Pattern: Inline in Text",
   render: () => (
-    <p
-      style={{
-        fontSize: "0.875rem",
-        lineHeight: 1.5,
-        color: "var(--nuka-text-base)",
-        maxWidth: "28rem",
-      }}
-    >
+    <Text as="p" size="sm" style={{ maxWidth: "28rem" }}>
       Press <Kbd size="sm">Ctrl</Kbd>
-      <span style={{ color: "var(--nuka-text-muted)" }}>+</span>
+      <Text as="span" color="muted">+</Text>
       <Kbd size="sm">K</Kbd> to open the command palette, or press{" "}
       <Kbd size="sm">Esc</Kbd> to close it.
-    </p>
+    </Text>
   ),
   parameters: {
     docs: {
+      source: {
+        code: `
+<Text as="p" size="sm">
+  Press <Kbd size="sm">Ctrl</Kbd>
+  <Text as="span" color="muted">+</Text>
+  <Kbd size="sm">K</Kbd> to open the command palette, or press{" "}
+  <Kbd size="sm">Esc</Kbd> to close it.
+</Text>
+        `.trim(),
+      },
       description: {
         story:
           "Key labels rendered inline within body copy. Use `size=\"sm\"` for inline usage to match surrounding text proportions.",

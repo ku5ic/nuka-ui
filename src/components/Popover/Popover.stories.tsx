@@ -6,7 +6,7 @@ import { PopoverContent } from "@nuka/components/Popover/PopoverContent";
 import { Button } from "@nuka/components/Button";
 
 const meta: Meta = {
-  title: "Components/Popover",
+  title: "Feedback/Popover",
   component: Popover,
   parameters: {
     layout: "centered",

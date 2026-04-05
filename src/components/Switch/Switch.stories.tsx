@@ -1,10 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Switch } from "@nuka/components/Switch";
+import { Stack } from "@nuka/components/Stack";
+import { Text } from "@nuka/components/Text";
 import { FormField } from "@nuka/components/FormField";
 import { Label } from "@nuka/components/Label";
 
 const meta = {
-  title: "Components/Switch",
+  title: "Forms/Inputs/Switch",
   component: Switch,
   parameters: {
     layout: "centered",
@@ -78,43 +80,63 @@ export const InFormField: Story = {
 export const NotificationsPanel: Story = {
   name: "Pattern: Notifications Panel",
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "1rem", width: "24rem" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+    <Stack gap="md" style={{ width: "24rem" }}>
+      <Stack direction="row" justify="between" align="center">
         <div>
-          <div style={{ fontWeight: 500 }}>Email notifications</div>
-          <div style={{ fontSize: "0.875rem", color: "var(--nuka-text-muted)" }}>
+          <Text weight="medium">Email notifications</Text>
+          <Text size="sm" color="muted">
             Receive email updates about your account
-          </div>
+          </Text>
         </div>
         <Switch defaultChecked aria-label="Email notifications" />
-      </div>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      </Stack>
+      <Stack direction="row" justify="between" align="center">
         <div>
-          <div style={{ fontWeight: 500 }}>Push notifications</div>
-          <div style={{ fontSize: "0.875rem", color: "var(--nuka-text-muted)" }}>
+          <Text weight="medium">Push notifications</Text>
+          <Text size="sm" color="muted">
             Get push notifications on your device
-          </div>
+          </Text>
         </div>
         <Switch aria-label="Push notifications" />
-      </div>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      </Stack>
+      <Stack direction="row" justify="between" align="center">
         <div>
-          <div style={{ fontWeight: 500 }}>SMS notifications</div>
-          <div style={{ fontSize: "0.875rem", color: "var(--nuka-text-muted)" }}>
+          <Text weight="medium">SMS notifications</Text>
+          <Text size="sm" color="muted">
             Receive text messages for critical alerts
-          </div>
+          </Text>
         </div>
         <Switch aria-label="SMS notifications" />
-      </div>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      </Stack>
+      <Stack direction="row" justify="between" align="center">
         <div>
-          <div style={{ fontWeight: 500 }}>Marketing emails</div>
-          <div style={{ fontSize: "0.875rem", color: "var(--nuka-text-muted)" }}>
+          <Text weight="medium">Marketing emails</Text>
+          <Text size="sm" color="muted">
             Receive news and promotional offers
-          </div>
+          </Text>
         </div>
         <Switch disabled aria-label="Marketing emails" />
-      </div>
-    </div>
+      </Stack>
+    </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack gap="md">
+  <Stack direction="row" justify="between" align="center">
+    <div>
+      <Text weight="medium">Email notifications</Text>
+      <Text size="sm" color="muted">
+        Receive email updates about your account
+      </Text>
+    </div>
+    <Switch defaultChecked aria-label="Email notifications" />
+  </Stack>
+  {/* ...more rows */}
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };

@@ -3,7 +3,7 @@ import { Heading } from "@nuka/components/Heading";
 import { Text } from "@nuka/components/Text";
 
 const meta = {
-  title: "Components/Heading",
+  title: "Typography/Heading",
   component: Heading,
   parameters: {
     layout: "centered",

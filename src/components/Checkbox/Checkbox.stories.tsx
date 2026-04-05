@@ -4,7 +4,7 @@ import { FormField } from "@nuka/components/FormField";
 import { Label } from "@nuka/components/Label";
 
 const meta = {
-  title: "Components/Checkbox",
+  title: "Forms/Inputs/Checkbox",
   component: Checkbox,
   parameters: {
     layout: "centered",
