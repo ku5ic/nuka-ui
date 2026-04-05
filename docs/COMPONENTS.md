@@ -42,7 +42,7 @@ This document defines the full component scope for nuka-ui.
 | Component   | Status  | Notes                                                                  |
 | ----------- | ------- | ---------------------------------------------------------------------- |
 | `Label`     | ✅ Done | Associates with form controls. Required indicator.                     |
-| `FormField` | ✅ Done | Layout wrapper — Label + control + error message. No styling opinions. |
+| `FormField` | ✅ Done | Layout wrapper: Label + control + error message. No styling opinions. |
 
 ---
 
@@ -101,7 +101,7 @@ This document defines the full component scope for nuka-ui.
 | `NavigationMenu`   | —      | Site-level navigation with submenus.                                                  |
 | `Breadcrumb`       | —      | Navigation trail.                                                                     |
 | `Pagination`       | —      | Page navigation.                                                                      |
-| `Stepper`          | —      | Multi-step flow indicator. No Radix primitive — fully custom.                         |
+| `Stepper`          | —      | Multi-step flow indicator. No Radix primitive, fully custom.                          |
 | `Sidebar`          | —      | App navigation panel. Collapsible. Sheet-based drawer on mobile. Needs `Sheet` first. |
 
 ---
@@ -121,10 +121,10 @@ This document defines the full component scope for nuka-ui.
 
 ## Rules for every component
 
-- WCAG 2.2 AA — hard requirement, verified at token and component level
-- `React.forwardRef` — mandatory on all DOM-rendering components
-- `variant` + `intent` — applied where the component carries semantic meaning
-- `asChild` — included where polymorphism is genuinely useful
-- Full test coverage — rendering, variants, intent, attributes, ref, asChild
-- Storybook stories — one per variant, one per intent, AllVariants, AllSizes, at least one pattern story
-- TypeScript strict — no `any`, no suppressed errors
+- WCAG 2.2 AA: hard requirement, verified at token and component level
+- `React.forwardRef`: mandatory on all DOM-rendering components
+- `variant` + `intent`: applied where the component carries semantic meaning
+- `asChild`: included where polymorphism is genuinely useful
+- Full test coverage: rendering, variants, intent, attributes, ref, asChild
+- Storybook stories: one per variant, one per intent, AllVariants, AllSizes, at least one pattern story
+- TypeScript strict: no `any`, no suppressed errors

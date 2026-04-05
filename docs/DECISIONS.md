@@ -17,27 +17,27 @@ UI components that carry semantic meaning (danger, success, warning) need a way 
 
 Separate `variant` and `intent` into distinct props:
 
-- `variant` — controls visual weight and shape (primary, secondary, outline, ghost, link)
-- `intent` — controls semantic color (default, danger, success, warning)
+- `variant`: controls visual weight and shape (primary, secondary, outline, ghost, link)
+- `intent`: controls semantic color (default, danger, success, warning)
 
 All variant × intent combinations are valid. CVA `compoundVariants` handles the class composition.
 
 ### Consequences
 
 - 25 explicit compound variant definitions per component that uses this pattern
-- Cleaner consumer API — `<Button variant="ghost" intent="danger">` vs `<Button variant="ghost-danger">`
+- Cleaner consumer API: `<Button variant="ghost" intent="danger">` vs `<Button variant="ghost-danger">`
 - Scales naturally to new intents or variants without breaking existing combinations
 - Adding a new intent requires adding N compoundVariants where N is the number of variants
 
 ### Alternatives considered
 
-**Flat variants** — simpler initially but causes combinatorial explosion as variants grow. `ghost-danger`, `outline-success`, `link-warning` become unwieldy and undiscoverable.
+**Flat variants**: simpler initially but causes combinatorial explosion as variants grow. `ghost-danger`, `outline-success`, `link-warning` become unwieldy and undiscoverable.
 
-**CSS data attributes** — `<Button data-intent="danger">` — avoids prop pollution but loses TypeScript type safety and makes the API less explicit.
+**CSS data attributes**: `<Button data-intent="danger">` avoids prop pollution but loses TypeScript type safety and makes the API less explicit.
 
 ---
 
-## ADR-002: Token architecture — primitives + semantic layer
+## ADR-002: Token architecture: primitives + semantic layer
 
 **Date:** 2026-04-03  
 **Status:** Accepted
@@ -50,22 +50,22 @@ CSS custom properties need to serve two masters: design system internals (consis
 
 Two-layer token architecture:
 
-- **Primitive tokens** — raw scale values, no `--nuka-` prefix (e.g. `--color-accent-500`, `--space-4`)
-- **Semantic tokens** — purpose-driven, `--nuka-` prefixed, reference primitives (e.g. `--nuka-accent-bg: var(--color-accent-500)`)
+- **Primitive tokens**: raw scale values, no `--nuka-` prefix (e.g. `--color-accent-500`, `--space-4`)
+- **Semantic tokens**: purpose-driven, `--nuka-` prefixed, reference primitives (e.g. `--nuka-accent-bg: var(--color-accent-500)`)
 
 Components reference only semantic tokens. Consumers can remap semantic tokens without touching primitives.
 
 ### Consequences
 
 - Theming is done by overriding `--nuka-*` tokens on `[data-theme]`
-- Primitives are stable — adding a new color to the scale doesn't affect existing components
+- Primitives are stable: adding a new color to the scale doesn't affect existing components
 - Component-level tokens are added only when semantic tokens are insufficient
 
 ### Alternatives considered
 
-**Single layer** — all tokens flat. Simple but makes dark mode and theming require overriding every token individually.
+**Single layer**: all tokens flat. Simple but makes dark mode and theming require overriding every token individually.
 
-**Three layers** (primitives → semantic → component) — more granular but premature for the current component count. Revisit when component-specific theming needs arise.
+**Three layers** (primitives → semantic → component): more granular but premature for the current component count. Revisit when component-specific theming needs arise.
 
 ---
 
@@ -85,14 +85,14 @@ Use `data-theme` attribute on a container element. Semantic tokens are scoped to
 ### Consequences
 
 - Multiple themes can coexist on the same page (nested `data-theme` attributes)
-- No class pollution — themes don't interfere with utility class systems
+- No class pollution: themes don't interfere with utility class systems
 - Explicit and readable in the DOM
 
 ### Alternatives considered
 
-**Class-based (`.dark`)** — Tailwind's default approach. Works but collides with utility classes and makes nested themes awkward.
+**Class-based (`.dark`)**: Tailwind's default approach. Works but collides with utility classes and makes nested themes awkward.
 
-**`prefers-color-scheme` only** — automatic but gives consumers no control over manual theme switching.
+**`prefers-color-scheme` only**: automatic but gives consumers no control over manual theme switching.
 
 ---
 
@@ -117,7 +117,7 @@ Components reference semantic tokens directly. Component-level tokens are added 
 
 ### Alternatives considered
 
-**Per-component tokens for everything** — maximum flexibility but significant maintenance overhead and cognitive load for consumers learning the token system.
+**Per-component tokens for everything**: maximum flexibility but significant maintenance overhead and cognitive load for consumers learning the token system.
 
 ---
 
@@ -136,7 +136,7 @@ Migrated to variant + intent before any other components were built. `danger`, `
 
 ### Future consideration
 
-If the need arises for `intent` to affect layout or shape (not just color), the prop contract remains stable — `intent` values can be extended additively.
+If the need arises for `intent` to affect layout or shape (not just color), the prop contract remains stable; `intent` values can be extended additively.
 
 ---
 
@@ -153,7 +153,7 @@ Badge is a non-interactive display label. It uses the same variant + intent arch
 
 **1. `solid`/`subtle`/`outline` instead of `primary`/`secondary`/`ghost`**
 
-Button's variant names describe action weight — "primary" means "the main action." Badge has no actions. Its variants describe visual appearance: `solid` is a filled background, `subtle` is a tinted background, `outline` is a bordered label. Using action-semantic names for a display-only element would be misleading.
+Button's variant names describe action weight: "primary" means "the main action." Badge has no actions. Its variants describe visual appearance: `solid` is a filled background, `subtle` is a tinted background, `outline` is a bordered label. Using action-semantic names for a display-only element would be misleading.
 
 **2. `<span>` as the default element**
 
@@ -161,17 +161,17 @@ A `<span>` has no implicit ARIA role, which is correct for a non-interactive inl
 
 **3. No focus ring in base classes**
 
-Badge is not interactive and should never receive focus. Adding focus ring classes would be incorrect — they would either never fire (wasted classes) or incorrectly suggest interactivity. When `asChild` wraps an interactive child (e.g. `<a>`), the child's own focus styles apply. Badge adds nothing.
+Badge is not interactive and should never receive focus. Adding focus ring classes would be incorrect: they would either never fire (wasted classes) or incorrectly suggest interactivity. When `asChild` wraps an interactive child (e.g. `<a>`), the child's own focus styles apply. Badge adds nothing.
 
 ### Consequences
 
-- Badge variant names are decoupled from Button — each component uses names appropriate to its role
+- Badge variant names are decoupled from Button: each component uses names appropriate to its role
 - Future non-interactive display components (Tag, Alert) can follow Badge's naming pattern
 - `asChild` remains the escape hatch for interactive use cases without polluting Badge's base styles
 
 ---
 
-## ADR-007: Text polymorphism — `as` prop with allow-list, not `asChild` or full generics
+## ADR-007: Text polymorphism: `as` prop with allow-list, not `asChild` or full generics
 
 **Date:** 2026-04-04
 **Status:** Accepted
@@ -184,7 +184,7 @@ Text is a typography primitive that renders different HTML elements depending on
 
 **1. `as` prop instead of `asChild`**
 
-`asChild` (Radix Slot) is designed for component composition — merging styles onto an arbitrary consumer component (e.g., rendering a Button as a router Link). Text's polymorphism is element-switching: the component author controls which HTML tag renders. The consumer isn't compositing an external component — they're selecting a semantic element. `as` is the correct pattern for this use case. `asChild` would add Radix as a dependency for a component that has no Radix-native behavior.
+`asChild` (Radix Slot) is designed for component composition, merging styles onto an arbitrary consumer component (e.g., rendering a Button as a router Link). Text's polymorphism is element-switching: the component author controls which HTML tag renders. The consumer isn't compositing an external component; they're selecting a semantic element. `as` is the correct pattern for this use case. `asChild` would add Radix as a dependency for a component that has no Radix-native behavior.
 
 **2. Allow-list (`TextElement` union) instead of full generic polymorphism**
 
@@ -192,15 +192,15 @@ A fully generic `as` prop (`<Text<T> as={T}>`) provides exact HTML attribute inf
 
 ### Consequences
 
-- `Text` has no Radix dependency — it is a pure HTML + CVA component
+- `Text` has no Radix dependency: it is a pure HTML + CVA component
 - The `TextElement` allow-list must be extended if new valid elements are identified (additive, non-breaking)
 - Consumers who need to render Text styles on a custom component should use `className` directly with `textVariants()`
 - If a future `TextLink` component is needed, it would be a separate component, not an `asChild` extension of Text
-- The ref type is `HTMLElement` (common base) since the forwarded element varies — consumers who need a specific ref type should cast
+- The ref type is `HTMLElement` (common base) since the forwarded element varies; consumers who need a specific ref type should cast
 
 ---
 
-## ADR-008: Divider — no variant/intent, no asChild, conditional element rendering
+## ADR-008: Divider: no variant/intent, no asChild, conditional element rendering
 
 **Date:** 2026-04-04
 **Status:** Accepted
@@ -213,21 +213,21 @@ Divider is a visual separator used to divide sections of content. It renders as 
 
 **1. No `variant` or `intent` props**
 
-Divider is structural chrome — it carries no semantic color meaning. Adding `intent` (danger, success, warning) to a line separator would be API noise with no valid use case. Its color comes from `--nuka-border-base`, a single neutral token. If a consumer needs a colored divider, `className` is the correct escape hatch.
+Divider is structural chrome: it carries no semantic color meaning. Adding `intent` (danger, success, warning) to a line separator would be API noise with no valid use case. Its color comes from `--nuka-border-base`, a single neutral token. If a consumer needs a colored divider, `className` is the correct escape hatch.
 
 **2. Conditional root element (`<hr>` vs `<div>`)**
 
 The root element varies based on props:
 
-- Horizontal without label: `<hr>` — has implicit `role="separator"` and `aria-orientation="horizontal"`, no redundant ARIA attributes needed
-- Vertical without label: `<div role="separator" aria-orientation="vertical">` — `<hr>` does not support vertical orientation in practice
-- Horizontal with label: `<div role="separator" aria-orientation="horizontal">` — the labeled layout is a flex container, not a semantic rule
+- Horizontal without label: `<hr>`, has implicit `role="separator"` and `aria-orientation="horizontal"`, no redundant ARIA attributes needed
+- Vertical without label: `<div role="separator" aria-orientation="vertical">`, because `<hr>` does not support vertical orientation in practice
+- Horizontal with label: `<div role="separator" aria-orientation="horizontal">`, because the labeled layout is a flex container, not a semantic rule
 
 The ref type is `HTMLElement`, the correct common supertype for `HTMLHRElement` and `HTMLDivElement`. This is the same pattern used by Text (ADR-007).
 
 **3. Vertical + label is explicitly unsupported**
 
-A vertically-oriented divider with centered label text is visually problematic (requires 90° text rotation) and semantically unclear. Rather than implementing a half-broken feature, the component logs a `console.warn` in development and renders the vertical divider without the label. This is graceful degradation — no crash, clear feedback to the developer.
+A vertically-oriented divider with centered label text is visually problematic (requires 90° text rotation) and semantically unclear. Rather than implementing a half-broken feature, the component logs a `console.warn` in development and renders the vertical divider without the label. This is graceful degradation: no crash, clear feedback to the developer.
 
 **4. No `asChild`**
 
@@ -241,7 +241,7 @@ Divider is not a polymorphic component. There is no valid use case for rendering
 
 ---
 
-## ADR-009: Remove Radix UI — first-party Slot and composeRefs
+## ADR-009: Remove Radix UI: first-party Slot and composeRefs
 
 **Date:** 2026-04-04
 **Status:** Accepted
@@ -258,31 +258,31 @@ Removed all Radix UI dependencies. Implemented `Slot` and `composeRefs` from scr
 
 ### Reasoning
 
-nuka-ui is a portfolio project that demonstrates platform-level frontend engineering. Using a third-party primitive for composition — even a small, well-scoped one — obscures understanding of a well-known pattern. The `Slot` contract is stable and the implementation is non-trivial enough to be worth owning: ref composition, event handler merging, className concatenation, and style merging each require deliberate handling.
+nuka-ui is a portfolio project that demonstrates platform-level frontend engineering. Using a third-party primitive for composition, even a small, well-scoped one, obscures understanding of a well-known pattern. The `Slot` contract is stable and the implementation is non-trivial enough to be worth owning: ref composition, event handler merging, className concatenation, and style merging each require deliberate handling.
 
 ### Consequences
 
 - No external UI primitive dependencies remain. All composition behavior is owned, tested, and visible in the repository.
-- Future components that need `asChild` import from `@nuka/utils/slot` — no external dependency decision required.
+- Future components that need `asChild` import from `@nuka/utils/slot`: no external dependency decision required.
 - `composeRefs` is available for any component that needs to compose a forwarded ref with an internal ref.
-- The implementation must be maintained internally — any edge cases in Slot behavior are our responsibility.
+- The implementation must be maintained internally: any edge cases in Slot behavior are our responsibility.
 
 ### Alternatives considered
 
-**Keeping `@radix-ui/react-slot` as a sanctioned carve-out** — rejected. Inconsistent with the no-third-party-UI-primitives policy. If we carve out Slot, the boundary becomes subjective.
+**Keeping `@radix-ui/react-slot` as a sanctioned carve-out**: rejected. Inconsistent with the no-third-party-UI-primitives policy. If we carve out Slot, the boundary becomes subjective.
 
-**Dropping `asChild` entirely** — rejected. The `asChild` pattern is a genuine composition tool that strengthens the component API. Removing it would force consumers into less ergonomic patterns (wrapper elements, manual className forwarding) without good reason.
+**Dropping `asChild` entirely**: rejected. The `asChild` pattern is a genuine composition tool that strengthens the component API. Removing it would force consumers into less ergonomic patterns (wrapper elements, manual className forwarding) without good reason.
 
 ---
 
-## ADR-010: Avatar image loading strategy — layered fallback with `key` remount
+## ADR-010: Avatar image loading strategy: layered fallback with `key` remount
 
 **Date:** 2026-04-04
 **Status:** Accepted
 
 ### Context
 
-Avatar needs image loading state management to avoid flash-of-broken-image. When an `<img>` element fails to load, the browser briefly renders a broken image icon before `onError` fires — this is visible to the user and disrupts layout. Radix UI's Avatar primitive handles this natively, but nuka-ui has adopted a no-third-party-UI-primitives policy (ADR-009).
+Avatar needs image loading state management to avoid flash-of-broken-image. When an `<img>` element fails to load, the browser briefly renders a broken image icon before `onError` fires. This is visible to the user and disrupts layout. Radix UI's Avatar primitive handles this natively, but nuka-ui has adopted a no-third-party-UI-primitives policy (ADR-009).
 
 ### Decision
 
@@ -293,21 +293,21 @@ Implemented image loading state in React (`loaded`, `errored`) using `onLoad`/`o
 ### Consequences
 
 - No flash of broken image. The fallback is always visible until the image has fully loaded.
-- Load state is fully owned and visible — no hidden browser behavior.
-- The `key` + ref approach is simpler than a `useEffect` with cleanup but means the `<img>` element remounts on every `src` change — acceptable for an avatar where `src` changes are infrequent.
+- Load state is fully owned and visible: no hidden browser behavior.
+- The `key` + ref approach is simpler than a `useEffect` with cleanup but means the `<img>` element remounts on every `src` change, which is acceptable for an avatar where `src` changes are infrequent.
 - The three-tier fallback resolution (image → initials → icon) is explicit and testable.
 
 ### Alternatives considered
 
-**`onError` only** — rejected. The broken image icon is visible during the network round-trip before `onError` fires. This is the flash-of-broken-image problem the layered approach solves.
+**`onError` only**: rejected. The broken image icon is visible during the network round-trip before `onError` fires. This is the flash-of-broken-image problem the layered approach solves.
 
-**Radix Avatar primitive** — rejected. Violates the no-third-party-UI-primitives policy (ADR-009). The load state management is straightforward enough to own.
+**Radix Avatar primitive**: rejected. Violates the no-third-party-UI-primitives policy (ADR-009). The load state management is straightforward enough to own.
 
-**`useEffect` with cleanup for `src` changes** — rejected. More code, more edge cases (stale closures, race conditions between effect cleanup and state updates). `key={src}` achieves the same reset with zero additional code.
+**`useEffect` with cleanup for `src` changes**: rejected. More code, more edge cases (stale closures, race conditions between effect cleanup and state updates). `key={src}` achieves the same reset with zero additional code.
 
 ---
 
-## ADR-011: Icon — decorative-by-default accessibility contract and cloneElement child enforcement
+## ADR-011: Icon: decorative-by-default accessibility contract and cloneElement child enforcement
 
 **Date:** 2026-04-04
 **Status:** Accepted
@@ -320,34 +320,34 @@ Icon is a sizing and accessibility wrapper for SVG-based icons from any library.
 
 **1. Decorative by default**
 
-Without a `label` prop, Icon renders with `aria-hidden="true"` on the wrapper. This is the correct default because the vast majority of icon usage is decorative — icons placed alongside visible text that already conveys meaning. Requiring consumers to opt into `aria-hidden` on every decorative icon would be error-prone and would lead to accessibility violations when forgotten. The `label` prop switches to labelled mode (`role="img"` + `aria-label`), which is the minority case for standalone icons.
+Without a `label` prop, Icon renders with `aria-hidden="true"` on the wrapper. This is the correct default because the vast majority of icon usage is decorative: icons placed alongside visible text that already conveys meaning. Requiring consumers to opt into `aria-hidden` on every decorative icon would be error-prone and would lead to accessibility violations when forgotten. The `label` prop switches to labelled mode (`role="img"` + `aria-label`), which is the minority case for standalone icons.
 
 **2. `React.cloneElement` to inject `aria-hidden` onto child SVGs**
 
-The child SVG must always have `aria-hidden="true"` — the accessible name lives on the wrapper, not on the SVG. Rather than requiring consumers to remember to pass `aria-hidden={true}` to every icon library component, Icon enforces this by cloning the child element and injecting `aria-hidden="true"`, `width="100%"`, and `height="100%"`. This is defensive and correct: the wrapper owns the accessibility contract, not the consumer.
+The child SVG must always have `aria-hidden="true"`: the accessible name lives on the wrapper, not on the SVG. Rather than requiring consumers to remember to pass `aria-hidden={true}` to every icon library component, Icon enforces this by cloning the child element and injecting `aria-hidden="true"`, `width="100%"`, and `height="100%"`. This is defensive and correct: the wrapper owns the accessibility contract, not the consumer.
 
 **3. `children: React.ReactElement` constraint**
 
-`React.cloneElement` only works on a single React element. The type is `React.ReactElement` (not `React.ReactNode`) to enforce this at the type level. In development, a runtime warning fires if `children` is not a valid element. This trades flexibility (no string children, no fragments) for safety — Icon's purpose is to wrap a single SVG element, and accepting anything else would be a misuse.
+`React.cloneElement` only works on a single React element. The type is `React.ReactElement` (not `React.ReactNode`) to enforce this at the type level. In development, a runtime warning fires if `children` is not a valid element. This trades flexibility (no string children, no fragments) for safety: Icon's purpose is to wrap a single SVG element, and accepting anything else would be a misuse.
 
 **4. No `variant` or `intent`**
 
-Icon has no semantic color role — it is a utility wrapper. Its `color` prop maps directly to `--nuka-text-*` tokens with `"inherit"` as the default, meaning the icon inherits `currentColor` from its parent. This is the correct default for inline icons where the parent text color should flow through.
+Icon has no semantic color role: it is a utility wrapper. Its `color` prop maps directly to `--nuka-text-*` tokens with `"inherit"` as the default, meaning the icon inherits `currentColor` from its parent. This is the correct default for inline icons where the parent text color should flow through.
 
 **5. Dual CVA instances (`iconVariants` + `iconColorVariants`)**
 
-Following the Spinner precedent (ADR not previously recorded — Spinner uses `spinnerVariants` + `spinnerColorVariants`). Separating size and color into distinct CVA instances keeps each concern isolated and composable. The `color` prop conflicts with the native HTML `color` attribute on `HTMLSpanElement`, resolved via `Omit<React.HTMLAttributes<HTMLSpanElement>, "color">` — same pattern as Spinner.
+Following the Spinner precedent (ADR not previously recorded; Spinner uses `spinnerVariants` + `spinnerColorVariants`). Separating size and color into distinct CVA instances keeps each concern isolated and composable. The `color` prop conflicts with the native HTML `color` attribute on `HTMLSpanElement`, resolved via `Omit<React.HTMLAttributes<HTMLSpanElement>, "color">`, the same pattern as Spinner.
 
 ### Consequences
 
 - Icons are accessible by default with zero consumer effort for the common decorative case.
-- The `cloneElement` approach requires that icon library components forward arbitrary props to their root SVG — all major libraries (Lucide, Heroicons, Phosphor) do this.
-- `children: React.ReactElement` prevents passing strings, numbers, or fragments — this is intentional.
+- The `cloneElement` approach requires that icon library components forward arbitrary props to their root SVG. All major libraries (Lucide, Heroicons, Phosphor) do this.
+- `children: React.ReactElement` prevents passing strings, numbers, or fragments. This is intentional.
 - The `color="inherit"` default means Icon is transparent to parent color context, which is the desired behavior for inline icons.
 
 ---
 
-## ADR-012: Kbd — no variant/intent, no asChild, `<kbd>` element, composition model
+## ADR-012: Kbd: no variant/intent, no asChild, `<kbd>` element, composition model
 
 **Date:** 2026-04-04
 **Status:** Accepted
@@ -358,13 +358,13 @@ Kbd is a display-only primitive that renders keyboard key labels. Its design req
 
 ### Decisions
 
-**1. `<kbd>` element — non-negotiable**
+**1. `<kbd>` element: non-negotiable**
 
 The HTML `<kbd>` element is semantically defined as keyboard input. It is the correct and only valid element for this component. No `<span>`, `<code>`, or other element is appropriate as the root.
 
 **2. No `variant` or `intent` props**
 
-Kbd is structural chrome. It carries no semantic color meaning — `intent="danger"` on a key label has no valid use case. A single visual treatment using `--nuka-bg-subtle`, `--nuka-border-base`, and `--nuka-text-base` is correct. Consumers who need custom color use `className`.
+Kbd is structural chrome. It carries no semantic color meaning: `intent="danger"` on a key label has no valid use case. A single visual treatment using `--nuka-bg-subtle`, `--nuka-border-base`, and `--nuka-text-base` is correct. Consumers who need custom color use `className`.
 
 **3. No `asChild`**
 
@@ -376,18 +376,18 @@ Three sizes (`sm`, `md`, `lg`) cover the real use cases: tooltips (small), body 
 
 **5. Individual `<kbd>` composition model**
 
-The HTML spec describes keyboard shortcuts as nested `<kbd>` elements: a wrapping `<kbd>` containing individual `<kbd>` children. `Kbd` renders a single key. Consumers compose sequences themselves. No `KbdGroup` or `keys` prop — that is a separate concern.
+The HTML spec describes keyboard shortcuts as nested `<kbd>` elements: a wrapping `<kbd>` containing individual `<kbd>` children. `Kbd` renders a single key. Consumers compose sequences themselves. No `KbdGroup` or `keys` prop; that is a separate concern.
 
 ### Consequences
 
 - Kbd is the second component (after Divider) to intentionally omit variant/intent, reinforcing that the pattern is opt-in per component
 - No `asChild` means no Slot import and no Radix-adjacent complexity
 - The composition model follows the HTML spec and is documented in the "Pattern: Keyboard Shortcut" story
-- `<kbd>` has no implicit ARIA role; no `role` attribute is added — this is correct per the spec
+- `<kbd>` has no implicit ARIA role; no `role` attribute is added. This is correct per the spec
 
 ---
 
-## ADR-013: Select — composable combobox pattern, `hidden` attribute, and Storybook a11y inconclusive
+## ADR-013: Select: composable combobox pattern, `hidden` attribute, and Storybook a11y inconclusive
 
 **Date:** 2026-04-04
 **Status:** Accepted
@@ -404,7 +404,7 @@ Select is composed of five parts: `Select` (root context provider), `SelectTrigg
 
 **2. `hidden` attribute on listbox instead of conditional rendering**
 
-The listbox `<div role="listbox">` is always in the DOM with `hidden={!open}`. This ensures `aria-controls` on the trigger always resolves to a valid element. Conditional rendering (`{open && <div>}`) would leave `aria-controls` pointing to a non-existent element when closed — valid per ARIA 1.2 but flagged by axe-core. The `hidden` attribute removes the element from the accessibility tree while keeping it in the DOM, solving both concerns. It also allows `SelectItem` components to register their labels on mount, so the trigger can display the selected option's label without the listbox being visible.
+The listbox `<div role="listbox">` is always in the DOM with `hidden={!open}`. This ensures `aria-controls` on the trigger always resolves to a valid element. Conditional rendering (`{open && <div>}`) would leave `aria-controls` pointing to a non-existent element when closed, which is valid per ARIA 1.2 but flagged by axe-core. The `hidden` attribute removes the element from the accessibility tree while keeping it in the DOM, solving both concerns. It also allows `SelectItem` components to register their labels on mount, so the trigger can display the selected option's label without the listbox being visible.
 
 **3. Registry version counter for synchronous label display**
 
@@ -412,22 +412,22 @@ The listbox `<div role="listbox">` is always in the DOM with `hidden={!open}`. T
 
 **4. `aria-label` fallback for combobox accessible name**
 
-`role="combobox"` has `nameFrom: author` — text content does not contribute to the accessible name. When no `aria-labelledby` is present (i.e., outside a `FormField`), the trigger derives `aria-label` from the selected option label, the `placeholder` prop, or a fallback `"Select"`. Inside `FormField`, `aria-labelledby` from the `Label` takes precedence and `aria-label` is omitted.
+`role="combobox"` has `nameFrom: author`, so text content does not contribute to the accessible name. When no `aria-labelledby` is present (i.e., outside a `FormField`), the trigger derives `aria-label` from the selected option label, the `placeholder` prop, or a fallback `"Select"`. Inside `FormField`, `aria-labelledby` from the `Label` takes precedence and `aria-label` is omitted.
 
 **5. Known Storybook a11y panel inconclusive**
 
-The Storybook accessibility panel reports `aria-controls` as "inconclusive" on Select stories. This is a tooling limitation: axe-core runs in the parent frame and cannot resolve element IDs inside the story iframe. Console inspection confirms the DOM is correct — `aria-controls` on the trigger matches `id` on the listbox, which is present in the DOM with `hidden=""`. The IDs match. This is not a WCAG violation.
+The Storybook accessibility panel reports `aria-controls` as "inconclusive" on Select stories. This is a tooling limitation: axe-core runs in the parent frame and cannot resolve element IDs inside the story iframe. Console inspection confirms the DOM is correct: `aria-controls` on the trigger matches `id` on the listbox, which is present in the DOM with `hidden=""`. The IDs match. This is not a WCAG violation.
 
 ### Consequences
 
 - The composable API requires five imports for full usage but matches industry convention and is self-documenting
 - The `hidden` attribute approach means option elements exist in the DOM when closed, but are excluded from the accessibility tree
 - The registry pattern adds a render cycle on mount but ensures labels are always available to the trigger
-- No third-party UI primitive dependencies — all keyboard navigation, type-ahead, and ARIA semantics are owned
+- No third-party UI primitive dependencies: all keyboard navigation, type-ahead, and ARIA semantics are owned
 
 ---
 
-## ADR-014: Tier 3 Batch 1 — Alert, Progress, and Skeleton design decisions
+## ADR-014: Tier 3 Batch 1: Alert, Progress, and Skeleton design decisions
 
 **Date:** 2026-04-04
 **Status:** Accepted
@@ -438,27 +438,27 @@ Alert, Progress, and Skeleton are the first Tier 3 (feedback & display) componen
 
 ### Decisions
 
-**1. Alert — controlled-only dismiss, no internal state**
+**1. Alert: controlled-only dismiss, no internal state**
 
-Alert accepts an optional `onDismiss?: () => void` prop. When provided, a dismiss button renders. There is no internal `open`/`isOpen` state — the consumer owns visibility entirely. This is consistent with React's controlled component pattern and avoids the complexity of dual controlled/uncontrolled modes for a simple presentational component. The dismiss button is a plain `<button>` element with ghost styling, not a `Button` component — this avoids circular import risk and over-engineering for a single icon button.
+Alert accepts an optional `onDismiss?: () => void` prop. When provided, a dismiss button renders. There is no internal `open`/`isOpen` state; the consumer owns visibility entirely. This is consistent with React's controlled component pattern and avoids the complexity of dual controlled/uncontrolled modes for a simple presentational component. The dismiss button is a plain `<button>` element with ghost styling, not a `Button` component, which avoids circular import risk and over-engineering for a single icon button.
 
-**2. Progress — two CVA instances (track vs. fill)**
+**2. Progress: two CVA instances (track vs. fill)**
 
 Progress uses `progressTrackVariants` for the outer track (owns `size`) and `progressFillVariants` for the inner fill (owns `intent`). This separation exists because `size` and `intent` apply to different DOM elements. Combining them in a single CVA instance would require passing the full variant set to both elements, with unused variants on each. The two-instance approach keeps each CVA focused on the element it styles.
 
-**3. Skeleton — no variant/intent, no size prop, hardcoded `aria-hidden`**
+**3. Skeleton: no variant/intent, no size prop, hardcoded `aria-hidden`**
 
-Skeleton is a purely structural component with no semantic color meaning. It has a `shape` prop (`rect`, `circle`, `text`) but no `variant`, `intent`, or `size`. Consumers control dimensions via `className` or `style` — this is intentional because skeleton dimensions must match the content they replace, which varies per usage. `aria-hidden="true"` is hardcoded and not overridable via props. Skeleton is purely visual decoration; screen reader announcements for loading state belong to the parent context (e.g., `aria-busy` on a container), never on the skeleton itself. Allowing consumers to remove `aria-hidden` would create an accessibility antipattern.
+Skeleton is a purely structural component with no semantic color meaning. It has a `shape` prop (`rect`, `circle`, `text`) but no `variant`, `intent`, or `size`. Consumers control dimensions via `className` or `style`; this is intentional because skeleton dimensions must match the content they replace, which varies per usage. `aria-hidden="true"` is hardcoded and not overridable via props. Skeleton is purely visual decoration; screen reader announcements for loading state belong to the parent context (e.g., `aria-busy` on a container), never on the skeleton itself. Allowing consumers to remove `aria-hidden` would create an accessibility antipattern.
 
-**4. Progress indeterminate mode — CSS animation with reduced-motion support**
+**4. Progress indeterminate mode: CSS animation with reduced-motion support**
 
-When `value` is `undefined`, Progress enters indeterminate mode with a CSS animation (`nuka-progress-indeterminate` keyframe). `aria-valuenow` is genuinely omitted (not set to `undefined` as a string) per the ARIA progressbar specification. `@media (prefers-reduced-motion: reduce)` disables the animation — no JavaScript prop needed.
+When `value` is `undefined`, Progress enters indeterminate mode with a CSS animation (`nuka-progress-indeterminate` keyframe). `aria-valuenow` is genuinely omitted (not set to `undefined` as a string) per the ARIA progressbar specification. `@media (prefers-reduced-motion: reduce)` disables the animation; no JavaScript prop needed.
 
 ### Consequences
 
 - Alert's controlled-only pattern is simpler to implement and test; consumers who need uncontrolled dismiss wrap it in their own state
 - The two-CVA-instance approach for Progress establishes a pattern for future components with multi-element styling (e.g., Slider already uses this)
-- Skeleton's lack of variant/intent reinforces that the pattern is opt-in per component, not mandatory — joining Divider (ADR-008) and Kbd (ADR-012) in this category
+- Skeleton's lack of variant/intent reinforces that the pattern is opt-in per component, not mandatory, joining Divider (ADR-008) and Kbd (ADR-012) in this category
 - Reduced-motion handling via CSS `@media` query is consistent across Progress and Skeleton, with no per-component JavaScript required
 
 ---
@@ -470,7 +470,7 @@ When `value` is `undefined`, Progress enters indeterminate mode with a CSS anima
 
 ### Context
 
-Tooltip and Popover require floating position logic: scroll observation, overflow boundary detection, flip/shift/arrow middleware, cross-browser measurement, and real-time repositioning on scroll/resize. This is the same class of problem that motivated ADR-009's removal of Radix UI — but the scope and nature of the dependency are fundamentally different.
+Tooltip and Popover require floating position logic: scroll observation, overflow boundary detection, flip/shift/arrow middleware, cross-browser measurement, and real-time repositioning on scroll/resize. This is the same class of problem that motivated ADR-009's removal of Radix UI, but the scope and nature of the dependency are fundamentally different.
 
 ### Decision
 
@@ -480,7 +480,7 @@ Tooltip and Popover require floating position logic: scroll observation, overflo
 
 The distinction from Radix UI is categorical, not a matter of degree:
 
-- **Radix UI** imposes a full component API — it owns rendering, ARIA semantics, keyboard navigation, and state management. Using it means delegating the entire component contract to a third party.
+- **Radix UI** imposes a full component API: it owns rendering, ARIA semantics, keyboard navigation, and state management. Using it means delegating the entire component contract to a third party.
 - **Floating UI** provides a positioning primitive. It computes `{ x, y }` coordinates and exposes hooks for interaction detection (`useHover`, `useClick`, `useDismiss`). It does not render any DOM elements, impose any component structure, or manage accessible names/roles beyond what the consumer explicitly configures.
 
 Rolling floating position logic first-party would produce a worse implementation with real edge cases around:
@@ -494,15 +494,15 @@ These are positioning math problems, not component design problems. Owning them 
 ### Consequences
 
 - `@floating-ui/react` is the sole external UI-adjacent dependency. This exception is narrow and deliberate.
-- Future floating components (DropdownMenu, Dialog popover mode, DatePicker) reuse this dependency — no additional dependency decisions required.
+- Future floating components (DropdownMenu, Dialog popover mode, DatePicker) reuse this dependency: no additional dependency decisions required.
 - The library is used as a primitive: all ARIA semantics, focus management, and component structure remain first-party.
-- If `@floating-ui/react` is ever abandoned, the migration surface is limited to positioning logic — no component APIs would need rewriting.
+- If `@floating-ui/react` is ever abandoned, the migration surface is limited to positioning logic; no component APIs would need rewriting.
 
 ### Alternatives considered
 
-**First-party positioning engine** — rejected. The implementation complexity is high, the edge cases are browser-specific, and the result would be strictly worse than Floating UI's battle-tested solution. This is not a learning opportunity; it is a solved problem.
+**First-party positioning engine**: rejected. The implementation complexity is high, the edge cases are browser-specific, and the result would be strictly worse than Floating UI's battle-tested solution. This is not a learning opportunity; it is a solved problem.
 
-**CSS Anchor Positioning (`anchor()`)** — not yet viable. Browser support is insufficient (no Firefox, no Safari stable as of early 2026). Revisit when baseline support reaches 90%+.
+**CSS Anchor Positioning (`anchor()`)**: not yet viable. Browser support is insufficient (no Firefox, no Safari stable as of early 2026). Revisit when baseline support reaches 90%+.
 
 ---
 
@@ -531,49 +531,49 @@ Both components use the same compound structure:
 The Root component (`Tooltip`, `Popover`) is a context provider that owns state and Floating UI configuration. It renders no DOM element. Trigger and Content are separate components that consume context.
 
 This pattern was chosen over a single-prop wrapper (`<Tooltip content="...">`) because:
-- It allows arbitrary trigger elements via `asChild` — tooltips on icon buttons, links, or custom components
-- It gives consumers full control over content rendering — Popover content can contain forms, lists, or any interactive elements
+- It allows arbitrary trigger elements via `asChild`: tooltips on icon buttons, links, or custom components
+- It gives consumers full control over content rendering: Popover content can contain forms, lists, or any interactive elements
 - It aligns with the compound pattern established by `Select` (ADR-013) and anticipated by Tier 4 components (Dialog, DropdownMenu, Tabs)
 
 **2. Tooltip interaction model: hover + focus, non-interactive content**
 
 - Opens on hover (with configurable delay, default 600ms) and focus (immediate, no delay)
 - Closes on mouseleave, blur, and Escape
-- Content has `role="tooltip"` and `pointer-events-none` — tooltips are never interactive
+- Content has `role="tooltip"` and `pointer-events-none`; tooltips are never interactive
 - Trigger uses `aria-describedby` pointing to the tooltip's `id`
 - `side` prop on the Root controls placement (`top`, `right`, `bottom`, `left`)
 
-The delay applies only to hover-open, not focus-open. Focus-triggered tooltips must be immediate per WCAG 1.4.13 (Content on Hover or Focus) — the user has already made an explicit action.
+The delay applies only to hover-open, not focus-open. Focus-triggered tooltips must be immediate per WCAG 1.4.13 (Content on Hover or Focus); the user has already made an explicit action.
 
 **3. Popover interaction model: click, interactive content**
 
 - Opens on click, closes on Escape and outside click
-- Content has `role="dialog"` — Popover panels are interactive regions
+- Content has `role="dialog"`; Popover panels are interactive regions
 - Focus moves into the panel on open (first focusable child, or the panel itself via `tabIndex={-1}`)
 - Focus returns to the trigger on close (handled natively by Floating UI's `useDismiss`)
 - Trigger uses `aria-expanded` and `aria-controls`
-- No focus trap — that belongs to Dialog (Tier 4), not Popover
+- No focus trap; that belongs to Dialog (Tier 4), not Popover
 
 **4. Portal rendering for both**
 
-Both render content via `ReactDOM.createPortal(…, document.body)` to escape stacking contexts. Content is conditionally rendered (`{open && <portal>}`), not hidden with `hidden` attribute — unlike Select (ADR-013), there is no registry pattern that requires options to be in the DOM when closed.
+Both render content via `ReactDOM.createPortal(…, document.body)` to escape stacking contexts. Content is conditionally rendered (`{open && <portal>}`), not hidden with `hidden` attribute. Unlike Select (ADR-013), there is no registry pattern that requires options to be in the DOM when closed.
 
 SSR safety: both Content components guard with `typeof document === 'undefined'`.
 
 **5. No variant/intent on either component**
 
-Tooltip and Popover are structural chrome — they carry no semantic color meaning. Tooltip has a single dark surface style; Popover has a single bordered surface style. This follows the precedent set by Divider (ADR-008), Kbd (ADR-012), and Skeleton (ADR-014).
+Tooltip and Popover are structural chrome: they carry no semantic color meaning. Tooltip has a single dark surface style; Popover has a single bordered surface style. This follows the precedent set by Divider (ADR-008), Kbd (ADR-012), and Skeleton (ADR-014).
 
 ### Consequences
 
 - The compound pattern adds import count (3 per component) but is self-documenting and matches industry convention (Radix, shadcn/ui, Ark UI)
 - Tooltip and Popover establish the Floating UI integration pattern for all future floating components
-- The clear separation between Tooltip (non-interactive, `role="tooltip"`) and Popover (interactive, `role="dialog"`) prevents misuse — consumers cannot accidentally put interactive content in a tooltip
-- `side` on Tooltip Root (not Content) keeps placement configuration where it belongs — at the `useFloating` call site
+- The clear separation between Tooltip (non-interactive, `role="tooltip"`) and Popover (interactive, `role="dialog"`) prevents misuse; consumers cannot accidentally put interactive content in a tooltip
+- `side` on Tooltip Root (not Content) keeps placement configuration where it belongs: at the `useFloating` call site
 
 ---
 
-## ADR-017: Toast — singleton store, no provider, queue design, and action slot
+## ADR-017: Toast: singleton store, no provider, queue design, and action slot
 
 **Date:** 2026-04-04
 **Status:** Accepted
@@ -586,7 +586,7 @@ Toast is a programmatic notification system. Unlike other nuka-ui components, it
 
 **1. Module-level singleton store instead of Context/Provider**
 
-The store is a plain TypeScript module (`toastStore.ts`) with no React dependency. State lives in a module-level `let state: ToastItem[]` variable. React subscribes via `useSyncExternalStore(store.subscribe, store.getSnapshot)`. This means `toast()` works from event handlers, async callbacks, and non-React code without any provider in the component tree. A Context-based approach would require `<ToastProvider>` wrapping the app, which adds ceremony for no benefit — toast state is inherently global (one notification queue per page).
+The store is a plain TypeScript module (`toastStore.ts`) with no React dependency. State lives in a module-level `let state: ToastItem[]` variable. React subscribes via `useSyncExternalStore(store.subscribe, store.getSnapshot)`. This means `toast()` works from event handlers, async callbacks, and non-React code without any provider in the component tree. A Context-based approach would require `<ToastProvider>` wrapping the app, which adds ceremony for no benefit, since toast state is inherently global (one notification queue per page).
 
 **2. `useSyncExternalStore` over `useState` + `useEffect`**
 
@@ -594,35 +594,35 @@ The store is a plain TypeScript module (`toastStore.ts`) with no React dependenc
 
 **3. Queue with max 5 visible toasts**
 
-More than 5 simultaneous toasts overwhelm the user. New toasts beyond the limit are queued (`visible: false`) and promoted FIFO as visible toasts dismiss. The queue is transparent to the consumer — `toast()` always accepts calls regardless of current count. Auto-dismiss timers start when a toast becomes visible, not when it's queued.
+More than 5 simultaneous toasts overwhelm the user. New toasts beyond the limit are queued (`visible: false`) and promoted FIFO as visible toasts dismiss. The queue is transparent to the consumer: `toast()` always accepts calls regardless of current count. Auto-dismiss timers start when a toast becomes visible, not when it's queued.
 
 **4. `dismissing` flag for exit animation**
 
-When `toast.dismiss(id)` is called, the toast is marked `dismissing: true` (triggering `data-state="closed"` CSS animation) but remains in the DOM for 300ms — the exit animation duration. After 300ms, `remove(id)` filters it from state. This decouples animation timing from React rendering.
+When `toast.dismiss(id)` is called, the toast is marked `dismissing: true` (triggering `data-state="closed"` CSS animation) but remains in the DOM for 300ms (the exit animation duration). After 300ms, `remove(id)` filters it from state. This decouples animation timing from React rendering.
 
 **5. `duration: Infinity` for persistent toasts**
 
 `Infinity` is a valid JavaScript number that naturally passes `if (duration === Infinity) return` checks without special-casing string sentinels or nullable types. The timer simply never starts.
 
-**6. `__reset()` — dev/test only, not part of public API**
+**6. `__reset()`: dev/test only, not part of public API**
 
 `toastStore.__reset()` clears all toasts synchronously. It is exported from `toastStore.ts` but intentionally not re-exported from `src/index.ts`. The double-underscore prefix is a conventional signal that this is internal. It is necessary for Storybook story isolation and test `beforeEach` cleanup.
 
 **7. `action` slot on `ToastItem`**
 
-`ToastItem.action` is an optional `{ label: string; onClick: () => void }` that renders an inline action button (e.g., "Undo") in the toast. This is a common real-world pattern that cannot be achieved with message strings alone. The action button dismisses the toast after executing the callback. The slot is minimal — a single label and callback — rather than accepting arbitrary React nodes, which would complicate the store's serializable-friendly shape.
+`ToastItem.action` is an optional `{ label: string; onClick: () => void }` that renders an inline action button (e.g., "Undo") in the toast. This is a common real-world pattern that cannot be achieved with message strings alone. The action button dismisses the toast after executing the callback. The slot is minimal (a single label and callback) rather than accepting arbitrary React nodes, which would complicate the store's serializable-friendly shape.
 
 ### Consequences
 
-- No `<ToastProvider>` needed — consumers render `<Toaster />` once, call `toast()` anywhere
-- The singleton pattern means only one toast queue per JavaScript context — multiple `<Toaster />` instances would render duplicate toasts (documented, not prevented)
+- No `<ToastProvider>` needed: consumers render `<Toaster />` once, call `toast()` anywhere
+- The singleton pattern means only one toast queue per JavaScript context; multiple `<Toaster />` instances would render duplicate toasts (documented, not prevented)
 - `__reset()` must be called in test/story setup to avoid state leaking between tests
 - The `action` slot is additive and does not affect consumers who don't use it
-- CSS keyframes for enter/exit animation live in `src/styles/index.css`, following the Spinner pattern — a `@media (prefers-reduced-motion: reduce)` override disables all `data-state` animations globally
+- CSS keyframes for enter/exit animation live in `src/styles/index.css`, following the Spinner pattern. A `@media (prefers-reduced-motion: reduce)` override disables all `data-state` animations globally
 
 ---
 
-## ADR-018: Banner — `role="region"` distinction from Alert, no portal, required `aria-label`
+## ADR-018: Banner: `role="region"` distinction from Alert, no portal, required `aria-label`
 
 **Date:** 2026-04-04
 **Status:** Accepted
@@ -635,19 +635,19 @@ Banner is a full-width informational strip for persistent, non-urgent messaging 
 
 **1. `role="region"` instead of `role="alert"`**
 
-Alert uses `role="alert"`, which triggers an assertive live-region announcement — appropriate for urgent, transient feedback (form errors, action results). Banner conveys persistent contextual information that should not interrupt the user. `role="region"` with a required `aria-label` creates a navigable landmark without assertive announcements. This is the key semantic distinction between the two components.
+Alert uses `role="alert"`, which triggers an assertive live-region announcement, appropriate for urgent, transient feedback (form errors, action results). Banner conveys persistent contextual information that should not interrupt the user. `role="region"` with a required `aria-label` creates a navigable landmark without assertive announcements. This is the key semantic distinction between the two components.
 
 **2. `aria-label` required at the type level**
 
-`role="region"` without an accessible name is a landmark without identity — screen reader users see an anonymous region, which is worse than no landmark. The `aria-label` prop is required in the TypeScript interface (not optional) by using `Omit<React.HTMLAttributes, 'aria-label'>` to remove the optional default and re-declaring it as required. This makes the accessibility requirement a compile-time error, not a runtime or audit discovery.
+`role="region"` without an accessible name is a landmark without identity: screen reader users see an anonymous region, which is worse than no landmark. The `aria-label` prop is required in the TypeScript interface (not optional) by using `Omit<React.HTMLAttributes, 'aria-label'>` to remove the optional default and re-declaring it as required. This makes the accessibility requirement a compile-time error, not a runtime or audit discovery.
 
 **3. No portal, no fixed positioning**
 
-Banner does not render via `createPortal` and does not apply `position: fixed` or `position: sticky`. Consumers own placement — a Banner at the top of the page is the consumer's layout decision, not the component's. This avoids z-index conflicts, scroll behavior assumptions, and stacking context issues that would arise from opinionated positioning.
+Banner does not render via `createPortal` and does not apply `position: fixed` or `position: sticky`. Consumers own placement: a Banner at the top of the page is the consumer's layout decision, not the component's. This avoids z-index conflicts, scroll behavior assumptions, and stacking context issues that would arise from opinionated positioning.
 
-**4. Intent-only CVA — no `variant` prop**
+**4. Intent-only CVA: no `variant` prop**
 
-Banner has one visual weight — full-width, border-left accent. There is no meaningful secondary, outline, or ghost treatment. Adding `variant` would create unused combinations. Intent alone (default, success, danger, warning) covers all real use cases. This is the first component to use intent-only CVA without compound variants.
+Banner has one visual weight: full-width, border-left accent. There is no meaningful secondary, outline, or ghost treatment. Adding `variant` would create unused combinations. Intent alone (default, success, danger, warning) covers all real use cases. This is the first component to use intent-only CVA without compound variants.
 
 **5. `action` slot**
 
@@ -656,13 +656,13 @@ An optional `action?: React.ReactNode` slot renders between the message content 
 ### Consequences
 
 - Banner and Alert are clearly distinct: Banner is persistent context (`role="region"`), Alert is urgent feedback (`role="alert"`)
-- The required `aria-label` enforces accessibility at build time — no consumer can accidentally ship an anonymous region
+- The required `aria-label` enforces accessibility at build time: no consumer can accidentally ship an anonymous region
 - No positioning opinions means Banner works in any layout context without fighting consumer CSS
-- Intent-only CVA is simpler than the standard variant × intent pattern — no compound variants needed
+- Intent-only CVA is simpler than the standard variant × intent pattern: no compound variants needed
 
 ---
 
-## ADR-019: EmptyState — dual illustration/icon slots, priority rule, no CVA
+## ADR-019: EmptyState: dual illustration/icon slots, priority rule, no CVA
 
 **Date:** 2026-04-04
 **Status:** Accepted
@@ -675,32 +675,32 @@ EmptyState is a blank-slate component for empty lists, search results, and table
 
 **1. `illustration` and `icon` as separate slots with priority**
 
-Two visual slots serve different fidelity levels: `illustration` for large artwork (SVGs, images, custom components) and `icon` for simpler icons. When both are provided, `illustration` takes precedence and `icon` is silently ignored. The implementation is `const visual = illustration ?? icon ?? null` — a single line that handles all cases without conditional branching.
+Two visual slots serve different fidelity levels: `illustration` for large artwork (SVGs, images, custom components) and `icon` for simpler icons. When both are provided, `illustration` takes precedence and `icon` is silently ignored. The implementation is `const visual = illustration ?? icon ?? null`, a single line that handles all cases without conditional branching.
 
 This dual-slot approach is preferred over a single `visual` slot because it makes the API self-documenting: consumers know exactly what fidelity level they're providing, and the component can apply appropriate container styling for each.
 
 **2. `heading` is required**
 
-An EmptyState without a heading is not a valid UI pattern — the user needs to know why the area is empty. Making `heading` required at the type level prevents consumers from rendering a bare icon with no explanation.
+An EmptyState without a heading is not a valid UI pattern: the user needs to know why the area is empty. Making `heading` required at the type level prevents consumers from rendering a bare icon with no explanation.
 
 **3. `role="status"`**
 
-EmptyState communicates that content is absent — a state condition, not an error or alert. `role="status"` is a polite live region that announces changes without interrupting the user. This is correct for content that transitions from populated to empty (e.g., after filtering).
+EmptyState communicates that content is absent, a state condition, not an error or alert. `role="status"` is a polite live region that announces changes without interrupting the user. This is correct for content that transitions from populated to empty (e.g., after filtering).
 
 **4. No CVA, no variant, no intent**
 
-EmptyState is a neutral layout container. It has no semantic color meaning — there is no "danger empty state" or "success empty state." All visual treatment is structural (centering, spacing, max-width). Consumers who need custom styling use `className`. This follows the precedent set by Divider (ADR-008) and Kbd (ADR-012).
+EmptyState is a neutral layout container. It has no semantic color meaning; there is no "danger empty state" or "success empty state." All visual treatment is structural (centering, spacing, max-width). Consumers who need custom styling use `className`. This follows the precedent set by Divider (ADR-008) and Kbd (ADR-012).
 
 ### Consequences
 
-- The `illustration ?? icon ?? null` priority rule is simple and predictable — no surprising behavior when both slots are populated
+- The `illustration ?? icon ?? null` priority rule is simple and predictable: no surprising behavior when both slots are populated
 - Required `heading` prevents incomplete empty states at compile time
-- No CVA means no `EmptyStateVariantProps` export — the component has a smaller API surface than most nuka-ui components
+- No CVA means no `EmptyStateVariantProps` export: the component has a smaller API surface than most nuka-ui components
 - `role="status"` ensures screen reader users are informed when content disappears
 
 ---
 
-## ADR-020: Timeline — compound component, semantic HTML, intent on item only
+## ADR-020: Timeline: compound component, semantic HTML, intent on item only
 
 **Date:** 2026-04-04
 **Status:** Accepted
@@ -713,11 +713,11 @@ Timeline displays a vertical sequence of events. It is a display-only component 
 
 **1. Compound component: `Timeline` + `TimelineItem`**
 
-`Timeline` renders as `<ol>` (root) and `TimelineItem` renders as `<li>` (entry). This two-component pattern provides correct list semantics — screen readers announce "list with N items" — while giving consumers full control over each item's content. A single-component API with an `items` array prop would lose the ability to pass arbitrary children to individual items.
+`Timeline` renders as `<ol>` (root) and `TimelineItem` renders as `<li>` (entry). This two-component pattern provides correct list semantics (screen readers announce "list with N items") while giving consumers full control over each item's content. A single-component API with an `items` array prop would lose the ability to pass arbitrary children to individual items.
 
 **2. `<ol>` over `<ul>`**
 
-Timeline events have a defined sequence — they are ordered by time. An ordered list (`<ol>`) is semantically correct. An unordered list (`<ul>`) would misrepresent the data structure to assistive technology.
+Timeline events have a defined sequence: they are ordered by time. An ordered list (`<ol>`) is semantically correct. An unordered list (`<ul>`) would misrepresent the data structure to assistive technology.
 
 **3. `<time>` element for timestamps**
 
@@ -733,14 +733,14 @@ Only the circular marker dot receives intent-based styling. The content area (ti
 
 **6. Connector line via CSS with `group`/`group-last:hidden`**
 
-The vertical connector between items is a `<div>` with `w-px` and `bg-[var(--nuka-border-base)]`. The `<li>` has the `group` class, and the connector has `group-last:hidden` — Tailwind's first-class utility for hiding an element when its group parent is the last child. This correctly hides the connector on the last item without SVG, pseudo-elements, or arbitrary CSS selectors.
+The vertical connector between items is a `<div>` with `w-px` and `bg-[var(--nuka-border-base)]`. The `<li>` has the `group` class, and the connector has `group-last:hidden`, Tailwind's first-class utility for hiding an element when its group parent is the last child. This correctly hides the connector on the last item without SVG, pseudo-elements, or arbitrary CSS selectors.
 
 ### Consequences
 
 - `Timeline` + `TimelineItem` is the third compound component in nuka-ui (after Select and Tooltip/Popover), establishing the pattern as standard for multi-element components
 - `<ol>`/`<li>` semantics give screen reader users accurate list structure information
 - Intent on individual items enables mixed-status timelines, the primary use case
-- The `group`/`group-last:hidden` connector approach uses only first-class Tailwind utilities — no custom CSS needed
+- The `group`/`group-last:hidden` connector approach uses only first-class Tailwind utilities: no custom CSS needed
 
 ---
 
@@ -766,16 +766,16 @@ Uses Tailwind v4 default breakpoints. The `base` key represents mobile-first def
 
 ### Consequences
 
-- Scalar and object forms both valid — simple cases stay simple, complex cases are possible
+- Scalar and object forms both valid: simple cases stay simple, complex cases are possible
 - `resolveResponsiveClasses` utility handles resolution for all layout components
 - All emitted classes must be statically present in source for Tailwind scanning (see ADR-022)
 - Adding new breakpoints would be additive and non-breaking
 
 ### Alternatives considered
 
-**Per-breakpoint prop suffixes** (`directionSm`, `directionMd`, ...) — rejected due to prop explosion. Every layout prop would multiply by the number of breakpoints.
+**Per-breakpoint prop suffixes** (`directionSm`, `directionMd`, ...): rejected due to prop explosion. Every layout prop would multiply by the number of breakpoints.
 
-**Inline styles** — rejected because they bypass Tailwind's class-based system, lose theming coherence, and make responsive behavior impossible without JavaScript media query listeners.
+**Inline styles**: rejected because they bypass Tailwind's class-based system, lose theming coherence, and make responsive behavior impossible without JavaScript media query listeners.
 
 ---
 
@@ -795,12 +795,12 @@ Use static lookup tables mapping every (breakpoint, prop value) pair to a comple
 ### Consequences
 
 - Every valid class is enumerable and statically present as a complete string literal in source
-- Tables are verbose but explicit and safe — no runtime string construction
+- Tables are verbose but explicit and safe: no runtime string construction
 - The utility is independently testable with pure function tests
-- Adding a new prop value or breakpoint requires adding entries to the lookup table — the type system enforces completeness
+- Adding a new prop value or breakpoint requires adding entries to the lookup table; the type system enforces completeness
 
 ### Alternatives considered
 
-**CSS custom properties with inline styles** — rejected because it loses Tailwind integration and theming coherence. Gap would need `style={{ gap: 'var(--space-4)' }}` instead of `gap-4`.
+**CSS custom properties with inline styles**: rejected because it loses Tailwind integration and theming coherence. Gap would need `style={{ gap: 'var(--space-4)' }}` instead of `gap-4`.
 
-**Dynamic string construction** (`` `${bp}:gap-${n}` ``) — rejected because classes are not detectable by Tailwind's scanner and would be purged.
+**Dynamic string construction** (`` `${bp}:gap-${n}` ``): rejected because classes are not detectable by Tailwind's scanner and would be purged.
