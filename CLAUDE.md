@@ -30,10 +30,10 @@ npm run build         # Vite build + tsc declaration emit
 
 Two-layer CSS custom property architecture:
 
-- **Primitive tokens** — raw scale values, no prefix (`--color-accent-500`, `--space-4`)
-- **Semantic tokens** — purpose-driven, `--nuka-` prefixed, reference primitives (`--nuka-accent-bg`)
+- **Primitive tokens**: raw scale values, no prefix (`--color-accent-500`, `--space-4`)
+- **Semantic tokens**: purpose-driven, `--nuka-` prefixed, reference primitives (`--nuka-accent-bg`)
 
-Components reference only semantic tokens. Never use raw Tailwind color utilities — always `bg-[var(--nuka-accent-bg)]`, never `bg-blue-500`.
+Components reference only semantic tokens. Never use raw Tailwind color utilities: always `bg-[var(--nuka-accent-bg)]`, never `bg-blue-500`.
 
 Theming uses `data-theme` attribute, not classes. Token definitions live in `src/styles/tokens.css`.
 
@@ -41,19 +41,19 @@ Theming uses `data-theme` attribute, not classes. Token definitions live in `src
 
 Every component exposes two props for semantic styling:
 
-- `variant` — visual weight: `primary`, `secondary`, `outline`, `ghost`, `link`
-- `intent` — semantic color: `default`, `danger`, `success`, `warning`
+- `variant`: visual weight: `primary`, `secondary`, `outline`, `ghost`, `link`
+- `intent`: semantic color: `default`, `danger`, `success`, `warning`
 
-All variant × intent combinations must be valid. CVA `compoundVariants` handles class composition. `src/components/Button/Button.tsx` is the reference implementation.
+All variant x intent combinations must be valid. CVA `compoundVariants` handles class composition. `src/components/Button/Button.tsx` is the reference implementation.
 
 ### CVA conventions
 
 Defined in `src/utils/variants.ts`:
 
-- `cva` instance named `<component>Variants` — e.g. `buttonVariants`
-- Exported type named `<Component>VariantProps` — e.g. `ButtonVariantProps`
+- `cva` instance named `<component>Variants`: e.g. `buttonVariants`
+- Exported type named `<Component>VariantProps`: e.g. `ButtonVariantProps`
 - Base classes in an array, one concern per string
-- `intent` variant entries are empty strings — all color work lives in `compoundVariants`
+- `intent` variant entries are empty strings: all color work lives in `compoundVariants`
 
 ### Component structure
 
@@ -77,8 +77,8 @@ Add exports to `src/index.ts` when adding a new component.
 
 ### Testing
 
-- `globals: false` — import `describe`, `it`, `expect` explicitly from `vitest`
-- Always use `getByRole` with `{ name: '...' }` — never bare `getByRole('button')`
+- `globals: false`: import `describe`, `it`, `expect` explicitly from `vitest`
+- Always use `getByRole` with `{ name: '...' }`: never bare `getByRole('button')`
 - Test behavior, not implementation. Assert class names only when testing the variant system.
 - Cleanup is handled automatically via `afterEach` in `src/test-setup.ts`
 
@@ -101,11 +101,11 @@ Verify contrast for every new color token before adding it.
 
 Full reasoning is in `docs/DECISIONS.md`. Summary:
 
-- **variant + intent over flat variants** — avoids combinatorial explosion, cleaner consumer API
-- **Two-layer tokens** — primitives for scale, semantic for meaning, components only reference semantic
-- **`data-theme` attribute** — enables nested themes, no class pollution
-- **No component-level tokens by default** — added per component only when semantic tokens are insufficient
-- **No relative imports** — `@nuka/*` alias everywhere for consistency and refactor safety
+- **variant + intent over flat variants**: avoids combinatorial explosion, cleaner consumer API
+- **Two-layer tokens**: primitives for scale, semantic for meaning, components only reference semantic
+- **`data-theme` attribute**: enables nested themes, no class pollution
+- **No component-level tokens by default**: added per component only when semantic tokens are insufficient
+- **No relative imports**: `@nuka/*` alias everywhere for consistency and refactor safety
 
 ## Component inventory
 
