@@ -60,7 +60,7 @@ const Divider = React.forwardRef<HTMLElement, DividerProps>(
           role="separator"
           aria-orientation="vertical"
           className={cn(
-            "bg-[var(--nuka-border-base)]",
+            "bg-(--nuka-border-base)",
             dividerVariants({ orientation: "vertical", size }),
             className,
           )}
@@ -76,22 +76,22 @@ const Divider = React.forwardRef<HTMLElement, DividerProps>(
           ref={ref as React.Ref<HTMLDivElement>}
           role="separator"
           aria-orientation="horizontal"
-          className={cn("flex items-center gap-[var(--space-3)]", className)}
+          className={cn("flex items-center gap-(--space-3)", className)}
           {...props}
         >
           <div
             className={cn(
-              "flex-1 bg-[var(--nuka-border-base)]",
+              "flex-1 bg-(--nuka-border-base)",
               dividerVariants({ orientation: "horizontal", size }),
             )}
             aria-hidden="true"
           />
-          <span className="shrink-0 px-[var(--space-2)] text-xs text-[var(--nuka-text-muted)] whitespace-nowrap">
+          <span className="shrink-0 px-(--space-2) text-xs text-(--nuka-text-muted) whitespace-nowrap">
             {label}
           </span>
           <div
             className={cn(
-              "flex-1 bg-[var(--nuka-border-base)]",
+              "flex-1 bg-(--nuka-border-base)",
               dividerVariants({ orientation: "horizontal", size }),
             )}
             aria-hidden="true"
@@ -108,7 +108,7 @@ const Divider = React.forwardRef<HTMLElement, DividerProps>(
           role="separator"
           aria-orientation="vertical"
           className={cn(
-            "bg-[var(--nuka-border-base)]",
+            "bg-(--nuka-border-base)",
             dividerVariants({ orientation: "vertical", size }),
             className,
           )}
@@ -122,7 +122,7 @@ const Divider = React.forwardRef<HTMLElement, DividerProps>(
       <hr
         ref={ref as React.Ref<HTMLHRElement>}
         className={cn(
-          "border-0 bg-[var(--nuka-border-base)]",
+          "border-0 bg-(--nuka-border-base)",
           dividerVariants({ orientation: "horizontal", size }),
           className,
         )}

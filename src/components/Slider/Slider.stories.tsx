@@ -62,9 +62,9 @@ export const Controlled: Story = {
 
 export const AllIntents: Story = {
   render: () => (
-    <div className="flex flex-col gap-[var(--space-6)]" style={{ width: 320 }}>
+    <div className="flex flex-col gap-(--space-6)" style={{ width: 320 }}>
       {(["default", "danger", "success", "warning"] as const).map((intent) => (
-        <div key={intent} className="flex flex-col gap-[var(--space-1)]">
+        <div key={intent} className="flex flex-col gap-(--space-1)">
           <Text size="sm" color="muted">{intent}</Text>
           <Slider intent={intent} defaultValue={60} aria-label={`${intent} slider`} />
         </div>
@@ -75,9 +75,9 @@ export const AllIntents: Story = {
 
 export const AllSizes: Story = {
   render: () => (
-    <div className="flex flex-col gap-[var(--space-6)]" style={{ width: 320 }}>
+    <div className="flex flex-col gap-(--space-6)" style={{ width: 320 }}>
       {(["sm", "md", "lg"] as const).map((size) => (
-        <div key={size} className="flex flex-col gap-[var(--space-1)]">
+        <div key={size} className="flex flex-col gap-(--space-1)">
           <Text size="sm" color="muted">{size}</Text>
           <Slider size={size} defaultValue={50} aria-label={`${size} slider`} />
         </div>
@@ -90,7 +90,7 @@ export const WithSteps: Story = {
   render: function SteppedSlider() {
     const [value, setValue] = React.useState(50);
     return (
-      <div className="flex flex-col gap-[var(--space-2)]">
+      <div className="flex flex-col gap-(--space-2)">
         <Slider
           value={value}
           onValueChange={setValue}
@@ -135,12 +135,12 @@ export const VolumeControl: Story = {
   render: function VolumeControlSlider() {
     const [value, setValue] = React.useState(50);
     return (
-      <div className="flex flex-col gap-[var(--space-2)]" style={{ width: 320 }}>
+      <div className="flex flex-col gap-(--space-2)" style={{ width: 320 }}>
         <div className="flex items-center justify-between">
           <Label htmlFor="volume">Volume</Label>
           <Text size="sm" color="muted">{value}%</Text>
         </div>
-        <div className="flex items-center gap-[var(--space-3)]">
+        <div className="flex items-center gap-(--space-3)">
           <Text size="xs" color="muted">0</Text>
           <Slider
             id="volume"

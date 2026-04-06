@@ -37,28 +37,28 @@ describe("Textarea", () => {
     it("applies default intent border class", () => {
       const { container } = render(<Textarea />);
       expect(container.querySelector("textarea")?.className).toContain(
-        "border-[var(--nuka-input-border)]",
+        "border-(--nuka-input-border)",
       );
     });
 
     it("applies danger intent border class", () => {
       const { container } = render(<Textarea intent="danger" />);
       expect(container.querySelector("textarea")?.className).toContain(
-        "border-[var(--nuka-danger-border)]",
+        "border-(--nuka-danger-border)",
       );
     });
 
     it("applies success intent border class", () => {
       const { container } = render(<Textarea intent="success" />);
       expect(container.querySelector("textarea")?.className).toContain(
-        "border-[var(--nuka-success-border)]",
+        "border-(--nuka-success-border)",
       );
     });
 
     it("applies warning intent border class", () => {
       const { container } = render(<Textarea intent="warning" />);
       expect(container.querySelector("textarea")?.className).toContain(
-        "border-[var(--nuka-warning-border)]",
+        "border-(--nuka-warning-border)",
       );
     });
   });
@@ -112,7 +112,7 @@ describe("Textarea", () => {
       const { container } = render(<Textarea className="mt-4" />);
       const el = container.querySelector("textarea");
       expect(el?.className).toContain("mt-4");
-      expect(el?.className).toContain("border-[var(--nuka-input-border)]");
+      expect(el?.className).toContain("border-(--nuka-input-border)");
     });
   });
 

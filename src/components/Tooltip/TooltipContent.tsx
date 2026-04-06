@@ -20,8 +20,8 @@ function TooltipContent({ className, ...props }: TooltipContentProps) {
       style={ctx.floatingStyles}
       {...(floatingProps as React.HTMLAttributes<HTMLDivElement>)}
       className={cn(
-        "z-50 max-w-xs rounded-[var(--radius-md)] px-[var(--space-2)] py-[var(--space-1)]",
-        "text-xs bg-[var(--nuka-bg-emphasis)] text-[var(--nuka-text-inverse)]",
+        "z-50 max-w-xs rounded-(--radius-md) px-(--space-2) py-(--space-1)",
+        "text-xs bg-(--nuka-bg-emphasis) text-(--nuka-text-inverse)",
         "shadow-md pointer-events-none",
         className,
       )}

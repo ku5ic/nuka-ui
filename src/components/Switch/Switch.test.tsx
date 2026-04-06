@@ -119,7 +119,7 @@ describe("Switch", () => {
       render(<Switch aria-label="Toggle" />);
       const el = screen.getByRole("switch", { name: "Toggle" });
       expect(el.className).toContain("focus-visible:outline-2");
-      expect(el.className).toContain("focus-visible:outline-[var(--nuka-border-focus)]");
+      expect(el.className).toContain("focus-visible:outline-(--nuka-border-focus)");
     });
   });
 

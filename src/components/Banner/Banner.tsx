@@ -4,22 +4,22 @@ import { cn } from "@nuka/utils/cn";
 
 const bannerVariants = cva(
   [
-    "w-full flex items-start gap-[var(--space-3)]",
+    "w-full flex items-start gap-(--space-3)",
     "border-l-4",
-    "px-[var(--space-4)] py-[var(--space-3)]",
+    "px-(--space-4) py-(--space-3)",
     "text-sm",
   ],
   {
     variants: {
       intent: {
         default:
-          "bg-[var(--nuka-accent-bg-subtle)] border-[var(--nuka-accent-bg)] text-[var(--nuka-text-base)]",
+          "bg-(--nuka-accent-bg-subtle) border-(--nuka-accent-bg) text-(--nuka-text-base)",
         success:
-          "bg-[var(--nuka-success-bg)] border-[var(--nuka-success-base)] text-[var(--nuka-success-text)]",
+          "bg-(--nuka-success-bg) border-(--nuka-success-base) text-(--nuka-success-text)",
         danger:
-          "bg-[var(--nuka-danger-bg)] border-[var(--nuka-danger-base)] text-[var(--nuka-danger-text)]",
+          "bg-(--nuka-danger-bg) border-(--nuka-danger-base) text-(--nuka-danger-text)",
         warning:
-          "bg-[var(--nuka-warning-bg)] border-[var(--nuka-warning-base)] text-[var(--nuka-warning-text)]",
+          "bg-(--nuka-warning-bg) border-(--nuka-warning-base) text-(--nuka-warning-text)",
       },
     },
     defaultVariants: {
@@ -66,7 +66,7 @@ const Banner = React.forwardRef<HTMLDivElement, BannerProps>(
             type="button"
             aria-label="Dismiss"
             onClick={onDismiss}
-            className="shrink-0 self-start ml-auto inline-flex items-center justify-center rounded-[var(--radius-sm)] p-[var(--space-1)] opacity-70 hover:opacity-100 transition-opacity cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--nuka-border-focus)]"
+            className="shrink-0 self-start ml-auto inline-flex items-center justify-center rounded-(--radius-sm) p-(--space-1) opacity-70 hover:opacity-100 transition-opacity cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--nuka-border-focus)"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

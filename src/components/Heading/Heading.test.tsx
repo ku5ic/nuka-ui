@@ -99,14 +99,14 @@ describe("Heading", () => {
       render(<Heading size="2xl">Snug</Heading>);
       expect(
         screen.getByRole("heading", { name: "Snug" }).className,
-      ).toContain("leading-[var(--line-height-snug)]");
+      ).toContain("leading-(--line-height-snug)");
     });
 
     it("pairs 4xl with tight line-height", () => {
       render(<Heading size="4xl">Tight</Heading>);
       expect(
         screen.getByRole("heading", { name: "Tight" }).className,
-      ).toContain("leading-[var(--line-height-tight)]");
+      ).toContain("leading-(--line-height-tight)");
     });
 
     it("size and as are decoupled", () => {
@@ -155,28 +155,28 @@ describe("Heading", () => {
       render(<Heading>Base</Heading>);
       expect(
         screen.getByRole("heading", { name: "Base" }).className,
-      ).toContain("text-[var(--nuka-text-base)]");
+      ).toContain("text-(--nuka-text-base)");
     });
 
     it("applies muted color", () => {
       render(<Heading color="muted">Muted</Heading>);
       expect(
         screen.getByRole("heading", { name: "Muted" }).className,
-      ).toContain("text-[var(--nuka-text-muted)]");
+      ).toContain("text-(--nuka-text-muted)");
     });
 
     it("applies danger color", () => {
       render(<Heading color="danger">Danger</Heading>);
       expect(
         screen.getByRole("heading", { name: "Danger" }).className,
-      ).toContain("text-[var(--nuka-danger-text)]");
+      ).toContain("text-(--nuka-danger-text)");
     });
 
     it("applies inverse color", () => {
       render(<Heading color="inverse">Inverse</Heading>);
       expect(
         screen.getByRole("heading", { name: "Inverse" }).className,
-      ).toContain("text-[var(--nuka-text-inverse)]");
+      ).toContain("text-(--nuka-text-inverse)");
     });
   });
 
@@ -201,7 +201,7 @@ describe("Heading", () => {
       render(<Heading className="mt-8">Styled</Heading>);
       const el = screen.getByRole("heading", { name: "Styled" });
       expect(el.className).toContain("mt-8");
-      expect(el.className).toContain("text-[var(--nuka-text-base)]");
+      expect(el.className).toContain("text-(--nuka-text-base)");
     });
   });
 

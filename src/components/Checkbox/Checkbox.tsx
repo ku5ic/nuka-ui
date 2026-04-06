@@ -5,7 +5,7 @@ import { useFormField } from "@nuka/components/FormField/FormFieldContext";
 
 const checkboxWrapperVariants = cva(
   [
-    "inline-flex items-center gap-[var(--space-2)]",
+    "inline-flex items-center gap-(--space-2)",
     "cursor-pointer",
     "select-none",
   ],
@@ -26,12 +26,12 @@ const checkboxWrapperVariants = cva(
 const checkboxIndicatorVariants = cva(
   [
     "inline-flex items-center justify-center shrink-0",
-    "rounded-[var(--radius-sm)]",
+    "rounded-(--radius-sm)",
     "border",
-    "text-[var(--nuka-text-inverse)]",
+    "text-(--nuka-text-inverse)",
     "transition-colors duration-150",
     "peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2",
-    "peer-focus-visible:outline-[var(--nuka-border-focus)]",
+    "peer-focus-visible:outline-(--nuka-border-focus)",
     "peer-disabled:cursor-not-allowed peer-disabled:opacity-50",
     "peer-checked:*:block",
   ],
@@ -53,32 +53,32 @@ const checkboxIndicatorVariants = cva(
       {
         intent: "default",
         className: [
-          "border-[var(--nuka-input-border)]",
-          "peer-checked:bg-[var(--nuka-accent-bg)]",
+          "border-(--nuka-input-border)",
+          "peer-checked:bg-(--nuka-accent-bg)",
           "peer-checked:border-transparent",
         ],
       },
       {
         intent: "danger",
         className: [
-          "border-[var(--nuka-danger-border)]",
-          "peer-checked:bg-[var(--nuka-danger-base)]",
+          "border-(--nuka-danger-border)",
+          "peer-checked:bg-(--nuka-danger-base)",
           "peer-checked:border-transparent",
         ],
       },
       {
         intent: "success",
         className: [
-          "border-[var(--nuka-success-border)]",
-          "peer-checked:bg-[var(--nuka-success-base)]",
+          "border-(--nuka-success-border)",
+          "peer-checked:bg-(--nuka-success-base)",
           "peer-checked:border-transparent",
         ],
       },
       {
         intent: "warning",
         className: [
-          "border-[var(--nuka-warning-border)]",
-          "peer-checked:bg-[var(--nuka-warning-base)]",
+          "border-(--nuka-warning-border)",
+          "peer-checked:bg-(--nuka-warning-base)",
           "peer-checked:border-transparent",
         ],
       },
@@ -157,7 +157,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             <path d="M3.5 8.5L6.5 11.5L12.5 4.5" />
           </svg>
         </span>
-        {children && <span className="text-[var(--nuka-text-base)]">{children}</span>}
+        {children && <span className="text-(--nuka-text-base)">{children}</span>}
       </label>
     );
   },

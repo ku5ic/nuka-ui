@@ -20,14 +20,14 @@ const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
         id={resolvedId}
         htmlFor={resolvedHtmlFor}
         className={cn(
-          "text-sm font-medium leading-none text-[var(--nuka-text-base)]",
+          "text-sm font-medium leading-none text-(--nuka-text-base)",
           className,
         )}
         {...props}
       >
         {children}
         {resolvedRequired && (
-          <span aria-hidden="true" className="ml-1 text-[var(--nuka-danger-text)]">
+          <span aria-hidden="true" className="ml-1 text-(--nuka-danger-text)">
             *
           </span>
         )}

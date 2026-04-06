@@ -184,10 +184,10 @@ describe("Avatar", () => {
 
     it("shape prop applies correct classes", () => {
       const { rerender } = render(<Avatar shape="circle" data-testid="avatar" />);
-      expect(screen.getByTestId("avatar").className).toContain("rounded-[var(--radius-full)]");
+      expect(screen.getByTestId("avatar").className).toContain("rounded-(--radius-full)");
 
       rerender(<Avatar shape="square" data-testid="avatar" />);
-      expect(screen.getByTestId("avatar").className).toContain("rounded-[var(--radius-md)]");
+      expect(screen.getByTestId("avatar").className).toContain("rounded-(--radius-md)");
     });
   });
 

@@ -25,21 +25,21 @@ describe("Code", () => {
     it("applies subtle variant classes by default", () => {
       render(<Code>subtle</Code>);
       expect(screen.getByText("subtle").className).toContain(
-        "bg-[var(--nuka-bg-muted)]",
+        "bg-(--nuka-bg-muted)",
       );
     });
 
     it("applies outline variant classes when specified", () => {
       render(<Code variant="outline">outline</Code>);
       expect(screen.getByText("outline").className).toContain(
-        "border-[var(--nuka-border-strong)]",
+        "border-(--nuka-border-strong)",
       );
     });
 
     it("applies ghost variant classes when specified", () => {
       render(<Code variant="ghost">ghost</Code>);
       expect(screen.getByText("ghost").className).toContain(
-        "text-[var(--nuka-text-muted)]",
+        "text-(--nuka-text-muted)",
       );
     });
   });
@@ -71,21 +71,21 @@ describe("Code", () => {
     it("applies danger intent classes on default variant", () => {
       render(<Code intent="danger">danger</Code>);
       expect(screen.getByText("danger").className).toContain(
-        "bg-[var(--nuka-danger-bg)]",
+        "bg-(--nuka-danger-bg)",
       );
     });
 
     it("applies success intent classes on default variant", () => {
       render(<Code intent="success">success</Code>);
       expect(screen.getByText("success").className).toContain(
-        "bg-[var(--nuka-success-bg)]",
+        "bg-(--nuka-success-bg)",
       );
     });
 
     it("applies warning intent classes on default variant", () => {
       render(<Code intent="warning">warning</Code>);
       expect(screen.getByText("warning").className).toContain(
-        "bg-[var(--nuka-warning-bg)]",
+        "bg-(--nuka-warning-bg)",
       );
     });
 
@@ -96,8 +96,8 @@ describe("Code", () => {
         </Code>,
       );
       const el = screen.getByText("outline danger");
-      expect(el.className).toContain("border-[var(--nuka-danger-border)]");
-      expect(el.className).toContain("text-[var(--nuka-danger-text)]");
+      expect(el.className).toContain("border-(--nuka-danger-border)");
+      expect(el.className).toContain("text-(--nuka-danger-text)");
     });
   });
 
@@ -106,7 +106,7 @@ describe("Code", () => {
       render(<Code className="mt-4">code</Code>);
       const el = screen.getByText("code");
       expect(el.className).toContain("mt-4");
-      expect(el.className).toContain("bg-[var(--nuka-bg-muted)]");
+      expect(el.className).toContain("bg-(--nuka-bg-muted)");
     });
   });
 

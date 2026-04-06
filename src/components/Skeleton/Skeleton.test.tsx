@@ -22,7 +22,7 @@ describe("Skeleton", () => {
     it("applies rect shape classes by default", () => {
       render(<Skeleton data-testid="skeleton" />);
       expect(screen.getByTestId("skeleton").className).toContain(
-        "rounded-[var(--radius-md)]",
+        "rounded-(--radius-md)",
       );
     });
 
@@ -36,7 +36,7 @@ describe("Skeleton", () => {
     it("applies text shape classes", () => {
       render(<Skeleton data-testid="skeleton" shape="text" />);
       const el = screen.getByTestId("skeleton");
-      expect(el.className).toContain("rounded-[var(--radius-sm)]");
+      expect(el.className).toContain("rounded-(--radius-sm)");
       expect(el.className).toContain("h-[1em]");
     });
   });

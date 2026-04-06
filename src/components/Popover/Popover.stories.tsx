@@ -30,7 +30,7 @@ export const Default: Story = {
         <Button variant="outline">Options</Button>
       </PopoverTrigger>
       <PopoverContent>
-        <p className="text-sm text-[var(--nuka-text-base)]">
+        <p className="text-sm text-(--nuka-text-base)">
           This is a basic popover with some content inside.
         </p>
       </PopoverContent>
@@ -46,11 +46,11 @@ export const WithForm: Story = {
       </PopoverTrigger>
       <PopoverContent>
         <div className="flex flex-col gap-3">
-          <label className="text-sm font-medium text-[var(--nuka-text-base)]">
+          <label className="text-sm font-medium text-(--nuka-text-base)">
             Display name
             <input
               type="text"
-              className="mt-1 block w-full rounded-[var(--radius-md)] border border-[var(--nuka-input-border)] bg-[var(--nuka-input-bg)] px-[var(--space-3)] py-[var(--space-2)] text-sm text-[var(--nuka-text-base)] focus:border-[var(--nuka-border-focus)] focus:outline-none"
+              className="mt-1 block w-full rounded-(--radius-md) border border-(--nuka-input-border) bg-(--nuka-input-bg) px-(--space-3) py-(--space-2) text-sm text-(--nuka-text-base) focus:border-(--nuka-border-focus) focus:outline-none"
               defaultValue="Jane Doe"
             />
           </label>
@@ -66,7 +66,7 @@ export const ControlledOpen: Story = {
     const [open, setOpen] = React.useState(false);
     return (
       <div className="flex flex-col items-center gap-4">
-        <label className="flex items-center gap-2 text-sm text-[var(--nuka-text-base)]">
+        <label className="flex items-center gap-2 text-sm text-(--nuka-text-base)">
           <input
             type="checkbox"
             checked={open}
@@ -79,7 +79,7 @@ export const ControlledOpen: Story = {
             <Button variant="outline">Controlled</Button>
           </PopoverTrigger>
           <PopoverContent>
-            <p className="text-sm text-[var(--nuka-text-base)]">
+            <p className="text-sm text-(--nuka-text-base)">
               Controlled popover content
             </p>
           </PopoverContent>
@@ -97,7 +97,7 @@ export const Placement: Story = {
           <Button variant="outline">Bottom Start</Button>
         </PopoverTrigger>
         <PopoverContent>
-          <p className="text-sm text-[var(--nuka-text-base)]">
+          <p className="text-sm text-(--nuka-text-base)">
             Placed at bottom-start
           </p>
         </PopoverContent>
@@ -108,7 +108,7 @@ export const Placement: Story = {
           <Button variant="outline">Top Start</Button>
         </PopoverTrigger>
         <PopoverContent>
-          <p className="text-sm text-[var(--nuka-text-base)]">
+          <p className="text-sm text-(--nuka-text-base)">
             Placed at top-start
           </p>
         </PopoverContent>
@@ -149,14 +149,14 @@ export const FilterPanel: Story = {
           <div className="flex flex-col gap-3">
             <h3
               id="filter-heading"
-              className="text-sm font-semibold text-[var(--nuka-text-base)]"
+              className="text-sm font-semibold text-(--nuka-text-base)"
             >
               Filter by status
             </h3>
             {(["active", "completed", "archived"] as const).map((key) => (
               <label
                 key={key}
-                className="flex items-center gap-2 text-sm text-[var(--nuka-text-base)]"
+                className="flex items-center gap-2 text-sm text-(--nuka-text-base)"
               >
                 <input
                   type="checkbox"
@@ -181,7 +181,7 @@ export const UserMenu: Story = {
       <PopoverTrigger asChild>
         <button
           type="button"
-          className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[var(--nuka-accent-bg)] text-xs font-medium text-[var(--nuka-text-inverse)]"
+          className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-(--nuka-accent-bg) text-xs font-medium text-(--nuka-text-inverse)"
           aria-label="User menu"
         >
           JD
@@ -191,29 +191,29 @@ export const UserMenu: Story = {
         <div className="flex flex-col gap-2">
           <h3
             id="user-menu-heading"
-            className="text-sm font-semibold text-[var(--nuka-text-base)]"
+            className="text-sm font-semibold text-(--nuka-text-base)"
           >
             Jane Doe
           </h3>
-          <p className="text-xs text-[var(--nuka-text-muted)]">
+          <p className="text-xs text-(--nuka-text-muted)">
             jane@example.com
           </p>
-          <hr className="border-[var(--nuka-border-base)]" />
+          <hr className="border-(--nuka-border-base)" />
           <a
             href="#profile"
-            className="block rounded-[var(--radius-sm)] px-[var(--space-2)] py-[var(--space-1)] text-sm text-[var(--nuka-text-base)] hover:bg-[var(--nuka-bg-muted)]"
+            className="block rounded-(--radius-sm) px-(--space-2) py-(--space-1) text-sm text-(--nuka-text-base) hover:bg-(--nuka-bg-muted)"
           >
             Profile
           </a>
           <a
             href="#settings"
-            className="block rounded-[var(--radius-sm)] px-[var(--space-2)] py-[var(--space-1)] text-sm text-[var(--nuka-text-base)] hover:bg-[var(--nuka-bg-muted)]"
+            className="block rounded-(--radius-sm) px-(--space-2) py-(--space-1) text-sm text-(--nuka-text-base) hover:bg-(--nuka-bg-muted)"
           >
             Settings
           </a>
           <a
             href="#signout"
-            className="block rounded-[var(--radius-sm)] px-[var(--space-2)] py-[var(--space-1)] text-sm text-[var(--nuka-danger-text)] hover:bg-[var(--nuka-danger-bg)]"
+            className="block rounded-(--radius-sm) px-(--space-2) py-(--space-1) text-sm text-(--nuka-danger-text) hover:bg-(--nuka-danger-bg)"
           >
             Sign out
           </a>

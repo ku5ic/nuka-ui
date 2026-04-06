@@ -22,23 +22,23 @@ const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
         role="status"
         className={cn(
           "flex flex-col items-center justify-center text-center",
-          "gap-[var(--space-4)]",
-          "py-[var(--space-12)] px-[var(--space-6)]",
+          "gap-(--space-4)",
+          "py-(--space-12) px-(--space-6)",
           className,
         )}
         {...props}
       >
         {visual && (
-          <div className="flex items-center justify-center text-[var(--nuka-text-muted)]">
+          <div className="flex items-center justify-center text-(--nuka-text-muted)">
             {visual}
           </div>
         )}
-        <div className="flex flex-col gap-[var(--space-2)] max-w-sm">
-          <p className="text-base font-semibold text-[var(--nuka-text-base)]">
+        <div className="flex flex-col gap-(--space-2) max-w-sm">
+          <p className="text-base font-semibold text-(--nuka-text-base)">
             {heading}
           </p>
           {description != null && (
-            <p className="text-sm text-[var(--nuka-text-muted)]">
+            <p className="text-sm text-(--nuka-text-muted)">
               {description}
             </p>
           )}

@@ -5,8 +5,8 @@ import type { ToastItem } from "@nuka/components/Toast/toastStore"
 
 const toastVariants = cva(
   [
-    "relative flex items-start gap-[var(--space-3)]",
-    "w-80 rounded-[var(--radius-md)] border p-[var(--space-4)]",
+    "relative flex items-start gap-(--space-3)",
+    "w-80 rounded-(--radius-md) border p-(--space-4)",
     "shadow-lg",
     "transition-all duration-300",
     "data-[state=open]:animate-[nuka-toast-enter_200ms_ease-out]",
@@ -16,24 +16,24 @@ const toastVariants = cva(
     variants: {
       intent: {
         default: [
-          "bg-[var(--nuka-bg-base)]",
-          "border-[var(--nuka-border-base)]",
-          "text-[var(--nuka-text-base)]",
+          "bg-(--nuka-bg-base)",
+          "border-(--nuka-border-base)",
+          "text-(--nuka-text-base)",
         ],
         success: [
-          "bg-[var(--nuka-success-bg)]",
-          "border-[var(--nuka-success-border)]",
-          "text-[var(--nuka-success-text)]",
+          "bg-(--nuka-success-bg)",
+          "border-(--nuka-success-border)",
+          "text-(--nuka-success-text)",
         ],
         danger: [
-          "bg-[var(--nuka-danger-bg)]",
-          "border-[var(--nuka-danger-border)]",
-          "text-[var(--nuka-danger-text)]",
+          "bg-(--nuka-danger-bg)",
+          "border-(--nuka-danger-border)",
+          "text-(--nuka-danger-text)",
         ],
         warning: [
-          "bg-[var(--nuka-warning-bg)]",
-          "border-[var(--nuka-warning-border)]",
-          "text-[var(--nuka-warning-text)]",
+          "bg-(--nuka-warning-bg)",
+          "border-(--nuka-warning-border)",
+          "text-(--nuka-warning-text)",
         ],
       },
     },
@@ -79,7 +79,7 @@ function Toast({ toast: toastItem, onDismiss }: ToastProps) {
           "opacity-60 hover:opacity-100",
           "transition-opacity duration-150 cursor-pointer",
           "focus-visible:outline-2 focus-visible:outline-offset-2",
-          "focus-visible:outline-[var(--nuka-border-focus)]",
+          "focus-visible:outline-(--nuka-border-focus)",
         )}
       >
         <span aria-hidden="true">&#10005;</span>

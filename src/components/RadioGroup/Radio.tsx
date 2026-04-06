@@ -11,7 +11,7 @@ const radioIndicatorVariants = cva(
     "border",
     "transition-colors duration-150",
     "peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2",
-    "peer-focus-visible:outline-[var(--nuka-border-focus)]",
+    "peer-focus-visible:outline-(--nuka-border-focus)",
     "peer-disabled:cursor-not-allowed peer-disabled:opacity-50",
     "peer-checked:*:block",
   ],
@@ -33,32 +33,32 @@ const radioIndicatorVariants = cva(
       {
         intent: "default",
         className: [
-          "border-[var(--nuka-input-border)]",
-          "peer-checked:bg-[var(--nuka-accent-bg)]",
+          "border-(--nuka-input-border)",
+          "peer-checked:bg-(--nuka-accent-bg)",
           "peer-checked:border-transparent",
         ],
       },
       {
         intent: "danger",
         className: [
-          "border-[var(--nuka-danger-border)]",
-          "peer-checked:bg-[var(--nuka-danger-base)]",
+          "border-(--nuka-danger-border)",
+          "peer-checked:bg-(--nuka-danger-base)",
           "peer-checked:border-transparent",
         ],
       },
       {
         intent: "success",
         className: [
-          "border-[var(--nuka-success-border)]",
-          "peer-checked:bg-[var(--nuka-success-base)]",
+          "border-(--nuka-success-border)",
+          "peer-checked:bg-(--nuka-success-base)",
           "peer-checked:border-transparent",
         ],
       },
       {
         intent: "warning",
         className: [
-          "border-[var(--nuka-warning-border)]",
-          "peer-checked:bg-[var(--nuka-warning-base)]",
+          "border-(--nuka-warning-border)",
+          "peer-checked:bg-(--nuka-warning-base)",
           "peer-checked:border-transparent",
         ],
       },
@@ -106,7 +106,7 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
     return (
       <label
         className={cn(
-          "inline-flex items-center gap-[var(--space-2)] cursor-pointer select-none min-h-6 min-w-6",
+          "inline-flex items-center gap-(--space-2) cursor-pointer select-none min-h-6 min-w-6",
           isDisabled ? "cursor-not-allowed" : undefined,
           className,
         )}
@@ -128,10 +128,10 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
           className={cn(radioIndicatorVariants({ intent, size }))}
         >
           <span
-            className="hidden size-1/2 rounded-full bg-[var(--nuka-text-inverse)]"
+            className="hidden size-1/2 rounded-full bg-(--nuka-text-inverse)"
           />
         </span>
-        {children && <span className="text-[var(--nuka-text-base)]">{children}</span>}
+        {children && <span className="text-(--nuka-text-base)">{children}</span>}
       </label>
     );
   },

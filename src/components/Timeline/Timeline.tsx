@@ -25,19 +25,19 @@ const timelineItemMarkerVariants = cva(
     "w-8 h-8 rounded-full",
     "border-2",
     "shrink-0 z-10",
-    "bg-[var(--nuka-bg-base)]",
+    "bg-(--nuka-bg-base)",
   ],
   {
     variants: {
       intent: {
         default:
-          "border-[var(--nuka-accent-bg)] text-[var(--nuka-accent-text)]",
+          "border-(--nuka-accent-bg) text-(--nuka-accent-text)",
         success:
-          "border-[var(--nuka-success-base)] text-[var(--nuka-success-text)]",
+          "border-(--nuka-success-base) text-(--nuka-success-text)",
         danger:
-          "border-[var(--nuka-danger-base)] text-[var(--nuka-danger-text)]",
+          "border-(--nuka-danger-base) text-(--nuka-danger-text)",
         warning:
-          "border-[var(--nuka-warning-base)] text-[var(--nuka-warning-text)]",
+          "border-(--nuka-warning-base) text-(--nuka-warning-text)",
       },
     },
     defaultVariants: {
@@ -68,13 +68,13 @@ const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
       <li
         ref={ref}
         className={cn(
-          "group relative flex gap-[var(--space-4)] pb-[var(--space-6)] last:pb-0",
+          "group relative flex gap-(--space-4) pb-(--space-6) last:pb-0",
           className,
         )}
         {...rest}
       >
         {/* Left column: marker + connector */}
-        <div className="flex flex-col items-center self-stretch -mb-[var(--space-6)] group-last:mb-0">
+        <div className="flex flex-col items-center self-stretch -mb-(--space-6) group-last:mb-0">
           <div className={cn(timelineItemMarkerVariants({ intent }))}>
             {icon ? (
               <span className="text-sm" aria-hidden="true">
@@ -88,25 +88,25 @@ const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
             )}
           </div>
           {/* Connector line: hidden on last item */}
-          <div className="w-px flex-1 bg-[var(--nuka-border-base)] mt-[var(--space-1)] group-last:hidden" />
+          <div className="w-px flex-1 bg-(--nuka-border-base) mt-(--space-1) group-last:hidden" />
         </div>
 
         {/* Right column: content */}
-        <div className="flex-1 min-w-0 pb-[var(--space-1)]">
+        <div className="flex-1 min-w-0 pb-(--space-1)">
           {timestamp != null && (
-            <time className="block text-xs text-[var(--nuka-text-muted)] mb-[var(--space-1)]">
+            <time className="block text-xs text-(--nuka-text-muted) mb-(--space-1)">
               {timestamp}
             </time>
           )}
-          <p className="text-sm font-medium text-[var(--nuka-text-base)]">
+          <p className="text-sm font-medium text-(--nuka-text-base)">
             {title}
           </p>
           {description != null && (
-            <p className="text-sm text-[var(--nuka-text-muted)] mt-[var(--space-1)]">
+            <p className="text-sm text-(--nuka-text-muted) mt-(--space-1)">
               {description}
             </p>
           )}
-          {children && <div className="mt-[var(--space-2)]">{children}</div>}
+          {children && <div className="mt-(--space-2)">{children}</div>}
         </div>
       </li>
     );

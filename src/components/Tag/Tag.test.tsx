@@ -73,14 +73,14 @@ describe("Tag", () => {
     it("applies secondary variant classes by default", () => {
       render(<Tag>Secondary</Tag>);
       expect(screen.getByText("Secondary").className).toContain(
-        "bg-[var(--nuka-bg-muted)]",
+        "bg-(--nuka-bg-muted)",
       );
     });
 
     it("applies primary variant classes when specified", () => {
       render(<Tag variant="primary">Primary</Tag>);
       expect(screen.getByText("Primary").className).toContain(
-        "bg-[var(--nuka-accent-bg)]",
+        "bg-(--nuka-accent-bg)",
       );
     });
 
@@ -119,21 +119,21 @@ describe("Tag", () => {
     it("applies danger intent classes when specified", () => {
       render(<Tag intent="danger">Danger</Tag>);
       expect(screen.getByText("Danger").className).toContain(
-        "bg-[var(--nuka-danger-bg)]",
+        "bg-(--nuka-danger-bg)",
       );
     });
 
     it("applies success intent classes when specified", () => {
       render(<Tag intent="success">Success</Tag>);
       expect(screen.getByText("Success").className).toContain(
-        "bg-[var(--nuka-success-bg)]",
+        "bg-(--nuka-success-bg)",
       );
     });
 
     it("applies warning intent classes when specified", () => {
       render(<Tag intent="warning">Warning</Tag>);
       expect(screen.getByText("Warning").className).toContain(
-        "bg-[var(--nuka-warning-bg)]",
+        "bg-(--nuka-warning-bg)",
       );
     });
 
@@ -144,8 +144,8 @@ describe("Tag", () => {
         </Tag>,
       );
       const el = screen.getByText("Outline Danger");
-      expect(el.className).toContain("border-[var(--nuka-danger-border)]");
-      expect(el.className).toContain("text-[var(--nuka-danger-text)]");
+      expect(el.className).toContain("border-(--nuka-danger-border)");
+      expect(el.className).toContain("text-(--nuka-danger-text)");
     });
   });
 
@@ -154,7 +154,7 @@ describe("Tag", () => {
       render(<Tag className="mt-4">Tag</Tag>);
       const el = screen.getByText("Tag");
       expect(el.className).toContain("mt-4");
-      expect(el.className).toContain("bg-[var(--nuka-bg-muted)]");
+      expect(el.className).toContain("bg-(--nuka-bg-muted)");
     });
   });
 

@@ -25,14 +25,14 @@ describe("Alert", () => {
     it("applies secondary variant classes by default", () => {
       render(<Alert>Default</Alert>);
       expect(screen.getByRole("alert").className).toContain(
-        "bg-[var(--nuka-accent-bg-subtle)]",
+        "bg-(--nuka-accent-bg-subtle)",
       );
     });
 
     it("applies primary variant classes", () => {
       render(<Alert variant="primary">Primary</Alert>);
       expect(screen.getByRole("alert").className).toContain(
-        "bg-[var(--nuka-accent-bg)]",
+        "bg-(--nuka-accent-bg)",
       );
     });
 
@@ -52,21 +52,21 @@ describe("Alert", () => {
     it("applies danger intent classes", () => {
       render(<Alert intent="danger">Danger</Alert>);
       expect(screen.getByRole("alert").className).toContain(
-        "bg-[var(--nuka-danger-bg)]",
+        "bg-(--nuka-danger-bg)",
       );
     });
 
     it("applies success intent classes", () => {
       render(<Alert intent="success">Success</Alert>);
       expect(screen.getByRole("alert").className).toContain(
-        "bg-[var(--nuka-success-bg)]",
+        "bg-(--nuka-success-bg)",
       );
     });
 
     it("applies warning intent classes", () => {
       render(<Alert intent="warning">Warning</Alert>);
       expect(screen.getByRole("alert").className).toContain(
-        "bg-[var(--nuka-warning-bg)]",
+        "bg-(--nuka-warning-bg)",
       );
     });
 
@@ -77,8 +77,8 @@ describe("Alert", () => {
         </Alert>,
       );
       const el = screen.getByRole("alert");
-      expect(el.className).toContain("border-[var(--nuka-danger-border)]");
-      expect(el.className).toContain("text-[var(--nuka-danger-text)]");
+      expect(el.className).toContain("border-(--nuka-danger-border)");
+      expect(el.className).toContain("text-(--nuka-danger-text)");
     });
   });
 
@@ -123,7 +123,7 @@ describe("Alert", () => {
       render(<Alert className="mt-4">Styled</Alert>);
       const el = screen.getByRole("alert");
       expect(el.className).toContain("mt-4");
-      expect(el.className).toContain("bg-[var(--nuka-accent-bg-subtle)]");
+      expect(el.className).toContain("bg-(--nuka-accent-bg-subtle)");
     });
   });
 

@@ -21,9 +21,9 @@ const spinnerVariants = cva(
 const spinnerColorVariants = cva([], {
   variants: {
     color: {
-      default: "stroke-[var(--nuka-accent-bg)]",
-      muted: "stroke-[var(--nuka-text-muted)]",
-      inverse: "stroke-[var(--nuka-text-inverse)]",
+      default: "stroke-(--nuka-accent-bg)",
+      muted: "stroke-(--nuka-text-muted)",
+      inverse: "stroke-(--nuka-text-inverse)",
     },
   },
   defaultVariants: {

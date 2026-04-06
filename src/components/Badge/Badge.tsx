@@ -23,9 +23,9 @@ const badgeVariants = cva(
         warning: "",
       },
       size: {
-        sm: "px-[var(--space-2)] py-[var(--space-1)] text-xs",
-        md: "px-[var(--space-3)] py-[var(--space-1)] text-xs",
-        lg: "px-[var(--space-3)] py-[var(--space-2)] text-sm",
+        sm: "px-(--space-2) py-(--space-1) text-xs",
+        md: "px-(--space-3) py-(--space-1) text-xs",
+        lg: "px-(--space-3) py-(--space-2) text-sm",
       },
     },
 
@@ -35,32 +35,32 @@ const badgeVariants = cva(
         variant: "solid",
         intent: "default",
         className: [
-          "bg-[var(--nuka-accent-bg)]",
-          "text-[var(--nuka-text-inverse)]",
+          "bg-(--nuka-accent-bg)",
+          "text-(--nuka-text-inverse)",
         ],
       },
       {
         variant: "solid",
         intent: "danger",
         className: [
-          "bg-[var(--nuka-danger-base)]",
-          "text-[var(--nuka-text-inverse)]",
+          "bg-(--nuka-danger-base)",
+          "text-(--nuka-text-inverse)",
         ],
       },
       {
         variant: "solid",
         intent: "success",
         className: [
-          "bg-[var(--nuka-success-base)]",
-          "text-[var(--nuka-text-inverse)]",
+          "bg-(--nuka-success-base)",
+          "text-(--nuka-text-inverse)",
         ],
       },
       {
         variant: "solid",
         intent: "warning",
         className: [
-          "bg-[var(--nuka-warning-base)]",
-          "text-[var(--nuka-text-inverse)]",
+          "bg-(--nuka-warning-base)",
+          "text-(--nuka-text-inverse)",
         ],
       },
 
@@ -69,32 +69,32 @@ const badgeVariants = cva(
         variant: "subtle",
         intent: "default",
         className: [
-          "bg-[var(--nuka-bg-muted)]",
-          "text-[var(--nuka-text-base)]",
+          "bg-(--nuka-bg-muted)",
+          "text-(--nuka-text-base)",
         ],
       },
       {
         variant: "subtle",
         intent: "danger",
         className: [
-          "bg-[var(--nuka-danger-bg)]",
-          "text-[var(--nuka-danger-text)]",
+          "bg-(--nuka-danger-bg)",
+          "text-(--nuka-danger-text)",
         ],
       },
       {
         variant: "subtle",
         intent: "success",
         className: [
-          "bg-[var(--nuka-success-bg)]",
-          "text-[var(--nuka-success-text)]",
+          "bg-(--nuka-success-bg)",
+          "text-(--nuka-success-text)",
         ],
       },
       {
         variant: "subtle",
         intent: "warning",
         className: [
-          "bg-[var(--nuka-warning-bg)]",
-          "text-[var(--nuka-warning-text)]",
+          "bg-(--nuka-warning-bg)",
+          "text-(--nuka-warning-text)",
         ],
       },
 
@@ -103,32 +103,32 @@ const badgeVariants = cva(
         variant: "outline",
         intent: "default",
         className: [
-          "border-[var(--nuka-accent-border)]",
-          "text-[var(--nuka-accent-text)]",
+          "border-(--nuka-accent-border)",
+          "text-(--nuka-accent-text)",
         ],
       },
       {
         variant: "outline",
         intent: "danger",
         className: [
-          "border-[var(--nuka-danger-border)]",
-          "text-[var(--nuka-danger-text)]",
+          "border-(--nuka-danger-border)",
+          "text-(--nuka-danger-text)",
         ],
       },
       {
         variant: "outline",
         intent: "success",
         className: [
-          "border-[var(--nuka-success-border)]",
-          "text-[var(--nuka-success-text)]",
+          "border-(--nuka-success-border)",
+          "text-(--nuka-success-text)",
         ],
       },
       {
         variant: "outline",
         intent: "warning",
         className: [
-          "border-[var(--nuka-warning-border)]",
-          "text-[var(--nuka-warning-text)]",
+          "border-(--nuka-warning-border)",
+          "text-(--nuka-warning-text)",
         ],
       },
     ],

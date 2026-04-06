@@ -5,18 +5,18 @@ import { cn } from "@nuka/utils/cn";
 const headingVariants = cva(
   [
     "font-[number:var(--font-weight-bold)]",
-    "text-[var(--nuka-text-base)]",
+    "text-(--nuka-text-base)",
   ],
   {
     variants: {
       size: {
-        xl: "text-[length:var(--font-size-xl)] leading-[var(--line-height-snug)]",
+        xl: "text-[length:var(--font-size-xl)] leading-(--line-height-snug)",
         "2xl":
-          "text-[length:var(--font-size-2xl)] leading-[var(--line-height-snug)]",
+          "text-[length:var(--font-size-2xl)] leading-(--line-height-snug)",
         "3xl":
-          "text-[length:var(--font-size-3xl)] leading-[var(--line-height-snug)]",
+          "text-[length:var(--font-size-3xl)] leading-(--line-height-snug)",
         "4xl":
-          "text-[length:var(--font-size-4xl)] leading-[var(--line-height-tight)]",
+          "text-[length:var(--font-size-4xl)] leading-(--line-height-tight)",
       },
       weight: {
         regular: "font-[number:var(--font-weight-regular)]",
@@ -25,15 +25,15 @@ const headingVariants = cva(
         bold: "font-[number:var(--font-weight-bold)]",
       },
       color: {
-        base: "text-[var(--nuka-text-base)]",
-        muted: "text-[var(--nuka-text-muted)]",
-        subtle: "text-[var(--nuka-text-subtle)]",
-        inverse: "text-[var(--nuka-text-inverse)]",
-        disabled: "text-[var(--nuka-text-disabled)]",
-        accent: "text-[var(--nuka-accent-text)]",
-        danger: "text-[var(--nuka-danger-text)]",
-        success: "text-[var(--nuka-success-text)]",
-        warning: "text-[var(--nuka-warning-text)]",
+        base: "text-(--nuka-text-base)",
+        muted: "text-(--nuka-text-muted)",
+        subtle: "text-(--nuka-text-subtle)",
+        inverse: "text-(--nuka-text-inverse)",
+        disabled: "text-(--nuka-text-disabled)",
+        accent: "text-(--nuka-accent-text)",
+        danger: "text-(--nuka-danger-text)",
+        success: "text-(--nuka-success-text)",
+        warning: "text-(--nuka-warning-text)",
       },
       truncate: {
         true: "truncate",

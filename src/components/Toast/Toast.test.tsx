@@ -238,7 +238,7 @@ describe("Toast", () => {
       <Toast toast={{ ...baseToast, intent: "success" }} onDismiss={onDismiss} />,
     )
     const el = screen.getByRole("status")
-    expect(el.className).toContain("bg-[var(--nuka-success-bg)]")
+    expect(el.className).toContain("bg-(--nuka-success-bg)")
   })
 
   it("applies intent classes for danger", () => {
@@ -247,7 +247,7 @@ describe("Toast", () => {
       <Toast toast={{ ...baseToast, intent: "danger" }} onDismiss={onDismiss} />,
     )
     const el = screen.getByRole("status")
-    expect(el.className).toContain("bg-[var(--nuka-danger-bg)]")
+    expect(el.className).toContain("bg-(--nuka-danger-bg)")
   })
 
   it("applies intent classes for warning", () => {
@@ -256,7 +256,7 @@ describe("Toast", () => {
       <Toast toast={{ ...baseToast, intent: "warning" }} onDismiss={onDismiss} />,
     )
     const el = screen.getByRole("status")
-    expect(el.className).toContain("bg-[var(--nuka-warning-bg)]")
+    expect(el.className).toContain("bg-(--nuka-warning-bg)")
   })
 
   it("renders action button when action is provided", () => {

@@ -146,7 +146,7 @@ nuka-ui uses a two-layer CSS custom property system.
 ```
 --color-accent-500        <- primitive (raw oklch value)
 --nuka-accent-bg         <- semantic (references the primitive)
-bg-[var(--nuka-accent-bg)]  <- component (references the semantic token)
+bg-(--nuka-accent-bg)        <- component (references the semantic token)
 ```
 
 This indirection means you can retheme the entire library by overriding semantic tokens, without touching a single component file.

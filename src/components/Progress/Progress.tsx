@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
 
 const progressTrackVariants = cva(
-  ["w-full overflow-hidden rounded-full bg-[var(--nuka-bg-muted)]"],
+  ["w-full overflow-hidden rounded-full bg-(--nuka-bg-muted)"],
   {
     variants: {
       size: {
@@ -32,19 +32,19 @@ const progressFillVariants = cva(
     compoundVariants: [
       {
         intent: "default",
-        className: "bg-[var(--nuka-accent-bg)]",
+        className: "bg-(--nuka-accent-bg)",
       },
       {
         intent: "danger",
-        className: "bg-[var(--nuka-danger-base)]",
+        className: "bg-(--nuka-danger-base)",
       },
       {
         intent: "success",
-        className: "bg-[var(--nuka-success-base)]",
+        className: "bg-(--nuka-success-base)",
       },
       {
         intent: "warning",
-        className: "bg-[var(--nuka-warning-base)]",
+        className: "bg-(--nuka-warning-base)",
       },
     ],
     defaultVariants: {

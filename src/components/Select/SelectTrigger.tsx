@@ -8,12 +8,12 @@ const selectTriggerVariants = cva(
   [
     "w-full",
     "inline-flex items-center justify-between",
-    "rounded-[var(--radius-md)]",
+    "rounded-(--radius-md)",
     "border",
-    "bg-[var(--nuka-input-bg)]",
-    "text-[var(--nuka-text-base)]",
+    "bg-(--nuka-input-bg)",
+    "text-(--nuka-text-base)",
     "text-left",
-    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--nuka-border-focus)]",
+    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--nuka-border-focus)",
     "disabled:cursor-not-allowed disabled:opacity-50",
     "transition-colors duration-150",
   ],
@@ -21,15 +21,15 @@ const selectTriggerVariants = cva(
     variants: {
       intent: {
         default:
-          "border-[var(--nuka-input-border)] hover:border-[var(--nuka-input-border-hover)]",
-        danger: "border-[var(--nuka-danger-border)]",
-        success: "border-[var(--nuka-success-border)]",
-        warning: "border-[var(--nuka-warning-border)]",
+          "border-(--nuka-input-border) hover:border-(--nuka-input-border-hover)",
+        danger: "border-(--nuka-danger-border)",
+        success: "border-(--nuka-success-border)",
+        warning: "border-(--nuka-warning-border)",
       },
       size: {
-        sm: "px-[var(--space-3)] py-[var(--space-2)] text-xs",
-        md: "px-[var(--space-4)] py-[var(--space-3)] text-sm",
-        lg: "px-[var(--space-6)] py-[var(--space-4)] text-base",
+        sm: "px-(--space-3) py-(--space-2) text-xs",
+        md: "px-(--space-4) py-(--space-3) text-sm",
+        lg: "px-(--space-6) py-(--space-4) text-base",
       },
     },
     defaultVariants: {
@@ -331,7 +331,7 @@ const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
         <span
           className={cn(
             "truncate",
-            displayLabel === undefined && "text-[var(--nuka-text-muted)]",
+            displayLabel === undefined && "text-(--nuka-text-muted)",
           )}
         >
           {displayLabel ?? placeholder}
@@ -340,7 +340,7 @@ const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
           aria-hidden="true"
           className={cn(
             "h-4 w-4 shrink-0 transition-transform duration-150",
-            "text-[var(--nuka-text-muted)]",
+            "text-(--nuka-text-muted)",
             ctx.open && "rotate-180",
           )}
           xmlns="http://www.w3.org/2000/svg"

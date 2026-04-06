@@ -24,7 +24,7 @@ const sliderWrapperVariants = cva(
 const sliderTrackVariants = cva(
   [
     "relative w-full rounded-full",
-    "bg-[var(--nuka-border-base)]",
+    "bg-(--nuka-border-base)",
   ],
   {
     variants: {
@@ -48,10 +48,10 @@ const sliderFillVariants = cva(
   {
     variants: {
       intent: {
-        default: "bg-[var(--nuka-accent-bg)]",
-        danger: "bg-[var(--nuka-danger-base)]",
-        success: "bg-[var(--nuka-success-base)]",
-        warning: "bg-[var(--nuka-warning-base)]",
+        default: "bg-(--nuka-accent-bg)",
+        danger: "bg-(--nuka-danger-base)",
+        success: "bg-(--nuka-success-base)",
+        warning: "bg-(--nuka-warning-base)",
       },
     },
     defaultVariants: {
@@ -64,7 +64,7 @@ const sliderThumbVariants = cva(
   [
     "absolute top-1/2 -translate-y-1/2",
     "rounded-full",
-    "border-2 border-[var(--nuka-bg-base)]",
+    "border-2 border-(--nuka-bg-base)",
     "shadow-sm",
     "transition-[left] duration-75",
     "pointer-events-none",
@@ -72,10 +72,10 @@ const sliderThumbVariants = cva(
   {
     variants: {
       intent: {
-        default: "bg-[var(--nuka-accent-bg)]",
-        danger: "bg-[var(--nuka-danger-base)]",
-        success: "bg-[var(--nuka-success-base)]",
-        warning: "bg-[var(--nuka-warning-base)]",
+        default: "bg-(--nuka-accent-bg)",
+        danger: "bg-(--nuka-danger-base)",
+        success: "bg-(--nuka-success-base)",
+        warning: "bg-(--nuka-warning-base)",
       },
       size: {
         sm: "w-3.5 h-3.5",
@@ -92,8 +92,8 @@ const sliderThumbVariants = cva(
 
 const sliderValueVariants = cva(
   [
-    "tabular-nums text-[var(--nuka-text-muted)]",
-    "ml-[var(--space-3)]",
+    "tabular-nums text-(--nuka-text-muted)",
+    "ml-(--space-3)",
     "select-none",
   ],
   {
@@ -233,7 +233,7 @@ const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
           <div
             className={cn(
               sliderThumbVariants({ intent, size }),
-              focused && "outline-2 outline-offset-2 outline-[var(--nuka-border-focus)]",
+              focused && "outline-2 outline-offset-2 outline-(--nuka-border-focus)",
             )}
             style={{ left: `calc(${String(percentage)}% - ${String(thumbOffset)}px)` }}
             data-testid="slider-thumb"

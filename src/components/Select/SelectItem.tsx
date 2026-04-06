@@ -53,20 +53,20 @@ const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
         aria-selected={isSelected}
         aria-disabled={disabled || undefined}
         className={cn(
-          "px-[var(--space-3)] py-[var(--space-2)]",
+          "px-(--space-3) py-(--space-2)",
           "text-sm",
           "cursor-pointer",
           "select-none",
-          "text-[var(--nuka-text-base)]",
+          "text-(--nuka-text-base)",
           disabled && "opacity-50 cursor-not-allowed pointer-events-none",
           isSelected &&
             !isHighlighted &&
-            "bg-[var(--nuka-accent-bg-subtle)] text-[var(--nuka-accent-text)]",
-          isHighlighted && "bg-[var(--nuka-bg-muted)] outline-none",
+            "bg-(--nuka-accent-bg-subtle) text-(--nuka-accent-text)",
+          isHighlighted && "bg-(--nuka-bg-muted) outline-none",
           !isSelected &&
             !isHighlighted &&
             !disabled &&
-            "hover:bg-[var(--nuka-bg-muted)]",
+            "hover:bg-(--nuka-bg-muted)",
           className,
         )}
         onClick={handleClick}

@@ -138,7 +138,7 @@ describe("TimelineItem", () => {
           <TimelineItem title="Deployed" />
         </Timeline>,
       );
-      const marker = container.querySelector(".border-\\[var\\(--nuka-accent-bg\\)\\]");
+      const marker = container.querySelector(".border-\\(--nuka-accent-bg\\)");
       expect(marker).toBeInTheDocument();
     });
 
@@ -148,7 +148,7 @@ describe("TimelineItem", () => {
           <TimelineItem title="Done" intent="success" />
         </Timeline>,
       );
-      const marker = container.querySelector(".border-\\[var\\(--nuka-success-base\\)\\]");
+      const marker = container.querySelector(".border-\\(--nuka-success-base\\)");
       expect(marker).toBeInTheDocument();
     });
 
@@ -158,7 +158,7 @@ describe("TimelineItem", () => {
           <TimelineItem title="Failed" intent="danger" />
         </Timeline>,
       );
-      const marker = container.querySelector(".border-\\[var\\(--nuka-danger-base\\)\\]");
+      const marker = container.querySelector(".border-\\(--nuka-danger-base\\)");
       expect(marker).toBeInTheDocument();
     });
 
@@ -168,7 +168,7 @@ describe("TimelineItem", () => {
           <TimelineItem title="Slow" intent="warning" />
         </Timeline>,
       );
-      const marker = container.querySelector(".border-\\[var\\(--nuka-warning-base\\)\\]");
+      const marker = container.querySelector(".border-\\(--nuka-warning-base\\)");
       expect(marker).toBeInTheDocument();
     });
   });

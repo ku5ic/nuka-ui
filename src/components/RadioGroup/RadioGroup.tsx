@@ -173,7 +173,7 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
           className={cn(
             "flex",
             orientation === "vertical" ? "flex-col" : "flex-row",
-            "gap-[var(--space-2)]",
+            "gap-(--space-2)",
             className,
           )}
           {...props}

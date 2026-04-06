@@ -33,7 +33,7 @@ Two-layer CSS custom property architecture:
 - **Primitive tokens**: raw scale values, no prefix (`--color-accent-500`, `--space-4`)
 - **Semantic tokens**: purpose-driven, `--nuka-` prefixed, reference primitives (`--nuka-accent-bg`)
 
-Components reference only semantic tokens. Never use raw Tailwind color utilities: always `bg-[var(--nuka-accent-bg)]`, never `bg-blue-500`.
+Components reference only semantic tokens. Never use raw Tailwind color utilities: always `bg-(--nuka-accent-bg)`, never `bg-blue-500`.
 
 Theming uses `data-theme` attribute, not classes. Token definitions live in `src/styles/tokens.css`.
 

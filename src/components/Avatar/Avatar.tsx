@@ -6,9 +6,9 @@ const avatarVariants = cva(
   [
     "relative inline-flex items-center justify-center",
     "shrink-0 overflow-hidden",
-    "border border-[var(--nuka-border-base)]",
-    "bg-[var(--nuka-bg-muted)]",
-    "text-[var(--nuka-text-muted)]",
+    "border border-(--nuka-border-base)",
+    "bg-(--nuka-bg-muted)",
+    "text-(--nuka-text-muted)",
     "font-medium",
   ],
   {
@@ -21,8 +21,8 @@ const avatarVariants = cva(
         xl: "size-16 text-[length:var(--font-size-lg)]",
       },
       shape: {
-        circle: "rounded-[var(--radius-full)]",
-        square: "rounded-[var(--radius-md)]",
+        circle: "rounded-(--radius-full)",
+        square: "rounded-(--radius-md)",
       },
     },
     defaultVariants: {

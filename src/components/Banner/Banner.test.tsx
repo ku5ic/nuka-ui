@@ -35,7 +35,7 @@ describe("Banner", () => {
       render(<Banner aria-label="Notice">Default</Banner>);
       expect(
         screen.getByRole("region", { name: "Notice" }).className,
-      ).toContain("bg-[var(--nuka-accent-bg-subtle)]");
+      ).toContain("bg-(--nuka-accent-bg-subtle)");
     });
 
     it("applies success intent classes", () => {
@@ -46,7 +46,7 @@ describe("Banner", () => {
       );
       expect(
         screen.getByRole("region", { name: "Notice" }).className,
-      ).toContain("bg-[var(--nuka-success-bg)]");
+      ).toContain("bg-(--nuka-success-bg)");
     });
 
     it("applies danger intent classes", () => {
@@ -57,7 +57,7 @@ describe("Banner", () => {
       );
       expect(
         screen.getByRole("region", { name: "Notice" }).className,
-      ).toContain("bg-[var(--nuka-danger-bg)]");
+      ).toContain("bg-(--nuka-danger-bg)");
     });
 
     it("applies warning intent classes", () => {
@@ -68,7 +68,7 @@ describe("Banner", () => {
       );
       expect(
         screen.getByRole("region", { name: "Notice" }).className,
-      ).toContain("bg-[var(--nuka-warning-bg)]");
+      ).toContain("bg-(--nuka-warning-bg)");
     });
   });
 
@@ -129,7 +129,7 @@ describe("Banner", () => {
       );
       const el = screen.getByRole("region", { name: "Notice" });
       expect(el.className).toContain("mt-4");
-      expect(el.className).toContain("bg-[var(--nuka-accent-bg-subtle)]");
+      expect(el.className).toContain("bg-(--nuka-accent-bg-subtle)");
     });
   });
 

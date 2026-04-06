@@ -21,11 +21,11 @@ const iconColorVariants = cva([], {
   variants: {
     color: {
       inherit: "",
-      base: "text-[var(--nuka-text-base)]",
-      muted: "text-[var(--nuka-text-muted)]",
-      subtle: "text-[var(--nuka-text-subtle)]",
-      inverse: "text-[var(--nuka-text-inverse)]",
-      disabled: "text-[var(--nuka-text-disabled)]",
+      base: "text-(--nuka-text-base)",
+      muted: "text-(--nuka-text-muted)",
+      subtle: "text-(--nuka-text-subtle)",
+      inverse: "text-(--nuka-text-inverse)",
+      disabled: "text-(--nuka-text-disabled)",
     },
   },
   defaultVariants: { color: "inherit" },

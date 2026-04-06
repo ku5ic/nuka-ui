@@ -6,17 +6,17 @@ const kbdVariants = cva(
   [
     "inline-flex items-center justify-center",
     "font-mono",
-    "rounded-[var(--radius-sm)]",
-    "border border-[var(--nuka-border-base)]",
-    "bg-[var(--nuka-bg-subtle)]",
-    "text-[var(--nuka-text-base)]",
+    "rounded-(--radius-sm)",
+    "border border-(--nuka-border-base)",
+    "bg-(--nuka-bg-subtle)",
+    "text-(--nuka-text-base)",
   ],
   {
     variants: {
       size: {
-        sm: "min-h-5 px-[var(--space-1)] text-[length:var(--font-size-xs)] leading-[var(--line-height-normal)]",
-        md: "min-h-6 px-[var(--space-2)] text-[length:var(--font-size-sm)] leading-[var(--line-height-normal)]",
-        lg: "min-h-8 px-[var(--space-3)] text-[length:var(--font-size-md)] leading-[var(--line-height-normal)]",
+        sm: "min-h-5 px-(--space-1) text-[length:var(--font-size-xs)] leading-(--line-height-normal)",
+        md: "min-h-6 px-(--space-2) text-[length:var(--font-size-sm)] leading-(--line-height-normal)",
+        lg: "min-h-8 px-(--space-3) text-[length:var(--font-size-md)] leading-(--line-height-normal)",
       },
     },
     defaultVariants: {

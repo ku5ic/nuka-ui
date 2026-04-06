@@ -76,28 +76,28 @@ describe("Progress", () => {
       render(<Progress value={50} />);
       const track = screen.getByRole("progressbar");
       const fill = track.firstElementChild as HTMLElement;
-      expect(fill.className).toContain("bg-[var(--nuka-accent-bg)]");
+      expect(fill.className).toContain("bg-(--nuka-accent-bg)");
     });
 
     it("applies danger intent fill color", () => {
       render(<Progress value={50} intent="danger" />);
       const track = screen.getByRole("progressbar");
       const fill = track.firstElementChild as HTMLElement;
-      expect(fill.className).toContain("bg-[var(--nuka-danger-base)]");
+      expect(fill.className).toContain("bg-(--nuka-danger-base)");
     });
 
     it("applies success intent fill color", () => {
       render(<Progress value={50} intent="success" />);
       const track = screen.getByRole("progressbar");
       const fill = track.firstElementChild as HTMLElement;
-      expect(fill.className).toContain("bg-[var(--nuka-success-base)]");
+      expect(fill.className).toContain("bg-(--nuka-success-base)");
     });
 
     it("applies warning intent fill color", () => {
       render(<Progress value={50} intent="warning" />);
       const track = screen.getByRole("progressbar");
       const fill = track.firstElementChild as HTMLElement;
-      expect(fill.className).toContain("bg-[var(--nuka-warning-base)]");
+      expect(fill.className).toContain("bg-(--nuka-warning-base)");
     });
   });
 

@@ -735,7 +735,7 @@ Only the circular marker dot receives intent-based styling. The content area (ti
 
 **6. Connector line via CSS with `group`/`group-last:hidden`**
 
-The vertical connector between items is a `<div>` with `w-px` and `bg-[var(--nuka-border-base)]`. The `<li>` has the `group` class, and the connector has `group-last:hidden`, Tailwind's first-class utility for hiding an element when its group parent is the last child. This correctly hides the connector on the last item without SVG, pseudo-elements, or arbitrary CSS selectors.
+The vertical connector between items is a `<div>` with `w-px` and `bg-(--nuka-border-base)`. The `<li>` has the `group` class, and the connector has `group-last:hidden`, Tailwind's first-class utility for hiding an element when its group parent is the last child. This correctly hides the connector on the last item without SVG, pseudo-elements, or arbitrary CSS selectors.
 
 ### Consequences
 

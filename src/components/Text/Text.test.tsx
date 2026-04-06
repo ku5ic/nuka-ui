@@ -91,14 +91,14 @@ describe("Text", () => {
     it("pairs xs/sm/md with normal line-height", () => {
       render(<Text size="sm">Normal leading</Text>);
       expect(screen.getByText("Normal leading").className).toContain(
-        "leading-[var(--line-height-normal)]",
+        "leading-(--line-height-normal)",
       );
     });
 
     it("pairs lg/xl with snug line-height", () => {
       render(<Text size="lg">Snug leading</Text>);
       expect(screen.getByText("Snug leading").className).toContain(
-        "leading-[var(--line-height-snug)]",
+        "leading-(--line-height-snug)",
       );
     });
   });
@@ -137,35 +137,35 @@ describe("Text", () => {
     it("applies base color by default", () => {
       render(<Text>Base</Text>);
       expect(screen.getByText("Base").className).toContain(
-        "text-[var(--nuka-text-base)]",
+        "text-(--nuka-text-base)",
       );
     });
 
     it("applies muted color", () => {
       render(<Text color="muted">Muted</Text>);
       expect(screen.getByText("Muted").className).toContain(
-        "text-[var(--nuka-text-muted)]",
+        "text-(--nuka-text-muted)",
       );
     });
 
     it("applies danger color", () => {
       render(<Text color="danger">Danger</Text>);
       expect(screen.getByText("Danger").className).toContain(
-        "text-[var(--nuka-danger-text)]",
+        "text-(--nuka-danger-text)",
       );
     });
 
     it("applies success color", () => {
       render(<Text color="success">Success</Text>);
       expect(screen.getByText("Success").className).toContain(
-        "text-[var(--nuka-success-text)]",
+        "text-(--nuka-success-text)",
       );
     });
 
     it("applies inverse color", () => {
       render(<Text color="inverse">Inverse</Text>);
       expect(screen.getByText("Inverse").className).toContain(
-        "text-[var(--nuka-text-inverse)]",
+        "text-(--nuka-text-inverse)",
       );
     });
   });
@@ -208,7 +208,7 @@ describe("Text", () => {
       render(<Text className="mt-4">Styled</Text>);
       const el = screen.getByText("Styled");
       expect(el.className).toContain("mt-4");
-      expect(el.className).toContain("text-[var(--nuka-text-base)]");
+      expect(el.className).toContain("text-(--nuka-text-base)");
     });
   });
 

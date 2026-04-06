@@ -145,7 +145,7 @@ describe("Divider", () => {
       render(<Divider className="my-4" data-testid="divider" />);
       const el = screen.getByTestId("divider");
       expect(el.className).toContain("my-4");
-      expect(el.className).toContain("bg-[var(--nuka-border-base)]");
+      expect(el.className).toContain("bg-(--nuka-border-base)");
     });
   });
 

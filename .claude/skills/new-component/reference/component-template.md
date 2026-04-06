@@ -93,9 +93,9 @@ export type { <Name>Props, <Name>VariantProps } from './<Name>'
 
 Always reference semantic tokens via CSS variable syntax:
 
-- Background: `bg-[var(--nuka-accent-bg)]`
-- Text: `text-[var(--nuka-text-base)]`
-- Border: `border-[var(--nuka-border-base)]`
+- Background: `bg-(--nuka-accent-bg)`
+- Text: `text-(--nuka-text-base)`
+- Border: `border-(--nuka-border-base)`
 
 Never use raw Tailwind color utilities like `bg-blue-500`.
 
@@ -107,10 +107,10 @@ Never use raw Tailwind color utilities like `bg-blue-500`.
   variant: 'primary',
   intent: 'default',
   className: [
-    'bg-[var(--nuka-accent-bg)]',
-    'text-[var(--nuka-text-inverse)]',
-    'hover:bg-[var(--nuka-accent-bg-hover)]',
-    'active:bg-[var(--nuka-accent-bg-active)]',
+    'bg-(--nuka-accent-bg)',
+    'text-(--nuka-text-inverse)',
+    'hover:bg-(--nuka-accent-bg-hover)',
+    'active:bg-(--nuka-accent-bg-active)',
   ],
 },
 // primary x danger
@@ -118,8 +118,8 @@ Never use raw Tailwind color utilities like `bg-blue-500`.
   variant: 'primary',
   intent: 'danger',
   className: [
-    'bg-[var(--nuka-danger-base)]',
-    'text-[var(--nuka-text-inverse)]',
+    'bg-(--nuka-danger-base)',
+    'text-(--nuka-text-inverse)',
     'hover:brightness-90',
     'active:brightness-80',
   ],

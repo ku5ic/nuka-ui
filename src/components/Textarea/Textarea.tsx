@@ -6,12 +6,12 @@ import { useFormField } from "@nuka/components/FormField/FormFieldContext";
 const textareaVariants = cva(
   [
     "w-full",
-    "rounded-[var(--radius-md)]",
+    "rounded-(--radius-md)",
     "border",
-    "bg-[var(--nuka-input-bg)]",
-    "text-[var(--nuka-text-base)]",
-    "placeholder:text-[var(--nuka-text-muted)]",
-    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--nuka-border-focus)]",
+    "bg-(--nuka-input-bg)",
+    "text-(--nuka-text-base)",
+    "placeholder:text-(--nuka-text-muted)",
+    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--nuka-border-focus)",
     "disabled:cursor-not-allowed disabled:opacity-50",
     "resize-y",
     "transition-colors duration-150",
@@ -19,15 +19,15 @@ const textareaVariants = cva(
   {
     variants: {
       intent: {
-        default: "border-[var(--nuka-input-border)] hover:border-[var(--nuka-input-border-hover)]",
-        danger: "border-[var(--nuka-danger-border)]",
-        success: "border-[var(--nuka-success-border)]",
-        warning: "border-[var(--nuka-warning-border)]",
+        default: "border-(--nuka-input-border) hover:border-(--nuka-input-border-hover)",
+        danger: "border-(--nuka-danger-border)",
+        success: "border-(--nuka-success-border)",
+        warning: "border-(--nuka-warning-border)",
       },
       size: {
-        sm: "px-[var(--space-3)] py-[var(--space-2)] text-xs",
-        md: "px-[var(--space-4)] py-[var(--space-3)] text-sm",
-        lg: "px-[var(--space-6)] py-[var(--space-4)] text-base",
+        sm: "px-(--space-3) py-(--space-2) text-xs",
+        md: "px-(--space-4) py-(--space-3) text-sm",
+        lg: "px-(--space-6) py-(--space-4) text-base",
       },
     },
     defaultVariants: {

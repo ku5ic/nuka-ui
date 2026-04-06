@@ -40,7 +40,7 @@ export const Default: Story = {
 
 export const Intents: Story = {
   render: () => (
-    <div className="flex gap-[var(--space-3)]">
+    <div className="flex gap-(--space-3)">
       <Button
         variant="secondary"
         intent="default"
@@ -143,8 +143,8 @@ function PositionsExample() {
   const [active, setActive] = React.useState<ToasterPosition>("bottom-right")
 
   return (
-    <div className="flex flex-col gap-[var(--space-4)]">
-      <div className="flex flex-wrap gap-[var(--space-2)]">
+    <div className="flex flex-col gap-(--space-4)">
+      <div className="flex flex-wrap gap-(--space-2)">
         {positions.map((pos) => (
           <Button
             key={pos}
@@ -186,7 +186,7 @@ function ApiResponseExample() {
   }
 
   return (
-    <div className="flex gap-[var(--space-3)]">
+    <div className="flex gap-(--space-3)">
       <Button
         variant="primary"
         intent="success"
@@ -226,14 +226,14 @@ function UndoActionExample() {
   }
 
   return (
-    <div className="flex flex-col gap-[var(--space-3)]">
+    <div className="flex flex-col gap-(--space-3)">
       {items.length === 0 && (
-        <p className="text-sm text-[var(--nuka-text-muted)]">
+        <p className="text-sm text-(--nuka-text-muted)">
           No items remaining
         </p>
       )}
       {items.map((item) => (
-        <div key={item} className="flex items-center gap-[var(--space-3)]">
+        <div key={item} className="flex items-center gap-(--space-3)">
           <span className="text-sm">{item}</span>
           <Button
             variant="ghost"

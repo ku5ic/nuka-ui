@@ -48,7 +48,7 @@ describe("Kbd", () => {
       render(<Kbd data-testid="kbd">K</Kbd>);
       const el = screen.getByTestId("kbd");
       expect(el.className).toContain("min-h-6");
-      expect(el.className).toContain("px-[var(--space-2)]");
+      expect(el.className).toContain("px-(--space-2)");
     });
   });
 

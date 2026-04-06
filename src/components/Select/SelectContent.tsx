@@ -20,12 +20,12 @@ const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps>(
         className={cn(
           "absolute left-0 w-full",
           "z-10",
-          "bg-[var(--nuka-bg-base)]",
-          "border border-[var(--nuka-border-base)]",
-          "rounded-[var(--radius-md)]",
+          "bg-(--nuka-bg-base)",
+          "border border-(--nuka-border-base)",
+          "rounded-(--radius-md)",
           "shadow-md",
-          "py-[var(--space-1)]",
-          "mt-[var(--space-1)]",
+          "py-(--space-1)",
+          "mt-(--space-1)",
           "max-h-60 overflow-y-auto",
           className,
         )}

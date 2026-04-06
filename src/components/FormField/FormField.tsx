@@ -33,14 +33,14 @@ const FormField = React.forwardRef<HTMLDivElement, FormFieldProps>(
       <FormFieldContext value={contextValue}>
         <div
           ref={ref}
-          className={cn("flex flex-col gap-[var(--space-1)]", className)}
+          className={cn("flex flex-col gap-(--space-1)", className)}
           {...props}
         >
           {children}
           {hint && (
             <p
               id={contextValue.hintId}
-              className="text-sm text-[var(--nuka-text-muted)]"
+              className="text-sm text-(--nuka-text-muted)"
             >
               {hint}
             </p>
@@ -48,7 +48,7 @@ const FormField = React.forwardRef<HTMLDivElement, FormFieldProps>(
           {error && (
             <p
               id={contextValue.errorId}
-              className="text-sm text-[var(--nuka-danger-text)]"
+              className="text-sm text-(--nuka-danger-text)"
             >
               {error}
             </p>

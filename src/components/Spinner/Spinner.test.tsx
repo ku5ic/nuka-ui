@@ -68,7 +68,7 @@ describe("Spinner", () => {
       render(<Spinner data-testid="spinner" />);
       const arc = screen.getByTestId("spinner").querySelectorAll("circle")[1];
       expect(arc?.getAttribute("class")).toContain(
-        "stroke-[var(--nuka-accent-bg)]",
+        "stroke-(--nuka-accent-bg)",
       );
     });
 
@@ -76,7 +76,7 @@ describe("Spinner", () => {
       render(<Spinner color="muted" data-testid="spinner" />);
       const arc = screen.getByTestId("spinner").querySelectorAll("circle")[1];
       expect(arc?.getAttribute("class")).toContain(
-        "stroke-[var(--nuka-text-muted)]",
+        "stroke-(--nuka-text-muted)",
       );
     });
 
@@ -84,7 +84,7 @@ describe("Spinner", () => {
       render(<Spinner color="inverse" data-testid="spinner" />);
       const arc = screen.getByTestId("spinner").querySelectorAll("circle")[1];
       expect(arc?.getAttribute("class")).toContain(
-        "stroke-[var(--nuka-text-inverse)]",
+        "stroke-(--nuka-text-inverse)",
       );
     });
 

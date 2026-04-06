@@ -50,7 +50,7 @@ Assert on class names that are directly applied by CVA. Use the exact class stri
 it("applies primary variant classes by default", () => {
   render(<ComponentName>Label</ComponentName>);
   expect(screen.getByRole("button", { name: "Label" }).className).toContain(
-    "bg-[var(--nuka-accent-bg)]",
+    "bg-(--nuka-accent-bg)",
   );
 });
 ```
@@ -63,7 +63,7 @@ Test both individual intents and at least one compound combination:
 it("applies danger intent classes when specified", () => {
   render(<ComponentName intent="danger">Label</ComponentName>);
   expect(screen.getByRole("button", { name: "Label" }).className).toContain(
-    "bg-[var(--nuka-danger-base)]",
+    "bg-(--nuka-danger-base)",
   );
 });
 
@@ -74,8 +74,8 @@ it("applies compound variant and intent classes", () => {
     </ComponentName>,
   );
   const el = screen.getByRole("button", { name: "Label" });
-  expect(el.className).toContain("text-[var(--nuka-danger-text)]");
-  expect(el.className).toContain("hover:bg-[var(--nuka-danger-bg)]");
+  expect(el.className).toContain("text-(--nuka-danger-text)");
+  expect(el.className).toContain("hover:bg-(--nuka-danger-bg)");
 });
 ```
 

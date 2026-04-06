@@ -4,8 +4,8 @@ import { cn } from "@nuka/utils/cn";
 
 const alertVariants = cva(
   [
-    "flex items-start gap-[var(--space-3)]",
-    "rounded-[var(--radius-md)]",
+    "flex items-start gap-(--space-3)",
+    "rounded-(--radius-md)",
     "border",
   ],
   {
@@ -23,9 +23,9 @@ const alertVariants = cva(
         warning: "",
       },
       size: {
-        sm: "px-[var(--space-3)] py-[var(--space-2)] text-xs",
-        md: "px-[var(--space-4)] py-[var(--space-3)] text-sm",
-        lg: "px-[var(--space-6)] py-[var(--space-4)] text-base",
+        sm: "px-(--space-3) py-(--space-2) text-xs",
+        md: "px-(--space-4) py-(--space-3) text-sm",
+        lg: "px-(--space-6) py-(--space-4) text-base",
       },
     },
 
@@ -35,32 +35,32 @@ const alertVariants = cva(
         variant: "primary",
         intent: "default",
         className: [
-          "bg-[var(--nuka-accent-bg)]",
-          "text-[var(--nuka-text-inverse)]",
+          "bg-(--nuka-accent-bg)",
+          "text-(--nuka-text-inverse)",
         ],
       },
       {
         variant: "primary",
         intent: "danger",
         className: [
-          "bg-[var(--nuka-danger-base)]",
-          "text-[var(--nuka-text-inverse)]",
+          "bg-(--nuka-danger-base)",
+          "text-(--nuka-text-inverse)",
         ],
       },
       {
         variant: "primary",
         intent: "success",
         className: [
-          "bg-[var(--nuka-success-base)]",
-          "text-[var(--nuka-text-inverse)]",
+          "bg-(--nuka-success-base)",
+          "text-(--nuka-text-inverse)",
         ],
       },
       {
         variant: "primary",
         intent: "warning",
         className: [
-          "bg-[var(--nuka-warning-base)]",
-          "text-[var(--nuka-text-inverse)]",
+          "bg-(--nuka-warning-base)",
+          "text-(--nuka-text-inverse)",
         ],
       },
 
@@ -69,36 +69,36 @@ const alertVariants = cva(
         variant: "secondary",
         intent: "default",
         className: [
-          "bg-[var(--nuka-accent-bg-subtle)]",
-          "text-[var(--nuka-accent-text)]",
-          "border-[var(--nuka-accent-border)]",
+          "bg-(--nuka-accent-bg-subtle)",
+          "text-(--nuka-accent-text)",
+          "border-(--nuka-accent-border)",
         ],
       },
       {
         variant: "secondary",
         intent: "danger",
         className: [
-          "bg-[var(--nuka-danger-bg)]",
-          "text-[var(--nuka-danger-text)]",
-          "border-[var(--nuka-danger-border)]",
+          "bg-(--nuka-danger-bg)",
+          "text-(--nuka-danger-text)",
+          "border-(--nuka-danger-border)",
         ],
       },
       {
         variant: "secondary",
         intent: "success",
         className: [
-          "bg-[var(--nuka-success-bg)]",
-          "text-[var(--nuka-success-text)]",
-          "border-[var(--nuka-success-border)]",
+          "bg-(--nuka-success-bg)",
+          "text-(--nuka-success-text)",
+          "border-(--nuka-success-border)",
         ],
       },
       {
         variant: "secondary",
         intent: "warning",
         className: [
-          "bg-[var(--nuka-warning-bg)]",
-          "text-[var(--nuka-warning-text)]",
-          "border-[var(--nuka-warning-border)]",
+          "bg-(--nuka-warning-bg)",
+          "text-(--nuka-warning-text)",
+          "border-(--nuka-warning-border)",
         ],
       },
 
@@ -107,32 +107,32 @@ const alertVariants = cva(
         variant: "outline",
         intent: "default",
         className: [
-          "border-[var(--nuka-accent-border)]",
-          "text-[var(--nuka-accent-text)]",
+          "border-(--nuka-accent-border)",
+          "text-(--nuka-accent-text)",
         ],
       },
       {
         variant: "outline",
         intent: "danger",
         className: [
-          "border-[var(--nuka-danger-border)]",
-          "text-[var(--nuka-danger-text)]",
+          "border-(--nuka-danger-border)",
+          "text-(--nuka-danger-text)",
         ],
       },
       {
         variant: "outline",
         intent: "success",
         className: [
-          "border-[var(--nuka-success-border)]",
-          "text-[var(--nuka-success-text)]",
+          "border-(--nuka-success-border)",
+          "text-(--nuka-success-text)",
         ],
       },
       {
         variant: "outline",
         intent: "warning",
         className: [
-          "border-[var(--nuka-warning-border)]",
-          "text-[var(--nuka-warning-text)]",
+          "border-(--nuka-warning-border)",
+          "text-(--nuka-warning-text)",
         ],
       },
 
@@ -140,22 +140,22 @@ const alertVariants = cva(
       {
         variant: "ghost",
         intent: "default",
-        className: ["text-[var(--nuka-text-base)]"],
+        className: ["text-(--nuka-text-base)"],
       },
       {
         variant: "ghost",
         intent: "danger",
-        className: ["text-[var(--nuka-danger-text)]"],
+        className: ["text-(--nuka-danger-text)"],
       },
       {
         variant: "ghost",
         intent: "success",
-        className: ["text-[var(--nuka-success-text)]"],
+        className: ["text-(--nuka-success-text)"],
       },
       {
         variant: "ghost",
         intent: "warning",
-        className: ["text-[var(--nuka-warning-text)]"],
+        className: ["text-(--nuka-warning-text)"],
       },
     ],
 
@@ -192,7 +192,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
             type="button"
             aria-label="Dismiss"
             onClick={onDismiss}
-            className="ml-auto self-start shrink-0 inline-flex items-center justify-center rounded-[var(--radius-sm)] p-[var(--space-1)] opacity-70 hover:opacity-100 transition-opacity cursor-pointer"
+            className="ml-auto self-start shrink-0 inline-flex items-center justify-center rounded-(--radius-sm) p-(--space-1) opacity-70 hover:opacity-100 transition-opacity cursor-pointer"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

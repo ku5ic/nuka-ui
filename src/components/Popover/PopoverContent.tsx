@@ -41,8 +41,8 @@ function PopoverContent({ className, ...props }: PopoverContentProps) {
       tabIndex={-1}
       {...(floatingProps as React.HTMLAttributes<HTMLDivElement>)}
       className={cn(
-        "z-50 rounded-[var(--radius-md)] border border-[var(--nuka-border-base)]",
-        "bg-[var(--nuka-bg-base)] shadow-md p-[var(--space-4)]",
+        "z-50 rounded-(--radius-md) border border-(--nuka-border-base)",
+        "bg-(--nuka-bg-base) shadow-md p-(--space-4)",
         "focus:outline-none",
         className,
       )}

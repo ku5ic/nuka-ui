@@ -3,13 +3,13 @@ import { cva } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
 
 const skeletonVariants = cva(
-  ["animate-pulse bg-[var(--nuka-bg-muted)]"],
+  ["animate-pulse bg-(--nuka-bg-muted)"],
   {
     variants: {
       shape: {
-        rect: "rounded-[var(--radius-md)]",
+        rect: "rounded-(--radius-md)",
         circle: "rounded-full aspect-square",
-        text: "rounded-[var(--radius-sm)] h-[1em]",
+        text: "rounded-(--radius-sm) h-[1em]",
       },
     },
     defaultVariants: {

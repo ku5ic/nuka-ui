@@ -45,7 +45,7 @@ function Toaster({ position = "bottom-right", className }: ToasterProps) {
     <div
       aria-label="Notifications"
       className={cn(
-        "fixed z-50 flex flex-col gap-[var(--space-2)] p-[var(--space-4)]",
+        "fixed z-50 flex flex-col gap-(--space-2) p-(--space-4)",
         positionClasses[position],
         className,
       )}

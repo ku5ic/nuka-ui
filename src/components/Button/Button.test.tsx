@@ -27,14 +27,14 @@ describe("Button", () => {
       render(<Button>Primary</Button>);
       expect(
         screen.getByRole("button", { name: "Primary" }).className,
-      ).toContain("bg-[var(--nuka-accent-bg)]");
+      ).toContain("bg-(--nuka-accent-bg)");
     });
 
     it("applies secondary variant classes when specified", () => {
       render(<Button variant="secondary">Secondary</Button>);
       expect(
         screen.getByRole("button", { name: "Secondary" }).className,
-      ).toContain("bg-[var(--nuka-bg-muted)]");
+      ).toContain("bg-(--nuka-bg-muted)");
     });
 
     it("applies ghost variant classes when specified", () => {
@@ -78,21 +78,21 @@ describe("Button", () => {
       render(<Button intent="danger">Danger</Button>);
       expect(
         screen.getByRole("button", { name: "Danger" }).className,
-      ).toContain("bg-[var(--nuka-danger-base)]");
+      ).toContain("bg-(--nuka-danger-base)");
     });
 
     it("applies success intent classes when specified", () => {
       render(<Button intent="success">Success</Button>);
       expect(
         screen.getByRole("button", { name: "Success" }).className,
-      ).toContain("bg-[var(--nuka-success-base)]");
+      ).toContain("bg-(--nuka-success-base)");
     });
 
     it("applies warning intent classes when specified", () => {
       render(<Button intent="warning">Warning</Button>);
       expect(
         screen.getByRole("button", { name: "Warning" }).className,
-      ).toContain("bg-[var(--nuka-warning-base)]");
+      ).toContain("bg-(--nuka-warning-base)");
     });
 
     it("applies compound variant and intent classes", () => {
@@ -102,8 +102,8 @@ describe("Button", () => {
         </Button>,
       );
       const btn = screen.getByRole("button", { name: "Ghost Danger" });
-      expect(btn.className).toContain("text-[var(--nuka-danger-text)]");
-      expect(btn.className).toContain("hover:bg-[var(--nuka-danger-bg)]");
+      expect(btn.className).toContain("text-(--nuka-danger-text)");
+      expect(btn.className).toContain("hover:bg-(--nuka-danger-bg)");
     });
   });
 
@@ -112,7 +112,7 @@ describe("Button", () => {
       render(<Button className="mt-4">Button</Button>);
       const btn = screen.getByRole("button", { name: "Button" });
       expect(btn.className).toContain("mt-4");
-      expect(btn.className).toContain("bg-[var(--nuka-accent-bg)]");
+      expect(btn.className).toContain("bg-(--nuka-accent-bg)");
     });
   });
 
@@ -171,7 +171,7 @@ describe("Button", () => {
       );
       expect(
         screen.getByRole("link", { name: "Link button" }).className,
-      ).toContain("bg-[var(--nuka-accent-bg)]");
+      ).toContain("bg-(--nuka-accent-bg)");
     });
   });
 });

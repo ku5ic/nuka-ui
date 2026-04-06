@@ -112,7 +112,7 @@ export const ControlledOpen: Story = {
     const [open, setOpen] = React.useState(false);
     return (
       <div className="flex flex-col items-center gap-4">
-        <label className="flex items-center gap-2 text-sm text-[var(--nuka-text-base)]">
+        <label className="flex items-center gap-2 text-sm text-(--nuka-text-base)">
           <input
             type="checkbox"
             checked={open}
@@ -169,14 +169,14 @@ export const TableRowActions: Story = {
 export const FormFieldHelper: Story = {
   render: () => (
     <div className="flex items-center gap-2">
-      <span className="text-sm font-medium text-[var(--nuka-text-base)]">
+      <span className="text-sm font-medium text-(--nuka-text-base)">
         Email address
       </span>
       <Tooltip delay={0}>
         <TooltipTrigger asChild>
           <button
             type="button"
-            className="inline-flex items-center justify-center rounded-full text-[var(--nuka-text-muted)] hover:text-[var(--nuka-text-base)]"
+            className="inline-flex items-center justify-center rounded-full text-(--nuka-text-muted) hover:text-(--nuka-text-base)"
             aria-label="More info"
           >
             <svg
