@@ -7,7 +7,7 @@ WCAG 2.2 AA is a hard requirement for all color tokens used in text or UI compon
 | Use case                            | Minimum ratio |
 | ----------------------------------- | ------------- |
 | Normal text (< 18pt / < 14pt bold)  | 4.5:1         |
-| Large text (≥ 18pt / ≥ 14pt bold)   | 3:1           |
+| Large text (>= 18pt / >= 14pt bold)   | 3:1           |
 | UI components and graphical objects | 3:1           |
 
 AAA (7:1 for normal text) is the target where achievable without compromising aesthetics.
@@ -37,12 +37,12 @@ When adding a background token for a filled component, verify:
 | Token                     | Hex        | Luminance       |
 | ------------------------- | ---------- | --------------- |
 | `--nuka-accent-500`      | `#43546a`  | 7.74:1 on white |
-| `--nuka-bg-base` (light) | `#ffffff`  | —               |
-| `--nuka-bg-base` (dark)  | ~`#0d0d0d` | —               |
+| `--nuka-bg-base` (light) | `#ffffff`  | -               |
+| `--nuka-bg-base` (dark)  | ~`#0d0d0d` | -               |
 
 ## If a color fails contrast
 
-1. Adjust lightness in `oklch()` — decrease for darker (more contrast on light bg), increase for lighter (more contrast on dark bg)
-2. Do not adjust chroma or hue to fix contrast — this changes the color identity
+1. Adjust lightness in `oklch()`: decrease for darker (more contrast on light bg), increase for lighter (more contrast on dark bg)
+2. Do not adjust chroma or hue to fix contrast: this changes the color identity
 3. Re-verify after each adjustment
 4. Document the final lightness value and its contrast ratio in a comment in `tokens.css`

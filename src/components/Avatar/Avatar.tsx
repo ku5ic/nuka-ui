@@ -124,14 +124,14 @@ const Avatar = React.forwardRef<HTMLSpanElement, AvatarProps>(
         className={cn(avatarVariants({ size, shape }), className)}
         {...props}
       >
-        {/* Fallback layer — always rendered */}
+        {/* Fallback layer: always rendered */}
         {showInitials ? (
           <span aria-hidden="true">{initials}</span>
         ) : (
           <PersonIcon />
         )}
 
-        {/* Image layer — on top, hidden until loaded */}
+        {/* Image layer: on top, hidden until loaded */}
         {src !== undefined && !errored && (
           <img
             key={src}

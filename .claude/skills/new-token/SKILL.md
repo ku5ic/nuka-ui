@@ -19,17 +19,17 @@ Use this skill when adding any new design token to `src/styles/tokens.css`.
 2. Read `src/styles/tokens.css` in full to understand existing scale.
 
 3. Determine token type:
-   - **Primitive** — a raw scale value (color, space, radius, etc.). No `--nuka-` prefix. Lives in `:root`.
-   - **Semantic** — references a primitive, has `--nuka-` prefix. Lives in `:root, [data-theme="light"]` and `[data-theme="dark"]`.
+   - **Primitive**: a raw scale value (color, space, radius, etc.). No `--nuka-` prefix. Lives in `:root`.
+   - **Semantic**: references a primitive, has `--nuka-` prefix. Lives in `:root, [data-theme="light"]` and `[data-theme="dark"]`.
 
 4. If adding a **primitive** token:
    - Find the correct scale section in `:root`
    - Insert in scale order (e.g. `--color-accent-550` between 500 and 600)
-   - Use `oklch()` color values — never hex, never `rgb()`
+   - Use `oklch()` color values: never hex, never `rgb()`
    - If it is a color, verify WCAG 2.2 AA contrast before adding (see wcag skill)
 
 5. If adding a **semantic** token:
-   - Verify a suitable primitive exists — create one first if not
+   - Verify a suitable primitive exists: create one first if not
    - Add to `[data-theme="light"]` block, referencing the primitive via `var()`
    - Add matching entry to `[data-theme="dark"]` block
    - If the dark value cannot map cleanly to an existing primitive, hardcode an `oklch()` value and add a comment explaining why

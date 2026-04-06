@@ -4,7 +4,7 @@ import { Stack } from "@nuka/components/Stack";
 import { Heading } from "@nuka/components/Heading";
 import { Text } from "@nuka/components/Text";
 
-// Story-only placeholder — demonstrates layout structure, not a nuka-ui component
+// Story-only placeholder: demonstrates layout structure, not a nuka-ui component
 const Placeholder = ({ label }: { label: string }) => (
   <div
     style={{
@@ -98,10 +98,10 @@ export const Padded: Story = {
   render: () => (
     <Stack direction="column" gap="lg">
       <Container size="md">
-        <Placeholder label="padded (default) — resize browser to see px-4 → sm:px-6 → lg:px-8" />
+        <Placeholder label="padded (default): resize browser to see px-4, sm:px-6, lg:px-8" />
       </Container>
       <Container size="md" padded={false}>
-        <Placeholder label="padded={false} — no horizontal padding" />
+        <Placeholder label="padded={false}: no horizontal padding" />
       </Container>
     </Stack>
   ),
@@ -129,10 +129,10 @@ export const Centered: Story = {
   render: () => (
     <Stack direction="column" gap="lg">
       <Container size="md">
-        <Placeholder label="centered (default) — mx-auto" />
+        <Placeholder label="centered (default): mx-auto" />
       </Container>
       <Container size="md" centered={false}>
-        <Placeholder label="centered={false} — left-aligned" />
+        <Placeholder label="centered={false}: left-aligned" />
       </Container>
     </Stack>
   ),

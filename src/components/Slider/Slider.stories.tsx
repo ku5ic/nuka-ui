@@ -40,8 +40,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/* ─── Basic ────────────────────────────────────────────── */
-
 export const Default: Story = {
   args: {
     "aria-label": "Value",
@@ -62,8 +60,6 @@ export const Controlled: Story = {
   },
 };
 
-/* ─── Intents ──────────────────────────────────────────── */
-
 export const AllIntents: Story = {
   render: () => (
     <div className="flex flex-col gap-[var(--space-6)]" style={{ width: 320 }}>
@@ -77,8 +73,6 @@ export const AllIntents: Story = {
   ),
 };
 
-/* ─── Sizes ────────────────────────────────────────────── */
-
 export const AllSizes: Story = {
   render: () => (
     <div className="flex flex-col gap-[var(--space-6)]" style={{ width: 320 }}>
@@ -91,8 +85,6 @@ export const AllSizes: Story = {
     </div>
   ),
 };
-
-/* ─── Features ─────────────────────────────────────────── */
 
 export const WithSteps: Story = {
   render: function SteppedSlider() {
@@ -129,8 +121,6 @@ export const Disabled: Story = {
     "aria-label": "Disabled slider",
   },
 };
-
-/* ─── Patterns ─────────────────────────────────────────── */
 
 export const InFormField: Story = {
   render: () => (

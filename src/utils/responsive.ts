@@ -2,10 +2,8 @@
  * Responsive prop utilities for layout primitives.
  *
  * Uses static lookup tables so every emitted class is present
- * as a complete string in source — required for Tailwind v4 scanning.
+ * as a complete string in source. Required for Tailwind v4 scanning.
  */
-
-// ─── Types ───────────────────────────────────────────────────
 
 export type Breakpoint = "base" | "sm" | "md" | "lg" | "xl" | "2xl";
 
@@ -13,11 +11,7 @@ export type Responsive<T> = T | Partial<Record<Breakpoint, T>>;
 
 export type GapScale = "none" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
 
-// ─── Breakpoint list (iteration order) ──────────────────────
-
 const BREAKPOINTS: Breakpoint[] = ["base", "sm", "md", "lg", "xl", "2xl"];
-
-// ─── Utility ─────────────────────────────────────────────────
 
 export function resolveResponsiveClasses<T extends string | number>(
   value: Responsive<T> | undefined,
@@ -38,8 +32,6 @@ export function resolveResponsiveClasses<T extends string | number>(
   }
   return result;
 }
-
-// ─── Lookup tables ───────────────────────────────────────────
 
 // Helper to build a breakpoint-keyed lookup from a base map
 function buildLookup<T extends string | number>(

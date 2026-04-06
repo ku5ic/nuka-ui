@@ -53,7 +53,7 @@ See the full token reference at `src/styles/tokens.css`.
 
 ## Components
 
-- `Button` — Actions and form submissions
+- `Button`: Actions and form submissions
 
 ## Contributing
 

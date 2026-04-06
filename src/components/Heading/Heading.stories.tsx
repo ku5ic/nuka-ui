@@ -52,26 +52,26 @@ export const Default: Story = {
 };
 
 export const AllLevels: Story = {
-  name: "All Levels (h1–h6)",
+  name: "All Levels (h1-h6)",
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
       <Heading as="h1" size="4xl">
-        h1 — Page title (4xl)
+        h1: Page title (4xl)
       </Heading>
       <Heading as="h2" size="3xl">
-        h2 — Section heading (3xl)
+        h2: Section heading (3xl)
       </Heading>
       <Heading as="h3" size="2xl">
-        h3 — Subsection heading (2xl)
+        h3: Subsection heading (2xl)
       </Heading>
       <Heading as="h4" size="xl">
-        h4 — Group heading (xl)
+        h4: Group heading (xl)
       </Heading>
       <Heading as="h5" size="xl" weight="semibold">
-        h5 — Detail heading (xl, semibold)
+        h5: Detail heading (xl, semibold)
       </Heading>
       <Heading as="h6" size="xl" weight="medium">
-        h6 — Fine heading (xl, medium)
+        h6: Fine heading (xl, medium)
       </Heading>
       <div
         style={{
@@ -81,10 +81,10 @@ export const AllLevels: Story = {
         }}
       >
         <Text size="xl" weight="bold">
-          Text size=&quot;xl&quot; weight=&quot;bold&quot; — for comparison
+          Text size=&quot;xl&quot; weight=&quot;bold&quot;: for comparison
         </Text>
         <Text size="xl" style={{ marginTop: "0.25rem" }}>
-          Text size=&quot;xl&quot; — body text at same font size
+          Text size=&quot;xl&quot;: body text at same font size
         </Text>
       </div>
     </div>
@@ -95,16 +95,16 @@ export const AllSizes: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
       <Heading as="h3" size="xl">
-        xl — 1.25rem
+        xl: 1.25rem
       </Heading>
       <Heading as="h3" size="2xl">
-        2xl — 1.5rem
+        2xl: 1.5rem
       </Heading>
       <Heading as="h3" size="3xl">
-        3xl — 1.875rem (default)
+        3xl: 1.875rem (default)
       </Heading>
       <Heading as="h3" size="4xl">
-        4xl — 2.25rem
+        4xl: 2.25rem
       </Heading>
     </div>
   ),
@@ -116,7 +116,7 @@ export const AllWeights: Story = {
       <Heading weight="regular">Regular (400)</Heading>
       <Heading weight="medium">Medium (500)</Heading>
       <Heading weight="semibold">Semibold (600)</Heading>
-      <Heading weight="bold">Bold (700) — default</Heading>
+      <Heading weight="bold">Bold (700): default</Heading>
     </div>
   ),
 };
@@ -125,13 +125,13 @@ export const AllColors: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
       <Heading size="2xl" color="base">
-        base — Default heading color
+        base: Default heading color
       </Heading>
       <Heading size="2xl" color="muted">
-        muted — Secondary heading
+        muted: Secondary heading
       </Heading>
       <Heading size="2xl" color="subtle">
-        subtle — Tertiary heading
+        subtle: Tertiary heading
       </Heading>
       <div
         style={{
@@ -141,14 +141,14 @@ export const AllColors: Story = {
         }}
       >
         <Heading size="2xl" color="inverse">
-          inverse — On dark background
+          inverse: On dark background
         </Heading>
       </div>
       <Heading size="2xl" color="disabled">
-        disabled — Disabled state
+        disabled: Disabled state
       </Heading>
       <Heading size="2xl" color="accent">
-        accent — Accent color
+        accent: Accent color
       </Heading>
 
       {/* Feedback colors with realistic context */}
@@ -224,7 +224,7 @@ export const PageHeader: Story = {
         gap: "2rem",
       }}
     >
-      {/* Page title — h1 at largest size */}
+      {/* Page title: h1 at largest size */}
       <div>
         <Heading as="h1" size="4xl">
           Dashboard
@@ -234,7 +234,7 @@ export const PageHeader: Story = {
         </Text>
       </div>
 
-      {/* Section — h2 at default size */}
+      {/* Section: h2 at default size */}
       <div>
         <Heading as="h2">Recent Activity</Heading>
         <Text style={{ marginTop: "0.5rem" }}>
@@ -243,7 +243,7 @@ export const PageHeader: Story = {
         </Text>
       </div>
 
-      {/* Subsection — h3 at smaller size, independent of level */}
+      {/* Subsection: h3 at smaller size, independent of level */}
       <div>
         <Heading as="h3" size="2xl">
           Open Issues
@@ -253,7 +253,7 @@ export const PageHeader: Story = {
         </Text>
       </div>
 
-      {/* Group heading — h4 at smallest heading size, lighter weight */}
+      {/* Group heading: h4 at smallest heading size, lighter weight */}
       <div>
         <Heading as="h4" size="xl" weight="semibold">
           Deployment Status

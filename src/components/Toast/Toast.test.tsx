@@ -6,10 +6,6 @@ import type { ToastItem } from "@nuka/components/Toast/toastStore"
 import { Toast } from "@nuka/components/Toast/Toast"
 import { Toaster } from "@nuka/components/Toast/Toaster"
 
-// ---------------------------------------------------------------------------
-// Store unit tests
-// ---------------------------------------------------------------------------
-
 describe("toastStore", () => {
   beforeEach(() => {
     vi.useFakeTimers()
@@ -150,10 +146,6 @@ describe("toastStore", () => {
     expect(toastStore.getSnapshot()[0]?.dismissing).toBe(true)
   })
 })
-
-// ---------------------------------------------------------------------------
-// Toast component tests
-// ---------------------------------------------------------------------------
 
 describe("Toast", () => {
   const baseToast: ToastItem = {
@@ -302,10 +294,6 @@ describe("Toast", () => {
     expect(buttons).toHaveLength(1) // only dismiss button
   })
 })
-
-// ---------------------------------------------------------------------------
-// Toaster component tests
-// ---------------------------------------------------------------------------
 
 describe("Toaster", () => {
   beforeEach(() => {

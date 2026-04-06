@@ -13,7 +13,7 @@ Use this skill when adding or completing tests for a component in `src/component
 
 1. Read `reference/test-conventions.md`.
 
-2. Read the target component file in full — note all variants, intents, sizes, props, and the HTML element it renders.
+2. Read the target component file in full: note all variants, intents, sizes, props, and the HTML element it renders.
 
 3. Read `src/components/Button/Button.test.tsx` as the reference implementation.
 
@@ -50,9 +50,9 @@ Use this skill when adding or completing tests for a component in `src/component
     - Child has correct tag name
     - Component classes are merged onto child element
 
-12. Run `npm test` — all tests must pass.
+12. Run `npm test`: all tests must pass.
 
-13. Run `npm run lint` — must be clean.
+13. Run `npm run lint`: must be clean.
 
 ## Output
 

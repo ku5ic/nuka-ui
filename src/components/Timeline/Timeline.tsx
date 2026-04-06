@@ -2,8 +2,6 @@ import * as React from "react";
 import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
 
-/* ─── Timeline (root) ──────────────────────────────────── */
-
 export interface TimelineProps
   extends React.OlHTMLAttributes<HTMLOListElement> {}
 
@@ -20,8 +18,6 @@ const Timeline = React.forwardRef<HTMLOListElement, TimelineProps>(
 );
 
 Timeline.displayName = "Timeline";
-
-/* ─── TimelineItem marker variants ─────────────────────── */
 
 const timelineItemMarkerVariants = cva(
   [
@@ -53,8 +49,6 @@ const timelineItemMarkerVariants = cva(
 export type TimelineItemMarkerVariantProps = VariantProps<
   typeof timelineItemMarkerVariants
 >;
-
-/* ─── TimelineItem ─────────────────────────────────────── */
 
 export interface TimelineItemProps
   extends React.LiHTMLAttributes<HTMLLIElement> {
@@ -93,7 +87,7 @@ const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
               />
             )}
           </div>
-          {/* Connector line — hidden on last item */}
+          {/* Connector line: hidden on last item */}
           <div className="w-px flex-1 bg-[var(--nuka-border-base)] mt-[var(--space-1)] group-last:hidden" />
         </div>
 

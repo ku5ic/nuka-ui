@@ -191,7 +191,7 @@ export const InlineInProse: Story = {
       state variable. The convention is to name state variables
       like <Code>something</Code> and <Code>setSomething</Code> using array
       destructuring. If the initial value is expensive to compute, pass a
-      function to <Code>useState</Code> instead — it will only be called during
+      function to <Code>useState</Code> instead. It will only be called during
       the first render.
     </Text>
   ),

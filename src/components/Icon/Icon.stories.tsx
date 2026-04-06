@@ -3,7 +3,7 @@ import { Icon } from "@nuka/components/Icon";
 import { Button } from "@nuka/components/Button";
 import { Text } from "@nuka/components/Text";
 
-// Story-only placeholder — inline SVG icons for demonstration, not nuka-ui components
+// Story-only placeholder: inline SVG icons for demonstration, not nuka-ui components
 const MockIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
     <circle cx="12" cy="12" r="9" />

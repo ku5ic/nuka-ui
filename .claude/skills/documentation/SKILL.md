@@ -20,12 +20,12 @@ Use this skill when adding docs for a new component, updating existing docs, or 
 3. Read the component's stories file for usage examples.
 
 4. Create or update `src/components/<Name>/README.md`:
-   - Purpose — what this component is for
-   - Usage — minimal working example
-   - Props table — all props with types, defaults, descriptions
-   - Variant × intent matrix — what each combination looks like
-   - Accessibility notes — role, keyboard behavior, ARIA attributes
-   - Token customization — which `--nuka-*` tokens affect this component
+   - Purpose: what this component is for
+   - Usage: minimal working example
+   - Props table: all props with types, defaults, descriptions
+   - Variant x intent matrix: what each combination looks like
+   - Accessibility notes: role, keyboard behavior, ARIA attributes
+   - Token customization: which `--nuka-*` tokens affect this component
 
 5. Verify all code examples are correct by cross-referencing the component source.
 
@@ -47,10 +47,10 @@ Use this skill when adding docs for a new component, updating existing docs, or 
 2. Add a new ADR entry following the existing format:
    - Sequential number: `ADR-00N`
    - Date, status
-   - Context — why the decision was needed
-   - Decision — what was decided
-   - Consequences — what changes as a result
-   - Alternatives considered — what else was evaluated
+   - Context: why the decision was needed
+   - Decision: what was decided
+   - Consequences: what changes as a result
+   - Alternatives considered: what else was evaluated
 
 3. Keep entries factual and concise. Capture the reasoning that would be lost if not written down.
 
@@ -63,7 +63,7 @@ Use this skill when adding docs for a new component, updating existing docs, or 
 3. Update or create `README.md` at repo root:
    - What nuka-ui is
    - Installation
-   - Usage — import CSS, import component, basic example
+   - Usage: import CSS, import component, basic example
    - Token customization
    - Contributing
    - License
@@ -72,4 +72,4 @@ Use this skill when adding docs for a new component, updating existing docs, or 
 
 ## Output
 
-Documentation that is accurate, concise, and useful to a developer encountering nuka-ui for the first time. No aspirational content — only document what exists and works.
+Documentation that is accurate, concise, and useful to a developer encountering nuka-ui for the first time. No aspirational content: only document what exists and works.

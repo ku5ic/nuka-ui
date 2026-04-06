@@ -93,7 +93,7 @@ const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
       : undefined;
 
     // Fallback aria-label when no aria-labelledby provides a name.
-    // role="combobox" has nameFrom:author — text content alone won't work.
+    // role="combobox" has nameFrom:author, so text content alone won't work.
     const ariaLabel =
       props["aria-label"] ??
       (ariaLabelledBy === undefined
@@ -273,7 +273,7 @@ const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
         case "Tab":
           if (ctx.open) {
             ctx.onOpenChange(false);
-            // Do not preventDefault — allow Tab to move focus naturally
+            // Do not preventDefault: allow Tab to move focus naturally
           }
           break;
 
@@ -298,7 +298,7 @@ const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
       }
     };
 
-    // Compute aria-activedescendant — must be undefined (not empty string) when no highlight
+    // aria-activedescendant must be undefined (not empty string) when no highlight
     const ariaActiveDescendant =
       ctx.open && ctx.highlightedValue !== undefined
         ? `${ctx.listboxId}-option-${ctx.highlightedValue}`

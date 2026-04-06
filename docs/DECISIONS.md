@@ -20,7 +20,7 @@ Separate `variant` and `intent` into distinct props:
 - `variant`: controls visual weight and shape (primary, secondary, outline, ghost, link)
 - `intent`: controls semantic color (default, danger, success, warning)
 
-All variant × intent combinations are valid. CVA `compoundVariants` handles the class composition.
+All variant x intent combinations are valid. CVA `compoundVariants` handles the class composition.
 
 ### Consequences
 
@@ -65,7 +65,7 @@ Components reference only semantic tokens. Consumers can remap semantic tokens w
 
 **Single layer**: all tokens flat. Simple but makes dark mode and theming require overriding every token individually.
 
-**Three layers** (primitives → semantic → component): more granular but premature for the current component count. Revisit when component-specific theming needs arise.
+**Three layers** (primitives to semantic to component): more granular but premature for the current component count. Revisit when component-specific theming needs arise.
 
 ---
 
@@ -227,7 +227,7 @@ The ref type is `HTMLElement`, the correct common supertype for `HTMLHRElement` 
 
 **3. Vertical + label is explicitly unsupported**
 
-A vertically-oriented divider with centered label text is visually problematic (requires 90° text rotation) and semantically unclear. Rather than implementing a half-broken feature, the component logs a `console.warn` in development and renders the vertical divider without the label. This is graceful degradation: no crash, clear feedback to the developer.
+A vertically-oriented divider with centered label text is visually problematic (requires 90-degree text rotation) and semantically unclear. Rather than implementing a half-broken feature, the component logs a `console.warn` in development and renders the vertical divider without the label. This is graceful degradation: no crash, clear feedback to the developer.
 
 **4. No `asChild`**
 
@@ -295,7 +295,7 @@ Implemented image loading state in React (`loaded`, `errored`) using `onLoad`/`o
 - No flash of broken image. The fallback is always visible until the image has fully loaded.
 - Load state is fully owned and visible: no hidden browser behavior.
 - The `key` + ref approach is simpler than a `useEffect` with cleanup but means the `<img>` element remounts on every `src` change, which is acceptable for an avatar where `src` changes are infrequent.
-- The three-tier fallback resolution (image → initials → icon) is explicit and testable.
+- The three-tier fallback resolution (image to initials to icon) is explicit and testable.
 
 ### Alternatives considered
 
@@ -434,7 +434,7 @@ The Storybook accessibility panel reports `aria-controls` as "inconclusive" on S
 
 ### Context
 
-Alert, Progress, and Skeleton are the first Tier 3 (feedback & display) components. Each has distinct design requirements that diverge from the interactive component patterns established in Tiers 1–2.
+Alert, Progress, and Skeleton are the first Tier 3 (feedback & display) components. Each has distinct design requirements that diverge from the interactive component patterns established in Tiers 1-2.
 
 ### Decisions
 
@@ -484,6 +484,7 @@ The distinction from Radix UI is categorical, not a matter of degree:
 - **Floating UI** provides a positioning primitive. It computes `{ x, y }` coordinates and exposes hooks for interaction detection (`useHover`, `useClick`, `useDismiss`). It does not render any DOM elements, impose any component structure, or manage accessible names/roles beyond what the consumer explicitly configures.
 
 Rolling floating position logic first-party would produce a worse implementation with real edge cases around:
+
 - `ResizeObserver` and `IntersectionObserver` cross-browser behavior
 - Scroll container detection across shadow DOM boundaries
 - Overflow boundary calculation with nested scrolling contexts
@@ -531,6 +532,7 @@ Both components use the same compound structure:
 The Root component (`Tooltip`, `Popover`) is a context provider that owns state and Floating UI configuration. It renders no DOM element. Trigger and Content are separate components that consume context.
 
 This pattern was chosen over a single-prop wrapper (`<Tooltip content="...">`) because:
+
 - It allows arbitrary trigger elements via `asChild`: tooltips on icon buttons, links, or custom components
 - It gives consumers full control over content rendering: Popover content can contain forms, lists, or any interactive elements
 - It aligns with the compound pattern established by `Select` (ADR-013) and anticipated by Tier 4 components (Dialog, DropdownMenu, Tabs)
@@ -556,7 +558,7 @@ The delay applies only to hover-open, not focus-open. Focus-triggered tooltips m
 
 **4. Portal rendering for both**
 
-Both render content via `ReactDOM.createPortal(…, document.body)` to escape stacking contexts. Content is conditionally rendered (`{open && <portal>}`), not hidden with `hidden` attribute. Unlike Select (ADR-013), there is no registry pattern that requires options to be in the DOM when closed.
+Both render content via `ReactDOM.createPortal(..., document.body)` to escape stacking contexts. Content is conditionally rendered (`{open && <portal>}`), not hidden with `hidden` attribute. Unlike Select (ADR-013), there is no registry pattern that requires options to be in the DOM when closed.
 
 SSR safety: both Content components guard with `typeof document === 'undefined'`.
 
@@ -658,7 +660,7 @@ An optional `action?: React.ReactNode` slot renders between the message content 
 - Banner and Alert are clearly distinct: Banner is persistent context (`role="region"`), Alert is urgent feedback (`role="alert"`)
 - The required `aria-label` enforces accessibility at build time: no consumer can accidentally ship an anonymous region
 - No positioning opinions means Banner works in any layout context without fighting consumer CSS
-- Intent-only CVA is simpler than the standard variant × intent pattern: no compound variants needed
+- Intent-only CVA is simpler than the standard variant x intent pattern: no compound variants needed
 
 ---
 

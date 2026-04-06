@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Grid } from "@nuka/components/Grid";
 
-// Story-only placeholder — demonstrates layout structure, not a nuka-ui component
+// Story-only placeholder: demonstrates layout structure, not a nuka-ui component
 const Cell = ({ children }: { children: React.ReactNode }) => (
   <div
     style={{

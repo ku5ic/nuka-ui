@@ -139,7 +139,7 @@ describe("Icon", () => {
     });
   });
 
-  describe("accessibility — decorative mode (no label)", () => {
+  describe("accessibility: decorative mode (no label)", () => {
     it("root span has aria-hidden='true'", () => {
       render(
         <Icon data-testid="icon">
@@ -168,7 +168,7 @@ describe("Icon", () => {
     });
   });
 
-  describe("accessibility — labelled mode (with label)", () => {
+  describe("accessibility: labelled mode (with label)", () => {
     it("root span has role='img'", () => {
       render(
         <Icon label="Close dialog" data-testid="icon">

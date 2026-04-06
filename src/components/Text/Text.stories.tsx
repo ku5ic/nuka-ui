@@ -57,11 +57,11 @@ export const Default: Story = {
 export const AllSizes: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-      <Text size="xs">xs — Extra small (0.75rem)</Text>
-      <Text size="sm">sm — Small (0.875rem)</Text>
-      <Text size="md">md — Medium (1rem) — default</Text>
-      <Text size="lg">lg — Large (1.125rem)</Text>
-      <Text size="xl">xl — Extra large (1.25rem)</Text>
+      <Text size="xs">xs: Extra small (0.75rem)</Text>
+      <Text size="sm">sm: Small (0.875rem)</Text>
+      <Text size="md">md: Medium (1rem), default</Text>
+      <Text size="lg">lg: Large (1.125rem)</Text>
+      <Text size="xl">xl: Extra large (1.25rem)</Text>
     </div>
   ),
 };
@@ -69,7 +69,7 @@ export const AllSizes: Story = {
 export const AllWeights: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-      <Text weight="regular">Regular (400) — default</Text>
+      <Text weight="regular">Regular (400), default</Text>
       <Text weight="medium">Medium (500)</Text>
       <Text weight="semibold">Semibold (600)</Text>
       <Text weight="bold">Bold (700)</Text>
@@ -80,9 +80,9 @@ export const AllWeights: Story = {
 export const AllColors: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-      <Text color="base">base — Default text color</Text>
-      <Text color="muted">muted — Secondary text</Text>
-      <Text color="subtle">subtle — Tertiary text</Text>
+      <Text color="base">base: Default text color</Text>
+      <Text color="muted">muted: Secondary text</Text>
+      <Text color="subtle">subtle: Tertiary text</Text>
       <div
         style={{
           backgroundColor: "var(--nuka-bg-emphasis)",
@@ -90,13 +90,13 @@ export const AllColors: Story = {
           borderRadius: "var(--radius-md)",
         }}
       >
-        <Text color="inverse">inverse — On dark background</Text>
+        <Text color="inverse">inverse: On dark background</Text>
       </div>
-      <Text color="disabled">disabled — Disabled state</Text>
-      <Text color="accent">accent — Accent color</Text>
-      <Text color="danger">danger — Error/destructive</Text>
-      <Text color="success">success — Success state</Text>
-      <Text color="warning">warning — Warning state</Text>
+      <Text color="disabled">disabled: Disabled state</Text>
+      <Text color="accent">accent: Accent color</Text>
+      <Text color="danger">danger: Error/destructive</Text>
+      <Text color="success">success: Success state</Text>
+      <Text color="warning">warning: Warning state</Text>
     </div>
   ),
 };
@@ -135,19 +135,19 @@ export const PolymorphicAs: Story = {
     <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
       <Text>Default renders as &lt;p&gt;</Text>
       <Text as="span" color="muted">
-        as=&quot;span&quot; — inline element
+        as=&quot;span&quot;: inline element
       </Text>
       <Text as="label" weight="medium">
-        as=&quot;label&quot; — form label
+        as=&quot;label&quot;: form label
       </Text>
       <ul style={{ listStyle: "disc", paddingLeft: "1.25rem" }}>
-        <Text as="li">as=&quot;li&quot; — list item</Text>
+        <Text as="li">as=&quot;li&quot;: list item</Text>
         <Text as="li" color="muted">
-          as=&quot;li&quot; — another list item
+          as=&quot;li&quot;: another list item
         </Text>
       </ul>
       <Text as="time" size="sm" color="muted">
-        as=&quot;time&quot; — 2026-04-04
+        as=&quot;time&quot;: 2026-04-04
       </Text>
     </div>
   ),

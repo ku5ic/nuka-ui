@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Stack } from "@nuka/components/Stack";
 
-// Story-only placeholder — demonstrates layout structure, not a nuka-ui component
+// Story-only placeholder: demonstrates layout structure, not a nuka-ui component
 const Box = ({ children }: { children: React.ReactNode }) => (
   <div
     style={{

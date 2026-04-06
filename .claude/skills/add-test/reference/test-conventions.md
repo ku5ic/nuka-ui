@@ -3,7 +3,7 @@
 ## Setup
 
 - Framework: Vitest + Testing Library
-- `globals: false` — always import test utilities explicitly
+- `globals: false`: always import test utilities explicitly
 - Cleanup: automatic via `afterEach` in `src/test-setup.ts`
 - Jest-dom matchers extended in `src/test-setup.ts`
 
@@ -24,7 +24,7 @@ Always use `getByRole` with `{ name: '...' }`. Never use bare `getByRole('button
 // correct
 screen.getByRole("button", { name: "Submit" });
 
-// wrong — fails when multiple buttons are in DOM
+// wrong: fails when multiple buttons are in DOM
 screen.getByRole("button");
 ```
 
@@ -106,6 +106,6 @@ it("renders as child element when asChild is true", () => {
 
 ## What not to test
 
-- That Tailwind classes produce the correct visual output — that is Storybook's job
+- That Tailwind classes produce the correct visual output: that is Storybook's job
 - Internal implementation details
 - CVA internals

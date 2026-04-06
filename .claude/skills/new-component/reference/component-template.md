@@ -20,7 +20,7 @@ import { cn } from '@nuka/utils/cn'
 
 const <name>Variants = cva(
   [
-    // base classes — applied to every instance
+    // base classes: applied to every instance
   ],
   {
     variants: {
@@ -44,7 +44,7 @@ const <name>Variants = cva(
       },
     },
     compoundVariants: [
-      // one entry per variant × intent combination
+      // one entry per variant x intent combination
       // group by variant: primary, secondary, outline, ghost, link
     ],
     defaultVariants: {
@@ -102,7 +102,7 @@ Never use raw Tailwind color utilities like `bg-blue-500`.
 ## Intent compound variant pattern
 
 ```tsx
-// primary × default
+// primary x default
 {
   variant: 'primary',
   intent: 'default',
@@ -113,7 +113,7 @@ Never use raw Tailwind color utilities like `bg-blue-500`.
     'active:bg-[var(--nuka-accent-bg-active)]',
   ],
 },
-// primary × danger
+// primary x danger
 {
   variant: 'primary',
   intent: 'danger',

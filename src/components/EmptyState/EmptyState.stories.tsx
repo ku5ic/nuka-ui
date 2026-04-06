@@ -14,7 +14,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// Story-only placeholder — inline SVG illustrations for demonstration, not nuka-ui components
+// Story-only placeholder: inline SVG illustrations for demonstration, not nuka-ui components
 const PlaceholderIllustration = () => (
   <svg
     width="120"

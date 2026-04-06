@@ -4,10 +4,6 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Slot, composeRefs } from "@nuka/utils/slot";
 
-// ---------------------------------------------------------------------------
-// composeRefs
-// ---------------------------------------------------------------------------
-
 describe("composeRefs", () => {
   it("calls a function ref", () => {
     const fnRef = vi.fn();
@@ -44,10 +40,6 @@ describe("composeRefs", () => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// Slot
-// ---------------------------------------------------------------------------
-
 describe("Slot", () => {
   it("renders child element, not a wrapper", () => {
     render(
@@ -57,7 +49,7 @@ describe("Slot", () => {
     );
     const button = screen.getByRole("button", { name: "Click" });
     expect(button.tagName).toBe("BUTTON");
-    // No wrapper element — the button's parent should be the container
+    // No wrapper element: the button's parent should be the container
     expect(button.parentElement?.tagName).not.toBe("SLOT");
   });
 
@@ -84,7 +76,7 @@ describe("Slot", () => {
     expect(el.style.margin).toBe("8px");
   });
 
-  it("composes event handlers — both fire", async () => {
+  it("composes event handlers: both fire", async () => {
     const user = userEvent.setup();
     const slotHandler = vi.fn();
     const childHandler = vi.fn();

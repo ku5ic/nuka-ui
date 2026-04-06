@@ -24,12 +24,12 @@ import "nuka-ui/styles";
 | `size`      | `'sm' \| 'md' \| 'lg'`                                       | `'md'`      | Size scale                                |
 | `asChild`   | `boolean`                                                    | `false`     | Render as child element via Radix Slot    |
 | `disabled`  | `boolean`                                                    | `false`     | Disabled state                            |
-| `className` | `string`                                                     | —           | Additional CSS classes, merged via `cn()` |
-| `ref`       | `React.Ref<HTMLElement>`                                     | —           | Forwarded to the root element             |
+| `className` | `string`                                                     | -           | Additional CSS classes, merged via `cn()` |
+| `ref`       | `React.Ref<HTMLElement>`                                     | -           | Forwarded to the root element             |
 
 Extends all native `<element>` HTML attributes.
 
-## Variant × Intent matrix
+## Variant x Intent matrix
 
 |           | default                      | danger                       | success                       | warning                       |
 | --------- | ---------------------------- | ---------------------------- | ----------------------------- | ----------------------------- |
@@ -44,7 +44,7 @@ Extends all native `<element>` HTML attributes.
 - **Role:** `button` (or inherited from child when `asChild` is true)
 - **Keyboard:** Tab to focus, Enter or Space to activate
 - **Focus:** `focus-visible` outline using `--nuka-border-focus`
-- **Disabled:** Native `disabled` attribute — removes from tab order, suppresses events
+- **Disabled:** Native `disabled` attribute: removes from tab order, suppresses events
 
 ## Token customization
 

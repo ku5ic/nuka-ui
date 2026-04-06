@@ -13,7 +13,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// Story-only placeholder — inline SVG icons for demonstration, not nuka-ui components
+// Story-only placeholder: inline SVG icons for demonstration, not nuka-ui components
 const CheckIcon = () => (
   <svg
     width="14"
@@ -180,21 +180,21 @@ export const OrderStatus: Story = {
     <Timeline aria-label="Order tracking" style={{ width: 400 }}>
       <TimelineItem
         title="Order placed"
-        timestamp="April 1, 2026 — 9:15 AM"
+        timestamp="April 1, 2026, 9:15 AM"
         description="Order #12345 confirmed."
         intent="success"
         icon={<CheckIcon />}
       />
       <TimelineItem
         title="Processing"
-        timestamp="April 1, 2026 — 11:30 AM"
+        timestamp="April 1, 2026, 11:30 AM"
         description="Payment verified. Preparing for shipment."
         intent="success"
         icon={<CheckIcon />}
       />
       <TimelineItem
         title="Shipped"
-        timestamp="April 2, 2026 — 2:00 PM"
+        timestamp="April 2, 2026, 2:00 PM"
         description="Package handed to carrier. Tracking: 1Z999AA10123456784."
         intent="success"
         icon={<CheckIcon />}

@@ -27,7 +27,7 @@ Use this skill when adding new color tokens, reviewing components for accessibil
 
 7. Check both light and dark theme values.
 
-8. Document results — pass/fail with actual ratio.
+8. Document results: pass/fail with actual ratio.
 
 9. If failing: adjust lightness in `oklch()` only. Do not adjust chroma or hue.
 
@@ -41,7 +41,7 @@ Use this skill when adding new color tokens, reviewing components for accessibil
 
 3. Open the component in Storybook.
 
-4. For each story, check the Accessibility panel — zero violations required.
+4. For each story, check the Accessibility panel: zero violations required.
 
 5. Manually verify keyboard navigation:
    - Tab reaches the component

@@ -154,8 +154,8 @@ export const ConfirmationDialog: Story = {
 
 ## Rules
 
-- Always `satisfies Meta<typeof Component>` — never type annotation
+- Always `satisfies Meta<typeof Component>`: never type annotation
 - `asChild` always `control: false`
-- Inline styles only for story layout — never for component styling
-- No lorem ipsum — use meaningful label text
+- Inline styles only for story layout: never for component styling
+- No lorem ipsum: use meaningful label text
 - Accessibility panel must show no violations for each story

@@ -18,13 +18,13 @@ Run after `cmd-implement`. Fix bugs here before proceeding to `cmd-review`.
 
 3. Run `npm run lint`:
    - If errors: fix them, re-run until clean
-   - Do not suppress rules with disable comments unless the rule is genuinely incorrect for the use case — if so, explain why
+   - Do not suppress rules with disable comments unless the rule is genuinely incorrect for the use case: if so, explain why
    - Report final state
 
 4. If a new component was added:
    - Run `npm run dev` and verify all stories render correctly in Storybook
-   - Check the Accessibility panel for each story — zero violations required
-   - Verify all variant × intent combinations render as expected
+   - Check the Accessibility panel for each story: zero violations required
+   - Verify all variant x intent combinations render as expected
 
 5. If tokens were changed:
    - Run `npm run dev` and verify tokens resolve correctly in browser devtools

@@ -11,14 +11,14 @@ Run after `cmd-test` passes clean. Act as a senior peer reviewer.
 2. Check API design:
    - Are prop names clear and consistent with existing components?
    - Are types as strict as they should be?
-   - Is the public API surface minimal — nothing exposed that shouldn't be?
+   - Is the public API surface minimal: nothing exposed that shouldn't be?
    - Will this API age well, or will it need breaking changes soon?
 
 3. Check implementation quality:
    - Is `React.forwardRef` used on all DOM-rendering components?
    - Are all imports using `@nuka/*` alias?
    - Are only `--nuka-*` semantic tokens referenced?
-   - Is CVA structured correctly — base, variants, compoundVariants, defaults?
+   - Is CVA structured correctly: base, variants, compoundVariants, defaults?
    - Is `cn()` used for className composition everywhere?
    - Are there any unnecessary abstractions?
 
@@ -26,7 +26,7 @@ Run after `cmd-test` passes clean. Act as a senior peer reviewer.
    - Does coverage match the component surface area?
    - Are tests testing behavior, not implementation?
    - Are all `getByRole` calls using `{ name: '...' }`?
-   - Are intent × variant compound combinations tested?
+   - Are intent x variant compound combinations tested?
 
 5. Check accessibility:
    - Correct semantic element?
@@ -37,5 +37,5 @@ Run after `cmd-test` passes clean. Act as a senior peer reviewer.
 6. Check for anything that should be documented in `docs/DECISIONS.md`.
 
 7. Produce a review summary:
-   - **Approved** — ready to commit, no changes needed
-   - **Changes requested** — list specific issues, loop back to `cmd-implement`
+   - **Approved**: ready to commit, no changes needed
+   - **Changes requested**: list specific issues, loop back to `cmd-implement`

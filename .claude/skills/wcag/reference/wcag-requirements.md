@@ -7,21 +7,21 @@ WCAG 2.2 AA compliance is a hard requirement for nuka-ui. Not a preference.
 | Content type                                   | Minimum        | Target    |
 | ---------------------------------------------- | -------------- | --------- |
 | Normal text (< 18pt regular, < 14pt bold)      | 4.5:1          | 7:1 (AAA) |
-| Large text (≥ 18pt regular, ≥ 14pt bold)       | 3:1            | 4.5:1     |
+| Large text (>= 18pt regular, >= 14pt bold)       | 3:1            | 4.5:1     |
 | UI components (borders, icons, input outlines) | 3:1            | 4.5:1     |
-| Decorative content                             | No requirement | —         |
-| Disabled components                            | No requirement | —         |
+| Decorative content                             | No requirement | -         |
+| Disabled components                            | No requirement | -         |
 
-## Focus indicators (2.4.11 — new in WCAG 2.2)
+## Focus indicators (2.4.11: new in WCAG 2.2)
 
-- Focus indicator must have minimum area of the component perimeter × 2px
+- Focus indicator must have minimum area of the component perimeter x 2px
 - Contrast of focus indicator against adjacent colors: 3:1 minimum
-- nuka-ui uses `focus-visible:outline-2 focus-visible:outline-offset-2` — verify the outline color meets 3:1
+- nuka-ui uses `focus-visible:outline-2 focus-visible:outline-offset-2`: verify the outline color meets 3:1
 
-## Target size (2.5.8 — new in WCAG 2.2)
+## Target size (2.5.8: new in WCAG 2.2)
 
-- Minimum target size: 24×24 CSS pixels
-- Button `sm` size must meet this — verify padding produces sufficient hit area
+- Minimum target size: 24x24 CSS pixels
+- Button `sm` size must meet this: verify padding produces sufficient hit area
 
 ## Interactive states
 
@@ -31,7 +31,7 @@ WCAG 2.2 AA compliance is a hard requirement for nuka-ui. Not a preference.
 ## Color alone
 
 - Never use color as the only means of conveying information
-- Error states need more than just red — use icons or text labels alongside color
+- Error states need more than just red: use icons or text labels alongside color
 
 ## Screen reader support
 

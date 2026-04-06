@@ -3,8 +3,6 @@ import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
 import { useFormField } from "@nuka/components/FormField/FormFieldContext";
 
-/* ─── CVA: Wrapper ─────────────────────────────────────── */
-
 const sliderWrapperVariants = cva(
   [
     "relative flex items-center w-full",
@@ -22,8 +20,6 @@ const sliderWrapperVariants = cva(
     },
   },
 );
-
-/* ─── CVA: Track ───────────────────────────────────────── */
 
 const sliderTrackVariants = cva(
   [
@@ -44,8 +40,6 @@ const sliderTrackVariants = cva(
   },
 );
 
-/* ─── CVA: Fill ────────────────────────────────────────── */
-
 const sliderFillVariants = cva(
   [
     "absolute left-0 top-0 h-full rounded-full",
@@ -65,8 +59,6 @@ const sliderFillVariants = cva(
     },
   },
 );
-
-/* ─── CVA: Thumb ───────────────────────────────────────── */
 
 const sliderThumbVariants = cva(
   [
@@ -98,8 +90,6 @@ const sliderThumbVariants = cva(
   },
 );
 
-/* ─── CVA: Value display ───────────────────────────────── */
-
 const sliderValueVariants = cva(
   [
     "tabular-nums text-[var(--nuka-text-muted)]",
@@ -120,15 +110,11 @@ const sliderValueVariants = cva(
   },
 );
 
-/* ─── Thumb pixel sizes for offset calculation ─────────── */
-
 const THUMB_SIZES = {
   sm: 14,
   md: 18,
   lg: 22,
 } as const;
-
-/* ─── Types ────────────────────────────────────────────── */
 
 export type SliderVariantProps = VariantProps<typeof sliderFillVariants> &
   VariantProps<typeof sliderThumbVariants>;
@@ -145,10 +131,8 @@ export interface SliderProps
   showValue?: boolean;
 }
 
-/* ─── Component ────────────────────────────────────────── */
-
 /**
- * Slider — custom range slider built on a visually-replaced native `<input type="range">`.
+ * Custom range slider built on a visually-replaced native `<input type="range">`.
  *
  * WCAG 2.5.7: Dragging alternative satisfied by native keyboard support
  * (Arrow keys, Home, End, Page Up/Down).
@@ -184,8 +168,6 @@ const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
     const resolvedSize = size ?? "md";
     const thumbOffset = THUMB_SIZES[resolvedSize] / 2;
 
-    /* ─── FormFieldContext integration ──────────────── */
-
     const resolvedId = id ?? (ctx.fieldId || undefined);
     const resolvedDisabled = disabled ?? (ctx.disabled ? true : undefined);
 
@@ -207,8 +189,6 @@ const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
     const ariaRequired =
       props["aria-required"] ?? (ctx.required ? true : undefined);
 
-    /* ─── Handlers ─────────────────────────────────── */
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const numericValue = Number(e.target.value);
       setInternalValue(numericValue);
@@ -217,7 +197,7 @@ const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
 
     return (
       <div className={cn(sliderWrapperVariants({ size }), className)}>
-        {/* Native input — invisible, covers full interactive area */}
+        {/* Native input: invisible, covers full interactive area */}
         <input
           type="range"
           ref={ref}

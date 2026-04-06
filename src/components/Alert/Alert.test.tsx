@@ -70,7 +70,7 @@ describe("Alert", () => {
       );
     });
 
-    it("applies compound variant classes for outline × danger", () => {
+    it("applies compound variant classes for outline x danger", () => {
       render(
         <Alert variant="outline" intent="danger">
           Outline Danger

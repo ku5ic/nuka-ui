@@ -4,16 +4,16 @@
 
 - [ ] Correct semantic HTML element used
 - [ ] Accessible name present (visible label, aria-label, or aria-labelledby)
-- [ ] Focus ring visible — `focus-visible:outline` present in base classes
+- [ ] Focus ring visible: `focus-visible:outline` present in base classes
 - [ ] Focus ring contrast: 3:1 against adjacent colors
-- [ ] Keyboard operable — Tab to reach, Enter/Space to activate
+- [ ] Keyboard operable: Tab to reach, Enter/Space to activate
 - [ ] All color combinations pass contrast requirements (see contrast-pairs.md)
 - [ ] Disabled state: `disabled` attribute or `aria-disabled` used correctly
 - [ ] Storybook Accessibility panel: zero violations on all stories
 
 ## Interactive components (Button, Link, Input, etc.)
 
-- [ ] Role is correct — `button` for actions, `link` for navigation
+- [ ] Role is correct: `button` for actions, `link` for navigation
 - [ ] `asChild` preserves accessible name from child element
 - [ ] Loading state (if present) announces to screen readers
 - [ ] Error state uses more than color alone
@@ -28,6 +28,6 @@
 ## WCAG 2.2 specific
 
 - [ ] Focus indicator meets 2.4.11 (minimum area)
-- [ ] Target size meets 2.5.8 (24×24px minimum)
+- [ ] Target size meets 2.5.8 (24x24px minimum)
 - [ ] Dragging alternatives provided if drag interaction exists (2.5.7)
 - [ ] Consistent help available if help is provided (3.2.6)

@@ -4,31 +4,31 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { Avatar, getInitials } from "./Avatar";
 
 describe("getInitials", () => {
-  it("two words → first letters uppercased", () => {
+  it("two words: first letters uppercased", () => {
     expect(getInitials("Jane Smith")).toBe("JS");
   });
 
-  it("three words → first and last letters", () => {
+  it("three words: first and last letters", () => {
     expect(getInitials("Jane A Smith")).toBe("JS");
   });
 
-  it("single word → first two chars uppercased", () => {
+  it("single word: first two chars uppercased", () => {
     expect(getInitials("Jane")).toBe("JA");
   });
 
-  it("single char → returns that char uppercased", () => {
+  it("single char: returns that char uppercased", () => {
     expect(getInitials("j")).toBe("J");
   });
 
-  it("empty string → returns empty string", () => {
+  it("empty string: returns empty string", () => {
     expect(getInitials("")).toBe("");
   });
 
-  it("leading/trailing whitespace → handled cleanly", () => {
+  it("leading/trailing whitespace: handled cleanly", () => {
     expect(getInitials("  Jane Smith  ")).toBe("JS");
   });
 
-  it("multiple internal spaces → handled cleanly", () => {
+  it("multiple internal spaces: handled cleanly", () => {
     expect(getInitials("Jane    Smith")).toBe("JS");
   });
 });
@@ -150,7 +150,7 @@ describe("Avatar", () => {
     it("icon with name: uses name", () => {
       render(<Avatar name="Jane Smith" src="https://example.com/bad.jpg" data-testid="avatar" />);
       const el = screen.getByTestId("avatar");
-      // name yields empty initials? No — "Jane Smith" yields "JS", so this is initials tier
+      // "Jane Smith" yields "JS", so this is the initials tier
       // Test icon with name explicitly: name that yields empty initials won't happen with a real name
       // Instead test: src errors out, name present
       const img = el.querySelector("img")!;

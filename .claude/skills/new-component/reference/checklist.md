@@ -11,7 +11,7 @@
 - [ ] `displayName` set
 - [ ] All imports use `@nuka/*` alias, no relative imports
 - [ ] Only `--nuka-*` semantic tokens referenced, no raw Tailwind colors
-- [ ] All variant × intent compound variants defined
+- [ ] All variant x intent compound variants defined
 - [ ] `index.ts` exports component, variants, Props, VariantProps
 - [ ] `src/index.ts` updated with new exports
 

@@ -129,7 +129,7 @@ export const PatternButtonLoading: Story = {
   render: () => (
     <Button variant="primary" disabled>
       <Spinner size="sm" color="inverse" aria-hidden={true} />
-      Saving…
+      Saving...
     </Button>
   ),
   parameters: {
@@ -138,7 +138,7 @@ export const PatternButtonLoading: Story = {
         code: `
 <Button variant="primary" disabled>
   <Spinner size="sm" color="inverse" aria-hidden={true} />
-  Saving…
+  Saving...
 </Button>
         `.trim(),
       },
@@ -171,7 +171,7 @@ export const PatternPageLoading: Story = {
           color: "var(--nuka-text-muted)",
         }}
       >
-        Loading…
+        Loading...
       </span>
     </div>
   ),

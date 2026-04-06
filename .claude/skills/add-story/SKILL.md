@@ -32,17 +32,17 @@ Use this skill when adding or completing stories for a component in `src/compone
      - `asChild`: `control: false` (always)
    - Use `satisfies Meta<typeof Component>` not a type annotation
 
-6. Write individual stories — one per variant:
+6. Write individual stories: one per variant:
    - `Primary`, `Secondary`, `Outline`, `Ghost`, `Link`
    - Each uses `args` with explicit `variant`, `intent: 'default'`, `size: 'md'`
 
-7. Write individual stories — one per intent:
+7. Write individual stories: one per intent:
    - `IntentDanger`, `IntentSuccess`, `IntentWarning`
    - Each renders all variants with that intent using a `render` function
 
 8. Write render stories:
-   - `AllVariants` — all variants side by side, default intent
-   - `AllSizes` — all sizes, `alignItems: 'flex-end'` in wrapper style
+   - `AllVariants`: all variants side by side, default intent
+   - `AllSizes`: all sizes, `alignItems: 'flex-end'` in wrapper style
 
 9. Write at least one real-world pattern story:
    - Name it descriptively: `'Pattern: <description>'`
@@ -53,7 +53,7 @@ Use this skill when adding or completing stories for a component in `src/compone
 
 11. Run `npm run dev` and verify all stories render correctly in Storybook.
 
-12. Check the Accessibility panel for each story — no violations.
+12. Check the Accessibility panel for each story: no violations.
 
 ## Output
 

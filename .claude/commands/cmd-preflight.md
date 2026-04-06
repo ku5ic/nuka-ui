@@ -20,11 +20,11 @@ Run this before every task. Most problems come from starting without understandi
 
 5. Read the relevant files identified above.
 
-6. Run `npx tsc -p tsconfig.json --noEmit` and report current state — clean or errors.
+6. Run `npx tsc -p tsconfig.json --noEmit` and report current state: clean or errors.
 
-7. Run `npm test` and report current state — passing or failing.
+7. Run `npm test` and report current state: passing or failing.
 
-8. Run `npm run lint` and report current state — clean or errors.
+8. Run `npm run lint` and report current state: clean or errors.
 
 9. Summarize findings:
    - What the task requires

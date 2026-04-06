@@ -6,7 +6,7 @@
 
 - Live in `:root`
 - No `--nuka-` prefix
-- Raw scale values only — no semantic meaning
+- Raw scale values only: no semantic meaning
 - Examples: `--color-accent-500`, `--space-4`, `--radius-md`
 - Color format: `oklch()` only
 
@@ -56,5 +56,5 @@ Each has: `-bg`, `-text`, `-border`, `-base`
 - Components reference only semantic tokens
 - Semantic tokens reference only primitives
 - Component-level tokens are added only when semantic tokens are insufficient
-- Dark mode feedback tokens are hardcoded `oklch()` values — primitives are light-first
+- Dark mode feedback tokens are hardcoded `oklch()` values: primitives are light-first
 - Color tokens use `oklch()` exclusively for perceptual uniformity and wide-gamut support

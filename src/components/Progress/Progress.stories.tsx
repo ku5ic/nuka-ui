@@ -50,7 +50,7 @@ export const Determinate: Story = {
 
 export const Indeterminate: Story = {
   args: {
-    label: "Loading…",
+    label: "Loading...",
   },
 };
 

@@ -10,7 +10,7 @@ Required contrast verifications for nuka-ui semantic tokens.
 | `--nuka-text-base`    | `--nuka-bg-subtle`   | 4.5:1    | Text on subtle surface     |
 | `--nuka-text-base`    | `--nuka-bg-muted`    | 4.5:1    | Text on muted surface      |
 | `--nuka-text-muted`   | `--nuka-bg-base`     | 4.5:1    | Secondary text             |
-| `--nuka-text-subtle`  | `--nuka-bg-base`     | 3:1      | Tertiary text — large only |
+| `--nuka-text-subtle`  | `--nuka-bg-base`     | 3:1      | Tertiary text: large only |
 | `--nuka-text-inverse` | `--nuka-bg-emphasis` | 4.5:1    | Inverse text               |
 
 ## Accent
@@ -21,7 +21,7 @@ Required contrast verifications for nuka-ui semantic tokens.
 | `--nuka-accent-text`   | `--nuka-bg-base`   | 4.5:1    | Accent text on page    |
 | `--nuka-accent-border` | `--nuka-bg-base`   | 3:1      | Outline border on page |
 
-## Feedback — danger
+## Feedback: danger
 
 | Foreground              | Background            | Required |
 | ----------------------- | --------------------- | -------- |
@@ -30,7 +30,7 @@ Required contrast verifications for nuka-ui semantic tokens.
 | `--nuka-text-inverse`  | `--nuka-danger-base` | 4.5:1    |
 | `--nuka-danger-border` | `--nuka-bg-base`     | 3:1      |
 
-## Feedback — success
+## Feedback: success
 
 | Foreground               | Background             | Required |
 | ------------------------ | ---------------------- | -------- |
@@ -39,7 +39,7 @@ Required contrast verifications for nuka-ui semantic tokens.
 | `--nuka-text-inverse`   | `--nuka-success-base` | 4.5:1    |
 | `--nuka-success-border` | `--nuka-bg-base`      | 3:1      |
 
-## Feedback — warning
+## Feedback: warning
 
 | Foreground               | Background             | Required |
 | ------------------------ | ---------------------- | -------- |
@@ -59,4 +59,4 @@ Required contrast verifications for nuka-ui semantic tokens.
 
 | Token                            | Hex       | Notes                 |
 | -------------------------------- | --------- | --------------------- |
-| `--nuka-accent-bg` (accent-500) | `#43546a` | 7.74:1 on white — AAA |
+| `--nuka-accent-bg` (accent-500) | `#43546a` | 7.74:1 on white: AAA |

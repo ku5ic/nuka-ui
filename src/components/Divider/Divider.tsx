@@ -69,7 +69,7 @@ const Divider = React.forwardRef<HTMLElement, DividerProps>(
       );
     }
 
-    // Horizontal with label — flex layout with two line segments
+    // Horizontal with label: flex layout with two line segments
     if (hasLabel) {
       return (
         <div
@@ -100,7 +100,7 @@ const Divider = React.forwardRef<HTMLElement, DividerProps>(
       );
     }
 
-    // Vertical without label — div with role="separator"
+    // Vertical without label: div with role="separator"
     if (isVertical) {
       return (
         <div
@@ -117,7 +117,7 @@ const Divider = React.forwardRef<HTMLElement, DividerProps>(
       );
     }
 
-    // Horizontal without label — semantic <hr>
+    // Horizontal without label: semantic <hr>
     return (
       <hr
         ref={ref as React.Ref<HTMLHRElement>}

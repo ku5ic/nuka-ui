@@ -41,7 +41,7 @@ const headingVariants = cva(
       },
     },
     defaultVariants: {
-      // Default size is 3xl — matches the default element (h2) typographic convention.
+      // Default size is 3xl: matches the default element (h2) typographic convention.
       // The two are intentionally decoupled: size controls visuals, as controls semantics.
       size: "3xl",
       weight: "bold",
@@ -53,7 +53,7 @@ const headingVariants = cva(
 
 export type HeadingVariantProps = VariantProps<typeof headingVariants>;
 
-// Constrained to h1–h6 only. Headings are semantically defined by HTML as these
+// Constrained to h1-h6 only. Headings are semantically defined by HTML as these
 // six levels. For other block elements, use Text with as="div" instead.
 export type HeadingElement = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
@@ -66,7 +66,7 @@ export interface HeadingProps
 const Heading = React.forwardRef<HTMLElement, HeadingProps>(
   (
     {
-      // Default element is h2 — the most common non-landmark heading level.
+      // Default element is h2: the most common non-landmark heading level.
       // h1 is reserved for the page title (typically one per page).
       as: Comp = "h2",
       className,
