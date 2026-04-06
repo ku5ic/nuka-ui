@@ -1,0 +1,353 @@
+# Customization
+
+nuka-ui is an opinionated library. It has strong opinions about accessibility, token structure, component API shape, and TypeScript correctness. Within those constraints it is designed to be practical to customize for real product work.
+
+This guide covers every supported customization path, when to use each one, and where the hard boundaries are.
+
+---
+
+## The customization model
+
+nuka-ui separates two concerns that are often conflated:
+
+- **Theming** - changing colors, spacing, radius, and typography system-wide via CSS custom properties
+- **Styling overrides** - adjusting individual component instances via `className`
+
+These are different operations with different scopes. Theming affects everything in the tree. Styling overrides affect one instance. Neither requires touching library source.
+
+A third path - **wrapping** - exists for cases where you need new named variants or intents that carry compound logic. This is always a build step in your codebase, not a library extension point.
+
+---
+
+## 1. Token overrides
+
+The primary customization mechanism. All components reference semantic CSS tokens with the `--nuka-` prefix. Override those tokens and the components follow.
+
+### How the token system works
+
+nuka-ui uses a two-layer architecture:
+
+```
+--color-accent-500          <- primitive (raw oklch value, no prefix)
+    |
+    v
+--nuka-accent-bg            <- semantic (references primitive, --nuka- prefix)
+    |
+    v
+bg-(--nuka-accent-bg)  <- component (Tailwind class referencing semantic token)
+```
+
+Components only ever reference semantic tokens. Primitives are internal. This means you can retheme the library by overriding `--nuka-*` tokens without touching any component file.
+
+### Changing the accent color
+
+The accent color drives the `default` intent across primary, secondary, outline, ghost, and link variants on every component that uses the variant + intent pattern.
+
+```css
+[data-theme="light"] {
+  --nuka-accent-bg: oklch(44% 0.19 264);
+  --nuka-accent-bg-hover: oklch(37% 0.19 264);
+  --nuka-accent-bg-active: oklch(28% 0.18 264);
+  --nuka-accent-bg-subtle: oklch(96% 0.03 264);
+  --nuka-accent-border: oklch(70% 0.1 264);
+  --nuka-accent-text: oklch(44% 0.19 264);
+}
+
+[data-theme="dark"] {
+  --nuka-accent-bg: oklch(55% 0.19 264);
+  --nuka-accent-bg-hover: oklch(65% 0.18 264);
+  --nuka-accent-bg-active: oklch(72% 0.16 264);
+  --nuka-accent-bg-subtle: oklch(20% 0.06 264);
+  --nuka-accent-border: oklch(55% 0.19 264);
+  --nuka-accent-text: oklch(80% 0.12 264);
+}
+```
+
+**Contrast is your responsibility.** nuka-ui ships with a verified accessible default (7.74:1 on white, WCAG AAA). When you override accent tokens, verify that your values maintain at least 4.5:1 for normal text and 3:1 for large text and UI components against the backgrounds they appear on.
+
+### Changing feedback colors
+
+Each intent (danger, success, warning) has four tokens: background, text, border, and base. The base token is used for filled/primary visual weight. The others are used for subtle, secondary, and outline treatments.
+
+```css
+[data-theme="light"] {
+  --nuka-danger-bg: oklch(95% 0.06 15);
+  --nuka-danger-text: oklch(42% 0.2 15);
+  --nuka-danger-border: oklch(75% 0.14 15);
+  --nuka-danger-base: oklch(56% 0.22 15);
+}
+```
+
+The same four-token pattern applies to `--nuka-success-*` and `--nuka-warning-*`.
+
+### Changing spacing and radius
+
+```css
+:root {
+  --radius-sm: 0.125rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.375rem;
+  --radius-full: 9999px;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+}
+```
+
+Spacing and radius primitives live on `:root` without a `--nuka-` prefix. Components reference them directly. Overriding them on `:root` affects all components globally.
+
+### Nested themes
+
+Because theming is anchored to a `data-theme` attribute, you can nest different themes on the same page. This works with any valid CSS selector scoping:
+
+```html
+<html data-theme="light">
+  <header>Light header</header>
+
+  <aside data-theme="dark">Dark sidebar</aside>
+</html>
+```
+
+Components inside the `data-theme="dark"` element pick up dark tokens automatically. No JavaScript required.
+
+### Full token reference
+
+See [`src/styles/tokens.css`](../src/styles/tokens.css) for the complete list of primitives and semantic tokens with inline documentation.
+
+---
+
+## 2. className overrides
+
+Every nuka-ui component accepts a `className` prop. It is merged last, after CVA resolves the variant and intent classes, using `tailwind-merge`. This means your classes win on any conflict.
+
+```tsx
+// Add spacing without touching anything else
+<Button variant="primary" className="mt-4 w-full">
+  Submit
+</Button>
+
+// Override a specific visual property for a one-off case
+<Badge variant="solid" intent="default" className="bg-purple-600 text-white">
+  Custom
+</Badge>
+```
+
+### What this is good for
+
+- Layout adjustments: margins, widths, flex properties
+- One-off visual overrides that do not belong in a theme
+- Utility classes that do not conflict with CVA output
+
+### What this is not good for
+
+- Systematic changes that should apply everywhere - use token overrides instead
+- Creating a named reusable variant - use wrapping instead (see section 4)
+- Overriding base structural classes that affect layout and accessibility behavior
+
+### How className merges
+
+Under the hood, `cn()` runs `tailwind-merge` after `clsx`. Conflicting Tailwind utilities resolve in your favor:
+
+```tsx
+// CVA outputs: bg-(--nuka-accent-bg) text-(--nuka-text-inverse)
+// Your className: bg-purple-600
+// Result: bg-purple-600 text-(--nuka-text-inverse)
+// bg-(--nuka-accent-bg) is dropped by tailwind-merge
+<Button className="bg-purple-600">Label</Button>
+```
+
+This works reliably for standard Tailwind utilities. Arbitrary value classes like `bg-(--nuka-accent-bg)` and `bg-purple-600` are recognized as the same property group and merged correctly.
+
+---
+
+## 3. asChild and polymorphism
+
+The `asChild` prop is available on most nuka-ui components. It renders the component's styles onto its child element instead of the component's default element. The child takes over as the rendered DOM node.
+
+### Rendering as a router link
+
+```tsx
+import { Link } from "react-router-dom";
+import { Button } from "nuka-ui";
+
+<Button asChild variant="primary">
+  <Link to="/dashboard">Go to dashboard</Link>
+</Button>;
+```
+
+The DOM renders a single `<a>` element with all Button styles applied. No wrapper element in between.
+
+### Rendering as a Next.js link
+
+```tsx
+import Link from "next/link";
+import { Button } from "nuka-ui";
+
+<Button asChild variant="outline">
+  <Link href="/settings">Settings</Link>
+</Button>;
+```
+
+### What gets merged onto the child
+
+- `className` - concatenated, both sets of classes are preserved
+- `style` - shallow merged, child wins on conflicts
+- Event handlers - both fire, component handler fires first
+- `ref` - composed, both refs receive the element
+- All other props - child wins on conflicts
+
+### Constraints
+
+`asChild` requires exactly one React element as its child. Passing a string, fragment, or multiple children throws in development.
+
+Accessibility behavior is your responsibility when using `asChild`. If you render a Button as a `<div>`, you lose the native `button` role, keyboard activation, and disabled state handling. The component cannot enforce semantics on an arbitrary element.
+
+---
+
+## 4. Wrapping components
+
+The correct pattern for creating named, reusable component variants with specific prop defaults. This is how you extend the component API without touching the library.
+
+### Named variant shortcuts
+
+When your product uses a specific combination repeatedly, encode it in a wrapper:
+
+```tsx
+import { Button, type ButtonProps } from "nuka-ui";
+
+type BrandButtonProps = Omit<ButtonProps, "variant" | "intent">;
+
+export function BrandButton({ children, ...props }: BrandButtonProps) {
+  return (
+    <Button variant="primary" intent="default" {...props}>
+      {children}
+    </Button>
+  );
+}
+```
+
+The wrapper encodes the convention. Consumers cannot accidentally pass the wrong variant.
+
+### Destructive actions
+
+```tsx
+import { Button, type ButtonProps } from "nuka-ui";
+
+type DestructiveButtonProps = Omit<ButtonProps, "intent">;
+
+export function DestructiveButton({ children, ...props }: DestructiveButtonProps) {
+  return (
+    <Button intent="danger" {...props}>
+      {children}
+    </Button>
+  );
+}
+
+// Consumers still control visual weight
+<DestructiveButton variant="primary">Delete account</DestructiveButton>
+<DestructiveButton variant="ghost">Remove item</DestructiveButton>
+```
+
+### Product-specific badge variants
+
+```tsx
+import { Badge, type BadgeProps } from "nuka-ui";
+
+type StatusBadgeProps = Omit<BadgeProps, "variant" | "intent"> & {
+  status: "active" | "pending" | "archived";
+};
+
+const statusMap: Record<
+  StatusBadgeProps["status"],
+  { intent: BadgeProps["intent"] }
+> = {
+  active: { intent: "success" },
+  pending: { intent: "warning" },
+  archived: { intent: "default" },
+};
+
+export function StatusBadge({ status, ...props }: StatusBadgeProps) {
+  const { intent } = statusMap[status];
+  return <Badge variant="subtle" intent={intent} {...props} />;
+}
+```
+
+### Adding visual logic not in the base component
+
+If you need custom CSS that goes beyond what `className` can achieve cleanly, wrap and add it:
+
+```tsx
+import { Button, type ButtonProps } from "nuka-ui";
+import { cn } from "your-utils";
+
+type GradientButtonProps = Omit<ButtonProps, "variant">;
+
+export function GradientButton({ className, ...props }: GradientButtonProps) {
+  return (
+    <Button
+      variant="primary"
+      className={cn(
+        "bg-linear-to-r from-violet-600 to-indigo-600 border-none",
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+```
+
+The wrapper inherits all other Button behavior: size prop, intent prop, asChild, ref forwarding, disabled state, accessibility.
+
+---
+
+## 5. Limitations
+
+These are deliberate constraints, not gaps.
+
+### You cannot add a new `variant` or `intent` value
+
+`variant` and `intent` prop types are closed enums. Passing `variant="brand"` or `intent="info"` is a TypeScript error. The CVA instance that resolves compound variants is built at library compile time and is not extensible at runtime.
+
+If you need a new named combination, wrap the component as described in section 4. If you need an `info` intent across your entire product with proper compound variant logic, you have two options: remap an existing intent via token overrides (for example, remap `--nuka-warning-*` to info colors if warning is unused in your product), or build your own CVA instance outside the library using the same pattern.
+
+### className cannot override base structural classes reliably
+
+`tailwind-merge` resolves conflicting utility classes but it cannot know which classes are structural vs. visual in context. If you remove a layout class that is part of a component's core structure (for example, `inline-flex` on Button), you may break internal alignment. These classes are intentional and their removal has side effects.
+
+Use `className` for additive overrides and clearly visual property changes. Do not use it to restructure a component's internal layout.
+
+### Token overrides do not affect structure
+
+Tokens control color, spacing scale, radius, and typography scale. They do not control structural layout decisions like `inline-flex`, `items-center`, or `border`. Those are intentional class choices baked into the component. CSS variable overrides cannot change them.
+
+If you need structural changes to a component, the correct path is to not use that component and build your own from scratch.
+
+### asChild does not enforce accessibility
+
+When you use `asChild` to render a Button as a `<div>` or a custom component, nuka-ui cannot enforce `role="button"`, keyboard activation, or `aria-disabled`. You are responsible for ensuring the rendered output meets WCAG requirements. The component passes its props to the child but it cannot compensate for what the child does not provide natively.
+
+### No runtime theme switching API
+
+nuka-ui does not ship a `ThemeProvider` or `useTheme` hook. Switching themes is a DOM operation: set the `data-theme` attribute on the appropriate container element. How and when you do that is outside the library's scope.
+
+---
+
+## Choosing the right approach
+
+| Goal                                                    | Approach                                                                   |
+| ------------------------------------------------------- | -------------------------------------------------------------------------- |
+| Change the accent color across the product              | Token override on `[data-theme]`                                           |
+| Support dark mode                                       | Token override on `[data-theme="dark"]`                                    |
+| Isolate a dark section within a light page              | Nested `data-theme` attribute                                              |
+| Change border radius globally                           | Override `--radius-*` primitives on `:root`                                |
+| Change spacing scale globally                           | Override `--space-*` primitives on `:root`                                 |
+| Adjust margin or width on one instance                  | `className` prop                                                           |
+| Override a background color on one instance             | `className` prop                                                           |
+| Render a Button as a router link                        | `asChild` with Link as child                                               |
+| Create a `PrimaryButton` shortcut for your product      | Wrap with fixed `variant` and `intent`                                     |
+| Create a `StatusBadge` mapping domain values to intents | Wrap with a status-to-intent map                                           |
+| Add a new `brand` variant with compound logic           | Not supported - wrap or build from scratch                                 |
+| Add an `info` intent to all components                  | Not supported - remap an existing intent via tokens, or build from scratch |
+| Restructure a component's internal layout               | Not supported - build your own                                             |

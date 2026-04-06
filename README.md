@@ -272,7 +272,9 @@ WCAG 2.2 AA compliance is a hard constraint, not a goal. It is verified at the t
 
 ## Architecture
 
-The key decisions that shaped this library are documented in [`docs/DECISIONS.md`](./docs/DECISIONS.md). Reading it gives a clear picture of not just what was built, but why: which tradeoffs were accepted, which alternatives were considered, and which decisions are explicitly deferred.
+The key decisions that shaped this library are documented in [`docs/DECISIONS.md`](./docs/DECISIONS.md). Reading it gives you a clear picture of not just what was built, but why — which tradeoffs were accepted, which alternatives were considered, and which decisions are explicitly deferred.
+
+For the full component inventory and build status, see [`docs/COMPONENTS.md`](./docs/COMPONENTS.md). For customization options, limitations, and the correct approach for each use case, see [`docs/CUSTOMIZATION.md`](./docs/CUSTOMIZATION.md).
 
 Short version:
 
