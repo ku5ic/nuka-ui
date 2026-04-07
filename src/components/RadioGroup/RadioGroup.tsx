@@ -1,6 +1,7 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 import { useFormField } from "@nuka/components/FormField/FormFieldContext";
+import { useFormFieldProps } from "@nuka/utils/use-form-field-props";
 import { useControllableState } from "@nuka/utils/use-controllable-state";
 import { RadioGroupContext } from "@nuka/components/RadioGroup/RadioGroupContext";
 import type { RadioGroupContextValue } from "@nuka/components/RadioGroup/RadioGroupContext";
@@ -129,21 +130,10 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
 
     const resolvedDisabled = disabled || ctx.disabled;
 
-    const ariaInvalid =
-      props["aria-invalid"] ??
-      (ctx.hasError ? true : undefined);
-
-    const contextDescribedBy = [
-      ctx.hasError ? ctx.errorId : "",
-      ctx.hintId || "",
-    ]
-      .filter(Boolean)
-      .join(" ");
-
-    const ariaDescribedBy =
-      [props["aria-describedby"], contextDescribedBy]
-        .filter(Boolean)
-        .join(" ") || undefined;
+    const field = useFormFieldProps({
+      "aria-invalid": props["aria-invalid"],
+      "aria-describedby": props["aria-describedby"],
+    });
 
     const contextValue: RadioGroupContextValue = React.useMemo(
       () => ({
@@ -164,8 +154,8 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
           ref={ref}
           role="radiogroup"
           aria-orientation={orientation}
-          aria-invalid={ariaInvalid}
-          aria-describedby={ariaDescribedBy}
+          aria-invalid={field.ariaInvalid}
+          aria-describedby={field.ariaDescribedBy}
           className={cn(
             "flex",
             orientation === "vertical" ? "flex-col" : "flex-row",

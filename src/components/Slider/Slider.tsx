@@ -1,7 +1,7 @@
 import * as React from "react";
 import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
-import { useFormField } from "@nuka/components/FormField/FormFieldContext";
+import { useFormFieldProps } from "@nuka/utils/use-form-field-props";
 import { useControllableState } from "@nuka/utils/use-controllable-state";
 
 const sliderWrapperVariants = cva(
@@ -157,34 +157,19 @@ const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
     },
     ref,
   ) => {
-    const ctx = useFormField();
+    const field = useFormFieldProps({
+      id,
+      disabled,
+      "aria-invalid": props["aria-invalid"],
+      "aria-describedby": props["aria-describedby"],
+      "aria-required": props["aria-required"],
+    });
 
     const [currentValue, setCurrentValue] = useControllableState(controlledValue, defaultValue ?? min, onValueChange);
     const [focused, setFocused] = React.useState(false);
     const percentage = ((currentValue - min) / (max - min)) * 100;
     const resolvedSize = size ?? "md";
     const thumbOffset = THUMB_SIZES[resolvedSize] / 2;
-
-    const resolvedId = id ?? (ctx.fieldId || undefined);
-    const resolvedDisabled = disabled ?? (ctx.disabled ? true : undefined);
-
-    const ariaInvalid =
-      props["aria-invalid"] ?? (ctx.hasError ? true : undefined);
-
-    const contextDescribedBy = [
-      ctx.hasError ? ctx.errorId : "",
-      ctx.hintId || "",
-    ]
-      .filter(Boolean)
-      .join(" ");
-
-    const ariaDescribedBy =
-      [props["aria-describedby"], contextDescribedBy]
-        .filter(Boolean)
-        .join(" ") || undefined;
-
-    const ariaRequired =
-      props["aria-required"] ?? (ctx.required ? true : undefined);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       setCurrentValue(Number(e.target.value));
@@ -196,7 +181,7 @@ const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
         <input
           type="range"
           ref={ref}
-          id={resolvedId}
+          id={field.resolvedId}
           min={min}
           max={max}
           step={step}
@@ -204,14 +189,14 @@ const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
           onChange={handleChange}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
-          disabled={resolvedDisabled}
+          disabled={field.resolvedDisabled}
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed"
           aria-valuemin={min}
           aria-valuemax={max}
           aria-valuenow={currentValue}
-          aria-invalid={ariaInvalid}
-          aria-describedby={ariaDescribedBy}
-          aria-required={ariaRequired}
+          aria-invalid={field.ariaInvalid}
+          aria-describedby={field.ariaDescribedBy}
+          aria-required={field.ariaRequired}
           {...props}
         />
 

@@ -828,3 +828,29 @@ Extracted into `src/utils/use-controllable-state.ts`. The hook accepts a control
 - All future stateful components (Collapsible, Accordion, Tabs, Dialog, DropdownMenu) use the hook from day one.
 - The hook is tested in isolation. Component tests no longer need to cover the controlled/uncontrolled switching logic exhaustively.
 - Internal utility, not exported from the public package entry point.
+
+---
+
+## ADR-024: Extract useFormFieldProps shared hook
+
+**Date:** 2026-04-07
+**Status:** Accepted
+
+### Context
+
+Every form control (Input, Textarea, Slider, Switch, RadioGroup, SelectTrigger) contained an identical block that resolved id, disabled, aria-invalid, aria-describedby, and aria-required by merging consumer props with FormFieldContext values. The logic was copy-pasted verbatim with no component-specific variation, except Switch which intentionally omits aria-invalid.
+
+### Decision
+
+Extracted into `src/utils/use-form-field-props.ts`. The hook accepts consumer prop values and an options object, calls `useFormField()` internally, and returns resolved ARIA attributes ready to spread. A `skipInvalid` option allows components like Switch to opt out of aria-invalid without fighting the hook output.
+
+### Consequences
+
+- Six components simplified.
+- Future form controls (DatePicker input, Combobox) receive correct FormField integration by calling the hook with no manual assembly required.
+- The aria-describedby merge logic (consumer value + context ids, filter, join) exists in one place. A future change to FormField's id scheme propagates automatically.
+- Internal utility, not exported from the public package entry point.
+
+### Note on Input's intent fallback
+
+Input derives aria-invalid from `intent="danger"` as a tertiary fallback after consumer prop and context hasError. This is Input-specific and remains in Input.tsx rather than inside the hook.

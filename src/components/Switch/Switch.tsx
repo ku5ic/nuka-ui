@@ -1,7 +1,7 @@
 import * as React from "react";
 import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
-import { useFormField } from "@nuka/components/FormField/FormFieldContext";
+import { useFormFieldProps } from "@nuka/utils/use-form-field-props";
 import { useControllableState } from "@nuka/utils/use-controllable-state";
 
 const switchVariants = cva(
@@ -63,23 +63,15 @@ export interface SwitchProps
 
 const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
   ({ className, size, checked: controlledChecked, defaultChecked, onChange, children, id, disabled, ...props }, ref) => {
-    const ctx = useFormField();
+    const field = useFormFieldProps(
+      {
+        id,
+        disabled,
+        "aria-describedby": props["aria-describedby"],
+      },
+      { skipInvalid: true },
+    );
     const [isChecked, setChecked] = useControllableState(controlledChecked, defaultChecked ?? false, onChange);
-
-    const resolvedId = id ?? (ctx.fieldId || undefined);
-    const resolvedDisabled = disabled ?? (ctx.disabled || undefined);
-
-    const contextDescribedBy = [
-      ctx.hasError ? ctx.errorId : "",
-      ctx.hintId || "",
-    ]
-      .filter(Boolean)
-      .join(" ");
-
-    const ariaDescribedBy =
-      [props["aria-describedby"], contextDescribedBy]
-        .filter(Boolean)
-        .join(" ") || undefined;
 
     const handleClick = () => {
       setChecked(!isChecked);
@@ -97,10 +89,10 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
           ref={ref}
           type="button"
           role="switch"
-          id={resolvedId}
+          id={field.resolvedId}
           aria-checked={isChecked}
-          aria-describedby={ariaDescribedBy}
-          disabled={resolvedDisabled}
+          aria-describedby={field.ariaDescribedBy}
+          disabled={field.resolvedDisabled}
           className={cn(
             switchVariants({ size }),
             isChecked

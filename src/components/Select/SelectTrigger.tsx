@@ -3,6 +3,7 @@ import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
 import { useSelect } from "@nuka/components/Select/SelectContext";
 import { useFormField } from "@nuka/components/FormField/FormFieldContext";
+import { useFormFieldProps } from "@nuka/utils/use-form-field-props";
 
 const selectTriggerVariants = cva(
   [
@@ -59,31 +60,17 @@ const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
     const ctx = useSelect();
     const formCtx = useFormField();
 
+    const field = useFormFieldProps({
+      id: props.id,
+      "aria-invalid": props["aria-invalid"],
+      "aria-describedby": props["aria-describedby"],
+      "aria-required": props["aria-required"],
+    });
+
     const typeaheadBufferRef = React.useRef("");
     const typeaheadTimerRef = React.useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
     const resolvedDisabled = disabledProp ?? ctx.disabled;
-
-    const resolvedId = props.id ?? (formCtx.fieldId || undefined);
-
-    const ariaInvalid =
-      props["aria-invalid"] ??
-      (formCtx.hasError ? true : undefined);
-
-    const contextDescribedBy = [
-      formCtx.hasError ? formCtx.errorId : "",
-      formCtx.hintId || "",
-    ]
-      .filter(Boolean)
-      .join(" ");
-
-    const ariaDescribedBy =
-      [props["aria-describedby"], contextDescribedBy]
-        .filter(Boolean)
-        .join(" ") || undefined;
-
-    const ariaRequired =
-      props["aria-required"] ?? (formCtx.required ? true : undefined);
 
     const ariaLabelledBy =
       props["aria-labelledby"] ?? (formCtx.labelId || undefined);
@@ -309,7 +296,7 @@ const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
         {...props}
         ref={ref}
         type="button"
-        id={resolvedId}
+        id={field.resolvedId}
         role="combobox"
         aria-haspopup="listbox"
         aria-expanded={ctx.open}
@@ -317,9 +304,9 @@ const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
         aria-activedescendant={ariaActiveDescendant}
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
-        aria-invalid={ariaInvalid}
-        aria-describedby={ariaDescribedBy}
-        aria-required={ariaRequired}
+        aria-invalid={field.ariaInvalid}
+        aria-describedby={field.ariaDescribedBy}
+        aria-required={field.ariaRequired}
         disabled={resolvedDisabled}
         className={cn(
           selectTriggerVariants({ intent, size }),

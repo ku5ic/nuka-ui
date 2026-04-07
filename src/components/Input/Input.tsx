@@ -1,7 +1,7 @@
 import * as React from "react";
 import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
-import { useFormField } from "@nuka/components/FormField/FormFieldContext";
+import { useFormFieldProps } from "@nuka/utils/use-form-field-props";
 
 const inputVariants = cva(
   [
@@ -45,39 +45,25 @@ export interface InputProps
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, intent, size, id, ...props }, ref) => {
-    const ctx = useFormField();
-
-    const resolvedId = id ?? (ctx.fieldId || undefined);
+    const field = useFormFieldProps({
+      id,
+      "aria-invalid": props["aria-invalid"],
+      "aria-describedby": props["aria-describedby"],
+      "aria-required": props["aria-required"],
+    });
 
     const ariaInvalid =
-      props["aria-invalid"] ??
-      (ctx.hasError ? true : undefined) ??
-      (intent === "danger" ? true : undefined);
-
-    const contextDescribedBy = [
-      ctx.hasError ? ctx.errorId : "",
-      ctx.hintId || "",
-    ]
-      .filter(Boolean)
-      .join(" ");
-
-    const ariaDescribedBy =
-      [props["aria-describedby"], contextDescribedBy]
-        .filter(Boolean)
-        .join(" ") || undefined;
-
-    const ariaRequired =
-      props["aria-required"] ?? (ctx.required ? true : undefined);
+      field.ariaInvalid ?? (intent === "danger" ? true : undefined);
 
     return (
       <input
         ref={ref}
-        id={resolvedId}
+        id={field.resolvedId}
         className={cn(inputVariants({ intent, size }), className)}
         {...props}
         aria-invalid={ariaInvalid}
-        aria-describedby={ariaDescribedBy}
-        aria-required={ariaRequired}
+        aria-describedby={field.ariaDescribedBy}
+        aria-required={field.ariaRequired}
       />
     );
   },
