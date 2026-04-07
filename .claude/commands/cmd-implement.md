@@ -14,21 +14,23 @@ Run after `cmd-plan` is confirmed. Follow the plan exactly: do not improvise.
    - State what was done
    - State what is next
 
-4. Follow all conventions from `CLAUDE.md`:
+4. Read `~/.claude/CLAUDE.md` in full.
+
+5. Follow all conventions from `CLAUDE.md`:
    - `@nuka/*` alias — no relative imports
    - `--nuka-*` semantic tokens only — no raw Tailwind colors
    - `React.forwardRef` on all DOM-rendering components
    - Type imports: `import type { ... }`
 
-5. If a step reveals a problem not anticipated in the plan:
+6. If a step reveals a problem not anticipated in the plan:
    - Stop immediately
    - Describe the problem clearly
    - Propose a solution
    - Wait for confirmation before continuing
 
-6. Do not run tests or lint during implementation: that is `cmd-test`.
+7. Do not run tests or lint during implementation: that is `cmd-test`.
 
-7. When all steps are complete, produce a summary:
+8. When all steps are complete, produce a summary:
    - Files created
    - Files modified
    - Anything that deviated from the plan and why
