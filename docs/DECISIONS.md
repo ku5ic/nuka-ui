@@ -854,3 +854,36 @@ Extracted into `src/utils/use-form-field-props.ts`. The hook accepts consumer pr
 ### Note on Input's intent fallback
 
 Input derives aria-invalid from `intent="danger"` as a tertiary fallback after consumer prop and context hasError. This is Input-specific and remains in Input.tsx rather than inside the hook.
+
+---
+
+## ADR-025: Internal DismissButton and Portal utilities
+
+**Date:** 2026-04-07
+**Status:** Accepted
+
+### Context
+
+Four components (Alert, Banner, Tag, Toast) each contained a hand-rolled dismiss button with slightly different styles. Alert was missing the focus ring present in Banner, and Toast used a unicode character instead of an SVG. Two components (Tooltip, Popover) contained identical portal rendering with an SSR guard.
+
+### Decision
+
+Extracted `DismissButton` (`src/utils/dismiss-button.tsx`) and `Portal` (`src/utils/portal.tsx`) as internal utilities. Both are not exported from the public package entry point.
+
+DismissButton uses a single SVG (`viewBox="0 0 24 24"`) with wrapper sizing via `size-3` (sm) and `size-4` (md), following the established sizing pattern used by Switch thumb and Checkbox/Radio indicators.
+
+Portal wraps `ReactDOM.createPortal` with a `typeof document === "undefined"` SSR guard, replacing the identical guard previously inlined in TooltipContent and PopoverContent.
+
+### Consequences
+
+- Alert's missing focus ring is fixed as a side effect of the extraction.
+- Toast's unicode dismiss character is replaced with the SVG used by Alert/Banner/Tag.
+- All four dismissible components now have identical dismiss button behavior.
+- Tooltip and Popover no longer contain inline portal + SSR guard code.
+- Dialog, Sheet, and DropdownMenu (navigation batch) use Portal and DismissButton from day one.
+
+### Alternatives considered
+
+**Using Button component**: rejected. Button is a public component with variant/intent/size props. A dismiss button has none of these. The circular import concern is real and remains valid.
+
+**Two separate SVG shapes for sm/md sizes**: rejected. One SVG scales via wrapper `size-*` classes, consistent with the sizing pattern established across Switch, Checkbox, and Radio.

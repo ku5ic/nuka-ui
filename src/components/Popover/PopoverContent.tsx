@@ -1,6 +1,6 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import { cn } from "@nuka/utils/cn";
+import { Portal } from "@nuka/utils/portal";
 import { composeRefs } from "@nuka/utils/slot";
 import { usePopoverContext } from "@nuka/components/Popover/PopoverContext";
 
@@ -29,25 +29,25 @@ function PopoverContent({ className, ...props }: PopoverContentProps) {
     return undefined;
   }, [ctx.open]);
 
-  if (typeof document === "undefined") return null;
   if (!ctx.open) return null;
 
   const floatingProps = ctx.getFloatingProps(props);
 
-  return ReactDOM.createPortal(
-    <div
-      ref={composedRef}
-      style={ctx.floatingStyles}
-      tabIndex={-1}
-      {...(floatingProps as React.HTMLAttributes<HTMLDivElement>)}
-      className={cn(
-        "z-50 rounded-(--radius-md) border border-(--nuka-border-base)",
-        "bg-(--nuka-bg-base) shadow-md p-(--space-4)",
-        "focus:outline-none",
-        className,
-      )}
-    />,
-    document.body,
+  return (
+    <Portal>
+      <div
+        ref={composedRef}
+        style={ctx.floatingStyles}
+        tabIndex={-1}
+        {...(floatingProps as React.HTMLAttributes<HTMLDivElement>)}
+        className={cn(
+          "z-50 rounded-(--radius-md) border border-(--nuka-border-base)",
+          "bg-(--nuka-bg-base) shadow-md p-(--space-4)",
+          "focus:outline-none",
+          className,
+        )}
+      />
+    </Portal>
   );
 }
 

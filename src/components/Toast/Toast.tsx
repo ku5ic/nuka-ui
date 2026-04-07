@@ -1,6 +1,7 @@
 import * as React from "react"
 import { cva } from "@nuka/utils/variants"
 import { cn } from "@nuka/utils/cn"
+import { DismissButton } from "@nuka/utils/dismiss-button"
 import type { ToastItem } from "@nuka/components/Toast/toastStore"
 
 const toastVariants = cva(
@@ -70,20 +71,11 @@ function Toast({ toast: toastItem, onDismiss }: ToastProps) {
           {toastItem.action.label}
         </button>
       )}
-      <button
-        type="button"
-        aria-label="Dismiss notification"
+      <DismissButton
         onClick={() => onDismiss(toastItem.id)}
-        className={cn(
-          "shrink-0 rounded",
-          "opacity-60 hover:opacity-100",
-          "transition-opacity duration-150 cursor-pointer",
-          "focus-visible:outline-2 focus-visible:outline-offset-2",
-          "focus-visible:outline-(--nuka-border-focus)",
-        )}
-      >
-        <span aria-hidden="true">&#10005;</span>
-      </button>
+        label="Dismiss notification"
+        className="shrink-0"
+      />
     </div>
   )
 }

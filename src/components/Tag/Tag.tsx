@@ -1,6 +1,7 @@
 import * as React from "react";
 import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
+import { DismissButton } from "@nuka/utils/dismiss-button";
 
 const tagVariants = cva(
   [
@@ -177,17 +178,6 @@ export interface TagProps
   dismissLabel?: string;
 }
 
-const dismissButtonClasses = [
-  "inline-flex items-center justify-center",
-  "rounded-(--radius-sm)",
-  "min-w-4 min-h-4",
-  "p-1",
-  "cursor-pointer",
-  "opacity-70 hover:opacity-100",
-  "focus-visible:outline-2 focus-visible:outline-offset-1",
-  "focus-visible:outline-(--nuka-border-focus)",
-].join(" ");
-
 const Tag = React.forwardRef<HTMLSpanElement, TagProps>(
   (
     {
@@ -210,27 +200,12 @@ const Tag = React.forwardRef<HTMLSpanElement, TagProps>(
       >
         {children}
         {onDismiss !== undefined && (
-          <button
-            type="button"
-            aria-label={dismissLabel}
+          <DismissButton
             onClick={onDismiss}
-            className={dismissButtonClasses}
-          >
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              width="10"
-              height="10"
-              viewBox="0 0 10 10"
-            >
-              <path
-                d="M1 1l8 8M9 1l-8 8"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
-            </svg>
-          </button>
+            label={dismissLabel}
+            size="sm"
+            className="min-w-4 min-h-4"
+          />
         )}
       </span>
     );
