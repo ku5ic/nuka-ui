@@ -195,6 +195,23 @@ export {
 } from "./components/Spinner";
 export type { SpinnerProps, SpinnerVariantProps } from "./components/Spinner";
 
+export {
+  Tabs,
+  TabsList,
+  tabsListVariants,
+  TabsTrigger,
+  TabsContent,
+} from "./components/Tabs";
+export type {
+  TabsProps,
+  TabsListProps,
+  TabsListVariantProps,
+  TabsTriggerProps,
+  TabsContentProps,
+} from "./components/Tabs";
+export { TabsContext, useTabsContext } from "./components/Tabs";
+export type { TabsContextValue } from "./components/Tabs";
+
 export { Tag, tagVariants } from "./components/Tag";
 export type { TagProps, TagVariantProps } from "./components/Tag";
 

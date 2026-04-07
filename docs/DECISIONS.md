@@ -890,14 +890,14 @@ Portal wraps `ReactDOM.createPortal` with a `typeof document === "undefined"` SS
 
 ---
 
-## ADR-026: Card -- variant-only, no intent, compound pattern with internal reuse
+## ADR-026: Card: variant-only, no intent, compound pattern with internal reuse
 
 **Date:** 2026-04-07
 **Status:** Accepted
 
 ### Context
 
-Card is a surface container. It needs visual differentiation (elevated, outlined, filled) but carries no semantic color meaning -- there is no "danger card" or "success card" in standard UI patterns.
+Card is a surface container. It needs visual differentiation (elevated, outlined, filled) but carries no semantic color meaning: there is no "danger card" or "success card" in standard UI patterns.
 
 ### Decisions
 
@@ -911,7 +911,7 @@ Card is a surface container. It needs visual differentiation (elevated, outlined
 
 ### Consequences
 
-- Consumers who need custom card colors use className -- no variant explosion.
+- Consumers who need custom card colors use className: no variant explosion.
 - CardTitle heading level is consumer-controlled via the `as` prop, supporting correct document outline in any context.
 - Sub-components are independently importable for cases where only part of the Card structure is needed.
 - Shadow tokens establish the pattern for future components that need elevation (Dialog, Sheet, DropdownMenu).
@@ -926,7 +926,7 @@ Card is a surface container. It needs visual differentiation (elevated, outlined
 
 ---
 
-## ADR-027: Collapsible and Accordion -- CSS grid-rows animation, two context layers
+## ADR-027: Collapsible and Accordion: CSS grid-rows animation, two context layers
 
 **Date:** 2026-04-07
 **Status:** Accepted
@@ -955,3 +955,42 @@ Collapsible requires a height animation without JavaScript measurement. Accordio
 - Two context layers add file count but make AccordionItem a clean composition boundary.
 - Accordion test coverage can rely on Collapsible's animation tests; Accordion only needs to test state coordination and keyboard navigation.
 - The `data-accordion-trigger` attribute enables keyboard navigation to target only accordion triggers, not nested button elements.
+
+---
+
+## ADR-028: Tabs: hidden attribute panels, roving tabindex, activation modes
+
+**Date:** 2026-04-07
+**Status:** Accepted
+
+### Context
+
+Tabs needs to handle panel content preservation, keyboard navigation following the ARIA
+tabs specification, and two common activation modes.
+
+### Decisions
+
+1. Inactive panels use the `hidden` attribute, not conditional rendering. This preserves
+   form state, scroll position, and avoids remounting. The hidden attribute excludes panels
+   from the accessibility tree without conditional rendering.
+
+2. Roving tabindex on triggers. Only the active/focused trigger has tabIndex=0.
+   All others have tabIndex=-1. This matches the ARIA tabs keyboard interaction model
+   and prevents Tab from cycling through every trigger.
+
+3. Two activation modes: automatic (selection follows focus, the common case) and
+   manual (Enter/Space required to select, useful for tabs with expensive renders).
+
+4. Three visual variants on TabsList: underline (default), pill, boxed. These are
+   style-only: behavior is identical. Variant lives on TabsList, not Tabs root,
+   because it is a presentation concern of the list container.
+
+5. IDs derived from a single useId call at the root, suffixed per value. This avoids
+   N useId calls for N tabs.
+
+### Consequences
+
+- hidden-attribute approach means N panel DOM nodes always exist. Acceptable for standard
+  tab counts; consumers with 50+ tabs should reconsider the UI pattern.
+- Roving tabindex requires coordinated tabIndex state across all triggers, managed via
+  Tabs root context.

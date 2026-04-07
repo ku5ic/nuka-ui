@@ -92,7 +92,7 @@ This document defines the full component scope for nuka-ui.
 | `Card`             | Done   | Surface container. Header/body/footer slots.                                          |
 | `Collapsible`      | Done   | Generic expand/collapse primitive. Base for `Accordion`.                              |
 | `Accordion`        | Done   | Expand/collapse group with keyboard navigation. Builds on `Collapsible`.              |
-| `Tabs`             | -      | Tab group with keyboard navigation.                                                   |
+| `Tabs`             | Done   | Tab group with keyboard navigation.                                                   |
 | `Dialog` / `Modal` | -      | Modal dialog with focus trapping.                                                     |
 | `Sheet`            | -      | Slide-in panel. Dialog variant.                                                       |
 | `DropdownMenu`     | -      | Dropdown with keyboard navigation.                                                    |
@@ -137,7 +137,7 @@ Not exported from the public package. Shared implementation primitives used by c
 
 | Utility                | Location                              | Used by                                                    |
 | ---------------------- | ------------------------------------- | ---------------------------------------------------------- |
-| `useControllableState` | `src/utils/use-controllable-state.ts` | Switch, Slider, RadioGroup, Tooltip, Popover, Select       |
+| `useControllableState` | `src/utils/use-controllable-state.ts` | Switch, Slider, RadioGroup, Tooltip, Popover, Select, Tabs |
 | `useFormFieldProps`    | `src/utils/use-form-field-props.ts`   | Input, Textarea, Slider, Switch, RadioGroup, SelectTrigger |
 | `DismissButton`        | `src/utils/dismiss-button.tsx`        | Alert, Banner, Tag, Toast                                  |
 | `Portal`               | `src/utils/portal.tsx`                | Tooltip, Popover                                           |
