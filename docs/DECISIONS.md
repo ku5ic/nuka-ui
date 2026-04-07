@@ -923,3 +923,35 @@ Card is a surface container. It needs visual differentiation (elevated, outlined
 **Constraining `CardTitle` `as` to `h2`-`h4`**: rejected. With `exactOptionalPropertyTypes`, a consumer passing a valid `HeadingElement` value outside the subset would get a type error. The full union avoids this and preserves flexibility.
 
 **Wrapping Slot inside Stack for asChild**: rejected. Stack adds its own flex layout classes that conflict with the consumer's child element when asChild is true. The explicit conditional branch keeps behavior predictable.
+
+---
+
+## ADR-027: Collapsible and Accordion -- CSS grid-rows animation, two context layers
+
+**Date:** 2026-04-07
+**Status:** Accepted
+
+### Context
+
+Collapsible requires a height animation without JavaScript measurement. Accordion requires single/multiple open state coordination and keyboard navigation between triggers.
+
+### Decisions
+
+1. CSS grid-rows animation (`0fr` to `1fr`) for Collapsible, applied via Tailwind utilities (`grid grid-rows-[0fr]` base, `data-[state=open]:grid-rows-[1fr]` open state) and `transition-[grid-template-rows]`. No custom CSS classes in `src/styles/index.css`. The inner div with `overflow-hidden` prevents content from being visible during the `0fr` state. `motion-reduce:transition-none` disables the transition for users who prefer reduced motion.
+
+2. Accordion uses two context layers: root context for shared state and config, item context for per-item open state. This avoids prop-drilling through AccordionItem.
+
+3. Accordion delegates its content animation entirely to Collapsible by wrapping CollapsibleTrigger and CollapsibleContent internally. Accordion does not re-implement open/close logic.
+
+4. AccordionTrigger chevron uses Icon wrapping an SVG, per CLAUDE.md reuse rules.
+
+5. `useControllableState` is used at the Accordion root for both single and multiple modes. The type parameter differs: `string | undefined` for single, `string[]` for multiple.
+
+6. Keyboard navigation (ArrowUp/Down, Home/End) operates on `button[data-accordion-trigger]` elements via `querySelectorAll` on the root ref. Focus wraps cyclically.
+
+### Consequences
+
+- The grid-rows approach is widely supported and produces smooth animations without measuring DOM heights. All styling is pure Tailwind: no custom CSS classes needed.
+- Two context layers add file count but make AccordionItem a clean composition boundary.
+- Accordion test coverage can rely on Collapsible's animation tests; Accordion only needs to test state coordination and keyboard navigation.
+- The `data-accordion-trigger` attribute enables keyboard navigation to target only accordion triggers, not nested button elements.

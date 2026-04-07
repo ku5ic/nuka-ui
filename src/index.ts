@@ -2,6 +2,28 @@
 
 export type { Responsive, Breakpoint, GapScale } from "./utils/responsive";
 
+export {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "./components/Accordion";
+export type {
+  AccordionProps,
+  AccordionItemProps,
+  AccordionTriggerProps,
+  AccordionContentProps,
+  AccordionContextValue,
+  AccordionItemContextValue,
+  HeadingLevel as AccordionHeadingLevel,
+} from "./components/Accordion";
+export {
+  AccordionContext,
+  useAccordionContext,
+  AccordionItemContext,
+  useAccordionItemContext,
+} from "./components/Accordion";
+
 export { Alert, alertVariants } from "./components/Alert";
 export type { AlertProps, AlertVariantProps } from "./components/Alert";
 
@@ -45,6 +67,22 @@ export type {
   CheckboxProps,
   CheckboxVariantProps,
 } from "./components/Checkbox";
+
+export {
+  Collapsible,
+  CollapsibleTrigger,
+  CollapsibleContent,
+} from "./components/Collapsible";
+export type {
+  CollapsibleProps,
+  CollapsibleTriggerProps,
+  CollapsibleContentProps,
+  CollapsibleContextValue,
+} from "./components/Collapsible";
+export {
+  CollapsibleContext,
+  useCollapsibleContext,
+} from "./components/Collapsible";
 
 export { Code, codeVariants } from "./components/Code";
 export type { CodeProps, CodeVariantProps } from "./components/Code";
