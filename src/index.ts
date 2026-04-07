@@ -90,6 +90,25 @@ export type { CodeProps, CodeVariantProps } from "./components/Code";
 export { Container } from "./components/Container";
 export type { ContainerProps, ContainerSize } from "./components/Container";
 
+export {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogTitle,
+  DialogDescription,
+  DialogClose,
+} from "./components/Dialog";
+export type {
+  DialogProps,
+  DialogTriggerProps,
+  DialogContentProps,
+  DialogTitleProps,
+  DialogDescriptionProps,
+  DialogCloseProps,
+} from "./components/Dialog";
+export { DialogContext, useDialogContext } from "./components/Dialog";
+export type { DialogContextValue } from "./components/Dialog";
+
 export { Divider, dividerVariants } from "./components/Divider";
 
 export { Grid } from "./components/Grid";
@@ -138,6 +157,26 @@ export type {
 } from "./components/Select";
 export { SelectContext, useSelect } from "./components/Select";
 export type { SelectContextValue } from "./components/Select";
+
+export {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetTitle,
+  SheetDescription,
+  SheetClose,
+} from "./components/Sheet";
+export type {
+  SheetProps,
+  SheetSide,
+  SheetTriggerProps,
+  SheetContentProps,
+  SheetTitleProps,
+  SheetDescriptionProps,
+  SheetCloseProps,
+} from "./components/Sheet";
+export { SheetContext, useSheetContext } from "./components/Sheet";
+export type { SheetContextValue } from "./components/Sheet";
 
 export { Skeleton, skeletonVariants } from "./components/Skeleton";
 export type { SkeletonProps } from "./components/Skeleton";

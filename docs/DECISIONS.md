@@ -994,3 +994,49 @@ tabs specification, and two common activation modes.
   tab counts; consumers with 50+ tabs should reconsider the UI pattern.
 - Roving tabindex requires coordinated tabIndex state across all triggers, managed via
   Tabs root context.
+
+---
+
+## ADR-029: Dialog and Sheet: first-party focus trap, scroll lock, shared utilities
+
+**Date:** 2026-04-07
+**Status:** Accepted
+
+### Context
+
+Dialog requires WCAG 2.4.3-compliant focus management (focus moves into dialog on open,
+returns to trigger on close, Tab cycles within dialog) and scroll lock. Sheet is
+semantically identical to Dialog with different visual presentation.
+
+### Decisions
+
+1. First-party `useFocusTrap` hook using the `tabbable` package (already a transitive
+   dependency via `@floating-ui/react`) to query focusable elements. `tabbable` is a
+   utility library for DOM queries, not a UI primitive: using it does not violate ADR-009.
+
+2. First-party `useScrollLock` with ref-counting for stacked modals and scrollbar-width
+   compensation to prevent layout shift.
+
+3. Dialog and Sheet have separate React contexts but share the same utility hooks.
+   Sharing context would couple two components that may diverge in API.
+
+4. `DialogTitle` is required: verified at runtime in development via `console.error`.
+   `aria-labelledby` without a corresponding element produces an invalid ARIA reference.
+
+5. Sheet is implemented as a parallel structure to Dialog, not as a Dialog prop variant.
+   This keeps each component's API clean and avoids a single component with too many props.
+
+6. Sheet slide animations use Tailwind transition utilities (`transition-transform`,
+   `data-[state=open]:translate-x-0`) rather than CSS keyframes. This keeps all sheet
+   styling in the component file and avoids adding side-specific keyframes to index.css.
+   Dialog uses CSS keyframes for its scale + fade animation because Tailwind does not
+   have a built-in scale animation utility that composes with the centered transform.
+
+### Consequences
+
+- Focus trap handles the portaled-children edge case via `focusout`/`relatedTarget` check.
+  This covers the most common case (a Popover inside a Dialog).
+- Scroll lock ref-counting means the first Dialog to open is the last to release the lock.
+- `DialogTitle` runtime check adds a `useEffect` per Dialog instance. Acceptable cost.
+- `tabbable` is a transitive dependency. If `@floating-ui/react` drops it, it can be
+  added as a direct dependency with no code changes.

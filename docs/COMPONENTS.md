@@ -93,8 +93,8 @@ This document defines the full component scope for nuka-ui.
 | `Collapsible`      | Done   | Generic expand/collapse primitive. Base for `Accordion`.                              |
 | `Accordion`        | Done   | Expand/collapse group with keyboard navigation. Builds on `Collapsible`.              |
 | `Tabs`             | Done   | Tab group with keyboard navigation.                                                   |
-| `Dialog` / `Modal` | -      | Modal dialog with focus trapping.                                                     |
-| `Sheet`            | -      | Slide-in panel. Dialog variant.                                                       |
+| `Dialog` / `Modal` | Done   | Modal dialog with focus trapping.                                                     |
+| `Sheet`            | Done   | Slide-in panel. Dialog variant.                                                       |
 | `DropdownMenu`     | -      | Dropdown with keyboard navigation.                                                    |
 | `ContextMenu`      | -      | Right-click menu. Shares keyboard nav logic with `DropdownMenu`.                      |
 | `Menubar`          | -      | Horizontal application menu. Composes `DropdownMenu`. Complex keyboard nav.           |
@@ -143,4 +143,6 @@ Not exported from the public package. Shared implementation primitives used by c
 | `Portal`               | `src/utils/portal.tsx`                | Tooltip, Popover                                           |
 | `Slot`, `composeRefs`  | `src/utils/slot.tsx`                  | Button, Badge, and all asChild components                  |
 | `cn`                   | `src/utils/cn.ts`                     | All components                                             |
+| `useFocusTrap`         | `src/utils/use-focus-trap.ts`         | Dialog, Sheet                                              |
+| `useScrollLock`        | `src/utils/use-scroll-lock.ts`        | Dialog, Sheet                                              |
 | `navigateItems`        | `src/utils/navigate-items.ts`         | Planned: DropdownMenu, ContextMenu, Menubar                |
