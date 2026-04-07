@@ -2,7 +2,7 @@
 
 Verify the implementation is correct and complete.
 
-Run after `cmd-implement`. Fix bugs here before proceeding to `cmd-review`.
+Run after `cmd-implement` is confirmed. Fix bugs here before proceeding to `cmd-review`.
 
 ## Steps
 
@@ -18,13 +18,13 @@ Run after `cmd-implement`. Fix bugs here before proceeding to `cmd-review`.
 
 3. Run `npm run lint`:
    - If errors: fix them, re-run until clean
-   - Do not suppress rules with disable comments unless the rule is genuinely incorrect for the use case: if so, explain why
+   - Do not suppress rules with disable comments unless the rule is genuinely incorrect for the use case — if so, explain why
    - Report final state
 
 4. If a new component was added:
    - Run `npm run dev` and verify all stories render correctly in Storybook
-   - Check the Accessibility panel for each story: zero violations required
-   - Verify all variant x intent combinations render as expected
+   - Check the Accessibility panel for each story — zero violations required
+   - Verify all variant × intent combinations render as expected
 
 5. If tokens were changed:
    - Run `npm run dev` and verify tokens resolve correctly in browser devtools
@@ -36,5 +36,28 @@ Run after `cmd-implement`. Fix bugs here before proceeding to `cmd-review`.
    - Lint: clean / N errors
    - Storybook: verified / not applicable
 
-If all checks pass, proceed to `cmd-review`.
-If bugs remain, loop back to `cmd-implement`.
+## CI simulation
+
+Once all checks above are passing, run the full pipeline cold in sequence with no fixes:
+
+```bash
+npm run typecheck && npm test && npm run lint && npm run build
+```
+
+This is a single uninterrupted run. Do not fix anything between steps. Do not re-run individual commands. The purpose is to verify the exact state CI will see: no incremental fixes, no partial passes.
+
+If this command exits with a non-zero code at any step:
+
+- Report which step failed and the full error output
+- Stop immediately
+- Wait for instruction before making any further changes
+
+If this command exits cleanly, report the full output as the final CI simulation result.
+
+## Stop
+
+Present the CI simulation result and wait for explicit confirmation before doing anything else.
+Do not run `cmd-review`. Do not read or modify any file. Do not take any action.
+The next step is the user's decision, not yours.
+
+If the CI simulation failed, wait for instruction before looping back to `cmd-implement`.

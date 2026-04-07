@@ -1,8 +1,8 @@
 # cmd-review
 
-Review the implementation for correctness, quality, and consistency before committing.
+Review the implementation for correctness, quality, and consistency.
 
-Run after `cmd-test` passes clean. Act as a senior peer reviewer.
+Run after `cmd-test` is confirmed. Act as a senior peer reviewer.
 
 ## Steps
 
@@ -11,7 +11,7 @@ Run after `cmd-test` passes clean. Act as a senior peer reviewer.
 2. Check API design:
    - Are prop names clear and consistent with existing components?
    - Are types as strict as they should be?
-   - Is the public API surface minimal: nothing exposed that shouldn't be?
+   - Is the public API surface minimal — nothing exposed that shouldn't be?
    - Will this API age well, or will it need breaking changes soon?
 
 3. Check implementation quality:
@@ -37,5 +37,13 @@ Run after `cmd-test` passes clean. Act as a senior peer reviewer.
 6. Check for anything that should be documented in `docs/DECISIONS.md`.
 
 7. Produce a review summary:
-   - **Approved**: ready to commit, no changes needed
-   - **Changes requested**: list specific issues, loop back to `cmd-implement`
+   - **Approved** — list every file reviewed, confirm each passes all checks above
+   - **Changes requested** — list each specific issue with the file name and line reference
+
+## Stop
+
+Present the review summary and wait for explicit confirmation before doing anything else.
+Do not commit. Do not modify any file. Do not take any action.
+
+If the verdict is **Approved**, the task is complete. Committing is the user's responsibility.
+If the verdict is **Changes requested**, wait for the user to confirm before looping back to `cmd-implement`.

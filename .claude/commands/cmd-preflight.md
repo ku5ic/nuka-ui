@@ -32,4 +32,8 @@ Run this before every task. Most problems come from starting without understandi
    - Current health of the codebase (typecheck, tests, lint)
    - Any risks or constraints identified
 
-Do not begin implementation until this summary is confirmed.
+## Stop
+
+Present the summary and wait for explicit confirmation before doing anything else.
+Do not run `cmd-plan`. Do not read additional files. Do not take any action.
+The next step is the user's decision, not yours.

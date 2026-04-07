@@ -2,7 +2,7 @@
 
 Produce a concrete implementation plan before writing any code.
 
-Run after `cmd-preflight`. Do not write code during this step.
+Run after `cmd-preflight` is confirmed. Do not write code during this step.
 
 ## Steps
 
@@ -11,12 +11,12 @@ Run after `cmd-preflight`. Do not write code during this step.
 2. List every file that will be created or modified with a reason for each.
 
 3. Identify which skill applies (if any):
-   - New component: `.claude/skills/new-component/SKILL.md`
-   - New token: `.claude/skills/new-token/SKILL.md`
-   - Adding stories: `.claude/skills/add-story/SKILL.md`
-   - Adding tests: `.claude/skills/add-test/SKILL.md`
-   - Accessibility work: `.claude/skills/wcag/SKILL.md`
-   - Documentation: `.claude/skills/documentation/SKILL.md`
+   - New component → `.claude/skills/new-component/SKILL.md`
+   - New token → `.claude/skills/new-token/SKILL.md`
+   - Adding stories → `.claude/skills/add-story/SKILL.md`
+   - Adding tests → `.claude/skills/add-test/SKILL.md`
+   - Accessibility work → `.claude/skills/wcag/SKILL.md`
+   - Documentation → `.claude/skills/documentation/SKILL.md`
 
 4. If a skill applies, read the relevant `SKILL.md` and its reference files now.
 
@@ -32,4 +32,8 @@ Run after `cmd-preflight`. Do not write code during this step.
 
 7. State the acceptance criteria: what does "done" look like?
 
-Present the plan and wait for confirmation before proceeding to `cmd-implement`.
+## Stop
+
+Present the plan and wait for explicit confirmation before doing anything else.
+Do not run `cmd-implement`. Do not create or modify any file. Do not take any action.
+The next step is the user's decision, not yours.
