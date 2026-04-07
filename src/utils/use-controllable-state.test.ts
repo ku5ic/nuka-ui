@@ -22,9 +22,9 @@ describe("useControllableState", () => {
     });
 
     it("calls onChange when provided", () => {
-      const onChange = vi.fn();
+      const onChange = vi.fn<(value: string) => void>();
       const { result } = renderHook(() =>
-        useControllableState(undefined, "a", onChange),
+        useControllableState(undefined as string | undefined, "a", onChange),
       );
       act(() => {
         result.current[1]("b");
