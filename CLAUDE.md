@@ -66,6 +66,47 @@ index.ts # Public exports
 
 Add exports to `src/index.ts` when adding a new component.
 
+## Component reuse rules
+
+These rules apply to all new and modified components.
+
+### Internal SVGs must use Icon
+
+Any SVG that is structural chrome internal to a component (dismiss X, dropdown chevron,
+avatar fallback, step indicator, breadcrumb separator) must be wrapped in `<Icon>`. Icon
+enforces `aria-hidden`, controls sizing via design tokens, and ensures consistent behavior.
+
+Exception: SVGs that are the animated element itself (e.g. Spinner) or that come from
+consumer-supplied prop slots (e.g. Alert `icon` prop, EmptyState `illustration` prop).
+Also exempt: SVGs tightly coupled to CSS selector targeting (e.g. Checkbox checkmark
+toggled via `peer-checked:*:block`).
+
+### Text rendered by compound component internals must use Text or Heading
+
+Any user-visible text rendered as part of a component's own structure (titles, descriptions,
+labels that are part of the component's own layout) must use `Text` or `Heading`. This ensures
+typography token changes propagate correctly.
+
+### Controlled/uncontrolled state uses useControllableState
+
+Any component with a controlled/uncontrolled prop pair must use `useControllableState`
+from `@nuka/utils/use-controllable-state`.
+
+### Form controls use useFormFieldProps
+
+Any component that integrates with `FormField` context must use `useFormFieldProps`
+from `@nuka/utils/use-form-field-props`.
+
+### Dismissible components use DismissButton
+
+Any component that renders a dismiss/close button must use `DismissButton`
+from `@nuka/utils/dismiss-button`.
+
+### Components that render into a portal use Portal
+
+Any component that renders content outside its DOM position must use `Portal`
+from `@nuka/utils/portal`.
+
 ## Code standards
 
 ### TypeScript

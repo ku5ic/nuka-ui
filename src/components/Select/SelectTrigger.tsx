@@ -1,6 +1,7 @@
 import * as React from "react";
 import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
+import { Icon } from "@nuka/components/Icon";
 import { useSelect } from "@nuka/components/Select/SelectContext";
 import { useFormField } from "@nuka/components/FormField/FormFieldContext";
 import { useFormFieldProps } from "@nuka/utils/use-form-field-props";
@@ -323,23 +324,26 @@ const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
         >
           {displayLabel ?? placeholder}
         </span>
-        <svg
-          aria-hidden="true"
+        <Icon
+          size="sm"
+          color="muted"
           className={cn(
-            "h-4 w-4 shrink-0 transition-transform duration-150",
-            "text-(--nuka-text-muted)",
+            "transition-transform duration-150",
             ctx.open && "rotate-180",
           )}
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
         >
-          <path d="m6 9 6 6 6-6" />
-        </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+        </Icon>
       </button>
     );
   },

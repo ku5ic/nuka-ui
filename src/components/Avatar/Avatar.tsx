@@ -1,6 +1,7 @@
 import * as React from "react";
 import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
+import { Icon } from "@nuka/components/Icon";
 
 const avatarVariants = cva(
   [
@@ -63,19 +64,19 @@ export function getInitials(name: string): string {
 
 function PersonIcon() {
   return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      style={{ width: "1em", height: "1em" }}
-    >
-      <circle cx="12" cy="8" r="4" />
-      <path d="M5.5 21.5c0-4.14 2.91-7.5 6.5-7.5s6.5 3.36 6.5 7.5" />
-    </svg>
+    <Icon className="size-[1em]">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <circle cx="12" cy="8" r="4" />
+        <path d="M5.5 21.5c0-4.14 2.91-7.5 6.5-7.5s6.5 3.36 6.5 7.5" />
+      </svg>
+    </Icon>
   );
 }
 

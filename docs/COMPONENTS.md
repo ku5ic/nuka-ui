@@ -128,3 +128,19 @@ This document defines the full component scope for nuka-ui.
 - Full test coverage: rendering, variants, intent, attributes, ref, asChild
 - Storybook stories: one per variant, one per intent, AllVariants, AllSizes, at least one pattern story
 - TypeScript strict: no `any`, no suppressed errors
+
+---
+
+## Internal Utilities
+
+Not exported from the public package. Shared implementation primitives used by components.
+
+| Utility                | Location                              | Used by                                                    |
+| ---------------------- | ------------------------------------- | ---------------------------------------------------------- |
+| `useControllableState` | `src/utils/use-controllable-state.ts` | Switch, Slider, RadioGroup, Tooltip, Popover, Select       |
+| `useFormFieldProps`    | `src/utils/use-form-field-props.ts`   | Input, Textarea, Slider, Switch, RadioGroup, SelectTrigger |
+| `DismissButton`        | `src/utils/dismiss-button.tsx`        | Alert, Banner, Tag, Toast                                  |
+| `Portal`               | `src/utils/portal.tsx`                | Tooltip, Popover                                           |
+| `Slot`, `composeRefs`  | `src/utils/slot.tsx`                  | Button, Badge, and all asChild components                  |
+| `cn`                   | `src/utils/cn.ts`                     | All components                                             |
+| `navigateItems`        | `src/utils/navigate-items.ts`         | Planned: DropdownMenu, ContextMenu, Menubar                |
