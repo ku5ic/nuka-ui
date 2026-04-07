@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useControllableState } from "@nuka/utils/use-controllable-state";
 import { SelectContext } from "@nuka/components/Select/SelectContext";
 import type { SelectContextValue } from "@nuka/components/Select/SelectContext";
 
@@ -31,17 +32,11 @@ function Select({
   disabled = false,
   name,
 }: SelectProps) {
-  const isValueControlled = controlledValue !== undefined;
-  const isOpenControlled = controlledOpen !== undefined;
-
-  const [internalValue, setInternalValue] = React.useState(defaultValue);
-  const [internalOpen, setInternalOpen] = React.useState(defaultOpen);
+  const [currentValue, handleValueChange] = useControllableState(controlledValue, defaultValue, onValueChange);
+  const [currentOpen, setOpen] = useControllableState(controlledOpen, defaultOpen, onOpenChange);
   const [highlightedValue, setHighlightedValue] = React.useState<
     string | undefined
   >(undefined);
-
-  const currentValue = isValueControlled ? controlledValue : internalValue;
-  const currentOpen = isOpenControlled ? controlledOpen : internalOpen;
 
   const optionsRef = React.useRef(new Map<string, OptionEntry>());
   const [registryVersion, setRegistryVersion] = React.useState(0);
@@ -55,25 +50,12 @@ function Select({
 
   const handleOpenChange = React.useCallback(
     (nextOpen: boolean) => {
-      if (!isOpenControlled) {
-        setInternalOpen(nextOpen);
-      }
-      onOpenChange?.(nextOpen);
+      setOpen(nextOpen);
       if (!nextOpen) {
         setHighlightedValue(undefined);
       }
     },
-    [isOpenControlled, onOpenChange],
-  );
-
-  const handleValueChange = React.useCallback(
-    (nextValue: string) => {
-      if (!isValueControlled) {
-        setInternalValue(nextValue);
-      }
-      onValueChange?.(nextValue);
-    },
-    [isValueControlled, onValueChange],
+    [setOpen],
   );
 
   const registerOption = React.useCallback(

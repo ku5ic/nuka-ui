@@ -2,6 +2,7 @@ import * as React from "react";
 import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
 import { useFormField } from "@nuka/components/FormField/FormFieldContext";
+import { useControllableState } from "@nuka/utils/use-controllable-state";
 
 const sliderWrapperVariants = cva(
   [
@@ -158,12 +159,8 @@ const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
   ) => {
     const ctx = useFormField();
 
-    const [internalValue, setInternalValue] = React.useState(
-      controlledValue ?? defaultValue ?? min,
-    );
+    const [currentValue, setCurrentValue] = useControllableState(controlledValue, defaultValue ?? min, onValueChange);
     const [focused, setFocused] = React.useState(false);
-
-    const currentValue = controlledValue ?? internalValue;
     const percentage = ((currentValue - min) / (max - min)) * 100;
     const resolvedSize = size ?? "md";
     const thumbOffset = THUMB_SIZES[resolvedSize] / 2;
@@ -190,9 +187,7 @@ const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
       props["aria-required"] ?? (ctx.required ? true : undefined);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const numericValue = Number(e.target.value);
-      setInternalValue(numericValue);
-      onValueChange?.(numericValue);
+      setCurrentValue(Number(e.target.value));
     };
 
     return (

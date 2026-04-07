@@ -2,6 +2,7 @@ import * as React from "react";
 import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
 import { useFormField } from "@nuka/components/FormField/FormFieldContext";
+import { useControllableState } from "@nuka/utils/use-controllable-state";
 
 const switchVariants = cva(
   [
@@ -63,9 +64,7 @@ export interface SwitchProps
 const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
   ({ className, size, checked: controlledChecked, defaultChecked, onChange, children, id, disabled, ...props }, ref) => {
     const ctx = useFormField();
-    const isControlled = controlledChecked !== undefined;
-    const [internalChecked, setInternalChecked] = React.useState(defaultChecked ?? false);
-    const isChecked = isControlled ? controlledChecked : internalChecked;
+    const [isChecked, setChecked] = useControllableState(controlledChecked, defaultChecked ?? false, onChange);
 
     const resolvedId = id ?? (ctx.fieldId || undefined);
     const resolvedDisabled = disabled ?? (ctx.disabled || undefined);
@@ -83,11 +82,7 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
         .join(" ") || undefined;
 
     const handleClick = () => {
-      const next = !isChecked;
-      if (!isControlled) {
-        setInternalChecked(next);
-      }
-      onChange?.(next);
+      setChecked(!isChecked);
     };
 
     const translateClass = {

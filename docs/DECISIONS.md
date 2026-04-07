@@ -806,3 +806,25 @@ Use static lookup tables mapping every (breakpoint, prop value) pair to a comple
 **CSS custom properties with inline styles**: rejected because it loses Tailwind integration and theming coherence. Gap would need `style={{ gap: 'var(--space-4)' }}` instead of `gap-4`.
 
 **Dynamic string construction** (`` `${bp}:gap-${n}` ``): rejected because classes are not detectable by Tailwind's scanner and would be purged.
+
+---
+
+## ADR-023: Extract useControllableState shared hook
+
+**Date:** 2026-04-07
+**Status:** Accepted
+
+### Context
+
+The controlled/uncontrolled state pattern was inlined identically across Switch, Slider, RadioGroup, Tooltip, Popover, and Select (twice). Each copy consisted of three lines: an `isControlled` boolean, an internal `useState`, and a derived current value. The pattern is pure boilerplate with no component-specific variation.
+
+### Decision
+
+Extracted into `src/utils/use-controllable-state.ts`. The hook accepts a controlled value, a default value, and an optional onChange callback. It returns the current value and a stable setter. The setter updates internal state when uncontrolled and always calls onChange.
+
+### Consequences
+
+- Six components simplified. Each loses approximately 5 lines of boilerplate.
+- All future stateful components (Collapsible, Accordion, Tabs, Dialog, DropdownMenu) use the hook from day one.
+- The hook is tested in isolation. Component tests no longer need to cover the controlled/uncontrolled switching logic exhaustively.
+- Internal utility, not exported from the public package entry point.

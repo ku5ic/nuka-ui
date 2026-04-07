@@ -1,6 +1,7 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 import { useFormField } from "@nuka/components/FormField/FormFieldContext";
+import { useControllableState } from "@nuka/utils/use-controllable-state";
 import { RadioGroupContext } from "@nuka/components/RadioGroup/RadioGroupContext";
 import type { RadioGroupContextValue } from "@nuka/components/RadioGroup/RadioGroupContext";
 
@@ -30,9 +31,7 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
     ref,
   ) => {
     const ctx = useFormField();
-    const isControlled = controlledValue !== undefined;
-    const [internalValue, setInternalValue] = React.useState(defaultValue);
-    const currentValue = isControlled ? controlledValue : internalValue;
+    const [currentValue, setCurrentValue] = useControllableState(controlledValue, defaultValue, onChange);
 
     const refsMap = React.useRef(new Map<string, HTMLInputElement>());
 
@@ -51,13 +50,10 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
 
     const handleChange = React.useCallback(
       (radioValue: string) => {
-        if (!isControlled) {
-          setInternalValue(radioValue);
-        }
+        setCurrentValue(radioValue);
         setFocusedValue(radioValue);
-        onChange?.(radioValue);
       },
-      [isControlled, onChange],
+      [setCurrentValue],
     );
 
     const getOrderedValues = React.useCallback((): string[] => {

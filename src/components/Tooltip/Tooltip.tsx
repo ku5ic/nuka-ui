@@ -11,6 +11,7 @@ import {
   shift,
   autoUpdate,
 } from "@floating-ui/react";
+import { useControllableState } from "@nuka/utils/use-controllable-state";
 import { TooltipContext } from "@nuka/components/Tooltip/TooltipContext";
 import type { TooltipContextValue } from "@nuka/components/Tooltip/TooltipContext";
 
@@ -31,19 +32,7 @@ function Tooltip({
   delay = 600,
   side = "top",
 }: TooltipProps) {
-  const isControlled = controlledOpen !== undefined;
-  const [internalOpen, setInternalOpen] = React.useState(defaultOpen);
-  const currentOpen = isControlled ? controlledOpen : internalOpen;
-
-  const handleOpenChange = React.useCallback(
-    (nextOpen: boolean) => {
-      if (!isControlled) {
-        setInternalOpen(nextOpen);
-      }
-      onOpenChange?.(nextOpen);
-    },
-    [isControlled, onOpenChange],
-  );
+  const [currentOpen, handleOpenChange] = useControllableState(controlledOpen, defaultOpen, onOpenChange);
 
   const { refs, floatingStyles, context } = useFloating({
     open: currentOpen,
