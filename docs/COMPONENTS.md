@@ -89,7 +89,7 @@ This document defines the full component scope for nuka-ui.
 
 | Component          | Status | Notes                                                                                 |
 | ------------------ | ------ | ------------------------------------------------------------------------------------- |
-| `Card`             | -      | Surface container. Header/body/footer slots.                                          |
+| `Card`             | Done   | Surface container. Header/body/footer slots.                                          |
 | `Collapsible`      | -      | Generic expand/collapse primitive. Base for `Accordion`.                              |
 | `Accordion`        | -      | Expand/collapse group with keyboard navigation. Builds on `Collapsible`.              |
 | `Tabs`             | -      | Tab group with keyboard navigation.                                                   |

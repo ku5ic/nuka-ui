@@ -887,3 +887,39 @@ Portal wraps `ReactDOM.createPortal` with a `typeof document === "undefined"` SS
 **Using Button component**: rejected. Button is a public component with variant/intent/size props. A dismiss button has none of these. The circular import concern is real and remains valid.
 
 **Two separate SVG shapes for sm/md sizes**: rejected. One SVG scales via wrapper `size-*` classes, consistent with the sizing pattern established across Switch, Checkbox, and Radio.
+
+---
+
+## ADR-026: Card -- variant-only, no intent, compound pattern with internal reuse
+
+**Date:** 2026-04-07
+**Status:** Accepted
+
+### Context
+
+Card is a surface container. It needs visual differentiation (elevated, outlined, filled) but carries no semantic color meaning -- there is no "danger card" or "success card" in standard UI patterns.
+
+### Decisions
+
+1. No `intent` prop. Variant alone covers all valid visual states. Follows Divider (ADR-008) and Banner (ADR-018) precedent.
+2. Compound component pattern: Card + CardHeader + CardTitle + CardDescription + CardBody + CardFooter. Each sub-component is independently exported and composable.
+3. CardTitle delegates to Heading, CardDescription delegates to Text, CardHeader and CardFooter use Stack. Component reuse rules (CLAUDE.md) applied throughout.
+4. Default root element is `div`. asChild available for polymorphism (e.g. rendering Card as an `<article>` or `<section>` when semantics require it).
+5. CardTitle accepts the full `HeadingElement` union (`h1`-`h6`) via its `as` prop, defaulting to `h3`. No subset constraint to avoid type mismatches under `exactOptionalPropertyTypes`.
+6. CardHeader and CardFooter use Stack when `asChild` is false. When `asChild` is true, they skip Stack entirely and render via Slot directly.
+7. Shadow tokens (`--shadow-sm`, `--shadow-md` primitives and `--nuka-shadow-card` semantic) added to support the `elevated` variant. Dark mode uses hardcoded higher-opacity values for visibility on dark surfaces.
+
+### Consequences
+
+- Consumers who need custom card colors use className -- no variant explosion.
+- CardTitle heading level is consumer-controlled via the `as` prop, supporting correct document outline in any context.
+- Sub-components are independently importable for cases where only part of the Card structure is needed.
+- Shadow tokens establish the pattern for future components that need elevation (Dialog, Sheet, DropdownMenu).
+
+### Alternatives considered
+
+**Adding `intent` prop**: rejected. Card is structural chrome. Intent would create variants that have no standard design meaning and would add unused compound variant definitions.
+
+**Constraining `CardTitle` `as` to `h2`-`h4`**: rejected. With `exactOptionalPropertyTypes`, a consumer passing a valid `HeadingElement` value outside the subset would get a type error. The full union avoids this and preserves flexibility.
+
+**Wrapping Slot inside Stack for asChild**: rejected. Stack adds its own flex layout classes that conflict with the consumer's child element when asChild is true. The explicit conditional branch keeps behavior predictable.

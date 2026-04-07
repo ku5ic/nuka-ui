@@ -54,6 +54,10 @@
   --space-12: 3rem;
   --space-16: 4rem;
 
+  /* Shadow primitives */
+  --shadow-sm: 0 1px 3px oklch(0% 0 0 / 0.1), 0 1px 2px oklch(0% 0 0 / 0.06);
+  --shadow-md: 0 4px 6px oklch(0% 0 0 / 0.1), 0 2px 4px oklch(0% 0 0 / 0.06);
+
   /* Radius primitives */
   --radius-none: 0;
   --radius-sm: 0.25rem;
@@ -117,6 +121,9 @@
    * Contrast: 7.74:1, passes AAA. Safe to use for any text size.
    */
 
+  /* Shadows */
+  --nuka-shadow-card: var(--shadow-sm);
+
   /* Input surfaces */
   --nuka-input-bg: var(--color-neutral-0);
   --nuka-input-bg-disabled: var(--color-neutral-100);
@@ -178,6 +185,10 @@
    * NOTE: --nuka-accent-text uses accent-300 on neutral-950 in dark mode.
    * Verify contrast before shipping dark mode. Target: 4.5:1 minimum.
    */
+
+  /* Shadows: higher opacity for visibility on dark surfaces */
+  --nuka-shadow-card:
+    0 1px 3px oklch(0% 0 0 / 0.4), 0 1px 2px oklch(0% 0 0 / 0.24);
 
   /* Input surfaces */
   --nuka-input-bg: var(--color-neutral-950);
