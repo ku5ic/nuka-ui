@@ -65,7 +65,6 @@ const BreadcrumbLink = React.forwardRef<HTMLAnchorElement, BreadcrumbLinkProps>(
           "text-(--nuka-text-muted)",
           "hover:text-(--nuka-text-base)",
           "transition-colors duration-150",
-          "outline-none",
           "focus-visible:outline-2 focus-visible:outline-offset-2",
           "focus-visible:outline-(--nuka-border-focus)",
           "rounded-(--radius-sm)",
@@ -104,7 +103,10 @@ const BreadcrumbSeparator = React.forwardRef<
     ref={ref}
     role="presentation"
     aria-hidden="true"
-    className={cn("text-(--nuka-text-subtle)", className)}
+    className={cn(
+      "flex items-center px-(--space-1) text-(--nuka-text-subtle",
+      className,
+    )}
     {...props}
   >
     {children ?? (
