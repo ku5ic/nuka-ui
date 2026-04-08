@@ -187,12 +187,7 @@ const Tag = React.forwardRef<HTMLSpanElement, TagProps>(
       >
         {children}
         {onDismiss !== undefined && (
-          <DismissButton
-            onClick={onDismiss}
-            label={dismissLabel}
-            size="sm"
-            className="min-w-4 min-h-4"
-          />
+          <DismissButton onClick={onDismiss} label={dismissLabel} />
         )}
       </span>
     );

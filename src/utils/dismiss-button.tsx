@@ -1,17 +1,16 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
+import { Icon } from "@nuka/components/Icon";
 
 interface DismissButtonProps {
   onClick: () => void;
   label?: string;
-  size?: "sm" | "md";
   className?: string;
 }
 
 function DismissButton({
   onClick,
   label = "Dismiss",
-  size = "md",
   className,
 }: DismissButtonProps) {
   return (
@@ -22,25 +21,26 @@ function DismissButton({
       className={cn(
         "inline-flex items-center justify-center",
         "rounded-(--radius-sm) p-(--space-1)",
+        "min-w-6 min-h-6",
         "opacity-70 hover:opacity-100 transition-opacity cursor-pointer",
         "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--nuka-border-focus)",
-        size === "sm" ? "size-3" : "size-4",
         className,
       )}
     >
-      <svg
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <line x1="18" y1="6" x2="6" y2="18" />
-        <line x1="6" y1="6" x2="18" y2="18" />
-      </svg>
+      <Icon size="sm">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </Icon>
     </button>
   );
 }

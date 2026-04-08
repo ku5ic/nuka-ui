@@ -1086,3 +1086,30 @@ but with menu semantics (role="menu", role="menuitem") distinct from listbox sem
   shared Menu/ directory.
 - Menubar is the most complex component in this batch due to cross-menu coordination.
   It was built last within the tier.
+
+---
+
+## ADR-031: NavigationMenu, Breadcrumb, Pagination: structural navigation components
+
+**Date:** 2026-04-08
+**Status:** Accepted
+
+### Context
+
+Three navigation components needed for site-level navigation patterns. Each is structural chrome with no semantic color intent.
+
+### Decisions
+
+1. **NavigationMenu sub-panels use `role="dialog"`, not `role="menu"`.** Sub-panel content is arbitrary (links, cards, featured content) and follows standard browser Tab focus order. This is the critical distinction from Menubar, whose panels use `role="menu"` with arrow-key navigation. Floating UI handles positioning with the same pattern as Popover.
+
+2. **Breadcrumb root is `<nav aria-label="Breadcrumb">` with `<ol>` list.** `BreadcrumbPage` renders a `<span aria-current="page">`, not an `<a>` tag. The current page is not navigable. Separators use `role="presentation"` with `aria-hidden="true"`.
+
+3. **Pagination uses a compound API with links, not a data-driven `onPageChange` callback.** `PaginationPrevious` and `PaginationNext` use `Button` with `asChild` internally, composing existing button styles rather than reimplementing them. The compound API composes link elements that consumers provide.
+
+4. **No `variant`/`intent` on any of these three components.** They are structural chrome. Color comes from semantic tokens directly, not from CVA compound variants.
+
+### Consequences
+
+- NavigationMenu content panels allow standard Tab navigation. Consumers can put any content inside them without fighting a menu keyboard model.
+- Breadcrumb and Pagination are purely structural. Consumers who need router integration use `asChild` on `BreadcrumbLink`, `PaginationLink`, `PaginationPrevious`, and `PaginationNext`.
+- Pagination reuses `Button` rather than creating a parallel button system. Any future Button style changes automatically propagate to pagination controls.

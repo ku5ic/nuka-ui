@@ -51,15 +51,17 @@ describe("DismissButton", () => {
     expect(button.className).toContain("focus-visible:outline-offset-2");
   });
 
-  it("uses size-4 for md size (default)", () => {
+  it("meets 24x24px minimum touch target", () => {
     render(<DismissButton onClick={vi.fn()} />);
     const button = screen.getByRole("button", { name: "Dismiss" });
-    expect(button.className).toContain("size-4");
+    expect(button.className).toContain("min-w-6");
+    expect(button.className).toContain("min-h-6");
   });
 
-  it("uses size-3 for sm size", () => {
-    render(<DismissButton onClick={vi.fn()} size="sm" />);
+  it("meets 24x24px minimum touch target regardless of context", () => {
+    render(<DismissButton onClick={vi.fn()} />);
     const button = screen.getByRole("button", { name: "Dismiss" });
-    expect(button.className).toContain("size-3");
+    expect(button.className).toContain("min-w-6");
+    expect(button.className).toContain("min-h-6");
   });
 });

@@ -391,3 +391,68 @@ export type {
   ToasterProps,
   ToasterPosition,
 } from "./components/Toast";
+
+export {
+  NavigationMenu,
+  NavigationMenuList,
+  NavigationMenuItem,
+  NavigationMenuTrigger,
+  NavigationMenuContent,
+  NavigationMenuLink,
+} from "./components/NavigationMenu";
+export type {
+  NavigationMenuProps,
+  NavigationMenuListProps,
+  NavigationMenuItemProps,
+  NavigationMenuTriggerProps,
+  NavigationMenuContentProps,
+  NavigationMenuLinkProps,
+} from "./components/NavigationMenu";
+export {
+  NavigationMenuContext,
+  useNavigationMenuContext,
+  NavigationMenuItemContext,
+  useNavigationMenuItemContext,
+} from "./components/NavigationMenu";
+export type {
+  NavigationMenuContextValue,
+  NavigationMenuItemContextValue,
+} from "./components/NavigationMenu";
+
+export {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+  BreadcrumbEllipsis,
+} from "./components/Breadcrumb";
+export type {
+  BreadcrumbProps,
+  BreadcrumbListProps,
+  BreadcrumbItemProps,
+  BreadcrumbLinkProps,
+  BreadcrumbPageProps,
+  BreadcrumbSeparatorProps,
+  BreadcrumbEllipsisProps,
+} from "./components/Breadcrumb";
+
+export {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationPrevious,
+  PaginationNext,
+  PaginationEllipsis,
+} from "./components/Pagination";
+export type {
+  PaginationProps,
+  PaginationContentProps,
+  PaginationItemProps,
+  PaginationLinkProps,
+  PaginationPreviousProps,
+  PaginationNextProps,
+  PaginationEllipsisProps,
+} from "./components/Pagination";
