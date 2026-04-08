@@ -199,4 +199,5 @@ coverage
 *.local
 stories/
 audit-findings.md
+audit-report.md
 audit-report.txt
