@@ -140,10 +140,10 @@ describe("Sidebar desktop expanded", () => {
     expect(screen.getByText("Navigation")).toBeInTheDocument();
   });
 
-  it("applies expanded width class", () => {
+  it("has data-expanded attribute when expanded", () => {
     renderSidebar();
     const aside = screen.getByRole("complementary");
-    expect(aside.className).toContain("w-64");
+    expect(aside).toHaveAttribute("data-expanded", "");
   });
 
   it("renders header content", () => {
@@ -163,10 +163,10 @@ describe("Sidebar desktop collapsed", () => {
     mockMatchMedia(false);
   });
 
-  it("applies collapsed width class", () => {
+  it("has data-collapsed attribute when collapsed", () => {
     renderSidebar({ defaultExpanded: false });
     const aside = screen.getByRole("complementary");
-    expect(aside.className).toContain("w-14");
+    expect(aside).toHaveAttribute("data-collapsed", "");
   });
 
   it("hides group label when collapsed", () => {

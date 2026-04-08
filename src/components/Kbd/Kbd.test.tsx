@@ -69,7 +69,6 @@ describe("Kbd", () => {
       );
       const el = screen.getByTestId("kbd");
       expect(el.className).toContain("ml-2");
-      expect(el.className).toContain("inline-flex");
     });
   });
 

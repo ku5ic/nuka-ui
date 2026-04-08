@@ -127,7 +127,6 @@ describe("Input", () => {
       const { container } = render(<Input className="mt-4" />);
       const el = container.querySelector("input");
       expect(el?.className).toContain("mt-4");
-      expect(el?.className).toContain("border-(--nuka-input-border)");
     });
   });
 

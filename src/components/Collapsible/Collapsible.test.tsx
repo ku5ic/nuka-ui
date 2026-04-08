@@ -124,6 +124,7 @@ describe("Collapsible", () => {
       const trigger = screen.getByRole("button", { name: "Toggle" });
       const controlsId = trigger.getAttribute("aria-controls");
       expect(controlsId).toBeTruthy();
+      // guarded by the toBeTruthy() assertion above
       const content = document.getElementById(controlsId!);
       expect(content).toBeTruthy();
       expect(content).toHaveAttribute("role", "region");

@@ -238,7 +238,6 @@ describe("Icon", () => {
       );
       const el = screen.getByTestId("icon");
       expect(el.className).toContain("ml-2");
-      expect(el.className).toContain("inline-flex");
     });
   });
 

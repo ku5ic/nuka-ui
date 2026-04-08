@@ -89,6 +89,7 @@ const SheetContent = React.forwardRef<HTMLDivElement, SheetContentProps>(
           aria-describedby={ctx.hasDescription ? ctx.descriptionId : undefined}
           tabIndex={-1}
           data-state="open"
+          data-side={side}
           className={cn(
             "fixed z-50",
             "bg-(--nuka-bg-base) border-(--nuka-border-base) shadow-md",

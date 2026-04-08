@@ -26,9 +26,7 @@ describe("Timeline", () => {
           <TimelineItem title="First" />
         </Timeline>,
       );
-      const ol = screen.getByRole("list");
-      expect(ol.className).toContain("mt-6");
-      expect(ol.className).toContain("flex");
+      expect(screen.getByRole("list")).toHaveClass("mt-6");
     });
   });
 

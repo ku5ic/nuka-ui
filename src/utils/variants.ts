@@ -49,7 +49,6 @@ function intentCompoundVariants(options?: {
   ];
 
   return [
-    // primary
     {
       variant: "primary",
       intent: "default",
@@ -71,7 +70,6 @@ function intentCompoundVariants(options?: {
       className: ["bg-(--nuka-warning-base)", "text-(--nuka-text-inverse)"],
     },
 
-    // secondary
     {
       variant: "secondary",
       intent: "default",
@@ -105,7 +103,6 @@ function intentCompoundVariants(options?: {
       ],
     },
 
-    // outline
     {
       variant: "outline",
       intent: "default",
@@ -133,7 +130,6 @@ function intentCompoundVariants(options?: {
       ],
     },
 
-    // ghost
     {
       variant: "ghost",
       intent: "default",

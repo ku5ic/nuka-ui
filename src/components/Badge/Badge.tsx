@@ -30,7 +30,6 @@ const badgeVariants = cva(
     },
 
     compoundVariants: [
-      // solid
       {
         variant: "solid",
         intent: "default",
@@ -52,7 +51,6 @@ const badgeVariants = cva(
         className: ["bg-(--nuka-warning-base)", "text-(--nuka-text-inverse)"],
       },
 
-      // subtle
       {
         variant: "subtle",
         intent: "default",
@@ -74,7 +72,6 @@ const badgeVariants = cva(
         className: ["bg-(--nuka-warning-bg)", "text-(--nuka-warning-text)"],
       },
 
-      // outline
       {
         variant: "outline",
         intent: "default",

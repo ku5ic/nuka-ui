@@ -84,6 +84,7 @@ describe("Select", () => {
 
     it("renders hidden input when name prop is provided", () => {
       const { container } = renderSelect({ name: "country" });
+      // Select renders a hidden input when name is provided
       const hidden = container.querySelector('input[type="hidden"]')!;
       expect(hidden).toBeInTheDocument();
       expect((hidden as HTMLInputElement).name).toBe("country");
@@ -91,6 +92,7 @@ describe("Select", () => {
 
     it("hidden input value matches selected value", () => {
       const { container } = renderSelect({ name: "country", value: "b" });
+      // Select renders a hidden input when name is provided
       const hidden = container.querySelector('input[type="hidden"]')!;
       expect((hidden as HTMLInputElement).value).toBe("b");
     });

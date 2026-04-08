@@ -150,6 +150,7 @@ describe("Stepper", () => {
       const completedButtons = screen.getAllByRole("button", {
         name: /Go to step/,
       });
+      // test fixture renders completed steps that produce these buttons
       await user.click(completedButtons[0]!);
       expect(handleClick).toHaveBeenCalledWith(0);
     });
@@ -159,6 +160,7 @@ describe("Stepper", () => {
       const handleClick = vi.fn();
       renderStepper({ currentStep: 1, onStepClick: handleClick });
 
+      // "Profile" text is always inside a list item
       const currentItem = screen.getByText("Profile").closest("li")!;
       await user.click(currentItem);
       expect(handleClick).not.toHaveBeenCalled();
@@ -169,6 +171,7 @@ describe("Stepper", () => {
       const handleClick = vi.fn();
       renderStepper({ currentStep: 1, onStepClick: handleClick });
 
+      // "Review" text is always inside a list item
       const upcomingItem = screen.getByText("Review").closest("li")!;
       await user.click(upcomingItem);
       expect(handleClick).not.toHaveBeenCalled();
@@ -192,6 +195,7 @@ describe("Stepper", () => {
       );
 
       const items = screen.getAllByRole("listitem");
+      // test renders 3 listitems; first is always present
       await user.click(items[0]!);
       expect(handleClick).not.toHaveBeenCalled();
     });
@@ -203,6 +207,7 @@ describe("Stepper", () => {
 
       const buttons = screen.getAllByRole("button", { name: /Go to step/ });
       await user.tab();
+      // test fixture renders completed steps that produce these buttons
       buttons[0]!.focus();
       await user.keyboard("{Enter}");
       expect(handleClick).toHaveBeenCalledWith(0);
@@ -217,6 +222,7 @@ describe("Stepper", () => {
       );
       expect(connectorItems.length).toBe(2);
 
+      // 3-step fixture produces 2 connector items; each contains a div
       const firstConnectorLine = connectorItems[0]!.querySelector("div");
       expect(firstConnectorLine!.className).toContain("bg-(--nuka-accent-bg)");
     });
@@ -226,6 +232,7 @@ describe("Stepper", () => {
       const connectorItems = container.querySelectorAll(
         "li[role='presentation']",
       );
+      // 3-step fixture produces 2 connector items; each contains a div
       const firstConnectorLine = connectorItems[0]!.querySelector("div");
       expect(firstConnectorLine!.className).toContain(
         "bg-(--nuka-border-base)",
@@ -234,7 +241,9 @@ describe("Stepper", () => {
 
     it("renders horizontal connectors between items, not inside them", () => {
       const { container } = renderStepper({ currentStep: 1 });
+      // Stepper always renders an ol element
       const ol = container.querySelector("ol")!;
+      // 3 steps + 2 connectors = 5 direct children
       const directChildren = Array.from(ol.children);
       expect(directChildren).toHaveLength(5);
       expect(directChildren[0]!.getAttribute("role")).not.toBe("presentation");
@@ -268,7 +277,9 @@ describe("Stepper", () => {
         </Stepper>,
       );
 
+      // Stepper always renders an ol element
       const ol = container.querySelector("ol")!;
+      // vertical mode: 3 items, no connector separators
       const items = Array.from(ol.children);
       expect(items).toHaveLength(3);
       expect(
@@ -281,6 +292,7 @@ describe("Stepper", () => {
       );
       expect(connectorLine).toBeInTheDocument();
 
+      // 3 items; index 2 is the last
       const lastItem = items[2]!;
       const lastConnector = lastItem.querySelector(
         ".w-px.flex-1.group-last\\:hidden",

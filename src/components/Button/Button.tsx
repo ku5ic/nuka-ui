@@ -45,7 +45,6 @@ const buttonVariants = cva(
     },
 
     compoundVariants: [
-      // primary
       {
         variant: "primary",
         intent: "default",
@@ -87,7 +86,6 @@ const buttonVariants = cva(
         ],
       },
 
-      // secondary
       {
         variant: "secondary",
         intent: "default",
@@ -130,7 +128,6 @@ const buttonVariants = cva(
         ],
       },
 
-      // outline
       {
         variant: "outline",
         intent: "default",
@@ -168,7 +165,6 @@ const buttonVariants = cva(
         ],
       },
 
-      // ghost
       {
         variant: "ghost",
         intent: "default",
@@ -196,7 +192,6 @@ const buttonVariants = cva(
         ],
       },
 
-      // link
       {
         variant: "link",
         intent: "default",

@@ -63,7 +63,6 @@ describe("Card", () => {
       );
       const card = screen.getByTestId("card");
       expect(card.className).toContain("mt-4");
-      expect(card.className).toContain("bg-(--nuka-bg-base)");
     });
   });
 

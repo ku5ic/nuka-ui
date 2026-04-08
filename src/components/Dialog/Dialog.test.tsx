@@ -69,6 +69,7 @@ describe("Dialog", () => {
       const dialog = screen.getByRole("dialog");
       const labelledBy = dialog.getAttribute("aria-labelledby");
       expect(labelledBy).toBeTruthy();
+      // guarded by the toBeTruthy() assertion above
       expect(document.getElementById(labelledBy!)).toHaveTextContent("Title");
     });
 
@@ -80,6 +81,7 @@ describe("Dialog", () => {
       const dialog = screen.getByRole("dialog");
       const describedBy = dialog.getAttribute("aria-describedby");
       expect(describedBy).toBeTruthy();
+      // guarded by the toBeTruthy() assertion above
       expect(document.getElementById(describedBy!)).toHaveTextContent(
         "Description",
       );
@@ -161,6 +163,7 @@ describe("Dialog", () => {
 
       const backdrop = document.querySelector("[aria-hidden='true']");
       expect(backdrop).toBeInTheDocument();
+      // guarded by the toBeInTheDocument() assertion above
       await user.click(backdrop!);
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     });

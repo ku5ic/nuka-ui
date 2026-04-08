@@ -57,7 +57,6 @@ function buildLookup<T extends string | number>(
   return result;
 }
 
-// Gap: gap-0, gap-1, gap-2, gap-4, gap-6, gap-8, gap-12
 export const gapClasses = buildLookup<GapScale>({
   none: "gap-0",
   xs: "gap-1",
@@ -68,7 +67,6 @@ export const gapClasses = buildLookup<GapScale>({
   "2xl": "gap-12",
 });
 
-// Column gap
 export const colGapClasses = buildLookup<GapScale>({
   none: "gap-x-0",
   xs: "gap-x-1",
@@ -79,7 +77,6 @@ export const colGapClasses = buildLookup<GapScale>({
   "2xl": "gap-x-12",
 });
 
-// Row gap
 export const rowGapClasses = buildLookup<GapScale>({
   none: "gap-y-0",
   xs: "gap-y-1",
@@ -90,7 +87,6 @@ export const rowGapClasses = buildLookup<GapScale>({
   "2xl": "gap-y-12",
 });
 
-// Direction
 export type Direction = "row" | "column" | "row-reverse" | "column-reverse";
 
 export const directionClasses = buildLookup<Direction>({
@@ -100,7 +96,6 @@ export const directionClasses = buildLookup<Direction>({
   "column-reverse": "flex-col-reverse",
 });
 
-// Align
 export type Align = "start" | "center" | "end" | "stretch" | "baseline";
 
 export const alignClasses = buildLookup<Align>({
@@ -111,7 +106,6 @@ export const alignClasses = buildLookup<Align>({
   baseline: "items-baseline",
 });
 
-// Justify
 export type Justify =
   | "start"
   | "center"
@@ -129,7 +123,6 @@ export const justifyClasses = buildLookup<Justify>({
   evenly: "justify-evenly",
 });
 
-// Wrap
 export type Wrap = "wrap" | "nowrap" | "wrap-reverse";
 
 export const wrapClasses = buildLookup<Wrap>({
@@ -138,7 +131,6 @@ export const wrapClasses = buildLookup<Wrap>({
   "wrap-reverse": "flex-wrap-reverse",
 });
 
-// Grid columns
 export type ColCount = 1 | 2 | 3 | 4 | 6 | 12;
 
 export const colsClasses = buildLookup<ColCount>({

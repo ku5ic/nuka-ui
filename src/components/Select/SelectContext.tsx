@@ -1,21 +1,14 @@
 import * as React from "react";
 
 export interface SelectContextValue {
-  // State
   open: boolean;
   value: string | undefined;
   highlightedValue: string | undefined;
   disabled: boolean;
-
-  // IDs
   listboxId: string;
-
-  // Actions
   onOpenChange: (open: boolean) => void;
   onValueChange: (value: string) => void;
   onHighlightChange: (value: string | undefined) => void;
-
-  // Option registry
   registerOption: (
     value: string,
     label: string,

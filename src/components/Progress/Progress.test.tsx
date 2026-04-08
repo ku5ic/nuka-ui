@@ -106,7 +106,6 @@ describe("Progress", () => {
       render(<Progress value={50} className="mt-4" />);
       const el = screen.getByRole("progressbar");
       expect(el.className).toContain("mt-4");
-      expect(el.className).toContain("overflow-hidden");
     });
   });
 

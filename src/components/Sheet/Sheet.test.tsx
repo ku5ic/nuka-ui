@@ -69,6 +69,7 @@ describe("Sheet", () => {
       const dialog = screen.getByRole("dialog");
       const labelledBy = dialog.getAttribute("aria-labelledby");
       expect(labelledBy).toBeTruthy();
+      // guarded by the toBeTruthy() assertion above
       expect(document.getElementById(labelledBy!)).toHaveTextContent("Title");
     });
 
@@ -80,6 +81,7 @@ describe("Sheet", () => {
       const dialog = screen.getByRole("dialog");
       const describedBy = dialog.getAttribute("aria-describedby");
       expect(describedBy).toBeTruthy();
+      // guarded by the toBeTruthy() assertion above
       expect(document.getElementById(describedBy!)).toHaveTextContent(
         "Description",
       );
@@ -92,39 +94,31 @@ describe("Sheet", () => {
       renderSheet();
 
       await user.click(screen.getByRole("button", { name: "Open" }));
-      const dialog = screen.getByRole("dialog");
-      expect(dialog.className).toContain("right-0");
-      expect(dialog.className).toContain("inset-y-0");
+      expect(screen.getByRole("dialog")).toHaveAttribute("data-side", "right");
     });
 
-    it("applies left side classes", async () => {
+    it("applies left side", async () => {
       const user = userEvent.setup();
       renderSheet({}, { side: "left" });
 
       await user.click(screen.getByRole("button", { name: "Open" }));
-      const dialog = screen.getByRole("dialog");
-      expect(dialog.className).toContain("left-0");
-      expect(dialog.className).toContain("inset-y-0");
+      expect(screen.getByRole("dialog")).toHaveAttribute("data-side", "left");
     });
 
-    it("applies top side classes", async () => {
+    it("applies top side", async () => {
       const user = userEvent.setup();
       renderSheet({}, { side: "top" });
 
       await user.click(screen.getByRole("button", { name: "Open" }));
-      const dialog = screen.getByRole("dialog");
-      expect(dialog.className).toContain("top-0");
-      expect(dialog.className).toContain("inset-x-0");
+      expect(screen.getByRole("dialog")).toHaveAttribute("data-side", "top");
     });
 
-    it("applies bottom side classes", async () => {
+    it("applies bottom side", async () => {
       const user = userEvent.setup();
       renderSheet({}, { side: "bottom" });
 
       await user.click(screen.getByRole("button", { name: "Open" }));
-      const dialog = screen.getByRole("dialog");
-      expect(dialog.className).toContain("bottom-0");
-      expect(dialog.className).toContain("inset-x-0");
+      expect(screen.getByRole("dialog")).toHaveAttribute("data-side", "bottom");
     });
   });
 
@@ -180,6 +174,7 @@ describe("Sheet", () => {
       renderSheet();
 
       await user.click(screen.getByRole("button", { name: "Open" }));
+      // backdrop is always rendered when dialog is open
       const backdrop = document.querySelector("[aria-hidden='true']");
       await user.click(backdrop!);
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument();

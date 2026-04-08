@@ -93,7 +93,7 @@ describe("Avatar", () => {
           data-testid="avatar"
         />,
       );
-      const img = screen.getByTestId("avatar").querySelector("img")!;
+      const img = screen.getByTestId("avatar").querySelector("img")!; // Avatar renders an img when src is provided
       expect(img.className).toContain("opacity-0");
 
       fireEvent.load(img);
@@ -110,7 +110,7 @@ describe("Avatar", () => {
         />,
       );
       const el = screen.getByTestId("avatar");
-      const img = el.querySelector("img")!;
+      const img = el.querySelector("img")!; // Avatar renders an img when src is provided
 
       fireEvent.error(img);
 
@@ -133,6 +133,7 @@ describe("Avatar", () => {
       const el = screen.getByTestId("avatar");
       const initialsSpan = el.querySelector("span[aria-hidden='true']");
       expect(initialsSpan).not.toBeNull();
+      // guarded by the not.toBeNull() assertion above
       expect(initialsSpan!.textContent).toBe("JS");
     });
 
@@ -159,7 +160,7 @@ describe("Avatar", () => {
         />,
       );
       const el = screen.getByTestId("avatar");
-      const img = el.querySelector("img")!;
+      const img = el.querySelector("img")!; // Avatar renders an img when src is provided
       fireEvent.load(img);
       expect(el).toHaveAttribute("aria-label", "Jane's photo");
     });
@@ -173,7 +174,7 @@ describe("Avatar", () => {
         />,
       );
       const el = screen.getByTestId("avatar");
-      const img = el.querySelector("img")!;
+      const img = el.querySelector("img")!; // Avatar renders an img when src is provided
       fireEvent.load(img);
       expect(el).toHaveAttribute("aria-label", "Jane Smith");
     });
@@ -183,7 +184,7 @@ describe("Avatar", () => {
         <Avatar src="https://example.com/photo.jpg" data-testid="avatar" />,
       );
       const el = screen.getByTestId("avatar");
-      const img = el.querySelector("img")!;
+      const img = el.querySelector("img")!; // Avatar renders an img when src is provided
       fireEvent.load(img);
       expect(el).toHaveAttribute("aria-label", "Avatar");
     });
@@ -208,7 +209,7 @@ describe("Avatar", () => {
       // "Jane Smith" yields "JS", so this is the initials tier
       // Test icon with name explicitly: name that yields empty initials won't happen with a real name
       // Instead test: src errors out, name present
-      const img = el.querySelector("img")!;
+      const img = el.querySelector("img")!; // Avatar renders an img when src is provided
       fireEvent.error(img);
       expect(el).toHaveAttribute("aria-label", "Jane Smith");
     });
@@ -293,7 +294,7 @@ describe("Avatar", () => {
           data-testid="avatar"
         />,
       );
-      const img1 = screen.getByTestId("avatar").querySelector("img")!;
+      const img1 = screen.getByTestId("avatar").querySelector("img")!; // Avatar renders an img when src is provided
       fireEvent.load(img1);
       expect(img1.className).toContain("opacity-100");
 
@@ -305,7 +306,7 @@ describe("Avatar", () => {
           data-testid="avatar"
         />,
       );
-      const img2 = screen.getByTestId("avatar").querySelector("img")!;
+      const img2 = screen.getByTestId("avatar").querySelector("img")!; // Avatar renders an img when src is provided
       // New img should be opacity-0 (not yet loaded)
       expect(img2.className).toContain("opacity-0");
     });

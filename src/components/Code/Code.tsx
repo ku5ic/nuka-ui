@@ -6,6 +6,7 @@ const codeVariants = cva(
   [
     "font-mono",
     "rounded-(--radius-sm)",
+    // py-0.5: no --space-0.5 token in the current scale
     "px-(--space-1) py-0.5",
     "leading-none",
     // Reserve border space so layout does not shift between subtle and outline variants.
@@ -32,7 +33,6 @@ const codeVariants = cva(
     },
 
     compoundVariants: [
-      // subtle
       {
         variant: "subtle",
         intent: "default",
@@ -54,7 +54,6 @@ const codeVariants = cva(
         className: ["bg-(--nuka-warning-bg)", "text-(--nuka-warning-text)"],
       },
 
-      // outline
       {
         variant: "outline",
         intent: "default",
@@ -85,7 +84,6 @@ const codeVariants = cva(
         ],
       },
 
-      // ghost
       {
         variant: "ghost",
         intent: "default",
