@@ -135,14 +135,18 @@ This document defines the full component scope for nuka-ui.
 
 Not exported from the public package. Shared implementation primitives used by components.
 
-| Utility                | Location                              | Used by                                                    |
-| ---------------------- | ------------------------------------- | ---------------------------------------------------------- |
-| `useControllableState` | `src/utils/use-controllable-state.ts` | Switch, Slider, RadioGroup, Tooltip, Popover, Select, Tabs |
-| `useFormFieldProps`    | `src/utils/use-form-field-props.ts`   | Input, Textarea, Slider, Switch, RadioGroup, SelectTrigger |
-| `DismissButton`        | `src/utils/dismiss-button.tsx`        | Alert, Banner, Tag, Toast                                  |
-| `Portal`               | `src/utils/portal.tsx`                | Tooltip, Popover                                           |
-| `Slot`, `composeRefs`  | `src/utils/slot.tsx`                  | Button, Badge, and all asChild components                  |
-| `cn`                   | `src/utils/cn.ts`                     | All components                                             |
-| `useFocusTrap`         | `src/utils/use-focus-trap.ts`         | Dialog, Sheet                                              |
-| `useScrollLock`        | `src/utils/use-scroll-lock.ts`        | Dialog, Sheet                                              |
-| `useMenuNavigation`    | `src/utils/use-menu-navigation.ts`    | DropdownMenu, ContextMenu, Menubar                         |
+| Utility                                         | Location                              | Used by                                                    |
+| ----------------------------------------------- | ------------------------------------- | ---------------------------------------------------------- |
+| `useControllableState`                          | `src/utils/use-controllable-state.ts` | Switch, Slider, RadioGroup, Tooltip, Popover, Select, Tabs |
+| `useFormFieldProps`                             | `src/utils/use-form-field-props.ts`   | Input, Textarea, Slider, Switch, RadioGroup, SelectTrigger |
+| `DismissButton`                                 | `src/utils/dismiss-button.tsx`        | Alert, Banner, Tag, Toast                                  |
+| `Portal`                                        | `src/utils/portal.tsx`                | Tooltip, Popover                                           |
+| `Slot`, `composeRefs`                           | `src/utils/slot.tsx`                  | Button, Badge, and all asChild components                  |
+| `cn`                                            | `src/utils/cn.ts`                     | All components                                             |
+| `useFocusTrap`                                  | `src/utils/use-focus-trap.ts`         | Dialog, Sheet                                              |
+| `useScrollLock`                                 | `src/utils/use-scroll-lock.ts`        | Dialog, Sheet                                              |
+| `useMenuNavigation`                             | `src/utils/use-menu-navigation.ts`    | DropdownMenu, ContextMenu, Menubar                         |
+| `createModalPrimitive`                          | `src/utils/modal-primitive.tsx`       | Dialog, Sheet                                              |
+| `Responsive`, `resolveResponsiveClasses`        | `src/utils/responsive.ts`             | Stack, Grid, Container                                     |
+| `useMediaQuery`                                 | `src/utils/use-media-query.ts`        | Sidebar                                                    |
+| `cva`, `VariantProps`, `intentCompoundVariants` | `src/utils/variants.ts`               | All components with variant/intent                         |

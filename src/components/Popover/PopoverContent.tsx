@@ -31,7 +31,7 @@ const PopoverContent = React.forwardRef<HTMLDivElement, PopoverContentProps>(
         !ariaLabelledBy
       ) {
         console.error(
-          "Popover: PopoverContent has role=\"dialog\" but no accessible name. " +
+          'Popover: PopoverContent has role="dialog" but no accessible name. ' +
             "Provide an aria-label or aria-labelledby prop.",
         );
       }

@@ -51,22 +51,12 @@ const FormField = React.forwardRef<HTMLDivElement, FormFieldProps>(
         >
           {children}
           {hint && (
-            <Text
-              as="p"
-              size="sm"
-              color="muted"
-              id={contextValue.hintId}
-            >
+            <Text as="p" size="sm" color="muted" id={contextValue.hintId}>
               {hint}
             </Text>
           )}
           {error && (
-            <Text
-              as="p"
-              size="sm"
-              color="danger"
-              id={contextValue.errorId}
-            >
+            <Text as="p" size="sm" color="danger" id={contextValue.errorId}>
               {error}
             </Text>
           )}

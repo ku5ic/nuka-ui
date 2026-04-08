@@ -6,6 +6,43 @@ import { useControllableState } from "@nuka/utils/use-controllable-state";
 import { Heading } from "@nuka/components/Heading";
 import { Text } from "@nuka/components/Text";
 
+function useEscapeKey(onEscape: () => void, enabled: boolean): void {
+  React.useEffect(() => {
+    if (!enabled) return undefined;
+
+    function handleEscape(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        e.stopPropagation();
+        onEscape();
+      }
+    }
+
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [enabled, onEscape]);
+}
+
+function useModalTitleWarning(
+  displayName: string,
+  titleId: string,
+  open: boolean,
+): void {
+  React.useEffect(() => {
+    if (open && process.env.NODE_ENV !== "production") {
+      const frame = requestAnimationFrame(() => {
+        if (!document.getElementById(titleId)) {
+          console.error(
+            `${displayName}: a <${displayName}Title> is required for accessible labeling. ` +
+              `Add a <${displayName}Title> inside <${displayName}Content>.`,
+          );
+        }
+      });
+      return () => cancelAnimationFrame(frame);
+    }
+    return undefined;
+  }, [open, displayName, titleId]);
+}
+
 export interface ModalContextValue {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -189,8 +226,10 @@ function createModalPrimitive(
 
       return (
         <DismissButton
+          ref={ref}
           onClick={() => ctx.onOpenChange(false)}
           label={closeLabel}
+          {...props}
         />
       );
     },
@@ -201,4 +240,4 @@ function createModalPrimitive(
   return { Root, Trigger, Title, Description, Close };
 }
 
-export { createModalPrimitive };
+export { createModalPrimitive, useEscapeKey, useModalTitleWarning };

@@ -5,7 +5,11 @@ import { Portal } from "@nuka/utils/portal";
 import { DismissButton } from "@nuka/utils/dismiss-button";
 import { useFocusTrap } from "@nuka/utils/use-focus-trap";
 import { useScrollLock } from "@nuka/utils/use-scroll-lock";
-import { createModalPrimitive } from "@nuka/utils/modal-primitive";
+import {
+  createModalPrimitive,
+  useEscapeKey,
+  useModalTitleWarning,
+} from "@nuka/utils/modal-primitive";
 import type {
   ModalRootProps,
   ModalTriggerProps,
@@ -44,36 +48,8 @@ const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps>(
 
     useFocusTrap(panelRef, ctx.open);
     useScrollLock(ctx.open);
-
-    React.useEffect(() => {
-      if (ctx.open && process.env.NODE_ENV !== "production") {
-        const frame = requestAnimationFrame(() => {
-          if (!document.getElementById(ctx.titleId)) {
-            console.error(
-              "Dialog: a <DialogTitle> is required for accessible labeling. " +
-                "Add a <DialogTitle> inside <DialogContent>.",
-            );
-          }
-        });
-        return () => cancelAnimationFrame(frame);
-      }
-      return undefined;
-    }, [ctx.open, ctx.titleId]);
-
-    const { open, onOpenChange } = ctx;
-    React.useEffect(() => {
-      if (!open) return undefined;
-
-      function handleEscape(e: KeyboardEvent) {
-        if (e.key === "Escape") {
-          e.stopPropagation();
-          onOpenChange(false);
-        }
-      }
-
-      document.addEventListener("keydown", handleEscape);
-      return () => document.removeEventListener("keydown", handleEscape);
-    }, [open, onOpenChange]);
+    useModalTitleWarning("Dialog", ctx.titleId, ctx.open);
+    useEscapeKey(() => ctx.onOpenChange(false), ctx.open);
 
     if (!ctx.open) return null;
 

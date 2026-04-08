@@ -1,5 +1,9 @@
 import * as React from "react";
-import { cva, type VariantProps } from "@nuka/utils/variants";
+import {
+  cva,
+  intentCompoundVariants,
+  type VariantProps,
+} from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
 import { DismissButton } from "@nuka/utils/dismiss-button";
 
@@ -31,123 +35,7 @@ const tagVariants = cva(
       },
     },
 
-    compoundVariants: [
-      // primary
-      {
-        variant: "primary",
-        intent: "default",
-        className: ["bg-(--nuka-accent-bg)", "text-(--nuka-text-inverse)"],
-      },
-      {
-        variant: "primary",
-        intent: "danger",
-        className: ["bg-(--nuka-danger-base)", "text-(--nuka-text-inverse)"],
-      },
-      {
-        variant: "primary",
-        intent: "success",
-        className: ["bg-(--nuka-success-base)", "text-(--nuka-text-inverse)"],
-      },
-      {
-        variant: "primary",
-        intent: "warning",
-        className: ["bg-(--nuka-warning-base)", "text-(--nuka-text-inverse)"],
-      },
-
-      // secondary
-      {
-        variant: "secondary",
-        intent: "default",
-        className: [
-          "bg-(--nuka-bg-muted)",
-          "text-(--nuka-text-base)",
-          "border-(--nuka-border-base)",
-        ],
-      },
-      {
-        variant: "secondary",
-        intent: "danger",
-        className: [
-          "bg-(--nuka-danger-bg)",
-          "text-(--nuka-danger-text)",
-          "border-(--nuka-danger-border)",
-        ],
-      },
-      {
-        variant: "secondary",
-        intent: "success",
-        className: [
-          "bg-(--nuka-success-bg)",
-          "text-(--nuka-success-text)",
-          "border-(--nuka-success-border)",
-        ],
-      },
-      {
-        variant: "secondary",
-        intent: "warning",
-        className: [
-          "bg-(--nuka-warning-bg)",
-          "text-(--nuka-warning-text)",
-          "border-(--nuka-warning-border)",
-        ],
-      },
-
-      // outline
-      {
-        variant: "outline",
-        intent: "default",
-        className: [
-          "border-(--nuka-accent-border)",
-          "text-(--nuka-accent-text)",
-        ],
-      },
-      {
-        variant: "outline",
-        intent: "danger",
-        className: [
-          "border-(--nuka-danger-border)",
-          "text-(--nuka-danger-text)",
-        ],
-      },
-      {
-        variant: "outline",
-        intent: "success",
-        className: [
-          "border-(--nuka-success-border)",
-          "text-(--nuka-success-text)",
-        ],
-      },
-      {
-        variant: "outline",
-        intent: "warning",
-        className: [
-          "border-(--nuka-warning-border)",
-          "text-(--nuka-warning-text)",
-        ],
-      },
-
-      // ghost
-      {
-        variant: "ghost",
-        intent: "default",
-        className: ["text-(--nuka-text-base)"],
-      },
-      {
-        variant: "ghost",
-        intent: "danger",
-        className: ["text-(--nuka-danger-text)"],
-      },
-      {
-        variant: "ghost",
-        intent: "success",
-        className: ["text-(--nuka-success-text)"],
-      },
-      {
-        variant: "ghost",
-        intent: "warning",
-        className: ["text-(--nuka-warning-text)"],
-      },
-    ],
+    compoundVariants: intentCompoundVariants(),
 
     defaultVariants: {
       variant: "secondary",

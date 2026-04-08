@@ -25,3 +25,143 @@
  */
 
 export { cva, type VariantProps } from "class-variance-authority";
+
+interface IntentCompoundVariant {
+  variant: "primary" | "secondary" | "outline" | "ghost";
+  intent: "default" | "danger" | "success" | "warning";
+  className: string[];
+}
+
+/**
+ * Returns the standard 16-cell compound variant matrix (4 variants x 4 intents).
+ *
+ * The secondary-default cell differs between components (e.g. Tag uses neutral
+ * tokens, Alert uses accent tokens). Pass `secondaryDefault` to override that
+ * single cell. When omitted, defaults to Tag's neutral treatment.
+ */
+function intentCompoundVariants(options?: {
+  secondaryDefault?: string[];
+}): IntentCompoundVariant[] {
+  const secondaryDefault = options?.secondaryDefault ?? [
+    "bg-(--nuka-bg-muted)",
+    "text-(--nuka-text-base)",
+    "border-(--nuka-border-base)",
+  ];
+
+  return [
+    // primary
+    {
+      variant: "primary",
+      intent: "default",
+      className: ["bg-(--nuka-accent-bg)", "text-(--nuka-text-inverse)"],
+    },
+    {
+      variant: "primary",
+      intent: "danger",
+      className: ["bg-(--nuka-danger-base)", "text-(--nuka-text-inverse)"],
+    },
+    {
+      variant: "primary",
+      intent: "success",
+      className: ["bg-(--nuka-success-base)", "text-(--nuka-text-inverse)"],
+    },
+    {
+      variant: "primary",
+      intent: "warning",
+      className: ["bg-(--nuka-warning-base)", "text-(--nuka-text-inverse)"],
+    },
+
+    // secondary
+    {
+      variant: "secondary",
+      intent: "default",
+      className: secondaryDefault,
+    },
+    {
+      variant: "secondary",
+      intent: "danger",
+      className: [
+        "bg-(--nuka-danger-bg)",
+        "text-(--nuka-danger-text)",
+        "border-(--nuka-danger-border)",
+      ],
+    },
+    {
+      variant: "secondary",
+      intent: "success",
+      className: [
+        "bg-(--nuka-success-bg)",
+        "text-(--nuka-success-text)",
+        "border-(--nuka-success-border)",
+      ],
+    },
+    {
+      variant: "secondary",
+      intent: "warning",
+      className: [
+        "bg-(--nuka-warning-bg)",
+        "text-(--nuka-warning-text)",
+        "border-(--nuka-warning-border)",
+      ],
+    },
+
+    // outline
+    {
+      variant: "outline",
+      intent: "default",
+      className: [
+        "border-(--nuka-accent-border)",
+        "text-(--nuka-accent-text)",
+      ],
+    },
+    {
+      variant: "outline",
+      intent: "danger",
+      className: [
+        "border-(--nuka-danger-border)",
+        "text-(--nuka-danger-text)",
+      ],
+    },
+    {
+      variant: "outline",
+      intent: "success",
+      className: [
+        "border-(--nuka-success-border)",
+        "text-(--nuka-success-text)",
+      ],
+    },
+    {
+      variant: "outline",
+      intent: "warning",
+      className: [
+        "border-(--nuka-warning-border)",
+        "text-(--nuka-warning-text)",
+      ],
+    },
+
+    // ghost
+    {
+      variant: "ghost",
+      intent: "default",
+      className: ["text-(--nuka-text-base)"],
+    },
+    {
+      variant: "ghost",
+      intent: "danger",
+      className: ["text-(--nuka-danger-text)"],
+    },
+    {
+      variant: "ghost",
+      intent: "success",
+      className: ["text-(--nuka-success-text)"],
+    },
+    {
+      variant: "ghost",
+      intent: "warning",
+      className: ["text-(--nuka-warning-text)"],
+    },
+  ];
+}
+
+export { intentCompoundVariants };
+export type { IntentCompoundVariant };
