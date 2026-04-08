@@ -2,6 +2,7 @@ import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as React from "react";
+import type * as FloatingUI from "@floating-ui/react";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -15,11 +16,7 @@ import {
 } from "@nuka/components/DropdownMenu";
 
 vi.mock("@floating-ui/react", async () => {
-  // eslint-disable-next-line @typescript-eslint/consistent-type-imports
-  const actual =
-    await vi.importActual<typeof import("@floating-ui/react")>(
-      "@floating-ui/react",
-    );
+  const actual = await vi.importActual<typeof FloatingUI>("@floating-ui/react");
   return {
     ...actual,
     autoUpdate: vi.fn(() => () => undefined),

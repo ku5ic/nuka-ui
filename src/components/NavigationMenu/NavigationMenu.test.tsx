@@ -130,10 +130,10 @@ describe("NavigationMenu", () => {
       renderNav();
       await user.click(screen.getByRole("menuitem", { name: /Products/ }));
       expect(
-        screen.getByRole("menuitem", { name: "Product A" }),
+        screen.getByRole("link", { name: "Product A" }),
       ).toBeInTheDocument();
       expect(
-        screen.getByRole("menuitem", { name: "Product B" }),
+        screen.getByRole("link", { name: "Product B" }),
       ).toBeInTheDocument();
     });
   });
@@ -169,7 +169,7 @@ describe("NavigationMenu", () => {
       expect(productsTrigger).toHaveFocus();
     });
 
-    it("ArrowRight wraps from last to first trigger", async () => {
+    it("ArrowRight navigates through all menubar items including plain links", async () => {
       const user = userEvent.setup();
       renderNav();
       const productsTrigger = screen.getByRole("menuitem", {
@@ -178,10 +178,39 @@ describe("NavigationMenu", () => {
       const resourcesTrigger = screen.getByRole("menuitem", {
         name: /Resources/,
       });
+      const aboutLink = screen.getByRole("menuitem", { name: "About" });
 
-      resourcesTrigger.focus();
+      productsTrigger.focus();
+      await user.keyboard("{ArrowRight}");
+      expect(resourcesTrigger).toHaveFocus();
+      await user.keyboard("{ArrowRight}");
+      expect(aboutLink).toHaveFocus();
+    });
+
+    it("ArrowRight wraps from last item to first", async () => {
+      const user = userEvent.setup();
+      renderNav();
+      const productsTrigger = screen.getByRole("menuitem", {
+        name: /Products/,
+      });
+      const aboutLink = screen.getByRole("menuitem", { name: "About" });
+
+      aboutLink.focus();
       await user.keyboard("{ArrowRight}");
       expect(productsTrigger).toHaveFocus();
+    });
+
+    it("ArrowLeft wraps from first item to last", async () => {
+      const user = userEvent.setup();
+      renderNav();
+      const productsTrigger = screen.getByRole("menuitem", {
+        name: /Products/,
+      });
+      const aboutLink = screen.getByRole("menuitem", { name: "About" });
+
+      productsTrigger.focus();
+      await user.keyboard("{ArrowLeft}");
+      expect(aboutLink).toHaveFocus();
     });
 
     it("ArrowDown opens the sub-panel", async () => {
@@ -278,6 +307,71 @@ describe("NavigationMenu", () => {
       const link = screen.getByRole("menuitem", { name: "Home" });
       expect(link.tagName).toBe("A");
       expect(link).toHaveAttribute("href", "/home");
+    });
+  });
+
+  describe("roving tabindex", () => {
+    it("first menubar item has tabIndex=0, others have tabIndex=-1", () => {
+      renderNav();
+      const items = screen.getAllByRole("menuitem");
+      expect(items[0]).toHaveAttribute("tabindex", "0");
+      expect(items[1]).toHaveAttribute("tabindex", "-1");
+      expect(items[2]).toHaveAttribute("tabindex", "-1");
+    });
+
+    it("moves tabIndex=0 to focused item on ArrowRight", async () => {
+      const user = userEvent.setup();
+      renderNav();
+      const items = screen.getAllByRole("menuitem");
+
+      items[0]!.focus();
+      await user.keyboard("{ArrowRight}");
+
+      expect(items[0]).toHaveAttribute("tabindex", "-1");
+      expect(items[1]).toHaveAttribute("tabindex", "0");
+      expect(items[2]).toHaveAttribute("tabindex", "-1");
+    });
+
+    it("restores tabIndex=0 to trigger after panel close via Escape", async () => {
+      const user = userEvent.setup();
+      renderNav();
+      const productsTrigger = screen.getByRole("menuitem", {
+        name: /Products/,
+      });
+
+      await user.click(productsTrigger);
+      expect(screen.getByRole("dialog")).toBeInTheDocument();
+
+      await user.keyboard("{Escape}");
+      expect(productsTrigger).toHaveFocus();
+      expect(productsTrigger).toHaveAttribute("tabindex", "0");
+    });
+  });
+
+  describe("role scoping", () => {
+    it("panel links do not have role=menuitem", async () => {
+      const user = userEvent.setup();
+      renderNav();
+      await user.click(screen.getByRole("menuitem", { name: /Products/ }));
+      const productA = screen.getByRole("link", { name: "Product A" });
+      expect(productA).not.toHaveAttribute("role");
+    });
+
+    it("menubar links have role=menuitem", () => {
+      renderNav();
+      const aboutLink = screen.getByRole("menuitem", { name: "About" });
+      expect(aboutLink.tagName).toBe("A");
+    });
+
+    it("aria-haspopup=dialog is only on trigger buttons, not on plain links", () => {
+      renderNav();
+      const aboutLink = screen.getByRole("menuitem", { name: "About" });
+      expect(aboutLink).not.toHaveAttribute("aria-haspopup");
+
+      const productsTrigger = screen.getByRole("menuitem", {
+        name: /Products/,
+      });
+      expect(productsTrigger).toHaveAttribute("aria-haspopup", "dialog");
     });
   });
 

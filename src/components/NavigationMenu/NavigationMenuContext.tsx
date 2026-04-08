@@ -5,10 +5,12 @@ export interface NavigationMenuContextValue {
   activeValue: string | null;
   openMenu: (value: string) => void;
   closeMenu: () => void;
-  registerTrigger: (value: string, el: HTMLButtonElement | null) => void;
-  triggerValues: React.RefObject<string[]>;
-  triggerRefs: React.RefObject<Map<string, HTMLButtonElement>>;
-  triggerLabels: React.RefObject<Map<string, string>>;
+  registerItem: (value: string, el: HTMLElement | null) => void;
+  itemValues: React.RefObject<string[]>;
+  itemRefs: React.RefObject<Map<string, HTMLElement>>;
+  itemLabels: React.RefObject<Map<string, string>>;
+  rovingValue: string | null;
+  setRovingValue: (value: string | null) => void;
 }
 
 const NavigationMenuContext =
@@ -47,4 +49,14 @@ export function useNavigationMenuItemContext(): NavigationMenuItemContextValue {
   return context;
 }
 
-export { NavigationMenuContext, NavigationMenuItemContext };
+const NavigationMenuContentContext = React.createContext(false);
+
+export function useIsInsideContent(): boolean {
+  return React.useContext(NavigationMenuContentContext);
+}
+
+export {
+  NavigationMenuContext,
+  NavigationMenuItemContext,
+  NavigationMenuContentContext,
+};

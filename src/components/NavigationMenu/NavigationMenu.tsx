@@ -18,8 +18,10 @@ import { Icon } from "@nuka/components/Icon";
 import {
   NavigationMenuContext,
   NavigationMenuItemContext,
+  NavigationMenuContentContext,
   useNavigationMenuContext,
   useNavigationMenuItemContext,
+  useIsInsideContent,
 } from "@nuka/components/NavigationMenu/NavigationMenuContext";
 
 export interface NavigationMenuProps extends React.HTMLAttributes<HTMLElement> {
@@ -37,9 +39,10 @@ const NavigationMenu = React.forwardRef<HTMLElement, NavigationMenuProps>(
     ref,
   ) => {
     const [activeValue, setActiveValue] = React.useState<string | null>(null);
-    const triggerRefs = React.useRef(new Map<string, HTMLButtonElement>());
-    const triggerValues = React.useRef<string[]>([]);
-    const triggerLabels = React.useRef(new Map<string, string>());
+    const itemRefs = React.useRef(new Map<string, HTMLElement>());
+    const itemValues = React.useRef<string[]>([]);
+    const itemLabels = React.useRef(new Map<string, string>());
+    const [rovingValue, setRovingValue] = React.useState<string | null>(null);
 
     const openMenu = React.useCallback((value: string) => {
       setActiveValue(value);
@@ -49,18 +52,17 @@ const NavigationMenu = React.forwardRef<HTMLElement, NavigationMenuProps>(
       setActiveValue(null);
     }, []);
 
-    const registerTrigger = React.useCallback(
-      (value: string, el: HTMLButtonElement | null) => {
+    const registerItem = React.useCallback(
+      (value: string, el: HTMLElement | null) => {
         if (el) {
-          triggerRefs.current.set(value, el);
-          if (!triggerValues.current.includes(value)) {
-            triggerValues.current.push(value);
+          itemRefs.current.set(value, el);
+          if (!itemValues.current.includes(value)) {
+            itemValues.current.push(value);
+            setRovingValue((prev) => prev ?? value);
           }
         } else {
-          triggerRefs.current.delete(value);
-          triggerValues.current = triggerValues.current.filter(
-            (v) => v !== value,
-          );
+          itemRefs.current.delete(value);
+          itemValues.current = itemValues.current.filter((v) => v !== value);
         }
       },
       [],
@@ -71,12 +73,14 @@ const NavigationMenu = React.forwardRef<HTMLElement, NavigationMenuProps>(
         activeValue,
         openMenu,
         closeMenu,
-        registerTrigger,
-        triggerValues,
-        triggerRefs,
-        triggerLabels,
+        registerItem,
+        itemValues,
+        itemRefs,
+        itemLabels,
+        rovingValue,
+        setRovingValue,
       }),
-      [activeValue, openMenu, closeMenu, registerTrigger],
+      [activeValue, openMenu, closeMenu, registerItem, rovingValue],
     );
 
     return (
@@ -134,7 +138,12 @@ const NavigationMenuItem = React.forwardRef<
           rootCtx.openMenu(value);
         } else {
           rootCtx.closeMenu();
-          rootCtx.triggerRefs.current.get(value)?.focus();
+          const itemEl = rootCtx.itemRefs.current.get(value);
+          if (itemEl) {
+            itemEl.tabIndex = 0;
+            rootCtx.setRovingValue(value);
+            itemEl.focus();
+          }
         }
       },
       [rootCtx, value],
@@ -198,6 +207,28 @@ NavigationMenuItem.displayName = "NavigationMenuItem";
 
 export interface NavigationMenuTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
+function navigateToAdjacentItem(
+  rootCtx: ReturnType<typeof useNavigationMenuContext>,
+  currentValue: string,
+  direction: -1 | 1,
+): HTMLElement | undefined {
+  const values = rootCtx.itemValues.current;
+  const currentIndex = values.indexOf(currentValue);
+  if (currentIndex === -1) return undefined;
+  const nextIndex = (currentIndex + direction + values.length) % values.length;
+  const nextValue = values[nextIndex];
+  if (nextValue === undefined) return undefined;
+  const nextEl = rootCtx.itemRefs.current.get(nextValue);
+  if (nextEl) {
+    const currentEl = rootCtx.itemRefs.current.get(currentValue);
+    if (currentEl) currentEl.tabIndex = -1;
+    nextEl.tabIndex = 0;
+    rootCtx.setRovingValue(nextValue);
+    nextEl.focus();
+  }
+  return nextEl;
+}
+
 const NavigationMenuTrigger = React.forwardRef<
   HTMLButtonElement,
   NavigationMenuTriggerProps
@@ -208,14 +239,14 @@ const NavigationMenuTrigger = React.forwardRef<
     ref,
     itemCtx.refs.setReference,
     (el: HTMLButtonElement | null) => {
-      rootCtx.registerTrigger(itemCtx.value, el);
+      rootCtx.registerItem(itemCtx.value, el);
       if (el) {
-        rootCtx.triggerLabels.current.set(
+        rootCtx.itemLabels.current.set(
           itemCtx.value,
           el.textContent.trim() || itemCtx.value,
         );
       } else {
-        rootCtx.triggerLabels.current.delete(itemCtx.value);
+        rootCtx.itemLabels.current.delete(itemCtx.value);
       }
     },
   );
@@ -225,19 +256,6 @@ const NavigationMenuTrigger = React.forwardRef<
     onClick?.(e);
   };
 
-  const getAdjacentTrigger = (
-    direction: -1 | 1,
-  ): HTMLButtonElement | undefined => {
-    const values = rootCtx.triggerValues.current;
-    const currentIndex = values.indexOf(itemCtx.value);
-    if (currentIndex === -1) return undefined;
-    const nextIndex =
-      (currentIndex + direction + values.length) % values.length;
-    const nextValue = values[nextIndex];
-    if (nextValue === undefined) return undefined;
-    return rootCtx.triggerRefs.current.get(nextValue);
-  };
-
   const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
     onKeyDown?.(e);
     if (e.defaultPrevented) return;
@@ -245,24 +263,18 @@ const NavigationMenuTrigger = React.forwardRef<
     switch (e.key) {
       case "ArrowRight": {
         e.preventDefault();
-        const next = getAdjacentTrigger(1);
-        if (next) {
-          if (itemCtx.open) {
-            itemCtx.onOpenChange(false);
-          }
-          next.focus();
+        if (itemCtx.open) {
+          itemCtx.onOpenChange(false);
         }
+        navigateToAdjacentItem(rootCtx, itemCtx.value, 1);
         break;
       }
       case "ArrowLeft": {
         e.preventDefault();
-        const prev = getAdjacentTrigger(-1);
-        if (prev) {
-          if (itemCtx.open) {
-            itemCtx.onOpenChange(false);
-          }
-          prev.focus();
+        if (itemCtx.open) {
+          itemCtx.onOpenChange(false);
         }
+        navigateToAdjacentItem(rootCtx, itemCtx.value, -1);
         break;
       }
       case "ArrowDown": {
@@ -293,7 +305,7 @@ const NavigationMenuTrigger = React.forwardRef<
         "rounded-(--radius-md) px-(--space-3) py-(--space-2)",
         "text-sm font-medium",
         "text-(--nuka-text-base)",
-        "outline-none select-none",
+        "select-none",
         "hover:bg-(--nuka-bg-muted)",
         "focus-visible:outline-2 focus-visible:outline-offset-2",
         "focus-visible:outline-(--nuka-border-focus)",
@@ -302,6 +314,7 @@ const NavigationMenuTrigger = React.forwardRef<
       )}
       data-state={itemCtx.open ? "open" : "closed"}
       {...(triggerProps as React.ButtonHTMLAttributes<HTMLButtonElement>)}
+      tabIndex={itemCtx.value === rootCtx.rovingValue ? 0 : -1}
     >
       {children}
       <Icon
@@ -363,26 +376,28 @@ const NavigationMenuContent = React.forwardRef<
 
   return (
     <Portal>
-      <div
-        ref={composedRef}
-        role="dialog"
-        aria-label={
-          rootCtx.triggerLabels.current.get(itemCtx.value) ?? itemCtx.value
-        }
-        tabIndex={-1}
-        style={itemCtx.floatingStyles}
-        {...(floatingProps as React.HTMLAttributes<HTMLDivElement>)}
-        className={cn(
-          "z-50 min-w-48",
-          "rounded-(--radius-md) border border-(--nuka-border-base)",
-          "bg-(--nuka-bg-base) shadow-md",
-          "p-(--space-4)",
-          "focus:outline-none",
-          className,
-        )}
-      >
-        {children}
-      </div>
+      <NavigationMenuContentContext value={true}>
+        <div
+          ref={composedRef}
+          role="dialog"
+          aria-label={
+            rootCtx.itemLabels.current.get(itemCtx.value) ?? itemCtx.value
+          }
+          tabIndex={-1}
+          style={itemCtx.floatingStyles}
+          {...(floatingProps as React.HTMLAttributes<HTMLDivElement>)}
+          className={cn(
+            "z-50 min-w-48",
+            "rounded-(--radius-md) border border-(--nuka-border-base)",
+            "bg-(--nuka-bg-base) shadow-md",
+            "p-(--space-4)",
+            "focus:outline-none",
+            className,
+          )}
+        >
+          {children}
+        </div>
+      </NavigationMenuContentContext>
     </Portal>
   );
 });
@@ -397,30 +412,82 @@ export interface NavigationMenuLinkProps extends React.AnchorHTMLAttributes<HTML
 const NavigationMenuLink = React.forwardRef<
   HTMLAnchorElement,
   NavigationMenuLinkProps
->(({ asChild = false, active = false, className, ...props }, ref) => {
-  const Comp = asChild ? Slot : "a";
+>(
+  (
+    { asChild = false, active = false, className, onKeyDown, ...props },
+    ref,
+  ) => {
+    const rootCtx = useNavigationMenuContext();
+    const itemCtx = useNavigationMenuItemContext();
+    const insideContent = useIsInsideContent();
+    const Comp = asChild ? Slot : "a";
 
-  return (
-    <Comp
-      ref={ref}
-      role="menuitem"
-      aria-current={active ? "page" : undefined}
-      className={cn(
-        "inline-flex items-center",
-        "rounded-(--radius-md) px-(--space-3) py-(--space-2)",
-        "text-sm font-medium",
-        "text-(--nuka-text-base)",
-        "outline-none select-none",
-        "hover:bg-(--nuka-bg-muted)",
-        "focus-visible:outline-2 focus-visible:outline-offset-2",
-        "focus-visible:outline-(--nuka-border-focus)",
-        active && "text-(--nuka-accent-text)",
-        className,
-      )}
-      {...props}
-    />
-  );
-});
+    const composedRef = composeRefs(
+      ref,
+      insideContent
+        ? undefined
+        : (el: HTMLAnchorElement | null) => {
+            rootCtx.registerItem(itemCtx.value, el);
+          },
+    );
+
+    const handleKeyDown = insideContent
+      ? onKeyDown
+      : (e: React.KeyboardEvent<HTMLAnchorElement>) => {
+          onKeyDown?.(e);
+          if (e.defaultPrevented) return;
+
+          switch (e.key) {
+            case "ArrowRight": {
+              e.preventDefault();
+              navigateToAdjacentItem(rootCtx, itemCtx.value, 1);
+              break;
+            }
+            case "ArrowLeft": {
+              e.preventDefault();
+              navigateToAdjacentItem(rootCtx, itemCtx.value, -1);
+              break;
+            }
+            case "Escape": {
+              e.preventDefault();
+              if (rootCtx.activeValue !== null) {
+                rootCtx.closeMenu();
+              }
+              break;
+            }
+          }
+        };
+
+    const menubarProps = insideContent
+      ? {}
+      : {
+          role: "menuitem" as const,
+          tabIndex: itemCtx.value === rootCtx.rovingValue ? 0 : -1,
+        };
+
+    return (
+      <Comp
+        ref={composedRef}
+        aria-current={active ? "page" : undefined}
+        className={cn(
+          "inline-flex items-center",
+          "rounded-(--radius-md) px-(--space-3) py-(--space-2)",
+          "text-sm font-medium",
+          "text-(--nuka-text-base)",
+          "select-none",
+          "hover:bg-(--nuka-bg-muted)",
+          "focus-visible:outline-2 focus-visible:outline-offset-2",
+          "focus-visible:outline-(--nuka-border-focus)",
+          active && "text-(--nuka-accent-text)",
+          className,
+        )}
+        {...menubarProps}
+        onKeyDown={handleKeyDown}
+        {...props}
+      />
+    );
+  },
+);
 
 NavigationMenuLink.displayName = "NavigationMenuLink";
 
