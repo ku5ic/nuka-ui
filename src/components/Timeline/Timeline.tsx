@@ -102,7 +102,9 @@ const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
               {timestamp}
             </time>
           )}
-          <Text as="p" size="sm" weight="medium">{title}</Text>
+          <Text as="p" size="sm" weight="medium">
+            {title}
+          </Text>
           {description != null && (
             <Text as="p" size="sm" color="muted" className="mt-(--space-1)">
               {description}

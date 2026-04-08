@@ -29,21 +29,23 @@ export interface ModalRootProps {
   onOpenChange?: (open: boolean) => void;
 }
 
-export interface ModalTriggerProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ModalTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;
 }
 
-export interface ModalTitleProps
-  extends Omit<React.HTMLAttributes<HTMLElement>, "color"> {
+export interface ModalTitleProps extends Omit<
+  React.HTMLAttributes<HTMLElement>,
+  "color"
+> {
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 }
 
-export interface ModalDescriptionProps
-  extends Omit<React.HTMLAttributes<HTMLElement>, "color"> {}
+export interface ModalDescriptionProps extends Omit<
+  React.HTMLAttributes<HTMLElement>,
+  "color"
+> {}
 
-export interface ModalCloseProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ModalCloseProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;
 }
 

@@ -20,9 +20,7 @@ import {
   MenuSeparatorBase,
   MenuLabelBase,
 } from "@nuka/components/Menu/MenuItemBase";
-import type {
-  MenuRadioGroupBaseProps,
-} from "@nuka/components/Menu/MenuItemBase";
+import type { MenuRadioGroupBaseProps } from "@nuka/components/Menu/MenuItemBase";
 import { menuContentVariants } from "@nuka/components/Menu/menuItemVariants";
 import {
   MenuItemContext,

@@ -149,9 +149,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             <path d="M3.5 8.5L6.5 11.5L12.5 4.5" />
           </svg>
         </span>
-        {children && (
-          <Text as="span">{children}</Text>
-        )}
+        {children && <Text as="span">{children}</Text>}
       </label>
     );
   },

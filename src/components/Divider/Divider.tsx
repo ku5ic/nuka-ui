@@ -89,7 +89,12 @@ const Divider = React.forwardRef<HTMLElement, DividerProps>(
             )}
             aria-hidden="true"
           />
-          <Text as="span" size="xs" color="muted" className="shrink-0 px-(--space-2) whitespace-nowrap">
+          <Text
+            as="span"
+            size="xs"
+            color="muted"
+            className="shrink-0 px-(--space-2) whitespace-nowrap"
+          >
             {label}
           </Text>
           <div

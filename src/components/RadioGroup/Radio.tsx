@@ -134,9 +134,7 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
         >
           <span className="hidden size-1/2 rounded-full bg-(--nuka-text-inverse)" />
         </span>
-        {children && (
-          <Text as="span">{children}</Text>
-        )}
+        {children && <Text as="span">{children}</Text>}
       </label>
     );
   },

@@ -60,8 +60,10 @@ export function useAutoFocusFirstItem(
   }, [open, focusItem, itemsRef, itemIndexRef]);
 }
 
-export interface MenuItemWithNavProps
-  extends Omit<MenuItemBaseProps, "onClose"> {}
+export interface MenuItemWithNavProps extends Omit<
+  MenuItemBaseProps,
+  "onClose"
+> {}
 
 const MenuItemWithNav = React.forwardRef<HTMLDivElement, MenuItemWithNavProps>(
   ({ onKeyDown, ...props }, ref) => {
@@ -99,8 +101,10 @@ const MenuItemWithNav = React.forwardRef<HTMLDivElement, MenuItemWithNavProps>(
 
 MenuItemWithNav.displayName = "MenuItemWithNav";
 
-export interface MenuCheckboxItemWithNavProps
-  extends Omit<MenuCheckboxItemBaseProps, "onClose"> {}
+export interface MenuCheckboxItemWithNavProps extends Omit<
+  MenuCheckboxItemBaseProps,
+  "onClose"
+> {}
 
 const MenuCheckboxItemWithNav = React.forwardRef<
   HTMLDivElement,
@@ -139,8 +143,10 @@ const MenuCheckboxItemWithNav = React.forwardRef<
 
 MenuCheckboxItemWithNav.displayName = "MenuCheckboxItemWithNav";
 
-export interface MenuRadioItemWithNavProps
-  extends Omit<MenuRadioItemBaseProps, "onClose"> {}
+export interface MenuRadioItemWithNavProps extends Omit<
+  MenuRadioItemBaseProps,
+  "onClose"
+> {}
 
 const MenuRadioItemWithNav = React.forwardRef<
   HTMLDivElement,

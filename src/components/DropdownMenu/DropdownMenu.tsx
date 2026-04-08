@@ -23,9 +23,7 @@ import {
   MenuSeparatorBase,
   MenuLabelBase,
 } from "@nuka/components/Menu/MenuItemBase";
-import type {
-  MenuRadioGroupBaseProps,
-} from "@nuka/components/Menu/MenuItemBase";
+import type { MenuRadioGroupBaseProps } from "@nuka/components/Menu/MenuItemBase";
 import { menuContentVariants } from "@nuka/components/Menu/menuItemVariants";
 import {
   MenuItemContext,
@@ -193,9 +191,10 @@ function useDropdownMenuContextInternal() {
 
 export type DropdownMenuItemProps = MenuItemWithNavProps;
 
-const DropdownMenuItem = React.forwardRef<HTMLDivElement, DropdownMenuItemProps>(
-  (props, ref) => <MenuItemWithNav ref={ref} {...props} />,
-);
+const DropdownMenuItem = React.forwardRef<
+  HTMLDivElement,
+  DropdownMenuItemProps
+>((props, ref) => <MenuItemWithNav ref={ref} {...props} />);
 
 DropdownMenuItem.displayName = "DropdownMenuItem";
 

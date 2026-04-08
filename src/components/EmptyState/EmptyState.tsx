@@ -48,7 +48,9 @@ const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
             {heading}
           </Text>
           {description != null && (
-            <Text as="p" size="sm" color="muted">{description}</Text>
+            <Text as="p" size="sm" color="muted">
+              {description}
+            </Text>
           )}
         </div>
         {action && <div>{action}</div>}

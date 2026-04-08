@@ -126,7 +126,9 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
           />
         </button>
         {children && (
-          <Text as="span" size="sm">{children}</Text>
+          <Text as="span" size="sm">
+            {children}
+          </Text>
         )}
       </div>
     );
