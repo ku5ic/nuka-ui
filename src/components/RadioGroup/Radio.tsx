@@ -2,6 +2,7 @@ import * as React from "react";
 import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
 import { composeRefs } from "@nuka/utils/slot";
+import { Text } from "@nuka/components/Text";
 import { useRadioGroup } from "@nuka/components/RadioGroup/RadioGroupContext";
 
 const radioIndicatorVariants = cva(
@@ -134,7 +135,7 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
           <span className="hidden size-1/2 rounded-full bg-(--nuka-text-inverse)" />
         </span>
         {children && (
-          <span className="text-(--nuka-text-base)">{children}</span>
+          <Text as="span">{children}</Text>
         )}
       </label>
     );

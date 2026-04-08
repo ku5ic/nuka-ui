@@ -1,6 +1,7 @@
 import * as React from "react";
 import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
+import { Text } from "@nuka/components/Text";
 
 const dividerVariants = cva([], {
   variants: {
@@ -88,9 +89,9 @@ const Divider = React.forwardRef<HTMLElement, DividerProps>(
             )}
             aria-hidden="true"
           />
-          <span className="shrink-0 px-(--space-2) text-xs text-(--nuka-text-muted) whitespace-nowrap">
+          <Text as="span" size="xs" color="muted" className="shrink-0 px-(--space-2) whitespace-nowrap">
             {label}
-          </span>
+          </Text>
           <div
             className={cn(
               "flex-1 bg-(--nuka-border-base)",

@@ -1,5 +1,5 @@
 import type * as React from "react";
-import { useFormField } from "@nuka/components/FormField/FormFieldContext";
+import { useFormField } from "@nuka/components/FormField";
 
 export interface UseFormFieldPropsInput {
   id?: string | undefined;

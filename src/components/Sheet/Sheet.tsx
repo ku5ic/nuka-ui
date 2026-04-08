@@ -1,86 +1,40 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
-import { Slot } from "@nuka/utils/slot";
+import { composeRefs } from "@nuka/utils/slot";
 import { Portal } from "@nuka/utils/portal";
 import { DismissButton } from "@nuka/utils/dismiss-button";
-import { useControllableState } from "@nuka/utils/use-controllable-state";
 import { useFocusTrap } from "@nuka/utils/use-focus-trap";
 import { useScrollLock } from "@nuka/utils/use-scroll-lock";
-import { Heading } from "@nuka/components/Heading";
-import { Text } from "@nuka/components/Text";
+import { createModalPrimitive } from "@nuka/utils/modal-primitive";
+import type {
+  ModalRootProps,
+  ModalTriggerProps,
+  ModalTitleProps,
+  ModalDescriptionProps,
+  ModalCloseProps,
+} from "@nuka/utils/modal-primitive";
 import { SheetContext, useSheetContext } from "./SheetContext";
 
 export type SheetSide = "top" | "right" | "bottom" | "left";
 
-export interface SheetProps {
-  children: React.ReactNode;
-  open?: boolean;
-  defaultOpen?: boolean;
-  onOpenChange?: (open: boolean) => void;
-}
+const {
+  Root: Sheet,
+  Trigger: SheetTrigger,
+  Title: SheetTitle,
+  Description: SheetDescription,
+  Close: SheetClose,
+} = createModalPrimitive({
+  displayNamePrefix: "Sheet",
+  closeLabel: "Close sheet",
+  Context: SheetContext,
+  useContext: useSheetContext,
+});
 
-function Sheet({
-  children,
-  open: controlledOpen,
-  defaultOpen = false,
-  onOpenChange,
-}: SheetProps) {
-  const [open, setOpen] = useControllableState(
-    controlledOpen,
-    defaultOpen,
-    onOpenChange,
-  );
-
-  const baseId = React.useId();
-  const titleId = `${baseId}-title`;
-  const descriptionId = `${baseId}-description`;
-  const [hasDescription, setHasDescription] = React.useState(false);
-
-  const contextValue = React.useMemo(
-    () => ({
-      open,
-      onOpenChange: setOpen,
-      titleId,
-      descriptionId,
-      hasDescription,
-      setHasDescription,
-    }),
-    [open, setOpen, titleId, descriptionId, hasDescription],
-  );
-
-  return <SheetContext value={contextValue}>{children}</SheetContext>;
-}
-
-Sheet.displayName = "Sheet";
-
-export interface SheetTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  asChild?: boolean;
-}
-
-const SheetTrigger = React.forwardRef<HTMLButtonElement, SheetTriggerProps>(
-  ({ asChild = false, onClick, ...props }, ref) => {
-    const ctx = useSheetContext();
-    const Comp = asChild ? Slot : "button";
-
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-      ctx.onOpenChange(true);
-      onClick?.(e);
-    };
-
-    return (
-      <Comp
-        ref={ref}
-        type={asChild ? undefined : "button"}
-        aria-haspopup="dialog"
-        aria-expanded={ctx.open}
-        onClick={handleClick}
-        {...props}
-      />
-    );
-  },
-);
-
-SheetTrigger.displayName = "SheetTrigger";
+export type SheetProps = ModalRootProps;
+export type SheetTriggerProps = ModalTriggerProps;
+export type SheetTitleProps = ModalTitleProps;
+export type SheetDescriptionProps = ModalDescriptionProps;
+export type SheetCloseProps = ModalCloseProps;
 
 const sideClasses: Record<SheetSide, string> = {
   right:
@@ -99,18 +53,7 @@ const SheetContent = React.forwardRef<HTMLDivElement, SheetContentProps>(
   ({ side = "right", className, children, ...props }, ref) => {
     const ctx = useSheetContext();
     const panelRef = React.useRef<HTMLDivElement>(null);
-
-    const composedRef = React.useCallback(
-      (node: HTMLDivElement | null) => {
-        panelRef.current = node;
-        if (typeof ref === "function") {
-          ref(node);
-        } else if (ref) {
-          ref.current = node;
-        }
-      },
-      [ref],
-    );
+    const composedRef = composeRefs(ref, panelRef);
 
     useFocusTrap(panelRef, ctx.open);
     useScrollLock(ctx.open);
@@ -192,91 +135,6 @@ const SheetContent = React.forwardRef<HTMLDivElement, SheetContentProps>(
 );
 
 SheetContent.displayName = "SheetContent";
-
-export interface SheetTitleProps extends Omit<
-  React.HTMLAttributes<HTMLElement>,
-  "color"
-> {
-  as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-}
-
-const SheetTitle = React.forwardRef<HTMLElement, SheetTitleProps>(
-  ({ as = "h2", className, ...props }, ref) => {
-    const ctx = useSheetContext();
-
-    return (
-      <Heading
-        ref={ref}
-        as={as}
-        size="xl"
-        weight="semibold"
-        id={ctx.titleId}
-        className={className}
-        {...props}
-      />
-    );
-  },
-);
-
-SheetTitle.displayName = "SheetTitle";
-
-export interface SheetDescriptionProps extends Omit<
-  React.HTMLAttributes<HTMLElement>,
-  "color"
-> {}
-
-const SheetDescription = React.forwardRef<HTMLElement, SheetDescriptionProps>(
-  ({ className, ...props }, ref) => {
-    const ctx = useSheetContext();
-
-    const { setHasDescription } = ctx;
-    React.useEffect(() => {
-      setHasDescription(true);
-      return () => setHasDescription(false);
-    }, [setHasDescription]);
-
-    return (
-      <Text
-        ref={ref}
-        color="muted"
-        size="sm"
-        id={ctx.descriptionId}
-        className={cn("mt-(--space-2)", className)}
-        {...props}
-      />
-    );
-  },
-);
-
-SheetDescription.displayName = "SheetDescription";
-
-export interface SheetCloseProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  asChild?: boolean;
-}
-
-const SheetClose = React.forwardRef<HTMLButtonElement, SheetCloseProps>(
-  ({ asChild = false, onClick, ...props }, ref) => {
-    const ctx = useSheetContext();
-
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-      ctx.onOpenChange(false);
-      onClick?.(e);
-    };
-
-    if (asChild) {
-      return <Slot ref={ref} onClick={handleClick} {...props} />;
-    }
-
-    return (
-      <DismissButton
-        onClick={() => ctx.onOpenChange(false)}
-        label="Close sheet"
-      />
-    );
-  },
-);
-
-SheetClose.displayName = "SheetClose";
 
 export {
   Sheet,

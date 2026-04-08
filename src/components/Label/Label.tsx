@@ -1,6 +1,6 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
-import { useFormField } from "@nuka/components/FormField/FormFieldContext";
+import { useFormField } from "@nuka/components/FormField";
 
 export interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
   required?: boolean;

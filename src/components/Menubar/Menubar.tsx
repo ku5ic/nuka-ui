@@ -25,21 +25,25 @@ import type {
   MenubarMenuContextValue,
 } from "@nuka/components/Menubar/MenubarContext";
 import {
-  MenuItemBase,
-  MenuCheckboxItemBase,
   MenuRadioGroupBase,
-  MenuRadioItemBase,
   MenuSeparatorBase,
 } from "@nuka/components/Menu/MenuItemBase";
 import type {
-  MenuItemBaseProps,
-  MenuCheckboxItemBaseProps,
   MenuRadioGroupBaseProps,
-  MenuRadioItemBaseProps,
 } from "@nuka/components/Menu/MenuItemBase";
 import { menuContentVariants } from "@nuka/components/Menu/menuItemVariants";
-
-// Menubar (root)
+import {
+  MenuItemContext,
+  useAutoFocusFirstItem,
+  MenuItemWithNav,
+  MenuCheckboxItemWithNav,
+  MenuRadioItemWithNav,
+} from "@nuka/components/Menu/MenuContentBase";
+import type {
+  MenuItemWithNavProps,
+  MenuCheckboxItemWithNavProps,
+  MenuRadioItemWithNavProps,
+} from "@nuka/components/Menu/MenuContentBase";
 
 export interface MenubarProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -108,8 +112,6 @@ const Menubar = React.forwardRef<HTMLDivElement, MenubarProps>(
 );
 
 Menubar.displayName = "Menubar";
-
-// MenubarMenu
 
 export interface MenubarMenuProps {
   value: string;
@@ -181,8 +183,6 @@ function MenubarMenu({ value, children }: MenubarMenuProps) {
 }
 
 MenubarMenu.displayName = "MenubarMenu";
-
-// MenubarTrigger
 
 export interface MenubarTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
@@ -270,8 +270,6 @@ const MenubarTrigger = React.forwardRef<HTMLButtonElement, MenubarTriggerProps>(
 
 MenubarTrigger.displayName = "MenubarTrigger";
 
-// MenubarContent
-
 export interface MenubarContentProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const MenubarContent = React.forwardRef<HTMLDivElement, MenubarContentProps>(
@@ -313,23 +311,7 @@ const MenubarContent = React.forwardRef<HTMLDivElement, MenubarContentProps>(
       [bar, menu.value],
     );
 
-    React.useEffect(() => {
-      if (menu.open) {
-        itemIndexRef.current = 0;
-        const frame = requestAnimationFrame(() => {
-          const items = itemsRef.current;
-          for (let i = 0; i < items.length; i++) {
-            if (items[i]) {
-              focusItem(i);
-              break;
-            }
-          }
-        });
-        return () => cancelAnimationFrame(frame);
-      }
-      itemsRef.current = [];
-      return undefined;
-    }, [menu.open, focusItem, itemsRef]);
+    useAutoFocusFirstItem(menu.open, focusItem, itemsRef, itemIndexRef);
 
     if (!menu.open) return null;
 
@@ -339,7 +321,7 @@ const MenubarContent = React.forwardRef<HTMLDivElement, MenubarContentProps>(
 
     return (
       <Portal>
-        <MenubarItemContext
+        <MenuItemContext
           value={{
             getItemProps,
             indexRef: itemIndexRef,
@@ -357,7 +339,7 @@ const MenubarContent = React.forwardRef<HTMLDivElement, MenubarContentProps>(
           >
             {children}
           </div>
-        </MenubarItemContext>
+        </MenuItemContext>
       </Portal>
     );
   },
@@ -365,117 +347,22 @@ const MenubarContent = React.forwardRef<HTMLDivElement, MenubarContentProps>(
 
 MenubarContent.displayName = "MenubarContent";
 
-// Internal context for item index tracking
-
-interface MenubarItemContextValue {
-  getItemProps: (index: number) => {
-    tabIndex: number;
-    ref: (el: HTMLElement | null) => void;
-    onKeyDown: (e: React.KeyboardEvent) => void;
-  };
-  indexRef: React.RefObject<number>;
-  close: () => void;
-  onArrowLeft: () => void;
-  onArrowRight: () => void;
-}
-
-const MenubarItemContext = React.createContext<
-  MenubarItemContextValue | undefined
->(undefined);
-
-function useMenubarItemContext(): MenubarItemContextValue {
-  const ctx = React.useContext(MenubarItemContext);
-  if (ctx === undefined) {
-    throw new Error("Menu item must be used within a MenubarContent component");
-  }
-  return ctx;
-}
-
-// MenubarItem
-
-export interface MenubarItemProps extends Omit<MenuItemBaseProps, "onClose"> {}
+export type MenubarItemProps = MenuItemWithNavProps;
 
 const MenubarItem = React.forwardRef<HTMLDivElement, MenubarItemProps>(
-  ({ onKeyDown, ...props }, ref) => {
-    const itemCtx = useMenubarItemContext();
-    const index = itemCtx.indexRef.current++;
-    const navProps = itemCtx.getItemProps(index);
-    const composedRef = composeRefs(ref, navProps.ref);
-
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-      if (e.key === "ArrowLeft") {
-        e.preventDefault();
-        itemCtx.onArrowLeft();
-        return;
-      }
-      if (e.key === "ArrowRight") {
-        e.preventDefault();
-        itemCtx.onArrowRight();
-        return;
-      }
-      navProps.onKeyDown(e);
-      onKeyDown?.(e);
-    };
-
-    return (
-      <MenuItemBase
-        ref={composedRef}
-        tabIndex={navProps.tabIndex}
-        onKeyDown={handleKeyDown}
-        onClose={itemCtx.close}
-        {...props}
-      />
-    );
-  },
+  (props, ref) => <MenuItemWithNav ref={ref} {...props} />,
 );
 
 MenubarItem.displayName = "MenubarItem";
 
-// MenubarCheckboxItem
-
-export interface MenubarCheckboxItemProps extends Omit<
-  MenuCheckboxItemBaseProps,
-  "onClose"
-> {}
+export type MenubarCheckboxItemProps = MenuCheckboxItemWithNavProps;
 
 const MenubarCheckboxItem = React.forwardRef<
   HTMLDivElement,
   MenubarCheckboxItemProps
->(({ onKeyDown, ...props }, ref) => {
-  const itemCtx = useMenubarItemContext();
-  const index = itemCtx.indexRef.current++;
-  const navProps = itemCtx.getItemProps(index);
-  const composedRef = composeRefs(ref, navProps.ref);
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === "ArrowLeft") {
-      e.preventDefault();
-      itemCtx.onArrowLeft();
-      return;
-    }
-    if (e.key === "ArrowRight") {
-      e.preventDefault();
-      itemCtx.onArrowRight();
-      return;
-    }
-    navProps.onKeyDown(e);
-    onKeyDown?.(e);
-  };
-
-  return (
-    <MenuCheckboxItemBase
-      ref={composedRef}
-      tabIndex={navProps.tabIndex}
-      onKeyDown={handleKeyDown}
-      onClose={itemCtx.close}
-      {...props}
-    />
-  );
-});
+>((props, ref) => <MenuCheckboxItemWithNav ref={ref} {...props} />);
 
 MenubarCheckboxItem.displayName = "MenubarCheckboxItem";
-
-// MenubarRadioGroup
 
 export interface MenubarRadioGroupProps extends MenuRadioGroupBaseProps {}
 
@@ -486,51 +373,14 @@ const MenubarRadioGroup = React.forwardRef<
 
 MenubarRadioGroup.displayName = "MenubarRadioGroup";
 
-// MenubarRadioItem
-
-export interface MenubarRadioItemProps extends Omit<
-  MenuRadioItemBaseProps,
-  "onClose"
-> {}
+export type MenubarRadioItemProps = MenuRadioItemWithNavProps;
 
 const MenubarRadioItem = React.forwardRef<
   HTMLDivElement,
   MenubarRadioItemProps
->(({ onKeyDown, ...props }, ref) => {
-  const itemCtx = useMenubarItemContext();
-  const index = itemCtx.indexRef.current++;
-  const navProps = itemCtx.getItemProps(index);
-  const composedRef = composeRefs(ref, navProps.ref);
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === "ArrowLeft") {
-      e.preventDefault();
-      itemCtx.onArrowLeft();
-      return;
-    }
-    if (e.key === "ArrowRight") {
-      e.preventDefault();
-      itemCtx.onArrowRight();
-      return;
-    }
-    navProps.onKeyDown(e);
-    onKeyDown?.(e);
-  };
-
-  return (
-    <MenuRadioItemBase
-      ref={composedRef}
-      tabIndex={navProps.tabIndex}
-      onKeyDown={handleKeyDown}
-      onClose={itemCtx.close}
-      {...props}
-    />
-  );
-});
+>((props, ref) => <MenuRadioItemWithNav ref={ref} {...props} />);
 
 MenubarRadioItem.displayName = "MenubarRadioItem";
-
-// MenubarSeparator
 
 export interface MenubarSeparatorProps extends React.HTMLAttributes<HTMLDivElement> {}
 

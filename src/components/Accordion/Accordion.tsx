@@ -1,5 +1,6 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
+import { composeRefs } from "@nuka/utils/slot";
 import { useControllableState } from "@nuka/utils/use-controllable-state";
 import { Icon } from "@nuka/components/Icon";
 import {
@@ -84,17 +85,7 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
     } = props;
 
     const rootRef = React.useRef<HTMLDivElement>(null);
-    const composedRef = React.useCallback(
-      (node: HTMLDivElement | null) => {
-        rootRef.current = node;
-        if (typeof ref === "function") {
-          ref(node);
-        } else if (ref) {
-          ref.current = node;
-        }
-      },
-      [ref],
-    );
+    const composedRef = composeRefs(ref, rootRef);
 
     if (type === "single") {
       return (

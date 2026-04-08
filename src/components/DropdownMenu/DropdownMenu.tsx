@@ -19,22 +19,26 @@ import { Slot, composeRefs } from "@nuka/utils/slot";
 import { DropdownMenuContext } from "@nuka/components/DropdownMenu/DropdownMenuContext";
 import type { DropdownMenuContextValue } from "@nuka/components/DropdownMenu/DropdownMenuContext";
 import {
-  MenuItemBase,
-  MenuCheckboxItemBase,
   MenuRadioGroupBase,
-  MenuRadioItemBase,
   MenuSeparatorBase,
   MenuLabelBase,
 } from "@nuka/components/Menu/MenuItemBase";
 import type {
-  MenuItemBaseProps,
-  MenuCheckboxItemBaseProps,
   MenuRadioGroupBaseProps,
-  MenuRadioItemBaseProps,
 } from "@nuka/components/Menu/MenuItemBase";
 import { menuContentVariants } from "@nuka/components/Menu/menuItemVariants";
-
-// DropdownMenu (root)
+import {
+  MenuItemContext,
+  useAutoFocusFirstItem,
+  MenuItemWithNav,
+  MenuCheckboxItemWithNav,
+  MenuRadioItemWithNav,
+} from "@nuka/components/Menu/MenuContentBase";
+import type {
+  MenuItemWithNavProps,
+  MenuCheckboxItemWithNavProps,
+  MenuRadioItemWithNavProps,
+} from "@nuka/components/Menu/MenuContentBase";
 
 export interface DropdownMenuProps {
   children: React.ReactNode;
@@ -99,8 +103,6 @@ function DropdownMenu({
 
 DropdownMenu.displayName = "DropdownMenu";
 
-// DropdownMenuTrigger
-
 export interface DropdownMenuTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;
 }
@@ -129,8 +131,6 @@ const DropdownMenuTrigger = React.forwardRef<
 
 DropdownMenuTrigger.displayName = "DropdownMenuTrigger";
 
-// DropdownMenuContent
-
 export interface DropdownMenuContentProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const DropdownMenuContent = React.forwardRef<
@@ -148,23 +148,7 @@ const DropdownMenuContent = React.forwardRef<
 
   const itemIndexRef = React.useRef(0);
 
-  React.useEffect(() => {
-    if (ctx.open) {
-      itemIndexRef.current = 0;
-      const frame = requestAnimationFrame(() => {
-        const items = itemsRef.current;
-        for (let i = 0; i < items.length; i++) {
-          if (items[i]) {
-            focusItem(i);
-            break;
-          }
-        }
-      });
-      return () => cancelAnimationFrame(frame);
-    }
-    itemsRef.current = [];
-    return undefined;
-  }, [ctx.open, focusItem, itemsRef]);
+  useAutoFocusFirstItem(ctx.open, focusItem, itemsRef, itemIndexRef);
 
   if (!ctx.open) return null;
 
@@ -174,7 +158,7 @@ const DropdownMenuContent = React.forwardRef<
 
   return (
     <Portal>
-      <DropdownMenuItemContext
+      <MenuItemContext
         value={{
           getItemProps,
           indexRef: itemIndexRef,
@@ -190,36 +174,12 @@ const DropdownMenuContent = React.forwardRef<
         >
           {children}
         </div>
-      </DropdownMenuItemContext>
+      </MenuItemContext>
     </Portal>
   );
 });
 
 DropdownMenuContent.displayName = "DropdownMenuContent";
-
-// Internal context for item index tracking
-
-interface DropdownMenuItemContextValue {
-  getItemProps: (index: number) => {
-    tabIndex: number;
-    ref: (el: HTMLElement | null) => void;
-    onKeyDown: (e: React.KeyboardEvent) => void;
-  };
-  indexRef: React.RefObject<number>;
-  close: () => void;
-}
-
-const DropdownMenuItemContext = React.createContext<
-  DropdownMenuItemContextValue | undefined
->(undefined);
-
-function useDropdownMenuItemContext(): DropdownMenuItemContextValue {
-  const ctx = React.useContext(DropdownMenuItemContext);
-  if (ctx === undefined) {
-    throw new Error("Menu item must be used within a MenuContent component");
-  }
-  return ctx;
-}
 
 function useDropdownMenuContextInternal() {
   const ctx = React.useContext(DropdownMenuContext);
@@ -231,77 +191,22 @@ function useDropdownMenuContextInternal() {
   return ctx;
 }
 
-// DropdownMenuItem
+export type DropdownMenuItemProps = MenuItemWithNavProps;
 
-export interface DropdownMenuItemProps extends Omit<
-  MenuItemBaseProps,
-  "onClose"
-> {}
-
-const DropdownMenuItem = React.forwardRef<
-  HTMLDivElement,
-  DropdownMenuItemProps
->(({ onKeyDown, ...props }, ref) => {
-  const itemCtx = useDropdownMenuItemContext();
-  const index = itemCtx.indexRef.current++;
-  const navProps = itemCtx.getItemProps(index);
-
-  const composedRef = composeRefs(ref, navProps.ref);
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    navProps.onKeyDown(e);
-    onKeyDown?.(e);
-  };
-
-  return (
-    <MenuItemBase
-      ref={composedRef}
-      tabIndex={navProps.tabIndex}
-      onKeyDown={handleKeyDown}
-      onClose={itemCtx.close}
-      {...props}
-    />
-  );
-});
+const DropdownMenuItem = React.forwardRef<HTMLDivElement, DropdownMenuItemProps>(
+  (props, ref) => <MenuItemWithNav ref={ref} {...props} />,
+);
 
 DropdownMenuItem.displayName = "DropdownMenuItem";
 
-// DropdownMenuCheckboxItem
-
-export interface DropdownMenuCheckboxItemProps extends Omit<
-  MenuCheckboxItemBaseProps,
-  "onClose"
-> {}
+export type DropdownMenuCheckboxItemProps = MenuCheckboxItemWithNavProps;
 
 const DropdownMenuCheckboxItem = React.forwardRef<
   HTMLDivElement,
   DropdownMenuCheckboxItemProps
->(({ onKeyDown, ...props }, ref) => {
-  const itemCtx = useDropdownMenuItemContext();
-  const index = itemCtx.indexRef.current++;
-  const navProps = itemCtx.getItemProps(index);
-
-  const composedRef = composeRefs(ref, navProps.ref);
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    navProps.onKeyDown(e);
-    onKeyDown?.(e);
-  };
-
-  return (
-    <MenuCheckboxItemBase
-      ref={composedRef}
-      tabIndex={navProps.tabIndex}
-      onKeyDown={handleKeyDown}
-      onClose={itemCtx.close}
-      {...props}
-    />
-  );
-});
+>((props, ref) => <MenuCheckboxItemWithNav ref={ref} {...props} />);
 
 DropdownMenuCheckboxItem.displayName = "DropdownMenuCheckboxItem";
-
-// DropdownMenuRadioGroup
 
 export interface DropdownMenuRadioGroupProps extends MenuRadioGroupBaseProps {}
 
@@ -312,42 +217,14 @@ const DropdownMenuRadioGroup = React.forwardRef<
 
 DropdownMenuRadioGroup.displayName = "DropdownMenuRadioGroup";
 
-// DropdownMenuRadioItem
-
-export interface DropdownMenuRadioItemProps extends Omit<
-  MenuRadioItemBaseProps,
-  "onClose"
-> {}
+export type DropdownMenuRadioItemProps = MenuRadioItemWithNavProps;
 
 const DropdownMenuRadioItem = React.forwardRef<
   HTMLDivElement,
   DropdownMenuRadioItemProps
->(({ onKeyDown, ...props }, ref) => {
-  const itemCtx = useDropdownMenuItemContext();
-  const index = itemCtx.indexRef.current++;
-  const navProps = itemCtx.getItemProps(index);
-
-  const composedRef = composeRefs(ref, navProps.ref);
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    navProps.onKeyDown(e);
-    onKeyDown?.(e);
-  };
-
-  return (
-    <MenuRadioItemBase
-      ref={composedRef}
-      tabIndex={navProps.tabIndex}
-      onKeyDown={handleKeyDown}
-      onClose={itemCtx.close}
-      {...props}
-    />
-  );
-});
+>((props, ref) => <MenuRadioItemWithNav ref={ref} {...props} />);
 
 DropdownMenuRadioItem.displayName = "DropdownMenuRadioItem";
-
-// DropdownMenuSeparator
 
 export interface DropdownMenuSeparatorProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -357,8 +234,6 @@ const DropdownMenuSeparator = React.forwardRef<
 >((props, ref) => <MenuSeparatorBase ref={ref} {...props} />);
 
 DropdownMenuSeparator.displayName = "DropdownMenuSeparator";
-
-// DropdownMenuLabel
 
 export interface DropdownMenuLabelProps extends React.HTMLAttributes<HTMLDivElement> {}
 

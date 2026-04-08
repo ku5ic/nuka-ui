@@ -1,6 +1,7 @@
 import * as React from "react";
 import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
+import { Text } from "@nuka/components/Text";
 
 export interface TimelineProps extends React.OlHTMLAttributes<HTMLOListElement> {}
 
@@ -101,11 +102,11 @@ const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
               {timestamp}
             </time>
           )}
-          <p className="text-sm font-medium text-(--nuka-text-base)">{title}</p>
+          <Text as="p" size="sm" weight="medium">{title}</Text>
           {description != null && (
-            <p className="text-sm text-(--nuka-text-muted) mt-(--space-1)">
+            <Text as="p" size="sm" color="muted" className="mt-(--space-1)">
               {description}
-            </p>
+            </Text>
           )}
           {children && <div className="mt-(--space-2)">{children}</div>}
         </div>

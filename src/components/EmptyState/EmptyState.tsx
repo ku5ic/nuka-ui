@@ -1,5 +1,6 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
+import { Text } from "@nuka/components/Text";
 
 export interface EmptyStateProps extends React.HTMLAttributes<HTMLDivElement> {
   illustration?: React.ReactNode;
@@ -43,11 +44,11 @@ const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
           </div>
         )}
         <div className="flex flex-col gap-(--space-2) max-w-sm">
-          <p className="text-base font-semibold text-(--nuka-text-base)">
+          <Text as="p" size="md" weight="semibold">
             {heading}
-          </p>
+          </Text>
           {description != null && (
-            <p className="text-sm text-(--nuka-text-muted)">{description}</p>
+            <Text as="p" size="sm" color="muted">{description}</Text>
           )}
         </div>
         {action && <div>{action}</div>}

@@ -2,6 +2,7 @@ import * as React from "react";
 import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
 import { useFormFieldProps } from "@nuka/utils/use-form-field-props";
+import { Text } from "@nuka/components/Text";
 
 const checkboxWrapperVariants = cva(
   ["inline-flex items-center gap-(--space-2)", "cursor-pointer", "select-none"],
@@ -149,7 +150,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           </svg>
         </span>
         {children && (
-          <span className="text-(--nuka-text-base)">{children}</span>
+          <Text as="span">{children}</Text>
         )}
       </label>
     );

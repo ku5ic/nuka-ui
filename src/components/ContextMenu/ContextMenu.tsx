@@ -16,22 +16,26 @@ import { Slot, composeRefs } from "@nuka/utils/slot";
 import { ContextMenuContext } from "@nuka/components/ContextMenu/ContextMenuContext";
 import type { ContextMenuContextValue } from "@nuka/components/ContextMenu/ContextMenuContext";
 import {
-  MenuItemBase,
-  MenuCheckboxItemBase,
   MenuRadioGroupBase,
-  MenuRadioItemBase,
   MenuSeparatorBase,
   MenuLabelBase,
 } from "@nuka/components/Menu/MenuItemBase";
 import type {
-  MenuItemBaseProps,
-  MenuCheckboxItemBaseProps,
   MenuRadioGroupBaseProps,
-  MenuRadioItemBaseProps,
 } from "@nuka/components/Menu/MenuItemBase";
 import { menuContentVariants } from "@nuka/components/Menu/menuItemVariants";
-
-// ContextMenu (root)
+import {
+  MenuItemContext,
+  useAutoFocusFirstItem,
+  MenuItemWithNav,
+  MenuCheckboxItemWithNav,
+  MenuRadioItemWithNav,
+} from "@nuka/components/Menu/MenuContentBase";
+import type {
+  MenuItemWithNavProps,
+  MenuCheckboxItemWithNavProps,
+  MenuRadioItemWithNavProps,
+} from "@nuka/components/Menu/MenuContentBase";
 
 export interface ContextMenuProps {
   children: React.ReactNode;
@@ -81,8 +85,6 @@ function ContextMenu({ children, onOpenChange }: ContextMenuProps) {
 
 ContextMenu.displayName = "ContextMenu";
 
-// ContextMenuTrigger
-
 export interface ContextMenuTriggerProps extends React.HTMLAttributes<HTMLDivElement> {
   asChild?: boolean;
 }
@@ -128,8 +130,6 @@ const ContextMenuTrigger = React.forwardRef<
 
 ContextMenuTrigger.displayName = "ContextMenuTrigger";
 
-// ContextMenuContent
-
 export interface ContextMenuContentProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const ContextMenuContent = React.forwardRef<
@@ -147,23 +147,7 @@ const ContextMenuContent = React.forwardRef<
 
   const itemIndexRef = React.useRef(0);
 
-  React.useEffect(() => {
-    if (ctx.open) {
-      itemIndexRef.current = 0;
-      const frame = requestAnimationFrame(() => {
-        const items = itemsRef.current;
-        for (let i = 0; i < items.length; i++) {
-          if (items[i]) {
-            focusItem(i);
-            break;
-          }
-        }
-      });
-      return () => cancelAnimationFrame(frame);
-    }
-    itemsRef.current = [];
-    return undefined;
-  }, [ctx.open, focusItem, itemsRef]);
+  useAutoFocusFirstItem(ctx.open, focusItem, itemsRef, itemIndexRef);
 
   if (!ctx.open) return null;
 
@@ -173,7 +157,7 @@ const ContextMenuContent = React.forwardRef<
 
   return (
     <Portal>
-      <ContextMenuItemContext
+      <MenuItemContext
         value={{
           getItemProps,
           indexRef: itemIndexRef,
@@ -189,38 +173,12 @@ const ContextMenuContent = React.forwardRef<
         >
           {children}
         </div>
-      </ContextMenuItemContext>
+      </MenuItemContext>
     </Portal>
   );
 });
 
 ContextMenuContent.displayName = "ContextMenuContent";
-
-// Internal context for item index tracking
-
-interface ContextMenuItemContextValue {
-  getItemProps: (index: number) => {
-    tabIndex: number;
-    ref: (el: HTMLElement | null) => void;
-    onKeyDown: (e: React.KeyboardEvent) => void;
-  };
-  indexRef: React.RefObject<number>;
-  close: () => void;
-}
-
-const ContextMenuItemContext = React.createContext<
-  ContextMenuItemContextValue | undefined
->(undefined);
-
-function useContextMenuItemContext(): ContextMenuItemContextValue {
-  const ctx = React.useContext(ContextMenuItemContext);
-  if (ctx === undefined) {
-    throw new Error(
-      "Menu item must be used within a ContextMenuContent component",
-    );
-  }
-  return ctx;
-}
 
 function useContextMenuContextInternal() {
   const ctx = React.useContext(ContextMenuContext);
@@ -232,74 +190,22 @@ function useContextMenuContextInternal() {
   return ctx;
 }
 
-// ContextMenuItem
-
-export interface ContextMenuItemProps extends Omit<
-  MenuItemBaseProps,
-  "onClose"
-> {}
+export type ContextMenuItemProps = MenuItemWithNavProps;
 
 const ContextMenuItem = React.forwardRef<HTMLDivElement, ContextMenuItemProps>(
-  ({ onKeyDown, ...props }, ref) => {
-    const itemCtx = useContextMenuItemContext();
-    const index = itemCtx.indexRef.current++;
-    const navProps = itemCtx.getItemProps(index);
-    const composedRef = composeRefs(ref, navProps.ref);
-
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-      navProps.onKeyDown(e);
-      onKeyDown?.(e);
-    };
-
-    return (
-      <MenuItemBase
-        ref={composedRef}
-        tabIndex={navProps.tabIndex}
-        onKeyDown={handleKeyDown}
-        onClose={itemCtx.close}
-        {...props}
-      />
-    );
-  },
+  (props, ref) => <MenuItemWithNav ref={ref} {...props} />,
 );
 
 ContextMenuItem.displayName = "ContextMenuItem";
 
-// ContextMenuCheckboxItem
-
-export interface ContextMenuCheckboxItemProps extends Omit<
-  MenuCheckboxItemBaseProps,
-  "onClose"
-> {}
+export type ContextMenuCheckboxItemProps = MenuCheckboxItemWithNavProps;
 
 const ContextMenuCheckboxItem = React.forwardRef<
   HTMLDivElement,
   ContextMenuCheckboxItemProps
->(({ onKeyDown, ...props }, ref) => {
-  const itemCtx = useContextMenuItemContext();
-  const index = itemCtx.indexRef.current++;
-  const navProps = itemCtx.getItemProps(index);
-  const composedRef = composeRefs(ref, navProps.ref);
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    navProps.onKeyDown(e);
-    onKeyDown?.(e);
-  };
-
-  return (
-    <MenuCheckboxItemBase
-      ref={composedRef}
-      tabIndex={navProps.tabIndex}
-      onKeyDown={handleKeyDown}
-      onClose={itemCtx.close}
-      {...props}
-    />
-  );
-});
+>((props, ref) => <MenuCheckboxItemWithNav ref={ref} {...props} />);
 
 ContextMenuCheckboxItem.displayName = "ContextMenuCheckboxItem";
-
-// ContextMenuRadioGroup
 
 export interface ContextMenuRadioGroupProps extends MenuRadioGroupBaseProps {}
 
@@ -310,41 +216,14 @@ const ContextMenuRadioGroup = React.forwardRef<
 
 ContextMenuRadioGroup.displayName = "ContextMenuRadioGroup";
 
-// ContextMenuRadioItem
-
-export interface ContextMenuRadioItemProps extends Omit<
-  MenuRadioItemBaseProps,
-  "onClose"
-> {}
+export type ContextMenuRadioItemProps = MenuRadioItemWithNavProps;
 
 const ContextMenuRadioItem = React.forwardRef<
   HTMLDivElement,
   ContextMenuRadioItemProps
->(({ onKeyDown, ...props }, ref) => {
-  const itemCtx = useContextMenuItemContext();
-  const index = itemCtx.indexRef.current++;
-  const navProps = itemCtx.getItemProps(index);
-  const composedRef = composeRefs(ref, navProps.ref);
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    navProps.onKeyDown(e);
-    onKeyDown?.(e);
-  };
-
-  return (
-    <MenuRadioItemBase
-      ref={composedRef}
-      tabIndex={navProps.tabIndex}
-      onKeyDown={handleKeyDown}
-      onClose={itemCtx.close}
-      {...props}
-    />
-  );
-});
+>((props, ref) => <MenuRadioItemWithNav ref={ref} {...props} />);
 
 ContextMenuRadioItem.displayName = "ContextMenuRadioItem";
-
-// ContextMenuSeparator
 
 export interface ContextMenuSeparatorProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -354,8 +233,6 @@ const ContextMenuSeparator = React.forwardRef<
 >((props, ref) => <MenuSeparatorBase ref={ref} {...props} />);
 
 ContextMenuSeparator.displayName = "ContextMenuSeparator";
-
-// ContextMenuLabel
 
 export interface ContextMenuLabelProps extends React.HTMLAttributes<HTMLDivElement> {}
 

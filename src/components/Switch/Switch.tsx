@@ -2,6 +2,7 @@ import * as React from "react";
 import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
 import { useFormFieldProps } from "@nuka/utils/use-form-field-props";
+import { Text } from "@nuka/components/Text";
 import { useControllableState } from "@nuka/utils/use-controllable-state";
 
 const switchVariants = cva(
@@ -125,7 +126,7 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
           />
         </button>
         {children && (
-          <span className="text-sm text-(--nuka-text-base)">{children}</span>
+          <Text as="span" size="sm">{children}</Text>
         )}
       </div>
     );
