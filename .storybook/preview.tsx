@@ -1,5 +1,21 @@
-import type { Preview } from "@storybook/react-vite";
-import "@nuka/styles/index.css";
+import type { Preview, Decorator } from "@storybook/react-vite";
+import { withThemeByDataAttribute } from "@storybook/addon-themes";
+import { useEffect } from "react";
+// @ts-expect-error css side-effect import resolved by Vite
+import "../src/styles/index.css";
+// @ts-expect-error css side-effect import resolved by Vite
+import "./preview.css";
+
+function WithDocumentTheme(
+  Story: Parameters<Decorator>[0],
+  context: Parameters<Decorator>[1],
+) {
+  const theme = context.globals["theme"] ?? "light";
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
+  return <Story />;
+}
 
 const preview: Preview = {
   parameters: {
@@ -12,16 +28,23 @@ const preview: Preview = {
     a11y: {
       config: {},
     },
+    docs: {
+      canvas: {
+        sourceState: "shown",
+      },
+    },
+    backgrounds: { disable: true },
   },
   decorators: [
-    (Story) => (
-      <div
-        data-theme="light"
-        style={{ fontFamily: "system-ui, sans-serif", fontSize: "16px" }}
-      >
-        <Story />
-      </div>
-    ),
+    WithDocumentTheme,
+    withThemeByDataAttribute({
+      themes: {
+        light: "light",
+        dark: "dark",
+      },
+      defaultTheme: "light",
+      attributeName: "data-theme",
+    }),
   ],
 };
 

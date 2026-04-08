@@ -50,6 +50,7 @@ export default defineConfig(
       "vite.config.ts",
       "vitest.config.ts",
       ".storybook/*.ts",
+      ".storybook/*.tsx",
     ],
     extends: [tseslint.configs.disableTypeChecked],
   },

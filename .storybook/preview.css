@@ -1,0 +1,31 @@
+:root[data-theme="dark"] body,
+:root[data-theme="dark"] .sbdocs-wrapper,
+:root[data-theme="dark"] .sbdocs-content {
+  background-color: var(--nuka-bg-base);
+  color: var(--nuka-text-base);
+}
+
+:root[data-theme="dark"] .docs-story {
+  background-color: var(--nuka-bg-base);
+}
+
+:root[data-theme="dark"] .sbdocs-preview {
+  border-color: var(--nuka-border-base);
+}
+
+:root[data-theme="dark"] .sbdocs h1,
+:root[data-theme="dark"] .sbdocs h2,
+:root[data-theme="dark"] .sbdocs h3 {
+  color: var(--nuka-text-base);
+}
+
+:root[data-theme="light"] body,
+:root[data-theme="light"] .sbdocs-wrapper,
+:root[data-theme="light"] .sbdocs-content {
+  background-color: var(--nuka-bg-base);
+  color: var(--nuka-text-base);
+}
+
+:root[data-theme="light"] .docs-story {
+  background-color: var(--nuka-bg-base);
+}
