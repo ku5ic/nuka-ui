@@ -3,6 +3,7 @@ import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 import reactPlugin from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
+import prettierConfig from "eslint-config-prettier";
 
 export default defineConfig(
   eslint.configs.recommended,
@@ -69,4 +70,5 @@ export default defineConfig(
       "node_modules/**",
     ],
   },
+  prettierConfig, // must be last
 );
