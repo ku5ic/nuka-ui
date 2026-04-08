@@ -85,7 +85,7 @@ This document defines the full component scope for nuka-ui.
 
 ---
 
-## Navigation (planned)
+## Navigation
 
 | Component          | Status | Notes                                                                                 |
 | ------------------ | ------ | ------------------------------------------------------------------------------------- |
