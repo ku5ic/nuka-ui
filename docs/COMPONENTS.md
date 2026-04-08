@@ -95,9 +95,9 @@ This document defines the full component scope for nuka-ui.
 | `Tabs`             | Done   | Tab group with keyboard navigation.                                                   |
 | `Dialog` / `Modal` | Done   | Modal dialog with focus trapping.                                                     |
 | `Sheet`            | Done   | Slide-in panel. Dialog variant.                                                       |
-| `DropdownMenu`     | -      | Dropdown with keyboard navigation.                                                    |
-| `ContextMenu`      | -      | Right-click menu. Shares keyboard nav logic with `DropdownMenu`.                      |
-| `Menubar`          | -      | Horizontal application menu. Composes `DropdownMenu`. Complex keyboard nav.           |
+| `DropdownMenu`     | Done   | Dropdown with keyboard navigation.                                                    |
+| `ContextMenu`      | Done   | Right-click menu. Shares keyboard nav logic with `DropdownMenu`.                      |
+| `Menubar`          | Done   | Horizontal application menu. Composes `DropdownMenu`. Complex keyboard nav.           |
 | `NavigationMenu`   | -      | Site-level navigation with submenus.                                                  |
 | `Breadcrumb`       | -      | Navigation trail.                                                                     |
 | `Pagination`       | -      | Page navigation.                                                                      |
@@ -145,4 +145,4 @@ Not exported from the public package. Shared implementation primitives used by c
 | `cn`                   | `src/utils/cn.ts`                     | All components                                             |
 | `useFocusTrap`         | `src/utils/use-focus-trap.ts`         | Dialog, Sheet                                              |
 | `useScrollLock`        | `src/utils/use-scroll-lock.ts`        | Dialog, Sheet                                              |
-| `navigateItems`        | `src/utils/navigate-items.ts`         | Planned: DropdownMenu, ContextMenu, Menubar                |
+| `useMenuNavigation`    | `src/utils/use-menu-navigation.ts`    | DropdownMenu, ContextMenu, Menubar                         |

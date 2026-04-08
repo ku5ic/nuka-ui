@@ -109,7 +109,57 @@ export type {
 export { DialogContext, useDialogContext } from "./components/Dialog";
 export type { DialogContextValue } from "./components/Dialog";
 
+export {
+  ContextMenu,
+  ContextMenuTrigger,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuCheckboxItem,
+  ContextMenuRadioGroup,
+  ContextMenuRadioItem,
+  ContextMenuSeparator,
+  ContextMenuLabel,
+} from "./components/ContextMenu";
+export type {
+  ContextMenuProps,
+  ContextMenuTriggerProps,
+  ContextMenuContentProps,
+  ContextMenuItemProps,
+  ContextMenuCheckboxItemProps,
+  ContextMenuRadioGroupProps,
+  ContextMenuRadioItemProps,
+  ContextMenuSeparatorProps,
+  ContextMenuLabelProps,
+} from "./components/ContextMenu";
+export { ContextMenuContext, useContextMenuContext } from "./components/ContextMenu";
+export type { ContextMenuContextValue } from "./components/ContextMenu";
+
 export { Divider, dividerVariants } from "./components/Divider";
+
+export {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuCheckboxItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuLabel,
+} from "./components/DropdownMenu";
+export type {
+  DropdownMenuProps,
+  DropdownMenuTriggerProps,
+  DropdownMenuContentProps,
+  DropdownMenuItemProps,
+  DropdownMenuCheckboxItemProps,
+  DropdownMenuRadioGroupProps,
+  DropdownMenuRadioItemProps,
+  DropdownMenuSeparatorProps,
+  DropdownMenuLabelProps,
+} from "./components/DropdownMenu";
+export { DropdownMenuContext, useDropdownMenuContext } from "./components/DropdownMenu";
+export type { DropdownMenuContextValue } from "./components/DropdownMenu";
 
 export { Grid } from "./components/Grid";
 export type { GridProps } from "./components/Grid";
@@ -139,6 +189,39 @@ export type { KbdProps, KbdVariantProps } from "./components/Kbd";
 
 export { Label } from "./components/Label";
 export type { LabelProps } from "./components/Label";
+
+export {
+  Menubar,
+  MenubarMenu,
+  MenubarTrigger,
+  MenubarContent,
+  MenubarItem,
+  MenubarCheckboxItem,
+  MenubarRadioGroup,
+  MenubarRadioItem,
+  MenubarSeparator,
+} from "./components/Menubar";
+export type {
+  MenubarProps,
+  MenubarMenuProps,
+  MenubarTriggerProps,
+  MenubarContentProps,
+  MenubarItemProps,
+  MenubarCheckboxItemProps,
+  MenubarRadioGroupProps,
+  MenubarRadioItemProps,
+  MenubarSeparatorProps,
+} from "./components/Menubar";
+export {
+  MenubarContext,
+  useMenubarContext,
+  MenubarMenuContext,
+  useMenubarMenuContext,
+} from "./components/Menubar";
+export type {
+  MenubarContextValue,
+  MenubarMenuContextValue,
+} from "./components/Menubar";
 
 export {
   Select,

@@ -1040,3 +1040,49 @@ semantically identical to Dialog with different visual presentation.
 - `DialogTitle` runtime check adds a `useEffect` per Dialog instance. Acceptable cost.
 - `tabbable` is a transitive dependency. If `@floating-ui/react` drops it, it can be
   added as a direct dependency with no code changes.
+
+---
+
+## ADR-030: Menu system: shared navigation hook, ARIA menu vs listbox distinction
+
+**Date:** 2026-04-08
+**Status:** Accepted
+
+### Context
+
+DropdownMenu, ContextMenu, and Menubar all need arrow-key navigation with type-ahead,
+but with menu semantics (role="menu", role="menuitem") distinct from listbox semantics
+(role="listbox", role="option") used by Select.
+
+### Decisions
+
+1. Shared useMenuNavigation hook. This is the third navigation pattern after RadioGroup
+   and Select. It handles the ARIA menu keyboard spec: arrow keys, Home/End, type-ahead,
+   Escape, Tab-to-close (not Tab-to-trap).
+
+2. Disabled items remain focusable via arrow keys (per ARIA menu spec). This differs from
+   disabled options in Select which are skipped. The difference reflects the ARIA spec
+   distinction between menu items and listbox options.
+
+3. ContextMenu uses Floating UI virtual element API for cursor-position placement.
+   The virtual element approach is the correct pattern for positioning at arbitrary
+   coordinates without a DOM anchor.
+
+4. ContextMenu trigger has no aria-haspopup or aria-expanded. Context menus are
+   not announced in advance. Adding these attributes would be incorrect per the ARIA spec.
+
+5. Menubar cross-menu coordination via root context. When a menu is open and the user
+   arrows horizontally, the Menubar root closes the current menu and opens the adjacent
+   one atomically. This requires root-level knowledge of which menu is open.
+
+6. Shared CVA variants in src/components/Menu/. All three menu components share
+   menuItemVariants, menuContentVariants, and base components (MenuItemBase, etc.)
+   from a shared internal directory. Nothing in Menu/ is part of the public API.
+
+### Consequences
+
+- useMenuNavigation replaces the navigateItems placeholder in docs/COMPONENTS.md.
+- ContextMenu and DropdownMenu share the same CVA variants for menu items via the
+  shared Menu/ directory.
+- Menubar is the most complex component in this batch due to cross-menu coordination.
+  It was built last within the tier.

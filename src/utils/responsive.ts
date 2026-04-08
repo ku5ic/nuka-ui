@@ -112,7 +112,13 @@ export const alignClasses = buildLookup<Align>({
 });
 
 // Justify
-export type Justify = "start" | "center" | "end" | "between" | "around" | "evenly";
+export type Justify =
+  | "start"
+  | "center"
+  | "end"
+  | "between"
+  | "around"
+  | "evenly";
 
 export const justifyClasses = buildLookup<Justify>({
   start: "justify-start",
