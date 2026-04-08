@@ -17,7 +17,10 @@ import type {
   ModalDescriptionProps,
   ModalCloseProps,
 } from "@nuka/utils/modal-primitive";
-import { SheetContext, useSheetContext } from "./SheetContext";
+import {
+  SheetContext,
+  useSheetContext,
+} from "@nuka/components/Sheet/SheetContext";
 
 export type SheetSide = "top" | "right" | "bottom" | "left";
 

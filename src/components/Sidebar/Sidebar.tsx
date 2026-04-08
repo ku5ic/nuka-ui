@@ -88,6 +88,7 @@ const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
     if (isMobile) {
       return (
         <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+          {/* w-72 (288px): layout-specific width, no matching design token */}
           <SheetContent side="left" className="w-72 p-0">
             <SheetTitle className="sr-only">Navigation</SheetTitle>
             <SheetDescription className="sr-only">
@@ -113,6 +114,7 @@ const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
           "transition-[width] duration-200 ease-in-out",
           "motion-reduce:transition-none",
           "overflow-hidden shrink-0",
+          // w-64 (256px) expanded, w-14 (56px) collapsed: layout-specific widths, no matching design tokens
           expanded ? "w-64" : "w-14",
           className,
         )}
@@ -243,7 +245,7 @@ SidebarMenuItem.displayName = "SidebarMenuItem";
 
 export interface SidebarMenuButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;
-  tooltip: string;
+  tooltip?: string;
 }
 
 const SidebarMenuButton = React.forwardRef<
@@ -251,7 +253,7 @@ const SidebarMenuButton = React.forwardRef<
   SidebarMenuButtonProps
 >(({ asChild = false, tooltip, className, children, ...props }, ref) => {
   const { expanded, isMobile } = useSidebarContext();
-  const showTooltip = !expanded && !isMobile;
+  const showTooltip = !expanded && !isMobile && tooltip !== undefined;
 
   const Comp = asChild ? Slot : "button";
 
@@ -289,6 +291,40 @@ const SidebarMenuButton = React.forwardRef<
 
 SidebarMenuButton.displayName = "SidebarMenuButton";
 
+const CloseIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+    <path
+      d="M18 6L6 18M6 6l12 12"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const MenuIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+    <path
+      d="M4 6h16M4 12h16M4 18h16"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const CollapseIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+    <path d="M11 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M4 12h16" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const ExpandIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+    <path d="M13 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M20 12H4" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
 export interface SidebarTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
 const SidebarTrigger = React.forwardRef<HTMLButtonElement, SidebarTriggerProps>(
@@ -303,6 +339,14 @@ const SidebarTrigger = React.forwardRef<HTMLButtonElement, SidebarTriggerProps>(
         setExpanded(!expanded);
       }
     }
+
+    const IconSvg = isMobile
+      ? mobileOpen
+        ? CloseIcon
+        : MenuIcon
+      : expanded
+        ? CollapseIcon
+        : ExpandIcon;
 
     return (
       <button
@@ -331,63 +375,7 @@ const SidebarTrigger = React.forwardRef<HTMLButtonElement, SidebarTriggerProps>(
         {...props}
       >
         <Icon size="sm">
-          {isMobile ? (
-            mobileOpen ? (
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  d="M18 6L6 18M6 6l12 12"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            ) : (
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  d="M4 6h16M4 12h16M4 18h16"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            )
-          ) : expanded ? (
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                d="M11 19l-7-7 7-7"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path d="M4 12h16" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          ) : (
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                d="M13 5l7 7-7 7"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path d="M20 12H4" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          )}
+          <IconSvg />
         </Icon>
       </button>
     );
@@ -400,7 +388,7 @@ export interface SidebarInsetProps extends React.HTMLAttributes<HTMLDivElement> 
 
 const SidebarInset = React.forwardRef<HTMLDivElement, SidebarInsetProps>(
   ({ className, ...props }, ref) => {
-    const { expanded, isMobile } = useSidebarContext();
+    const { isMobile } = useSidebarContext();
 
     return (
       <div
@@ -411,7 +399,6 @@ const SidebarInset = React.forwardRef<HTMLDivElement, SidebarInsetProps>(
           !isMobile && "motion-reduce:transition-none",
           className,
         )}
-        style={isMobile ? undefined : { marginLeft: expanded ? "0" : "0" }}
         {...props}
       />
     );

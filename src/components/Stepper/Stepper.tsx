@@ -259,7 +259,7 @@ const StepperIndicator = React.forwardRef<
           <span className="sr-only">Error</span>
         </>
       ) : (
-        <span>{step + 1}</span>
+        <Text as="span">{step + 1}</Text>
       )}
     </div>
   );

@@ -66,6 +66,7 @@ describe("NavigationMenu", () => {
 
     it("renders a list inside the nav landmark", () => {
       renderNav();
+      // list has no accessible name; { name } omitted intentionally
       expect(screen.getByRole("list")).toBeInTheDocument();
     });
   });
@@ -111,21 +112,28 @@ describe("NavigationMenu", () => {
   describe("content", () => {
     it("is not rendered when closed", () => {
       renderNav();
-      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+      expect(
+        screen.queryByRole("dialog", { name: "Products" }),
+      ).not.toBeInTheDocument();
     });
 
     it("renders with role=dialog when open", async () => {
       const user = userEvent.setup();
       renderNav();
       await user.click(screen.getByRole("button", { name: /Products/ }));
-      expect(screen.getByRole("dialog")).toBeInTheDocument();
+      expect(
+        screen.getByRole("dialog", { name: "Products" }),
+      ).toBeInTheDocument();
     });
 
     it("has tabIndex=-1 for focus management", async () => {
       const user = userEvent.setup();
       renderNav();
       await user.click(screen.getByRole("button", { name: /Products/ }));
-      expect(screen.getByRole("dialog")).toHaveAttribute("tabindex", "-1");
+      expect(screen.getByRole("dialog", { name: "Products" })).toHaveAttribute(
+        "tabindex",
+        "-1",
+      );
     });
 
     it("renders children inside the panel when open", async () => {
@@ -224,7 +232,9 @@ describe("NavigationMenu", () => {
       trigger.focus();
       await user.keyboard("{ArrowDown}");
       expect(trigger).toHaveAttribute("aria-expanded", "true");
-      expect(screen.getByRole("dialog")).toBeInTheDocument();
+      expect(
+        screen.getByRole("dialog", { name: "Products" }),
+      ).toBeInTheDocument();
     });
 
     it("Escape closes open panel and returns focus to trigger", async () => {
@@ -233,10 +243,14 @@ describe("NavigationMenu", () => {
       const trigger = screen.getByRole("button", { name: /Products/ });
 
       await user.click(trigger);
-      expect(screen.getByRole("dialog")).toBeInTheDocument();
+      expect(
+        screen.getByRole("dialog", { name: "Products" }),
+      ).toBeInTheDocument();
 
       await user.keyboard("{Escape}");
-      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+      expect(
+        screen.queryByRole("dialog", { name: "Products" }),
+      ).not.toBeInTheDocument();
       expect(trigger).toHaveFocus();
     });
 
@@ -351,7 +365,9 @@ describe("NavigationMenu", () => {
       });
 
       await user.click(productsTrigger);
-      expect(screen.getByRole("dialog")).toBeInTheDocument();
+      expect(
+        screen.getByRole("dialog", { name: "Products" }),
+      ).toBeInTheDocument();
 
       await user.keyboard("{Escape}");
       expect(productsTrigger).toHaveFocus();

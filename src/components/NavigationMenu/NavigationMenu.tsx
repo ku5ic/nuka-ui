@@ -14,6 +14,7 @@ import type { Placement } from "@floating-ui/react";
 import { cn } from "@nuka/utils/cn";
 import { Slot, composeRefs } from "@nuka/utils/slot";
 import { Portal } from "@nuka/utils/portal";
+import { useFocusFirstInteractive } from "@nuka/utils/use-focus-first-interactive";
 import { Icon } from "@nuka/components/Icon";
 import {
   NavigationMenuContext,
@@ -355,22 +356,7 @@ const NavigationMenuContent = React.forwardRef<
   const contentRef = React.useRef<HTMLDivElement>(null);
   const composedRef = composeRefs(ref, contentRef, itemCtx.refs.setFloating);
 
-  React.useEffect(() => {
-    if (itemCtx.open) {
-      const frame = requestAnimationFrame(() => {
-        const focusable = contentRef.current?.querySelector<HTMLElement>(
-          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
-        );
-        if (focusable) {
-          focusable.focus();
-        } else {
-          contentRef.current?.focus();
-        }
-      });
-      return () => cancelAnimationFrame(frame);
-    }
-    return undefined;
-  }, [itemCtx.open]);
+  useFocusFirstInteractive(contentRef, itemCtx.open);
 
   if (!itemCtx.open) return null;
 

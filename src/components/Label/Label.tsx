@@ -27,7 +27,10 @@ const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
       >
         {children}
         {resolvedRequired && (
-          <span aria-hidden="true" className="ml-1 text-(--nuka-danger-text)">
+          <span
+            aria-hidden="true"
+            className="ml-(--space-1) text-(--nuka-danger-text)"
+          >
             *
           </span>
         )}

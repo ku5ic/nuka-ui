@@ -1,5 +1,9 @@
 import * as React from "react";
-import { cva, type VariantProps } from "@nuka/utils/variants";
+import {
+  cva,
+  selectionIndicatorIntentVariants,
+  type VariantProps,
+} from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
 import { useFormFieldProps } from "@nuka/utils/use-form-field-props";
 import { Text } from "@nuka/components/Text";
@@ -46,40 +50,7 @@ const checkboxIndicatorVariants = cva(
         lg: "size-6",
       },
     },
-    compoundVariants: [
-      {
-        intent: "default",
-        className: [
-          "border-(--nuka-input-border)",
-          "peer-checked:bg-(--nuka-accent-bg)",
-          "peer-checked:border-transparent",
-        ],
-      },
-      {
-        intent: "danger",
-        className: [
-          "border-(--nuka-danger-border)",
-          "peer-checked:bg-(--nuka-danger-base)",
-          "peer-checked:border-transparent",
-        ],
-      },
-      {
-        intent: "success",
-        className: [
-          "border-(--nuka-success-border)",
-          "peer-checked:bg-(--nuka-success-base)",
-          "peer-checked:border-transparent",
-        ],
-      },
-      {
-        intent: "warning",
-        className: [
-          "border-(--nuka-warning-border)",
-          "peer-checked:bg-(--nuka-warning-base)",
-          "peer-checked:border-transparent",
-        ],
-      },
-    ],
+    compoundVariants: selectionIndicatorIntentVariants,
     defaultVariants: {
       intent: "default",
       size: "md",

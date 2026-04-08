@@ -56,6 +56,18 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
       [],
     );
 
+    // When the group has no selection, ensure the first non-disabled radio
+    // has tabIndex=0 so the group is reachable by Tab. This runs after children
+    // mount and register their refs, so refsMap is populated.
+    React.useEffect(() => {
+      if (focusedValue === undefined && currentValue === undefined) {
+        const firstKey = Array.from(refsMap.current.keys())[0];
+        if (firstKey !== undefined) {
+          setFocusedValue(firstKey);
+        }
+      }
+    }, [focusedValue, currentValue]);
+
     const handleChange = React.useCallback(
       (radioValue: string) => {
         setCurrentValue(radioValue);

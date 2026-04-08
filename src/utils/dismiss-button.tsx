@@ -2,8 +2,10 @@ import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 import { Icon } from "@nuka/components/Icon";
 
-interface DismissButtonProps
-  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "onClick"> {
+interface DismissButtonProps extends Omit<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  "onClick"
+> {
   onClick: () => void;
   label?: string;
 }

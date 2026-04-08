@@ -3,6 +3,7 @@ import { cva } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
 import { DismissButton } from "@nuka/utils/dismiss-button";
 import { Button } from "@nuka/components/Button";
+import { Text } from "@nuka/components/Text";
 import type { ToastItem } from "@nuka/components/Toast/toastStore";
 
 const toastVariants = cva(
@@ -61,7 +62,9 @@ const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
         data-state={toastItem.dismissing ? "closed" : "open"}
         className={cn(toastVariants({ intent: toastItem.intent }))}
       >
-        <div className="flex-1 text-sm font-medium">{toastItem.message}</div>
+        <Text as="div" size="sm" weight="medium" className="flex-1">
+          {toastItem.message}
+        </Text>
         {toastItem.action != null && (
           <Button
             variant="link"

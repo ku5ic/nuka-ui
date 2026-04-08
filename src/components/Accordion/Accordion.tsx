@@ -13,8 +13,8 @@ import {
   AccordionItemContext,
   useAccordionContext,
   useAccordionItemContext,
-} from "./AccordionContext";
-import type { HeadingLevel } from "./AccordionContext";
+} from "@nuka/components/Accordion/AccordionContext";
+import type { HeadingLevel } from "@nuka/components/Accordion/AccordionContext";
 
 interface AccordionSingleProps extends React.HTMLAttributes<HTMLDivElement> {
   type: "single";

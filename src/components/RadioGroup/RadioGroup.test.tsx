@@ -104,6 +104,22 @@ describe("RadioGroup", () => {
   });
 
   describe("keyboard navigation", () => {
+    it("first radio has tabIndex=0 when group has no selection", () => {
+      renderGroup();
+      expect(screen.getByRole("radio", { name: "Red" })).toHaveAttribute(
+        "tabindex",
+        "0",
+      );
+      expect(screen.getByRole("radio", { name: "Green" })).toHaveAttribute(
+        "tabindex",
+        "-1",
+      );
+      expect(screen.getByRole("radio", { name: "Blue" })).toHaveAttribute(
+        "tabindex",
+        "-1",
+      );
+    });
+
     it("ArrowDown moves selection to next radio", async () => {
       const user = userEvent.setup();
       renderGroup({ defaultValue: "red" });

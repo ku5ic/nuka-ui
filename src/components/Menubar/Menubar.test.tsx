@@ -56,16 +56,19 @@ describe("Menubar", () => {
   describe("rendering", () => {
     it("renders with role=menubar", () => {
       render(<TestMenubar />);
+      // menubar has no accessible name; { name } omitted intentionally
       expect(screen.getByRole("menubar")).toBeInTheDocument();
     });
 
     it("renders triggers with role=menuitem", () => {
       render(<TestMenubar />);
+      // getAllByRole: multiple menuitems with different names
       expect(screen.getAllByRole("menuitem")).toHaveLength(3);
     });
 
     it("does not render any menu content initially", () => {
       render(<TestMenubar />);
+      // menu has no accessible name; { name } omitted intentionally
       expect(screen.queryByRole("menu")).not.toBeInTheDocument();
     });
   });
@@ -97,6 +100,7 @@ describe("Menubar", () => {
       render(<TestMenubar />);
 
       await user.click(screen.getByRole("menuitem", { name: "File" }));
+      // menu has no accessible name; { name } omitted intentionally
       expect(screen.getByRole("menu")).toBeInTheDocument();
       expect(screen.getByRole("menuitem", { name: "New" })).toBeInTheDocument();
     });
@@ -107,9 +111,11 @@ describe("Menubar", () => {
 
       const trigger = screen.getByRole("menuitem", { name: "File" });
       await user.click(trigger);
+      // menu has no accessible name; { name } omitted intentionally
       expect(screen.getByRole("menu")).toBeInTheDocument();
 
       await user.click(trigger);
+      // menu has no accessible name; { name } omitted intentionally
       expect(screen.queryByRole("menu")).not.toBeInTheDocument();
     });
   });
@@ -123,6 +129,7 @@ describe("Menubar", () => {
       fileTrigger.focus();
       await user.keyboard("{ArrowDown}");
 
+      // menu has no accessible name; { name } omitted intentionally
       expect(screen.getByRole("menu")).toBeInTheDocument();
     });
 
@@ -200,6 +207,7 @@ describe("Menubar", () => {
       render(<TestMenubar />);
 
       await user.click(screen.getByRole("menuitem", { name: "File" }));
+      // menu has no accessible name; { name } omitted intentionally
       expect(screen.getByRole("menu")).toBeInTheDocument();
 
       await vi.waitFor(() => {
@@ -207,6 +215,7 @@ describe("Menubar", () => {
       });
 
       await user.keyboard("{Escape}");
+      // menu has no accessible name; { name } omitted intentionally
       expect(screen.queryByRole("menu")).not.toBeInTheDocument();
       expect(screen.getByRole("menuitem", { name: "File" })).toHaveFocus();
     });
@@ -234,6 +243,7 @@ describe("Menubar", () => {
 
       await user.keyboard("{Enter}");
       expect(onSelect).toHaveBeenCalledTimes(1);
+      // menu has no accessible name; { name } omitted intentionally
       expect(screen.queryByRole("menu")).not.toBeInTheDocument();
     });
   });
@@ -255,6 +265,7 @@ describe("Menubar", () => {
       );
 
       await user.click(screen.getByRole("menuitem", { name: "File" }));
+      // separator has no accessible name; { name } omitted intentionally
       expect(screen.getByRole("separator")).toBeInTheDocument();
     });
 

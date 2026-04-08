@@ -60,6 +60,27 @@ export function useAutoFocusFirstItem(
   }, [open, focusItem, itemsRef, itemIndexRef]);
 }
 
+function createMenuItemKeyHandler(
+  itemCtx: MenuItemContextValue,
+  navProps: ReturnType<MenuItemContextValue["getItemProps"]>,
+  onKeyDown: ((e: React.KeyboardEvent<HTMLDivElement>) => void) | undefined,
+) {
+  return (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "ArrowLeft" && itemCtx.onArrowLeft) {
+      e.preventDefault();
+      itemCtx.onArrowLeft();
+      return;
+    }
+    if (e.key === "ArrowRight" && itemCtx.onArrowRight) {
+      e.preventDefault();
+      itemCtx.onArrowRight();
+      return;
+    }
+    navProps.onKeyDown(e);
+    onKeyDown?.(e);
+  };
+}
+
 export interface MenuItemWithNavProps extends Omit<
   MenuItemBaseProps,
   "onClose"
@@ -72,26 +93,11 @@ const MenuItemWithNav = React.forwardRef<HTMLDivElement, MenuItemWithNavProps>(
     const navProps = itemCtx.getItemProps(index);
     const composedRef = composeRefs(ref, navProps.ref);
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-      if (e.key === "ArrowLeft" && itemCtx.onArrowLeft) {
-        e.preventDefault();
-        itemCtx.onArrowLeft();
-        return;
-      }
-      if (e.key === "ArrowRight" && itemCtx.onArrowRight) {
-        e.preventDefault();
-        itemCtx.onArrowRight();
-        return;
-      }
-      navProps.onKeyDown(e);
-      onKeyDown?.(e);
-    };
-
     return (
       <MenuItemBase
         ref={composedRef}
         tabIndex={navProps.tabIndex}
-        onKeyDown={handleKeyDown}
+        onKeyDown={createMenuItemKeyHandler(itemCtx, navProps, onKeyDown)}
         onClose={itemCtx.close}
         {...props}
       />
@@ -115,26 +121,11 @@ const MenuCheckboxItemWithNav = React.forwardRef<
   const navProps = itemCtx.getItemProps(index);
   const composedRef = composeRefs(ref, navProps.ref);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === "ArrowLeft" && itemCtx.onArrowLeft) {
-      e.preventDefault();
-      itemCtx.onArrowLeft();
-      return;
-    }
-    if (e.key === "ArrowRight" && itemCtx.onArrowRight) {
-      e.preventDefault();
-      itemCtx.onArrowRight();
-      return;
-    }
-    navProps.onKeyDown(e);
-    onKeyDown?.(e);
-  };
-
   return (
     <MenuCheckboxItemBase
       ref={composedRef}
       tabIndex={navProps.tabIndex}
-      onKeyDown={handleKeyDown}
+      onKeyDown={createMenuItemKeyHandler(itemCtx, navProps, onKeyDown)}
       onClose={itemCtx.close}
       {...props}
     />
@@ -157,26 +148,11 @@ const MenuRadioItemWithNav = React.forwardRef<
   const navProps = itemCtx.getItemProps(index);
   const composedRef = composeRefs(ref, navProps.ref);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === "ArrowLeft" && itemCtx.onArrowLeft) {
-      e.preventDefault();
-      itemCtx.onArrowLeft();
-      return;
-    }
-    if (e.key === "ArrowRight" && itemCtx.onArrowRight) {
-      e.preventDefault();
-      itemCtx.onArrowRight();
-      return;
-    }
-    navProps.onKeyDown(e);
-    onKeyDown?.(e);
-  };
-
   return (
     <MenuRadioItemBase
       ref={composedRef}
       tabIndex={navProps.tabIndex}
-      onKeyDown={handleKeyDown}
+      onKeyDown={createMenuItemKeyHandler(itemCtx, navProps, onKeyDown)}
       onClose={itemCtx.close}
       {...props}
     />

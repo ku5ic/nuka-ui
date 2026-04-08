@@ -26,21 +26,25 @@ describe("Tabs", () => {
   describe("rendering", () => {
     it("renders tablist with correct role", () => {
       renderTabs();
+      // tablist has no accessible name; { name } omitted intentionally
       expect(screen.getByRole("tablist")).toBeInTheDocument();
     });
 
     it("renders tabs with correct role", () => {
       renderTabs();
+      // getAllByRole: multiple tabs with different names
       expect(screen.getAllByRole("tab")).toHaveLength(3);
     });
 
     it("renders tabpanels with correct role", () => {
       renderTabs();
+      // getAllByRole: only one visible panel at a time
       expect(screen.getAllByRole("tabpanel")).toHaveLength(1);
     });
 
     it("sets aria-orientation on tablist", () => {
       renderTabs();
+      // tablist has no accessible name; { name } omitted intentionally
       expect(screen.getByRole("tablist")).toHaveAttribute(
         "aria-orientation",
         "horizontal",
@@ -49,6 +53,7 @@ describe("Tabs", () => {
 
     it("sets aria-orientation to vertical when specified", () => {
       renderTabs({ orientation: "vertical" });
+      // tablist has no accessible name; { name } omitted intentionally
       expect(screen.getByRole("tablist")).toHaveAttribute(
         "aria-orientation",
         "vertical",
@@ -70,7 +75,7 @@ describe("Tabs", () => {
     it("sets aria-controls on triggers and aria-labelledby on panels", () => {
       renderTabs();
       const trigger = screen.getByRole("tab", { name: "Tab 1" });
-      const panel = screen.getByRole("tabpanel");
+      const panel = screen.getByRole("tabpanel", { name: "Tab 1" });
 
       const panelId = trigger.getAttribute("aria-controls");
       expect(panelId).toBeTruthy();
@@ -84,7 +89,7 @@ describe("Tabs", () => {
   describe("hidden panels", () => {
     it("active panel does not have hidden attribute", () => {
       renderTabs();
-      const panel = screen.getByRole("tabpanel");
+      const panel = screen.getByRole("tabpanel", { name: "Tab 1" });
       expect(panel).not.toHaveAttribute("hidden");
       expect(panel).toHaveTextContent("Panel 1");
     });
@@ -99,7 +104,7 @@ describe("Tabs", () => {
 
     it("panels have tabIndex 0", () => {
       renderTabs();
-      const panel = screen.getByRole("tabpanel");
+      const panel = screen.getByRole("tabpanel", { name: "Tab 1" });
       expect(panel).toHaveAttribute("tabindex", "0");
     });
   });
@@ -111,7 +116,9 @@ describe("Tabs", () => {
         "aria-selected",
         "true",
       );
-      expect(screen.getByRole("tabpanel")).toHaveTextContent("Panel 2");
+      expect(screen.getByRole("tabpanel", { name: "Tab 2" })).toHaveTextContent(
+        "Panel 2",
+      );
     });
 
     it("changes tab on click", async () => {
@@ -123,7 +130,9 @@ describe("Tabs", () => {
         "aria-selected",
         "true",
       );
-      expect(screen.getByRole("tabpanel")).toHaveTextContent("Panel 2");
+      expect(screen.getByRole("tabpanel", { name: "Tab 2" })).toHaveTextContent(
+        "Panel 2",
+      );
     });
   });
 
@@ -158,7 +167,9 @@ describe("Tabs", () => {
         "aria-selected",
         "true",
       );
-      expect(screen.getByRole("tabpanel")).toHaveTextContent("Panel 2");
+      expect(screen.getByRole("tabpanel", { name: "Tab 2" })).toHaveTextContent(
+        "Panel 2",
+      );
     });
   });
 
@@ -355,11 +366,13 @@ describe("Tabs", () => {
   describe("variants", () => {
     it("applies underline variant classes", () => {
       renderTabs({}, { variant: "underline" });
+      // tablist has no accessible name; { name } omitted intentionally
       expect(screen.getByRole("tablist").className).toContain("border-b");
     });
 
     it("applies pill variant classes", () => {
       renderTabs({}, { variant: "pill" });
+      // tablist has no accessible name; { name } omitted intentionally
       const tablist = screen.getByRole("tablist");
       expect(tablist.className).toContain("bg-(--nuka-bg-muted)");
       expect(tablist.className).toContain("rounded-(--radius-lg)");
@@ -367,6 +380,7 @@ describe("Tabs", () => {
 
     it("applies boxed variant classes", () => {
       renderTabs({}, { variant: "boxed" });
+      // tablist has no accessible name; { name } omitted intentionally
       const tablist = screen.getByRole("tablist");
       expect(tablist.className).toContain("border");
       expect(tablist.className).toContain("rounded-(--radius-lg)");
@@ -381,6 +395,7 @@ describe("Tabs", () => {
 
     it("allows className on TabsList", () => {
       renderTabs({}, { className: "custom-list" });
+      // tablist has no accessible name; { name } omitted intentionally
       expect(screen.getByRole("tablist")).toHaveClass("custom-list");
     });
 
@@ -411,7 +426,9 @@ describe("Tabs", () => {
           </TabsContent>
         </Tabs>,
       );
-      expect(screen.getByRole("tabpanel")).toHaveClass("custom-panel");
+      expect(screen.getByRole("tabpanel", { name: "Tab 1" })).toHaveClass(
+        "custom-panel",
+      );
     });
   });
 

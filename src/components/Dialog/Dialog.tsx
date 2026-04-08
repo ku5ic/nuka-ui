@@ -17,7 +17,10 @@ import type {
   ModalDescriptionProps,
   ModalCloseProps,
 } from "@nuka/utils/modal-primitive";
-import { DialogContext, useDialogContext } from "./DialogContext";
+import {
+  DialogContext,
+  useDialogContext,
+} from "@nuka/components/Dialog/DialogContext";
 
 const {
   Root: Dialog,

@@ -5,7 +5,7 @@ import { cn } from "@nuka/utils/cn";
 
 const buttonVariants = cva(
   [
-    "inline-flex items-center justify-center gap-2",
+    "inline-flex items-center justify-center gap-(--space-2)",
     "font-medium leading-none whitespace-nowrap",
     "rounded-(--radius-md)",
     "border",

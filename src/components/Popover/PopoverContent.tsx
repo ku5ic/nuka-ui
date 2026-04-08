@@ -2,6 +2,7 @@ import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 import { Portal } from "@nuka/utils/portal";
 import { composeRefs } from "@nuka/utils/slot";
+import { useFocusFirstInteractive } from "@nuka/utils/use-focus-first-interactive";
 import { usePopoverContext } from "@nuka/components/Popover/PopoverContext";
 
 export interface PopoverContentProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -37,22 +38,7 @@ const PopoverContent = React.forwardRef<HTMLDivElement, PopoverContentProps>(
       }
     }, [ctx.open, ariaLabel, ariaLabelledBy]);
 
-    React.useEffect(() => {
-      if (ctx.open) {
-        const frame = requestAnimationFrame(() => {
-          const focusable = contentRef.current?.querySelector<HTMLElement>(
-            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
-          );
-          if (focusable) {
-            focusable.focus();
-          } else {
-            contentRef.current?.focus();
-          }
-        });
-        return () => cancelAnimationFrame(frame);
-      }
-      return undefined;
-    }, [ctx.open]);
+    useFocusFirstInteractive(contentRef, ctx.open);
 
     if (!ctx.open) return null;
 

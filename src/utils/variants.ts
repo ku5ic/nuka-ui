@@ -109,18 +109,12 @@ function intentCompoundVariants(options?: {
     {
       variant: "outline",
       intent: "default",
-      className: [
-        "border-(--nuka-accent-border)",
-        "text-(--nuka-accent-text)",
-      ],
+      className: ["border-(--nuka-accent-border)", "text-(--nuka-accent-text)"],
     },
     {
       variant: "outline",
       intent: "danger",
-      className: [
-        "border-(--nuka-danger-border)",
-        "text-(--nuka-danger-text)",
-      ],
+      className: ["border-(--nuka-danger-border)", "text-(--nuka-danger-text)"],
     },
     {
       variant: "outline",
@@ -163,5 +157,40 @@ function intentCompoundVariants(options?: {
   ];
 }
 
-export { intentCompoundVariants };
+const selectionIndicatorIntentVariants = [
+  {
+    intent: "default" as const,
+    className: [
+      "border-(--nuka-input-border)",
+      "peer-checked:bg-(--nuka-accent-bg)",
+      "peer-checked:border-transparent",
+    ],
+  },
+  {
+    intent: "danger" as const,
+    className: [
+      "border-(--nuka-danger-border)",
+      "peer-checked:bg-(--nuka-danger-base)",
+      "peer-checked:border-transparent",
+    ],
+  },
+  {
+    intent: "success" as const,
+    className: [
+      "border-(--nuka-success-border)",
+      "peer-checked:bg-(--nuka-success-base)",
+      "peer-checked:border-transparent",
+    ],
+  },
+  {
+    intent: "warning" as const,
+    className: [
+      "border-(--nuka-warning-border)",
+      "peer-checked:bg-(--nuka-warning-base)",
+      "peer-checked:border-transparent",
+    ],
+  },
+];
+
+export { intentCompoundVariants, selectionIndicatorIntentVariants };
 export type { IntentCompoundVariant };
