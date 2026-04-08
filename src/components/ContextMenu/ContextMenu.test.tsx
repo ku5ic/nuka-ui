@@ -126,6 +126,37 @@ describe("ContextMenu", () => {
   });
 
   describe("keyboard navigation", () => {
+    it("trigger is focusable via Tab", async () => {
+      const user = userEvent.setup();
+      render(
+        <ContextMenu>
+          <ContextMenuTrigger>Right-click here</ContextMenuTrigger>
+          <ContextMenuContent>
+            <ContextMenuItem>Copy</ContextMenuItem>
+          </ContextMenuContent>
+        </ContextMenu>,
+      );
+
+      await user.tab();
+      expect(screen.getByText("Right-click here")).toHaveFocus();
+    });
+
+    it("opens on Shift+F10", async () => {
+      const user = userEvent.setup();
+      render(
+        <ContextMenu>
+          <ContextMenuTrigger>Right-click here</ContextMenuTrigger>
+          <ContextMenuContent>
+            <ContextMenuItem>Copy</ContextMenuItem>
+          </ContextMenuContent>
+        </ContextMenu>,
+      );
+
+      await user.tab();
+      await user.keyboard("{Shift>}{F10}{/Shift}");
+      expect(screen.getByRole("menu")).toBeInTheDocument();
+    });
+
     it("focuses first item on open", async () => {
       render(
         <ContextMenu>

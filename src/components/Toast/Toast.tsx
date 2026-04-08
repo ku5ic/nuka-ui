@@ -68,7 +68,7 @@ const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
               toastItem.action?.onClick();
               onDismiss(toastItem.id);
             }}
-            className="shrink-0 text-sm font-medium underline underline-offset-2 hover:no-underline"
+            className="shrink-0 text-sm font-medium underline underline-offset-2 hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--nuka-border-focus) rounded-(--radius-sm)"
           >
             {toastItem.action.label}
           </button>

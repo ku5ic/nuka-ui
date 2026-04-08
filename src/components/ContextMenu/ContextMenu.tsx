@@ -90,8 +90,10 @@ export interface ContextMenuTriggerProps extends React.HTMLAttributes<HTMLDivEle
 const ContextMenuTrigger = React.forwardRef<
   HTMLDivElement,
   ContextMenuTriggerProps
->(({ asChild = false, children, onContextMenu, ...props }, ref) => {
+>(({ asChild = false, children, onContextMenu, onKeyDown, ...props }, ref) => {
   const ctx = useContextMenuContextInternal();
+  const triggerRef = React.useRef<HTMLDivElement>(null);
+  const composedTriggerRef = composeRefs(ref, triggerRef);
   const Comp = asChild ? Slot : "div";
 
   const handleContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -115,10 +117,42 @@ const ContextMenuTrigger = React.forwardRef<
     ctx.onOpenChange(true);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    onKeyDown?.(e);
+    if (e.defaultPrevented) return;
+
+    const isContextMenuKey =
+      e.key === "ContextMenu" ||
+      (e.shiftKey && e.key === "F10");
+
+    if (isContextMenuKey) {
+      e.preventDefault();
+      const rect = triggerRef.current?.getBoundingClientRect();
+      if (rect) {
+        ctx.refs.setReference({
+          getBoundingClientRect: () => ({
+            x: rect.x,
+            y: rect.y + rect.height,
+            width: 0,
+            height: 0,
+            top: rect.y + rect.height,
+            left: rect.x,
+            bottom: rect.y + rect.height,
+            right: rect.x,
+            toJSON: () => ({}),
+          }),
+        });
+      }
+      ctx.onOpenChange(true);
+    }
+  };
+
   return (
     <Comp
-      ref={ref}
+      ref={composedTriggerRef}
+      tabIndex={0}
       onContextMenu={handleContextMenu}
+      onKeyDown={handleKeyDown}
       {...(props as React.HTMLAttributes<HTMLDivElement>)}
     >
       {children}

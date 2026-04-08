@@ -108,7 +108,6 @@ const NavigationMenuList = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <ul
     ref={ref}
-    role="menubar"
     className={cn("flex items-center gap-(--space-1)", "list-none", className)}
     {...props}
   />
@@ -297,7 +296,6 @@ const NavigationMenuTrigger = React.forwardRef<
     <button
       ref={composedRef}
       type="button"
-      role="menuitem"
       aria-haspopup="dialog"
       aria-expanded={itemCtx.open}
       className={cn(
@@ -461,7 +459,6 @@ const NavigationMenuLink = React.forwardRef<
     const menubarProps = insideContent
       ? {}
       : {
-          role: "menuitem" as const,
           tabIndex: itemCtx.value === rootCtx.rovingValue ? 0 : -1,
         };
 

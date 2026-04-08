@@ -71,7 +71,7 @@ const sliderThumbVariants = cva(
         warning: "bg-(--nuka-warning-base)",
       },
       size: {
-        sm: "w-3.5 h-3.5",
+        sm: "w-6 h-6",
         md: "w-[18px] h-[18px]",
         lg: "w-[22px] h-[22px]",
       },
@@ -100,7 +100,7 @@ const sliderValueVariants = cva(
 );
 
 const THUMB_SIZES = {
-  sm: 14,
+  sm: 24,
   md: 18,
   lg: 22,
 } as const;

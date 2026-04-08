@@ -19,7 +19,7 @@ const switchVariants = cva(
   {
     variants: {
       size: {
-        sm: "h-4 w-7",
+        sm: "h-6 w-10",
         md: "h-5 w-9",
         lg: "h-6 w-11",
       },
@@ -40,7 +40,7 @@ const switchThumbVariants = cva(
   {
     variants: {
       size: {
-        sm: "size-3",
+        sm: "size-4",
         md: "size-4",
         lg: "size-5",
       },
@@ -97,7 +97,7 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
     };
 
     const translateClass = {
-      sm: isChecked ? "translate-x-3" : "translate-x-0",
+      sm: isChecked ? "translate-x-4" : "translate-x-0",
       md: isChecked ? "translate-x-4" : "translate-x-0",
       lg: isChecked ? "translate-x-5" : "translate-x-0",
     }[size ?? "md"];

@@ -177,19 +177,21 @@ const PaginationEllipsis = React.forwardRef<
   HTMLSpanElement,
   PaginationEllipsisProps
 >(({ className, ...props }, ref) => (
-  <span
-    ref={ref}
-    aria-hidden="true"
-    className={cn(
-      "flex items-center justify-center size-8",
-      "text-(--nuka-text-muted)",
-      className,
-    )}
-    {...props}
-  >
-    ...
+  <>
+    <span
+      ref={ref}
+      aria-hidden="true"
+      className={cn(
+        "flex items-center justify-center size-8",
+        "text-(--nuka-text-muted)",
+        className,
+      )}
+      {...props}
+    >
+      ...
+    </span>
     <span className="sr-only">More pages</span>
-  </span>
+  </>
 ));
 
 PaginationEllipsis.displayName = "PaginationEllipsis";

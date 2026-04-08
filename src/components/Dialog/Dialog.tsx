@@ -105,7 +105,7 @@ const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps>(
             "bg-(--nuka-bg-base) shadow-md",
             "p-(--space-6)",
             "data-[state=open]:animate-[nuka-dialog-enter_150ms_ease-out]",
-            "focus:outline-none",
+            "focus-visible:outline-none",
             className,
           )}
           {...props}

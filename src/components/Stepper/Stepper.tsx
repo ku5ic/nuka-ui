@@ -151,29 +151,6 @@ const StepperItem = React.forwardRef<HTMLLIElement, StepperItemProps>(
       [step, state, disabled],
     );
 
-    function handleClick() {
-      if (isInteractive) {
-        onStepClick(step);
-      }
-    }
-
-    function handleKeyDown(e: React.KeyboardEvent) {
-      if (isInteractive && (e.key === "Enter" || e.key === " ")) {
-        e.preventDefault();
-        onStepClick(step);
-      }
-    }
-
-    const interactiveProps = isInteractive
-      ? {
-          role: "button" as const,
-          tabIndex: 0,
-          onClick: handleClick,
-          onKeyDown: handleKeyDown,
-          "aria-label": `Go to step ${String(step + 1)}`,
-        }
-      : {};
-
     return (
       <StepperItemContext value={itemContextValue}>
         <li
@@ -183,13 +160,30 @@ const StepperItem = React.forwardRef<HTMLLIElement, StepperItemProps>(
             orientation === "horizontal"
               ? "flex flex-col items-center shrink-0"
               : "group relative flex gap-(--space-3) pb-(--space-8) last:pb-0",
-            isInteractive && "cursor-pointer",
             className,
           )}
-          {...interactiveProps}
           {...props}
         >
-          {children}
+          {isInteractive ? (
+            <button
+              type="button"
+              onClick={() => onStepClick(step)}
+              aria-label={`Go to step ${String(step + 1)}`}
+              className={cn(
+                "flex cursor-pointer bg-transparent border-none p-0",
+                orientation === "horizontal"
+                  ? "flex-col items-center"
+                  : "flex-row gap-(--space-3) items-start",
+                "rounded-(--radius-md)",
+                "focus-visible:outline-2 focus-visible:outline-offset-2",
+                "focus-visible:outline-(--nuka-border-focus)",
+              )}
+            >
+              {children}
+            </button>
+          ) : (
+            children
+          )}
         </li>
       </StepperItemContext>
     );
@@ -229,35 +223,41 @@ const StepperIndicator = React.forwardRef<
       {...props}
     >
       {state === "completed" ? (
-        <Icon size="sm">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={3}
-          >
-            <path
-              d="M5 13l4 4L19 7"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </Icon>
+        <>
+          <Icon size="sm">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={3}
+            >
+              <path
+                d="M5 13l4 4L19 7"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </Icon>
+          <span className="sr-only">Completed</span>
+        </>
       ) : state === "error" ? (
-        <Icon size="sm">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={3}
-          >
-            <path
-              d="M12 8v4m0 4h.01"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </Icon>
+        <>
+          <Icon size="sm">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={3}
+            >
+              <path
+                d="M12 8v4m0 4h.01"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </Icon>
+          <span className="sr-only">Error</span>
+        </>
       ) : (
         <span>{step + 1}</span>
       )}

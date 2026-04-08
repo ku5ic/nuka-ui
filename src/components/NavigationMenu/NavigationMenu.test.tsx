@@ -64,9 +64,9 @@ describe("NavigationMenu", () => {
       ).toBeInTheDocument();
     });
 
-    it("renders list with role=menubar", () => {
+    it("renders a list inside the nav landmark", () => {
       renderNav();
-      expect(screen.getByRole("menubar")).toBeInTheDocument();
+      expect(screen.getByRole("list")).toBeInTheDocument();
     });
   });
 
@@ -74,30 +74,30 @@ describe("NavigationMenu", () => {
     it("has aria-haspopup=dialog", () => {
       renderNav();
       expect(
-        screen.getByRole("menuitem", { name: /Products/ }),
+        screen.getByRole("button", { name: /Products/ }),
       ).toHaveAttribute("aria-haspopup", "dialog");
     });
 
     it("has aria-expanded=false when closed", () => {
       renderNav();
       expect(
-        screen.getByRole("menuitem", { name: /Products/ }),
+        screen.getByRole("button", { name: /Products/ }),
       ).toHaveAttribute("aria-expanded", "false");
     });
 
     it("opens content on click and sets aria-expanded=true", async () => {
       const user = userEvent.setup();
       renderNav();
-      await user.click(screen.getByRole("menuitem", { name: /Products/ }));
+      await user.click(screen.getByRole("button", { name: /Products/ }));
       expect(
-        screen.getByRole("menuitem", { name: /Products/ }),
+        screen.getByRole("button", { name: /Products/ }),
       ).toHaveAttribute("aria-expanded", "true");
     });
 
     it("closes content on second click", async () => {
       const user = userEvent.setup();
       renderNav();
-      const trigger = screen.getByRole("menuitem", { name: /Products/ });
+      const trigger = screen.getByRole("button", { name: /Products/ });
       await user.click(trigger);
       expect(trigger).toHaveAttribute("aria-expanded", "true");
       await user.click(trigger);
@@ -114,21 +114,21 @@ describe("NavigationMenu", () => {
     it("renders with role=dialog when open", async () => {
       const user = userEvent.setup();
       renderNav();
-      await user.click(screen.getByRole("menuitem", { name: /Products/ }));
+      await user.click(screen.getByRole("button", { name: /Products/ }));
       expect(screen.getByRole("dialog")).toBeInTheDocument();
     });
 
     it("has tabIndex=-1 for focus management", async () => {
       const user = userEvent.setup();
       renderNav();
-      await user.click(screen.getByRole("menuitem", { name: /Products/ }));
+      await user.click(screen.getByRole("button", { name: /Products/ }));
       expect(screen.getByRole("dialog")).toHaveAttribute("tabindex", "-1");
     });
 
     it("renders children inside the panel when open", async () => {
       const user = userEvent.setup();
       renderNav();
-      await user.click(screen.getByRole("menuitem", { name: /Products/ }));
+      await user.click(screen.getByRole("button", { name: /Products/ }));
       expect(
         screen.getByRole("link", { name: "Product A" }),
       ).toBeInTheDocument();
@@ -142,10 +142,10 @@ describe("NavigationMenu", () => {
     it("ArrowRight moves focus to next trigger", async () => {
       const user = userEvent.setup();
       renderNav();
-      const productsTrigger = screen.getByRole("menuitem", {
+      const productsTrigger = screen.getByRole("button", {
         name: /Products/,
       });
-      const resourcesTrigger = screen.getByRole("menuitem", {
+      const resourcesTrigger = screen.getByRole("button", {
         name: /Resources/,
       });
 
@@ -157,10 +157,10 @@ describe("NavigationMenu", () => {
     it("ArrowLeft moves focus to previous trigger", async () => {
       const user = userEvent.setup();
       renderNav();
-      const productsTrigger = screen.getByRole("menuitem", {
+      const productsTrigger = screen.getByRole("button", {
         name: /Products/,
       });
-      const resourcesTrigger = screen.getByRole("menuitem", {
+      const resourcesTrigger = screen.getByRole("button", {
         name: /Resources/,
       });
 
@@ -169,16 +169,16 @@ describe("NavigationMenu", () => {
       expect(productsTrigger).toHaveFocus();
     });
 
-    it("ArrowRight navigates through all menubar items including plain links", async () => {
+    it("ArrowRight navigates through all navigation items including plain links", async () => {
       const user = userEvent.setup();
       renderNav();
-      const productsTrigger = screen.getByRole("menuitem", {
+      const productsTrigger = screen.getByRole("button", {
         name: /Products/,
       });
-      const resourcesTrigger = screen.getByRole("menuitem", {
+      const resourcesTrigger = screen.getByRole("button", {
         name: /Resources/,
       });
-      const aboutLink = screen.getByRole("menuitem", { name: "About" });
+      const aboutLink = screen.getByRole("link", { name: "About" });
 
       productsTrigger.focus();
       await user.keyboard("{ArrowRight}");
@@ -190,10 +190,10 @@ describe("NavigationMenu", () => {
     it("ArrowRight wraps from last item to first", async () => {
       const user = userEvent.setup();
       renderNav();
-      const productsTrigger = screen.getByRole("menuitem", {
+      const productsTrigger = screen.getByRole("button", {
         name: /Products/,
       });
-      const aboutLink = screen.getByRole("menuitem", { name: "About" });
+      const aboutLink = screen.getByRole("link", { name: "About" });
 
       aboutLink.focus();
       await user.keyboard("{ArrowRight}");
@@ -203,10 +203,10 @@ describe("NavigationMenu", () => {
     it("ArrowLeft wraps from first item to last", async () => {
       const user = userEvent.setup();
       renderNav();
-      const productsTrigger = screen.getByRole("menuitem", {
+      const productsTrigger = screen.getByRole("button", {
         name: /Products/,
       });
-      const aboutLink = screen.getByRole("menuitem", { name: "About" });
+      const aboutLink = screen.getByRole("link", { name: "About" });
 
       productsTrigger.focus();
       await user.keyboard("{ArrowLeft}");
@@ -216,7 +216,7 @@ describe("NavigationMenu", () => {
     it("ArrowDown opens the sub-panel", async () => {
       const user = userEvent.setup();
       renderNav();
-      const trigger = screen.getByRole("menuitem", { name: /Products/ });
+      const trigger = screen.getByRole("button", { name: /Products/ });
 
       trigger.focus();
       await user.keyboard("{ArrowDown}");
@@ -227,7 +227,7 @@ describe("NavigationMenu", () => {
     it("Escape closes open panel and returns focus to trigger", async () => {
       const user = userEvent.setup();
       renderNav();
-      const trigger = screen.getByRole("menuitem", { name: /Products/ });
+      const trigger = screen.getByRole("button", { name: /Products/ });
 
       await user.click(trigger);
       expect(screen.getByRole("dialog")).toBeInTheDocument();
@@ -240,7 +240,7 @@ describe("NavigationMenu", () => {
     it("Enter opens the sub-panel", async () => {
       const user = userEvent.setup();
       renderNav();
-      const trigger = screen.getByRole("menuitem", { name: /Products/ });
+      const trigger = screen.getByRole("button", { name: /Products/ });
 
       trigger.focus();
       await user.keyboard("{Enter}");
@@ -250,7 +250,7 @@ describe("NavigationMenu", () => {
     it("Space opens the sub-panel", async () => {
       const user = userEvent.setup();
       renderNav();
-      const trigger = screen.getByRole("menuitem", { name: /Products/ });
+      const trigger = screen.getByRole("button", { name: /Products/ });
 
       trigger.focus();
       await user.keyboard(" ");
@@ -261,7 +261,7 @@ describe("NavigationMenu", () => {
   describe("link", () => {
     it("renders an anchor with href", () => {
       renderNav();
-      expect(screen.getByRole("menuitem", { name: "About" })).toHaveAttribute(
+      expect(screen.getByRole("link", { name: "About" })).toHaveAttribute(
         "href",
         "/about",
       );
@@ -279,7 +279,7 @@ describe("NavigationMenu", () => {
           </NavigationMenuList>
         </NavigationMenu>,
       );
-      expect(screen.getByRole("menuitem", { name: "About" })).toHaveAttribute(
+      expect(screen.getByRole("link", { name: "About" })).toHaveAttribute(
         "aria-current",
         "page",
       );
@@ -288,7 +288,7 @@ describe("NavigationMenu", () => {
     it("does not set aria-current when not active", () => {
       renderNav();
       expect(
-        screen.getByRole("menuitem", { name: "About" }),
+        screen.getByRole("link", { name: "About" }),
       ).not.toHaveAttribute("aria-current");
     });
 
@@ -304,38 +304,42 @@ describe("NavigationMenu", () => {
           </NavigationMenuList>
         </NavigationMenu>,
       );
-      const link = screen.getByRole("menuitem", { name: "Home" });
+      const link = screen.getByRole("link", { name: "Home" });
       expect(link.tagName).toBe("A");
       expect(link).toHaveAttribute("href", "/home");
     });
   });
 
   describe("roving tabindex", () => {
-    it("first menubar item has tabIndex=0, others have tabIndex=-1", () => {
+    it("first navigation item has tabIndex=0, others have tabIndex=-1", () => {
       renderNav();
-      const items = screen.getAllByRole("menuitem");
-      expect(items[0]).toHaveAttribute("tabindex", "0");
-      expect(items[1]).toHaveAttribute("tabindex", "-1");
-      expect(items[2]).toHaveAttribute("tabindex", "-1");
+      const productsTrigger = screen.getByRole("button", { name: /Products/ });
+      const resourcesTrigger = screen.getByRole("button", { name: /Resources/ });
+      const aboutLink = screen.getByRole("link", { name: "About" });
+      expect(productsTrigger).toHaveAttribute("tabindex", "0");
+      expect(resourcesTrigger).toHaveAttribute("tabindex", "-1");
+      expect(aboutLink).toHaveAttribute("tabindex", "-1");
     });
 
     it("moves tabIndex=0 to focused item on ArrowRight", async () => {
       const user = userEvent.setup();
       renderNav();
-      const items = screen.getAllByRole("menuitem");
+      const productsTrigger = screen.getByRole("button", { name: /Products/ });
+      const resourcesTrigger = screen.getByRole("button", { name: /Resources/ });
+      const aboutLink = screen.getByRole("link", { name: "About" });
 
-      items[0]!.focus();
+      productsTrigger.focus();
       await user.keyboard("{ArrowRight}");
 
-      expect(items[0]).toHaveAttribute("tabindex", "-1");
-      expect(items[1]).toHaveAttribute("tabindex", "0");
-      expect(items[2]).toHaveAttribute("tabindex", "-1");
+      expect(productsTrigger).toHaveAttribute("tabindex", "-1");
+      expect(resourcesTrigger).toHaveAttribute("tabindex", "0");
+      expect(aboutLink).toHaveAttribute("tabindex", "-1");
     });
 
     it("restores tabIndex=0 to trigger after panel close via Escape", async () => {
       const user = userEvent.setup();
       renderNav();
-      const productsTrigger = screen.getByRole("menuitem", {
+      const productsTrigger = screen.getByRole("button", {
         name: /Products/,
       });
 
@@ -349,26 +353,27 @@ describe("NavigationMenu", () => {
   });
 
   describe("role scoping", () => {
-    it("panel links do not have role=menuitem", async () => {
+    it("panel links have implicit link role, no explicit role override", async () => {
       const user = userEvent.setup();
       renderNav();
-      await user.click(screen.getByRole("menuitem", { name: /Products/ }));
+      await user.click(screen.getByRole("button", { name: /Products/ }));
       const productA = screen.getByRole("link", { name: "Product A" });
       expect(productA).not.toHaveAttribute("role");
     });
 
-    it("menubar links have role=menuitem", () => {
+    it("navigation bar links render as anchor elements with implicit link role", () => {
       renderNav();
-      const aboutLink = screen.getByRole("menuitem", { name: "About" });
+      const aboutLink = screen.getByRole("link", { name: "About" });
       expect(aboutLink.tagName).toBe("A");
+      expect(aboutLink).not.toHaveAttribute("role");
     });
 
     it("aria-haspopup=dialog is only on trigger buttons, not on plain links", () => {
       renderNav();
-      const aboutLink = screen.getByRole("menuitem", { name: "About" });
+      const aboutLink = screen.getByRole("link", { name: "About" });
       expect(aboutLink).not.toHaveAttribute("aria-haspopup");
 
-      const productsTrigger = screen.getByRole("menuitem", {
+      const productsTrigger = screen.getByRole("button", {
         name: /Products/,
       });
       expect(productsTrigger).toHaveAttribute("aria-haspopup", "dialog");

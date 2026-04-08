@@ -116,7 +116,7 @@ const SheetContent = React.forwardRef<HTMLDivElement, SheetContentProps>(
             "p-(--space-6)",
             "transition-transform duration-300 ease-in-out",
             "motion-reduce:transition-none",
-            "focus:outline-none",
+            "focus-visible:outline-none",
             sideClasses[side],
             className,
           )}
