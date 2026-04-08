@@ -2,6 +2,7 @@ import * as React from "react";
 import { cva } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
 import { DismissButton } from "@nuka/utils/dismiss-button";
+import { Button } from "@nuka/components/Button";
 import type { ToastItem } from "@nuka/components/Toast/toastStore";
 
 const toastVariants = cva(
@@ -62,16 +63,17 @@ const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
       >
         <div className="flex-1 text-sm font-medium">{toastItem.message}</div>
         {toastItem.action != null && (
-          <button
-            type="button"
+          <Button
+            variant="link"
+            size="sm"
+            className="shrink-0"
             onClick={() => {
               toastItem.action?.onClick();
               onDismiss(toastItem.id);
             }}
-            className="shrink-0 text-sm font-medium underline underline-offset-2 hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--nuka-border-focus) rounded-(--radius-sm)"
           >
             {toastItem.action.label}
-          </button>
+          </Button>
         )}
         <DismissButton
           onClick={() => onDismiss(toastItem.id)}

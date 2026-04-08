@@ -4,13 +4,38 @@ import { Portal } from "@nuka/utils/portal";
 import { composeRefs } from "@nuka/utils/slot";
 import { usePopoverContext } from "@nuka/components/Popover/PopoverContext";
 
-export interface PopoverContentProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface PopoverContentProps extends React.HTMLAttributes<HTMLDivElement> {
+  "aria-label"?: string;
+  "aria-labelledby"?: string;
+}
 
 const PopoverContent = React.forwardRef<HTMLDivElement, PopoverContentProps>(
-  ({ className, ...props }, ref) => {
+  (
+    {
+      className,
+      "aria-label": ariaLabel,
+      "aria-labelledby": ariaLabelledBy,
+      ...props
+    },
+    ref,
+  ) => {
     const ctx = usePopoverContext();
     const contentRef = React.useRef<HTMLDivElement>(null);
     const composedRef = composeRefs(ref, contentRef, ctx.refs.setFloating);
+
+    React.useEffect(() => {
+      if (
+        ctx.open &&
+        process.env.NODE_ENV !== "production" &&
+        !ariaLabel &&
+        !ariaLabelledBy
+      ) {
+        console.error(
+          "Popover: PopoverContent has role=\"dialog\" but no accessible name. " +
+            "Provide an aria-label or aria-labelledby prop.",
+        );
+      }
+    }, [ctx.open, ariaLabel, ariaLabelledBy]);
 
     React.useEffect(() => {
       if (ctx.open) {
@@ -38,12 +63,14 @@ const PopoverContent = React.forwardRef<HTMLDivElement, PopoverContentProps>(
         <div
           ref={composedRef}
           style={ctx.floatingStyles}
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledBy}
           tabIndex={-1}
           {...(floatingProps as React.HTMLAttributes<HTMLDivElement>)}
           className={cn(
             "z-50 rounded-(--radius-md) border border-(--nuka-border-base)",
             "bg-(--nuka-bg-base) shadow-md p-(--space-4)",
-            "focus:outline-none",
+            "focus-visible:outline-none",
             className,
           )}
         />

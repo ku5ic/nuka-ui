@@ -174,6 +174,8 @@ MenuCheckboxItemBase.displayName = "MenuCheckboxItemBase";
 export interface MenuRadioGroupBaseProps extends React.HTMLAttributes<HTMLDivElement> {
   value: string;
   onValueChange?: (value: string) => void;
+  "aria-label"?: string;
+  "aria-labelledby"?: string;
 }
 
 const MenuRadioGroupContext = React.createContext<

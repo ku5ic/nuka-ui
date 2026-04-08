@@ -73,25 +73,28 @@ describe("NavigationMenu", () => {
   describe("trigger", () => {
     it("has aria-haspopup=dialog", () => {
       renderNav();
-      expect(
-        screen.getByRole("button", { name: /Products/ }),
-      ).toHaveAttribute("aria-haspopup", "dialog");
+      expect(screen.getByRole("button", { name: /Products/ })).toHaveAttribute(
+        "aria-haspopup",
+        "dialog",
+      );
     });
 
     it("has aria-expanded=false when closed", () => {
       renderNav();
-      expect(
-        screen.getByRole("button", { name: /Products/ }),
-      ).toHaveAttribute("aria-expanded", "false");
+      expect(screen.getByRole("button", { name: /Products/ })).toHaveAttribute(
+        "aria-expanded",
+        "false",
+      );
     });
 
     it("opens content on click and sets aria-expanded=true", async () => {
       const user = userEvent.setup();
       renderNav();
       await user.click(screen.getByRole("button", { name: /Products/ }));
-      expect(
-        screen.getByRole("button", { name: /Products/ }),
-      ).toHaveAttribute("aria-expanded", "true");
+      expect(screen.getByRole("button", { name: /Products/ })).toHaveAttribute(
+        "aria-expanded",
+        "true",
+      );
     });
 
     it("closes content on second click", async () => {
@@ -287,9 +290,9 @@ describe("NavigationMenu", () => {
 
     it("does not set aria-current when not active", () => {
       renderNav();
-      expect(
-        screen.getByRole("link", { name: "About" }),
-      ).not.toHaveAttribute("aria-current");
+      expect(screen.getByRole("link", { name: "About" })).not.toHaveAttribute(
+        "aria-current",
+      );
     });
 
     it("supports asChild", () => {
@@ -314,7 +317,9 @@ describe("NavigationMenu", () => {
     it("first navigation item has tabIndex=0, others have tabIndex=-1", () => {
       renderNav();
       const productsTrigger = screen.getByRole("button", { name: /Products/ });
-      const resourcesTrigger = screen.getByRole("button", { name: /Resources/ });
+      const resourcesTrigger = screen.getByRole("button", {
+        name: /Resources/,
+      });
       const aboutLink = screen.getByRole("link", { name: "About" });
       expect(productsTrigger).toHaveAttribute("tabindex", "0");
       expect(resourcesTrigger).toHaveAttribute("tabindex", "-1");
@@ -325,7 +330,9 @@ describe("NavigationMenu", () => {
       const user = userEvent.setup();
       renderNav();
       const productsTrigger = screen.getByRole("button", { name: /Products/ });
-      const resourcesTrigger = screen.getByRole("button", { name: /Resources/ });
+      const resourcesTrigger = screen.getByRole("button", {
+        name: /Resources/,
+      });
       const aboutLink = screen.getByRole("link", { name: "About" });
 
       productsTrigger.focus();

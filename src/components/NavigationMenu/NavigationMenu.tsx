@@ -130,6 +130,7 @@ const NavigationMenuItem = React.forwardRef<
   ) => {
     const rootCtx = useNavigationMenuContext();
     const open = rootCtx.activeValue === value;
+    const contentId = React.useId();
 
     const handleOpenChange = React.useCallback(
       (next: boolean) => {
@@ -171,6 +172,7 @@ const NavigationMenuItem = React.forwardRef<
         value,
         open,
         onOpenChange: handleOpenChange,
+        contentId,
         refs,
         floatingStyles,
         getReferenceProps,
@@ -180,6 +182,7 @@ const NavigationMenuItem = React.forwardRef<
         value,
         open,
         handleOpenChange,
+        contentId,
         refs,
         floatingStyles,
         getReferenceProps,
@@ -298,6 +301,7 @@ const NavigationMenuTrigger = React.forwardRef<
       type="button"
       aria-haspopup="dialog"
       aria-expanded={itemCtx.open}
+      aria-controls={itemCtx.contentId}
       className={cn(
         "inline-flex items-center gap-(--space-1)",
         "rounded-(--radius-md) px-(--space-3) py-(--space-2)",
@@ -377,6 +381,7 @@ const NavigationMenuContent = React.forwardRef<
       <NavigationMenuContentContext value={true}>
         <div
           ref={composedRef}
+          id={itemCtx.contentId}
           role="dialog"
           aria-label={
             rootCtx.itemLabels.current.get(itemCtx.value) ?? itemCtx.value
@@ -389,7 +394,7 @@ const NavigationMenuContent = React.forwardRef<
             "rounded-(--radius-md) border border-(--nuka-border-base)",
             "bg-(--nuka-bg-base) shadow-md",
             "p-(--space-4)",
-            "focus:outline-none",
+            "focus-visible:outline-none",
             className,
           )}
         >

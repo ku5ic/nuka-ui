@@ -30,6 +30,7 @@ export interface NavigationMenuItemContextValue {
   value: string;
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  contentId: string;
   refs: ReturnType<typeof useFloating>["refs"];
   floatingStyles: React.CSSProperties;
   getReferenceProps: ReturnType<typeof useInteractions>["getReferenceProps"];

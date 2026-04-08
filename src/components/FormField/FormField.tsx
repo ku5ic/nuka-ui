@@ -1,5 +1,6 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
+import { Text } from "@nuka/components/Text";
 import { FormFieldContext } from "@nuka/components/FormField/FormFieldContext";
 import type { FormFieldContextValue } from "@nuka/components/FormField/FormFieldContext";
 
@@ -50,20 +51,24 @@ const FormField = React.forwardRef<HTMLDivElement, FormFieldProps>(
         >
           {children}
           {hint && (
-            <p
+            <Text
+              as="p"
+              size="sm"
+              color="muted"
               id={contextValue.hintId}
-              className="text-sm text-(--nuka-text-muted)"
             >
               {hint}
-            </p>
+            </Text>
           )}
           {error && (
-            <p
+            <Text
+              as="p"
+              size="sm"
+              color="danger"
               id={contextValue.errorId}
-              className="text-sm text-(--nuka-danger-text)"
             >
               {error}
-            </p>
+            </Text>
           )}
         </div>
       </FormFieldContext>

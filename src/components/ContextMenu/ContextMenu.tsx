@@ -122,8 +122,7 @@ const ContextMenuTrigger = React.forwardRef<
     if (e.defaultPrevented) return;
 
     const isContextMenuKey =
-      e.key === "ContextMenu" ||
-      (e.shiftKey && e.key === "F10");
+      e.key === "ContextMenu" || (e.shiftKey && e.key === "F10");
 
     if (isContextMenuKey) {
       e.preventDefault();

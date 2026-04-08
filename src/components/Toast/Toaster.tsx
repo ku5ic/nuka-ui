@@ -1,6 +1,6 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import { cn } from "@nuka/utils/cn";
+import { Portal } from "@nuka/utils/portal";
 import { toast, toastStore } from "@nuka/components/Toast/toastStore";
 import type { ToastItem } from "@nuka/components/Toast/toastStore";
 import { Toast } from "@nuka/components/Toast/Toast";
@@ -39,24 +39,24 @@ const Toaster = React.forwardRef<HTMLDivElement, ToasterProps>(
 
     const visibleToasts = toasts.filter((t) => t.visible);
 
-    if (typeof document === "undefined") return null;
     if (visibleToasts.length === 0) return null;
 
-    return ReactDOM.createPortal(
-      <div
-        ref={ref}
-        aria-label="Notifications"
-        className={cn(
-          "fixed z-50 flex flex-col gap-(--space-2) p-(--space-4)",
-          positionClasses[position],
-          className,
-        )}
-      >
-        {visibleToasts.map((t) => (
-          <Toast key={t.id} toast={t} onDismiss={toast.dismiss} />
-        ))}
-      </div>,
-      document.body,
+    return (
+      <Portal>
+        <div
+          ref={ref}
+          aria-label="Notifications"
+          className={cn(
+            "fixed z-50 flex flex-col gap-(--space-2) p-(--space-4)",
+            positionClasses[position],
+            className,
+          )}
+        >
+          {visibleToasts.map((t) => (
+            <Toast key={t.id} toast={t} onDismiss={toast.dismiss} />
+          ))}
+        </div>
+      </Portal>
     );
   },
 );

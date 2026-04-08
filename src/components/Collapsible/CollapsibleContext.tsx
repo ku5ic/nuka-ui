@@ -4,6 +4,7 @@ interface CollapsibleContextValue {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   contentId: string;
+  triggerId: string;
   disabled: boolean;
 }
 

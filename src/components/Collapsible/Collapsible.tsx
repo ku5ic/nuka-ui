@@ -32,10 +32,11 @@ const Collapsible = React.forwardRef<HTMLDivElement, CollapsibleProps>(
       onOpenChange,
     );
     const contentId = React.useId();
+    const triggerId = React.useId();
 
     const contextValue = React.useMemo(
-      () => ({ open, onOpenChange: setOpen, contentId, disabled }),
-      [open, setOpen, contentId, disabled],
+      () => ({ open, onOpenChange: setOpen, contentId, triggerId, disabled }),
+      [open, setOpen, contentId, triggerId, disabled],
     );
 
     return (
@@ -61,7 +62,8 @@ const CollapsibleTrigger = React.forwardRef<
   HTMLButtonElement,
   CollapsibleTriggerProps
 >(({ asChild = false, className, onClick, ...props }, ref) => {
-  const { open, onOpenChange, contentId, disabled } = useCollapsibleContext();
+  const { open, onOpenChange, contentId, triggerId, disabled } =
+    useCollapsibleContext();
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     onOpenChange(!open);
@@ -74,6 +76,7 @@ const CollapsibleTrigger = React.forwardRef<
     <Comp
       ref={ref}
       type={asChild ? undefined : "button"}
+      id={triggerId}
       aria-expanded={open}
       aria-controls={contentId}
       disabled={disabled}
@@ -93,13 +96,14 @@ const CollapsibleContent = React.forwardRef<
   HTMLDivElement,
   CollapsibleContentProps
 >(({ className, children, ...props }, ref) => {
-  const { open, contentId } = useCollapsibleContext();
+  const { open, contentId, triggerId } = useCollapsibleContext();
 
   return (
     <div
       ref={ref}
       id={contentId}
       role="region"
+      aria-labelledby={triggerId}
       aria-hidden={!open}
       data-state={open ? "open" : "closed"}
       className={cn(

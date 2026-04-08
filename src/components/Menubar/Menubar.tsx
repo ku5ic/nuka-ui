@@ -251,9 +251,11 @@ const MenubarTrigger = React.forwardRef<HTMLButtonElement, MenubarTriggerProps>(
           "rounded-(--radius-sm) px-(--space-3) py-(--space-1.5)",
           "text-sm font-medium",
           "text-(--nuka-text-base)",
-          "outline-none select-none cursor-default",
+          "select-none cursor-default",
           "hover:bg-(--nuka-bg-muted)",
           "focus-visible:bg-(--nuka-bg-muted)",
+          "focus-visible:outline-2 focus-visible:outline-offset-2",
+          "focus-visible:outline-(--nuka-border-focus)",
           "data-[state=open]:bg-(--nuka-bg-muted)",
           className,
         )}

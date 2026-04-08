@@ -18,6 +18,7 @@ const TooltipContent = React.forwardRef<HTMLDivElement, TooltipContentProps>(
       <Portal>
         <div
           ref={composeRefs(ref, ctx.refs.setFloating)}
+          role="tooltip"
           style={ctx.floatingStyles}
           {...(floatingProps as React.HTMLAttributes<HTMLDivElement>)}
           className={cn(

@@ -85,7 +85,7 @@ const PaginationPrevious = React.forwardRef<
     { disabled = false, asChild = false, className, children, ...props },
     ref,
   ) => {
-    const Comp = asChild ? Slot : "a";
+    const Comp = asChild ? Slot : disabled ? "span" : "a";
 
     return (
       <Button
@@ -96,9 +96,8 @@ const PaginationPrevious = React.forwardRef<
         disabled={disabled}
       >
         <Comp
-          ref={ref}
+          ref={ref as React.Ref<never>}
           aria-label="Go to previous page"
-          aria-disabled={disabled || undefined}
           {...props}
         >
           <Icon size="sm">
@@ -133,7 +132,7 @@ const PaginationNext = React.forwardRef<HTMLAnchorElement, PaginationNextProps>(
     { disabled = false, asChild = false, className, children, ...props },
     ref,
   ) => {
-    const Comp = asChild ? Slot : "a";
+    const Comp = asChild ? Slot : disabled ? "span" : "a";
 
     return (
       <Button
@@ -144,9 +143,8 @@ const PaginationNext = React.forwardRef<HTMLAnchorElement, PaginationNextProps>(
         disabled={disabled}
       >
         <Comp
-          ref={ref}
+          ref={ref as React.Ref<never>}
           aria-label="Go to next page"
-          aria-disabled={disabled || undefined}
           {...props}
         >
           {children ?? "Next"}
