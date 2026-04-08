@@ -456,3 +456,63 @@ export type {
   PaginationNextProps,
   PaginationEllipsisProps,
 } from "./components/Pagination";
+
+export {
+  Stepper,
+  StepperItem,
+  StepperIndicator,
+  StepperContent,
+  StepperTitle,
+  StepperDescription,
+} from "./components/Stepper";
+export type {
+  StepperProps,
+  StepperItemProps,
+  StepperIndicatorProps,
+  StepperContentProps,
+  StepperTitleProps,
+  StepperDescriptionProps,
+  StepperOrientation,
+  StepState,
+} from "./components/Stepper";
+export {
+  StepperContext,
+  useStepperContext,
+  StepperItemContext,
+  useStepperItemContext,
+} from "./components/Stepper";
+export type {
+  StepperContextValue,
+  StepperItemContextValue,
+} from "./components/Stepper";
+
+export {
+  SidebarProvider,
+  Sidebar,
+  SidebarHeader,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarTrigger,
+  SidebarInset,
+} from "./components/Sidebar";
+export type {
+  SidebarProviderProps,
+  SidebarProps,
+  SidebarHeaderProps,
+  SidebarContentProps,
+  SidebarFooterProps,
+  SidebarGroupProps,
+  SidebarGroupLabelProps,
+  SidebarMenuProps,
+  SidebarMenuItemProps,
+  SidebarMenuButtonProps,
+  SidebarTriggerProps,
+  SidebarInsetProps,
+} from "./components/Sidebar";
+export { SidebarContext, useSidebarContext } from "./components/Sidebar";
+export type { SidebarContextValue } from "./components/Sidebar";

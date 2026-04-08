@@ -1113,3 +1113,35 @@ Three navigation components needed for site-level navigation patterns. Each is s
 - NavigationMenu content panels allow standard Tab navigation. Consumers can put any content inside them without fighting a menu keyboard model.
 - Breadcrumb and Pagination are purely structural. Consumers who need router integration use `asChild` on `BreadcrumbLink`, `PaginationLink`, `PaginationPrevious`, and `PaginationNext`.
 - Pagination reuses `Button` rather than creating a parallel button system. Any future Button style changes automatically propagate to pagination controls.
+
+---
+
+## ADR-032: Stepper and Sidebar: state inference, responsive rendering, content sharing
+
+**Date:** 2026-04-08
+**Status:** Accepted
+
+### Context
+
+Stepper is a multi-step flow indicator with no native ARIA role. Sidebar is the most complex navigation component, requiring three rendering modes (desktop expanded, desktop collapsed icon-only, mobile Sheet drawer) while sharing content across contexts.
+
+### Decisions
+
+1. **Stepper state inference.** Step state (completed/current/upcoming) is inferred from `currentStep` when not explicitly provided. Explicit per-item `state` overrides inference. This allows the common case (sequential flow) to be simple, and the complex case (error on a specific step) to be expressive.
+
+2. **Stepper uses `aria-current="step"` on the current item and `nav`/`ol` semantics** per the ARIA pattern for step indicators. There is no native ARIA role for steppers. The `<nav aria-label="Progress">` wrapper provides a navigation landmark.
+
+3. **Sidebar content sharing between desktop and mobile contexts via context.** `SidebarProvider` stores the expanded/mobile/mobileOpen state. On desktop, `Sidebar` renders as `<aside>`. On mobile, `Sidebar` renders its children inside a `Sheet` from `side="left"`. Content is declared once in JSX and rendered in the appropriate context.
+
+4. **`SidebarMenuButton` `tooltip` prop is required** (not optional) because it provides the accessible name for the icon-only collapsed state. A sidebar button without a label and without a tooltip would be inaccessible. The tooltip renders via the existing `Tooltip`/`TooltipTrigger`/`TooltipContent` components only when the sidebar is collapsed on desktop.
+
+5. **`useMediaQuery` for breakpoint detection.** Simple `window.matchMedia` wrapper, SSR-safe (returns `false` when `window` is undefined). The mobile breakpoint is configurable via `SidebarProvider` prop, defaulting to `(max-width: 768px)`.
+
+6. **No `variant`/`intent` on Stepper root or Sidebar.** Stepper indicator color is derived from step state (completed/current/upcoming/error), not from a variant system. Sidebar is structural chrome. Both follow the precedent of navigation components without CVA (ADR-031).
+
+### Consequences
+
+- Stepper's state inference means consumers only need to set `currentStep` for the common case. The `state` prop is available per item for edge cases like error states.
+- `onStepClick` only fires for completed, non-disabled steps. This prevents navigation to future steps.
+- Sidebar reuses Sheet (with focus trap and scroll lock) and Tooltip (with Floating UI positioning) rather than building custom drawer/tooltip behavior.
+- `useMediaQuery` is an internal utility, not exported from the public package entry point. It is independently testable.

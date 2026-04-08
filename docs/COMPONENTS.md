@@ -101,8 +101,8 @@ This document defines the full component scope for nuka-ui.
 | `NavigationMenu`   | Done   | Site-level navigation with floating sub-panels. `role="dialog"` on content.           |
 | `Breadcrumb`       | Done   | Navigation trail. `<nav><ol>` with `aria-current="page"`.                             |
 | `Pagination`       | Done   | Page navigation. Compound API with links. Uses `Button` with `asChild`.               |
-| `Stepper`          | -      | Multi-step flow indicator. No Radix primitive, fully custom.                          |
-| `Sidebar`          | -      | App navigation panel. Collapsible. Sheet-based drawer on mobile. Needs `Sheet` first. |
+| `Stepper`          | Done   | Multi-step flow indicator. No Radix primitive, fully custom.                          |
+| `Sidebar`          | Done   | App navigation panel. Collapsible. Sheet-based drawer on mobile. Needs `Sheet` first. |
 
 ---
 
