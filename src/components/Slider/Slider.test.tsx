@@ -36,7 +36,10 @@ describe("Slider", () => {
   describe("value", () => {
     it("uncontrolled: defaultValue sets initial value", () => {
       render(<Slider defaultValue={30} aria-label="Volume" />);
-      expect(screen.getByRole("slider", { name: "Volume" })).toHaveAttribute("aria-valuenow", "30");
+      expect(screen.getByRole("slider", { name: "Volume" })).toHaveAttribute(
+        "aria-valuenow",
+        "30",
+      );
     });
 
     it("uncontrolled: changing value updates fill width", () => {
@@ -50,7 +53,10 @@ describe("Slider", () => {
 
     it("controlled: value prop drives aria-valuenow", () => {
       render(<Slider value={60} aria-label="Volume" />);
-      expect(screen.getByRole("slider", { name: "Volume" })).toHaveAttribute("aria-valuenow", "60");
+      expect(screen.getByRole("slider", { name: "Volume" })).toHaveAttribute(
+        "aria-valuenow",
+        "60",
+      );
     });
 
     it("onValueChange called with numeric value", () => {
@@ -198,7 +204,10 @@ describe("Slider", () => {
           <Slider aria-label="Volume" />
         </FormField>,
       );
-      expect(screen.getByRole("slider", { name: "Volume" })).toHaveAttribute("id", "vol");
+      expect(screen.getByRole("slider", { name: "Volume" })).toHaveAttribute(
+        "id",
+        "vol",
+      );
     });
 
     it("aria-describedby includes error id", () => {
@@ -231,7 +240,10 @@ describe("Slider", () => {
           <Slider aria-label="Volume" />
         </FormField>,
       );
-      expect(screen.getByRole("slider", { name: "Volume" })).toHaveAttribute("aria-invalid", "true");
+      expect(screen.getByRole("slider", { name: "Volume" })).toHaveAttribute(
+        "aria-invalid",
+        "true",
+      );
     });
 
     it("aria-required from required", () => {
@@ -240,7 +252,10 @@ describe("Slider", () => {
           <Slider aria-label="Volume" />
         </FormField>,
       );
-      expect(screen.getByRole("slider", { name: "Volume" })).toHaveAttribute("aria-required", "true");
+      expect(screen.getByRole("slider", { name: "Volume" })).toHaveAttribute(
+        "aria-required",
+        "true",
+      );
     });
 
     it("consumer aria-invalid=false overrides context hasError", () => {
@@ -249,7 +264,10 @@ describe("Slider", () => {
           <Slider aria-label="Volume" aria-invalid={false} />
         </FormField>,
       );
-      expect(screen.getByRole("slider", { name: "Volume" })).toHaveAttribute("aria-invalid", "false");
+      expect(screen.getByRole("slider", { name: "Volume" })).toHaveAttribute(
+        "aria-invalid",
+        "false",
+      );
     });
 
     it("behaves unchanged when outside FormField", () => {
@@ -280,7 +298,9 @@ describe("Slider", () => {
 
   describe("className override", () => {
     it("merges consumer className onto the wrapper", () => {
-      const { container } = render(<Slider className="mt-4" aria-label="Volume" />);
+      const { container } = render(
+        <Slider className="mt-4" aria-label="Volume" />,
+      );
       const wrapper = container.firstElementChild;
       expect(wrapper?.className).toContain("mt-4");
       expect(wrapper?.className).toContain("relative");

@@ -43,7 +43,14 @@ export const Vertical: Story = {
     orientation: "vertical",
   },
   render: (args) => (
-    <div style={{ display: "flex", alignItems: "center", gap: "1rem", height: "2rem" }}>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "1rem",
+        height: "2rem",
+      }}
+    >
       <span>Left</span>
       <Divider {...args} />
       <span>Right</span>
@@ -106,14 +113,27 @@ export const Large: Story = {
 export const AllOrientations: Story = {
   render: () => (
     <div style={{ display: "flex", gap: "2rem", alignItems: "stretch" }}>
-      <div style={{ width: "16rem", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-        <span style={{ fontSize: "0.875rem", color: "var(--nuka-text-muted)" }}>Horizontal</span>
+      <div
+        style={{
+          width: "16rem",
+          display: "flex",
+          flexDirection: "column",
+          gap: "0.75rem",
+        }}
+      >
+        <span style={{ fontSize: "0.875rem", color: "var(--nuka-text-muted)" }}>
+          Horizontal
+        </span>
         <Divider />
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-        <span style={{ fontSize: "0.875rem", color: "var(--nuka-text-muted)" }}>Vertical</span>
+        <span style={{ fontSize: "0.875rem", color: "var(--nuka-text-muted)" }}>
+          Vertical
+        </span>
         <Divider orientation="vertical" />
-        <span style={{ fontSize: "0.875rem", color: "var(--nuka-text-muted)" }}>between</span>
+        <span style={{ fontSize: "0.875rem", color: "var(--nuka-text-muted)" }}>
+          between
+        </span>
       </div>
     </div>
   ),
@@ -121,17 +141,30 @@ export const AllOrientations: Story = {
 
 export const AllSizes: Story = {
   render: () => (
-    <div style={{ width: "24rem", display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+    <div
+      style={{
+        width: "24rem",
+        display: "flex",
+        flexDirection: "column",
+        gap: "1.5rem",
+      }}
+    >
       <div>
-        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>sm (1px)</span>
+        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>
+          sm (1px)
+        </span>
         <Divider size="sm" style={{ marginTop: "0.5rem" }} />
       </div>
       <div>
-        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>md (1px, default)</span>
+        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>
+          md (1px, default)
+        </span>
         <Divider size="md" style={{ marginTop: "0.5rem" }} />
       </div>
       <div>
-        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>lg (2px)</span>
+        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>
+          lg (2px)
+        </span>
         <Divider size="lg" style={{ marginTop: "0.5rem" }} />
       </div>
     </div>
@@ -151,12 +184,16 @@ export const PatternSectionSeparator: Story = {
         backgroundColor: "var(--nuka-bg-base)",
       }}
     >
-      <Heading as="h3" size="xl" weight="semibold">Account settings</Heading>
+      <Heading as="h3" size="xl" weight="semibold">
+        Account settings
+      </Heading>
       <Text size="sm" color="muted" style={{ marginTop: "0.5rem" }}>
         Manage your profile and preferences.
       </Text>
       <Divider style={{ margin: "1rem 0" }} />
-      <Heading as="h3" size="xl" weight="semibold">Danger zone</Heading>
+      <Heading as="h3" size="xl" weight="semibold">
+        Danger zone
+      </Heading>
       <Text size="sm" color="muted" style={{ marginTop: "0.5rem" }}>
         Irreversible actions like account deletion.
       </Text>

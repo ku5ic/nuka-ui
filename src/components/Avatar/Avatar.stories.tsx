@@ -101,8 +101,12 @@ export const PatternUserProfile: Story = {
     <Stack direction="row" align="center" gap="sm">
       <Avatar name="Jane Smith" size="lg" />
       <Stack gap="none">
-        <Text size="sm" weight="medium">Jane Smith</Text>
-        <Text size="xs" color="muted">Product Designer</Text>
+        <Text size="sm" weight="medium">
+          Jane Smith
+        </Text>
+        <Text size="xs" color="muted">
+          Product Designer
+        </Text>
       </Stack>
     </Stack>
   ),

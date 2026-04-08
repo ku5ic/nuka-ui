@@ -36,7 +36,8 @@ const avatarVariants = cva(
 export type AvatarVariantProps = VariantProps<typeof avatarVariants>;
 
 export interface AvatarProps
-  extends Omit<React.HTMLAttributes<HTMLSpanElement>, "children">,
+  extends
+    Omit<React.HTMLAttributes<HTMLSpanElement>, "children">,
     AvatarVariantProps {
   src?: string;
   alt?: string;

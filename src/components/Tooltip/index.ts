@@ -7,5 +7,8 @@ export type { TooltipTriggerProps } from "@nuka/components/Tooltip/TooltipTrigge
 export { TooltipContent } from "@nuka/components/Tooltip/TooltipContent";
 export type { TooltipContentProps } from "@nuka/components/Tooltip/TooltipContent";
 
-export { TooltipContext, useTooltipContext } from "@nuka/components/Tooltip/TooltipContext";
+export {
+  TooltipContext,
+  useTooltipContext,
+} from "@nuka/components/Tooltip/TooltipContext";
 export type { TooltipContextValue } from "@nuka/components/Tooltip/TooltipContext";

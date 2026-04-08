@@ -136,9 +136,18 @@ export const TableRowActions: Story = {
     <div className="flex items-center gap-1">
       {(
         [
-          { label: "Edit", icon: "M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" },
-          { label: "Copy", icon: "M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M16 4h2a2 2 0 0 1 2 2v4" },
-          { label: "Delete", icon: "M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" },
+          {
+            label: "Edit",
+            icon: "M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z",
+          },
+          {
+            label: "Copy",
+            icon: "M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M16 4h2a2 2 0 0 1 2 2v4",
+          },
+          {
+            label: "Delete",
+            icon: "M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2",
+          },
         ] as const
       ).map((action) => (
         <Tooltip key={action.label} delay={300}>

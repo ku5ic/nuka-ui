@@ -16,7 +16,10 @@ import {
 
 vi.mock("@floating-ui/react", async () => {
   // eslint-disable-next-line @typescript-eslint/consistent-type-imports
-  const actual = await vi.importActual<typeof import("@floating-ui/react")>("@floating-ui/react");
+  const actual =
+    await vi.importActual<typeof import("@floating-ui/react")>(
+      "@floating-ui/react",
+    );
   return {
     ...actual,
     autoUpdate: vi.fn(() => () => undefined),
@@ -50,7 +53,9 @@ describe("DropdownMenu", () => {
 
       await user.click(screen.getByRole("button", { name: "Actions" }));
       expect(screen.getByRole("menu")).toBeInTheDocument();
-      expect(screen.getByRole("menuitem", { name: "Edit" })).toBeInTheDocument();
+      expect(
+        screen.getByRole("menuitem", { name: "Edit" }),
+      ).toBeInTheDocument();
     });
 
     it("closes on second click", async () => {
@@ -83,7 +88,10 @@ describe("DropdownMenu", () => {
           </DropdownMenuContent>
         </DropdownMenu>,
       );
-      expect(screen.getByRole("button", { name: "Actions" })).toHaveAttribute("aria-haspopup", "menu");
+      expect(screen.getByRole("button", { name: "Actions" })).toHaveAttribute(
+        "aria-haspopup",
+        "menu",
+      );
     });
 
     it("sets aria-expanded correctly", async () => {
@@ -325,7 +333,10 @@ describe("DropdownMenu", () => {
       );
 
       await user.click(screen.getByRole("button", { name: "Actions" }));
-      expect(screen.getByRole("menuitem", { name: "Edit" })).toHaveAttribute("aria-disabled", "true");
+      expect(screen.getByRole("menuitem", { name: "Edit" })).toHaveAttribute(
+        "aria-disabled",
+        "true",
+      );
     });
 
     it("does not call onSelect for disabled items", async () => {
@@ -335,7 +346,9 @@ describe("DropdownMenu", () => {
         <DropdownMenu>
           <DropdownMenuTrigger>Actions</DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuItem onSelect={onSelect} disabled>Edit</DropdownMenuItem>
+            <DropdownMenuItem onSelect={onSelect} disabled>
+              Edit
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>,
       );
@@ -363,9 +376,9 @@ describe("DropdownMenu", () => {
       );
 
       await user.click(screen.getByRole("button", { name: "Actions" }));
-      expect(screen.getByRole("menuitem", { name: "Delete" }).className).toContain(
-        "text-(--nuka-danger-text)",
-      );
+      expect(
+        screen.getByRole("menuitem", { name: "Delete" }).className,
+      ).toContain("text-(--nuka-danger-text)");
     });
   });
 
@@ -384,7 +397,9 @@ describe("DropdownMenu", () => {
       );
 
       await user.click(screen.getByRole("button", { name: "Actions" }));
-      const checkbox = screen.getByRole("menuitemcheckbox", { name: "Show preview" });
+      const checkbox = screen.getByRole("menuitemcheckbox", {
+        name: "Show preview",
+      });
       expect(checkbox).toHaveAttribute("aria-checked", "true");
     });
 
@@ -395,7 +410,10 @@ describe("DropdownMenu", () => {
         <DropdownMenu>
           <DropdownMenuTrigger>Actions</DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuCheckboxItem checked={false} onCheckedChange={onCheckedChange}>
+            <DropdownMenuCheckboxItem
+              checked={false}
+              onCheckedChange={onCheckedChange}
+            >
               Show preview
             </DropdownMenuCheckboxItem>
           </DropdownMenuContent>
@@ -403,7 +421,9 @@ describe("DropdownMenu", () => {
       );
 
       await user.click(screen.getByRole("button", { name: "Actions" }));
-      await user.click(screen.getByRole("menuitemcheckbox", { name: "Show preview" }));
+      await user.click(
+        screen.getByRole("menuitemcheckbox", { name: "Show preview" }),
+      );
       expect(onCheckedChange).toHaveBeenCalledWith(true);
     });
   });
@@ -416,16 +436,24 @@ describe("DropdownMenu", () => {
           <DropdownMenuTrigger>Actions</DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuRadioGroup value="asc" onValueChange={vi.fn()}>
-              <DropdownMenuRadioItem value="asc">Ascending</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="desc">Descending</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="asc">
+                Ascending
+              </DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="desc">
+                Descending
+              </DropdownMenuRadioItem>
             </DropdownMenuRadioGroup>
           </DropdownMenuContent>
         </DropdownMenu>,
       );
 
       await user.click(screen.getByRole("button", { name: "Actions" }));
-      expect(screen.getByRole("menuitemradio", { name: "Ascending" })).toHaveAttribute("aria-checked", "true");
-      expect(screen.getByRole("menuitemradio", { name: "Descending" })).toHaveAttribute("aria-checked", "false");
+      expect(
+        screen.getByRole("menuitemradio", { name: "Ascending" }),
+      ).toHaveAttribute("aria-checked", "true");
+      expect(
+        screen.getByRole("menuitemradio", { name: "Descending" }),
+      ).toHaveAttribute("aria-checked", "false");
     });
 
     it("calls onValueChange on radio item click", async () => {
@@ -436,15 +464,21 @@ describe("DropdownMenu", () => {
           <DropdownMenuTrigger>Actions</DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuRadioGroup value="asc" onValueChange={onValueChange}>
-              <DropdownMenuRadioItem value="asc">Ascending</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="desc">Descending</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="asc">
+                Ascending
+              </DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="desc">
+                Descending
+              </DropdownMenuRadioItem>
             </DropdownMenuRadioGroup>
           </DropdownMenuContent>
         </DropdownMenu>,
       );
 
       await user.click(screen.getByRole("button", { name: "Actions" }));
-      await user.click(screen.getByRole("menuitemradio", { name: "Descending" }));
+      await user.click(
+        screen.getByRole("menuitemradio", { name: "Descending" }),
+      );
       expect(onValueChange).toHaveBeenCalledWith("desc");
     });
 
@@ -454,15 +488,23 @@ describe("DropdownMenu", () => {
         <DropdownMenu>
           <DropdownMenuTrigger>Actions</DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuRadioGroup value="asc" onValueChange={vi.fn()} aria-label="Sort order">
-              <DropdownMenuRadioItem value="asc">Ascending</DropdownMenuRadioItem>
+            <DropdownMenuRadioGroup
+              value="asc"
+              onValueChange={vi.fn()}
+              aria-label="Sort order"
+            >
+              <DropdownMenuRadioItem value="asc">
+                Ascending
+              </DropdownMenuRadioItem>
             </DropdownMenuRadioGroup>
           </DropdownMenuContent>
         </DropdownMenu>,
       );
 
       await user.click(screen.getByRole("button", { name: "Actions" }));
-      expect(screen.getByRole("group", { name: "Sort order" })).toBeInTheDocument();
+      expect(
+        screen.getByRole("group", { name: "Sort order" }),
+      ).toBeInTheDocument();
     });
   });
 

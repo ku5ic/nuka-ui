@@ -53,7 +53,8 @@ const switchThumbVariants = cva(
 export type SwitchVariantProps = VariantProps<typeof switchVariants>;
 
 export interface SwitchProps
-  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "onChange">,
+  extends
+    Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "onChange">,
     SwitchVariantProps {
   checked?: boolean;
   defaultChecked?: boolean;
@@ -62,7 +63,20 @@ export interface SwitchProps
 }
 
 const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
-  ({ className, size, checked: controlledChecked, defaultChecked, onChange, children, id, disabled, ...props }, ref) => {
+  (
+    {
+      className,
+      size,
+      checked: controlledChecked,
+      defaultChecked,
+      onChange,
+      children,
+      id,
+      disabled,
+      ...props
+    },
+    ref,
+  ) => {
     const field = useFormFieldProps(
       {
         id,
@@ -71,7 +85,11 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
       },
       { skipInvalid: true },
     );
-    const [isChecked, setChecked] = useControllableState(controlledChecked, defaultChecked ?? false, onChange);
+    const [isChecked, setChecked] = useControllableState(
+      controlledChecked,
+      defaultChecked ?? false,
+      onChange,
+    );
 
     const handleClick = () => {
       setChecked(!isChecked);
@@ -95,9 +113,7 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
           disabled={field.resolvedDisabled}
           className={cn(
             switchVariants({ size }),
-            isChecked
-              ? "bg-(--nuka-accent-bg)"
-              : "bg-(--nuka-border-strong)",
+            isChecked ? "bg-(--nuka-accent-bg)" : "bg-(--nuka-border-strong)",
             className,
           )}
           onClick={handleClick}

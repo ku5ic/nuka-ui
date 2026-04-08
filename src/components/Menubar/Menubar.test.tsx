@@ -16,7 +16,10 @@ import {
 
 vi.mock("@floating-ui/react", async () => {
   // eslint-disable-next-line @typescript-eslint/consistent-type-imports
-  const actual = await vi.importActual<typeof import("@floating-ui/react")>("@floating-ui/react");
+  const actual =
+    await vi.importActual<typeof import("@floating-ui/react")>(
+      "@floating-ui/react",
+    );
   return {
     ...actual,
     autoUpdate: vi.fn(() => () => undefined),
@@ -274,7 +277,9 @@ describe("Menubar", () => {
       );
 
       await user.click(screen.getByRole("menuitem", { name: "View" }));
-      expect(screen.getByRole("menuitemcheckbox", { name: "Show toolbar" })).toHaveAttribute("aria-checked", "true");
+      expect(
+        screen.getByRole("menuitemcheckbox", { name: "Show toolbar" }),
+      ).toHaveAttribute("aria-checked", "true");
     });
 
     it("renders radio items", async () => {
@@ -284,7 +289,11 @@ describe("Menubar", () => {
           <MenubarMenu value="view">
             <MenubarTrigger>View</MenubarTrigger>
             <MenubarContent>
-              <MenubarRadioGroup value="100" onValueChange={vi.fn()} aria-label="Zoom level">
+              <MenubarRadioGroup
+                value="100"
+                onValueChange={vi.fn()}
+                aria-label="Zoom level"
+              >
                 <MenubarRadioItem value="75">75%</MenubarRadioItem>
                 <MenubarRadioItem value="100">100%</MenubarRadioItem>
                 <MenubarRadioItem value="150">150%</MenubarRadioItem>
@@ -295,8 +304,12 @@ describe("Menubar", () => {
       );
 
       await user.click(screen.getByRole("menuitem", { name: "View" }));
-      expect(screen.getByRole("menuitemradio", { name: "100%" })).toHaveAttribute("aria-checked", "true");
-      expect(screen.getByRole("menuitemradio", { name: "75%" })).toHaveAttribute("aria-checked", "false");
+      expect(
+        screen.getByRole("menuitemradio", { name: "100%" }),
+      ).toHaveAttribute("aria-checked", "true");
+      expect(
+        screen.getByRole("menuitemradio", { name: "75%" }),
+      ).toHaveAttribute("aria-checked", "false");
     });
   });
 

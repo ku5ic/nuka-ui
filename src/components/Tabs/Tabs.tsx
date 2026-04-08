@@ -71,43 +71,33 @@ const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
 
 Tabs.displayName = "Tabs";
 
-const tabsListVariants = cva(
-  [
-    "flex shrink-0",
-    "focus-visible:outline-none",
-  ],
-  {
-    variants: {
-      variant: {
-        underline: [
-          "border-b border-(--nuka-border-base)",
-          "gap-(--space-4)",
-        ],
-        pill: [
-          "bg-(--nuka-bg-muted)",
-          "rounded-(--radius-lg)",
-          "p-(--space-1)",
-          "gap-(--space-1)",
-        ],
-        boxed: [
-          "border border-(--nuka-border-base)",
-          "rounded-(--radius-lg)",
-          "p-(--space-1)",
-          "gap-(--space-1)",
-        ],
-      },
-    },
-    defaultVariants: {
-      variant: "underline",
+const tabsListVariants = cva(["flex shrink-0", "focus-visible:outline-none"], {
+  variants: {
+    variant: {
+      underline: ["border-b border-(--nuka-border-base)", "gap-(--space-4)"],
+      pill: [
+        "bg-(--nuka-bg-muted)",
+        "rounded-(--radius-lg)",
+        "p-(--space-1)",
+        "gap-(--space-1)",
+      ],
+      boxed: [
+        "border border-(--nuka-border-base)",
+        "rounded-(--radius-lg)",
+        "p-(--space-1)",
+        "gap-(--space-1)",
+      ],
     },
   },
-);
+  defaultVariants: {
+    variant: "underline",
+  },
+});
 
 export type TabsListVariantProps = VariantProps<typeof tabsListVariants>;
 
 export interface TabsListProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    TabsListVariantProps {}
+  extends React.HTMLAttributes<HTMLDivElement>, TabsListVariantProps {}
 
 const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
   ({ variant, className, onKeyDown, children, ...props }, ref) => {
@@ -168,8 +158,7 @@ function handleTabsKeyboard(
   const currentIndex = triggers.indexOf(active as HTMLButtonElement);
   if (currentIndex === -1) return;
 
-  const isHorizontal =
-    list.getAttribute("aria-orientation") !== "vertical";
+  const isHorizontal = list.getAttribute("aria-orientation") !== "vertical";
   const prevKey = isHorizontal ? "ArrowLeft" : "ArrowUp";
   const nextKey = isHorizontal ? "ArrowRight" : "ArrowDown";
 
@@ -196,8 +185,7 @@ function handleTabsKeyboard(
   triggers[nextIndex]?.focus();
 }
 
-export interface TabsTriggerProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface TabsTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   value: string;
 }
 
@@ -265,8 +253,7 @@ const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>(
 
 TabsTrigger.displayName = "TabsTrigger";
 
-export interface TabsContentProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export interface TabsContentProps extends React.HTMLAttributes<HTMLDivElement> {
   value: string;
 }
 

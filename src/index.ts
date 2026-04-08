@@ -131,7 +131,10 @@ export type {
   ContextMenuSeparatorProps,
   ContextMenuLabelProps,
 } from "./components/ContextMenu";
-export { ContextMenuContext, useContextMenuContext } from "./components/ContextMenu";
+export {
+  ContextMenuContext,
+  useContextMenuContext,
+} from "./components/ContextMenu";
 export type { ContextMenuContextValue } from "./components/ContextMenu";
 
 export { Divider, dividerVariants } from "./components/Divider";
@@ -158,7 +161,10 @@ export type {
   DropdownMenuSeparatorProps,
   DropdownMenuLabelProps,
 } from "./components/DropdownMenu";
-export { DropdownMenuContext, useDropdownMenuContext } from "./components/DropdownMenu";
+export {
+  DropdownMenuContext,
+  useDropdownMenuContext,
+} from "./components/DropdownMenu";
 export type { DropdownMenuContextValue } from "./components/DropdownMenu";
 
 export { Grid } from "./components/Grid";

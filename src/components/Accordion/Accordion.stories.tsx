@@ -43,8 +43,8 @@ export const Single: Story = {
         <AccordionTrigger>Is it accessible?</AccordionTrigger>
         <AccordionContent>
           <Text size="sm" color="muted">
-            Yes. It adheres to the WAI-ARIA Accordion pattern with full
-            keyboard navigation.
+            Yes. It adheres to the WAI-ARIA Accordion pattern with full keyboard
+            navigation.
           </Text>
         </AccordionContent>
       </AccordionItem>
@@ -184,13 +184,17 @@ export const Controlled: Story = {
           <AccordionItem value="item-1">
             <AccordionTrigger>Section 1</AccordionTrigger>
             <AccordionContent>
-              <Text size="sm" color="muted">Controlled content 1</Text>
+              <Text size="sm" color="muted">
+                Controlled content 1
+              </Text>
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-2">
             <AccordionTrigger>Section 2</AccordionTrigger>
             <AccordionContent>
-              <Text size="sm" color="muted">Controlled content 2</Text>
+              <Text size="sm" color="muted">
+                Controlled content 2
+              </Text>
             </AccordionContent>
           </AccordionItem>
         </Accordion>
@@ -213,8 +217,8 @@ export const FAQ: Story = {
             <AccordionTrigger>How long does shipping take?</AccordionTrigger>
             <AccordionContent>
               <Text size="sm" color="muted">
-                Standard shipping takes 5-7 business days. Express shipping
-                is available for 2-3 business day delivery.
+                Standard shipping takes 5-7 business days. Express shipping is
+                available for 2-3 business day delivery.
               </Text>
             </AccordionContent>
           </AccordionItem>
@@ -228,7 +232,9 @@ export const FAQ: Story = {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="payment">
-            <AccordionTrigger>What payment methods do you accept?</AccordionTrigger>
+            <AccordionTrigger>
+              What payment methods do you accept?
+            </AccordionTrigger>
             <AccordionContent>
               <Text size="sm" color="muted">
                 We accept all major credit cards, PayPal, and Apple Pay.
@@ -239,8 +245,8 @@ export const FAQ: Story = {
             <AccordionTrigger>How can I contact support?</AccordionTrigger>
             <AccordionContent>
               <Text size="sm" color="muted">
-                You can reach our support team at support@example.com or
-                through the chat widget on our website.
+                You can reach our support team at support@example.com or through
+                the chat widget on our website.
               </Text>
             </AccordionContent>
           </AccordionItem>

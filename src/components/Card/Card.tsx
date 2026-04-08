@@ -7,39 +7,27 @@ import type { HeadingElement } from "@nuka/components/Heading";
 import { Text } from "@nuka/components/Text";
 import { Stack } from "@nuka/components/Stack";
 
-const cardVariants = cva(
-  [
-    "rounded-(--radius-lg)",
-    "text-(--nuka-text-base)",
-  ],
-  {
-    variants: {
-      variant: {
-        outlined: [
-          "bg-(--nuka-bg-base)",
-          "border",
-          "border-(--nuka-border-base)",
-        ],
-        elevated: [
-          "bg-(--nuka-bg-base)",
-          "shadow-(--nuka-shadow-card)",
-        ],
-        filled: [
-          "bg-(--nuka-bg-muted)",
-        ],
-      },
-    },
-    defaultVariants: {
-      variant: "outlined",
+const cardVariants = cva(["rounded-(--radius-lg)", "text-(--nuka-text-base)"], {
+  variants: {
+    variant: {
+      outlined: [
+        "bg-(--nuka-bg-base)",
+        "border",
+        "border-(--nuka-border-base)",
+      ],
+      elevated: ["bg-(--nuka-bg-base)", "shadow-(--nuka-shadow-card)"],
+      filled: ["bg-(--nuka-bg-muted)"],
     },
   },
-);
+  defaultVariants: {
+    variant: "outlined",
+  },
+});
 
 export type CardVariantProps = VariantProps<typeof cardVariants>;
 
 export interface CardProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    CardVariantProps {
+  extends React.HTMLAttributes<HTMLDivElement>, CardVariantProps {
   asChild?: boolean;
 }
 
@@ -89,29 +77,27 @@ const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
 
 CardHeader.displayName = "CardHeader";
 
-export interface CardTitleProps
-  extends Omit<React.HTMLAttributes<HTMLElement>, "color"> {
+export interface CardTitleProps extends Omit<
+  React.HTMLAttributes<HTMLElement>,
+  "color"
+> {
   as?: HeadingElement;
 }
 
 const CardTitle = React.forwardRef<HTMLElement, CardTitleProps>(
   ({ as = "h3", className, ...props }, ref) => {
     return (
-      <Heading
-        ref={ref}
-        as={as}
-        size="xl"
-        className={className}
-        {...props}
-      />
+      <Heading ref={ref} as={as} size="xl" className={className} {...props} />
     );
   },
 );
 
 CardTitle.displayName = "CardTitle";
 
-export interface CardDescriptionProps
-  extends Omit<React.HTMLAttributes<HTMLElement>, "color"> {}
+export interface CardDescriptionProps extends Omit<
+  React.HTMLAttributes<HTMLElement>,
+  "color"
+> {}
 
 const CardDescription = React.forwardRef<HTMLElement, CardDescriptionProps>(
   ({ className, ...props }, ref) => {
@@ -139,11 +125,7 @@ const CardBody = React.forwardRef<HTMLDivElement, CardBodyProps>(
     const Comp = asChild ? Slot : "div";
 
     return (
-      <Comp
-        ref={ref}
-        className={cn("p-(--space-6)", className)}
-        {...props}
-      />
+      <Comp ref={ref} className={cn("p-(--space-6)", className)} {...props} />
     );
   },
 );

@@ -73,14 +73,18 @@ const radioIndicatorVariants = cva(
 export type RadioVariantProps = VariantProps<typeof radioIndicatorVariants>;
 
 export interface RadioProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size" | "type">,
+  extends
+    Omit<React.InputHTMLAttributes<HTMLInputElement>, "size" | "type">,
     RadioVariantProps {
   value: string;
   children?: React.ReactNode;
 }
 
 const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
-  ({ className, intent, size, value, children, disabled, name, ...props }, ref) => {
+  (
+    { className, intent, size, value, children, disabled, name, ...props },
+    ref,
+  ) => {
     const ctx = useRadioGroup();
     const internalRef = React.useRef<HTMLInputElement>(null);
 
@@ -127,11 +131,11 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
           aria-hidden="true"
           className={cn(radioIndicatorVariants({ intent, size }))}
         >
-          <span
-            className="hidden size-1/2 rounded-full bg-(--nuka-text-inverse)"
-          />
+          <span className="hidden size-1/2 rounded-full bg-(--nuka-text-inverse)" />
         </span>
-        {children && <span className="text-(--nuka-text-base)">{children}</span>}
+        {children && (
+          <span className="text-(--nuka-text-base)">{children}</span>
+        )}
       </label>
     );
   },

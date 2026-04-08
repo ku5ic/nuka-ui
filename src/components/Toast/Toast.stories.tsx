@@ -1,27 +1,27 @@
-import type { Meta, StoryObj } from "@storybook/react-vite"
-import { toast } from "@nuka/components/Toast/toastStore"
-import { toastStore } from "@nuka/components/Toast/toastStore"
-import { Toaster } from "@nuka/components/Toast/Toaster"
-import type { ToasterPosition } from "@nuka/components/Toast/Toaster"
-import { Button } from "@nuka/components/Button"
-import * as React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { toast } from "@nuka/components/Toast/toastStore";
+import { toastStore } from "@nuka/components/Toast/toastStore";
+import { Toaster } from "@nuka/components/Toast/Toaster";
+import type { ToasterPosition } from "@nuka/components/Toast/Toaster";
+import { Button } from "@nuka/components/Button";
+import * as React from "react";
 
 const meta = {
   title: "Feedback/Toast",
   component: Toaster,
   decorators: [
     (Story) => {
-      toastStore.__reset()
-      return <Story />
+      toastStore.__reset();
+      return <Story />;
     },
   ],
   parameters: {
     layout: "centered",
   },
-} satisfies Meta<typeof Toaster>
+} satisfies Meta<typeof Toaster>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: () => (
@@ -36,7 +36,7 @@ export const Default: Story = {
       <Toaster />
     </div>
   ),
-}
+};
 
 export const Intents: Story = {
   render: () => (
@@ -72,7 +72,7 @@ export const Intents: Story = {
       <Toaster />
     </div>
   ),
-}
+};
 
 export const PersistentToast: Story = {
   render: () => (
@@ -89,7 +89,7 @@ export const PersistentToast: Story = {
       <Toaster />
     </div>
   ),
-}
+};
 
 export const MultipleToasts: Story = {
   render: () => (
@@ -98,9 +98,9 @@ export const MultipleToasts: Story = {
         variant="primary"
         intent="default"
         onClick={() => {
-          toast("First notification")
-          setTimeout(() => toast.success("Second notification"), 200)
-          setTimeout(() => toast.warning("Third notification"), 400)
+          toast("First notification");
+          setTimeout(() => toast.success("Second notification"), 200);
+          setTimeout(() => toast.warning("Third notification"), 400);
         }}
       >
         Show 3 toasts
@@ -108,7 +108,7 @@ export const MultipleToasts: Story = {
       <Toaster />
     </div>
   ),
-}
+};
 
 export const QueueOverflow: Story = {
   render: () => (
@@ -120,7 +120,7 @@ export const QueueOverflow: Story = {
           for (let i = 1; i <= 7; i++) {
             toast(`Toast #${String(i)}`, {
               intent: i % 2 === 0 ? "success" : "default",
-            })
+            });
           }
         }}
       >
@@ -129,7 +129,7 @@ export const QueueOverflow: Story = {
       <Toaster />
     </div>
   ),
-}
+};
 
 function PositionsExample() {
   const positions: ToasterPosition[] = [
@@ -139,8 +139,8 @@ function PositionsExample() {
     "bottom-left",
     "bottom-center",
     "bottom-right",
-  ]
-  const [active, setActive] = React.useState<ToasterPosition>("bottom-right")
+  ];
+  const [active, setActive] = React.useState<ToasterPosition>("bottom-right");
 
   return (
     <div className="flex flex-col gap-(--space-4)">
@@ -152,9 +152,9 @@ function PositionsExample() {
             intent="default"
             size="sm"
             onClick={() => {
-              toastStore.__reset()
-              setActive(pos)
-              setTimeout(() => toast(`Toast at ${pos}`), 0)
+              toastStore.__reset();
+              setActive(pos);
+              setTimeout(() => toast(`Toast at ${pos}`), 0);
             }}
           >
             {pos}
@@ -163,27 +163,27 @@ function PositionsExample() {
       </div>
       <Toaster position={active} />
     </div>
-  )
+  );
 }
 
 export const Positions: Story = {
   render: () => <PositionsExample />,
-}
+};
 
 function ApiResponseExample() {
-  const [loading, setLoading] = React.useState(false)
+  const [loading, setLoading] = React.useState(false);
 
   const simulateApi = (shouldFail: boolean) => {
-    setLoading(true)
+    setLoading(true);
     setTimeout(() => {
-      setLoading(false)
+      setLoading(false);
       if (shouldFail) {
-        toast.danger("Failed to save changes. Please try again.")
+        toast.danger("Failed to save changes. Please try again.");
       } else {
-        toast.success("Changes saved successfully")
+        toast.success("Changes saved successfully");
       }
-    }, 1500)
-  }
+    }, 1500);
+  };
 
   return (
     <div className="flex gap-(--space-3)">
@@ -205,32 +205,30 @@ function ApiResponseExample() {
       </Button>
       <Toaster />
     </div>
-  )
+  );
 }
 
 export const ApiResponse: Story = {
   render: () => <ApiResponseExample />,
-}
+};
 
 function UndoActionExample() {
-  const [items, setItems] = React.useState(["Item A", "Item B", "Item C"])
+  const [items, setItems] = React.useState(["Item A", "Item B", "Item C"]);
 
   const deleteItem = (item: string) => {
-    setItems((prev) => prev.filter((i) => i !== item))
+    setItems((prev) => prev.filter((i) => i !== item));
     toast(`"${item}" deleted`, {
       action: {
         label: "Undo",
         onClick: () => setItems((prev) => [...prev, item]),
       },
-    })
-  }
+    });
+  };
 
   return (
     <div className="flex flex-col gap-(--space-3)">
       {items.length === 0 && (
-        <p className="text-sm text-(--nuka-text-muted)">
-          No items remaining
-        </p>
+        <p className="text-sm text-(--nuka-text-muted)">No items remaining</p>
       )}
       {items.map((item) => (
         <div key={item} className="flex items-center gap-(--space-3)">
@@ -247,9 +245,9 @@ function UndoActionExample() {
       ))}
       <Toaster />
     </div>
-  )
+  );
 }
 
 export const UndoAction: Story = {
   render: () => <UndoActionExample />,
-}
+};

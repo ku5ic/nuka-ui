@@ -1,9 +1,9 @@
-import * as React from "react"
-import * as ReactDOM from "react-dom"
-import { cn } from "@nuka/utils/cn"
-import { toast, toastStore } from "@nuka/components/Toast/toastStore"
-import type { ToastItem } from "@nuka/components/Toast/toastStore"
-import { Toast } from "@nuka/components/Toast/Toast"
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import { cn } from "@nuka/utils/cn";
+import { toast, toastStore } from "@nuka/components/Toast/toastStore";
+import type { ToastItem } from "@nuka/components/Toast/toastStore";
+import { Toast } from "@nuka/components/Toast/Toast";
 
 export type ToasterPosition =
   | "top-right"
@@ -11,7 +11,7 @@ export type ToasterPosition =
   | "top-center"
   | "bottom-right"
   | "bottom-left"
-  | "bottom-center"
+  | "bottom-center";
 
 const positionClasses: Record<ToasterPosition, string> = {
   "top-right": "top-0 right-0 items-end",
@@ -20,44 +20,47 @@ const positionClasses: Record<ToasterPosition, string> = {
   "bottom-right": "bottom-0 right-0 items-end",
   "bottom-left": "bottom-0 left-0 items-start",
   "bottom-center": "bottom-0 left-1/2 -translate-x-1/2 items-center",
-}
+};
 
-const emptySnapshot: ToastItem[] = []
+const emptySnapshot: ToastItem[] = [];
 
 export interface ToasterProps {
-  position?: ToasterPosition
-  className?: string
+  position?: ToasterPosition;
+  className?: string;
 }
 
-function Toaster({ position = "bottom-right", className }: ToasterProps) {
-  const toasts = React.useSyncExternalStore(
-    toastStore.subscribe,
-    toastStore.getSnapshot,
-    () => emptySnapshot,
-  )
+const Toaster = React.forwardRef<HTMLDivElement, ToasterProps>(
+  ({ position = "bottom-right", className }, ref) => {
+    const toasts = React.useSyncExternalStore(
+      toastStore.subscribe,
+      toastStore.getSnapshot,
+      () => emptySnapshot,
+    );
 
-  const visibleToasts = toasts.filter((t) => t.visible)
+    const visibleToasts = toasts.filter((t) => t.visible);
 
-  if (typeof document === "undefined") return null
-  if (visibleToasts.length === 0) return null
+    if (typeof document === "undefined") return null;
+    if (visibleToasts.length === 0) return null;
 
-  return ReactDOM.createPortal(
-    <div
-      aria-label="Notifications"
-      className={cn(
-        "fixed z-50 flex flex-col gap-(--space-2) p-(--space-4)",
-        positionClasses[position],
-        className,
-      )}
-    >
-      {visibleToasts.map((t) => (
-        <Toast key={t.id} toast={t} onDismiss={toast.dismiss} />
-      ))}
-    </div>,
-    document.body,
-  )
-}
+    return ReactDOM.createPortal(
+      <div
+        ref={ref}
+        aria-label="Notifications"
+        className={cn(
+          "fixed z-50 flex flex-col gap-(--space-2) p-(--space-4)",
+          positionClasses[position],
+          className,
+        )}
+      >
+        {visibleToasts.map((t) => (
+          <Toast key={t.id} toast={t} onDismiss={toast.dismiss} />
+        ))}
+      </div>,
+      document.body,
+    );
+  },
+);
 
-Toaster.displayName = "Toaster"
+Toaster.displayName = "Toaster";
 
-export { Toaster }
+export { Toaster };

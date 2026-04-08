@@ -53,7 +53,14 @@ export const WithDefaultValue: Story = {
 function ControlledSelect() {
   const [value, setValue] = React.useState("a");
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", width: "16rem" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "0.5rem",
+        width: "16rem",
+      }}
+    >
       <Select value={value} onValueChange={setValue}>
         <SelectTrigger placeholder="Choose an option" />
         <SelectContent>
@@ -62,7 +69,13 @@ function ControlledSelect() {
           <SelectItem value="c">Option C</SelectItem>
         </SelectContent>
       </Select>
-      <p style={{ fontSize: "0.875rem", color: "var(--nuka-text-muted)", margin: 0 }}>
+      <p
+        style={{
+          fontSize: "0.875rem",
+          color: "var(--nuka-text-muted)",
+          margin: 0,
+        }}
+      >
         Selected: {value}
       </p>
     </div>
@@ -75,7 +88,14 @@ export const Controlled: Story = {
 
 export const AllSizes: Story = {
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "1rem", width: "16rem" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
+        width: "16rem",
+      }}
+    >
       <div>
         <Label htmlFor="sm-select">Small</Label>
         <Select>
@@ -112,11 +132,22 @@ export const AllSizes: Story = {
 
 export const AllIntents: Story = {
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "1rem", width: "16rem" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
+        width: "16rem",
+      }}
+    >
       <div>
         <Label htmlFor="default-select">Default</Label>
         <Select>
-          <SelectTrigger id="default-select" intent="default" placeholder="Default" />
+          <SelectTrigger
+            id="default-select"
+            intent="default"
+            placeholder="Default"
+          />
           <SelectContent>
             <SelectItem value="a">Option A</SelectItem>
           </SelectContent>
@@ -125,7 +156,11 @@ export const AllIntents: Story = {
       <div>
         <Label htmlFor="danger-select">Danger</Label>
         <Select>
-          <SelectTrigger id="danger-select" intent="danger" placeholder="Danger" />
+          <SelectTrigger
+            id="danger-select"
+            intent="danger"
+            placeholder="Danger"
+          />
           <SelectContent>
             <SelectItem value="a">Option A</SelectItem>
           </SelectContent>
@@ -134,7 +169,11 @@ export const AllIntents: Story = {
       <div>
         <Label htmlFor="success-select">Success</Label>
         <Select>
-          <SelectTrigger id="success-select" intent="success" placeholder="Success" />
+          <SelectTrigger
+            id="success-select"
+            intent="success"
+            placeholder="Success"
+          />
           <SelectContent>
             <SelectItem value="a">Option A</SelectItem>
           </SelectContent>
@@ -143,7 +182,11 @@ export const AllIntents: Story = {
       <div>
         <Label htmlFor="warning-select">Warning</Label>
         <Select>
-          <SelectTrigger id="warning-select" intent="warning" placeholder="Warning" />
+          <SelectTrigger
+            id="warning-select"
+            intent="warning"
+            placeholder="Warning"
+          />
           <SelectContent>
             <SelectItem value="a">Option A</SelectItem>
           </SelectContent>
@@ -228,7 +271,12 @@ export const InFormField: Story = {
   name: "Pattern: In FormField",
   render: () => (
     <div style={{ width: "20rem" }}>
-      <FormField id="country" error="Please select a country" hint="Where do you live?" required>
+      <FormField
+        id="country"
+        error="Please select a country"
+        hint="Where do you live?"
+        required
+      >
         <Label>Country</Label>
         <Select>
           <SelectTrigger placeholder="Select a country" intent="danger" />
@@ -250,7 +298,10 @@ function FilterFormExample() {
     <div style={{ display: "flex", gap: "1rem", width: "32rem" }}>
       <div style={{ flex: 1 }}>
         <Label htmlFor="filter-country">Country</Label>
-        <Select value={country !== "" ? country : undefined} onValueChange={setCountry}>
+        <Select
+          value={country !== "" ? country : undefined}
+          onValueChange={setCountry}
+        >
           <SelectTrigger id="filter-country" placeholder="All countries" />
           <SelectContent>
             <SelectItem value="us">United States</SelectItem>
@@ -261,7 +312,10 @@ function FilterFormExample() {
       </div>
       <div style={{ flex: 1 }}>
         <Label htmlFor="filter-language">Language</Label>
-        <Select value={language !== "" ? language : undefined} onValueChange={setLanguage}>
+        <Select
+          value={language !== "" ? language : undefined}
+          onValueChange={setLanguage}
+        >
           <SelectTrigger id="filter-language" placeholder="All languages" />
           <SelectContent>
             <SelectItem value="en">English</SelectItem>

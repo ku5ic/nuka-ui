@@ -8,7 +8,10 @@ import { TooltipContent } from "@nuka/components/Tooltip/TooltipContent";
 
 vi.mock("@floating-ui/react", async () => {
   // eslint-disable-next-line @typescript-eslint/consistent-type-imports
-  const actual = await vi.importActual<typeof import("@floating-ui/react")>("@floating-ui/react");
+  const actual =
+    await vi.importActual<typeof import("@floating-ui/react")>(
+      "@floating-ui/react",
+    );
   return {
     ...actual,
     autoUpdate: vi.fn(() => () => undefined),
@@ -168,6 +171,20 @@ describe("Tooltip", () => {
     );
 
     expect(ref.current).toBeInstanceOf(HTMLButtonElement);
+  });
+
+  it("forwards ref on TooltipContent", async () => {
+    const user = userEvent.setup();
+    const ref = React.createRef<HTMLDivElement>();
+    render(
+      <Tooltip delay={0}>
+        <TooltipTrigger>Hover me</TooltipTrigger>
+        <TooltipContent ref={ref}>Tooltip text</TooltipContent>
+      </Tooltip>,
+    );
+
+    await user.hover(screen.getByRole("button", { name: "Hover me" }));
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("supports asChild on TooltipTrigger", async () => {

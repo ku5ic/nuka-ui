@@ -99,7 +99,10 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
     if (type === "single") {
       return (
         <AccordionSingle
-          {...(rest as Omit<AccordionSingleProps, "type" | "headingLevel" | "className" | "children" | "onKeyDown">)}
+          {...(rest as Omit<
+            AccordionSingleProps,
+            "type" | "headingLevel" | "className" | "children" | "onKeyDown"
+          >)}
           headingLevel={headingLevel}
           className={className}
           rootRef={rootRef}
@@ -113,7 +116,10 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
 
     return (
       <AccordionMultiple
-        {...(rest as Omit<AccordionMultipleProps, "type" | "headingLevel" | "className" | "children" | "onKeyDown">)}
+        {...(rest as Omit<
+          AccordionMultipleProps,
+          "type" | "headingLevel" | "className" | "children" | "onKeyDown"
+        >)}
         headingLevel={headingLevel}
         className={className}
         rootRef={rootRef}
@@ -203,7 +209,8 @@ function AccordionMultiple({
   composedRef,
   onKeyDown,
   ...divProps
-}: Omit<AccordionMultipleProps, "type" | "collapsible"> & AccordionInternalProps) {
+}: Omit<AccordionMultipleProps, "type" | "collapsible"> &
+  AccordionInternalProps) {
   const [value, setValue] = useControllableState(
     controlledValue,
     defaultValue ?? [],
@@ -244,8 +251,7 @@ function AccordionMultiple({
   );
 }
 
-export interface AccordionItemProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export interface AccordionItemProps extends React.HTMLAttributes<HTMLDivElement> {
   value: string;
   disabled?: boolean;
 }
@@ -279,8 +285,7 @@ const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemProps>(
 
 AccordionItem.displayName = "AccordionItem";
 
-export interface AccordionTriggerProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+export interface AccordionTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
 const AccordionTrigger = React.forwardRef<
   HTMLButtonElement,
@@ -311,11 +316,22 @@ const AccordionTrigger = React.forwardRef<
         {...props}
       >
         {children}
-        <Icon size="sm" className={cn(
-          "transition-transform duration-200",
-          open && "rotate-180",
-        )}>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <Icon
+          size="sm"
+          className={cn(
+            "transition-transform duration-200",
+            open && "rotate-180",
+          )}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
             <path d="m6 9 6 6 6-6" />
           </svg>
         </Icon>
@@ -326,31 +342,19 @@ const AccordionTrigger = React.forwardRef<
 
 AccordionTrigger.displayName = "AccordionTrigger";
 
-export interface AccordionContentProps
-  extends React.HTMLAttributes<HTMLDivElement> {}
+export interface AccordionContentProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const AccordionContent = React.forwardRef<
   HTMLDivElement,
   AccordionContentProps
 >(({ className, children, ...props }, ref) => {
   return (
-    <CollapsibleContent
-      ref={ref}
-      className={className}
-      {...props}
-    >
-      <div className="pb-(--space-4)">
-        {children}
-      </div>
+    <CollapsibleContent ref={ref} className={className} {...props}>
+      <div className="pb-(--space-4)">{children}</div>
     </CollapsibleContent>
   );
 });
 
 AccordionContent.displayName = "AccordionContent";
 
-export {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-};
+export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };

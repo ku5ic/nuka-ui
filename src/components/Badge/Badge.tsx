@@ -34,68 +34,44 @@ const badgeVariants = cva(
       {
         variant: "solid",
         intent: "default",
-        className: [
-          "bg-(--nuka-accent-bg)",
-          "text-(--nuka-text-inverse)",
-        ],
+        className: ["bg-(--nuka-accent-bg)", "text-(--nuka-text-inverse)"],
       },
       {
         variant: "solid",
         intent: "danger",
-        className: [
-          "bg-(--nuka-danger-base)",
-          "text-(--nuka-text-inverse)",
-        ],
+        className: ["bg-(--nuka-danger-base)", "text-(--nuka-text-inverse)"],
       },
       {
         variant: "solid",
         intent: "success",
-        className: [
-          "bg-(--nuka-success-base)",
-          "text-(--nuka-text-inverse)",
-        ],
+        className: ["bg-(--nuka-success-base)", "text-(--nuka-text-inverse)"],
       },
       {
         variant: "solid",
         intent: "warning",
-        className: [
-          "bg-(--nuka-warning-base)",
-          "text-(--nuka-text-inverse)",
-        ],
+        className: ["bg-(--nuka-warning-base)", "text-(--nuka-text-inverse)"],
       },
 
       // subtle
       {
         variant: "subtle",
         intent: "default",
-        className: [
-          "bg-(--nuka-bg-muted)",
-          "text-(--nuka-text-base)",
-        ],
+        className: ["bg-(--nuka-bg-muted)", "text-(--nuka-text-base)"],
       },
       {
         variant: "subtle",
         intent: "danger",
-        className: [
-          "bg-(--nuka-danger-bg)",
-          "text-(--nuka-danger-text)",
-        ],
+        className: ["bg-(--nuka-danger-bg)", "text-(--nuka-danger-text)"],
       },
       {
         variant: "subtle",
         intent: "success",
-        className: [
-          "bg-(--nuka-success-bg)",
-          "text-(--nuka-success-text)",
-        ],
+        className: ["bg-(--nuka-success-bg)", "text-(--nuka-success-text)"],
       },
       {
         variant: "subtle",
         intent: "warning",
-        className: [
-          "bg-(--nuka-warning-bg)",
-          "text-(--nuka-warning-text)",
-        ],
+        className: ["bg-(--nuka-warning-bg)", "text-(--nuka-warning-text)"],
       },
 
       // outline
@@ -144,8 +120,7 @@ const badgeVariants = cva(
 export type BadgeVariantProps = VariantProps<typeof badgeVariants>;
 
 export interface BadgeProps
-  extends React.HTMLAttributes<HTMLSpanElement>,
-    BadgeVariantProps {
+  extends React.HTMLAttributes<HTMLSpanElement>, BadgeVariantProps {
   asChild?: boolean;
 }
 

@@ -168,25 +168,23 @@ export const Alignment: Story = {
   name: "Align Values",
   render: () => (
     <Stack direction="column" gap="lg">
-      {(["start", "center", "end", "stretch", "baseline"] as const).map(
-        (a) => (
-          <div key={a}>
-            <div style={{ marginBottom: "0.25rem", fontSize: "0.75rem" }}>
-              align=&quot;{a}&quot;
-            </div>
-            <Stack
-              direction="row"
-              gap="sm"
-              align={a}
-              style={{ height: "5rem", background: "var(--nuka-bg-subtle)" }}
-            >
-              <Box>Short</Box>
-              <Box>Taller item</Box>
-              <Box>A</Box>
-            </Stack>
+      {(["start", "center", "end", "stretch", "baseline"] as const).map((a) => (
+        <div key={a}>
+          <div style={{ marginBottom: "0.25rem", fontSize: "0.75rem" }}>
+            align=&quot;{a}&quot;
           </div>
-        ),
-      )}
+          <Stack
+            direction="row"
+            gap="sm"
+            align={a}
+            style={{ height: "5rem", background: "var(--nuka-bg-subtle)" }}
+          >
+            <Box>Short</Box>
+            <Box>Taller item</Box>
+            <Box>A</Box>
+          </Stack>
+        </div>
+      ))}
     </Stack>
   ),
   parameters: {

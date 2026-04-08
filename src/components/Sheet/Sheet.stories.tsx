@@ -113,15 +113,13 @@ export const Navigation: Story = {
       <SheetContent side="left">
         <SheetTitle>Navigation</SheetTitle>
         <Stack direction="column" gap="xs" className="mt-(--space-4)">
-          {["Home", "Dashboard", "Projects", "Team", "Settings"].map(
-            (item) => (
-              <SheetClose key={item} asChild>
-                <Button variant="ghost" className="justify-start w-full">
-                  {item}
-                </Button>
-              </SheetClose>
-            ),
-          )}
+          {["Home", "Dashboard", "Projects", "Team", "Settings"].map((item) => (
+            <SheetClose key={item} asChild>
+              <Button variant="ghost" className="justify-start w-full">
+                {item}
+              </Button>
+            </SheetClose>
+          ))}
         </Stack>
       </SheetContent>
     </Sheet>

@@ -53,12 +53,18 @@ const progressFillVariants = cva(
   },
 );
 
-export type ProgressTrackVariantProps = VariantProps<typeof progressTrackVariants>;
-export type ProgressFillVariantProps = VariantProps<typeof progressFillVariants>;
-export type ProgressVariantProps = ProgressTrackVariantProps & ProgressFillVariantProps;
+export type ProgressTrackVariantProps = VariantProps<
+  typeof progressTrackVariants
+>;
+export type ProgressFillVariantProps = VariantProps<
+  typeof progressFillVariants
+>;
+export type ProgressVariantProps = ProgressTrackVariantProps &
+  ProgressFillVariantProps;
 
 export interface ProgressProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, "role">,
+  extends
+    Omit<React.HTMLAttributes<HTMLDivElement>, "role">,
     ProgressVariantProps {
   value?: number;
   label?: string;

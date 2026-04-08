@@ -54,17 +54,44 @@ export const SizeLg: Story = {
 export const AllSizes: Story = {
   render: () => (
     <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "0.5rem",
+        }}
+      >
         <Kbd size="sm">Esc</Kbd>
-        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>sm</span>
+        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>
+          sm
+        </span>
       </div>
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "0.5rem",
+        }}
+      >
         <Kbd size="md">Tab</Kbd>
-        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>md</span>
+        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>
+          md
+        </span>
       </div>
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "0.5rem",
+        }}
+      >
         <Kbd size="lg">Enter</Kbd>
-        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>lg</span>
+        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>
+          lg
+        </span>
       </div>
     </div>
   ),
@@ -73,7 +100,9 @@ export const AllSizes: Story = {
 export const PatternKeyboardShortcut: Story = {
   name: "Pattern: Keyboard Shortcut",
   render: () => (
-    <kbd style={{ display: "inline-flex", alignItems: "center", gap: "0.25rem" }}>
+    <kbd
+      style={{ display: "inline-flex", alignItems: "center", gap: "0.25rem" }}
+    >
       <Kbd>Ctrl</Kbd>
       <span style={{ color: "var(--nuka-text-muted)" }}>+</span>
       <Kbd>K</Kbd>
@@ -94,7 +123,9 @@ export const PatternInlineInText: Story = {
   render: () => (
     <Text as="p" size="sm" style={{ maxWidth: "28rem" }}>
       Press <Kbd size="sm">Ctrl</Kbd>
-      <Text as="span" color="muted">+</Text>
+      <Text as="span" color="muted">
+        +
+      </Text>
       <Kbd size="sm">K</Kbd> to open the command palette, or press{" "}
       <Kbd size="sm">Esc</Kbd> to close it.
     </Text>
@@ -113,7 +144,7 @@ export const PatternInlineInText: Story = {
       },
       description: {
         story:
-          "Key labels rendered inline within body copy. Use `size=\"sm\"` for inline usage to match surrounding text proportions.",
+          'Key labels rendered inline within body copy. Use `size="sm"` for inline usage to match surrounding text proportions.',
       },
     },
   },

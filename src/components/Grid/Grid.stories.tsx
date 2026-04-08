@@ -208,29 +208,32 @@ export const CardGrid: Story = {
   name: "Pattern: Card Grid",
   render: () => (
     <Grid cols={{ base: 1, sm: 2, lg: 3 }} gap="lg">
-      {["Dashboard", "Analytics", "Reports", "Settings", "Users", "Billing"].map(
-        (title) => (
-          /* TODO: replace card div with <Card> once implemented */
+      {[
+        "Dashboard",
+        "Analytics",
+        "Reports",
+        "Settings",
+        "Users",
+        "Billing",
+      ].map((title) => (
+        /* TODO: replace card div with <Card> once implemented */
+        <div
+          key={title}
+          style={{
+            padding: "1.5rem",
+            background: "var(--nuka-bg-base)",
+            border: "1px solid var(--nuka-border-base)",
+            borderRadius: "0.5rem",
+          }}
+        >
+          <div style={{ fontWeight: 600, marginBottom: "0.5rem" }}>{title}</div>
           <div
-            key={title}
-            style={{
-              padding: "1.5rem",
-              background: "var(--nuka-bg-base)",
-              border: "1px solid var(--nuka-border-base)",
-              borderRadius: "0.5rem",
-            }}
+            style={{ fontSize: "0.875rem", color: "var(--nuka-text-muted)" }}
           >
-            <div style={{ fontWeight: 600, marginBottom: "0.5rem" }}>
-              {title}
-            </div>
-            <div
-              style={{ fontSize: "0.875rem", color: "var(--nuka-text-muted)" }}
-            >
-              Manage your {title.toLowerCase()} settings and preferences.
-            </div>
+            Manage your {title.toLowerCase()} settings and preferences.
           </div>
-        ),
-      )}
+        </div>
+      ))}
     </Grid>
   ),
   parameters: {

@@ -32,7 +32,11 @@ describe("FormField", () => {
     });
 
     it("applies the correct id to the hint element", () => {
-      render(<FormField id="email" hint="We'll never share your email">children</FormField>);
+      render(
+        <FormField id="email" hint="We'll never share your email">
+          children
+        </FormField>,
+      );
       const hint = screen.getByText("We'll never share your email");
       expect(hint).toHaveAttribute("id", "email-hint");
     });
@@ -57,7 +61,11 @@ describe("FormField", () => {
     });
 
     it("applies the correct id to the error element", () => {
-      render(<FormField id="email" error="Invalid email">children</FormField>);
+      render(
+        <FormField id="email" error="Invalid email">
+          children
+        </FormField>,
+      );
       const error = screen.getByText("Invalid email");
       expect(error).toHaveAttribute("id", "email-error");
     });

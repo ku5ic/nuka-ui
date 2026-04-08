@@ -89,10 +89,16 @@ export const WithCheckboxItems: Story = {
         </ContextMenuTrigger>
         <ContextMenuContent>
           <ContextMenuLabel>View</ContextMenuLabel>
-          <ContextMenuCheckboxItem checked={wordWrap} onCheckedChange={setWordWrap}>
+          <ContextMenuCheckboxItem
+            checked={wordWrap}
+            onCheckedChange={setWordWrap}
+          >
             Word wrap
           </ContextMenuCheckboxItem>
-          <ContextMenuCheckboxItem checked={minimap} onCheckedChange={setMinimap}>
+          <ContextMenuCheckboxItem
+            checked={minimap}
+            onCheckedChange={setMinimap}
+          >
             Minimap
           </ContextMenuCheckboxItem>
         </ContextMenuContent>
@@ -113,7 +119,11 @@ export const WithRadioItems: Story = {
         </ContextMenuTrigger>
         <ContextMenuContent>
           <ContextMenuLabel>Theme</ContextMenuLabel>
-          <ContextMenuRadioGroup value={theme} onValueChange={setTheme} aria-label="Theme">
+          <ContextMenuRadioGroup
+            value={theme}
+            onValueChange={setTheme}
+            aria-label="Theme"
+          >
             <ContextMenuRadioItem value="light">Light</ContextMenuRadioItem>
             <ContextMenuRadioItem value="dark">Dark</ContextMenuRadioItem>
             <ContextMenuRadioItem value="system">System</ContextMenuRadioItem>
@@ -142,7 +152,10 @@ export const EditorContextMenu: Story = {
           <ContextMenuItem>Copy</ContextMenuItem>
           <ContextMenuItem>Paste</ContextMenuItem>
           <ContextMenuSeparator />
-          <ContextMenuCheckboxItem checked={wordWrap} onCheckedChange={setWordWrap}>
+          <ContextMenuCheckboxItem
+            checked={wordWrap}
+            onCheckedChange={setWordWrap}
+          >
             Word wrap
           </ContextMenuCheckboxItem>
           <ContextMenuSeparator />

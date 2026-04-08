@@ -1,8 +1,8 @@
-import * as React from "react"
-import { cva } from "@nuka/utils/variants"
-import { cn } from "@nuka/utils/cn"
-import { DismissButton } from "@nuka/utils/dismiss-button"
-import type { ToastItem } from "@nuka/components/Toast/toastStore"
+import * as React from "react";
+import { cva } from "@nuka/utils/variants";
+import { cn } from "@nuka/utils/cn";
+import { DismissButton } from "@nuka/utils/dismiss-button";
+import type { ToastItem } from "@nuka/components/Toast/toastStore";
 
 const toastVariants = cva(
   [
@@ -42,44 +42,47 @@ const toastVariants = cva(
       intent: "default",
     },
   },
-)
+);
 
 export interface ToastProps {
-  toast: ToastItem
-  onDismiss: (id: string) => void
+  toast: ToastItem;
+  onDismiss: (id: string) => void;
 }
 
-function Toast({ toast: toastItem, onDismiss }: ToastProps) {
-  return (
-    <div
-      role="status"
-      aria-live={toastItem.intent === "danger" ? "assertive" : "polite"}
-      aria-atomic="true"
-      data-state={toastItem.dismissing ? "closed" : "open"}
-      className={cn(toastVariants({ intent: toastItem.intent }))}
-    >
-      <div className="flex-1 text-sm font-medium">{toastItem.message}</div>
-      {toastItem.action != null && (
-        <button
-          type="button"
-          onClick={() => {
-            toastItem.action?.onClick()
-            onDismiss(toastItem.id)
-          }}
-          className="shrink-0 text-sm font-medium underline underline-offset-2 hover:no-underline"
-        >
-          {toastItem.action.label}
-        </button>
-      )}
-      <DismissButton
-        onClick={() => onDismiss(toastItem.id)}
-        label="Dismiss notification"
-        className="shrink-0"
-      />
-    </div>
-  )
-}
+const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
+  ({ toast: toastItem, onDismiss }, ref) => {
+    return (
+      <div
+        ref={ref}
+        role="status"
+        aria-live={toastItem.intent === "danger" ? "assertive" : "polite"}
+        aria-atomic="true"
+        data-state={toastItem.dismissing ? "closed" : "open"}
+        className={cn(toastVariants({ intent: toastItem.intent }))}
+      >
+        <div className="flex-1 text-sm font-medium">{toastItem.message}</div>
+        {toastItem.action != null && (
+          <button
+            type="button"
+            onClick={() => {
+              toastItem.action?.onClick();
+              onDismiss(toastItem.id);
+            }}
+            className="shrink-0 text-sm font-medium underline underline-offset-2 hover:no-underline"
+          >
+            {toastItem.action.label}
+          </button>
+        )}
+        <DismissButton
+          onClick={() => onDismiss(toastItem.id)}
+          label="Dismiss notification"
+          className="shrink-0"
+        />
+      </div>
+    );
+  },
+);
 
-Toast.displayName = "Toast"
+Toast.displayName = "Toast";
 
-export { Toast, toastVariants }
+export { Toast, toastVariants };

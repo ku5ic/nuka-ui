@@ -70,9 +70,7 @@ export const IntentDanger: Story = {
       <DropdownMenuContent>
         <DropdownMenuItem>Edit</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem intent="danger">
-          Delete permanently
-        </DropdownMenuItem>
+        <DropdownMenuItem intent="danger">Delete permanently</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   ),
@@ -91,10 +89,16 @@ export const WithCheckboxItems: Story = {
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel>Display</DropdownMenuLabel>
-          <DropdownMenuCheckboxItem checked={showGrid} onCheckedChange={setShowGrid}>
+          <DropdownMenuCheckboxItem
+            checked={showGrid}
+            onCheckedChange={setShowGrid}
+          >
             Show grid
           </DropdownMenuCheckboxItem>
-          <DropdownMenuCheckboxItem checked={showRulers} onCheckedChange={setShowRulers}>
+          <DropdownMenuCheckboxItem
+            checked={showRulers}
+            onCheckedChange={setShowRulers}
+          >
             Show rulers
           </DropdownMenuCheckboxItem>
         </DropdownMenuContent>
@@ -114,7 +118,11 @@ export const WithRadioItems: Story = {
           <Button variant="outline">Sort by</Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuRadioGroup value={sort} onValueChange={setSort} aria-label="Sort order">
+          <DropdownMenuRadioGroup
+            value={sort}
+            onValueChange={setSort}
+            aria-label="Sort order"
+          >
             <DropdownMenuRadioItem value="date">Date</DropdownMenuRadioItem>
             <DropdownMenuRadioItem value="name">Name</DropdownMenuRadioItem>
             <DropdownMenuRadioItem value="size">Size</DropdownMenuRadioItem>
@@ -160,12 +168,19 @@ export const FileMenu: Story = {
           <DropdownMenuItem>Open</DropdownMenuItem>
           <DropdownMenuItem>Save</DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuCheckboxItem checked={autoSave} onCheckedChange={setAutoSave}>
+          <DropdownMenuCheckboxItem
+            checked={autoSave}
+            onCheckedChange={setAutoSave}
+          >
             Auto-save
           </DropdownMenuCheckboxItem>
           <DropdownMenuSeparator />
           <DropdownMenuLabel>Export as</DropdownMenuLabel>
-          <DropdownMenuRadioGroup value={format} onValueChange={setFormat} aria-label="Export format">
+          <DropdownMenuRadioGroup
+            value={format}
+            onValueChange={setFormat}
+            aria-label="Export format"
+          >
             <DropdownMenuRadioItem value="pdf">PDF</DropdownMenuRadioItem>
             <DropdownMenuRadioItem value="png">PNG</DropdownMenuRadioItem>
             <DropdownMenuRadioItem value="svg">SVG</DropdownMenuRadioItem>

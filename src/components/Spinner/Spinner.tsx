@@ -44,7 +44,8 @@ const strokeWidthMap = {
 } as const satisfies Record<SpinnerSize, number>;
 
 export interface SpinnerProps
-  extends Omit<React.ComponentPropsWithoutRef<"span">, "color">,
+  extends
+    Omit<React.ComponentPropsWithoutRef<"span">, "color">,
     SpinnerVariantProps {
   label?: string;
 }
@@ -67,9 +68,7 @@ const Spinner = React.forwardRef<HTMLSpanElement, SpinnerProps>(
         className={cn(spinnerVariants({ size }), className)}
         {...props}
       >
-        {label && !isHidden && (
-          <span className="sr-only">{label}</span>
-        )}
+        {label && !isHidden && <span className="sr-only">{label}</span>}
         <svg
           viewBox="0 0 24 24"
           fill="none"

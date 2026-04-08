@@ -43,19 +43,38 @@ describe("Avatar", () => {
     });
 
     it("renders <img> when src is provided", () => {
-      render(<Avatar src="https://example.com/photo.jpg" alt="User" data-testid="avatar" />);
+      render(
+        <Avatar
+          src="https://example.com/photo.jpg"
+          alt="User"
+          data-testid="avatar"
+        />,
+      );
       const img = screen.getByTestId("avatar").querySelector("img");
       expect(img).not.toBeNull();
     });
 
     it("<img> has alt=''", () => {
-      render(<Avatar src="https://example.com/photo.jpg" alt="User" data-testid="avatar" />);
+      render(
+        <Avatar
+          src="https://example.com/photo.jpg"
+          alt="User"
+          data-testid="avatar"
+        />,
+      );
       const img = screen.getByTestId("avatar").querySelector("img");
       expect(img).toHaveAttribute("alt", "");
     });
 
     it("fallback is present in DOM when src is provided", () => {
-      render(<Avatar src="https://example.com/photo.jpg" alt="User" name="Jane Smith" data-testid="avatar" />);
+      render(
+        <Avatar
+          src="https://example.com/photo.jpg"
+          alt="User"
+          name="Jane Smith"
+          data-testid="avatar"
+        />,
+      );
       const el = screen.getByTestId("avatar");
       expect(el.textContent).toContain("JS");
     });
@@ -67,7 +86,13 @@ describe("Avatar", () => {
 
   describe("image loading", () => {
     it("on onLoad: image becomes visible", () => {
-      render(<Avatar src="https://example.com/photo.jpg" alt="User" data-testid="avatar" />);
+      render(
+        <Avatar
+          src="https://example.com/photo.jpg"
+          alt="User"
+          data-testid="avatar"
+        />,
+      );
       const img = screen.getByTestId("avatar").querySelector("img")!;
       expect(img.className).toContain("opacity-0");
 
@@ -76,7 +101,14 @@ describe("Avatar", () => {
     });
 
     it("on onError: image is hidden, fallback remains visible", () => {
-      render(<Avatar src="https://example.com/bad.jpg" alt="User" name="Jane Smith" data-testid="avatar" />);
+      render(
+        <Avatar
+          src="https://example.com/bad.jpg"
+          alt="User"
+          name="Jane Smith"
+          data-testid="avatar"
+        />,
+      );
       const el = screen.getByTestId("avatar");
       const img = el.querySelector("img")!;
 
@@ -119,7 +151,13 @@ describe("Avatar", () => {
 
   describe("aria-label", () => {
     it("image with alt: uses alt", () => {
-      render(<Avatar src="https://example.com/photo.jpg" alt="Jane's photo" data-testid="avatar" />);
+      render(
+        <Avatar
+          src="https://example.com/photo.jpg"
+          alt="Jane's photo"
+          data-testid="avatar"
+        />,
+      );
       const el = screen.getByTestId("avatar");
       const img = el.querySelector("img")!;
       fireEvent.load(img);
@@ -127,7 +165,13 @@ describe("Avatar", () => {
     });
 
     it("image with name fallback (no alt): uses name", () => {
-      render(<Avatar src="https://example.com/photo.jpg" name="Jane Smith" data-testid="avatar" />);
+      render(
+        <Avatar
+          src="https://example.com/photo.jpg"
+          name="Jane Smith"
+          data-testid="avatar"
+        />,
+      );
       const el = screen.getByTestId("avatar");
       const img = el.querySelector("img")!;
       fireEvent.load(img);
@@ -135,7 +179,9 @@ describe("Avatar", () => {
     });
 
     it("image without alt or name: uses 'Avatar'", () => {
-      render(<Avatar src="https://example.com/photo.jpg" data-testid="avatar" />);
+      render(
+        <Avatar src="https://example.com/photo.jpg" data-testid="avatar" />,
+      );
       const el = screen.getByTestId("avatar");
       const img = el.querySelector("img")!;
       fireEvent.load(img);
@@ -144,11 +190,20 @@ describe("Avatar", () => {
 
     it("initials: uses name", () => {
       render(<Avatar name="Jane Smith" data-testid="avatar" />);
-      expect(screen.getByTestId("avatar")).toHaveAttribute("aria-label", "Jane Smith");
+      expect(screen.getByTestId("avatar")).toHaveAttribute(
+        "aria-label",
+        "Jane Smith",
+      );
     });
 
     it("icon with name: uses name", () => {
-      render(<Avatar name="Jane Smith" src="https://example.com/bad.jpg" data-testid="avatar" />);
+      render(
+        <Avatar
+          name="Jane Smith"
+          src="https://example.com/bad.jpg"
+          data-testid="avatar"
+        />,
+      );
       const el = screen.getByTestId("avatar");
       // "Jane Smith" yields "JS", so this is the initials tier
       // Test icon with name explicitly: name that yields empty initials won't happen with a real name
@@ -160,7 +215,10 @@ describe("Avatar", () => {
 
     it("icon without name: uses 'User avatar'", () => {
       render(<Avatar data-testid="avatar" />);
-      expect(screen.getByTestId("avatar")).toHaveAttribute("aria-label", "User avatar");
+      expect(screen.getByTestId("avatar")).toHaveAttribute(
+        "aria-label",
+        "User avatar",
+      );
     });
   });
 
@@ -183,11 +241,17 @@ describe("Avatar", () => {
     });
 
     it("shape prop applies correct classes", () => {
-      const { rerender } = render(<Avatar shape="circle" data-testid="avatar" />);
-      expect(screen.getByTestId("avatar").className).toContain("rounded-(--radius-full)");
+      const { rerender } = render(
+        <Avatar shape="circle" data-testid="avatar" />,
+      );
+      expect(screen.getByTestId("avatar").className).toContain(
+        "rounded-(--radius-full)",
+      );
 
       rerender(<Avatar shape="square" data-testid="avatar" />);
-      expect(screen.getByTestId("avatar").className).toContain("rounded-(--radius-md)");
+      expect(screen.getByTestId("avatar").className).toContain(
+        "rounded-(--radius-md)",
+      );
     });
   });
 
@@ -223,7 +287,11 @@ describe("Avatar", () => {
   describe("src change resets state", () => {
     it("when src prop changes, image load state resets", () => {
       const { rerender } = render(
-        <Avatar src="https://example.com/a.jpg" alt="User" data-testid="avatar" />,
+        <Avatar
+          src="https://example.com/a.jpg"
+          alt="User"
+          data-testid="avatar"
+        />,
       );
       const img1 = screen.getByTestId("avatar").querySelector("img")!;
       fireEvent.load(img1);
@@ -231,7 +299,11 @@ describe("Avatar", () => {
 
       // Change src
       rerender(
-        <Avatar src="https://example.com/b.jpg" alt="User" data-testid="avatar" />,
+        <Avatar
+          src="https://example.com/b.jpg"
+          alt="User"
+          data-testid="avatar"
+        />,
       );
       const img2 = screen.getByTestId("avatar").querySelector("img")!;
       // New img should be opacity-0 (not yet loaded)

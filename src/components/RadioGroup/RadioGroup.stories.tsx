@@ -67,16 +67,28 @@ export const AllSizes: Story = {
   render: () => (
     <div style={{ display: "flex", gap: "2rem", alignItems: "flex-start" }}>
       <RadioGroup name="sm" defaultValue="a" aria-label="Small">
-        <Radio value="a" size="sm">Small A</Radio>
-        <Radio value="b" size="sm">Small B</Radio>
+        <Radio value="a" size="sm">
+          Small A
+        </Radio>
+        <Radio value="b" size="sm">
+          Small B
+        </Radio>
       </RadioGroup>
       <RadioGroup name="md" defaultValue="a" aria-label="Medium">
-        <Radio value="a" size="md">Medium A</Radio>
-        <Radio value="b" size="md">Medium B</Radio>
+        <Radio value="a" size="md">
+          Medium A
+        </Radio>
+        <Radio value="b" size="md">
+          Medium B
+        </Radio>
       </RadioGroup>
       <RadioGroup name="lg" defaultValue="a" aria-label="Large">
-        <Radio value="a" size="lg">Large A</Radio>
-        <Radio value="b" size="lg">Large B</Radio>
+        <Radio value="a" size="lg">
+          Large A
+        </Radio>
+        <Radio value="b" size="lg">
+          Large B
+        </Radio>
       </RadioGroup>
     </div>
   ),
@@ -99,7 +111,9 @@ export const DisabledOption: Story = {
   render: () => (
     <RadioGroup name="fruit" aria-label="Fruit">
       <Radio value="apple">Apple</Radio>
-      <Radio value="banana" disabled>Banana (sold out)</Radio>
+      <Radio value="banana" disabled>
+        Banana (sold out)
+      </Radio>
       <Radio value="cherry">Cherry</Radio>
     </RadioGroup>
   ),
@@ -127,7 +141,11 @@ export const PaymentMethod: Story = {
     <div style={{ maxWidth: "20rem" }}>
       <FormField id="payment">
         <Label>Payment method</Label>
-        <RadioGroup name="payment" defaultValue="card" aria-label="Payment method">
+        <RadioGroup
+          name="payment"
+          defaultValue="card"
+          aria-label="Payment method"
+        >
           <Radio value="card">Credit or debit card</Radio>
           <Radio value="paypal">PayPal</Radio>
           <Radio value="bank">Bank transfer</Radio>

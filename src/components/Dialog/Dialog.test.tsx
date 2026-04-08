@@ -170,9 +170,7 @@ describe("Dialog", () => {
       renderDialog();
 
       await user.click(screen.getByRole("button", { name: "Open" }));
-      await user.click(
-        screen.getByRole("button", { name: "Close dialog" }),
-      );
+      await user.click(screen.getByRole("button", { name: "Close dialog" }));
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     });
 

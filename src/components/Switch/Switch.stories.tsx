@@ -62,7 +62,9 @@ export const Disabled: Story = {
   render: () => (
     <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
       <Switch disabled>Off disabled</Switch>
-      <Switch disabled defaultChecked>On disabled</Switch>
+      <Switch disabled defaultChecked>
+        On disabled
+      </Switch>
     </div>
   ),
 };

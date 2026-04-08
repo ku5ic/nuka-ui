@@ -5,7 +5,9 @@ import userEvent from "@testing-library/user-event";
 import { Switch } from "./Switch";
 import { FormField } from "@nuka/components/FormField";
 
-function noop() { /* empty */ }
+function noop() {
+  /* empty */
+}
 
 describe("Switch", () => {
   describe("rendering", () => {
@@ -19,12 +21,18 @@ describe("Switch", () => {
 
     it("aria-checked=false when unchecked", () => {
       render(<Switch aria-label="Toggle" />);
-      expect(screen.getByRole("switch", { name: "Toggle" })).toHaveAttribute("aria-checked", "false");
+      expect(screen.getByRole("switch", { name: "Toggle" })).toHaveAttribute(
+        "aria-checked",
+        "false",
+      );
     });
 
     it("aria-checked=true when checked", () => {
       render(<Switch checked onChange={noop} aria-label="Toggle" />);
-      expect(screen.getByRole("switch", { name: "Toggle" })).toHaveAttribute("aria-checked", "true");
+      expect(screen.getByRole("switch", { name: "Toggle" })).toHaveAttribute(
+        "aria-checked",
+        "true",
+      );
     });
 
     it("renders children as label text", () => {
@@ -39,17 +47,28 @@ describe("Switch", () => {
 
   describe("controlled", () => {
     it("checked prop drives aria-checked", () => {
-      const { rerender } = render(<Switch checked onChange={noop} aria-label="Toggle" />);
-      expect(screen.getByRole("switch", { name: "Toggle" })).toHaveAttribute("aria-checked", "true");
+      const { rerender } = render(
+        <Switch checked onChange={noop} aria-label="Toggle" />,
+      );
+      expect(screen.getByRole("switch", { name: "Toggle" })).toHaveAttribute(
+        "aria-checked",
+        "true",
+      );
       rerender(<Switch checked={false} onChange={noop} aria-label="Toggle" />);
-      expect(screen.getByRole("switch", { name: "Toggle" })).toHaveAttribute("aria-checked", "false");
+      expect(screen.getByRole("switch", { name: "Toggle" })).toHaveAttribute(
+        "aria-checked",
+        "false",
+      );
     });
   });
 
   describe("uncontrolled", () => {
     it("defaultChecked sets initial state", () => {
       render(<Switch defaultChecked aria-label="Toggle" />);
-      expect(screen.getByRole("switch", { name: "Toggle" })).toHaveAttribute("aria-checked", "true");
+      expect(screen.getByRole("switch", { name: "Toggle" })).toHaveAttribute(
+        "aria-checked",
+        "true",
+      );
     });
 
     it("clicking toggles the switch", async () => {
@@ -68,7 +87,14 @@ describe("Switch", () => {
     it("called with true when toggled on", async () => {
       const user = userEvent.setup();
       let lastValue: boolean | undefined;
-      render(<Switch aria-label="Toggle" onChange={(v) => { lastValue = v; }} />);
+      render(
+        <Switch
+          aria-label="Toggle"
+          onChange={(v) => {
+            lastValue = v;
+          }}
+        />,
+      );
       await user.click(screen.getByRole("switch", { name: "Toggle" }));
       expect(lastValue).toBe(true);
     });
@@ -76,7 +102,15 @@ describe("Switch", () => {
     it("called with false when toggled off", async () => {
       const user = userEvent.setup();
       let lastValue: boolean | undefined;
-      render(<Switch defaultChecked aria-label="Toggle" onChange={(v) => { lastValue = v; }} />);
+      render(
+        <Switch
+          defaultChecked
+          aria-label="Toggle"
+          onChange={(v) => {
+            lastValue = v;
+          }}
+        />,
+      );
       await user.click(screen.getByRole("switch", { name: "Toggle" }));
       expect(lastValue).toBe(false);
     });
@@ -106,7 +140,15 @@ describe("Switch", () => {
     it("prevents toggle and applies disabled attribute", async () => {
       const user = userEvent.setup();
       let called = false;
-      render(<Switch disabled aria-label="Toggle" onChange={() => { called = true; }} />);
+      render(
+        <Switch
+          disabled
+          aria-label="Toggle"
+          onChange={() => {
+            called = true;
+          }}
+        />,
+      );
       const el = screen.getByRole("switch", { name: "Toggle" });
       expect(el).toBeDisabled();
       await user.click(el);
@@ -119,7 +161,9 @@ describe("Switch", () => {
       render(<Switch aria-label="Toggle" />);
       const el = screen.getByRole("switch", { name: "Toggle" });
       expect(el.className).toContain("focus-visible:outline-2");
-      expect(el.className).toContain("focus-visible:outline-(--nuka-border-focus)");
+      expect(el.className).toContain(
+        "focus-visible:outline-(--nuka-border-focus)",
+      );
     });
   });
 
@@ -159,7 +203,10 @@ describe("Switch", () => {
           <Switch aria-label="Dark mode" />
         </FormField>,
       );
-      expect(screen.getByRole("switch", { name: "Dark mode" })).toHaveAttribute("id", "dark-mode");
+      expect(screen.getByRole("switch", { name: "Dark mode" })).toHaveAttribute(
+        "id",
+        "dark-mode",
+      );
     });
 
     it("does not apply aria-invalid", () => {
@@ -168,7 +215,9 @@ describe("Switch", () => {
           <Switch aria-label="Dark mode" />
         </FormField>,
       );
-      expect(screen.getByRole("switch", { name: "Dark mode" })).not.toHaveAttribute("aria-invalid");
+      expect(
+        screen.getByRole("switch", { name: "Dark mode" }),
+      ).not.toHaveAttribute("aria-invalid");
     });
   });
 });

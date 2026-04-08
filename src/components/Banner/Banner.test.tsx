@@ -110,7 +110,10 @@ describe("Banner", () => {
   describe("action slot", () => {
     it("renders action content when provided", () => {
       render(
-        <Banner aria-label="Notice" action={<button type="button">Update</button>}>
+        <Banner
+          aria-label="Notice"
+          action={<button type="button">Update</button>}
+        >
           New version available
         </Banner>,
       );

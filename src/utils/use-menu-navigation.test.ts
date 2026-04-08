@@ -4,14 +4,38 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useMenuNavigation } from "@nuka/utils/use-menu-navigation";
 
-function TestMenu({ onEscape, onTab }: { onEscape?: () => void; onTab?: () => void }) {
+function TestMenu({
+  onEscape,
+  onTab,
+}: {
+  onEscape?: () => void;
+  onTab?: () => void;
+}) {
   const { getItemProps } = useMenuNavigation({ onEscape, onTab });
 
-  return React.createElement("div", { role: "menu" },
-    React.createElement("div", { ...getItemProps(0), role: "menuitem" }, "Alpha"),
-    React.createElement("div", { ...getItemProps(1), role: "menuitem" }, "Beta"),
-    React.createElement("div", { ...getItemProps(2), role: "menuitem" }, "Charlie"),
-    React.createElement("div", { ...getItemProps(3), role: "menuitem", "aria-disabled": "true" }, "Delta"),
+  return React.createElement(
+    "div",
+    { role: "menu" },
+    React.createElement(
+      "div",
+      { ...getItemProps(0), role: "menuitem" },
+      "Alpha",
+    ),
+    React.createElement(
+      "div",
+      { ...getItemProps(1), role: "menuitem" },
+      "Beta",
+    ),
+    React.createElement(
+      "div",
+      { ...getItemProps(2), role: "menuitem" },
+      "Charlie",
+    ),
+    React.createElement(
+      "div",
+      { ...getItemProps(3), role: "menuitem", "aria-disabled": "true" },
+      "Delta",
+    ),
   );
 }
 

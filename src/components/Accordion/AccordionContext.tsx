@@ -48,8 +48,4 @@ export {
   AccordionItemContext,
   useAccordionItemContext,
 };
-export type {
-  AccordionContextValue,
-  AccordionItemContextValue,
-  HeadingLevel,
-};
+export type { AccordionContextValue, AccordionItemContextValue, HeadingLevel };

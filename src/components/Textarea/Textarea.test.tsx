@@ -19,17 +19,23 @@ describe("Textarea", () => {
   describe("size variants", () => {
     it("applies sm size classes", () => {
       const { container } = render(<Textarea size="sm" />);
-      expect(container.querySelector("textarea")?.className).toContain("text-xs");
+      expect(container.querySelector("textarea")?.className).toContain(
+        "text-xs",
+      );
     });
 
     it("applies md size classes by default", () => {
       const { container } = render(<Textarea />);
-      expect(container.querySelector("textarea")?.className).toContain("text-sm");
+      expect(container.querySelector("textarea")?.className).toContain(
+        "text-sm",
+      );
     });
 
     it("applies lg size classes", () => {
       const { container } = render(<Textarea size="lg" />);
-      expect(container.querySelector("textarea")?.className).toContain("text-base");
+      expect(container.querySelector("textarea")?.className).toContain(
+        "text-base",
+      );
     });
   });
 
@@ -66,17 +72,27 @@ describe("Textarea", () => {
   describe("aria-invalid", () => {
     it("sets aria-invalid when intent is danger", () => {
       const { container } = render(<Textarea intent="danger" />);
-      expect(container.querySelector("textarea")).toHaveAttribute("aria-invalid", "true");
+      expect(container.querySelector("textarea")).toHaveAttribute(
+        "aria-invalid",
+        "true",
+      );
     });
 
     it("does not set aria-invalid when intent is default", () => {
       const { container } = render(<Textarea />);
-      expect(container.querySelector("textarea")).not.toHaveAttribute("aria-invalid");
+      expect(container.querySelector("textarea")).not.toHaveAttribute(
+        "aria-invalid",
+      );
     });
 
     it("allows consumer to override aria-invalid to false even with danger intent", () => {
-      const { container } = render(<Textarea intent="danger" aria-invalid={false} />);
-      expect(container.querySelector("textarea")).toHaveAttribute("aria-invalid", "false");
+      const { container } = render(
+        <Textarea intent="danger" aria-invalid={false} />,
+      );
+      expect(container.querySelector("textarea")).toHaveAttribute(
+        "aria-invalid",
+        "false",
+      );
     });
   });
 
@@ -93,7 +109,10 @@ describe("Textarea", () => {
 
     it("forwards placeholder attribute", () => {
       const { container } = render(<Textarea placeholder="Enter message" />);
-      expect(container.querySelector("textarea")).toHaveAttribute("placeholder", "Enter message");
+      expect(container.querySelector("textarea")).toHaveAttribute(
+        "placeholder",
+        "Enter message",
+      );
     });
 
     it("forwards rows attribute", () => {
@@ -131,7 +150,10 @@ describe("Textarea", () => {
           <Textarea aria-label="Message" />
         </FormField>,
       );
-      expect(screen.getByRole("textbox", { name: "Message" })).toHaveAttribute("aria-invalid", "true");
+      expect(screen.getByRole("textbox", { name: "Message" })).toHaveAttribute(
+        "aria-invalid",
+        "true",
+      );
     });
 
     it("includes error id in aria-describedby when FormField has error", () => {
@@ -176,7 +198,10 @@ describe("Textarea", () => {
           <Textarea aria-label="Message" />
         </FormField>,
       );
-      expect(screen.getByRole("textbox", { name: "Message" })).toHaveAttribute("aria-required", "true");
+      expect(screen.getByRole("textbox", { name: "Message" })).toHaveAttribute(
+        "aria-required",
+        "true",
+      );
     });
 
     it("preserves consumer-supplied aria-describedby alongside context ids", () => {
@@ -185,7 +210,10 @@ describe("Textarea", () => {
           <Textarea aria-label="Message" aria-describedby="custom-desc" />
         </FormField>,
       );
-      const describedBy = screen.getByRole("textbox", { name: "Message" }).getAttribute("aria-describedby") ?? "";
+      const describedBy =
+        screen
+          .getByRole("textbox", { name: "Message" })
+          .getAttribute("aria-describedby") ?? "";
       expect(describedBy).toContain("custom-desc");
       expect(describedBy).toContain("message-hint");
     });
@@ -204,7 +232,10 @@ describe("Textarea", () => {
           <Textarea aria-label="Message" aria-invalid={false} />
         </FormField>,
       );
-      expect(screen.getByRole("textbox", { name: "Message" })).toHaveAttribute("aria-invalid", "false");
+      expect(screen.getByRole("textbox", { name: "Message" })).toHaveAttribute(
+        "aria-invalid",
+        "false",
+      );
     });
   });
 });

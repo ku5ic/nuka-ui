@@ -72,13 +72,22 @@ export const WithCheckboxItems: Story = {
         <MenubarMenu value="view">
           <MenubarTrigger>View</MenubarTrigger>
           <MenubarContent>
-            <MenubarCheckboxItem checked={showToolbar} onCheckedChange={setShowToolbar}>
+            <MenubarCheckboxItem
+              checked={showToolbar}
+              onCheckedChange={setShowToolbar}
+            >
               Toolbar
             </MenubarCheckboxItem>
-            <MenubarCheckboxItem checked={showStatusBar} onCheckedChange={setShowStatusBar}>
+            <MenubarCheckboxItem
+              checked={showStatusBar}
+              onCheckedChange={setShowStatusBar}
+            >
               Status bar
             </MenubarCheckboxItem>
-            <MenubarCheckboxItem checked={showMinimap} onCheckedChange={setShowMinimap}>
+            <MenubarCheckboxItem
+              checked={showMinimap}
+              onCheckedChange={setShowMinimap}
+            >
               Minimap
             </MenubarCheckboxItem>
           </MenubarContent>
@@ -98,7 +107,11 @@ export const WithRadioItems: Story = {
         <MenubarMenu value="view">
           <MenubarTrigger>View</MenubarTrigger>
           <MenubarContent>
-            <MenubarRadioGroup value={zoom} onValueChange={setZoom} aria-label="Zoom level">
+            <MenubarRadioGroup
+              value={zoom}
+              onValueChange={setZoom}
+              aria-label="Zoom level"
+            >
               <MenubarRadioItem value="75">75%</MenubarRadioItem>
               <MenubarRadioItem value="100">100%</MenubarRadioItem>
               <MenubarRadioItem value="125">125%</MenubarRadioItem>
@@ -145,11 +158,18 @@ export const ApplicationMenubar: Story = {
         <MenubarMenu value="view">
           <MenubarTrigger>View</MenubarTrigger>
           <MenubarContent>
-            <MenubarCheckboxItem checked={wordWrap} onCheckedChange={setWordWrap}>
+            <MenubarCheckboxItem
+              checked={wordWrap}
+              onCheckedChange={setWordWrap}
+            >
               Word wrap
             </MenubarCheckboxItem>
             <MenubarSeparator />
-            <MenubarRadioGroup value={theme} onValueChange={setTheme} aria-label="Theme">
+            <MenubarRadioGroup
+              value={theme}
+              onValueChange={setTheme}
+              aria-label="Theme"
+            >
               <MenubarRadioItem value="light">Light</MenubarRadioItem>
               <MenubarRadioItem value="dark">Dark</MenubarRadioItem>
               <MenubarRadioItem value="system">System</MenubarRadioItem>

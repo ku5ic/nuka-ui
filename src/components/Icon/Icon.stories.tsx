@@ -185,7 +185,7 @@ export const Decorative: Story = {
     docs: {
       description: {
         story:
-          "Without a `label` prop, Icon renders with `aria-hidden=\"true\"`. The icon is decorative and excluded from the accessibility tree. Use this when the icon is alongside visible text that already conveys the meaning.",
+          'Without a `label` prop, Icon renders with `aria-hidden="true"`. The icon is decorative and excluded from the accessibility tree. Use this when the icon is alongside visible text that already conveys the meaning.',
       },
     },
   },
@@ -200,7 +200,7 @@ export const Labelled: Story = {
     docs: {
       description: {
         story:
-          "With a `label` prop, Icon renders with `role=\"img\"` and `aria-label`. Use this when the icon is the sole content and must convey meaning to assistive technology.",
+          'With a `label` prop, Icon renders with `role="img"` and `aria-label`. Use this when the icon is the sole content and must convey meaning to assistive technology.',
       },
     },
   },

@@ -85,9 +85,7 @@ describe("Container", () => {
           Content
         </Container>,
       );
-      expect(screen.getByTestId("container").className).toContain(
-        "max-w-full",
-      );
+      expect(screen.getByTestId("container").className).toContain("max-w-full");
     });
   });
 

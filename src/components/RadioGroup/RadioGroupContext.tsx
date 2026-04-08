@@ -15,9 +15,15 @@ const defaultContext: RadioGroupContextValue = {
   value: undefined,
   disabled: false,
   focusedValue: undefined,
-  setFocusedValue: () => { /* noop */ },
-  onChange: () => { /* noop */ },
-  registerRef: () => { /* noop */ },
+  setFocusedValue: () => {
+    /* noop */
+  },
+  onChange: () => {
+    /* noop */
+  },
+  registerRef: () => {
+    /* noop */
+  },
 };
 
 export const RadioGroupContext = React.createContext(defaultContext);

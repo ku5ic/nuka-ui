@@ -36,8 +36,8 @@ export const Default: Story = {
       </CollapsibleTrigger>
       <CollapsibleContent className="pt-(--space-2)">
         <Text size="sm" color="muted">
-          This content can be expanded or collapsed. It animates smoothly
-          using CSS grid-rows transitions.
+          This content can be expanded or collapsed. It animates smoothly using
+          CSS grid-rows transitions.
         </Text>
       </CollapsibleContent>
     </Collapsible>
@@ -125,9 +125,15 @@ export const SettingsPanel: Story = {
         <CollapsibleContent>
           <div className="border-t border-(--nuka-border-base) p-(--space-4)">
             <Stack direction="column" gap="sm">
-              <Text size="sm" color="muted">Cache TTL: 3600s</Text>
-              <Text size="sm" color="muted">Max retries: 3</Text>
-              <Text size="sm" color="muted">Timeout: 30s</Text>
+              <Text size="sm" color="muted">
+                Cache TTL: 3600s
+              </Text>
+              <Text size="sm" color="muted">
+                Max retries: 3
+              </Text>
+              <Text size="sm" color="muted">
+                Timeout: 30s
+              </Text>
             </Stack>
           </div>
         </CollapsibleContent>

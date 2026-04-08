@@ -11,12 +11,16 @@ export interface MenubarContextValue {
   registerMenu: (value: string) => void;
 }
 
-const MenubarContext = React.createContext<MenubarContextValue | undefined>(undefined);
+const MenubarContext = React.createContext<MenubarContextValue | undefined>(
+  undefined,
+);
 
 function useMenubarContext(): MenubarContextValue {
   const context = React.useContext(MenubarContext);
   if (context === undefined) {
-    throw new Error("useMenubarContext must be used within a <Menubar> component");
+    throw new Error(
+      "useMenubarContext must be used within a <Menubar> component",
+    );
   }
   return context;
 }
@@ -31,14 +35,23 @@ export interface MenubarMenuContextValue {
   getFloatingProps: ReturnType<typeof useInteractions>["getFloatingProps"];
 }
 
-const MenubarMenuContext = React.createContext<MenubarMenuContextValue | undefined>(undefined);
+const MenubarMenuContext = React.createContext<
+  MenubarMenuContextValue | undefined
+>(undefined);
 
 function useMenubarMenuContext(): MenubarMenuContextValue {
   const context = React.useContext(MenubarMenuContext);
   if (context === undefined) {
-    throw new Error("useMenubarMenuContext must be used within a <MenubarMenu> component");
+    throw new Error(
+      "useMenubarMenuContext must be used within a <MenubarMenu> component",
+    );
   }
   return context;
 }
 
-export { MenubarContext, useMenubarContext, MenubarMenuContext, useMenubarMenuContext };
+export {
+  MenubarContext,
+  useMenubarContext,
+  MenubarMenuContext,
+  useMenubarMenuContext,
+};

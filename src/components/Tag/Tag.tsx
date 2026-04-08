@@ -36,34 +36,22 @@ const tagVariants = cva(
       {
         variant: "primary",
         intent: "default",
-        className: [
-          "bg-(--nuka-accent-bg)",
-          "text-(--nuka-text-inverse)",
-        ],
+        className: ["bg-(--nuka-accent-bg)", "text-(--nuka-text-inverse)"],
       },
       {
         variant: "primary",
         intent: "danger",
-        className: [
-          "bg-(--nuka-danger-base)",
-          "text-(--nuka-text-inverse)",
-        ],
+        className: ["bg-(--nuka-danger-base)", "text-(--nuka-text-inverse)"],
       },
       {
         variant: "primary",
         intent: "success",
-        className: [
-          "bg-(--nuka-success-base)",
-          "text-(--nuka-text-inverse)",
-        ],
+        className: ["bg-(--nuka-success-base)", "text-(--nuka-text-inverse)"],
       },
       {
         variant: "primary",
         intent: "warning",
-        className: [
-          "bg-(--nuka-warning-base)",
-          "text-(--nuka-text-inverse)",
-        ],
+        className: ["bg-(--nuka-warning-base)", "text-(--nuka-text-inverse)"],
       },
 
       // secondary
@@ -172,8 +160,7 @@ const tagVariants = cva(
 export type TagVariantProps = VariantProps<typeof tagVariants>;
 
 export interface TagProps
-  extends React.HTMLAttributes<HTMLSpanElement>,
-    TagVariantProps {
+  extends React.HTMLAttributes<HTMLSpanElement>, TagVariantProps {
   onDismiss?: () => void;
   dismissLabel?: string;
 }

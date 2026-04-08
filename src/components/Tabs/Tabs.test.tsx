@@ -91,7 +91,9 @@ describe("Tabs", () => {
 
     it("inactive panels have hidden attribute and remain in DOM", () => {
       renderTabs();
-      const hiddenPanels = document.querySelectorAll('[role="tabpanel"][hidden]');
+      const hiddenPanels = document.querySelectorAll(
+        '[role="tabpanel"][hidden]',
+      );
       expect(hiddenPanels).toHaveLength(2);
     });
 
@@ -294,7 +296,9 @@ describe("Tabs", () => {
         <Tabs defaultValue="tab-1">
           <TabsList>
             <TabsTrigger value="tab-1">Tab 1</TabsTrigger>
-            <TabsTrigger value="tab-2" disabled>Tab 2</TabsTrigger>
+            <TabsTrigger value="tab-2" disabled>
+              Tab 2
+            </TabsTrigger>
           </TabsList>
           <TabsContent value="tab-1">Panel 1</TabsContent>
           <TabsContent value="tab-2">Panel 2</TabsContent>
@@ -312,7 +316,9 @@ describe("Tabs", () => {
         <Tabs defaultValue="tab-1">
           <TabsList>
             <TabsTrigger value="tab-1">Tab 1</TabsTrigger>
-            <TabsTrigger value="tab-2" disabled>Tab 2</TabsTrigger>
+            <TabsTrigger value="tab-2" disabled>
+              Tab 2
+            </TabsTrigger>
             <TabsTrigger value="tab-3">Tab 3</TabsTrigger>
           </TabsList>
           <TabsContent value="tab-1">Panel 1</TabsContent>

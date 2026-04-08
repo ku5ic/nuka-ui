@@ -40,11 +40,23 @@ export const Required: Story = {
 export const WithInput: Story = {
   name: "Pattern: With Input",
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "0.375rem", width: "20rem" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "0.375rem",
+        width: "20rem",
+      }}
+    >
       <Label htmlFor="email-input" required>
         Email address
       </Label>
-      <Input id="email-input" type="email" placeholder="you@example.com" aria-required="true" />
+      <Input
+        id="email-input"
+        type="email"
+        placeholder="you@example.com"
+        aria-required="true"
+      />
     </div>
   ),
 };

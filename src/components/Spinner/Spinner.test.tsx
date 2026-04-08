@@ -67,9 +67,7 @@ describe("Spinner", () => {
     it("applies default stroke color to arc circle", () => {
       render(<Spinner data-testid="spinner" />);
       const arc = screen.getByTestId("spinner").querySelectorAll("circle")[1];
-      expect(arc?.getAttribute("class")).toContain(
-        "stroke-(--nuka-accent-bg)",
-      );
+      expect(arc?.getAttribute("class")).toContain("stroke-(--nuka-accent-bg)");
     });
 
     it("applies muted stroke color to arc circle", () => {
@@ -101,9 +99,7 @@ describe("Spinner", () => {
       const el = screen.getByTestId("spinner");
       expect(el).toHaveAttribute("role", "status");
       expect(screen.getByText("Saving changes")).toBeInTheDocument();
-      expect(screen.getByText("Saving changes").className).toContain(
-        "sr-only",
-      );
+      expect(screen.getByText("Saving changes").className).toContain("sr-only");
     });
 
     it("when label is absent and aria-hidden is not set: has role='status' and aria-label='Loading'", () => {

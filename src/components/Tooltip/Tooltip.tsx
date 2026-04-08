@@ -32,7 +32,11 @@ function Tooltip({
   delay = 600,
   side = "top",
 }: TooltipProps) {
-  const [currentOpen, handleOpenChange] = useControllableState(controlledOpen, defaultOpen, onOpenChange);
+  const [currentOpen, handleOpenChange] = useControllableState(
+    controlledOpen,
+    defaultOpen,
+    onOpenChange,
+  );
 
   const { refs, floatingStyles, context } = useFloating({
     open: currentOpen,
@@ -62,13 +66,7 @@ function Tooltip({
       getReferenceProps,
       getFloatingProps,
     }),
-    [
-      currentOpen,
-      refs,
-      floatingStyles,
-      getReferenceProps,
-      getFloatingProps,
-    ],
+    [currentOpen, refs, floatingStyles, getReferenceProps, getFloatingProps],
   );
 
   return <TooltipContext value={contextValue}>{children}</TooltipContext>;

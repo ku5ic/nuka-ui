@@ -35,7 +35,14 @@ export const Circle: Story = {
 
 export const Text: Story = {
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", width: 300 }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "0.5rem",
+        width: 300,
+      }}
+    >
       <Skeleton shape="text" className="w-full" style={{ fontSize: "1rem" }} />
       <Skeleton shape="text" className="w-4/5" style={{ fontSize: "1rem" }} />
       <Skeleton shape="text" className="w-3/5" style={{ fontSize: "1rem" }} />
@@ -70,14 +77,39 @@ export const ArticleCard: Story = {
       <Skeleton className="w-full h-40" />
       <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
         <Skeleton shape="circle" style={{ width: 40, height: 40 }} />
-        <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "0.375rem" }}>
-          <Skeleton shape="text" className="w-24" style={{ fontSize: "0.875rem" }} />
-          <Skeleton shape="text" className="w-16" style={{ fontSize: "0.75rem" }} />
+        <div
+          style={{
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+            gap: "0.375rem",
+          }}
+        >
+          <Skeleton
+            shape="text"
+            className="w-24"
+            style={{ fontSize: "0.875rem" }}
+          />
+          <Skeleton
+            shape="text"
+            className="w-16"
+            style={{ fontSize: "0.75rem" }}
+          />
         </div>
       </div>
-      <div style={{ display: "flex", flexDirection: "column", gap: "0.375rem" }}>
-        <Skeleton shape="text" className="w-full" style={{ fontSize: "1rem" }} />
-        <Skeleton shape="text" className="w-full" style={{ fontSize: "1rem" }} />
+      <div
+        style={{ display: "flex", flexDirection: "column", gap: "0.375rem" }}
+      >
+        <Skeleton
+          shape="text"
+          className="w-full"
+          style={{ fontSize: "1rem" }}
+        />
+        <Skeleton
+          shape="text"
+          className="w-full"
+          style={{ fontSize: "1rem" }}
+        />
         <Skeleton shape="text" className="w-3/4" style={{ fontSize: "1rem" }} />
       </div>
     </div>
@@ -87,7 +119,14 @@ export const ArticleCard: Story = {
 export const TableRows: Story = {
   name: "Pattern: Table Rows",
   render: () => (
-    <div style={{ width: 500, display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+    <div
+      style={{
+        width: 500,
+        display: "flex",
+        flexDirection: "column",
+        gap: "0.75rem",
+      }}
+    >
       {Array.from({ length: 4 }, (_, row) => (
         <div
           key={row}

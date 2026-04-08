@@ -3,10 +3,7 @@ import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
 
 const headingVariants = cva(
-  [
-    "font-[number:var(--font-weight-bold)]",
-    "text-(--nuka-text-base)",
-  ],
+  ["font-[number:var(--font-weight-bold)]", "text-(--nuka-text-base)"],
   {
     variants: {
       size: {
@@ -58,7 +55,8 @@ export type HeadingVariantProps = VariantProps<typeof headingVariants>;
 export type HeadingElement = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
 export interface HeadingProps
-  extends Omit<React.HTMLAttributes<HTMLElement>, "color">,
+  extends
+    Omit<React.HTMLAttributes<HTMLElement>, "color">,
     HeadingVariantProps {
   as?: HeadingElement;
 }

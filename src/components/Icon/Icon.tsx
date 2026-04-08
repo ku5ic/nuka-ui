@@ -35,7 +35,8 @@ export type IconVariantProps = VariantProps<typeof iconVariants> &
   VariantProps<typeof iconColorVariants>;
 
 export interface IconProps
-  extends Omit<React.HTMLAttributes<HTMLSpanElement>, "color">,
+  extends
+    Omit<React.HTMLAttributes<HTMLSpanElement>, "color">,
     IconVariantProps {
   children: React.ReactElement;
   label?: string;

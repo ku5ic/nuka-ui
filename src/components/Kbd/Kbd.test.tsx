@@ -24,7 +24,11 @@ describe("Kbd", () => {
 
   describe("size", () => {
     it("applies sm size classes", () => {
-      render(<Kbd size="sm" data-testid="kbd">K</Kbd>);
+      render(
+        <Kbd size="sm" data-testid="kbd">
+          K
+        </Kbd>,
+      );
       const el = screen.getByTestId("kbd");
       expect(el.className).toContain("min-h-5");
       expect(el.className).toContain("text-[length:var(--font-size-xs)]");
@@ -38,7 +42,11 @@ describe("Kbd", () => {
     });
 
     it("applies lg size classes", () => {
-      render(<Kbd size="lg" data-testid="kbd">K</Kbd>);
+      render(
+        <Kbd size="lg" data-testid="kbd">
+          K
+        </Kbd>,
+      );
       const el = screen.getByTestId("kbd");
       expect(el.className).toContain("min-h-8");
       expect(el.className).toContain("text-[length:var(--font-size-md)]");
@@ -54,7 +62,11 @@ describe("Kbd", () => {
 
   describe("className override", () => {
     it("merges consumer className with variant classes", () => {
-      render(<Kbd className="ml-2" data-testid="kbd">K</Kbd>);
+      render(
+        <Kbd className="ml-2" data-testid="kbd">
+          K
+        </Kbd>,
+      );
       const el = screen.getByTestId("kbd");
       expect(el.className).toContain("ml-2");
       expect(el.className).toContain("inline-flex");
@@ -63,7 +75,11 @@ describe("Kbd", () => {
 
   describe("native attributes", () => {
     it("forwards data-* attributes", () => {
-      render(<Kbd data-testid="kbd" data-shortcut="true">K</Kbd>);
+      render(
+        <Kbd data-testid="kbd" data-shortcut="true">
+          K
+        </Kbd>,
+      );
       expect(screen.getByTestId("kbd")).toHaveAttribute(
         "data-shortcut",
         "true",

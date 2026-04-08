@@ -4,11 +4,7 @@ import { cn } from "@nuka/utils/cn";
 import { DismissButton } from "@nuka/utils/dismiss-button";
 
 const alertVariants = cva(
-  [
-    "flex items-start gap-(--space-3)",
-    "rounded-(--radius-md)",
-    "border",
-  ],
+  ["flex items-start gap-(--space-3)", "rounded-(--radius-md)", "border"],
   {
     variants: {
       variant: {
@@ -35,34 +31,22 @@ const alertVariants = cva(
       {
         variant: "primary",
         intent: "default",
-        className: [
-          "bg-(--nuka-accent-bg)",
-          "text-(--nuka-text-inverse)",
-        ],
+        className: ["bg-(--nuka-accent-bg)", "text-(--nuka-text-inverse)"],
       },
       {
         variant: "primary",
         intent: "danger",
-        className: [
-          "bg-(--nuka-danger-base)",
-          "text-(--nuka-text-inverse)",
-        ],
+        className: ["bg-(--nuka-danger-base)", "text-(--nuka-text-inverse)"],
       },
       {
         variant: "primary",
         intent: "success",
-        className: [
-          "bg-(--nuka-success-base)",
-          "text-(--nuka-text-inverse)",
-        ],
+        className: ["bg-(--nuka-success-base)", "text-(--nuka-text-inverse)"],
       },
       {
         variant: "primary",
         intent: "warning",
-        className: [
-          "bg-(--nuka-warning-base)",
-          "text-(--nuka-text-inverse)",
-        ],
+        className: ["bg-(--nuka-warning-base)", "text-(--nuka-text-inverse)"],
       },
 
       // secondary
@@ -171,14 +155,16 @@ const alertVariants = cva(
 export type AlertVariantProps = VariantProps<typeof alertVariants>;
 
 export interface AlertProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    AlertVariantProps {
+  extends React.HTMLAttributes<HTMLDivElement>, AlertVariantProps {
   onDismiss?: () => void;
   icon?: React.ReactNode;
 }
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
-  ({ className, variant, intent, size, onDismiss, icon, children, ...props }, ref) => {
+  (
+    { className, variant, intent, size, onDismiss, icon, children, ...props },
+    ref,
+  ) => {
     return (
       <div
         ref={ref}
@@ -189,7 +175,10 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
         {icon && <span className="shrink-0">{icon}</span>}
         <div className="flex-1 min-w-0">{children}</div>
         {onDismiss != null && (
-          <DismissButton onClick={onDismiss} className="ml-auto self-start shrink-0" />
+          <DismissButton
+            onClick={onDismiss}
+            className="ml-auto self-start shrink-0"
+          />
         )}
       </div>
     );

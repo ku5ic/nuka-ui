@@ -6,9 +6,13 @@ import { RadioGroup } from "./RadioGroup";
 import { Radio } from "./Radio";
 import { FormField } from "@nuka/components/FormField";
 
-function noop() { /* empty */ }
+function noop() {
+  /* empty */
+}
 
-function renderGroup(props: Partial<React.ComponentProps<typeof RadioGroup>> = {}) {
+function renderGroup(
+  props: Partial<React.ComponentProps<typeof RadioGroup>> = {},
+) {
   return render(
     <RadioGroup name="color" aria-label="Color" {...props}>
       <Radio value="red">Red</Radio>
@@ -22,7 +26,9 @@ describe("RadioGroup", () => {
   describe("rendering", () => {
     it("renders a div with role=radiogroup", () => {
       renderGroup();
-      expect(screen.getByRole("radiogroup", { name: "Color" })).toBeInTheDocument();
+      expect(
+        screen.getByRole("radiogroup", { name: "Color" }),
+      ).toBeInTheDocument();
     });
 
     it("aria-orientation defaults to vertical", () => {
@@ -71,7 +77,12 @@ describe("RadioGroup", () => {
     it("selecting a radio calls onChange with the correct value", async () => {
       const user = userEvent.setup();
       let lastValue = "";
-      renderGroup({ value: "red", onChange: (v) => { lastValue = v; } });
+      renderGroup({
+        value: "red",
+        onChange: (v) => {
+          lastValue = v;
+        },
+      });
       await user.click(screen.getByRole("radio", { name: "Green" }));
       expect(lastValue).toBe("green");
     });
@@ -146,7 +157,9 @@ describe("RadioGroup", () => {
       renderGroup({ defaultValue: "green" });
       const radios = screen.getAllByRole("radio");
       const focused = radios.find((r) => r.getAttribute("tabindex") === "0");
-      const unfocused = radios.filter((r) => r.getAttribute("tabindex") === "-1");
+      const unfocused = radios.filter(
+        (r) => r.getAttribute("tabindex") === "-1",
+      );
       expect(focused).toBeDefined();
       expect(unfocused).toHaveLength(2);
     });
@@ -175,7 +188,10 @@ describe("RadioGroup", () => {
           </RadioGroup>
         </FormField>,
       );
-      expect(screen.getByRole("radiogroup", { name: "Color" })).toHaveAttribute("aria-invalid", "true");
+      expect(screen.getByRole("radiogroup", { name: "Color" })).toHaveAttribute(
+        "aria-invalid",
+        "true",
+      );
     });
   });
 });
@@ -209,12 +225,20 @@ describe("Radio", () => {
           <Radio value="apple">Apple</Radio>
         </RadioGroup>,
       );
-      expect(screen.getByRole("radio", { name: "Apple" })).toHaveAttribute("name", "fruit");
+      expect(screen.getByRole("radio", { name: "Apple" })).toHaveAttribute(
+        "name",
+        "fruit",
+      );
     });
 
     it("checked state derived from matching group value", () => {
       render(
-        <RadioGroup name="color" value="green" onChange={noop} aria-label="Color">
+        <RadioGroup
+          name="color"
+          value="green"
+          onChange={noop}
+          aria-label="Color"
+        >
           <Radio value="red">Red</Radio>
           <Radio value="green">Green</Radio>
         </RadioGroup>,
@@ -229,14 +253,19 @@ describe("Radio", () => {
           <Radio value="red">Red</Radio>
         </RadioGroup>,
       );
-      expect(screen.getByRole("radio", { name: "Red" })).toHaveAttribute("value", "red");
+      expect(screen.getByRole("radio", { name: "Red" })).toHaveAttribute(
+        "value",
+        "red",
+      );
     });
 
     it("disabled prop on individual Radio works independently of group disabled", () => {
       render(
         <RadioGroup name="color" aria-label="Color">
           <Radio value="red">Red</Radio>
-          <Radio value="green" disabled>Green</Radio>
+          <Radio value="green" disabled>
+            Green
+          </Radio>
         </RadioGroup>,
       );
       expect(screen.getByRole("radio", { name: "Red" })).not.toBeDisabled();
@@ -253,7 +282,9 @@ describe("Radio", () => {
       const ref = React.createRef<HTMLInputElement>();
       render(
         <RadioGroup name="color" aria-label="Color">
-          <Radio ref={ref} value="red">Red</Radio>
+          <Radio ref={ref} value="red">
+            Red
+          </Radio>
         </RadioGroup>,
       );
       expect(ref.current).toBeInstanceOf(HTMLInputElement);

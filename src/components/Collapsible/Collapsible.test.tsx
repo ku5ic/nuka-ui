@@ -8,7 +8,9 @@ import {
   CollapsibleContent,
 } from "./Collapsible";
 
-function renderCollapsible(props: React.ComponentProps<typeof Collapsible> = {}) {
+function renderCollapsible(
+  props: React.ComponentProps<typeof Collapsible> = {},
+) {
   return render(
     <Collapsible {...props}>
       <CollapsibleTrigger>Toggle</CollapsibleTrigger>
@@ -36,8 +38,9 @@ describe("Collapsible", () => {
       renderCollapsible();
       const trigger = screen.getByRole("button", { name: "Toggle" });
       expect(trigger).toHaveAttribute("aria-expanded", "false");
-      expect(screen.getByText("Content").closest("[role='region']"))
-        .toHaveAttribute("aria-hidden", "true");
+      expect(
+        screen.getByText("Content").closest("[role='region']"),
+      ).toHaveAttribute("aria-hidden", "true");
     });
 
     it("starts open when defaultOpen is true", () => {
@@ -67,8 +70,10 @@ describe("Collapsible", () => {
           <CollapsibleContent>Content</CollapsibleContent>
         </Collapsible>,
       );
-      expect(screen.getByRole("button", { name: "Toggle" }))
-        .toHaveAttribute("aria-expanded", "false");
+      expect(screen.getByRole("button", { name: "Toggle" })).toHaveAttribute(
+        "aria-expanded",
+        "false",
+      );
 
       rerender(
         <Collapsible open={true}>
@@ -76,8 +81,10 @@ describe("Collapsible", () => {
           <CollapsibleContent>Content</CollapsibleContent>
         </Collapsible>,
       );
-      expect(screen.getByRole("button", { name: "Toggle" }))
-        .toHaveAttribute("aria-expanded", "true");
+      expect(screen.getByRole("button", { name: "Toggle" })).toHaveAttribute(
+        "aria-expanded",
+        "true",
+      );
     });
 
     it("calls onOpenChange when trigger is clicked", async () => {

@@ -12,9 +12,7 @@ describe("DismissButton", () => {
 
   it("has default aria-label of 'Dismiss'", () => {
     render(<DismissButton onClick={vi.fn()} />);
-    expect(
-      screen.getByRole("button", { name: "Dismiss" }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Dismiss" })).toBeInTheDocument();
   });
 
   it("uses custom label as aria-label", () => {

@@ -36,9 +36,7 @@ describe("useControllableState", () => {
 
   describe("controlled", () => {
     it("returns the controlled value", () => {
-      const { result } = renderHook(() =>
-        useControllableState(true, false),
-      );
+      const { result } = renderHook(() => useControllableState(true, false));
       expect(result.current[0]).toBe(true);
     });
 

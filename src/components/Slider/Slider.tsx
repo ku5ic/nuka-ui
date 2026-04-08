@@ -4,29 +4,21 @@ import { cn } from "@nuka/utils/cn";
 import { useFormFieldProps } from "@nuka/utils/use-form-field-props";
 import { useControllableState } from "@nuka/utils/use-controllable-state";
 
-const sliderWrapperVariants = cva(
-  [
-    "relative flex items-center w-full",
-  ],
-  {
-    variants: {
-      size: {
-        sm: "min-h-[24px]",
-        md: "min-h-[24px]",
-        lg: "min-h-[24px]",
-      },
-    },
-    defaultVariants: {
-      size: "md",
+const sliderWrapperVariants = cva(["relative flex items-center w-full"], {
+  variants: {
+    size: {
+      sm: "min-h-[24px]",
+      md: "min-h-[24px]",
+      lg: "min-h-[24px]",
     },
   },
-);
+  defaultVariants: {
+    size: "md",
+  },
+});
 
 const sliderTrackVariants = cva(
-  [
-    "relative w-full rounded-full",
-    "bg-(--nuka-border-base)",
-  ],
+  ["relative w-full rounded-full", "bg-(--nuka-border-base)"],
   {
     variants: {
       size: {
@@ -92,11 +84,7 @@ const sliderThumbVariants = cva(
 );
 
 const sliderValueVariants = cva(
-  [
-    "tabular-nums text-(--nuka-text-muted)",
-    "ml-(--space-3)",
-    "select-none",
-  ],
+  ["tabular-nums text-(--nuka-text-muted)", "ml-(--space-3)", "select-none"],
   {
     variants: {
       size: {
@@ -121,7 +109,11 @@ export type SliderVariantProps = VariantProps<typeof sliderFillVariants> &
   VariantProps<typeof sliderThumbVariants>;
 
 export interface SliderProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size" | "type" | "onChange">,
+  extends
+    Omit<
+      React.InputHTMLAttributes<HTMLInputElement>,
+      "size" | "type" | "onChange"
+    >,
     SliderVariantProps {
   value?: number;
   defaultValue?: number;
@@ -165,7 +157,11 @@ const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
       "aria-required": props["aria-required"],
     });
 
-    const [currentValue, setCurrentValue] = useControllableState(controlledValue, defaultValue ?? min, onValueChange);
+    const [currentValue, setCurrentValue] = useControllableState(
+      controlledValue,
+      defaultValue ?? min,
+      onValueChange,
+    );
     const [focused, setFocused] = React.useState(false);
     const percentage = ((currentValue - min) / (max - min)) * 100;
     const resolvedSize = size ?? "md";
@@ -213,9 +209,12 @@ const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
           <div
             className={cn(
               sliderThumbVariants({ intent, size }),
-              focused && "outline-2 outline-offset-2 outline-(--nuka-border-focus)",
+              focused &&
+                "outline-2 outline-offset-2 outline-(--nuka-border-focus)",
             )}
-            style={{ left: `calc(${String(percentage)}% - ${String(thumbOffset)}px)` }}
+            style={{
+              left: `calc(${String(percentage)}% - ${String(thumbOffset)}px)`,
+            }}
             data-testid="slider-thumb"
           />
         </div>

@@ -8,7 +8,10 @@ import { PopoverContent } from "@nuka/components/Popover/PopoverContent";
 
 vi.mock("@floating-ui/react", async () => {
   // eslint-disable-next-line @typescript-eslint/consistent-type-imports
-  const actual = await vi.importActual<typeof import("@floating-ui/react")>("@floating-ui/react");
+  const actual =
+    await vi.importActual<typeof import("@floating-ui/react")>(
+      "@floating-ui/react",
+    );
   return {
     ...actual,
     autoUpdate: vi.fn(() => () => undefined),
@@ -200,9 +203,7 @@ describe("Popover", () => {
     render(
       <Popover>
         <PopoverTrigger>Open</PopoverTrigger>
-        <PopoverContent className="custom-class">
-          Panel content
-        </PopoverContent>
+        <PopoverContent className="custom-class">Panel content</PopoverContent>
       </Popover>,
     );
 
@@ -220,6 +221,20 @@ describe("Popover", () => {
     );
 
     expect(ref.current).toBeInstanceOf(HTMLButtonElement);
+  });
+
+  it("forwards ref on PopoverContent", async () => {
+    const user = userEvent.setup();
+    const ref = React.createRef<HTMLDivElement>();
+    render(
+      <Popover>
+        <PopoverTrigger>Open</PopoverTrigger>
+        <PopoverContent ref={ref}>Panel content</PopoverContent>
+      </Popover>,
+    );
+
+    await user.click(screen.getByRole("button", { name: "Open" }));
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("supports asChild on PopoverTrigger", async () => {

@@ -31,8 +31,7 @@ const dividerVariants = cva([], {
 export type DividerVariantProps = VariantProps<typeof dividerVariants>;
 
 export interface DividerProps
-  extends React.ComponentPropsWithoutRef<"div">,
-    DividerVariantProps {
+  extends React.ComponentPropsWithoutRef<"div">, DividerVariantProps {
   label?: React.ReactNode;
 }
 
@@ -42,7 +41,10 @@ export interface DividerProps
  * HTMLElement is the correct common supertype.
  */
 const Divider = React.forwardRef<HTMLElement, DividerProps>(
-  ({ className, orientation = "horizontal", size = "md", label, ...props }, ref) => {
+  (
+    { className, orientation = "horizontal", size = "md", label, ...props },
+    ref,
+  ) => {
     const isVertical = orientation === "vertical";
     const hasLabel = label != null;
 
@@ -50,7 +52,7 @@ const Divider = React.forwardRef<HTMLElement, DividerProps>(
     if (isVertical && hasLabel) {
       if (process.env.NODE_ENV !== "production") {
         console.warn(
-          "Divider: `label` is not supported with `orientation=\"vertical\"`. The label will be ignored.",
+          'Divider: `label` is not supported with `orientation="vertical"`. The label will be ignored.',
         );
       }
 

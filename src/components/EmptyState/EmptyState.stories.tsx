@@ -24,11 +24,43 @@ const PlaceholderIllustration = () => (
     xmlns="http://www.w3.org/2000/svg"
     aria-hidden="true"
   >
-    <rect x="10" y="30" width="100" height="70" rx="8" stroke="currentColor" strokeWidth="2" />
+    <rect
+      x="10"
+      y="30"
+      width="100"
+      height="70"
+      rx="8"
+      stroke="currentColor"
+      strokeWidth="2"
+    />
     <circle cx="60" cy="20" r="12" stroke="currentColor" strokeWidth="2" />
-    <line x1="40" y1="55" x2="80" y2="55" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-    <line x1="45" y1="70" x2="75" y2="70" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-    <line x1="50" y1="85" x2="70" y2="85" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    <line
+      x1="40"
+      y1="55"
+      x2="80"
+      y2="55"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
+    <line
+      x1="45"
+      y1="70"
+      x2="75"
+      y2="70"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
+    <line
+      x1="50"
+      y1="85"
+      x2="70"
+      y2="85"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
   </svg>
 );
 
@@ -104,7 +136,11 @@ export const WithAction: Story = {
   args: {
     heading: "No items found",
     description: "Start by adding your first item.",
-    action: <Button variant="primary" size="sm">Add item</Button>,
+    action: (
+      <Button variant="primary" size="sm">
+        Add item
+      </Button>
+    ),
   },
 };
 
@@ -112,10 +148,15 @@ export const Full: Story = {
   name: "Full (All Slots)",
   args: {
     heading: "No projects yet",
-    description: "Projects help you organize your work. Create one to get started.",
+    description:
+      "Projects help you organize your work. Create one to get started.",
     illustration: <PlaceholderIllustration />,
     icon: <SearchIcon />,
-    action: <Button variant="primary" size="sm">Create project</Button>,
+    action: (
+      <Button variant="primary" size="sm">
+        Create project
+      </Button>
+    ),
   },
 };
 
@@ -125,9 +166,13 @@ export const NoSearchResults: Story = {
   render: () => (
     <EmptyState
       heading="No results found"
-      description='We couldn&apos;t find anything matching your search. Try adjusting your filters.'
+      description="We couldn't find anything matching your search. Try adjusting your filters."
       icon={<SearchIcon />}
-      action={<Button variant="outline" size="sm">Clear filters</Button>}
+      action={
+        <Button variant="outline" size="sm">
+          Clear filters
+        </Button>
+      }
     />
   ),
   parameters: {
@@ -188,7 +233,11 @@ export const EmptyTable: Story = {
       <EmptyState
         heading="No records"
         description="Add a record to see it here."
-        action={<Button variant="primary" size="sm">Add record</Button>}
+        action={
+          <Button variant="primary" size="sm">
+            Add record
+          </Button>
+        }
       />
     </div>
   ),

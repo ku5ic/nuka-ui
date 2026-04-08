@@ -6,7 +6,10 @@ import { useControllableState } from "@nuka/utils/use-controllable-state";
 import { RadioGroupContext } from "@nuka/components/RadioGroup/RadioGroupContext";
 import type { RadioGroupContextValue } from "@nuka/components/RadioGroup/RadioGroupContext";
 
-export interface RadioGroupProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
+export interface RadioGroupProps extends Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  "onChange"
+> {
   name: string;
   value?: string;
   defaultValue?: string;
@@ -32,7 +35,11 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
     ref,
   ) => {
     const ctx = useFormField();
-    const [currentValue, setCurrentValue] = useControllableState(controlledValue, defaultValue, onChange);
+    const [currentValue, setCurrentValue] = useControllableState(
+      controlledValue,
+      defaultValue,
+      onChange,
+    );
 
     const refsMap = React.useRef(new Map<string, HTMLInputElement>());
 
@@ -145,7 +152,14 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
         onChange: handleChange,
         registerRef,
       }),
-      [name, currentValue, resolvedDisabled, focusedValue, handleChange, registerRef],
+      [
+        name,
+        currentValue,
+        resolvedDisabled,
+        focusedValue,
+        handleChange,
+        registerRef,
+      ],
     );
 
     return (

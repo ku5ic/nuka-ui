@@ -10,9 +10,9 @@ export interface DropdownMenuContextValue {
   getFloatingProps: ReturnType<typeof useInteractions>["getFloatingProps"];
 }
 
-const DropdownMenuContext = React.createContext<DropdownMenuContextValue | undefined>(
-  undefined,
-);
+const DropdownMenuContext = React.createContext<
+  DropdownMenuContextValue | undefined
+>(undefined);
 
 function useDropdownMenuContext(): DropdownMenuContextValue {
   const context = React.useContext(DropdownMenuContext);

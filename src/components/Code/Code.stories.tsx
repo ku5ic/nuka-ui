@@ -173,9 +173,7 @@ export const AllVariants: Story = {
 
 export const AllSizes: Story = {
   render: () => (
-    <div
-      style={{ display: "flex", gap: "0.75rem", alignItems: "flex-end" }}
-    >
+    <div style={{ display: "flex", gap: "0.75rem", alignItems: "flex-end" }}>
       <Code size="sm">small</Code>
       <Code size="md">medium</Code>
       <Code size="lg">large</Code>
@@ -188,8 +186,8 @@ export const InlineInProse: Story = {
   render: () => (
     <Text as="p" style={{ maxWidth: "36rem", lineHeight: 1.6 }}>
       Call <Code>useState</Code> at the top level of your component to declare a
-      state variable. The convention is to name state variables
-      like <Code>something</Code> and <Code>setSomething</Code> using array
+      state variable. The convention is to name state variables like{" "}
+      <Code>something</Code> and <Code>setSomething</Code> using array
       destructuring. If the initial value is expensive to compute, pass a
       function to <Code>useState</Code> instead. It will only be called during
       the first render.

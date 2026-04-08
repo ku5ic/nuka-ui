@@ -189,7 +189,13 @@ export const WithIcon: Story = {
           fill="none"
           style={{ marginRight: "0.25rem" }}
         >
-          <circle cx="6" cy="6" r="4.5" stroke="currentColor" strokeWidth="1.5" />
+          <circle
+            cx="6"
+            cy="6"
+            r="4.5"
+            stroke="currentColor"
+            strokeWidth="1.5"
+          />
         </svg>
         Error
       </Badge>

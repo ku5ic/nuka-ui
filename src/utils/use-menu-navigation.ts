@@ -24,7 +24,9 @@ function useMenuNavigation(
   const { onEscape, onTab } = options;
   const itemsRef = useRef<(HTMLElement | null)[]>([]);
   const typeAheadBuffer = useRef("");
-  const typeAheadTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const typeAheadTimer = useRef<ReturnType<typeof setTimeout> | undefined>(
+    undefined,
+  );
 
   const getEnabledItems = useCallback(() => {
     const items = itemsRef.current;
@@ -57,8 +59,7 @@ function useMenuNavigation(
         return;
       }
 
-      const nextPos =
-        (currentPos + direction + items.length) % items.length;
+      const nextPos = (currentPos + direction + items.length) % items.length;
       const next = items[nextPos];
       if (next) focusItem(next.index);
     },
@@ -99,7 +100,11 @@ function useMenuNavigation(
       const currentPos = items.findIndex((item) => item.index === currentIndex);
       const startPos = currentPos === -1 ? 0 : currentPos;
 
-      for (let offset = buffer.length === 1 ? 1 : 0; offset < items.length; offset++) {
+      for (
+        let offset = buffer.length === 1 ? 1 : 0;
+        offset < items.length;
+        offset++
+      ) {
         const idx = (startPos + offset) % items.length;
         const item = items[idx];
         if (!item) continue;

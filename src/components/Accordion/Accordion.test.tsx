@@ -10,7 +10,12 @@ import {
 } from "./Accordion";
 
 function renderSingleAccordion(
-  props: Omit<Partial<Extract<React.ComponentProps<typeof Accordion>, { type: "single" }>>, "type"> = {},
+  props: Omit<
+    Partial<
+      Extract<React.ComponentProps<typeof Accordion>, { type: "single" }>
+    >,
+    "type"
+  > = {},
 ) {
   return render(
     <Accordion type="single" {...props}>
@@ -31,7 +36,12 @@ function renderSingleAccordion(
 }
 
 function renderMultipleAccordion(
-  props: Omit<Partial<Extract<React.ComponentProps<typeof Accordion>, { type: "multiple" }>>, "type"> = {},
+  props: Omit<
+    Partial<
+      Extract<React.ComponentProps<typeof Accordion>, { type: "multiple" }>
+    >,
+    "type"
+  > = {},
 ) {
   return render(
     <Accordion type="multiple" {...props}>
@@ -55,9 +65,15 @@ describe("Accordion", () => {
   describe("rendering", () => {
     it("renders all items", () => {
       renderSingleAccordion();
-      expect(screen.getByRole("button", { name: "Section 1" })).toBeInTheDocument();
-      expect(screen.getByRole("button", { name: "Section 2" })).toBeInTheDocument();
-      expect(screen.getByRole("button", { name: "Section 3" })).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: "Section 1" }),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: "Section 2" }),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: "Section 3" }),
+      ).toBeInTheDocument();
     });
 
     it("sets displayName correctly", () => {
@@ -69,13 +85,19 @@ describe("Accordion", () => {
 
     it("wraps trigger in h3 heading by default", () => {
       renderSingleAccordion();
-      const heading = screen.getByRole("heading", { name: "Section 1", level: 3 });
+      const heading = screen.getByRole("heading", {
+        name: "Section 1",
+        level: 3,
+      });
       expect(heading).toBeInTheDocument();
     });
 
     it("respects custom headingLevel", () => {
       renderSingleAccordion({ headingLevel: "h2" });
-      const heading = screen.getByRole("heading", { name: "Section 1", level: 2 });
+      const heading = screen.getByRole("heading", {
+        name: "Section 1",
+        level: 2,
+      });
       expect(heading).toBeInTheDocument();
     });
   });
@@ -136,10 +158,14 @@ describe("Accordion", () => {
 
     it("opens with defaultValue", () => {
       renderSingleAccordion({ defaultValue: "item-2" });
-      expect(screen.getByRole("button", { name: "Section 2" }))
-        .toHaveAttribute("aria-expanded", "true");
-      expect(screen.getByRole("button", { name: "Section 1" }))
-        .toHaveAttribute("aria-expanded", "false");
+      expect(screen.getByRole("button", { name: "Section 2" })).toHaveAttribute(
+        "aria-expanded",
+        "true",
+      );
+      expect(screen.getByRole("button", { name: "Section 1" })).toHaveAttribute(
+        "aria-expanded",
+        "false",
+      );
     });
   });
 
@@ -158,8 +184,10 @@ describe("Accordion", () => {
         </Accordion>,
       );
 
-      expect(screen.getByRole("button", { name: "Section 1" }))
-        .toHaveAttribute("aria-expanded", "true");
+      expect(screen.getByRole("button", { name: "Section 1" })).toHaveAttribute(
+        "aria-expanded",
+        "true",
+      );
 
       rerender(
         <Accordion type="single" value="item-2">
@@ -174,10 +202,14 @@ describe("Accordion", () => {
         </Accordion>,
       );
 
-      expect(screen.getByRole("button", { name: "Section 1" }))
-        .toHaveAttribute("aria-expanded", "false");
-      expect(screen.getByRole("button", { name: "Section 2" }))
-        .toHaveAttribute("aria-expanded", "true");
+      expect(screen.getByRole("button", { name: "Section 1" })).toHaveAttribute(
+        "aria-expanded",
+        "false",
+      );
+      expect(screen.getByRole("button", { name: "Section 2" })).toHaveAttribute(
+        "aria-expanded",
+        "true",
+      );
     });
 
     it("calls onValueChange when a trigger is clicked", async () => {
@@ -228,12 +260,18 @@ describe("Accordion", () => {
         defaultValue: ["item-1", "item-3"],
       });
 
-      expect(screen.getByRole("button", { name: "Section 1" }))
-        .toHaveAttribute("aria-expanded", "true");
-      expect(screen.getByRole("button", { name: "Section 2" }))
-        .toHaveAttribute("aria-expanded", "false");
-      expect(screen.getByRole("button", { name: "Section 3" }))
-        .toHaveAttribute("aria-expanded", "true");
+      expect(screen.getByRole("button", { name: "Section 1" })).toHaveAttribute(
+        "aria-expanded",
+        "true",
+      );
+      expect(screen.getByRole("button", { name: "Section 2" })).toHaveAttribute(
+        "aria-expanded",
+        "false",
+      );
+      expect(screen.getByRole("button", { name: "Section 3" })).toHaveAttribute(
+        "aria-expanded",
+        "true",
+      );
     });
   });
 
@@ -271,7 +309,9 @@ describe("Accordion", () => {
       );
 
       expect(screen.getByRole("button", { name: "Section 1" })).toBeDisabled();
-      expect(screen.getByRole("button", { name: "Section 2" })).not.toBeDisabled();
+      expect(
+        screen.getByRole("button", { name: "Section 2" }),
+      ).not.toBeDisabled();
     });
 
     it("does not toggle disabled items on click", async () => {
@@ -286,8 +326,10 @@ describe("Accordion", () => {
       );
 
       await user.click(screen.getByRole("button", { name: "Section 1" }));
-      expect(screen.getByRole("button", { name: "Section 1" }))
-        .toHaveAttribute("aria-expanded", "false");
+      expect(screen.getByRole("button", { name: "Section 1" })).toHaveAttribute(
+        "aria-expanded",
+        "false",
+      );
     });
   });
 

@@ -190,9 +190,7 @@ describe("Sheet", () => {
       renderSheet();
 
       await user.click(screen.getByRole("button", { name: "Open" }));
-      await user.click(
-        screen.getByRole("button", { name: "Close sheet" }),
-      );
+      await user.click(screen.getByRole("button", { name: "Close sheet" }));
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     });
 

@@ -54,11 +54,7 @@ function useFocusTrap(
 
     function handleFocusOut(e: FocusEvent) {
       const relatedTarget = e.relatedTarget as HTMLElement | null;
-      if (
-        relatedTarget &&
-        container &&
-        !container.contains(relatedTarget)
-      ) {
+      if (relatedTarget && container && !container.contains(relatedTarget)) {
         const focusableElements = tabbable(container, tabbableOptions);
         if (focusableElements.length > 0) {
           focusableElements[0]?.focus();

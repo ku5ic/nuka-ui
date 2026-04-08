@@ -58,11 +58,26 @@ export const Ghost: Story = {
 export const IntentDanger: Story = {
   name: "Intent: Danger",
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", width: 400 }}>
-      <Alert variant="primary" intent="danger">Primary danger alert</Alert>
-      <Alert variant="secondary" intent="danger">Secondary danger alert</Alert>
-      <Alert variant="outline" intent="danger">Outline danger alert</Alert>
-      <Alert variant="ghost" intent="danger">Ghost danger alert</Alert>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "0.75rem",
+        width: 400,
+      }}
+    >
+      <Alert variant="primary" intent="danger">
+        Primary danger alert
+      </Alert>
+      <Alert variant="secondary" intent="danger">
+        Secondary danger alert
+      </Alert>
+      <Alert variant="outline" intent="danger">
+        Outline danger alert
+      </Alert>
+      <Alert variant="ghost" intent="danger">
+        Ghost danger alert
+      </Alert>
     </div>
   ),
 };
@@ -70,11 +85,26 @@ export const IntentDanger: Story = {
 export const IntentSuccess: Story = {
   name: "Intent: Success",
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", width: 400 }}>
-      <Alert variant="primary" intent="success">Primary success alert</Alert>
-      <Alert variant="secondary" intent="success">Secondary success alert</Alert>
-      <Alert variant="outline" intent="success">Outline success alert</Alert>
-      <Alert variant="ghost" intent="success">Ghost success alert</Alert>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "0.75rem",
+        width: 400,
+      }}
+    >
+      <Alert variant="primary" intent="success">
+        Primary success alert
+      </Alert>
+      <Alert variant="secondary" intent="success">
+        Secondary success alert
+      </Alert>
+      <Alert variant="outline" intent="success">
+        Outline success alert
+      </Alert>
+      <Alert variant="ghost" intent="success">
+        Ghost success alert
+      </Alert>
     </div>
   ),
 };
@@ -82,11 +112,26 @@ export const IntentSuccess: Story = {
 export const IntentWarning: Story = {
   name: "Intent: Warning",
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", width: 400 }}>
-      <Alert variant="primary" intent="warning">Primary warning alert</Alert>
-      <Alert variant="secondary" intent="warning">Secondary warning alert</Alert>
-      <Alert variant="outline" intent="warning">Outline warning alert</Alert>
-      <Alert variant="ghost" intent="warning">Ghost warning alert</Alert>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "0.75rem",
+        width: 400,
+      }}
+    >
+      <Alert variant="primary" intent="warning">
+        Primary warning alert
+      </Alert>
+      <Alert variant="secondary" intent="warning">
+        Secondary warning alert
+      </Alert>
+      <Alert variant="outline" intent="warning">
+        Outline warning alert
+      </Alert>
+      <Alert variant="ghost" intent="warning">
+        Ghost warning alert
+      </Alert>
     </div>
   ),
 };
@@ -125,7 +170,9 @@ export const Dismissible: Story = {
     <Alert
       variant="secondary"
       intent="warning"
-      onDismiss={() => { /* dismiss */ }}
+      onDismiss={() => {
+        /* dismiss */
+      }}
     >
       This alert can be dismissed.
     </Alert>
@@ -138,7 +185,14 @@ const intents = ["default", "danger", "success", "warning"] as const;
 export const AllVariants: Story = {
   name: "All Variants",
   render: () => (
-    <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "0.75rem", width: 800 }}>
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(4, 1fr)",
+        gap: "0.75rem",
+        width: 800,
+      }}
+    >
       {variants.map((variant) =>
         intents.map((intent) => (
           <Alert key={`${variant}-${intent}`} variant={variant} intent={intent}>
@@ -153,11 +207,15 @@ export const AllVariants: Story = {
 export const InlineFormError: Story = {
   name: "Pattern: Inline Form Error",
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", width: 320 }}>
-      <label
-        htmlFor="email"
-        style={{ fontSize: "0.875rem", fontWeight: 500 }}
-      >
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "0.5rem",
+        width: 320,
+      }}
+    >
+      <label htmlFor="email" style={{ fontSize: "0.875rem", fontWeight: 500 }}>
         Email address
       </label>
       <input
@@ -204,9 +262,12 @@ export const SystemBanner: Story = {
             <line x1="12" y1="17" x2="12.01" y2="17" />
           </svg>
         }
-        onDismiss={() => { /* dismiss */ }}
+        onDismiss={() => {
+          /* dismiss */
+        }}
       >
-        <strong>Scheduled maintenance:</strong> The system will be unavailable on April 5th from 2:00 AM to 4:00 AM UTC.
+        <strong>Scheduled maintenance:</strong> The system will be unavailable
+        on April 5th from 2:00 AM to 4:00 AM UTC.
       </Alert>
     </div>
   ),

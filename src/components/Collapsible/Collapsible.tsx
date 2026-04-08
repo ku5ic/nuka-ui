@@ -53,8 +53,7 @@ const Collapsible = React.forwardRef<HTMLDivElement, CollapsibleProps>(
 
 Collapsible.displayName = "Collapsible";
 
-export interface CollapsibleTriggerProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface CollapsibleTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;
 }
 
@@ -62,8 +61,7 @@ const CollapsibleTrigger = React.forwardRef<
   HTMLButtonElement,
   CollapsibleTriggerProps
 >(({ asChild = false, className, onClick, ...props }, ref) => {
-  const { open, onOpenChange, contentId, disabled } =
-    useCollapsibleContext();
+  const { open, onOpenChange, contentId, disabled } = useCollapsibleContext();
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     onOpenChange(!open);
@@ -89,8 +87,7 @@ const CollapsibleTrigger = React.forwardRef<
 
 CollapsibleTrigger.displayName = "CollapsibleTrigger";
 
-export interface CollapsibleContentProps
-  extends React.HTMLAttributes<HTMLDivElement> {}
+export interface CollapsibleContentProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const CollapsibleContent = React.forwardRef<
   HTMLDivElement,

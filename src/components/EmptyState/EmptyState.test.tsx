@@ -22,9 +22,7 @@ describe("EmptyState", () => {
 
   describe("description", () => {
     it("renders description when provided", () => {
-      render(
-        <EmptyState heading="No items" description="Try adding one." />,
-      );
+      render(<EmptyState heading="No items" description="Try adding one." />);
       expect(screen.getByText("Try adding one.")).toBeInTheDocument();
     });
 
@@ -71,7 +69,9 @@ describe("EmptyState", () => {
     it("does not render visual region when neither illustration nor icon provided", () => {
       const { container } = render(<EmptyState heading="No items" />);
       expect(
-        container.querySelector(".flex.items-center.justify-center.text-\\[var\\(--nuka-text-muted\\)\\]"),
+        container.querySelector(
+          ".flex.items-center.justify-center.text-\\[var\\(--nuka-text-muted\\)\\]",
+        ),
       ).not.toBeInTheDocument();
     });
   });

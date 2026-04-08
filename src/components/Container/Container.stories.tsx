@@ -167,7 +167,9 @@ export const PageLayout: Story = {
           }}
         >
           <Stack direction="row" justify="between" align="center">
-            <Text size="lg" weight="bold">App Name</Text>
+            <Text size="lg" weight="bold">
+              App Name
+            </Text>
             {/* TODO: replace nav spans with nav link component once implemented */}
             <Stack direction="row" gap="md">
               <span>Home</span>
@@ -194,7 +196,9 @@ export const PageLayout: Story = {
             borderTop: "1px solid var(--nuka-border-base)",
           }}
         >
-          <Text size="sm" color="muted">Footer content</Text>
+          <Text size="sm" color="muted">
+            Footer content
+          </Text>
         </footer>
       </Stack>
     </Container>

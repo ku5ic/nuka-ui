@@ -172,18 +172,12 @@ const buttonVariants = cva(
       {
         variant: "ghost",
         intent: "default",
-        className: [
-          "text-(--nuka-text-base)",
-          "hover:bg-(--nuka-bg-muted)",
-        ],
+        className: ["text-(--nuka-text-base)", "hover:bg-(--nuka-bg-muted)"],
       },
       {
         variant: "ghost",
         intent: "danger",
-        className: [
-          "text-(--nuka-danger-text)",
-          "hover:bg-(--nuka-danger-bg)",
-        ],
+        className: ["text-(--nuka-danger-text)", "hover:bg-(--nuka-danger-bg)"],
       },
       {
         variant: "ghost",

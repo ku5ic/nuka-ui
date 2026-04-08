@@ -100,7 +100,14 @@ export const Disabled: Story = {
 export const AllStates: Story = {
   name: "All States",
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem", width: "20rem" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "1.5rem",
+        width: "20rem",
+      }}
+    >
       <FormField>
         <Label>Default</Label>
         <Input placeholder="Default field" />
@@ -139,7 +146,14 @@ export const WithTextarea: Story = {
 export const LoginForm: Story = {
   name: "Pattern: Login Form",
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "1rem", width: "20rem" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
+        width: "20rem",
+      }}
+    >
       <FormField required>
         <Label>Email address</Label>
         <Input type="email" placeholder="you@example.com" />

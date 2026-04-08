@@ -16,7 +16,10 @@ import {
 
 vi.mock("@floating-ui/react", async () => {
   // eslint-disable-next-line @typescript-eslint/consistent-type-imports
-  const actual = await vi.importActual<typeof import("@floating-ui/react")>("@floating-ui/react");
+  const actual =
+    await vi.importActual<typeof import("@floating-ui/react")>(
+      "@floating-ui/react",
+    );
   return {
     ...actual,
     autoUpdate: vi.fn(() => () => undefined),
@@ -24,7 +27,10 @@ vi.mock("@floating-ui/react", async () => {
 });
 
 describe("ContextMenu", () => {
-  function rightClick(element: HTMLElement, coords = { clientX: 200, clientY: 300 }) {
+  function rightClick(
+    element: HTMLElement,
+    coords = { clientX: 200, clientY: 300 },
+  ) {
     fireEvent.contextMenu(element, coords);
   }
 
@@ -82,7 +88,9 @@ describe("ContextMenu", () => {
         </ContextMenu>,
       );
 
-      expect(screen.getByText("Right-click here")).not.toHaveAttribute("aria-haspopup");
+      expect(screen.getByText("Right-click here")).not.toHaveAttribute(
+        "aria-haspopup",
+      );
     });
 
     it("does not add aria-expanded to trigger", () => {
@@ -95,7 +103,9 @@ describe("ContextMenu", () => {
         </ContextMenu>,
       );
 
-      expect(screen.getByText("Right-click here")).not.toHaveAttribute("aria-expanded");
+      expect(screen.getByText("Right-click here")).not.toHaveAttribute(
+        "aria-expanded",
+      );
     });
   });
 
@@ -110,7 +120,10 @@ describe("ContextMenu", () => {
         </ContextMenu>,
       );
 
-      rightClick(screen.getByText("Right-click here"), { clientX: 150, clientY: 250 });
+      rightClick(screen.getByText("Right-click here"), {
+        clientX: 150,
+        clientY: 250,
+      });
       expect(screen.getByRole("menu")).toBeInTheDocument();
     });
   });
@@ -248,7 +261,9 @@ describe("ContextMenu", () => {
       );
 
       rightClick(screen.getByText("Right-click here"));
-      expect(screen.getByRole("menuitemcheckbox", { name: "Wrap lines" })).toHaveAttribute("aria-checked", "true");
+      expect(
+        screen.getByRole("menuitemcheckbox", { name: "Wrap lines" }),
+      ).toHaveAttribute("aria-checked", "true");
     });
 
     it("renders radio items", () => {
@@ -256,7 +271,11 @@ describe("ContextMenu", () => {
         <ContextMenu>
           <ContextMenuTrigger>Right-click here</ContextMenuTrigger>
           <ContextMenuContent>
-            <ContextMenuRadioGroup value="light" onValueChange={vi.fn()} aria-label="Theme">
+            <ContextMenuRadioGroup
+              value="light"
+              onValueChange={vi.fn()}
+              aria-label="Theme"
+            >
               <ContextMenuRadioItem value="light">Light</ContextMenuRadioItem>
               <ContextMenuRadioItem value="dark">Dark</ContextMenuRadioItem>
             </ContextMenuRadioGroup>
@@ -265,8 +284,12 @@ describe("ContextMenu", () => {
       );
 
       rightClick(screen.getByText("Right-click here"));
-      expect(screen.getByRole("menuitemradio", { name: "Light" })).toHaveAttribute("aria-checked", "true");
-      expect(screen.getByRole("menuitemradio", { name: "Dark" })).toHaveAttribute("aria-checked", "false");
+      expect(
+        screen.getByRole("menuitemradio", { name: "Light" }),
+      ).toHaveAttribute("aria-checked", "true");
+      expect(
+        screen.getByRole("menuitemradio", { name: "Dark" }),
+      ).toHaveAttribute("aria-checked", "false");
     });
   });
 
@@ -302,7 +325,10 @@ describe("ContextMenu", () => {
       );
 
       rightClick(screen.getByText("Right-click here"));
-      expect(screen.getByRole("menuitem", { name: "Paste" })).toHaveAttribute("aria-disabled", "true");
+      expect(screen.getByRole("menuitem", { name: "Paste" })).toHaveAttribute(
+        "aria-disabled",
+        "true",
+      );
     });
 
     it("does not call onSelect for disabled items", async () => {
@@ -312,7 +338,9 @@ describe("ContextMenu", () => {
         <ContextMenu>
           <ContextMenuTrigger>Right-click here</ContextMenuTrigger>
           <ContextMenuContent>
-            <ContextMenuItem onSelect={onSelect} disabled>Paste</ContextMenuItem>
+            <ContextMenuItem onSelect={onSelect} disabled>
+              Paste
+            </ContextMenuItem>
           </ContextMenuContent>
         </ContextMenu>,
       );

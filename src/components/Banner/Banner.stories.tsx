@@ -87,7 +87,11 @@ export const WithAction: Story = {
     "aria-label": "Update notice",
     children: "A new version is available.",
     intent: "default",
-    action: <Button variant="link" size="sm">Learn more</Button>,
+    action: (
+      <Button variant="link" size="sm">
+        Learn more
+      </Button>
+    ),
   },
 };
 
@@ -107,7 +111,11 @@ export const WithActionAndDismiss: Story = {
       <Banner
         aria-label="Update notice"
         intent="success"
-        action={<Button variant="link" size="sm">View changelog</Button>}
+        action={
+          <Button variant="link" size="sm">
+            View changelog
+          </Button>
+        }
         onDismiss={() => setVisible(false)}
       >
         Deployment complete. All services are operational.
@@ -134,8 +142,8 @@ export const MaintenanceNotice: Story = {
         intent="warning"
         onDismiss={() => setVisible(false)}
       >
-        <strong>Scheduled maintenance:</strong> The system will be unavailable on
-        April 5th from 2:00 AM to 4:00 AM UTC.
+        <strong>Scheduled maintenance:</strong> The system will be unavailable
+        on April 5th from 2:00 AM to 4:00 AM UTC.
       </Banner>
     );
   },
@@ -150,8 +158,12 @@ export const CookieConsent: Story = {
       intent="default"
       action={
         <Stack direction="row" gap="xs">
-          <Button variant="outline" size="sm">Decline</Button>
-          <Button variant="primary" size="sm">Accept</Button>
+          <Button variant="outline" size="sm">
+            Decline
+          </Button>
+          <Button variant="primary" size="sm">
+            Accept
+          </Button>
         </Stack>
       }
     >

@@ -2,8 +2,7 @@ import * as React from "react";
 import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
 
-export interface TimelineProps
-  extends React.OlHTMLAttributes<HTMLOListElement> {}
+export interface TimelineProps extends React.OlHTMLAttributes<HTMLOListElement> {}
 
 const Timeline = React.forwardRef<HTMLOListElement, TimelineProps>(
   ({ className, ...props }, ref) => {
@@ -30,14 +29,10 @@ const timelineItemMarkerVariants = cva(
   {
     variants: {
       intent: {
-        default:
-          "border-(--nuka-accent-bg) text-(--nuka-accent-text)",
-        success:
-          "border-(--nuka-success-base) text-(--nuka-success-text)",
-        danger:
-          "border-(--nuka-danger-base) text-(--nuka-danger-text)",
-        warning:
-          "border-(--nuka-warning-base) text-(--nuka-warning-text)",
+        default: "border-(--nuka-accent-bg) text-(--nuka-accent-text)",
+        success: "border-(--nuka-success-base) text-(--nuka-success-text)",
+        danger: "border-(--nuka-danger-base) text-(--nuka-danger-text)",
+        warning: "border-(--nuka-warning-base) text-(--nuka-warning-text)",
       },
     },
     defaultVariants: {
@@ -50,8 +45,7 @@ export type TimelineItemMarkerVariantProps = VariantProps<
   typeof timelineItemMarkerVariants
 >;
 
-export interface TimelineItemProps
-  extends React.LiHTMLAttributes<HTMLLIElement> {
+export interface TimelineItemProps extends React.LiHTMLAttributes<HTMLLIElement> {
   timestamp?: string;
   title: string;
   description?: string;
@@ -61,7 +55,16 @@ export interface TimelineItemProps
 
 const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
   (
-    { className, timestamp, title, description, icon, intent, children, ...rest },
+    {
+      className,
+      timestamp,
+      title,
+      description,
+      icon,
+      intent,
+      children,
+      ...rest
+    },
     ref,
   ) => {
     return (
@@ -98,9 +101,7 @@ const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
               {timestamp}
             </time>
           )}
-          <p className="text-sm font-medium text-(--nuka-text-base)">
-            {title}
-          </p>
+          <p className="text-sm font-medium text-(--nuka-text-base)">{title}</p>
           {description != null && (
             <p className="text-sm text-(--nuka-text-muted) mt-(--space-1)">
               {description}

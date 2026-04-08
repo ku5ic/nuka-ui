@@ -102,21 +102,33 @@ export const FileUpload: Story = {
   render: () => (
     <Stack gap="md">
       <div>
-        <Stack direction="row" justify="between" style={{ marginBottom: "0.25rem" }}>
+        <Stack
+          direction="row"
+          justify="between"
+          style={{ marginBottom: "0.25rem" }}
+        >
           <Text size="sm">report.pdf</Text>
           <Text size="sm">100%</Text>
         </Stack>
         <Progress value={100} intent="success" />
       </div>
       <div>
-        <Stack direction="row" justify="between" style={{ marginBottom: "0.25rem" }}>
+        <Stack
+          direction="row"
+          justify="between"
+          style={{ marginBottom: "0.25rem" }}
+        >
           <Text size="sm">photo.jpg</Text>
           <Text size="sm">67%</Text>
         </Stack>
         <Progress value={67} />
       </div>
       <div>
-        <Stack direction="row" justify="between" style={{ marginBottom: "0.25rem" }}>
+        <Stack
+          direction="row"
+          justify="between"
+          style={{ marginBottom: "0.25rem" }}
+        >
           <Text size="sm">archive.zip</Text>
           <Text size="sm">23%</Text>
         </Stack>
@@ -149,21 +161,33 @@ export const StepProgress: Story = {
   render: () => (
     <Stack gap="md">
       <div>
-        <Stack direction="row" justify="between" style={{ marginBottom: "0.25rem" }}>
+        <Stack
+          direction="row"
+          justify="between"
+          style={{ marginBottom: "0.25rem" }}
+        >
           <Text size="sm">Step 1: Upload</Text>
           <Text size="sm">Complete</Text>
         </Stack>
         <Progress value={100} intent="success" size="sm" />
       </div>
       <div>
-        <Stack direction="row" justify="between" style={{ marginBottom: "0.25rem" }}>
+        <Stack
+          direction="row"
+          justify="between"
+          style={{ marginBottom: "0.25rem" }}
+        >
           <Text size="sm">Step 2: Processing</Text>
           <Text size="sm">45%</Text>
         </Stack>
         <Progress value={45} size="sm" />
       </div>
       <div>
-        <Stack direction="row" justify="between" style={{ marginBottom: "0.25rem" }}>
+        <Stack
+          direction="row"
+          justify="between"
+          style={{ marginBottom: "0.25rem" }}
+        >
           <Text size="sm">Step 3: Publish</Text>
           <Text size="sm">Not started</Text>
         </Stack>

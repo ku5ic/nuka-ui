@@ -19,7 +19,8 @@ const textareaVariants = cva(
   {
     variants: {
       intent: {
-        default: "border-(--nuka-input-border) hover:border-(--nuka-input-border-hover)",
+        default:
+          "border-(--nuka-input-border) hover:border-(--nuka-input-border-hover)",
         danger: "border-(--nuka-danger-border)",
         success: "border-(--nuka-success-border)",
         warning: "border-(--nuka-warning-border)",
@@ -40,7 +41,8 @@ const textareaVariants = cva(
 export type TextareaVariantProps = VariantProps<typeof textareaVariants>;
 
 export interface TextareaProps
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+  extends
+    React.TextareaHTMLAttributes<HTMLTextAreaElement>,
     TextareaVariantProps {}
 
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(

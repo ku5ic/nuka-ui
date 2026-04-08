@@ -32,7 +32,8 @@ const bannerVariants = cva(
 export type BannerVariantProps = VariantProps<typeof bannerVariants>;
 
 export interface BannerProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, "aria-label">,
+  extends
+    Omit<React.HTMLAttributes<HTMLDivElement>, "aria-label">,
     BannerVariantProps {
   "aria-label": string;
   onDismiss?: () => void;
@@ -63,7 +64,10 @@ const Banner = React.forwardRef<HTMLDivElement, BannerProps>(
         <div className="flex-1 min-w-0">{children}</div>
         {action && <div className="shrink-0">{action}</div>}
         {onDismiss != null && (
-          <DismissButton onClick={onDismiss} className="shrink-0 self-start ml-auto" />
+          <DismissButton
+            onClick={onDismiss}
+            className="shrink-0 self-start ml-auto"
+          />
         )}
       </div>
     );

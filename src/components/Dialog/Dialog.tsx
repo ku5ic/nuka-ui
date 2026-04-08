@@ -51,8 +51,7 @@ function Dialog({
 
 Dialog.displayName = "Dialog";
 
-export interface DialogTriggerProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface DialogTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;
 }
 
@@ -81,8 +80,7 @@ const DialogTrigger = React.forwardRef<HTMLButtonElement, DialogTriggerProps>(
 
 DialogTrigger.displayName = "DialogTrigger";
 
-export interface DialogContentProps
-  extends React.HTMLAttributes<HTMLDivElement> {}
+export interface DialogContentProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps>(
   ({ className, children, ...props }, ref) => {
@@ -183,8 +181,10 @@ const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps>(
 
 DialogContent.displayName = "DialogContent";
 
-export interface DialogTitleProps
-  extends Omit<React.HTMLAttributes<HTMLElement>, "color"> {
+export interface DialogTitleProps extends Omit<
+  React.HTMLAttributes<HTMLElement>,
+  "color"
+> {
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 }
 
@@ -208,8 +208,10 @@ const DialogTitle = React.forwardRef<HTMLElement, DialogTitleProps>(
 
 DialogTitle.displayName = "DialogTitle";
 
-export interface DialogDescriptionProps
-  extends Omit<React.HTMLAttributes<HTMLElement>, "color"> {}
+export interface DialogDescriptionProps extends Omit<
+  React.HTMLAttributes<HTMLElement>,
+  "color"
+> {}
 
 const DialogDescription = React.forwardRef<HTMLElement, DialogDescriptionProps>(
   ({ className, ...props }, ref) => {
@@ -236,8 +238,7 @@ const DialogDescription = React.forwardRef<HTMLElement, DialogDescriptionProps>(
 
 DialogDescription.displayName = "DialogDescription";
 
-export interface DialogCloseProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface DialogCloseProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;
 }
 

@@ -76,30 +76,30 @@ describe("Heading", () => {
 
     it("applies xl size classes", () => {
       render(<Heading size="xl">XL</Heading>);
-      expect(
-        screen.getByRole("heading", { name: "XL" }).className,
-      ).toContain("text-[length:var(--font-size-xl)]");
+      expect(screen.getByRole("heading", { name: "XL" }).className).toContain(
+        "text-[length:var(--font-size-xl)]",
+      );
     });
 
     it("applies 2xl size classes", () => {
       render(<Heading size="2xl">2XL</Heading>);
-      expect(
-        screen.getByRole("heading", { name: "2XL" }).className,
-      ).toContain("text-[length:var(--font-size-2xl)]");
+      expect(screen.getByRole("heading", { name: "2XL" }).className).toContain(
+        "text-[length:var(--font-size-2xl)]",
+      );
     });
 
     it("applies 4xl size classes", () => {
       render(<Heading size="4xl">4XL</Heading>);
-      expect(
-        screen.getByRole("heading", { name: "4XL" }).className,
-      ).toContain("text-[length:var(--font-size-4xl)]");
+      expect(screen.getByRole("heading", { name: "4XL" }).className).toContain(
+        "text-[length:var(--font-size-4xl)]",
+      );
     });
 
     it("pairs xl/2xl/3xl with snug line-height", () => {
       render(<Heading size="2xl">Snug</Heading>);
-      expect(
-        screen.getByRole("heading", { name: "Snug" }).className,
-      ).toContain("leading-(--line-height-snug)");
+      expect(screen.getByRole("heading", { name: "Snug" }).className).toContain(
+        "leading-(--line-height-snug)",
+      );
     });
 
     it("pairs 4xl with tight line-height", () => {
@@ -123,9 +123,9 @@ describe("Heading", () => {
   describe("weights", () => {
     it("applies bold weight by default", () => {
       render(<Heading>Bold</Heading>);
-      expect(
-        screen.getByRole("heading", { name: "Bold" }).className,
-      ).toContain("font-[number:var(--font-weight-bold)]");
+      expect(screen.getByRole("heading", { name: "Bold" }).className).toContain(
+        "font-[number:var(--font-weight-bold)]",
+      );
     });
 
     it("applies regular weight", () => {
@@ -153,9 +153,9 @@ describe("Heading", () => {
   describe("colors", () => {
     it("applies base color by default", () => {
       render(<Heading>Base</Heading>);
-      expect(
-        screen.getByRole("heading", { name: "Base" }).className,
-      ).toContain("text-(--nuka-text-base)");
+      expect(screen.getByRole("heading", { name: "Base" }).className).toContain(
+        "text-(--nuka-text-base)",
+      );
     });
 
     it("applies muted color", () => {
@@ -208,9 +208,10 @@ describe("Heading", () => {
   describe("native attributes", () => {
     it("forwards id attribute", () => {
       render(<Heading id="section-title">Section</Heading>);
-      expect(
-        screen.getByRole("heading", { name: "Section" }),
-      ).toHaveAttribute("id", "section-title");
+      expect(screen.getByRole("heading", { name: "Section" })).toHaveAttribute(
+        "id",
+        "section-title",
+      );
     });
 
     it("forwards aria-label attribute", () => {

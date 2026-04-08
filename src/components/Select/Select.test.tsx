@@ -6,21 +6,24 @@ import { Select } from "./Select";
 import { SelectTrigger } from "./SelectTrigger";
 import { SelectContent } from "./SelectContent";
 import { SelectItem } from "./SelectItem";
+import { SelectSeparator } from "./SelectSeparator";
 import { FormField } from "@nuka/components/FormField";
 import { Label } from "@nuka/components/Label";
 
-function renderSelect(props: {
-  value?: string;
-  defaultValue?: string;
-  onValueChange?: (v: string) => void;
-  open?: boolean;
-  defaultOpen?: boolean;
-  onOpenChange?: (o: boolean) => void;
-  disabled?: boolean;
-  name?: string;
-  placeholder?: string;
-  triggerProps?: Record<string, unknown>;
-} = {}) {
+function renderSelect(
+  props: {
+    value?: string;
+    defaultValue?: string;
+    onValueChange?: (v: string) => void;
+    open?: boolean;
+    defaultOpen?: boolean;
+    onOpenChange?: (o: boolean) => void;
+    disabled?: boolean;
+    name?: string;
+    placeholder?: string;
+    triggerProps?: Record<string, unknown>;
+  } = {},
+) {
   const {
     placeholder = "Choose an option",
     triggerProps,
@@ -81,18 +84,14 @@ describe("Select", () => {
 
     it("renders hidden input when name prop is provided", () => {
       const { container } = renderSelect({ name: "country" });
-      const hidden = container.querySelector(
-        'input[type="hidden"]',
-      )!;
+      const hidden = container.querySelector('input[type="hidden"]')!;
       expect(hidden).toBeInTheDocument();
       expect((hidden as HTMLInputElement).name).toBe("country");
     });
 
     it("hidden input value matches selected value", () => {
       const { container } = renderSelect({ name: "country", value: "b" });
-      const hidden = container.querySelector(
-        'input[type="hidden"]',
-      )!;
+      const hidden = container.querySelector('input[type="hidden"]')!;
       expect((hidden as HTMLInputElement).value).toBe("b");
     });
 
@@ -259,7 +258,7 @@ describe("Select", () => {
       trigger.focus();
       await user.keyboard("{ArrowDown}"); // opens, highlights a
       await user.keyboard("{ArrowDown}"); // highlights b
-      await user.keyboard("{ArrowUp}");   // back to a
+      await user.keyboard("{ArrowUp}"); // back to a
       expect(trigger).toHaveAttribute(
         "aria-activedescendant",
         expect.stringContaining("option-a"),
@@ -272,7 +271,7 @@ describe("Select", () => {
       const trigger = screen.getByRole("combobox");
       trigger.focus();
       await user.keyboard("{ArrowDown}"); // opens, highlights a
-      await user.keyboard("{ArrowUp}");   // wraps to b (c is disabled)
+      await user.keyboard("{ArrowUp}"); // wraps to b (c is disabled)
       expect(trigger).toHaveAttribute(
         "aria-activedescendant",
         expect.stringContaining("option-b"),
@@ -518,6 +517,37 @@ describe("Select", () => {
         </Select>,
       );
       expect(ref.current).toBeInstanceOf(HTMLButtonElement);
+    });
+
+    it("forwards ref to the root wrapper div", () => {
+      const ref = React.createRef<HTMLDivElement>();
+      render(
+        <Select ref={ref}>
+          <SelectTrigger placeholder="Choose" />
+          <SelectContent>
+            <SelectItem value="a">Option A</SelectItem>
+          </SelectContent>
+        </Select>,
+      );
+      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+    });
+
+    it("forwards ref on SelectSeparator", async () => {
+      const user = userEvent.setup();
+      const ref = React.createRef<HTMLDivElement>();
+      render(
+        <Select>
+          <SelectTrigger placeholder="Choose" />
+          <SelectContent>
+            <SelectItem value="a">Option A</SelectItem>
+            <SelectSeparator ref={ref} />
+            <SelectItem value="b">Option B</SelectItem>
+          </SelectContent>
+        </Select>,
+      );
+      await user.click(screen.getByRole("combobox"));
+      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      expect(ref.current).toHaveAttribute("role", "separator");
     });
   });
 

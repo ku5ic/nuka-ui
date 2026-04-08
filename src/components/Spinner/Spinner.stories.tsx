@@ -87,17 +87,44 @@ export const ColorInverse: Story = {
 export const AllSizes: Story = {
   render: () => (
     <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "0.5rem",
+        }}
+      >
         <Spinner size="sm" />
-        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>sm (16px)</span>
+        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>
+          sm (16px)
+        </span>
       </div>
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "0.5rem",
+        }}
+      >
         <Spinner size="md" />
-        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>md (24px)</span>
+        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>
+          md (24px)
+        </span>
       </div>
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "0.5rem",
+        }}
+      >
         <Spinner size="lg" />
-        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>lg (32px)</span>
+        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>
+          lg (32px)
+        </span>
       </div>
     </div>
   ),

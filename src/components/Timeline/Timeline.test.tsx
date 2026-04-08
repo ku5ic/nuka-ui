@@ -115,7 +115,10 @@ describe("TimelineItem", () => {
     it("renders icon inside marker when provided", () => {
       render(
         <Timeline aria-label="Events">
-          <TimelineItem title="Deployed" icon={<span data-testid="icon">🚀</span>} />
+          <TimelineItem
+            title="Deployed"
+            icon={<span data-testid="icon">🚀</span>}
+          />
         </Timeline>,
       );
       expect(screen.getByTestId("icon")).toBeInTheDocument();
@@ -127,7 +130,9 @@ describe("TimelineItem", () => {
           <TimelineItem title="Deployed" />
         </Timeline>,
       );
-      expect(container.querySelector(".w-2.h-2.rounded-full")).toBeInTheDocument();
+      expect(
+        container.querySelector(".w-2.h-2.rounded-full"),
+      ).toBeInTheDocument();
     });
   });
 
@@ -148,7 +153,9 @@ describe("TimelineItem", () => {
           <TimelineItem title="Done" intent="success" />
         </Timeline>,
       );
-      const marker = container.querySelector(".border-\\(--nuka-success-base\\)");
+      const marker = container.querySelector(
+        ".border-\\(--nuka-success-base\\)",
+      );
       expect(marker).toBeInTheDocument();
     });
 
@@ -158,7 +165,9 @@ describe("TimelineItem", () => {
           <TimelineItem title="Failed" intent="danger" />
         </Timeline>,
       );
-      const marker = container.querySelector(".border-\\(--nuka-danger-base\\)");
+      const marker = container.querySelector(
+        ".border-\\(--nuka-danger-base\\)",
+      );
       expect(marker).toBeInTheDocument();
     });
 
@@ -168,7 +177,9 @@ describe("TimelineItem", () => {
           <TimelineItem title="Slow" intent="warning" />
         </Timeline>,
       );
-      const marker = container.querySelector(".border-\\(--nuka-warning-base\\)");
+      const marker = container.querySelector(
+        ".border-\\(--nuka-warning-base\\)",
+      );
       expect(marker).toBeInTheDocument();
     });
   });

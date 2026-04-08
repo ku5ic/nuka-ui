@@ -101,12 +101,14 @@ describe("Divider", () => {
     it("vertical + label renders without label and warns", () => {
       const warnSpy = vi.spyOn(console, "warn").mockImplementation(vi.fn());
       render(
-        <Divider orientation="vertical" label="Should not show" data-testid="divider" />,
+        <Divider
+          orientation="vertical"
+          label="Should not show"
+          data-testid="divider"
+        />,
       );
       expect(screen.queryByText("Should not show")).not.toBeInTheDocument();
-      expect(warnSpy).toHaveBeenCalledWith(
-        expect.stringContaining("label"),
-      );
+      expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining("label"));
       warnSpy.mockRestore();
     });
   });

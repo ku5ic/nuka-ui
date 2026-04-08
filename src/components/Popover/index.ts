@@ -7,5 +7,8 @@ export type { PopoverTriggerProps } from "@nuka/components/Popover/PopoverTrigge
 export { PopoverContent } from "@nuka/components/Popover/PopoverContent";
 export type { PopoverContentProps } from "@nuka/components/Popover/PopoverContent";
 
-export { PopoverContext, usePopoverContext } from "@nuka/components/Popover/PopoverContext";
+export {
+  PopoverContext,
+  usePopoverContext,
+} from "@nuka/components/Popover/PopoverContext";
 export type { PopoverContextValue } from "@nuka/components/Popover/PopoverContext";

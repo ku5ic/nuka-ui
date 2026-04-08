@@ -9,9 +9,9 @@ export interface ContextMenuContextValue {
   getFloatingProps: ReturnType<typeof useInteractions>["getFloatingProps"];
 }
 
-const ContextMenuContext = React.createContext<ContextMenuContextValue | undefined>(
-  undefined,
-);
+const ContextMenuContext = React.createContext<
+  ContextMenuContextValue | undefined
+>(undefined);
 
 function useContextMenuContext(): ContextMenuContextValue {
   const context = React.useContext(ContextMenuContext);

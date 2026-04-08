@@ -234,8 +234,6 @@ describe("Card composition", () => {
     ).toBeInTheDocument();
     expect(screen.getByText("Description")).toBeInTheDocument();
     expect(screen.getByText("Body content")).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: "Action" }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Action" })).toBeInTheDocument();
   });
 });

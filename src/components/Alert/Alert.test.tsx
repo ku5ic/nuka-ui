@@ -44,7 +44,9 @@ describe("Alert", () => {
     it("applies ghost variant classes", () => {
       render(<Alert variant="ghost">Ghost</Alert>);
       expect(screen.getByRole("alert").className).toContain("bg-transparent");
-      expect(screen.getByRole("alert").className).toContain("border-transparent");
+      expect(screen.getByRole("alert").className).toContain(
+        "border-transparent",
+      );
     });
   });
 
@@ -91,7 +93,9 @@ describe("Alert", () => {
     });
 
     it("renders dismiss button when onDismiss is provided", () => {
-      const noop = () => { /* dismiss handler */ };
+      const noop = () => {
+        /* dismiss handler */
+      };
       render(<Alert onDismiss={noop}>Info</Alert>);
       expect(
         screen.getByRole("button", { name: "Dismiss" }),
@@ -110,9 +114,7 @@ describe("Alert", () => {
   describe("icon", () => {
     it("renders the icon node when provided", () => {
       render(
-        <Alert icon={<span data-testid="alert-icon">!</span>}>
-          With icon
-        </Alert>,
+        <Alert icon={<span data-testid="alert-icon">!</span>}>With icon</Alert>,
       );
       expect(screen.getByTestId("alert-icon")).toBeInTheDocument();
     });

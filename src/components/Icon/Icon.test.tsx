@@ -4,7 +4,13 @@ import { render, screen } from "@testing-library/react";
 import { Icon } from "./Icon";
 
 const MockSvg = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} {...props}>
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+    {...props}
+  >
     <circle cx="12" cy="12" r="9" />
   </svg>
 );

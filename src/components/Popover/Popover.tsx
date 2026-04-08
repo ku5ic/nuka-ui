@@ -30,7 +30,11 @@ function Popover({
   onOpenChange,
   placement = "bottom-start",
 }: PopoverProps) {
-  const [currentOpen, handleOpenChange] = useControllableState(controlledOpen, defaultOpen, onOpenChange);
+  const [currentOpen, handleOpenChange] = useControllableState(
+    controlledOpen,
+    defaultOpen,
+    onOpenChange,
+  );
 
   const { refs, floatingStyles, context } = useFloating({
     open: currentOpen,

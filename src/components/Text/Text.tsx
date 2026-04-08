@@ -60,14 +60,22 @@ type TextElement =
   | "div";
 
 export interface TextProps
-  extends Omit<React.HTMLAttributes<HTMLElement>, "color">,
-    TextVariantProps {
+  extends Omit<React.HTMLAttributes<HTMLElement>, "color">, TextVariantProps {
   as?: TextElement;
 }
 
 const Text = React.forwardRef<HTMLElement, TextProps>(
   (
-    { as: Comp = "p", className, size, weight, color, align, truncate, ...props },
+    {
+      as: Comp = "p",
+      className,
+      size,
+      weight,
+      color,
+      align,
+      truncate,
+      ...props
+    },
     ref,
   ) => {
     return (

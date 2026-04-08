@@ -15,7 +15,16 @@ const meta: Meta = {
   argTypes: {
     placement: {
       control: "select",
-      options: ["top", "top-start", "top-end", "bottom", "bottom-start", "bottom-end", "left", "right"],
+      options: [
+        "top",
+        "top-start",
+        "top-end",
+        "bottom",
+        "bottom-start",
+        "bottom-end",
+        "left",
+        "right",
+      ],
     },
   },
 };
@@ -108,9 +117,7 @@ export const Placement: Story = {
           <Button variant="outline">Top Start</Button>
         </PopoverTrigger>
         <PopoverContent>
-          <p className="text-sm text-(--nuka-text-base)">
-            Placed at top-start
-          </p>
+          <p className="text-sm text-(--nuka-text-base)">Placed at top-start</p>
         </PopoverContent>
       </Popover>
     </div>
@@ -195,9 +202,7 @@ export const UserMenu: Story = {
           >
             Jane Doe
           </h3>
-          <p className="text-xs text-(--nuka-text-muted)">
-            jane@example.com
-          </p>
+          <p className="text-xs text-(--nuka-text-muted)">jane@example.com</p>
           <hr className="border-(--nuka-border-base)" />
           <a
             href="#profile"

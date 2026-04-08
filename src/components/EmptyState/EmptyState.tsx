@@ -11,7 +11,16 @@ export interface EmptyStateProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
   (
-    { className, illustration, icon, heading, description, action, children, ...props },
+    {
+      className,
+      illustration,
+      icon,
+      heading,
+      description,
+      action,
+      children,
+      ...props
+    },
     ref,
   ) => {
     const visual = illustration ?? icon ?? null;
@@ -38,9 +47,7 @@ const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
             {heading}
           </p>
           {description != null && (
-            <p className="text-sm text-(--nuka-text-muted)">
-              {description}
-            </p>
+            <p className="text-sm text-(--nuka-text-muted)">{description}</p>
           )}
         </div>
         {action && <div>{action}</div>}

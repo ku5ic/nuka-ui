@@ -53,10 +53,18 @@ export const WithLabel: Story = {
 export const AllIntents: Story = {
   render: () => (
     <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
-      <Checkbox defaultChecked intent="default">Default</Checkbox>
-      <Checkbox defaultChecked intent="danger">Danger</Checkbox>
-      <Checkbox defaultChecked intent="success">Success</Checkbox>
-      <Checkbox defaultChecked intent="warning">Warning</Checkbox>
+      <Checkbox defaultChecked intent="default">
+        Default
+      </Checkbox>
+      <Checkbox defaultChecked intent="danger">
+        Danger
+      </Checkbox>
+      <Checkbox defaultChecked intent="success">
+        Success
+      </Checkbox>
+      <Checkbox defaultChecked intent="warning">
+        Warning
+      </Checkbox>
     </div>
   ),
 };
@@ -64,9 +72,15 @@ export const AllIntents: Story = {
 export const AllSizes: Story = {
   render: () => (
     <div style={{ display: "flex", gap: "1.5rem", alignItems: "flex-end" }}>
-      <Checkbox defaultChecked size="sm">Small</Checkbox>
-      <Checkbox defaultChecked size="md">Medium</Checkbox>
-      <Checkbox defaultChecked size="lg">Large</Checkbox>
+      <Checkbox defaultChecked size="sm">
+        Small
+      </Checkbox>
+      <Checkbox defaultChecked size="md">
+        Medium
+      </Checkbox>
+      <Checkbox defaultChecked size="lg">
+        Large
+      </Checkbox>
     </div>
   ),
 };
@@ -75,7 +89,9 @@ export const Disabled: Story = {
   render: () => (
     <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
       <Checkbox disabled>Unchecked disabled</Checkbox>
-      <Checkbox disabled defaultChecked>Checked disabled</Checkbox>
+      <Checkbox disabled defaultChecked>
+        Checked disabled
+      </Checkbox>
     </div>
   ),
 };
@@ -94,13 +110,13 @@ export const TermsAcceptance: Story = {
   render: () => (
     <div style={{ maxWidth: "24rem" }}>
       <FormField id="terms" required>
-        <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <div
+          style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}
+        >
           <Checkbox>
             I agree to the Terms of Service and Privacy Policy
           </Checkbox>
-          <Checkbox>
-            I want to receive marketing emails (optional)
-          </Checkbox>
+          <Checkbox>I want to receive marketing emails (optional)</Checkbox>
           <Label htmlFor="terms" className="sr-only">
             Terms agreement
           </Label>

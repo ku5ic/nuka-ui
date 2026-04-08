@@ -46,10 +46,8 @@ export type SelectTriggerVariantProps = VariantProps<
 >;
 
 export interface SelectTriggerProps
-  extends Omit<
-      React.ButtonHTMLAttributes<HTMLButtonElement>,
-      "children"
-    >,
+  extends
+    Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "children">,
     SelectTriggerVariantProps {
   placeholder?: string;
 }
@@ -57,7 +55,10 @@ export interface SelectTriggerProps
 const TYPEAHEAD_TIMEOUT = 300;
 
 const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
-  ({ className, placeholder, intent, size, disabled: disabledProp, ...props }, ref) => {
+  (
+    { className, placeholder, intent, size, disabled: disabledProp, ...props },
+    ref,
+  ) => {
     const ctx = useSelect();
     const formCtx = useFormField();
 
@@ -69,16 +70,17 @@ const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
     });
 
     const typeaheadBufferRef = React.useRef("");
-    const typeaheadTimerRef = React.useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+    const typeaheadTimerRef = React.useRef<
+      ReturnType<typeof setTimeout> | undefined
+    >(undefined);
 
     const resolvedDisabled = disabledProp ?? ctx.disabled;
 
     const ariaLabelledBy =
       props["aria-labelledby"] ?? (formCtx.labelId || undefined);
 
-    const displayLabel = ctx.value !== undefined
-      ? ctx.getOptionLabel(ctx.value)
-      : undefined;
+    const displayLabel =
+      ctx.value !== undefined ? ctx.getOptionLabel(ctx.value) : undefined;
 
     // Fallback aria-label when no aria-labelledby provides a name.
     // role="combobox" has nameFrom:author, so text content alone won't work.
@@ -117,17 +119,20 @@ const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
         const options = getEnabledOptions();
         if (options.length === 0) return;
 
-        const currentIndex = ctx.highlightedValue !== undefined
-          ? options.indexOf(ctx.highlightedValue)
-          : -1;
+        const currentIndex =
+          ctx.highlightedValue !== undefined
+            ? options.indexOf(ctx.highlightedValue)
+            : -1;
 
         let nextIndex: number;
         switch (direction) {
           case "next":
-            nextIndex = currentIndex < options.length - 1 ? currentIndex + 1 : 0;
+            nextIndex =
+              currentIndex < options.length - 1 ? currentIndex + 1 : 0;
             break;
           case "prev":
-            nextIndex = currentIndex > 0 ? currentIndex - 1 : options.length - 1;
+            nextIndex =
+              currentIndex > 0 ? currentIndex - 1 : options.length - 1;
             break;
           case "first":
             nextIndex = 0;
@@ -309,10 +314,7 @@ const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
         aria-describedby={field.ariaDescribedBy}
         aria-required={field.ariaRequired}
         disabled={resolvedDisabled}
-        className={cn(
-          selectTriggerVariants({ intent, size }),
-          className,
-        )}
+        className={cn(selectTriggerVariants({ intent, size }), className)}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
       >

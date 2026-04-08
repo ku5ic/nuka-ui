@@ -40,7 +40,16 @@ const meta = {
     },
     as: {
       control: "select",
-      options: ["p", "span", "label", "li", "time", "abbr", "figcaption", "div"],
+      options: [
+        "p",
+        "span",
+        "label",
+        "li",
+        "time",
+        "abbr",
+        "figcaption",
+        "div",
+      ],
     },
   },
 } satisfies Meta<typeof Text>;

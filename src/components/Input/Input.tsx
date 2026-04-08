@@ -19,7 +19,8 @@ const inputVariants = cva(
   {
     variants: {
       intent: {
-        default: "border-(--nuka-input-border) hover:border-(--nuka-input-border-hover)",
+        default:
+          "border-(--nuka-input-border) hover:border-(--nuka-input-border-hover)",
         danger: "border-(--nuka-danger-border)",
         success: "border-(--nuka-success-border)",
         warning: "border-(--nuka-warning-border)",
@@ -40,7 +41,8 @@ const inputVariants = cva(
 export type InputVariantProps = VariantProps<typeof inputVariants>;
 
 export interface InputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">,
+  extends
+    Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">,
     InputVariantProps {}
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(

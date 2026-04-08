@@ -5,7 +5,9 @@ import userEvent from "@testing-library/user-event";
 import { Checkbox } from "./Checkbox";
 import { FormField } from "@nuka/components/FormField";
 
-function noop() { /* empty */ }
+function noop() {
+  /* empty */
+}
 
 describe("Checkbox", () => {
   describe("rendering", () => {
@@ -52,7 +54,12 @@ describe("Checkbox", () => {
       const user = userEvent.setup();
       let called = false;
       render(
-        <Checkbox aria-label="Accept" onChange={() => { called = true; }} />,
+        <Checkbox
+          aria-label="Accept"
+          onChange={() => {
+            called = true;
+          }}
+        />,
       );
       await user.click(screen.getByRole("checkbox", { name: "Accept" }));
       expect(called).toBe(true);
@@ -81,27 +88,37 @@ describe("Checkbox", () => {
     });
 
     it("applies danger intent border class", () => {
-      const { container } = render(<Checkbox intent="danger" aria-label="Accept" />);
+      const { container } = render(
+        <Checkbox intent="danger" aria-label="Accept" />,
+      );
       const indicator = container.querySelector('span[aria-hidden="true"]');
       expect(indicator?.className).toContain("border-(--nuka-danger-border)");
     });
 
     it("applies success intent border class", () => {
-      const { container } = render(<Checkbox intent="success" aria-label="Accept" />);
+      const { container } = render(
+        <Checkbox intent="success" aria-label="Accept" />,
+      );
       const indicator = container.querySelector('span[aria-hidden="true"]');
       expect(indicator?.className).toContain("border-(--nuka-success-border)");
     });
 
     it("applies warning intent border class", () => {
-      const { container } = render(<Checkbox intent="warning" aria-label="Accept" />);
+      const { container } = render(
+        <Checkbox intent="warning" aria-label="Accept" />,
+      );
       const indicator = container.querySelector('span[aria-hidden="true"]');
       expect(indicator?.className).toContain("border-(--nuka-warning-border)");
     });
 
     it("applies danger checked background class", () => {
-      const { container } = render(<Checkbox intent="danger" aria-label="Accept" />);
+      const { container } = render(
+        <Checkbox intent="danger" aria-label="Accept" />,
+      );
       const indicator = container.querySelector('span[aria-hidden="true"]');
-      expect(indicator?.className).toContain("peer-checked:bg-(--nuka-danger-base)");
+      expect(indicator?.className).toContain(
+        "peer-checked:bg-(--nuka-danger-base)",
+      );
     });
   });
 
@@ -130,13 +147,17 @@ describe("Checkbox", () => {
       const { container } = render(<Checkbox aria-label="Accept" />);
       const indicator = container.querySelector('span[aria-hidden="true"]');
       expect(indicator?.className).toContain("peer-focus-visible:outline-2");
-      expect(indicator?.className).toContain("peer-focus-visible:outline-(--nuka-border-focus)");
+      expect(indicator?.className).toContain(
+        "peer-focus-visible:outline-(--nuka-border-focus)",
+      );
     });
   });
 
   describe("className override", () => {
     it("merges consumer className onto the outer label", () => {
-      const { container } = render(<Checkbox className="mt-4" aria-label="Accept" />);
+      const { container } = render(
+        <Checkbox className="mt-4" aria-label="Accept" />,
+      );
       const label = container.querySelector("label");
       expect(label?.className).toContain("mt-4");
       expect(label?.className).toContain("inline-flex");
@@ -158,7 +179,10 @@ describe("Checkbox", () => {
           <Checkbox aria-label="Accept" />
         </FormField>,
       );
-      expect(screen.getByRole("checkbox", { name: "Accept" })).toHaveAttribute("aria-invalid", "true");
+      expect(screen.getByRole("checkbox", { name: "Accept" })).toHaveAttribute(
+        "aria-invalid",
+        "true",
+      );
     });
 
     it("applies aria-required when FormField has required", () => {
@@ -167,7 +191,10 @@ describe("Checkbox", () => {
           <Checkbox aria-label="Accept" />
         </FormField>,
       );
-      expect(screen.getByRole("checkbox", { name: "Accept" })).toHaveAttribute("aria-required", "true");
+      expect(screen.getByRole("checkbox", { name: "Accept" })).toHaveAttribute(
+        "aria-required",
+        "true",
+      );
     });
 
     it("applies id from fieldId when inside FormField", () => {
@@ -176,7 +203,10 @@ describe("Checkbox", () => {
           <Checkbox aria-label="Accept" />
         </FormField>,
       );
-      expect(screen.getByRole("checkbox", { name: "Accept" })).toHaveAttribute("id", "terms");
+      expect(screen.getByRole("checkbox", { name: "Accept" })).toHaveAttribute(
+        "id",
+        "terms",
+      );
     });
 
     it("includes error id in aria-describedby when FormField has error", () => {
@@ -217,7 +247,19 @@ describe("Checkbox", () => {
           <Checkbox aria-label="Accept" aria-invalid={false} />
         </FormField>,
       );
-      expect(screen.getByRole("checkbox", { name: "Accept" })).toHaveAttribute("aria-invalid", "false");
+      expect(screen.getByRole("checkbox", { name: "Accept" })).toHaveAttribute(
+        "aria-invalid",
+        "false",
+      );
+    });
+
+    it("becomes disabled when FormField is disabled", () => {
+      render(
+        <FormField id="terms" disabled>
+          <Checkbox aria-label="Accept" />
+        </FormField>,
+      );
+      expect(screen.getByRole("checkbox", { name: "Accept" })).toBeDisabled();
     });
   });
 });

@@ -1,14 +1,10 @@
 import * as React from "react";
 import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
-import { useFormField } from "@nuka/components/FormField/FormFieldContext";
+import { useFormFieldProps } from "@nuka/utils/use-form-field-props";
 
 const checkboxWrapperVariants = cva(
-  [
-    "inline-flex items-center gap-(--space-2)",
-    "cursor-pointer",
-    "select-none",
-  ],
+  ["inline-flex items-center gap-(--space-2)", "cursor-pointer", "select-none"],
   {
     variants: {
       size: {
@@ -90,44 +86,38 @@ const checkboxIndicatorVariants = cva(
   },
 );
 
-export type CheckboxVariantProps = VariantProps<typeof checkboxIndicatorVariants>;
+export type CheckboxVariantProps = VariantProps<
+  typeof checkboxIndicatorVariants
+>;
 
 export interface CheckboxProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size" | "type">,
+  extends
+    Omit<React.InputHTMLAttributes<HTMLInputElement>, "size" | "type">,
     CheckboxVariantProps {
   children?: React.ReactNode;
 }
 
 const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
-  ({ className, intent, size, children, id, ...props }, ref) => {
-    const ctx = useFormField();
-
-    const resolvedId = id ?? (ctx.fieldId || undefined);
-
-    const ariaInvalid =
-      props["aria-invalid"] ??
-      (ctx.hasError ? true : undefined);
-
-    const contextDescribedBy = [
-      ctx.hasError ? ctx.errorId : "",
-      ctx.hintId || "",
-    ]
-      .filter(Boolean)
-      .join(" ");
-
-    const ariaDescribedBy =
-      [props["aria-describedby"], contextDescribedBy]
-        .filter(Boolean)
-        .join(" ") || undefined;
-
-    const ariaRequired =
-      props["aria-required"] ?? (ctx.required ? true : undefined);
+  ({ className, intent, size, children, id, disabled, ...props }, ref) => {
+    const {
+      resolvedId,
+      resolvedDisabled,
+      ariaInvalid,
+      ariaDescribedBy,
+      ariaRequired,
+    } = useFormFieldProps({
+      id,
+      disabled,
+      "aria-invalid": props["aria-invalid"],
+      "aria-describedby": props["aria-describedby"],
+      "aria-required": props["aria-required"],
+    });
 
     return (
       <label
         className={cn(
           checkboxWrapperVariants({ size }),
-          props.disabled ? "cursor-not-allowed" : undefined,
+          resolvedDisabled ? "cursor-not-allowed" : undefined,
           className,
         )}
       >
@@ -135,6 +125,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           ref={ref}
           type="checkbox"
           id={resolvedId}
+          disabled={resolvedDisabled}
           className="peer sr-only"
           {...props}
           aria-invalid={ariaInvalid}
@@ -157,7 +148,9 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             <path d="M3.5 8.5L6.5 11.5L12.5 4.5" />
           </svg>
         </span>
-        {children && <span className="text-(--nuka-text-base)">{children}</span>}
+        {children && (
+          <span className="text-(--nuka-text-base)">{children}</span>
+        )}
       </label>
     );
   },
@@ -165,4 +158,8 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
 
 Checkbox.displayName = "Checkbox";
 
-export { Checkbox, checkboxIndicatorVariants as checkboxVariants, checkboxWrapperVariants };
+export {
+  Checkbox,
+  checkboxIndicatorVariants as checkboxVariants,
+  checkboxWrapperVariants,
+};

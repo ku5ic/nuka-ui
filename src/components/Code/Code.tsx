@@ -36,44 +36,29 @@ const codeVariants = cva(
       {
         variant: "subtle",
         intent: "default",
-        className: [
-          "bg-(--nuka-bg-muted)",
-          "text-(--nuka-text-base)",
-        ],
+        className: ["bg-(--nuka-bg-muted)", "text-(--nuka-text-base)"],
       },
       {
         variant: "subtle",
         intent: "danger",
-        className: [
-          "bg-(--nuka-danger-bg)",
-          "text-(--nuka-danger-text)",
-        ],
+        className: ["bg-(--nuka-danger-bg)", "text-(--nuka-danger-text)"],
       },
       {
         variant: "subtle",
         intent: "success",
-        className: [
-          "bg-(--nuka-success-bg)",
-          "text-(--nuka-success-text)",
-        ],
+        className: ["bg-(--nuka-success-bg)", "text-(--nuka-success-text)"],
       },
       {
         variant: "subtle",
         intent: "warning",
-        className: [
-          "bg-(--nuka-warning-bg)",
-          "text-(--nuka-warning-text)",
-        ],
+        className: ["bg-(--nuka-warning-bg)", "text-(--nuka-warning-text)"],
       },
 
       // outline
       {
         variant: "outline",
         intent: "default",
-        className: [
-          "border-(--nuka-border-strong)",
-          "text-(--nuka-text-base)",
-        ],
+        className: ["border-(--nuka-border-strong)", "text-(--nuka-text-base)"],
       },
       {
         variant: "outline",
@@ -134,8 +119,7 @@ const codeVariants = cva(
 export type CodeVariantProps = VariantProps<typeof codeVariants>;
 
 export interface CodeProps
-  extends React.HTMLAttributes<HTMLElement>,
-    CodeVariantProps {}
+  extends React.HTMLAttributes<HTMLElement>, CodeVariantProps {}
 
 const Code = React.forwardRef<HTMLElement, CodeProps>(
   ({ className, variant, intent, size, ...props }, ref) => {

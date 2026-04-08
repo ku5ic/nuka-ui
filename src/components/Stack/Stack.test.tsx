@@ -45,10 +45,7 @@ describe("Stack", () => {
 
     it("applies responsive direction classes", () => {
       render(
-        <Stack
-          data-testid="stack"
-          direction={{ base: "column", md: "row" }}
-        >
+        <Stack data-testid="stack" direction={{ base: "column", md: "row" }}>
           Content
         </Stack>,
       );
@@ -162,9 +159,7 @@ describe("Stack", () => {
   describe("native attributes", () => {
     it("forwards aria-label attribute", () => {
       render(<Stack aria-label="Navigation stack">Content</Stack>);
-      expect(
-        screen.getByLabelText("Navigation stack"),
-      ).toBeInTheDocument();
+      expect(screen.getByLabelText("Navigation stack")).toBeInTheDocument();
     });
 
     it("forwards data attributes", () => {

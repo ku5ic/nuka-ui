@@ -35,17 +35,13 @@ export function useFormFieldProps(
     ? undefined
     : (input["aria-invalid"] ?? (ctx.hasError ? true : undefined));
 
-  const contextDescribedBy = [
-    ctx.hasError ? ctx.errorId : "",
-    ctx.hintId || "",
-  ]
+  const contextDescribedBy = [ctx.hasError ? ctx.errorId : "", ctx.hintId || ""]
     .filter(Boolean)
     .join(" ");
 
   const ariaDescribedBy =
-    [input["aria-describedby"], contextDescribedBy]
-      .filter(Boolean)
-      .join(" ") || undefined;
+    [input["aria-describedby"], contextDescribedBy].filter(Boolean).join(" ") ||
+    undefined;
 
   const ariaRequired =
     input["aria-required"] ?? (ctx.required ? true : undefined);

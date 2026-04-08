@@ -21,7 +21,9 @@ function composeRefs<T>(
 }
 
 function isEventHandlerProp(key: string): boolean {
-  return key.length > 2 && key.startsWith("on") && key[2] === key[2]?.toUpperCase();
+  return (
+    key.length > 2 && key.startsWith("on") && key[2] === key[2]?.toUpperCase()
+  );
 }
 
 function mergeProps(
@@ -92,7 +94,9 @@ const Slot = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(
 
     return React.cloneElement(
       childElement,
-      cloneProps as Partial<Record<string, unknown> & { ref?: React.Ref<HTMLElement> }>,
+      cloneProps as Partial<
+        Record<string, unknown> & { ref?: React.Ref<HTMLElement> }
+      >,
     );
   },
 );

@@ -14,9 +14,9 @@ describe("resolveResponsiveClasses", () => {
   });
 
   it("resolves scalar input to single base class", () => {
-    expect(
-      resolveResponsiveClasses<GapScale>("md", gapClasses),
-    ).toEqual(["gap-4"]);
+    expect(resolveResponsiveClasses<GapScale>("md", gapClasses)).toEqual([
+      "gap-4",
+    ]);
   });
 
   it("resolves { base: value } identically to scalar", () => {

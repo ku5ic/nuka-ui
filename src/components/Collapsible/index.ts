@@ -8,5 +8,8 @@ export type {
   CollapsibleTriggerProps,
   CollapsibleContentProps,
 } from "./Collapsible";
-export { CollapsibleContext, useCollapsibleContext } from "./CollapsibleContext";
+export {
+  CollapsibleContext,
+  useCollapsibleContext,
+} from "./CollapsibleContext";
 export type { CollapsibleContextValue } from "./CollapsibleContext";

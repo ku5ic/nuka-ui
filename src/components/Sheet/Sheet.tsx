@@ -53,8 +53,7 @@ function Sheet({
 
 Sheet.displayName = "Sheet";
 
-export interface SheetTriggerProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface SheetTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;
 }
 
@@ -84,14 +83,15 @@ const SheetTrigger = React.forwardRef<HTMLButtonElement, SheetTriggerProps>(
 SheetTrigger.displayName = "SheetTrigger";
 
 const sideClasses: Record<SheetSide, string> = {
-  right: "inset-y-0 right-0 h-full w-3/4 max-w-sm translate-x-full data-[state=open]:translate-x-0 border-l",
+  right:
+    "inset-y-0 right-0 h-full w-3/4 max-w-sm translate-x-full data-[state=open]:translate-x-0 border-l",
   left: "inset-y-0 left-0 h-full w-3/4 max-w-sm -translate-x-full data-[state=open]:translate-x-0 border-r",
   top: "inset-x-0 top-0 w-full -translate-y-full data-[state=open]:translate-y-0 border-b",
-  bottom: "inset-x-0 bottom-0 w-full translate-y-full data-[state=open]:translate-y-0 border-t",
+  bottom:
+    "inset-x-0 bottom-0 w-full translate-y-full data-[state=open]:translate-y-0 border-t",
 };
 
-export interface SheetContentProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export interface SheetContentProps extends React.HTMLAttributes<HTMLDivElement> {
   side?: SheetSide;
 }
 
@@ -193,8 +193,10 @@ const SheetContent = React.forwardRef<HTMLDivElement, SheetContentProps>(
 
 SheetContent.displayName = "SheetContent";
 
-export interface SheetTitleProps
-  extends Omit<React.HTMLAttributes<HTMLElement>, "color"> {
+export interface SheetTitleProps extends Omit<
+  React.HTMLAttributes<HTMLElement>,
+  "color"
+> {
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 }
 
@@ -218,8 +220,10 @@ const SheetTitle = React.forwardRef<HTMLElement, SheetTitleProps>(
 
 SheetTitle.displayName = "SheetTitle";
 
-export interface SheetDescriptionProps
-  extends Omit<React.HTMLAttributes<HTMLElement>, "color"> {}
+export interface SheetDescriptionProps extends Omit<
+  React.HTMLAttributes<HTMLElement>,
+  "color"
+> {}
 
 const SheetDescription = React.forwardRef<HTMLElement, SheetDescriptionProps>(
   ({ className, ...props }, ref) => {
@@ -246,8 +250,7 @@ const SheetDescription = React.forwardRef<HTMLElement, SheetDescriptionProps>(
 
 SheetDescription.displayName = "SheetDescription";
 
-export interface SheetCloseProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface SheetCloseProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;
 }
 

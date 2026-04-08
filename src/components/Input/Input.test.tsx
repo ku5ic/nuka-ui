@@ -29,7 +29,9 @@ describe("Input", () => {
 
     it("applies lg size classes", () => {
       const { container } = render(<Input size="lg" />);
-      expect(container.querySelector("input")?.className).toContain("text-base");
+      expect(container.querySelector("input")?.className).toContain(
+        "text-base",
+      );
     });
   });
 
@@ -66,17 +68,27 @@ describe("Input", () => {
   describe("aria-invalid", () => {
     it("sets aria-invalid when intent is danger", () => {
       const { container } = render(<Input intent="danger" />);
-      expect(container.querySelector("input")).toHaveAttribute("aria-invalid", "true");
+      expect(container.querySelector("input")).toHaveAttribute(
+        "aria-invalid",
+        "true",
+      );
     });
 
     it("does not set aria-invalid when intent is default", () => {
       const { container } = render(<Input />);
-      expect(container.querySelector("input")).not.toHaveAttribute("aria-invalid");
+      expect(container.querySelector("input")).not.toHaveAttribute(
+        "aria-invalid",
+      );
     });
 
     it("allows consumer to override aria-invalid to false even with danger intent", () => {
-      const { container } = render(<Input intent="danger" aria-invalid={false} />);
-      expect(container.querySelector("input")).toHaveAttribute("aria-invalid", "false");
+      const { container } = render(
+        <Input intent="danger" aria-invalid={false} />,
+      );
+      expect(container.querySelector("input")).toHaveAttribute(
+        "aria-invalid",
+        "false",
+      );
     });
   });
 
@@ -98,7 +110,10 @@ describe("Input", () => {
 
     it("forwards placeholder attribute", () => {
       const { container } = render(<Input placeholder="Enter email" />);
-      expect(container.querySelector("input")).toHaveAttribute("placeholder", "Enter email");
+      expect(container.querySelector("input")).toHaveAttribute(
+        "placeholder",
+        "Enter email",
+      );
     });
 
     it("forwards data attributes", () => {
@@ -131,7 +146,10 @@ describe("Input", () => {
           <Input aria-label="Email" />
         </FormField>,
       );
-      expect(screen.getByRole("textbox", { name: "Email" })).toHaveAttribute("aria-invalid", "true");
+      expect(screen.getByRole("textbox", { name: "Email" })).toHaveAttribute(
+        "aria-invalid",
+        "true",
+      );
     });
 
     it("includes error id in aria-describedby when FormField has error", () => {
@@ -176,7 +194,10 @@ describe("Input", () => {
           <Input aria-label="Email" />
         </FormField>,
       );
-      expect(screen.getByRole("textbox", { name: "Email" })).toHaveAttribute("aria-required", "true");
+      expect(screen.getByRole("textbox", { name: "Email" })).toHaveAttribute(
+        "aria-required",
+        "true",
+      );
     });
 
     it("preserves consumer-supplied aria-describedby alongside context ids", () => {
@@ -185,7 +206,10 @@ describe("Input", () => {
           <Input aria-label="Email" aria-describedby="custom-desc" />
         </FormField>,
       );
-      const describedBy = screen.getByRole("textbox", { name: "Email" }).getAttribute("aria-describedby") ?? "";
+      const describedBy =
+        screen
+          .getByRole("textbox", { name: "Email" })
+          .getAttribute("aria-describedby") ?? "";
       expect(describedBy).toContain("custom-desc");
       expect(describedBy).toContain("email-hint");
     });
@@ -204,7 +228,10 @@ describe("Input", () => {
           <Input aria-label="Email" aria-invalid={false} />
         </FormField>,
       );
-      expect(screen.getByRole("textbox", { name: "Email" })).toHaveAttribute("aria-invalid", "false");
+      expect(screen.getByRole("textbox", { name: "Email" })).toHaveAttribute(
+        "aria-invalid",
+        "false",
+      );
     });
   });
 });

@@ -56,7 +56,14 @@ export const WithDefaultValue: Story = {
 export const Controlled: Story = {
   render: function ControlledSlider() {
     const [value, setValue] = React.useState(50);
-    return <Slider value={value} onValueChange={setValue} showValue aria-label="Volume" />;
+    return (
+      <Slider
+        value={value}
+        onValueChange={setValue}
+        showValue
+        aria-label="Volume"
+      />
+    );
   },
 };
 
@@ -65,8 +72,14 @@ export const AllIntents: Story = {
     <div className="flex flex-col gap-(--space-6)" style={{ width: 320 }}>
       {(["default", "danger", "success", "warning"] as const).map((intent) => (
         <div key={intent} className="flex flex-col gap-(--space-1)">
-          <Text size="sm" color="muted">{intent}</Text>
-          <Slider intent={intent} defaultValue={60} aria-label={`${intent} slider`} />
+          <Text size="sm" color="muted">
+            {intent}
+          </Text>
+          <Slider
+            intent={intent}
+            defaultValue={60}
+            aria-label={`${intent} slider`}
+          />
         </div>
       ))}
     </div>
@@ -78,7 +91,9 @@ export const AllSizes: Story = {
     <div className="flex flex-col gap-(--space-6)" style={{ width: 320 }}>
       {(["sm", "md", "lg"] as const).map((size) => (
         <div key={size} className="flex flex-col gap-(--space-1)">
-          <Text size="sm" color="muted">{size}</Text>
+          <Text size="sm" color="muted">
+            {size}
+          </Text>
           <Slider size={size} defaultValue={50} aria-label={`${size} slider`} />
         </div>
       ))}
@@ -98,7 +113,9 @@ export const WithSteps: Story = {
           showValue
           aria-label="Stepped value"
         />
-        <Text size="xs" color="muted">Step: 10</Text>
+        <Text size="xs" color="muted">
+          Step: 10
+        </Text>
       </div>
     );
   },
@@ -138,17 +155,23 @@ export const VolumeControl: Story = {
       <div className="flex flex-col gap-(--space-2)" style={{ width: 320 }}>
         <div className="flex items-center justify-between">
           <Label htmlFor="volume">Volume</Label>
-          <Text size="sm" color="muted">{value}%</Text>
+          <Text size="sm" color="muted">
+            {value}%
+          </Text>
         </div>
         <div className="flex items-center gap-(--space-3)">
-          <Text size="xs" color="muted">0</Text>
+          <Text size="xs" color="muted">
+            0
+          </Text>
           <Slider
             id="volume"
             value={value}
             onValueChange={setValue}
             aria-label="Volume"
           />
-          <Text size="xs" color="muted">100</Text>
+          <Text size="xs" color="muted">
+            100
+          </Text>
         </div>
       </div>
     );
