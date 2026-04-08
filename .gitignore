@@ -198,4 +198,5 @@ storybook-static
 coverage
 *.local
 stories/
-.claude/projects/
+audit-findings.md
+audit-report.txt
