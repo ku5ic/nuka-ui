@@ -19,7 +19,7 @@ const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps>(
         hidden={!ctx.open}
         className={cn(
           "absolute left-0 w-full",
-          "z-10",
+          "z-50",
           "bg-(--nuka-bg-base)",
           "border border-(--nuka-border-base)",
           "rounded-(--radius-md)",

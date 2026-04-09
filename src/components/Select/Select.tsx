@@ -127,7 +127,9 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
       [],
     );
 
-    // Close on outside click
+    // Close on outside click. Manual listener because Select uses absolute
+    // positioning (ADR-013), not Floating UI. A Portal + useFloating refactor
+    // would unify this with useDismiss but requires rearchitecting SelectContent.
     React.useEffect(() => {
       if (!currentOpen) return;
 

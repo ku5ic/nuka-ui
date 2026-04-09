@@ -1,6 +1,5 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
-import { useFormField } from "@nuka/components/FormField";
 import { useFormFieldProps } from "@nuka/utils/use-form-field-props";
 import { useControllableState } from "@nuka/utils/use-controllable-state";
 import { RadioGroupContext } from "@nuka/components/RadioGroup/RadioGroupContext";
@@ -26,7 +25,7 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
       name,
       value: controlledValue,
       defaultValue,
-      disabled = false,
+      disabled,
       onChange,
       orientation = "vertical",
       children,
@@ -34,7 +33,14 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
     },
     ref,
   ) => {
-    const ctx = useFormField();
+    const field = useFormFieldProps({
+      disabled,
+      "aria-invalid": props["aria-invalid"],
+      "aria-describedby": props["aria-describedby"],
+    });
+
+    const resolvedDisabled = field.resolvedDisabled ?? false;
+
     const [currentValue, setCurrentValue] = useControllableState(
       controlledValue,
       defaultValue,
@@ -45,10 +51,18 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
 
     const [focusedValue, setFocusedValue] = React.useState(currentValue);
 
+    // Incremented each time a Radio mounts and registers its ref. Used as a
+    // dependency for the first-focus effect below: refsMap is a ref (not state)
+    // so mutating it does not trigger a re-render. Without this counter the
+    // effect would run on mount before any radios have registered, read an
+    // empty map, and never set focusedValue, leaving all radios at tabIndex=-1.
+    const [registrationCount, setRegistrationCount] = React.useState(0);
+
     const registerRef = React.useCallback(
       (radioValue: string, node: HTMLInputElement | null) => {
         if (node) {
           refsMap.current.set(radioValue, node);
+          setRegistrationCount((c) => c + 1);
         } else {
           refsMap.current.delete(radioValue);
         }
@@ -57,8 +71,8 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
     );
 
     // When the group has no selection, ensure the first non-disabled radio
-    // has tabIndex=0 so the group is reachable by Tab. This runs after children
-    // mount and register their refs, so refsMap is populated.
+    // has tabIndex=0 so the group is reachable by Tab. Depends on
+    // registrationCount so it re-runs after radios mount and populate refsMap.
     React.useEffect(() => {
       if (focusedValue === undefined && currentValue === undefined) {
         const firstKey = Array.from(refsMap.current.keys())[0];
@@ -66,7 +80,7 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
           setFocusedValue(firstKey);
         }
       }
-    }, [focusedValue, currentValue]);
+    }, [focusedValue, currentValue, registrationCount]);
 
     const handleChange = React.useCallback(
       (radioValue: string) => {
@@ -146,13 +160,6 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
       },
       [moveFocus, props],
     );
-
-    const resolvedDisabled = disabled || ctx.disabled;
-
-    const field = useFormFieldProps({
-      "aria-invalid": props["aria-invalid"],
-      "aria-describedby": props["aria-describedby"],
-    });
 
     const contextValue: RadioGroupContextValue = React.useMemo(
       () => ({

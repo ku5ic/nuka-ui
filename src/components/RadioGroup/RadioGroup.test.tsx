@@ -65,6 +65,28 @@ describe("RadioGroup", () => {
         expect(radio).toBeDisabled();
       }
     });
+
+    it("inherits disabled from FormField when group disabled is not set", () => {
+      render(
+        <FormField disabled>
+          <RadioGroup name="color" aria-label="Color">
+            <Radio value="red">Red</Radio>
+          </RadioGroup>
+        </FormField>,
+      );
+      expect(screen.getByRole("radio", { name: "Red" })).toBeDisabled();
+    });
+
+    it("disabled={false} overrides FormField disabled", () => {
+      render(
+        <FormField disabled>
+          <RadioGroup name="color" aria-label="Color" disabled={false}>
+            <Radio value="red">Red</Radio>
+          </RadioGroup>
+        </FormField>,
+      );
+      expect(screen.getByRole("radio", { name: "Red" })).not.toBeDisabled();
+    });
   });
 
   describe("controlled", () => {
@@ -104,12 +126,19 @@ describe("RadioGroup", () => {
   });
 
   describe("keyboard navigation", () => {
-    it("first radio has tabIndex=0 when group has no selection", () => {
+    it("group with no selection is reachable by Tab", async () => {
+      const user = userEvent.setup();
       renderGroup();
-      expect(screen.getByRole("radio", { name: "Red" })).toHaveAttribute(
-        "tabindex",
-        "0",
-      );
+      await user.tab();
+      expect(screen.getByRole("radio", { name: "Red" })).toHaveFocus();
+    });
+
+    it("only the first radio has tabIndex=0 when group has no selection", async () => {
+      // Verifies roving tabindex state, not just Tab reachability.
+      // Uses waitFor because registrationCount triggers a post-mount effect.
+      const { findByRole } = renderGroup();
+      const red = await findByRole("radio", { name: "Red" });
+      expect(red).toHaveAttribute("tabindex", "0");
       expect(screen.getByRole("radio", { name: "Green" })).toHaveAttribute(
         "tabindex",
         "-1",
