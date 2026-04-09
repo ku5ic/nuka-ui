@@ -198,6 +198,7 @@ storybook-static
 coverage
 *.local
 stories/
-audit-findings.md
 audit-report.md
 audit-report.txt
+plan.md
+preflight-summary.md
