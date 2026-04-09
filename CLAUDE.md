@@ -16,6 +16,7 @@ nuka-ui is a React component library built on Tailwind v4. It abstracts Tailwind
 npm run dev           # Storybook at localhost:6006
 npm run test:watch    # Vitest in watch mode
 npm run lint          # ESLint
+npm run format:check  # Prettier
 npm run typecheck     # tsc --noEmit
 npm run build         # Vite build + tsc declaration emit
 ```
