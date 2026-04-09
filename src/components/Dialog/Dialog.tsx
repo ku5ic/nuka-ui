@@ -84,6 +84,7 @@ const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps>(
             "bg-(--nuka-bg-base) shadow-md",
             "p-(--space-6)",
             "data-[state=open]:animate-[nuka-dialog-enter_150ms_ease-out]",
+            // Programmatic focus via useFocusTrap; :focus-visible does not activate, so this is inert
             "focus-visible:outline-none",
             className,
           )}

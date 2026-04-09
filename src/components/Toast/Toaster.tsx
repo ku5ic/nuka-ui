@@ -45,6 +45,7 @@ const Toaster = React.forwardRef<HTMLDivElement, ToasterProps>(
       <Portal>
         <div
           ref={ref}
+          role="region"
           aria-label="Notifications"
           className={cn(
             "fixed z-50 flex flex-col gap-(--space-2) p-(--space-4)",

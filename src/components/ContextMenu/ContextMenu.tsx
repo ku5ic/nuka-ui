@@ -90,7 +90,7 @@ export interface ContextMenuTriggerProps extends React.HTMLAttributes<HTMLDivEle
 const ContextMenuTrigger = React.forwardRef<
   HTMLDivElement,
   ContextMenuTriggerProps
->(({ asChild = false, children, onContextMenu, onKeyDown, ...props }, ref) => {
+>(({ asChild = false, children, onContextMenu, onKeyDown, className, ...props }, ref) => {
   const ctx = useContextMenuContextInternal();
   const triggerRef = React.useRef<HTMLDivElement>(null);
   const composedTriggerRef = composeRefs(ref, triggerRef);
@@ -152,6 +152,12 @@ const ContextMenuTrigger = React.forwardRef<
       tabIndex={0}
       onContextMenu={handleContextMenu}
       onKeyDown={handleKeyDown}
+      className={cn(
+        "rounded-(--radius-sm)",
+        "focus-visible:outline-2 focus-visible:outline-offset-2",
+        "focus-visible:outline-(--nuka-border-focus)",
+        className,
+      )}
       {...(props as React.HTMLAttributes<HTMLDivElement>)}
     >
       {children}

@@ -96,6 +96,7 @@ const SheetContent = React.forwardRef<HTMLDivElement, SheetContentProps>(
             "p-(--space-6)",
             "transition-transform duration-300 ease-in-out",
             "motion-reduce:transition-none",
+            // Programmatic focus via useFocusTrap; :focus-visible does not activate, so this is inert
             "focus-visible:outline-none",
             sideClasses[side],
             className,
