@@ -3,23 +3,26 @@
 
   --color-neutral-0: oklch(100% 0 0);
   --color-neutral-50: oklch(98.4% 0 0);
+  --color-neutral-75: oklch(93% 0.004 257);
   --color-neutral-100: oklch(96.8% 0 0);
   --color-neutral-200: oklch(92.9% 0 0);
   --color-neutral-300: oklch(86.9% 0 0);
   --color-neutral-400: oklch(70.4% 0 0);
   --color-neutral-500: oklch(55.4% 0 0);
   --color-neutral-600: oklch(44.6% 0 0);
-  --color-neutral-700: oklch(37.2% 0 0);
-  --color-neutral-800: oklch(27.9% 0 0);
-  --color-neutral-900: oklch(20.8% 0 0);
-  --color-neutral-950: oklch(13% 0 0);
+  --color-neutral-700: oklch(34% 0.014 257);
+  --color-neutral-800: oklch(26% 0.012 257);
+  --color-neutral-900: oklch(20% 0.010 257);
+  --color-neutral-950: oklch(14% 0.008 257);
   --color-neutral-1000: oklch(0% 0 0);
 
   /* Slate accent: hue 257, low chroma */
   --color-accent-100: oklch(96.8% 0.007 257);
   --color-accent-200: oklch(92.9% 0.013 257);
   --color-accent-300: oklch(86.9% 0.022 257);
+  --color-accent-350: oklch(60% 0.055 257);
   --color-accent-400: oklch(70.4% 0.04 257);
+  --color-accent-450: oklch(52% 0.05 257);
   --color-accent-500: oklch(44% 0.043 257);
   --color-accent-600: oklch(37.2% 0.044 257);
   --color-accent-700: oklch(27.9% 0.041 257);
@@ -204,18 +207,18 @@
 /* Semantic tokens: dark theme */
 [data-theme="dark"] {
   /* Surfaces */
-  --nuka-bg-base: var(--color-neutral-950);
-  --nuka-bg-subtle: var(--color-neutral-900);
-  --nuka-bg-muted: var(--color-neutral-800);
+  --nuka-bg-base: oklch(30% 0.012 257); /* dark-only: no primitive at this step */
+  --nuka-bg-subtle: oklch(36% 0.014 257); /* dark-only: no primitive at this step */
+  --nuka-bg-muted: oklch(38% 0.016 257); /* dark-only: no primitive at this step */
   --nuka-bg-emphasis: var(--color-neutral-0);
 
   /* Borders */
-  --nuka-border-base: var(--color-neutral-700);
+  --nuka-border-base: oklch(46% 0.016 257); /* dark-only: no primitive at this step */
   --nuka-border-strong: var(--color-neutral-500);
   --nuka-border-focus: var(--color-accent-400);
 
   /* Text */
-  --nuka-text-base: var(--color-neutral-50);
+  --nuka-text-base: var(--color-neutral-75);
   --nuka-text-muted: var(--color-neutral-400);
   --nuka-text-subtle: var(--color-neutral-600);
   --nuka-text-inverse: var(--color-neutral-950);
@@ -223,8 +226,8 @@
 
   /* Accent */
   --nuka-accent-bg: var(--color-accent-500);
-  --nuka-accent-bg-hover: var(--color-accent-400);
-  --nuka-accent-bg-active: var(--color-accent-300);
+  --nuka-accent-bg-hover: var(--color-accent-450);
+  --nuka-accent-bg-active: var(--color-accent-350);
   --nuka-accent-bg-subtle: var(--color-accent-800);
   --nuka-accent-border: var(--color-accent-400);
   --nuka-accent-text: var(--color-accent-300);
@@ -244,7 +247,7 @@
   --nuka-shadow-modal: var(--shadow-lg-dark);
 
   /* Overlay */
-  --nuka-bg-overlay: oklch(0% 0 0 / 0.5);
+  --nuka-bg-overlay: oklch(0% 0 0 / 0.72);
 
   /* Input surfaces */
   --nuka-input-bg: var(--color-neutral-950);
