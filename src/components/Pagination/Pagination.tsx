@@ -99,7 +99,9 @@ const PaginationPrevious = React.forwardRef<
           ref={ref as React.Ref<never>}
           aria-label="Go to previous page"
           {...props}
-          {...(disabled && !asChild ? { role: "link" as const, "aria-disabled": true } : {})}
+          {...(disabled && !asChild
+            ? { role: "link" as const, "aria-disabled": true }
+            : {})}
         >
           <Icon size="sm">
             <svg
@@ -147,7 +149,9 @@ const PaginationNext = React.forwardRef<HTMLAnchorElement, PaginationNextProps>(
           ref={ref as React.Ref<never>}
           aria-label="Go to next page"
           {...props}
-          {...(disabled && !asChild ? { role: "link" as const, "aria-disabled": true } : {})}
+          {...(disabled && !asChild
+            ? { role: "link" as const, "aria-disabled": true }
+            : {})}
         >
           {children ?? "Next"}
           <Icon size="sm">

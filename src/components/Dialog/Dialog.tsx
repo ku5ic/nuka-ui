@@ -60,7 +60,7 @@ const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps>(
       <Portal>
         <div
           className={cn(
-            "fixed inset-0 z-50",
+            "fixed inset-0 z-(--nuka-z-modal)",
             "bg-(--nuka-bg-overlay)",
             "data-[state=open]:animate-[nuka-dialog-overlay-enter_150ms_ease-out]",
           )}
@@ -77,7 +77,7 @@ const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps>(
           tabIndex={-1}
           data-state="open"
           className={cn(
-            "fixed z-50",
+            "fixed z-(--nuka-z-modal)",
             "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
             "w-full max-w-lg",
             "rounded-(--radius-xl) border border-(--nuka-border-base)",

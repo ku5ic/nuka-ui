@@ -22,7 +22,7 @@ const TooltipContent = React.forwardRef<HTMLDivElement, TooltipContentProps>(
           style={ctx.floatingStyles}
           {...(floatingProps as React.HTMLAttributes<HTMLDivElement>)}
           className={cn(
-            "z-50 max-w-xs rounded-(--radius-md) px-(--space-2) py-(--space-1)",
+            "z-(--nuka-z-dropdown) max-w-xs rounded-(--radius-md) px-(--space-2) py-(--space-1)",
             "text-xs bg-(--nuka-bg-emphasis) text-(--nuka-text-inverse)",
             "shadow-md pointer-events-none",
             className,

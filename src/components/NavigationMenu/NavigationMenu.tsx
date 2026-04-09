@@ -376,7 +376,7 @@ const NavigationMenuContent = React.forwardRef<
           style={itemCtx.floatingStyles}
           {...(floatingProps as React.HTMLAttributes<HTMLDivElement>)}
           className={cn(
-            "z-50 min-w-48",
+            "z-(--nuka-z-dropdown) min-w-48",
             "rounded-(--radius-md) border border-(--nuka-border-base)",
             "bg-(--nuka-bg-base) shadow-md",
             "p-(--space-4)",

@@ -67,7 +67,7 @@ const menuLabelVariants = cva([
 ]);
 
 const menuContentVariants = cva([
-  "z-50 min-w-48 overflow-hidden",
+  "z-(--nuka-z-dropdown) min-w-48 overflow-hidden",
   "rounded-(--radius-md) border border-(--nuka-border-base)",
   "bg-(--nuka-bg-base) shadow-md",
   "p-(--space-1)",

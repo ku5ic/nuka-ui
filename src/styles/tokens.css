@@ -99,6 +99,11 @@
   --shadow-lg-dark:
     0 10px 15px oklch(0% 0 0 / 0.5), 0 4px 6px oklch(0% 0 0 / 0.3);
 
+  /* Z-index primitives */
+  --z-dropdown: 50;
+  --z-modal: 100;
+  --z-toast: 150;
+
   /* Radius primitives */
   --radius-none: 0;
   --radius-sm: 0.25rem;
@@ -174,6 +179,11 @@
   --nuka-shadow-overlay: var(--shadow-md);
   --nuka-shadow-modal: var(--shadow-lg);
 
+  /* Z-index */
+  --nuka-z-dropdown: var(--z-dropdown);
+  --nuka-z-modal: var(--z-modal);
+  --nuka-z-toast: var(--z-toast);
+
   /* Overlay */
   /* No matching primitive: alpha-composite value, not a scale step.
      0.5 opacity is intentional for both themes. Consumer-overridable
@@ -248,7 +258,9 @@
   --nuka-accent-bg: var(--color-accent-500);
   --nuka-accent-bg-hover: var(--color-accent-480);
   --nuka-accent-bg-active: var(--color-accent-460);
-  --nuka-accent-bg-subtle: oklch(35% 0.02 257); /* dark-only: sits above bg-base */
+  --nuka-accent-bg-subtle: oklch(
+    35% 0.02 257
+  ); /* dark-only: sits above bg-base */
   --nuka-accent-border: var(--color-accent-400);
   --nuka-accent-text: var(--color-accent-300);
   /*

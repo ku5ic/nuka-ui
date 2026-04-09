@@ -73,7 +73,7 @@ const SheetContent = React.forwardRef<HTMLDivElement, SheetContentProps>(
       <Portal>
         <div
           className={cn(
-            "fixed inset-0 z-50",
+            "fixed inset-0 z-(--nuka-z-modal)",
             "bg-(--nuka-bg-overlay)",
             "data-[state=open]:animate-[nuka-dialog-overlay-enter_150ms_ease-out]",
           )}
@@ -91,7 +91,7 @@ const SheetContent = React.forwardRef<HTMLDivElement, SheetContentProps>(
           data-state="open"
           data-side={side}
           className={cn(
-            "fixed z-50",
+            "fixed z-(--nuka-z-modal)",
             "bg-(--nuka-bg-base) border-(--nuka-border-base) shadow-md",
             "p-(--space-6)",
             "transition-transform duration-300 ease-in-out",
