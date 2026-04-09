@@ -74,7 +74,7 @@ const SheetContent = React.forwardRef<HTMLDivElement, SheetContentProps>(
         <div
           className={cn(
             "fixed inset-0 z-50",
-            "bg-[oklch(0%_0_0_/_0.5)]",
+            "bg-(--nuka-bg-overlay)",
             "data-[state=open]:animate-[nuka-dialog-overlay-enter_150ms_ease-out]",
           )}
           data-state="open"

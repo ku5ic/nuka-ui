@@ -1,5 +1,4 @@
 import type { Preview, Decorator } from "@storybook/react-vite";
-import { withThemeByDataAttribute } from "@storybook/addon-themes";
 import { useEffect } from "react";
 // @ts-expect-error css side-effect import resolved by Vite
 import "../src/styles/index.css";
@@ -35,17 +34,24 @@ const preview: Preview = {
     },
     backgrounds: { disable: true },
   },
-  decorators: [
-    WithDocumentTheme,
-    withThemeByDataAttribute({
-      themes: {
-        light: "light",
-        dark: "dark",
+  decorators: [WithDocumentTheme],
+  globalTypes: {
+    theme: {
+      description: "Global theme for components",
+      toolbar: {
+        title: "Theme",
+        icon: "paintbrush",
+        items: [
+          { value: "light", title: "Light" },
+          { value: "dark", title: "Dark" },
+        ],
+        dynamicTitle: true,
       },
-      defaultTheme: "light",
-      attributeName: "data-theme",
-    }),
-  ],
+    },
+  },
+  initialGlobals: {
+    theme: "light",
+  },
 };
 
 export default preview;

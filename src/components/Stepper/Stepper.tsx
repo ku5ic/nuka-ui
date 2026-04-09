@@ -211,13 +211,13 @@ const StepperIndicator = React.forwardRef<
         "text-sm font-medium",
         "transition-colors duration-150",
         state === "completed" &&
-          "bg-(--nuka-accent-bg) border-(--nuka-accent-bg) text-(--nuka-text-inverse)",
+          "bg-(--nuka-accent-bg) border-(--nuka-accent-bg) text-(--nuka-accent-fg)",
         state === "current" &&
           "border-(--nuka-accent-bg) text-(--nuka-accent-text) bg-(--nuka-bg-base)",
         state === "upcoming" &&
           "border-(--nuka-border-base) text-(--nuka-text-muted) bg-(--nuka-bg-base)",
         state === "error" &&
-          "border-(--nuka-danger-base) text-(--nuka-text-inverse) bg-(--nuka-danger-base)",
+          "border-(--nuka-danger-base) text-(--nuka-danger-fg) bg-(--nuka-danger-base)",
         className,
       )}
       {...props}

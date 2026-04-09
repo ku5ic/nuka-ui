@@ -3,8 +3,8 @@
 
   --color-neutral-0: oklch(100% 0 0);
   --color-neutral-50: oklch(98.4% 0 0);
-  --color-neutral-75: oklch(93% 0.004 257);
   --color-neutral-100: oklch(96.8% 0 0);
+  --color-neutral-150: oklch(93% 0.004 257);
   --color-neutral-200: oklch(92.9% 0 0);
   --color-neutral-300: oklch(86.9% 0 0);
   --color-neutral-400: oklch(70.4% 0 0);
@@ -12,17 +12,27 @@
   --color-neutral-600: oklch(44.6% 0 0);
   --color-neutral-700: oklch(34% 0.014 257);
   --color-neutral-800: oklch(26% 0.012 257);
-  --color-neutral-900: oklch(20% 0.010 257);
+  --color-neutral-900: oklch(20% 0.01 257);
   --color-neutral-950: oklch(14% 0.008 257);
   --color-neutral-1000: oklch(0% 0 0);
+
+  /* Dark surface primitives: purpose-built for dark theme surface hierarchy.
+     Consumers remap these to control dark theme surfaces independently of the
+     light-mode neutral scale. */
+  --color-neutral-dark-base: oklch(30% 0.012 257);
+  --color-neutral-dark-subtle: oklch(36% 0.014 257);
+  --color-neutral-dark-muted: oklch(38% 0.016 257);
+  --color-neutral-dark-border: oklch(46% 0.016 257);
+  --color-neutral-dark-input: oklch(26% 0.012 257);
+  --color-neutral-dark-input-readonly: oklch(27% 0.012 257);
 
   /* Slate accent: hue 257, low chroma */
   --color-accent-100: oklch(96.8% 0.007 257);
   --color-accent-200: oklch(92.9% 0.013 257);
   --color-accent-300: oklch(86.9% 0.022 257);
-  --color-accent-350: oklch(60% 0.055 257);
   --color-accent-400: oklch(70.4% 0.04 257);
-  --color-accent-450: oklch(52% 0.05 257);
+  --color-accent-460: oklch(60% 0.055 257);
+  --color-accent-480: oklch(52% 0.05 257);
   --color-accent-500: oklch(44% 0.043 257);
   --color-accent-600: oklch(37.2% 0.044 257);
   --color-accent-700: oklch(27.9% 0.041 257);
@@ -184,6 +194,8 @@
   --nuka-success-bg: var(--color-success-100);
   --nuka-success-text: var(--color-success-500);
   --nuka-success-border: var(--color-success-300);
+  --nuka-success-fg: var(--color-neutral-0);
+  /* 5.51:1 on success-base (success-300). White on filled success surfaces. */
 
   --nuka-warning-base: var(--color-warning-300);
   --nuka-warning-fg: var(--color-neutral-900);
@@ -197,6 +209,8 @@
   --nuka-danger-bg: var(--color-danger-100);
   --nuka-danger-text: var(--color-danger-500);
   --nuka-danger-border: var(--color-danger-300);
+  --nuka-danger-fg: var(--color-neutral-0);
+  /* 4.65:1 on danger-base (danger-300). White on filled danger surfaces. */
 
   --nuka-info-base: var(--color-info-300);
   --nuka-info-bg: var(--color-info-100);
@@ -207,33 +221,39 @@
 /* Semantic tokens: dark theme */
 [data-theme="dark"] {
   /* Surfaces */
-  --nuka-bg-base: oklch(30% 0.012 257); /* dark-only: no primitive at this step */
-  --nuka-bg-subtle: oklch(36% 0.014 257); /* dark-only: no primitive at this step */
-  --nuka-bg-muted: oklch(38% 0.016 257); /* dark-only: no primitive at this step */
+  --nuka-bg-base: var(--color-neutral-dark-base);
+  --nuka-bg-subtle: var(--color-neutral-dark-subtle);
+  --nuka-bg-muted: var(--color-neutral-dark-muted);
   --nuka-bg-emphasis: var(--color-neutral-0);
 
   /* Borders */
-  --nuka-border-base: oklch(46% 0.016 257); /* dark-only: no primitive at this step */
+  --nuka-border-base: var(--color-neutral-dark-border);
   --nuka-border-strong: var(--color-neutral-500);
   --nuka-border-focus: var(--color-accent-400);
 
   /* Text */
-  --nuka-text-base: var(--color-neutral-75);
-  --nuka-text-muted: var(--color-neutral-400);
-  --nuka-text-subtle: var(--color-neutral-600);
+  --nuka-text-base: var(--color-neutral-150);
+  --nuka-text-muted: oklch(
+    68% 0.01 257
+  ); /* dark-only: trace tint for color temperature consistency */
+  --nuka-text-subtle: oklch(
+    46% 0.01 257
+  ); /* dark-only: trace tint for color temperature consistency */
   --nuka-text-inverse: var(--color-neutral-950);
-  --nuka-text-disabled: var(--color-neutral-700);
+  --nuka-text-disabled: oklch(
+    50% 0.01 257
+  ); /* dark-only: visible but subdued */
 
   /* Accent */
   --nuka-accent-bg: var(--color-accent-500);
-  --nuka-accent-bg-hover: var(--color-accent-450);
-  --nuka-accent-bg-active: var(--color-accent-350);
-  --nuka-accent-bg-subtle: var(--color-accent-800);
+  --nuka-accent-bg-hover: var(--color-accent-480);
+  --nuka-accent-bg-active: var(--color-accent-460);
+  --nuka-accent-bg-subtle: oklch(35% 0.02 257); /* dark-only: sits above bg-base */
   --nuka-accent-border: var(--color-accent-400);
   --nuka-accent-text: var(--color-accent-300);
   /*
-   * NOTE: --nuka-accent-text uses accent-300 on neutral-950 in dark mode.
-   * Verify contrast before shipping dark mode. Target: 4.5:1 minimum.
+   * NOTE: --nuka-accent-text uses accent-300 in dark mode.
+   * Verified: 6.74:1 minimum (on bg-muted at 38% L). Passes AA.
    */
   --nuka-accent-fg: var(--color-neutral-0);
   --nuka-accent-bg-disabled: var(--color-neutral-700);
@@ -250,9 +270,9 @@
   --nuka-bg-overlay: oklch(0% 0 0 / 0.72);
 
   /* Input surfaces */
-  --nuka-input-bg: var(--color-neutral-950);
+  --nuka-input-bg: var(--color-neutral-dark-input);
   --nuka-input-bg-disabled: var(--color-neutral-800);
-  --nuka-input-bg-readonly: var(--color-neutral-900);
+  --nuka-input-bg-readonly: var(--color-neutral-dark-input-readonly);
 
   /* Input borders */
   --nuka-input-border: var(--color-neutral-700);
@@ -263,9 +283,13 @@
   --nuka-success-bg: var(--color-success-600);
   --nuka-success-text: var(--color-success-200);
   --nuka-success-border: var(--color-success-300);
+  --nuka-success-fg: var(--color-neutral-950);
+  /* 4.65:1 on success-base (success-250). Dark fg on lighter dark-mode surface. */
 
   --nuka-warning-base: var(--color-warning-300);
   --nuka-warning-fg: var(--color-neutral-900);
+  /* 7.30:1 on warning-base (warning-300). Only valid on warning-base,
+     not warning-bg. See variants.ts for actual pairings. */
   --nuka-warning-bg: var(--color-warning-600);
   --nuka-warning-text: var(--color-warning-200);
   --nuka-warning-border: var(--color-warning-400);
@@ -274,6 +298,8 @@
   --nuka-danger-bg: var(--color-danger-600);
   --nuka-danger-text: var(--color-danger-200);
   --nuka-danger-border: var(--color-danger-400);
+  --nuka-danger-fg: var(--color-neutral-950);
+  /* 5.04:1 on danger-base (danger-250). Dark fg on lighter dark-mode surface. */
 
   --nuka-info-base: var(--color-info-300);
   --nuka-info-bg: var(--color-info-600);

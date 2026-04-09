@@ -1181,3 +1181,44 @@ The token system had six structural gaps (feedback primitive scale, shadow bypas
 - The `bg-current` pattern in Radio creates a dependency: the indicator span's text color drives the dot color. Changes to indicator text color classes propagate to the dot automatically.
 - Info-300 was darkened from 55% to 53%. Info is not an exposed intent in the component API, so no component is directly affected. The adjustment is for architectural correctness.
 - Six pre-existing contrast failures are resolved. No previously passing pair was broken.
+
+---
+
+## ADR-034: Dark surface primitive sub-scale and intent-specific foreground tokens
+
+**Date:** 2026-04-09
+**Status:** Accepted
+
+### Context
+
+The dark theme semantic layer contained five hardcoded `oklch()` surface values (bg-base, bg-subtle, bg-muted, border-base, input-bg, input-bg-readonly) because no matching primitives existed. This prevented consumers from rethemeing dark surfaces without editing the semantic layer directly.
+
+Separately, all filled colored surfaces (primary buttons, solid badges, stepper indicators) used `text-(--nuka-text-inverse)` for foreground text. In dark mode, `--nuka-text-inverse` resolves to `neutral-950` (14% L). On accent-500 (44% L), this gives only 2.56:1 contrast, failing WCAG AA. The existing `--nuka-accent-fg` token (white in both themes) provides 7.77:1 on accent-500, but no equivalent existed for danger and success intents.
+
+Additionally, `--nuka-accent-bg-subtle` in dark mode referenced `accent-800` (20.8% L), sitting 9 L points below bg-base (30% L). This caused Alert secondary/default, Banner default, and SelectItem selected state to render as dark wells rather than raised tinted surfaces.
+
+### Decisions
+
+1. **`--color-neutral-dark-*` primitive sub-scale on `:root`.** Six named primitives (dark-base, dark-subtle, dark-muted, dark-border, dark-input, dark-input-readonly) hold the dark surface values. The dark semantic layer references them via `var()`. Light and dark surface hierarchies have different lightness targets with no shared steps in the neutral scale, so a separate sub-scale avoids naming ambiguity and makes both independently overridable. Consumers retheme dark surfaces by overriding six primitives on `:root`.
+
+2. **`--nuka-danger-fg` and `--nuka-success-fg` tokens added.** These follow the `--nuka-accent-fg` pattern: dedicated foreground tokens for text on filled colored surfaces. In light mode, both use `neutral-0` (white): 4.65:1 on danger-300 and 5.51:1 on success-300. In dark mode, both use `neutral-950` (near-black): 5.04:1 on danger-250 and 4.65:1 on success-250. White text was considered for dark mode but fails contrast on both surfaces (3.95:1 and 4.28:1) because danger-250 and success-250 are intentionally lighter than their light-mode counterparts.
+
+3. **All filled surface compound variants updated to use intent-specific fg tokens.** `text-(--nuka-text-inverse)` replaced with `text-(--nuka-accent-fg)`, `text-(--nuka-danger-fg)`, `text-(--nuka-success-fg)`, or `text-(--nuka-warning-fg)` as appropriate. This affects `intentCompoundVariants` in variants.ts, Button compoundVariants, Badge solid compoundVariants, and Stepper indicator states. The primary/default cell is the only one with a visible change in dark mode (white text replaces near-black on accent-500).
+
+4. **`--nuka-accent-bg-subtle` in dark mode hardcoded to `oklch(35% 0.02 257)`.** This places the subtle accent surface 5 L points above bg-base (30% L), matching the light-theme gap between accent-100 (96.8% L) and bg-base (100% L). No existing primitive matches this value. The hardcoded approach is consistent with other dark-only values (text-muted, text-subtle tints).
+
+### Consequences
+
+- Dark surface tokens are all `var()` references. Zero hardcoded oklch() surface values remain in the semantic layer except overlay (alpha composite, documented), text tints (intentional, documented), and accent-bg-subtle (dark-only, documented).
+- Consumers can retheme dark surfaces by overriding six `:root` primitives. This is documented in CUSTOMIZATION.md.
+- Danger and success foreground tokens use dark text in dark mode, matching warning's existing pattern. White text on these surfaces would fail WCAG AA.
+- The only visible change is primary/default in dark mode: white text on accent-500 (7.77:1) replacing near-black text (2.56:1).
+- Alert, Banner, and SelectItem accent-bg-subtle surfaces lift from 20.8% L to 35% L in dark mode, resolving the visual well effect.
+
+### Alternatives considered
+
+**Extending the neutral scale with dark-range stops**: rejected. The neutral scale is anchored to lightness values (higher number = lower L). Dark surface values at 26-46% L would interleave awkwardly with existing 700-950 stops, creating naming ambiguity.
+
+**Keeping hardcoded values in the semantic layer**: rejected. Prevents consumer theming of dark surfaces without editing the semantic layer.
+
+**White text for all filled surfaces in dark mode**: rejected. Fails WCAG AA on danger-250 (3.95:1) and success-250 (4.28:1). Darkening these surfaces to pass with white would collapse them into the 300-step values, defeating the two-step light/dark architecture.

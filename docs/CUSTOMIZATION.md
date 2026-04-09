@@ -80,6 +80,36 @@ Each intent (danger, success, warning) has four tokens: background, text, border
 
 The same four-token pattern applies to `--nuka-success-*` and `--nuka-warning-*`.
 
+### Changing dark theme surfaces
+
+Dark theme surfaces use a separate set of primitives: `--color-neutral-dark-*`. These live on `:root` alongside other primitives, not inside `[data-theme="dark"]`. Override them on `:root` to retheme the dark surface hierarchy without affecting light mode.
+
+| Primitive                             | Default                | Role                             |
+| ------------------------------------- | ---------------------- | -------------------------------- |
+| `--color-neutral-dark-base`           | `oklch(30% 0.012 257)` | Page background                  |
+| `--color-neutral-dark-subtle`         | `oklch(36% 0.014 257)` | Subtle surface (cards, sidebars) |
+| `--color-neutral-dark-muted`          | `oklch(38% 0.016 257)` | Muted/filled surface             |
+| `--color-neutral-dark-border`         | `oklch(46% 0.016 257)` | Default border                   |
+| `--color-neutral-dark-input`          | `oklch(26% 0.012 257)` | Input background                 |
+| `--color-neutral-dark-input-readonly` | `oklch(27% 0.012 257)` | Readonly input background        |
+
+Example: shifting the dark surface stack to a warmer tone:
+
+```css
+:root {
+  --color-neutral-dark-base: oklch(28% 0.015 45);
+  --color-neutral-dark-subtle: oklch(34% 0.017 45);
+  --color-neutral-dark-muted: oklch(36% 0.019 45);
+  --color-neutral-dark-border: oklch(44% 0.019 45);
+  --color-neutral-dark-input: oklch(24% 0.015 45);
+  --color-neutral-dark-input-readonly: oklch(25% 0.015 45);
+}
+```
+
+These primitives are on `:root`, not `[data-theme="dark"]`. The dark semantic tokens reference them via `var()`, so the override propagates automatically when the dark theme is active. Light theme tokens do not reference these primitives, so overriding them has zero effect on light mode.
+
+This is different from accent token overrides, which are set on `[data-theme]` selectors because they affect both themes.
+
 ### Changing spacing and radius
 
 ```css

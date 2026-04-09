@@ -52,17 +52,17 @@ function intentCompoundVariants(options?: {
     {
       variant: "primary",
       intent: "default",
-      className: ["bg-(--nuka-accent-bg)", "text-(--nuka-text-inverse)"],
+      className: ["bg-(--nuka-accent-bg)", "text-(--nuka-accent-fg)"],
     },
     {
       variant: "primary",
       intent: "danger",
-      className: ["bg-(--nuka-danger-base)", "text-(--nuka-text-inverse)"],
+      className: ["bg-(--nuka-danger-base)", "text-(--nuka-danger-fg)"],
     },
     {
       variant: "primary",
       intent: "success",
-      className: ["bg-(--nuka-success-base)", "text-(--nuka-text-inverse)"],
+      className: ["bg-(--nuka-success-base)", "text-(--nuka-success-fg)"],
     },
     {
       variant: "primary",

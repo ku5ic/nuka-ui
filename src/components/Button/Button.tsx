@@ -50,7 +50,7 @@ const buttonVariants = cva(
         intent: "default",
         className: [
           "bg-(--nuka-accent-bg)",
-          "text-(--nuka-text-inverse)",
+          "text-(--nuka-accent-fg)",
           "hover:bg-(--nuka-accent-bg-hover)",
           "active:bg-(--nuka-accent-bg-active)",
         ],
@@ -60,7 +60,7 @@ const buttonVariants = cva(
         intent: "danger",
         className: [
           "bg-(--nuka-danger-base)",
-          "text-(--nuka-text-inverse)",
+          "text-(--nuka-danger-fg)",
           "hover:brightness-90",
           "active:brightness-80",
         ],
@@ -70,7 +70,7 @@ const buttonVariants = cva(
         intent: "success",
         className: [
           "bg-(--nuka-success-base)",
-          "text-(--nuka-text-inverse)",
+          "text-(--nuka-success-fg)",
           "hover:brightness-90",
           "active:brightness-80",
         ],
@@ -80,7 +80,7 @@ const buttonVariants = cva(
         intent: "warning",
         className: [
           "bg-(--nuka-warning-base)",
-          "text-(--nuka-text-inverse)",
+          "text-(--nuka-warning-fg)",
           "hover:brightness-90",
           "active:brightness-80",
         ],

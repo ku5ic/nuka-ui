@@ -33,22 +33,22 @@ const badgeVariants = cva(
       {
         variant: "solid",
         intent: "default",
-        className: ["bg-(--nuka-accent-bg)", "text-(--nuka-text-inverse)"],
+        className: ["bg-(--nuka-accent-bg)", "text-(--nuka-accent-fg)"],
       },
       {
         variant: "solid",
         intent: "danger",
-        className: ["bg-(--nuka-danger-base)", "text-(--nuka-text-inverse)"],
+        className: ["bg-(--nuka-danger-base)", "text-(--nuka-danger-fg)"],
       },
       {
         variant: "solid",
         intent: "success",
-        className: ["bg-(--nuka-success-base)", "text-(--nuka-text-inverse)"],
+        className: ["bg-(--nuka-success-base)", "text-(--nuka-success-fg)"],
       },
       {
         variant: "solid",
         intent: "warning",
-        className: ["bg-(--nuka-warning-base)", "text-(--nuka-text-inverse)"],
+        className: ["bg-(--nuka-warning-base)", "text-(--nuka-warning-fg)"],
       },
 
       {
