@@ -219,4 +219,6 @@ For each finding use this format:
 Group by severity, then by category within each severity level.
 End the report with a count per category.
 
+Write everything to audit-report.md
+
 **STOP. Present the full findings report and wait for explicit user approval. Do not modify any file. Do not create a fix plan. Do not take any action. The next step is the user's decision.**
