@@ -14,6 +14,7 @@ const radioIndicatorVariants = cva(
     "inline-flex items-center justify-center shrink-0",
     "rounded-full",
     "border",
+    "text-(--nuka-text-inverse)",
     "transition-colors duration-150",
     "peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2",
     "peer-focus-visible:outline-(--nuka-border-focus)",
@@ -103,7 +104,7 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
           aria-hidden="true"
           className={cn(radioIndicatorVariants({ intent, size }))}
         >
-          <span className="hidden size-1/2 rounded-full bg-(--nuka-text-inverse)" />
+          <span className="hidden size-1/2 rounded-full bg-current" />
         </span>
         {children && <Text as="span">{children}</Text>}
       </label>

@@ -1145,3 +1145,39 @@ Stepper is a multi-step flow indicator with no native ARIA role. Sidebar is the 
 - `onStepClick` only fires for completed, non-disabled steps. This prevents navigation to future steps.
 - Sidebar reuses Sheet (with focus trap and scroll lock) and Tooltip (with Floating UI positioning) rather than building custom drawer/tooltip behavior.
 - `useMediaQuery` is an internal utility, not exported from the public package entry point. It is independently testable.
+
+## ADR-033: Token system improvements and WCAG contrast fixes
+
+**Date:** 2026-04-09
+**Status:** Accepted
+
+### Context
+
+The token system had six structural gaps (feedback primitive scale, shadow bypass in dark mode, missing accent-fg, missing elevation shadows, missing backdrop overlay, missing disabled tokens) and six pre-existing WCAG 2.2 AA contrast failures in feedback categories. The structural gaps were addressed first by converting feedback primitives from role-named steps to a numeric scale and adding missing semantic tokens. The contrast failures were then resolved as a follow-up.
+
+### Decisions
+
+1. **Feedback primitives converted from role-named to numeric scale.** The old three role-named steps per category (`-subtle`, `-base`, `-emphasis`) provided no intermediate values for the dark-mode semantic layer, forcing all 16 dark-mode feedback tokens to use hardcoded `oklch()` literals. The numeric scale (100-600, six steps per category) was designed so that each step corresponds to an exact value needed by either the light or dark semantic layer. This eliminated all hardcoded dark-mode feedback values. Steps are numbered lightest (100) to darkest (600), matching the accent scale convention.
+
+2. **Intermediate primitive steps (success-250, danger-250) added for dark-mode base surfaces.** The success-300 and danger-300 steps are referenced by both themes for `-base`. In light mode, white text on the surface requires lower lightness (darker). In dark mode, near-black text on the surface requires higher lightness (lighter). No single value passes 4.5:1 with both white and near-black text. Adding intermediate steps decouples the dark-mode base surface from the light-mode base, using the two-layer architecture as designed. The 250 steps are referenced only by dark-mode semantic tokens; light-mode base tokens continue to reference the 300 steps unchanged. Success-250 at oklch(58% 0.16 145) gives 5.04:1 with neutral-950. Danger-250 at oklch(60% 0.20 15) gives 4.59:1.
+
+3. **`--nuka-warning-fg` uses dark text (neutral-900) rather than darkening the warning base color.** Warning amber (hue 85) at the lightness needed for recognizable amber identity cannot achieve 4.5:1 with white text. Darkening to pass contrast produces brown, losing the hue identity. The solution follows the `--nuka-accent-fg` pattern: a separate foreground token for content on filled warning surfaces. The value is `var(--color-neutral-900)` in both themes because warning-base is the same amber in both themes, and dark text provides 7.11:1 contrast. A lighter dark-mode value would be inconsistent with the token's purpose and unnecessary.
+
+4. **Radio inner dot uses `bg-current` driven by parent text color.** The alternative was intent-specific dot color classes, which would require either a new CVA variant axis on Radio or conditional className logic. The `bg-current` approach reuses CSS `currentColor` inheritance: the indicator span sets `text-(--nuka-text-inverse)` as a base, and the warning selection indicator variant overrides with `peer-checked:text-(--nuka-warning-fg)`. The dot inherits the resolved color automatically. This is the same mechanism Checkbox already uses for its SVG checkmark (`stroke="currentColor"`).
+
+5. **`--nuka-accent-fg` is a separate token from `--nuka-text-inverse`.** Both default to `var(--color-neutral-0)`, but they serve different semantic roles. `--nuka-text-inverse` means "text on an inverse surface" and couples to the surface system. `--nuka-accent-fg` means "foreground on an accent-colored surface" and is overridable independently when a consumer customizes the accent color to a lighter value.
+
+6. **`--nuka-bg-overlay` has no primitive.** It is an alpha-composite value (`oklch(0% 0 0 / 0.5)`) that does not fit the discrete-step primitive scale. The 0.5 opacity is an intentional default for both themes, documented as consumer-overridable for dark mode contexts that need higher visual weight.
+
+7. **Shadow primitive bypass in dark mode resolved.** Dark-mode `--nuka-shadow-card` was a hardcoded inline value, bypassing the primitive scale. Dark shadow primitives (`--shadow-sm-dark`, `--shadow-md-dark`, `--shadow-lg-dark`) were added to `:root`, and all dark semantic shadow tokens now reference these via `var()`.
+
+8. **Elevation shadow and disabled token categories established.** `--nuka-shadow-overlay` (medium elevation) and `--nuka-shadow-modal` (high elevation) were added alongside `--nuka-shadow-card` (low elevation). `--nuka-accent-bg-disabled` and `--nuka-border-disabled` extend disabled-state coverage beyond the existing `--nuka-text-disabled` and `--nuka-input-bg-disabled`.
+
+### Consequences
+
+- Dark-mode feedback tokens are all `var()` references. The "hardcoded for dark mode, primitives are light-first" comment is no longer accurate and was removed.
+- Consumer overrides now possible that were not before: accent foreground independent of inverse text, modal/overlay shadow elevation independent of card shadow, backdrop overlay opacity, disabled accent and border colors.
+- Warning primary buttons and selection indicators render with dark text on amber in both themes. This is visually distinct from other intents by design.
+- The `bg-current` pattern in Radio creates a dependency: the indicator span's text color drives the dot color. Changes to indicator text color classes propagate to the dot automatically.
+- Info-300 was darkened from 55% to 53%. Info is not an exposed intent in the component API, so no component is directly affected. The adjustment is for architectural correctness.
+- Six pre-existing contrast failures are resolved. No previously passing pair was broken.

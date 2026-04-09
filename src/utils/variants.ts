@@ -67,7 +67,7 @@ function intentCompoundVariants(options?: {
     {
       variant: "primary",
       intent: "warning",
-      className: ["bg-(--nuka-warning-base)", "text-(--nuka-text-inverse)"],
+      className: ["bg-(--nuka-warning-base)", "text-(--nuka-warning-fg)"],
     },
 
     {
@@ -184,6 +184,7 @@ const selectionIndicatorIntentVariants = [
       "border-(--nuka-warning-border)",
       "peer-checked:bg-(--nuka-warning-base)",
       "peer-checked:border-transparent",
+      "peer-checked:text-(--nuka-warning-fg)",
     ],
   },
 ];

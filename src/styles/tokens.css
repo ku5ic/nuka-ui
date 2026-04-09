@@ -25,22 +25,43 @@
   --color-accent-700: oklch(27.9% 0.041 257);
   --color-accent-800: oklch(20.8% 0.042 257);
 
-  /* Feedback color primitives */
-  --color-success-subtle: oklch(94% 0.08 145);
-  --color-success-base: oklch(52% 0.18 145);
-  --color-success-emphasis: oklch(38% 0.16 145);
+  /* Feedback color primitives: numeric scale per category.
+     Steps 100-600: lightest to darkest, matching accent scale pattern.
+     Light semantic tokens reference 100 (bg), 300 (base/border), 500 (text).
+     Dark semantic tokens reference 200 (text), 300 (base), 400 (border), 600 (bg). */
 
-  --color-warning-subtle: oklch(95% 0.1 85);
-  --color-warning-base: oklch(72% 0.22 85);
-  --color-warning-emphasis: oklch(48% 0.18 85);
+  --color-success-100: oklch(94% 0.08 145);
+  --color-success-200: oklch(75% 0.16 145);
+  --color-success-250: oklch(58% 0.16 145);
+  /* Dark-mode filled surface. n950-on: 5.04:1, passes AA. */
+  --color-success-300: oklch(52% 0.18 145);
+  --color-success-400: oklch(40% 0.14 145);
+  --color-success-500: oklch(38% 0.16 145);
+  --color-success-600: oklch(20% 0.06 145);
 
-  --color-danger-subtle: oklch(95% 0.06 15);
-  --color-danger-base: oklch(56% 0.22 15);
-  --color-danger-emphasis: oklch(42% 0.2 15);
+  --color-warning-100: oklch(95% 0.1 85);
+  --color-warning-200: oklch(82% 0.18 85);
+  --color-warning-300: oklch(72% 0.22 85);
+  --color-warning-400: oklch(55% 0.18 85);
+  --color-warning-500: oklch(48% 0.18 85);
+  --color-warning-600: oklch(20% 0.06 85);
 
-  --color-info-subtle: oklch(94% 0.06 230);
-  --color-info-base: oklch(55% 0.18 230);
-  --color-info-emphasis: oklch(40% 0.16 230);
+  --color-danger-100: oklch(95% 0.06 15);
+  --color-danger-200: oklch(75% 0.18 15);
+  --color-danger-250: oklch(60% 0.2 15);
+  /* Dark-mode filled surface. n950-on: 4.59:1, passes AA. */
+  --color-danger-300: oklch(56% 0.22 15);
+  --color-danger-400: oklch(50% 0.18 15);
+  --color-danger-500: oklch(42% 0.2 15);
+  --color-danger-600: oklch(20% 0.05 15);
+
+  --color-info-100: oklch(94% 0.06 230);
+  --color-info-200: oklch(75% 0.16 230);
+  --color-info-300: oklch(53% 0.18 230);
+  /* Darkened from 55% for white-on contrast: 4.69:1, passes AA. */
+  --color-info-400: oklch(48% 0.14 230);
+  --color-info-500: oklch(40% 0.16 230);
+  --color-info-600: oklch(18% 0.05 230);
 
   /* Space primitives */
   --space-1: 0.25rem;
@@ -57,6 +78,13 @@
   /* Shadow primitives */
   --shadow-sm: 0 1px 3px oklch(0% 0 0 / 0.1), 0 1px 2px oklch(0% 0 0 / 0.06);
   --shadow-md: 0 4px 6px oklch(0% 0 0 / 0.1), 0 2px 4px oklch(0% 0 0 / 0.06);
+  --shadow-lg: 0 10px 15px oklch(0% 0 0 / 0.1), 0 4px 6px oklch(0% 0 0 / 0.05);
+  --shadow-sm-dark:
+    0 1px 3px oklch(0% 0 0 / 0.4), 0 1px 2px oklch(0% 0 0 / 0.24);
+  --shadow-md-dark:
+    0 4px 6px oklch(0% 0 0 / 0.4), 0 2px 4px oklch(0% 0 0 / 0.24);
+  --shadow-lg-dark:
+    0 10px 15px oklch(0% 0 0 / 0.5), 0 4px 6px oklch(0% 0 0 / 0.3);
 
   /* Radius primitives */
   --radius-none: 0;
@@ -120,9 +148,24 @@
    * NOTE: --nuka-accent-text uses accent-500 (#43546a) on neutral-0 (white).
    * Contrast: 7.74:1, passes AAA. Safe to use for any text size.
    */
+  --nuka-accent-fg: var(--color-neutral-0);
+  /* Foreground for content on --nuka-accent-bg. Override independently of
+     --nuka-text-inverse when the accent color is customized. 7.74:1 on accent-500. */
+  --nuka-accent-bg-disabled: var(--color-neutral-200);
+
+  /* Borders */
+  --nuka-border-disabled: var(--color-neutral-200);
 
   /* Shadows */
   --nuka-shadow-card: var(--shadow-sm);
+  --nuka-shadow-overlay: var(--shadow-md);
+  --nuka-shadow-modal: var(--shadow-lg);
+
+  /* Overlay */
+  /* No matching primitive: alpha-composite value, not a scale step.
+     0.5 opacity is intentional for both themes. Consumer-overridable
+     if dark mode needs higher opacity for visual weight. */
+  --nuka-bg-overlay: oklch(0% 0 0 / 0.5);
 
   /* Input surfaces */
   --nuka-input-bg: var(--color-neutral-0);
@@ -134,24 +177,28 @@
   --nuka-input-border-hover: var(--color-neutral-400);
 
   /* Feedback */
-  --nuka-danger-base: var(--color-danger-base);
-  --nuka-success-base: var(--color-success-base);
-  --nuka-warning-base: var(--color-warning-base);
-  --nuka-success-bg: var(--color-success-subtle);
-  --nuka-success-text: var(--color-success-emphasis);
-  --nuka-success-border: var(--color-success-base);
+  --nuka-success-base: var(--color-success-300);
+  --nuka-success-bg: var(--color-success-100);
+  --nuka-success-text: var(--color-success-500);
+  --nuka-success-border: var(--color-success-300);
 
-  --nuka-warning-bg: var(--color-warning-subtle);
-  --nuka-warning-text: var(--color-warning-emphasis);
-  --nuka-warning-border: var(--color-warning-base);
+  --nuka-warning-base: var(--color-warning-300);
+  --nuka-warning-fg: var(--color-neutral-900);
+  /* Warning hue cannot pass 4.5:1 with white text at amber lightness.
+     Dark foreground on warning surfaces. 7.11:1 on warning-300. */
+  --nuka-warning-bg: var(--color-warning-100);
+  --nuka-warning-text: var(--color-warning-500);
+  --nuka-warning-border: var(--color-warning-400);
 
-  --nuka-danger-bg: var(--color-danger-subtle);
-  --nuka-danger-text: var(--color-danger-emphasis);
-  --nuka-danger-border: var(--color-danger-base);
+  --nuka-danger-base: var(--color-danger-300);
+  --nuka-danger-bg: var(--color-danger-100);
+  --nuka-danger-text: var(--color-danger-500);
+  --nuka-danger-border: var(--color-danger-300);
 
-  --nuka-info-bg: var(--color-info-subtle);
-  --nuka-info-text: var(--color-info-emphasis);
-  --nuka-info-border: var(--color-info-base);
+  --nuka-info-base: var(--color-info-300);
+  --nuka-info-bg: var(--color-info-100);
+  --nuka-info-text: var(--color-info-500);
+  --nuka-info-border: var(--color-info-300);
 }
 
 /* Semantic tokens: dark theme */
@@ -185,10 +232,19 @@
    * NOTE: --nuka-accent-text uses accent-300 on neutral-950 in dark mode.
    * Verify contrast before shipping dark mode. Target: 4.5:1 minimum.
    */
+  --nuka-accent-fg: var(--color-neutral-0);
+  --nuka-accent-bg-disabled: var(--color-neutral-700);
 
-  /* Shadows: higher opacity for visibility on dark surfaces */
-  --nuka-shadow-card:
-    0 1px 3px oklch(0% 0 0 / 0.4), 0 1px 2px oklch(0% 0 0 / 0.24);
+  /* Borders */
+  --nuka-border-disabled: var(--color-neutral-700);
+
+  /* Shadows */
+  --nuka-shadow-card: var(--shadow-sm-dark);
+  --nuka-shadow-overlay: var(--shadow-md-dark);
+  --nuka-shadow-modal: var(--shadow-lg-dark);
+
+  /* Overlay */
+  --nuka-bg-overlay: oklch(0% 0 0 / 0.5);
 
   /* Input surfaces */
   --nuka-input-bg: var(--color-neutral-950);
@@ -199,23 +255,25 @@
   --nuka-input-border: var(--color-neutral-700);
   --nuka-input-border-hover: var(--color-neutral-500);
 
-  /* Feedback: hardcoded for dark mode, primitives are light-first */
-  --nuka-danger-base: oklch(56% 0.22 15);
-  --nuka-success-base: oklch(52% 0.18 145);
-  --nuka-warning-base: oklch(72% 0.22 85);
-  --nuka-success-bg: oklch(20% 0.06 145);
-  --nuka-success-text: oklch(75% 0.16 145);
-  --nuka-success-border: oklch(40% 0.14 145);
+  /* Feedback */
+  --nuka-success-base: var(--color-success-250);
+  --nuka-success-bg: var(--color-success-600);
+  --nuka-success-text: var(--color-success-200);
+  --nuka-success-border: var(--color-success-300);
 
-  --nuka-warning-bg: oklch(20% 0.06 85);
-  --nuka-warning-text: oklch(82% 0.18 85);
-  --nuka-warning-border: oklch(55% 0.18 85);
+  --nuka-warning-base: var(--color-warning-300);
+  --nuka-warning-fg: var(--color-neutral-900);
+  --nuka-warning-bg: var(--color-warning-600);
+  --nuka-warning-text: var(--color-warning-200);
+  --nuka-warning-border: var(--color-warning-400);
 
-  --nuka-danger-bg: oklch(20% 0.05 15);
-  --nuka-danger-text: oklch(75% 0.18 15);
-  --nuka-danger-border: oklch(50% 0.18 15);
+  --nuka-danger-base: var(--color-danger-250);
+  --nuka-danger-bg: var(--color-danger-600);
+  --nuka-danger-text: var(--color-danger-200);
+  --nuka-danger-border: var(--color-danger-400);
 
-  --nuka-info-bg: oklch(18% 0.05 230);
-  --nuka-info-text: oklch(75% 0.16 230);
-  --nuka-info-border: oklch(48% 0.14 230);
+  --nuka-info-base: var(--color-info-300);
+  --nuka-info-bg: var(--color-info-600);
+  --nuka-info-text: var(--color-info-200);
+  --nuka-info-border: var(--color-info-400);
 }
