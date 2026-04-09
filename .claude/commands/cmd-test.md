@@ -21,16 +21,20 @@ Run after `cmd-implement` is confirmed. Fix bugs here before proceeding to `cmd-
    - Do not suppress rules with disable comments unless the rule is genuinely incorrect for the use case — if so, explain why
    - Report final state
 
-4. If a new component was added:
+4. RUn `npm run format:check`
+   - If errors: fix them with `npm run format`
+   - Report final state
+
+5. If a new component was added:
    - Run `npm run dev` and verify all stories render correctly in Storybook
    - Check the Accessibility panel for each story — zero violations required
    - Verify all variant × intent combinations render as expected
 
-5. If tokens were changed:
+6. If tokens were changed:
    - Run `npm run dev` and verify tokens resolve correctly in browser devtools
    - Check computed styles for affected components
 
-6. Report final status:
+7. Report final status:
    - Typecheck: clean / N errors
    - Tests: N passing / N failing
    - Lint: clean / N errors
