@@ -20,6 +20,8 @@ const TooltipContent = React.forwardRef<HTMLDivElement, TooltipContentProps>(
           ref={composeRefs(ref, ctx.refs.setFloating)}
           role="tooltip"
           style={ctx.floatingStyles}
+          // Safe: Floating UI getFloatingProps() returns Record<string, unknown>;
+          // values are standard DOM attributes and event handlers.
           {...(floatingProps as React.HTMLAttributes<HTMLDivElement>)}
           className={cn(
             "z-(--nuka-z-dropdown) max-w-xs rounded-(--radius-md) px-(--space-2) py-(--space-1)",

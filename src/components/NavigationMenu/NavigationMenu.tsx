@@ -316,6 +316,8 @@ const NavigationMenuTrigger = React.forwardRef<
         className,
       )}
       data-state={itemCtx.open ? "open" : "closed"}
+      // Safe: Floating UI getReferenceProps() returns Record<string, unknown>;
+      // values are standard DOM event handlers.
       {...(triggerProps as React.ButtonHTMLAttributes<HTMLButtonElement>)}
       tabIndex={itemCtx.value === rootCtx.rovingValue ? 0 : -1}
     >
@@ -374,6 +376,8 @@ const NavigationMenuContent = React.forwardRef<
           }
           tabIndex={-1}
           style={itemCtx.floatingStyles}
+          // Safe: Floating UI getFloatingProps() returns Record<string, unknown>;
+          // values are standard DOM attributes and event handlers.
           {...(floatingProps as React.HTMLAttributes<HTMLDivElement>)}
           className={cn(
             "z-(--nuka-z-dropdown) min-w-48",

@@ -59,6 +59,7 @@ describe("Pagination", () => {
 
     it("renders content as an unordered list", () => {
       renderPagination();
+      // list has no accessible name; only one in fixture
       expect(screen.getByRole("list")).toBeInTheDocument();
       expect(screen.getByRole("list").tagName).toBe("UL");
     });

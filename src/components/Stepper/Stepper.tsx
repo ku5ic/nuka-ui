@@ -21,6 +21,11 @@ function resolveStepState(
   currentStep: number,
 ): StepState {
   if (React.isValidElement(child)) {
+    // Safe: React.ReactElement.props is typed as unknown in strict mode.
+    // The double cast through Record<string, unknown> reads .state and .step
+    // which are guaranteed by StepperItem's props interface. A typed predicate
+    // via isValidElement<Pick<StepperItemProps, 'state' | 'step'>> could
+    // eliminate these casts; not refactored here to keep the batch scoped.
     const explicitState = (child.props as Record<string, unknown>).state as
       | StepState
       | undefined;

@@ -80,6 +80,9 @@ const Text = React.forwardRef<HTMLElement, TextProps>(
   ) => {
     return (
       <Comp
+        // Safe: the `as` prop makes the element type dynamic (p | span | label | ...),
+        // so ref cannot satisfy any single element ref type. Each render produces one
+        // concrete element, so the ref assignment is correct at runtime.
         ref={ref as React.RefObject<never>}
         className={cn(
           textVariants({ size, weight, color, align, truncate }),

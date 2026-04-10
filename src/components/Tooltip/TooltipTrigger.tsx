@@ -19,6 +19,8 @@ const TooltipTrigger = React.forwardRef<HTMLButtonElement, TooltipTriggerProps>(
       <Comp
         ref={composedRef}
         type={asChild ? undefined : "button"}
+        // Safe: Floating UI getReferenceProps() returns Record<string, unknown>;
+        // values are standard DOM event handlers.
         {...(triggerProps as React.ButtonHTMLAttributes<HTMLButtonElement>)}
       >
         {children}

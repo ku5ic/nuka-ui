@@ -169,6 +169,8 @@ const ContextMenuTrigger = React.forwardRef<
           "focus-visible:outline-(--nuka-border-focus)",
           className,
         )}
+        // Safe: rest props are already typed as HTMLAttributes<HTMLDivElement> from the
+        // destructured component props. The cast is redundant but explicit at the spread site.
         {...(props as React.HTMLAttributes<HTMLDivElement>)}
       >
         {children}

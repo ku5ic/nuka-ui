@@ -78,6 +78,8 @@ const Heading = React.forwardRef<HTMLElement, HeadingProps>(
   ) => {
     return (
       <Comp
+        // Safe: the `as` prop selects h1-h6, making the ref type a union.
+        // Same polymorphic element pattern as Text.tsx.
         ref={ref as React.RefObject<never>}
         className={cn(
           headingVariants({ size, weight, color, truncate }),

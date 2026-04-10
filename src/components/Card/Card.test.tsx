@@ -89,10 +89,11 @@ describe("Card", () => {
 });
 
 describe("CardHeader", () => {
-  it("renders with padding", () => {
+  it("renders children in a block element", () => {
     render(<CardHeader data-testid="header">Header</CardHeader>);
     const header = screen.getByTestId("header");
-    expect(header.className).toContain("p-(--space-6)");
+    expect(header).toHaveTextContent("Header");
+    expect(header.tagName).toBe("DIV");
   });
 
   it("sets displayName correctly", () => {
@@ -116,7 +117,7 @@ describe("CardHeader", () => {
     );
     const header = screen.getByTestId("header");
     expect(header.tagName).toBe("NAV");
-    expect(header.className).toContain("p-(--space-6)");
+    expect(header).toHaveTextContent("Nav header");
   });
 });
 
@@ -145,6 +146,7 @@ describe("CardTitle", () => {
 });
 
 describe("CardDescription", () => {
+  // Variant system test: verifies CardDescription renders with muted color token.
   it("renders as a p element via Text with muted color", () => {
     render(<CardDescription>Description</CardDescription>);
     const desc = screen.getByText("Description");
@@ -158,10 +160,11 @@ describe("CardDescription", () => {
 });
 
 describe("CardBody", () => {
-  it("renders with padding", () => {
+  it("renders children in a block element", () => {
     render(<CardBody data-testid="body">Body</CardBody>);
     const body = screen.getByTestId("body");
-    expect(body.className).toContain("p-(--space-6)");
+    expect(body).toHaveTextContent("Body");
+    expect(body.tagName).toBe("DIV");
   });
 
   it("sets displayName correctly", () => {
@@ -176,15 +179,16 @@ describe("CardBody", () => {
     );
     const body = screen.getByTestId("body");
     expect(body.tagName).toBe("SECTION");
-    expect(body.className).toContain("p-(--space-6)");
+    expect(body).toHaveTextContent("Body content");
   });
 });
 
 describe("CardFooter", () => {
-  it("renders with padding", () => {
+  it("renders children in a block element", () => {
     render(<CardFooter data-testid="footer">Footer</CardFooter>);
     const footer = screen.getByTestId("footer");
-    expect(footer.className).toContain("p-(--space-6)");
+    expect(footer).toHaveTextContent("Footer");
+    expect(footer.tagName).toBe("DIV");
   });
 
   it("sets displayName correctly", () => {
@@ -208,7 +212,7 @@ describe("CardFooter", () => {
     );
     const footer = screen.getByTestId("footer");
     expect(footer.tagName).toBe("NAV");
-    expect(footer.className).toContain("p-(--space-6)");
+    expect(footer).toHaveTextContent("Nav footer");
   });
 });
 

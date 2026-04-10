@@ -52,6 +52,8 @@ const PopoverContent = React.forwardRef<HTMLDivElement, PopoverContentProps>(
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledBy}
           tabIndex={-1}
+          // Safe: Floating UI getFloatingProps() returns Record<string, unknown>;
+          // values are standard DOM attributes and event handlers.
           {...(floatingProps as React.HTMLAttributes<HTMLDivElement>)}
           className={cn(
             "z-(--nuka-z-dropdown) rounded-(--radius-md) border border-(--nuka-border-base)",

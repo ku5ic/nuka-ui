@@ -96,6 +96,9 @@ const PaginationPrevious = React.forwardRef<
         disabled={disabled}
       >
         <Comp
+          // Safe: Comp resolves to Slot | "span" | "a" based on disabled/asChild,
+          // making the ref type a union no single React.Ref<T> satisfies. Each branch
+          // renders one concrete element, so the ref assignment is correct at runtime.
           ref={ref as React.Ref<never>}
           aria-label="Go to previous page"
           {...props}
@@ -146,6 +149,7 @@ const PaginationNext = React.forwardRef<HTMLAnchorElement, PaginationNextProps>(
         disabled={disabled}
       >
         <Comp
+          // Safe: same polymorphic Comp pattern as PaginationPrevious above.
           ref={ref as React.Ref<never>}
           aria-label="Go to next page"
           {...props}

@@ -56,6 +56,8 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
 
     const child = React.isValidElement(children)
       ? React.cloneElement(
+          // Safe: children prop is typed as React.ReactElement in the interface,
+          // so the generic parameter narrowing for cloneElement is safe (ADR-011).
           children as React.ReactElement<Record<string, unknown>>,
           {
             "aria-hidden": "true" as const,

@@ -126,6 +126,7 @@ describe("Sidebar desktop expanded", () => {
 
   it("renders as an aside element", () => {
     renderSidebar();
+    // complementary landmark has no accessible name; only one in fixture
     expect(screen.getByRole("complementary")).toBeInstanceOf(HTMLElement);
   });
 
@@ -142,6 +143,7 @@ describe("Sidebar desktop expanded", () => {
 
   it("has data-expanded attribute when expanded", () => {
     renderSidebar();
+    // complementary landmark has no accessible name; only one in fixture
     const aside = screen.getByRole("complementary");
     expect(aside).toHaveAttribute("data-expanded", "");
   });
@@ -165,6 +167,7 @@ describe("Sidebar desktop collapsed", () => {
 
   it("has data-collapsed attribute when collapsed", () => {
     renderSidebar({ defaultExpanded: false });
+    // complementary landmark has no accessible name; only one in fixture
     const aside = screen.getByRole("complementary");
     expect(aside).toHaveAttribute("data-collapsed", "");
   });
@@ -223,6 +226,7 @@ describe("Sidebar mobile", () => {
 
     await user.click(screen.getByRole("button", { name: "Open navigation" }));
 
+    // dialog has no accessible name in mobile sheet; only one in fixture
     expect(screen.getByRole("dialog")).toBeInTheDocument();
   });
 });

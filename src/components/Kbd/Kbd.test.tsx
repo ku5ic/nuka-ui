@@ -52,6 +52,7 @@ describe("Kbd", () => {
       expect(el.className).toContain("text-[length:var(--font-size-md)]");
     });
 
+    // Variant system test: verifies default md size output via class names.
     it("defaults to md when no size is specified", () => {
       render(<Kbd data-testid="kbd">K</Kbd>);
       const el = screen.getByTestId("kbd");

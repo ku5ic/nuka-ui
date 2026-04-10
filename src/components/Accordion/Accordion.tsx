@@ -162,6 +162,9 @@ function AccordionSingle({
       toggleItem: (itemValue: string) => {
         if (value === itemValue) {
           if (collapsible) {
+            // Safe: useControllableState<string> expects string, but clearing a collapsible
+            // single-mode accordion requires undefined. The onValueChange cast on line 153
+            // widens the callback to accept string | undefined, so the runtime value is correct.
             setValue(undefined as unknown as string);
           }
         } else {
