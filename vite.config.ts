@@ -1,3 +1,4 @@
+import { copyFileSync } from "fs";
 import { fileURLToPath } from "url";
 import { dirname, resolve } from "path";
 import react from "@vitejs/plugin-react";
@@ -8,7 +9,19 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [
+    react(),
+    tailwindcss(),
+    {
+      name: "copy-root-styles",
+      closeBundle() {
+        copyFileSync(
+          resolve(__dirname, "src/styles/root.css"),
+          resolve(__dirname, "dist/styles-root.css"),
+        );
+      },
+    },
+  ],
   resolve: {
     alias: {
       "@nuka": resolve(__dirname, "./src/"),
