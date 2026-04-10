@@ -1,0 +1,166 @@
+/* Brand Template
+   Override semantic tokens only. Primitive tokens (--color-*, --space-*, --shadow-*,
+   --radius-*, --font-size-*, etc.) are out of scope. If you need a new primitive value,
+   define it in your own stylesheet and reference it from the semantic token.
+
+   Every value line is marked with REPLACE. Fill in your brand values and remove the marker.
+   For tokens with contrast obligations, the minimum ratio is noted. Verify with a contrast
+   checker after filling in your values.
+
+   Reference: src/styles/tokens.css for the full primitive and semantic token listing. */
+
+[data-theme="light"] {
+  /* Surfaces */
+  --nuka-bg-base: ; /* REPLACE: page background */
+  --nuka-bg-subtle: ; /* REPLACE: slightly offset background (cards, sidebars) */
+  --nuka-bg-muted: ; /* REPLACE: muted background (disabled wells, code blocks) */
+  --nuka-bg-emphasis: ; /* REPLACE: high-contrast surface (inverted badges) */
+
+  /* Borders */
+  --nuka-border-base: ; /* REPLACE: default border */
+  --nuka-border-strong: ; /* REPLACE: emphasized border (dividers, active states) */
+  --nuka-border-focus: ; /* REPLACE: focus ring color */
+  --nuka-border-disabled: ; /* REPLACE: disabled control border */
+
+  /* Text */
+  --nuka-text-base: ; /* REPLACE: primary body text */
+  --nuka-text-muted: ; /* REPLACE: secondary text (labels, captions) */
+  --nuka-text-subtle: ; /* REPLACE: decorative/non-essential text */
+  --nuka-text-inverse: ; /* REPLACE: text on emphasis surfaces */
+  --nuka-text-disabled: ; /* REPLACE: disabled text */
+
+  /* Accent */
+  --nuka-accent-bg: ; /* REPLACE: primary action background */
+  --nuka-accent-bg-hover: ; /* REPLACE: primary action hover */
+  --nuka-accent-bg-active: ; /* REPLACE: primary action active/pressed */
+  --nuka-accent-bg-subtle: ; /* REPLACE: subtle accent background (selected rows) */
+  --nuka-accent-border: ; /* REPLACE: accent-colored border (outline buttons) */
+  --nuka-accent-text: ; /* REPLACE: accent-colored text. Min 4.5:1 on --nuka-bg-base */
+  --nuka-accent-fg: ; /* REPLACE: foreground on accent-bg. Min 4.5:1 on --nuka-accent-bg */
+  --nuka-accent-bg-disabled: ; /* REPLACE: disabled accent surface */
+
+  /* Input */
+  --nuka-input-bg: ; /* REPLACE: input background */
+  --nuka-input-bg-disabled: ; /* REPLACE: disabled input background */
+  --nuka-input-bg-readonly: ; /* REPLACE: readonly input background */
+  --nuka-input-border: ; /* REPLACE: input border */
+  --nuka-input-border-hover: ; /* REPLACE: input border on hover */
+
+  /* Feedback: success */
+  --nuka-success-base: ; /* REPLACE: filled success surface (buttons, badges) */
+  --nuka-success-bg: ; /* REPLACE: subtle success background (alerts) */
+  --nuka-success-text: ; /* REPLACE: success text. Min 4.5:1 on --nuka-success-bg */
+  --nuka-success-border: ; /* REPLACE: success border */
+  --nuka-success-fg: ; /* REPLACE: foreground on success-base. Min 4.5:1 on --nuka-success-base */
+
+  /* Feedback: warning */
+  --nuka-warning-base: ; /* REPLACE: filled warning surface */
+  --nuka-warning-fg: ; /* REPLACE: foreground on warning-base. Min 4.5:1 on --nuka-warning-base. Use dark fg; amber cannot pass 4.5:1 with white */
+  --nuka-warning-bg: ; /* REPLACE: subtle warning background */
+  --nuka-warning-text: ; /* REPLACE: warning text. Min 4.5:1 on --nuka-warning-bg */
+  --nuka-warning-border: ; /* REPLACE: warning border */
+
+  /* Feedback: danger */
+  --nuka-danger-base: ; /* REPLACE: filled danger surface */
+  --nuka-danger-bg: ; /* REPLACE: subtle danger background */
+  --nuka-danger-text: ; /* REPLACE: danger text. Min 4.5:1 on --nuka-danger-bg */
+  --nuka-danger-border: ; /* REPLACE: danger border */
+  --nuka-danger-fg: ; /* REPLACE: foreground on danger-base. Min 4.5:1 on --nuka-danger-base */
+
+  /* Feedback: info */
+  --nuka-info-base: ; /* REPLACE: filled info surface */
+  --nuka-info-bg: ; /* REPLACE: subtle info background */
+  --nuka-info-text: ; /* REPLACE: info text. Min 4.5:1 on --nuka-info-bg */
+  --nuka-info-border: ; /* REPLACE: info border */
+
+  /* Shadows */
+  --nuka-shadow-card: ; /* REPLACE: card elevation shadow */
+  --nuka-shadow-overlay: ; /* REPLACE: dropdown/popover shadow */
+  --nuka-shadow-modal: ; /* REPLACE: modal/dialog shadow */
+
+  /* Z-index */
+  --nuka-z-dropdown: ; /* REPLACE: dropdown z-index */
+  --nuka-z-modal: ; /* REPLACE: modal z-index */
+  --nuka-z-toast: ; /* REPLACE: toast z-index */
+
+  /* Overlay */
+  --nuka-bg-overlay: ; /* REPLACE: modal backdrop color (use alpha transparency) */
+}
+
+[data-theme="dark"] {
+  /* Surfaces */
+  --nuka-bg-base: ; /* REPLACE: dark page background */
+  --nuka-bg-subtle: ; /* REPLACE: dark offset background */
+  --nuka-bg-muted: ; /* REPLACE: dark muted background */
+  --nuka-bg-emphasis: ; /* REPLACE: dark high-contrast surface */
+
+  /* Borders */
+  --nuka-border-base: ; /* REPLACE: dark default border */
+  --nuka-border-strong: ; /* REPLACE: dark emphasized border */
+  --nuka-border-focus: ; /* REPLACE: dark focus ring color */
+  --nuka-border-disabled: ; /* REPLACE: dark disabled border */
+
+  /* Text */
+  --nuka-text-base: ; /* REPLACE: dark primary text */
+  --nuka-text-muted: ; /* REPLACE: dark secondary text */
+  --nuka-text-subtle: ; /* REPLACE: dark decorative text */
+  --nuka-text-inverse: ; /* REPLACE: dark inverse text */
+  --nuka-text-disabled: ; /* REPLACE: dark disabled text */
+
+  /* Accent */
+  --nuka-accent-bg: ; /* REPLACE: dark primary action background */
+  --nuka-accent-bg-hover: ; /* REPLACE: dark primary action hover */
+  --nuka-accent-bg-active: ; /* REPLACE: dark primary action active */
+  --nuka-accent-bg-subtle: ; /* REPLACE: dark subtle accent background */
+  --nuka-accent-border: ; /* REPLACE: dark accent border */
+  --nuka-accent-text: ; /* REPLACE: dark accent text. Min 4.5:1 on --nuka-bg-base */
+  --nuka-accent-fg: ; /* REPLACE: dark foreground on accent-bg. Min 4.5:1 on --nuka-accent-bg */
+  --nuka-accent-bg-disabled: ; /* REPLACE: dark disabled accent surface */
+
+  /* Input */
+  --nuka-input-bg: ; /* REPLACE: dark input background */
+  --nuka-input-bg-disabled: ; /* REPLACE: dark disabled input background */
+  --nuka-input-bg-readonly: ; /* REPLACE: dark readonly input background */
+  --nuka-input-border: ; /* REPLACE: dark input border */
+  --nuka-input-border-hover: ; /* REPLACE: dark input border hover */
+
+  /* Feedback: success */
+  --nuka-success-base: ; /* REPLACE: dark filled success surface */
+  --nuka-success-bg: ; /* REPLACE: dark subtle success background */
+  --nuka-success-text: ; /* REPLACE: dark success text. Min 4.5:1 on --nuka-success-bg */
+  --nuka-success-border: ; /* REPLACE: dark success border */
+  --nuka-success-fg: ; /* REPLACE: dark foreground on success-base. Min 4.5:1 on --nuka-success-base */
+
+  /* Feedback: warning */
+  --nuka-warning-base: ; /* REPLACE: dark filled warning surface */
+  --nuka-warning-fg: ; /* REPLACE: dark foreground on warning-base. Min 4.5:1 on --nuka-warning-base */
+  --nuka-warning-bg: ; /* REPLACE: dark subtle warning background */
+  --nuka-warning-text: ; /* REPLACE: dark warning text. Min 4.5:1 on --nuka-warning-bg */
+  --nuka-warning-border: ; /* REPLACE: dark warning border */
+
+  /* Feedback: danger */
+  --nuka-danger-base: ; /* REPLACE: dark filled danger surface */
+  --nuka-danger-bg: ; /* REPLACE: dark subtle danger background */
+  --nuka-danger-text: ; /* REPLACE: dark danger text. Min 4.5:1 on --nuka-danger-bg */
+  --nuka-danger-border: ; /* REPLACE: dark danger border */
+  --nuka-danger-fg: ; /* REPLACE: dark foreground on danger-base. Min 4.5:1 on --nuka-danger-base */
+
+  /* Feedback: info */
+  --nuka-info-base: ; /* REPLACE: dark filled info surface */
+  --nuka-info-bg: ; /* REPLACE: dark subtle info background */
+  --nuka-info-text: ; /* REPLACE: dark info text. Min 4.5:1 on --nuka-info-bg */
+  --nuka-info-border: ; /* REPLACE: dark info border */
+
+  /* Shadows */
+  --nuka-shadow-card: ; /* REPLACE: dark card shadow (increase opacity for dark backgrounds) */
+  --nuka-shadow-overlay: ; /* REPLACE: dark overlay shadow */
+  --nuka-shadow-modal: ; /* REPLACE: dark modal shadow */
+
+  /* Z-index */
+  --nuka-z-dropdown: ; /* REPLACE: dark dropdown z-index */
+  --nuka-z-modal: ; /* REPLACE: dark modal z-index */
+  --nuka-z-toast: ; /* REPLACE: dark toast z-index */
+
+  /* Overlay */
+  --nuka-bg-overlay: ; /* REPLACE: dark modal backdrop (may need higher opacity for visual weight) */
+}
