@@ -29,7 +29,6 @@ const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
     return (
       <div
         ref={ref}
-        role="status"
         className={cn(
           "flex flex-col items-center justify-center text-center",
           "gap-(--space-4)",

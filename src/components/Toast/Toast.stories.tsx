@@ -9,6 +9,7 @@ import * as React from "react";
 const meta = {
   title: "Feedback/Toast",
   component: Toaster,
+  tags: ["autodocs"],
   decorators: [
     (Story) => {
       toastStore.__reset();

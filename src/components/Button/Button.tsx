@@ -44,6 +44,8 @@ const buttonVariants = cva(
       },
     },
 
+    // Manual matrix: includes `link` variant (5th axis) and per-cell hover/active
+    // states that intentCompoundVariants() does not cover. See ADR-001.
     compoundVariants: [
       {
         variant: "primary",

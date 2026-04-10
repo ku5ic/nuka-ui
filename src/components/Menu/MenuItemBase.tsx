@@ -323,6 +323,4 @@ export {
   MenuLabelBase,
   MenuRadioGroupContext,
   useMenuRadioGroup,
-  CheckIcon,
-  DotIcon,
 };

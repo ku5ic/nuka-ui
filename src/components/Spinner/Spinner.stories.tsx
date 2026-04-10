@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Spinner } from "@nuka/components/Spinner";
 import { Button } from "@nuka/components/Button";
+import { Card, CardBody } from "@nuka/components/Card";
+import { Stack } from "@nuka/components/Stack";
+import { Text } from "@nuka/components/Text";
 
 const meta = {
   title: "Feedback/Spinner",
@@ -71,13 +74,7 @@ export const ColorInverse: Story = {
   },
   decorators: [
     (Story) => (
-      <div
-        style={{
-          padding: "1.5rem",
-          borderRadius: "var(--radius-lg)",
-          backgroundColor: "var(--nuka-bg-emphasis)",
-        }}
-      >
+      <div className="p-(--space-6) rounded-(--radius-lg) bg-(--nuka-bg-emphasis)">
         <Story />
       </div>
     ),
@@ -86,47 +83,26 @@ export const ColorInverse: Story = {
 
 export const AllSizes: Story = {
   render: () => (
-    <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "0.5rem",
-        }}
-      >
+    <Stack direction="row" align="center" gap="lg">
+      <Stack align="center" gap="sm">
         <Spinner size="sm" />
-        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>
+        <Text size="xs" color="muted">
           sm (16px)
-        </span>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "0.5rem",
-        }}
-      >
+        </Text>
+      </Stack>
+      <Stack align="center" gap="sm">
         <Spinner size="md" />
-        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>
+        <Text size="xs" color="muted">
           md (24px)
-        </span>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "0.5rem",
-        }}
-      >
+        </Text>
+      </Stack>
+      <Stack align="center" gap="sm">
         <Spinner size="lg" />
-        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>
+        <Text size="xs" color="muted">
           lg (32px)
-        </span>
-      </div>
-    </div>
+        </Text>
+      </Stack>
+    </Stack>
   ),
 };
 
@@ -176,30 +152,20 @@ export const PatternButtonLoading: Story = {
 export const PatternPageLoading: Story = {
   name: "Pattern: Page Loading",
   render: () => (
-    /* TODO: replace outer div with <Card> once implemented */
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: "1rem",
-        height: "16rem",
-        width: "24rem",
-        border: "1px solid var(--nuka-border-base)",
-        borderRadius: "var(--radius-lg)",
-        backgroundColor: "var(--nuka-bg-base)",
-      }}
-    >
-      <Spinner size="lg" label="Loading page" />
-      <span
-        style={{
-          fontSize: "0.875rem",
-          color: "var(--nuka-text-muted)",
-        }}
-      >
-        Loading...
-      </span>
-    </div>
+    <Card style={{ width: "24rem" }}>
+      <CardBody>
+        <Stack
+          align="center"
+          justify="center"
+          gap="md"
+          style={{ height: "14rem" }}
+        >
+          <Spinner size="lg" label="Loading page" />
+          <Text size="sm" color="muted">
+            Loading...
+          </Text>
+        </Stack>
+      </CardBody>
+    </Card>
   ),
 };

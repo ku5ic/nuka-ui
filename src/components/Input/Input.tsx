@@ -1,20 +1,13 @@
 import * as React from "react";
 import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
+import { fieldBaseClasses } from "@nuka/utils/field-base";
 import { useFormFieldProps } from "@nuka/utils/use-form-field-props";
 
 const inputVariants = cva(
   [
-    "w-full",
-    "rounded-(--radius-md)",
-    "border",
-    "bg-(--nuka-input-bg)",
-    "text-(--nuka-text-base)",
-    "placeholder:text-(--nuka-text-muted)",
-    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--nuka-border-focus)",
-    "disabled:cursor-not-allowed disabled:opacity-50",
+    ...fieldBaseClasses,
     "read-only:bg-(--nuka-input-bg-readonly) read-only:cursor-default",
-    "transition-colors duration-150",
   ],
   {
     variants: {

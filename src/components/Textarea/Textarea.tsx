@@ -1,42 +1,29 @@
 import * as React from "react";
 import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
+import { fieldBaseClasses } from "@nuka/utils/field-base";
 import { useFormFieldProps } from "@nuka/utils/use-form-field-props";
 
-const textareaVariants = cva(
-  [
-    "w-full",
-    "rounded-(--radius-md)",
-    "border",
-    "bg-(--nuka-input-bg)",
-    "text-(--nuka-text-base)",
-    "placeholder:text-(--nuka-text-muted)",
-    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--nuka-border-focus)",
-    "disabled:cursor-not-allowed disabled:opacity-50",
-    "resize-y",
-    "transition-colors duration-150",
-  ],
-  {
-    variants: {
-      intent: {
-        default:
-          "border-(--nuka-input-border) hover:border-(--nuka-input-border-hover)",
-        danger: "border-(--nuka-danger-border)",
-        success: "border-(--nuka-success-border)",
-        warning: "border-(--nuka-warning-border)",
-      },
-      size: {
-        sm: "px-(--space-3) py-(--space-2) text-xs",
-        md: "px-(--space-4) py-(--space-3) text-sm",
-        lg: "px-(--space-6) py-(--space-4) text-base",
-      },
+const textareaVariants = cva([...fieldBaseClasses, "resize-y"], {
+  variants: {
+    intent: {
+      default:
+        "border-(--nuka-input-border) hover:border-(--nuka-input-border-hover)",
+      danger: "border-(--nuka-danger-border)",
+      success: "border-(--nuka-success-border)",
+      warning: "border-(--nuka-warning-border)",
     },
-    defaultVariants: {
-      intent: "default",
-      size: "md",
+    size: {
+      sm: "px-(--space-3) py-(--space-2) text-xs",
+      md: "px-(--space-4) py-(--space-3) text-sm",
+      lg: "px-(--space-6) py-(--space-4) text-base",
     },
   },
-);
+  defaultVariants: {
+    intent: "default",
+    size: "md",
+  },
+});
 
 export type TextareaVariantProps = VariantProps<typeof textareaVariants>;
 

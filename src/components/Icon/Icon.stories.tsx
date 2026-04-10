@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Icon } from "@nuka/components/Icon";
 import { Button } from "@nuka/components/Button";
+import { Stack } from "@nuka/components/Stack";
 import { Text } from "@nuka/components/Text";
 
 // Story-only placeholder: inline SVG icons for demonstration, not nuka-ui components
@@ -89,7 +90,7 @@ export const SizeXl: Story = {
 export const AllSizes: Story = {
   args: { children: <MockIcon /> },
   render: () => (
-    <div style={{ display: "flex", alignItems: "flex-end", gap: "1.5rem" }}>
+    <Stack direction="row" align="end" gap="lg">
       {(
         [
           ["sm", "16px"],
@@ -98,29 +99,16 @@ export const AllSizes: Story = {
           ["xl", "40px"],
         ] as const
       ).map(([size, px]) => (
-        <div
-          key={size}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: "0.5rem",
-          }}
-        >
+        <Stack key={size} align="center" gap="sm">
           <Icon size={size}>
             <MockIcon />
           </Icon>
-          <span
-            style={{
-              fontSize: "0.75rem",
-              color: "var(--nuka-text-muted)",
-            }}
-          >
+          <Text size="xs" color="muted">
             {size} ({px})
-          </span>
-        </div>
+          </Text>
+        </Stack>
       ))}
-    </div>
+    </Stack>
   ),
 };
 
@@ -164,13 +152,7 @@ export const ColorInverse: Story = {
   },
   decorators: [
     (Story) => (
-      <div
-        style={{
-          padding: "1.5rem",
-          borderRadius: "var(--radius-lg)",
-          backgroundColor: "var(--nuka-bg-emphasis)",
-        }}
-      >
+      <div className="p-(--space-6) rounded-(--radius-lg) bg-(--nuka-bg-emphasis)">
         <Story />
       </div>
     ),
@@ -210,14 +192,14 @@ export const PatternInlineWithText: Story = {
   name: "Pattern: Inline with Text",
   args: { children: <CheckIcon /> },
   render: () => (
-    <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+    <Stack direction="row" align="center" gap="sm">
       <Icon size="md" color="muted">
         <CheckIcon />
       </Icon>
       <Text size="sm" color="muted">
         Changes saved successfully
       </Text>
-    </div>
+    </Stack>
   ),
 };
 
@@ -225,7 +207,7 @@ export const PatternIconButton: Story = {
   name: "Pattern: Icon Button",
   args: { children: <CloseIcon /> },
   render: () => (
-    <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+    <Stack direction="row" align="center" gap="md">
       <Button variant="ghost" intent="default" size="sm" aria-label="Close">
         <Icon size="md">
           <CloseIcon />
@@ -237,6 +219,6 @@ export const PatternIconButton: Story = {
         </Icon>
         Confirm
       </Button>
-    </div>
+    </Stack>
   ),
 };

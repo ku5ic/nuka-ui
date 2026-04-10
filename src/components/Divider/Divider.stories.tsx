@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Divider } from "@nuka/components/Divider";
+import { Button } from "@nuka/components/Button";
+import { Card, CardBody } from "@nuka/components/Card";
 import { Heading } from "@nuka/components/Heading";
+import { Input } from "@nuka/components/Input";
+import { Stack } from "@nuka/components/Stack";
 import { Text } from "@nuka/components/Text";
 
 const meta = {
@@ -31,9 +35,9 @@ type Story = StoryObj<typeof meta>;
 export const Horizontal: Story = {
   decorators: [
     (Story) => (
-      <div style={{ width: "24rem" }}>
+      <Stack className="w-96">
         <Story />
-      </div>
+      </Stack>
     ),
   ],
 };
@@ -43,18 +47,11 @@ export const Vertical: Story = {
     orientation: "vertical",
   },
   render: (args) => (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: "1rem",
-        height: "2rem",
-      }}
-    >
-      <span>Left</span>
+    <Stack direction="row" align="center" gap="md" style={{ height: "2rem" }}>
+      <Text size="sm">Left</Text>
       <Divider {...args} />
-      <span>Right</span>
-    </div>
+      <Text size="sm">Right</Text>
+    </Stack>
   ),
 };
 
@@ -64,9 +61,9 @@ export const WithLabel: Story = {
   },
   decorators: [
     (Story) => (
-      <div style={{ width: "24rem" }}>
+      <Stack className="w-96">
         <Story />
-      </div>
+      </Stack>
     ),
   ],
 };
@@ -77,9 +74,9 @@ export const Small: Story = {
   },
   decorators: [
     (Story) => (
-      <div style={{ width: "24rem" }}>
+      <Stack className="w-96">
         <Story />
-      </div>
+      </Stack>
     ),
   ],
 };
@@ -90,9 +87,9 @@ export const Medium: Story = {
   },
   decorators: [
     (Story) => (
-      <div style={{ width: "24rem" }}>
+      <Stack className="w-96">
         <Story />
-      </div>
+      </Stack>
     ),
   ],
 };
@@ -103,101 +100,84 @@ export const Large: Story = {
   },
   decorators: [
     (Story) => (
-      <div style={{ width: "24rem" }}>
+      <Stack className="w-96">
         <Story />
-      </div>
+      </Stack>
     ),
   ],
 };
 
 export const AllOrientations: Story = {
   render: () => (
-    <div style={{ display: "flex", gap: "2rem", alignItems: "stretch" }}>
-      <div
-        style={{
-          width: "16rem",
-          display: "flex",
-          flexDirection: "column",
-          gap: "0.75rem",
-        }}
-      >
-        <span style={{ fontSize: "0.875rem", color: "var(--nuka-text-muted)" }}>
+    <Stack direction="row" gap="lg" className="items-stretch">
+      <Stack gap="sm" className="w-64">
+        <Text size="sm" color="muted">
           Horizontal
-        </span>
+        </Text>
         <Divider />
-      </div>
-      <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-        <span style={{ fontSize: "0.875rem", color: "var(--nuka-text-muted)" }}>
+      </Stack>
+      <Stack direction="row" align="center" gap="md">
+        <Text size="sm" color="muted">
           Vertical
-        </span>
+        </Text>
         <Divider orientation="vertical" />
-        <span style={{ fontSize: "0.875rem", color: "var(--nuka-text-muted)" }}>
+        <Text size="sm" color="muted">
           between
-        </span>
-      </div>
-    </div>
+        </Text>
+      </Stack>
+    </Stack>
   ),
 };
 
 export const AllSizes: Story = {
   render: () => (
-    <div
-      style={{
-        width: "24rem",
-        display: "flex",
-        flexDirection: "column",
-        gap: "1.5rem",
-      }}
-    >
-      <div>
-        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>
+    <Stack gap="lg" className="w-96">
+      <Stack gap="xs">
+        <Text size="xs" color="muted">
           sm (1px)
-        </span>
-        <Divider size="sm" style={{ marginTop: "0.5rem" }} />
-      </div>
-      <div>
-        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>
+        </Text>
+        <Divider size="sm" />
+      </Stack>
+      <Stack gap="xs">
+        <Text size="xs" color="muted">
           md (1px, default)
-        </span>
-        <Divider size="md" style={{ marginTop: "0.5rem" }} />
-      </div>
-      <div>
-        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>
+        </Text>
+        <Divider size="md" />
+      </Stack>
+      <Stack gap="xs">
+        <Text size="xs" color="muted">
           lg (2px)
-        </span>
-        <Divider size="lg" style={{ marginTop: "0.5rem" }} />
-      </div>
-    </div>
+        </Text>
+        <Divider size="lg" />
+      </Stack>
+    </Stack>
   ),
 };
 
 export const PatternSectionSeparator: Story = {
   name: "Pattern: Section separator",
   render: () => (
-    /* TODO: replace outer div with <Card> once implemented */
-    <div
-      style={{
-        maxWidth: "24rem",
-        padding: "1.5rem",
-        border: "1px solid var(--nuka-border-base)",
-        borderRadius: "var(--radius-lg)",
-        backgroundColor: "var(--nuka-bg-base)",
-      }}
-    >
-      <Heading as="h3" size="xl" weight="semibold">
-        Account settings
-      </Heading>
-      <Text size="sm" color="muted" style={{ marginTop: "0.5rem" }}>
-        Manage your profile and preferences.
-      </Text>
-      <Divider style={{ margin: "1rem 0" }} />
-      <Heading as="h3" size="xl" weight="semibold">
-        Danger zone
-      </Heading>
-      <Text size="sm" color="muted" style={{ marginTop: "0.5rem" }}>
-        Irreversible actions like account deletion.
-      </Text>
-    </div>
+    <Card className="max-w-sm">
+      <CardBody>
+        <Stack gap="sm">
+          <Heading as="h3" size="xl" weight="semibold">
+            Account settings
+          </Heading>
+          <Text size="sm" color="muted">
+            Manage your profile and preferences.
+          </Text>
+        </Stack>
+        <Divider className="my-(--space-4)" />
+        <Stack gap="sm">
+          <Heading as="h3" size="xl" weight="semibold">
+            Danger zone
+          </Heading>
+          <Text size="sm" color="muted">
+            Irreversible actions like account deletion.
+          </Text>
+        </Stack>
+      </CardBody>
+    </Card>
   ),
   parameters: {
     docs: {
@@ -219,75 +199,42 @@ export const PatternSectionSeparator: Story = {
 export const PatternLabeledDivider: Story = {
   name: "Pattern: Labeled divider",
   render: () => (
-    <div style={{ maxWidth: "20rem" }}>
-      <button
-        type="button"
-        style={{
-          width: "100%",
-          padding: "0.625rem 1rem",
-          fontSize: "0.875rem",
-          fontWeight: 500,
-          border: "1px solid var(--nuka-border-base)",
-          borderRadius: "var(--radius-md)",
-          backgroundColor: "var(--nuka-bg-base)",
-          cursor: "pointer",
-        }}
-      >
+    <Stack className="max-w-xs">
+      <Button variant="outline" className="w-full">
         Continue with Google
-      </button>
-      <Divider label="or" style={{ margin: "1.25rem 0" }} />
-      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-        <input
-          type="email"
-          placeholder="Email"
-          style={{
-            width: "100%",
-            padding: "0.625rem 0.75rem",
-            fontSize: "0.875rem",
-            border: "1px solid var(--nuka-border-base)",
-            borderRadius: "var(--radius-md)",
-            backgroundColor: "var(--nuka-bg-base)",
-            boxSizing: "border-box",
-          }}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          style={{
-            width: "100%",
-            padding: "0.625rem 0.75rem",
-            fontSize: "0.875rem",
-            border: "1px solid var(--nuka-border-base)",
-            borderRadius: "var(--radius-md)",
-            backgroundColor: "var(--nuka-bg-base)",
-            boxSizing: "border-box",
-          }}
-        />
-      </div>
-    </div>
+      </Button>
+      <Divider label="or" className="my-(--space-4)" />
+      <Stack gap="sm">
+        <Input type="email" placeholder="Email" />
+        <Input type="password" placeholder="Password" />
+      </Stack>
+    </Stack>
   ),
 };
 
 export const PatternVerticalInNav: Story = {
   name: "Pattern: Vertical in nav",
   render: () => (
-    <nav
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: "0.75rem",
-        padding: "0.5rem 1rem",
-        border: "1px solid var(--nuka-border-base)",
-        borderRadius: "var(--radius-md)",
-        backgroundColor: "var(--nuka-bg-base)",
-        fontSize: "0.875rem",
-      }}
-    >
-      <span style={{ fontWeight: 500 }}>Home</span>
-      <span>Projects</span>
-      <Divider orientation="vertical" style={{ height: "1.25rem" }} />
-      <span style={{ color: "var(--nuka-text-muted)" }}>Settings</span>
-      <span style={{ color: "var(--nuka-text-muted)" }}>Help</span>
-    </nav>
+    <Card asChild>
+      <nav>
+        <CardBody>
+          <Stack direction="row" align="center" gap="sm">
+            <Text as="span" size="sm" weight="medium">
+              Home
+            </Text>
+            <Text as="span" size="sm">
+              Projects
+            </Text>
+            <Divider orientation="vertical" style={{ height: "1.25rem" }} />
+            <Text as="span" size="sm" color="muted">
+              Settings
+            </Text>
+            <Text as="span" size="sm" color="muted">
+              Help
+            </Text>
+          </Stack>
+        </CardBody>
+      </nav>
+    </Card>
   ),
 };

@@ -226,10 +226,10 @@ function createModalPrimitive(
 
       return (
         <DismissButton
+          {...props}
           ref={ref}
           onClick={() => ctx.onOpenChange(false)}
           label={closeLabel}
-          {...props}
         />
       );
     },

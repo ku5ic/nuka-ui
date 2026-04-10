@@ -1,6 +1,7 @@
 import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { Slider } from "@nuka/components/Slider";
+import { Stack } from "@nuka/components/Stack";
 import { FormField } from "@nuka/components/FormField";
 import { Label } from "@nuka/components/Label";
 import { Text } from "@nuka/components/Text";
@@ -30,9 +31,9 @@ const meta = {
   },
   decorators: [
     (Story) => (
-      <div style={{ width: 320 }}>
+      <Stack style={{ width: 320 }}>
         <Story />
-      </div>
+      </Stack>
     ),
   ],
 } satisfies Meta<typeof Slider>;

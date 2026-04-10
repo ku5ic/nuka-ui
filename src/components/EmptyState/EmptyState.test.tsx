@@ -10,9 +10,9 @@ describe("EmptyState", () => {
       expect(screen.getByText("No items")).toBeInTheDocument();
     });
 
-    it("has role='status'", () => {
-      render(<EmptyState heading="No items" />);
-      expect(screen.getByRole("status")).toBeInTheDocument();
+    it("has no implicit role by default", () => {
+      render(<EmptyState heading="No items" data-testid="empty" />);
+      expect(screen.getByTestId("empty")).not.toHaveAttribute("role");
     });
 
     it("sets displayName correctly", () => {
@@ -27,9 +27,9 @@ describe("EmptyState", () => {
     });
 
     it("does not render description when not provided", () => {
-      render(<EmptyState heading="No items" />);
-      const status = screen.getByRole("status");
-      expect(status.querySelectorAll("p")).toHaveLength(1);
+      render(<EmptyState heading="No items" data-testid="empty" />);
+      const el = screen.getByTestId("empty");
+      expect(el.querySelectorAll("p")).toHaveLength(1);
     });
   });
 
@@ -92,8 +92,10 @@ describe("EmptyState", () => {
 
   describe("className override", () => {
     it("merges consumer className", () => {
-      render(<EmptyState heading="No items" className="mt-8" />);
-      const el = screen.getByRole("status");
+      render(
+        <EmptyState heading="No items" className="mt-8" data-testid="empty" />,
+      );
+      const el = screen.getByTestId("empty");
       expect(el.className).toContain("mt-8");
       expect(el.className).toContain("flex");
     });

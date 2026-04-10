@@ -25,9 +25,9 @@ const meta = {
   },
   decorators: [
     (Story) => (
-      <div style={{ width: 400 }}>
+      <Stack style={{ width: 400 }}>
         <Story />
-      </div>
+      </Stack>
     ),
   ],
 } satisfies Meta<typeof Progress>;
@@ -80,20 +80,26 @@ export const IntentWarning: Story = {
 
 export const Sizes: Story = {
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+    <Stack gap="md">
       <div>
-        <p style={{ fontSize: "0.75rem", marginBottom: "0.25rem" }}>Small</p>
+        <Text size="xs" color="muted">
+          Small
+        </Text>
         <Progress size="sm" value={60} />
       </div>
       <div>
-        <p style={{ fontSize: "0.75rem", marginBottom: "0.25rem" }}>Medium</p>
+        <Text size="xs" color="muted">
+          Medium
+        </Text>
         <Progress size="md" value={60} />
       </div>
       <div>
-        <p style={{ fontSize: "0.75rem", marginBottom: "0.25rem" }}>Large</p>
+        <Text size="xs" color="muted">
+          Large
+        </Text>
         <Progress size="lg" value={60} />
       </div>
-    </div>
+    </Stack>
   ),
 };
 

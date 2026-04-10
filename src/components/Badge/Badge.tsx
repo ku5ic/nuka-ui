@@ -29,6 +29,8 @@ const badgeVariants = cva(
       },
     },
 
+    // Manual matrix: variant names (solid/subtle/outline) differ from the shared
+    // utility's axis (primary/secondary/outline/ghost). See ADR-006.
     compoundVariants: [
       {
         variant: "solid",

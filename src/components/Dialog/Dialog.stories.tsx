@@ -91,13 +91,88 @@ export const WithScroll: Story = {
           Please review the following terms carefully.
         </DialogDescription>
         <Stack direction="column" gap="sm" className="mt-(--space-4)">
-          {Array.from({ length: 20 }, (_, i) => (
-            <Text key={i} size="sm">
-              Section {i + 1}: Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua.
-            </Text>
-          ))}
+          <Text size="sm">
+            1. Acceptance. By accessing or using the Service, you agree to be
+            bound by these Terms. If you do not agree, do not use the Service.
+          </Text>
+          <Text size="sm">
+            2. Eligibility. You must be at least 18 years old and capable of
+            forming a binding contract to use the Service.
+          </Text>
+          <Text size="sm">
+            3. Account Registration. You are responsible for maintaining the
+            confidentiality of your account credentials and for all activity
+            under your account.
+          </Text>
+          <Text size="sm">
+            4. Acceptable Use. You agree not to use the Service for any unlawful
+            purpose or in a way that could damage, disable, or impair the
+            Service.
+          </Text>
+          <Text size="sm">
+            5. Intellectual Property. All content, features, and functionality
+            of the Service are owned by us and protected by copyright,
+            trademark, and other intellectual property laws.
+          </Text>
+          <Text size="sm">
+            6. User Content. You retain ownership of content you submit. By
+            posting content, you grant us a non-exclusive license to use,
+            display, and distribute it within the Service.
+          </Text>
+          <Text size="sm">
+            7. Privacy. Your use of the Service is subject to our Privacy
+            Policy, which describes how we collect, use, and share your
+            information.
+          </Text>
+          <Text size="sm">
+            8. Termination. We may suspend or terminate your access at any time
+            for conduct that violates these Terms or is harmful to the Service
+            or other users.
+          </Text>
+          <Text size="sm">
+            9. Disclaimers. The Service is provided as-is without warranties of
+            any kind, either express or implied, including merchantability and
+            fitness for a particular purpose.
+          </Text>
+          <Text size="sm">
+            10. Limitation of Liability. In no event shall we be liable for
+            indirect, incidental, special, or consequential damages arising from
+            your use of the Service.
+          </Text>
+          <Text size="sm">
+            11. Indemnification. You agree to indemnify and hold us harmless
+            from any claims, damages, or expenses arising from your use of the
+            Service or violation of these Terms.
+          </Text>
+          <Text size="sm">
+            12. Modifications. We reserve the right to modify these Terms at any
+            time. Continued use after changes constitutes acceptance of the
+            revised Terms.
+          </Text>
+          <Text size="sm">
+            13. Governing Law. These Terms are governed by the laws of the
+            applicable jurisdiction, without regard to conflict of law
+            principles.
+          </Text>
+          <Text size="sm">
+            14. Dispute Resolution. Any disputes shall be resolved through
+            binding arbitration in accordance with the rules of the applicable
+            arbitration association.
+          </Text>
+          <Text size="sm">
+            15. Severability. If any provision of these Terms is found invalid
+            or unenforceable, the remaining provisions shall continue in full
+            force and effect.
+          </Text>
+          <Text size="sm">
+            16. Entire Agreement. These Terms constitute the entire agreement
+            between you and us regarding the Service, superseding all prior
+            agreements.
+          </Text>
+          <Text size="sm">
+            17. Contact. For questions about these Terms, please contact us at
+            legal@example.com.
+          </Text>
         </Stack>
         <Stack direction="row" gap="sm" className="justify-end mt-(--space-4)">
           <DialogClose asChild>
