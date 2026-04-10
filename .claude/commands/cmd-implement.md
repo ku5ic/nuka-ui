@@ -34,6 +34,7 @@ Run after `cmd-plan` is confirmed. Follow the plan exactly: do not improvise.
    - Files created
    - Files modified
    - Anything that deviated from the plan and why
+   - Write summary in implement-summary.md
 
 ## Stop
 

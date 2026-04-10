@@ -39,6 +39,7 @@ Run after `cmd-test` is confirmed. Act as a senior peer reviewer.
 7. Produce a review summary:
    - **Approved** — list every file reviewed, confirm each passes all checks above
    - **Changes requested** — list each specific issue with the file name and line reference
+   - Write summary in review-summary.md
 
 ## Stop
 
