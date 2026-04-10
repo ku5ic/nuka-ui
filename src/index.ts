@@ -355,6 +355,31 @@ export type {
 export { TabsContext, useTabsContext } from "./components/Tabs";
 export type { TabsContextValue } from "./components/Tabs";
 
+export {
+  Table,
+  tableVariants,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableRow,
+  TableHead,
+  TableCell,
+} from "./components/Table";
+export type {
+  TableProps,
+  TableVariantProps,
+  TableHeaderProps,
+  TableBodyProps,
+  TableFooterProps,
+  TableRowProps,
+  TableRowIntent,
+  TableHeadProps,
+  TableCellProps,
+  SortDirection,
+} from "./components/Table";
+export { TableContext, useTableContext } from "./components/Table";
+export type { TableContextValue } from "./components/Table";
+
 export { Tag, tagVariants } from "./components/Tag";
 export type { TagProps, TagVariantProps } from "./components/Tag";
 
