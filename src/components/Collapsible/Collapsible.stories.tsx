@@ -27,6 +27,27 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Collapsible className="w-80">
+  <CollapsibleTrigger asChild>
+    <Button variant="secondary" className="w-full justify-between">
+      Toggle content
+    </Button>
+  </CollapsibleTrigger>
+  <CollapsibleContent className="pt-(--space-2)">
+    <Text size="sm" color="muted">
+      This content can be expanded or collapsed. It animates smoothly using
+      CSS grid-rows transitions.
+    </Text>
+  </CollapsibleContent>
+</Collapsible>
+        `.trim(),
+      },
+    },
+  },
   render: (args) => (
     <Collapsible {...args} className="w-80">
       <CollapsibleTrigger asChild>
@@ -48,6 +69,26 @@ export const DefaultOpen: Story = {
   args: {
     defaultOpen: true,
   },
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Collapsible defaultOpen={true} className="w-80">
+  <CollapsibleTrigger asChild>
+    <Button variant="secondary" className="w-full justify-between">
+      Toggle content
+    </Button>
+  </CollapsibleTrigger>
+  <CollapsibleContent className="pt-(--space-2)">
+    <Text size="sm" color="muted">
+      This section starts open by default.
+    </Text>
+  </CollapsibleContent>
+</Collapsible>
+        `.trim(),
+      },
+    },
+  },
   render: (args) => (
     <Collapsible {...args} className="w-80">
       <CollapsibleTrigger asChild>
@@ -68,6 +109,26 @@ export const Disabled: Story = {
   args: {
     disabled: true,
   },
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Collapsible disabled className="w-80">
+  <CollapsibleTrigger asChild>
+    <Button variant="secondary" className="w-full justify-between">
+      Disabled toggle
+    </Button>
+  </CollapsibleTrigger>
+  <CollapsibleContent className="pt-(--space-2)">
+    <Text size="sm" color="muted">
+      This content cannot be toggled.
+    </Text>
+  </CollapsibleContent>
+</Collapsible>
+        `.trim(),
+      },
+    },
+  },
   render: (args) => (
     <Collapsible {...args} className="w-80">
       <CollapsibleTrigger asChild>
@@ -85,6 +146,36 @@ export const Disabled: Story = {
 };
 
 export const Controlled: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `
+function Example() {
+  const [open, setOpen] = useState(false);
+  return (
+    <Stack direction="column" gap="sm" className="w-80">
+      <Text size="sm" color="muted">
+        Open: {String(open)}
+      </Text>
+      <Collapsible open={open} onOpenChange={setOpen}>
+        <CollapsibleTrigger asChild>
+          <Button variant="secondary" className="w-full justify-between">
+            Controlled toggle
+          </Button>
+        </CollapsibleTrigger>
+        <CollapsibleContent className="pt-(--space-2)">
+          <Text size="sm" color="muted">
+            Controlled by external state.
+          </Text>
+        </CollapsibleContent>
+      </Collapsible>
+    </Stack>
+  );
+}
+        `.trim(),
+      },
+    },
+  },
   render: function ControlledCollapsible() {
     const [open, setOpen] = useState(false);
     return (
@@ -111,6 +202,41 @@ export const Controlled: Story = {
 
 export const SettingsPanel: Story = {
   name: "Pattern: Settings Panel",
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<div className="w-80 rounded-(--radius-lg) border border-(--nuka-border-base)">
+  <Collapsible defaultOpen>
+    <div className="flex items-center justify-between p-(--space-4)">
+      <Text weight="semibold">Advanced Settings</Text>
+      <CollapsibleTrigger asChild>
+        <Button variant="ghost" size="sm">
+          Toggle
+        </Button>
+      </CollapsibleTrigger>
+    </div>
+    <CollapsibleContent>
+      <div className="border-t border-(--nuka-border-base) p-(--space-4)">
+        <Stack direction="column" gap="sm">
+          <Text size="sm" color="muted">
+            Cache TTL: 3600s
+          </Text>
+          <Text size="sm" color="muted">
+            Max retries: 3
+          </Text>
+          <Text size="sm" color="muted">
+            Timeout: 30s
+          </Text>
+        </Stack>
+      </div>
+    </CollapsibleContent>
+  </Collapsible>
+</div>
+        `.trim(),
+      },
+    },
+  },
   render: () => (
     <div className="w-80 rounded-(--radius-lg) border border-(--nuka-border-base)">
       <Collapsible defaultOpen>

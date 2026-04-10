@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Label } from "@nuka/components/Label";
 import { Input } from "@nuka/components/Input";
+import { Stack } from "@nuka/components/Stack";
 
 const meta = {
   title: "Forms/Structure/Label",
@@ -40,14 +41,7 @@ export const Required: Story = {
 export const WithInput: Story = {
   name: "Pattern: With Input",
   render: () => (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "0.375rem",
-        width: "20rem",
-      }}
-    >
+    <Stack gap="xs" className="w-(--size-xs)">
       <Label htmlFor="email-input" required>
         Email address
       </Label>
@@ -57,6 +51,25 @@ export const WithInput: Story = {
         placeholder="you@example.com"
         aria-required="true"
       />
-    </div>
+    </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack gap="xs">
+  <Label htmlFor="email-input" required>
+    Email address
+  </Label>
+  <Input
+    id="email-input"
+    type="email"
+    placeholder="you@example.com"
+    aria-required="true"
+  />
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };

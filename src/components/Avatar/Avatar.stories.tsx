@@ -53,30 +53,47 @@ export const IconFallback: Story = {
 
 export const AllSizes: Story = {
   render: () => (
-    <div style={{ display: "flex", alignItems: "flex-end", gap: "1rem" }}>
+    <Stack direction="row" align="end" gap="md">
       {(["xs", "sm", "md", "lg", "xl"] as const).map((size) => (
-        <div
-          key={size}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: "0.5rem",
-          }}
-        >
+        <Stack key={size} align="center" gap="xs">
           <Avatar size={size} name="Jane Smith" />
-          <span
-            style={{
-              fontSize: "0.75rem",
-              color: "var(--nuka-text-muted)",
-            }}
-          >
+          <Text size="xs" color="muted">
             {size}
-          </span>
-        </div>
+          </Text>
+        </Stack>
       ))}
-    </div>
+    </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" align="end" gap="md">
+  <Stack align="center" gap="xs">
+    <Avatar size="xs" name="Jane Smith" />
+    <Text size="xs" color="muted">xs</Text>
+  </Stack>
+  <Stack align="center" gap="xs">
+    <Avatar size="sm" name="Jane Smith" />
+    <Text size="xs" color="muted">sm</Text>
+  </Stack>
+  <Stack align="center" gap="xs">
+    <Avatar size="md" name="Jane Smith" />
+    <Text size="xs" color="muted">md</Text>
+  </Stack>
+  <Stack align="center" gap="xs">
+    <Avatar size="lg" name="Jane Smith" />
+    <Text size="xs" color="muted">lg</Text>
+  </Stack>
+  <Stack align="center" gap="xs">
+    <Avatar size="xl" name="Jane Smith" />
+    <Text size="xs" color="muted">xl</Text>
+  </Stack>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const ShapeSquare: Story = {
@@ -139,13 +156,13 @@ export const PatternAvatarStack: Story = {
     ];
 
     return (
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <Stack direction="row" align="center">
         {users.map((user, i) => (
           <div
             key={user.name}
+            className="relative"
             style={{
               marginLeft: i === 0 ? 0 : "-0.5rem",
-              position: "relative",
               zIndex: users.length - i,
             }}
           >
@@ -153,13 +170,34 @@ export const PatternAvatarStack: Story = {
               name={user.name}
               {...(user.src ? { src: user.src, alt: user.name } : {})}
               size="sm"
-              style={{
-                boxShadow: "0 0 0 2px var(--nuka-bg-base)",
-              }}
+              className="ring-2 ring-(--nuka-bg-base)"
             />
           </div>
         ))}
-      </div>
+      </Stack>
     );
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" align="center">
+  <Avatar name="Alice Brown" src="https://i.pravatar.cc/150?u=alice" alt="Alice Brown" size="sm" className="ring-2 ring-(--nuka-bg-base)" />
+  <div className="relative" style={{ marginLeft: "-0.5rem", zIndex: 4 }}>
+    <Avatar name="Bob Chen" src="https://i.pravatar.cc/150?u=bob" alt="Bob Chen" size="sm" className="ring-2 ring-(--nuka-bg-base)" />
+  </div>
+  <div className="relative" style={{ marginLeft: "-0.5rem", zIndex: 3 }}>
+    <Avatar name="Carol Davis" size="sm" className="ring-2 ring-(--nuka-bg-base)" />
+  </div>
+  <div className="relative" style={{ marginLeft: "-0.5rem", zIndex: 2 }}>
+    <Avatar name="Dan Evans" src="https://i.pravatar.cc/150?u=dan" alt="Dan Evans" size="sm" className="ring-2 ring-(--nuka-bg-base)" />
+  </div>
+  <div className="relative" style={{ marginLeft: "-0.5rem", zIndex: 1 }}>
+    <Avatar name="Eve Foster" size="sm" className="ring-2 ring-(--nuka-bg-base)" />
+  </div>
+</Stack>
+        `.trim(),
+      },
+    },
   },
 };

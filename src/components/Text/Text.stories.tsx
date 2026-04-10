@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Text } from "@nuka/components/Text";
+import { Stack } from "@nuka/components/Stack";
+import { Card, CardBody } from "@nuka/components/Card";
 
 const meta = {
   title: "Typography/Text",
@@ -64,41 +66,85 @@ export const Default: Story = {
 };
 
 export const AllSizes: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack className="gap-3">
+  <Text size="xs">xs: Extra small (0.75rem)</Text>
+  <Text size="sm">sm: Small (0.875rem)</Text>
+  <Text size="md">md: Medium (1rem), default</Text>
+  <Text size="lg">lg: Large (1.125rem)</Text>
+  <Text size="xl">xl: Extra large (1.25rem)</Text>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+    <Stack className="gap-3">
       <Text size="xs">xs: Extra small (0.75rem)</Text>
       <Text size="sm">sm: Small (0.875rem)</Text>
       <Text size="md">md: Medium (1rem), default</Text>
       <Text size="lg">lg: Large (1.125rem)</Text>
       <Text size="xl">xl: Extra large (1.25rem)</Text>
-    </div>
+    </Stack>
   ),
 };
 
 export const AllWeights: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack className="gap-3">
+  <Text weight="regular">Regular (400), default</Text>
+  <Text weight="medium">Medium (500)</Text>
+  <Text weight="semibold">Semibold (600)</Text>
+  <Text weight="bold">Bold (700)</Text>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+    <Stack className="gap-3">
       <Text weight="regular">Regular (400), default</Text>
       <Text weight="medium">Medium (500)</Text>
       <Text weight="semibold">Semibold (600)</Text>
       <Text weight="bold">Bold (700)</Text>
-    </div>
+    </Stack>
   ),
 };
 
 export const AllColors: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack className="gap-3">
+  <Text color="base">base: Default text color</Text>
+  <Text color="muted">muted: Secondary text</Text>
+  <Text color="subtle">subtle: Tertiary text</Text>
+  <div className="p-(--space-3) bg-(--nuka-bg-emphasis) rounded-(--radius-md)">
+    <Text color="inverse">inverse: On dark background</Text>
+  </div>
+  <Text color="disabled">disabled: Disabled state</Text>
+  <Text color="accent">accent: Accent color</Text>
+  <Text color="danger">danger: Error/destructive</Text>
+  <Text color="success">success: Success state</Text>
+  <Text color="warning">warning: Warning state</Text>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+    <Stack className="gap-3">
       <Text color="base">base: Default text color</Text>
       <Text color="muted">muted: Secondary text</Text>
       <Text color="subtle">subtle: Tertiary text</Text>
-      <div
-        style={{
-          backgroundColor: "var(--nuka-bg-emphasis)",
-          padding: "0.5rem 0.75rem",
-          borderRadius: "var(--radius-md)",
-        }}
-      >
+      <div className="p-(--space-3) bg-(--nuka-bg-emphasis) rounded-(--radius-md)">
         <Text color="inverse">inverse: On dark background</Text>
       </div>
       <Text color="disabled">disabled: Disabled state</Text>
@@ -106,30 +152,50 @@ export const AllColors: Story = {
       <Text color="danger">danger: Error/destructive</Text>
       <Text color="success">success: Success state</Text>
       <Text color="warning">warning: Warning state</Text>
-    </div>
+    </Stack>
   ),
 };
 
 export const AllAlignments: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack className="gap-3 w-80">
+  <Text align="left">Left-aligned text (default)</Text>
+  <Text align="center">Center-aligned text</Text>
+  <Text align="right">Right-aligned text</Text>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
   render: () => (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "0.75rem",
-        width: "20rem",
-      }}
-    >
+    <Stack className="gap-3 w-80">
       <Text align="left">Left-aligned text (default)</Text>
       <Text align="center">Center-aligned text</Text>
       <Text align="right">Right-aligned text</Text>
-    </div>
+    </Stack>
   ),
 };
 
 export const Truncate: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<div className="w-48">
+  <Text truncate>
+    This is a very long piece of text that should be truncated with an
+    ellipsis when it overflows its container.
+  </Text>
+</div>
+        `.trim(),
+      },
+    },
+  },
   render: () => (
-    <div style={{ width: "12rem" }}>
+    <div className="w-48">
       <Text truncate>
         This is a very long piece of text that should be truncated with an
         ellipsis when it overflows its container.
@@ -140,8 +206,34 @@ export const Truncate: Story = {
 
 export const PolymorphicAs: Story = {
   name: "Polymorphic (as prop)",
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack className="gap-3">
+  <Text>Default renders as &lt;p&gt;</Text>
+  <Text as="span" color="muted">
+    as="span": inline element
+  </Text>
+  <Text as="label" weight="medium">
+    as="label": form label
+  </Text>
+  <ul className="list-disc pl-5">
+    <Text as="li">as="li": list item</Text>
+    <Text as="li" color="muted">
+      as="li": another list item
+    </Text>
+  </ul>
+  <Text as="time" size="sm" color="muted">
+    as="time": 2026-04-04
+  </Text>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+    <Stack className="gap-3">
       <Text>Default renders as &lt;p&gt;</Text>
       <Text as="span" color="muted">
         as=&quot;span&quot;: inline element
@@ -149,7 +241,7 @@ export const PolymorphicAs: Story = {
       <Text as="label" weight="medium">
         as=&quot;label&quot;: form label
       </Text>
-      <ul style={{ listStyle: "disc", paddingLeft: "1.25rem" }}>
+      <ul className="list-disc pl-5">
         <Text as="li">as=&quot;li&quot;: list item</Text>
         <Text as="li" color="muted">
           as=&quot;li&quot;: another list item
@@ -158,36 +250,56 @@ export const PolymorphicAs: Story = {
       <Text as="time" size="sm" color="muted">
         as=&quot;time&quot;: 2026-04-04
       </Text>
-    </div>
+    </Stack>
   ),
 };
 
 export const RealWorldExample: Story = {
   name: "Pattern: Card Body",
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Card className="max-w-sm">
+  <CardBody>
+    <Text size="lg" weight="semibold">
+      Project update
+    </Text>
+    <Text color="muted" size="sm" className="mt-(--space-1)">
+      April 4, 2026
+    </Text>
+    <Text className="mt-(--space-3)">
+      The nuka-ui component library now includes Button, Badge, Tag, and Text
+      primitives. The token system is fully operational with light and dark
+      theme support.
+    </Text>
+    <Text color="muted" size="sm" className="mt-(--space-3)">
+      Updated by the development team.
+    </Text>
+  </CardBody>
+</Card>
+        `.trim(),
+      },
+    },
+  },
   render: () => (
-    <div
-      style={{
-        maxWidth: "24rem",
-        padding: "1.5rem",
-        border: "1px solid var(--nuka-border-base)",
-        borderRadius: "var(--radius-lg)",
-        backgroundColor: "var(--nuka-bg-base)",
-      }}
-    >
-      <Text size="lg" weight="semibold">
-        Project update
-      </Text>
-      <Text color="muted" size="sm" style={{ marginTop: "0.25rem" }}>
-        April 4, 2026
-      </Text>
-      <Text style={{ marginTop: "0.75rem" }}>
-        The nuka-ui component library now includes Button, Badge, Tag, and Text
-        primitives. The token system is fully operational with light and dark
-        theme support.
-      </Text>
-      <Text color="muted" size="sm" style={{ marginTop: "0.75rem" }}>
-        Updated by the development team.
-      </Text>
-    </div>
+    <Card className="max-w-sm">
+      <CardBody>
+        <Text size="lg" weight="semibold">
+          Project update
+        </Text>
+        <Text color="muted" size="sm" className="mt-(--space-1)">
+          April 4, 2026
+        </Text>
+        <Text className="mt-(--space-3)">
+          The nuka-ui component library now includes Button, Badge, Tag, and
+          Text primitives. The token system is fully operational with light and
+          dark theme support.
+        </Text>
+        <Text color="muted" size="sm" className="mt-(--space-3)">
+          Updated by the development team.
+        </Text>
+      </CardBody>
+    </Card>
   ),
 };

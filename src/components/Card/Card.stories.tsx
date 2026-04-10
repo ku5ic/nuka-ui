@@ -36,7 +36,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const CardTemplate = (args: React.ComponentProps<typeof Card>) => (
-  <Card {...args} style={{ width: 360 }}>
+  <Card {...args} className="w-[360px]">
     <CardHeader>
       <CardTitle>Card Title</CardTitle>
       <CardDescription>Card description goes here.</CardDescription>
@@ -56,6 +56,27 @@ export const Outlined: Story = {
     variant: "outlined",
   },
   render: CardTemplate,
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Card variant="outlined">
+  <CardHeader>
+    <CardTitle>Card Title</CardTitle>
+    <CardDescription>Card description goes here.</CardDescription>
+  </CardHeader>
+  <CardBody>
+    <Text>Card body content goes here.</Text>
+  </CardBody>
+  <CardFooter>
+    <Button variant="ghost">Cancel</Button>
+    <Button>Save</Button>
+  </CardFooter>
+</Card>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const Elevated: Story = {
@@ -63,6 +84,27 @@ export const Elevated: Story = {
     variant: "elevated",
   },
   render: CardTemplate,
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Card variant="elevated">
+  <CardHeader>
+    <CardTitle>Card Title</CardTitle>
+    <CardDescription>Card description goes here.</CardDescription>
+  </CardHeader>
+  <CardBody>
+    <Text>Card body content goes here.</Text>
+  </CardBody>
+  <CardFooter>
+    <Button variant="ghost">Cancel</Button>
+    <Button>Save</Button>
+  </CardFooter>
+</Card>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const Filled: Story = {
@@ -70,12 +112,33 @@ export const Filled: Story = {
     variant: "filled",
   },
   render: CardTemplate,
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Card variant="filled">
+  <CardHeader>
+    <CardTitle>Card Title</CardTitle>
+    <CardDescription>Card description goes here.</CardDescription>
+  </CardHeader>
+  <CardBody>
+    <Text>Card body content goes here.</Text>
+  </CardBody>
+  <CardFooter>
+    <Button variant="ghost">Cancel</Button>
+    <Button>Save</Button>
+  </CardFooter>
+</Card>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const AllVariants: Story = {
   render: () => (
-    <div style={{ display: "flex", gap: "1.5rem", alignItems: "flex-start" }}>
-      <Card variant="outlined" style={{ width: 280 }}>
+    <Stack direction="row" gap="xl" align="start">
+      <Card variant="outlined" className="w-[280px]">
         <CardHeader>
           <CardTitle>Outlined</CardTitle>
           <CardDescription>Border style</CardDescription>
@@ -84,7 +147,7 @@ export const AllVariants: Story = {
           <Text>Content</Text>
         </CardBody>
       </Card>
-      <Card variant="elevated" style={{ width: 280 }}>
+      <Card variant="elevated" className="w-[280px]">
         <CardHeader>
           <CardTitle>Elevated</CardTitle>
           <CardDescription>Shadow style</CardDescription>
@@ -93,7 +156,7 @@ export const AllVariants: Story = {
           <Text>Content</Text>
         </CardBody>
       </Card>
-      <Card variant="filled" style={{ width: 280 }}>
+      <Card variant="filled" className="w-[280px]">
         <CardHeader>
           <CardTitle>Filled</CardTitle>
           <CardDescription>Muted background</CardDescription>
@@ -102,23 +165,73 @@ export const AllVariants: Story = {
           <Text>Content</Text>
         </CardBody>
       </Card>
-    </div>
+    </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" gap="xl" align="start">
+  <Card variant="outlined">
+    <CardHeader>
+      <CardTitle>Outlined</CardTitle>
+      <CardDescription>Border style</CardDescription>
+    </CardHeader>
+    <CardBody>
+      <Text>Content</Text>
+    </CardBody>
+  </Card>
+  <Card variant="elevated">
+    <CardHeader>
+      <CardTitle>Elevated</CardTitle>
+      <CardDescription>Shadow style</CardDescription>
+    </CardHeader>
+    <CardBody>
+      <Text>Content</Text>
+    </CardBody>
+  </Card>
+  <Card variant="filled">
+    <CardHeader>
+      <CardTitle>Filled</CardTitle>
+      <CardDescription>Muted background</CardDescription>
+    </CardHeader>
+    <CardBody>
+      <Text>Content</Text>
+    </CardBody>
+  </Card>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const WithoutHeader: Story = {
   render: () => (
-    <Card style={{ width: 360 }}>
+    <Card className="w-[360px]">
       <CardBody>
         <Text>A card with body content only, no header or footer.</Text>
       </CardBody>
     </Card>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Card>
+  <CardBody>
+    <Text>A card with body content only, no header or footer.</Text>
+  </CardBody>
+</Card>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const WithoutFooter: Story = {
   render: () => (
-    <Card style={{ width: 360 }}>
+    <Card className="w-[360px]">
       <CardHeader>
         <CardTitle>No Footer</CardTitle>
         <CardDescription>This card has no footer section.</CardDescription>
@@ -128,13 +241,30 @@ export const WithoutFooter: Story = {
       </CardBody>
     </Card>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Card>
+  <CardHeader>
+    <CardTitle>No Footer</CardTitle>
+    <CardDescription>This card has no footer section.</CardDescription>
+  </CardHeader>
+  <CardBody>
+    <Text>Body content only.</Text>
+  </CardBody>
+</Card>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const AsChild: Story = {
   name: "asChild",
   render: () => (
     <Card asChild variant="outlined">
-      <article style={{ width: 360 }}>
+      <article className="w-[360px]">
         <CardHeader>
           <CardTitle>Article Card</CardTitle>
           <CardDescription>
@@ -147,6 +277,25 @@ export const AsChild: Story = {
       </article>
     </Card>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Card asChild variant="outlined">
+  <article>
+    <CardHeader>
+      <CardTitle>Article Card</CardTitle>
+      <CardDescription>Rendered as an article element via asChild.</CardDescription>
+    </CardHeader>
+    <CardBody>
+      <Text>Semantic HTML when you need it.</Text>
+    </CardBody>
+  </article>
+</Card>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const ProductCard: Story = {

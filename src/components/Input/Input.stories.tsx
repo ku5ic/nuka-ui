@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Input } from "@nuka/components/Input";
 import { Label } from "@nuka/components/Label";
+import { Stack } from "@nuka/components/Stack";
+import { Text } from "@nuka/components/Text";
 
 const meta = {
   title: "Forms/Inputs/Input",
@@ -40,84 +42,104 @@ export const Default: Story = {
 };
 
 export const AllIntents: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack gap="md" className="w-80">
+  <Stack gap="xs">
+    <Label htmlFor="default-input">Default</Label>
+    <Input id="default-input" intent="default" placeholder="Default intent" />
+  </Stack>
+  <Stack gap="xs">
+    <Label htmlFor="danger-input">Danger</Label>
+    <Input id="danger-input" intent="danger" placeholder="Danger intent" />
+  </Stack>
+  <Stack gap="xs">
+    <Label htmlFor="success-input">Success</Label>
+    <Input id="success-input" intent="success" placeholder="Success intent" />
+  </Stack>
+  <Stack gap="xs">
+    <Label htmlFor="warning-input">Warning</Label>
+    <Input id="warning-input" intent="warning" placeholder="Warning intent" />
+  </Stack>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
   render: () => (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "1rem",
-        width: "20rem",
-      }}
-    >
-      <div
-        style={{ display: "flex", flexDirection: "column", gap: "0.375rem" }}
-      >
+    <Stack gap="md" className="w-80">
+      <Stack gap="xs">
         <Label htmlFor="default-input">Default</Label>
         <Input
           id="default-input"
           intent="default"
           placeholder="Default intent"
         />
-      </div>
-      <div
-        style={{ display: "flex", flexDirection: "column", gap: "0.375rem" }}
-      >
+      </Stack>
+      <Stack gap="xs">
         <Label htmlFor="danger-input">Danger</Label>
         <Input id="danger-input" intent="danger" placeholder="Danger intent" />
-      </div>
-      <div
-        style={{ display: "flex", flexDirection: "column", gap: "0.375rem" }}
-      >
+      </Stack>
+      <Stack gap="xs">
         <Label htmlFor="success-input">Success</Label>
         <Input
           id="success-input"
           intent="success"
           placeholder="Success intent"
         />
-      </div>
-      <div
-        style={{ display: "flex", flexDirection: "column", gap: "0.375rem" }}
-      >
+      </Stack>
+      <Stack gap="xs">
         <Label htmlFor="warning-input">Warning</Label>
         <Input
           id="warning-input"
           intent="warning"
           placeholder="Warning intent"
         />
-      </div>
-    </div>
+      </Stack>
+    </Stack>
   ),
 };
 
 export const AllSizes: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack gap="md" className="w-80">
+  <Stack gap="xs">
+    <Label htmlFor="sm-input">Small</Label>
+    <Input id="sm-input" size="sm" placeholder="Small input" />
+  </Stack>
+  <Stack gap="xs">
+    <Label htmlFor="md-input">Medium</Label>
+    <Input id="md-input" size="md" placeholder="Medium input" />
+  </Stack>
+  <Stack gap="xs">
+    <Label htmlFor="lg-input">Large</Label>
+    <Input id="lg-input" size="lg" placeholder="Large input" />
+  </Stack>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
   render: () => (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "1rem",
-        width: "20rem",
-      }}
-    >
-      <div
-        style={{ display: "flex", flexDirection: "column", gap: "0.375rem" }}
-      >
+    <Stack gap="md" className="w-80">
+      <Stack gap="xs">
         <Label htmlFor="sm-input">Small</Label>
         <Input id="sm-input" size="sm" placeholder="Small input" />
-      </div>
-      <div
-        style={{ display: "flex", flexDirection: "column", gap: "0.375rem" }}
-      >
+      </Stack>
+      <Stack gap="xs">
         <Label htmlFor="md-input">Medium</Label>
         <Input id="md-input" size="md" placeholder="Medium input" />
-      </div>
-      <div
-        style={{ display: "flex", flexDirection: "column", gap: "0.375rem" }}
-      >
+      </Stack>
+      <Stack gap="xs">
         <Label htmlFor="lg-input">Large</Label>
         <Input id="lg-input" size="lg" placeholder="Large input" />
-      </div>
-    </div>
+      </Stack>
+    </Stack>
   ),
 };
 
@@ -137,15 +159,29 @@ export const ReadOnly: Story = {
 
 export const WithError: Story = {
   name: "Pattern: With Error",
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack gap="xs" className="w-80">
+  <Label htmlFor="error-input" required>Email address</Label>
+  <Input
+    id="error-input"
+    intent="danger"
+    placeholder="you@example.com"
+    aria-required="true"
+    aria-describedby="error-message"
+  />
+  <Text id="error-message" size="sm" className="text-(--nuka-danger-text)">
+    Please enter a valid email address.
+  </Text>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
   render: () => (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "0.375rem",
-        width: "20rem",
-      }}
-    >
+    <Stack gap="xs" className="w-80">
       <Label htmlFor="error-input" required>
         Email address
       </Label>
@@ -156,42 +192,35 @@ export const WithError: Story = {
         aria-required="true"
         aria-describedby="error-message"
       />
-      <p
-        id="error-message"
-        style={{
-          fontSize: "0.875rem",
-          color: "var(--nuka-danger-text)",
-          margin: 0,
-        }}
-      >
+      <Text id="error-message" size="sm" className="text-(--nuka-danger-text)">
         Please enter a valid email address.
-      </p>
-    </div>
+      </Text>
+    </Stack>
   ),
 };
 
 export const FormRow: Story = {
   name: "Pattern: Form Row",
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack gap="xs" className="w-80">
+  <Label htmlFor="name-input">Full name</Label>
+  <Input id="name-input" placeholder="Jane Doe" />
+  <Text size="xs" color="muted">Enter your first and last name.</Text>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
   render: () => (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "0.375rem",
-        width: "20rem",
-      }}
-    >
+    <Stack gap="xs" className="w-80">
       <Label htmlFor="name-input">Full name</Label>
       <Input id="name-input" placeholder="Jane Doe" />
-      <p
-        style={{
-          fontSize: "0.75rem",
-          color: "var(--nuka-text-muted)",
-          margin: 0,
-        }}
-      >
+      <Text size="xs" color="muted">
         Enter your first and last name.
-      </p>
-    </div>
+      </Text>
+    </Stack>
   ),
 };

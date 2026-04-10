@@ -38,6 +38,25 @@ export const Default: Story = {
       </DropdownMenuContent>
     </DropdownMenu>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<DropdownMenu>
+  <DropdownMenuTrigger asChild>
+    <Button variant="outline">Options</Button>
+  </DropdownMenuTrigger>
+  <DropdownMenuContent>
+    <DropdownMenuItem>Edit</DropdownMenuItem>
+    <DropdownMenuItem>Duplicate</DropdownMenuItem>
+    <DropdownMenuSeparator />
+    <DropdownMenuItem>Archive</DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const WithLabels: Story = {
@@ -58,6 +77,28 @@ export const WithLabels: Story = {
       </DropdownMenuContent>
     </DropdownMenu>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<DropdownMenu>
+  <DropdownMenuTrigger asChild>
+    <Button variant="outline">Actions</Button>
+  </DropdownMenuTrigger>
+  <DropdownMenuContent>
+    <DropdownMenuLabel>Edit</DropdownMenuLabel>
+    <DropdownMenuItem>Cut</DropdownMenuItem>
+    <DropdownMenuItem>Copy</DropdownMenuItem>
+    <DropdownMenuItem>Paste</DropdownMenuItem>
+    <DropdownMenuSeparator />
+    <DropdownMenuLabel>Danger zone</DropdownMenuLabel>
+    <DropdownMenuItem intent="danger">Delete</DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const IntentDanger: Story = {
@@ -74,6 +115,24 @@ export const IntentDanger: Story = {
       </DropdownMenuContent>
     </DropdownMenu>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<DropdownMenu>
+  <DropdownMenuTrigger asChild>
+    <Button variant="outline">Manage</Button>
+  </DropdownMenuTrigger>
+  <DropdownMenuContent>
+    <DropdownMenuItem>Edit</DropdownMenuItem>
+    <DropdownMenuSeparator />
+    <DropdownMenuItem intent="danger">Delete permanently</DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const WithCheckboxItems: Story = {
@@ -105,6 +164,41 @@ export const WithCheckboxItems: Story = {
       </DropdownMenu>
     );
   },
+  parameters: {
+    docs: {
+      source: {
+        code: `
+function Example() {
+  const [showGrid, setShowGrid] = useState(true);
+  const [showRulers, setShowRulers] = useState(false);
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline">View</Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuLabel>Display</DropdownMenuLabel>
+        <DropdownMenuCheckboxItem
+          checked={showGrid}
+          onCheckedChange={setShowGrid}
+        >
+          Show grid
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          checked={showRulers}
+          onCheckedChange={setShowRulers}
+        >
+          Show rulers
+        </DropdownMenuCheckboxItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const WithRadioItems: Story = {
@@ -131,6 +225,36 @@ export const WithRadioItems: Story = {
       </DropdownMenu>
     );
   },
+  parameters: {
+    docs: {
+      source: {
+        code: `
+function Example() {
+  const [sort, setSort] = useState("date");
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline">Sort by</Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuRadioGroup
+          value={sort}
+          onValueChange={setSort}
+          aria-label="Sort order"
+        >
+          <DropdownMenuRadioItem value="date">Date</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="name">Name</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="size">Size</DropdownMenuRadioItem>
+        </DropdownMenuRadioGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const WithDisabledItems: Story = {
@@ -150,6 +274,27 @@ export const WithDisabledItems: Story = {
       </DropdownMenuContent>
     </DropdownMenu>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<DropdownMenu>
+  <DropdownMenuTrigger asChild>
+    <Button variant="outline">Edit</Button>
+  </DropdownMenuTrigger>
+  <DropdownMenuContent>
+    <DropdownMenuItem>Undo</DropdownMenuItem>
+    <DropdownMenuItem>Redo</DropdownMenuItem>
+    <DropdownMenuSeparator />
+    <DropdownMenuItem disabled>Cut</DropdownMenuItem>
+    <DropdownMenuItem disabled>Copy</DropdownMenuItem>
+    <DropdownMenuItem>Paste</DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const FileMenu: Story = {
@@ -188,5 +333,48 @@ export const FileMenu: Story = {
         </DropdownMenuContent>
       </DropdownMenu>
     );
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `
+function Example() {
+  const [autoSave, setAutoSave] = useState(true);
+  const [format, setFormat] = useState("pdf");
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline">File</Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuItem>New</DropdownMenuItem>
+        <DropdownMenuItem>Open</DropdownMenuItem>
+        <DropdownMenuItem>Save</DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuCheckboxItem
+          checked={autoSave}
+          onCheckedChange={setAutoSave}
+        >
+          Auto-save
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuLabel>Export as</DropdownMenuLabel>
+        <DropdownMenuRadioGroup
+          value={format}
+          onValueChange={setFormat}
+          aria-label="Export format"
+        >
+          <DropdownMenuRadioItem value="pdf">PDF</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="png">PNG</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="svg">SVG</DropdownMenuRadioItem>
+        </DropdownMenuRadioGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+        `.trim(),
+      },
+    },
   },
 };

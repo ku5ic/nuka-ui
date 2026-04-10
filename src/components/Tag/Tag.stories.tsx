@@ -1,6 +1,8 @@
 import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { Tag } from "@nuka/components/Tag";
+import { Button } from "@nuka/components/Button";
+import { Stack } from "@nuka/components/Stack";
 
 const noop = () => undefined;
 
@@ -74,7 +76,7 @@ export const Ghost: Story = {
 
 export const IntentDanger: Story = {
   render: () => (
-    <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
+    <Stack direction="row" gap="sm" align="center">
       <Tag variant="primary" intent="danger" onDismiss={noop}>
         Primary
       </Tag>
@@ -87,13 +89,27 @@ export const IntentDanger: Story = {
       <Tag variant="ghost" intent="danger" onDismiss={noop}>
         Ghost
       </Tag>
-    </div>
+    </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" gap="sm" align="center">
+  <Tag variant="primary" intent="danger" onDismiss={() => {}}>Primary</Tag>
+  <Tag variant="secondary" intent="danger" onDismiss={() => {}}>Secondary</Tag>
+  <Tag variant="outline" intent="danger" onDismiss={() => {}}>Outline</Tag>
+  <Tag variant="ghost" intent="danger" onDismiss={() => {}}>Ghost</Tag>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const IntentSuccess: Story = {
   render: () => (
-    <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
+    <Stack direction="row" gap="sm" align="center">
       <Tag variant="primary" intent="success" onDismiss={noop}>
         Primary
       </Tag>
@@ -106,13 +122,27 @@ export const IntentSuccess: Story = {
       <Tag variant="ghost" intent="success" onDismiss={noop}>
         Ghost
       </Tag>
-    </div>
+    </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" gap="sm" align="center">
+  <Tag variant="primary" intent="success" onDismiss={() => {}}>Primary</Tag>
+  <Tag variant="secondary" intent="success" onDismiss={() => {}}>Secondary</Tag>
+  <Tag variant="outline" intent="success" onDismiss={() => {}}>Outline</Tag>
+  <Tag variant="ghost" intent="success" onDismiss={() => {}}>Ghost</Tag>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const IntentWarning: Story = {
   render: () => (
-    <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
+    <Stack direction="row" gap="sm" align="center">
       <Tag variant="primary" intent="warning" onDismiss={noop}>
         Primary
       </Tag>
@@ -125,13 +155,27 @@ export const IntentWarning: Story = {
       <Tag variant="ghost" intent="warning" onDismiss={noop}>
         Ghost
       </Tag>
-    </div>
+    </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" gap="sm" align="center">
+  <Tag variant="primary" intent="warning" onDismiss={() => {}}>Primary</Tag>
+  <Tag variant="secondary" intent="warning" onDismiss={() => {}}>Secondary</Tag>
+  <Tag variant="outline" intent="warning" onDismiss={() => {}}>Outline</Tag>
+  <Tag variant="ghost" intent="warning" onDismiss={() => {}}>Ghost</Tag>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const AllVariants: Story = {
   render: () => (
-    <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
+    <Stack direction="row" gap="sm" align="center">
       <Tag variant="primary" onDismiss={noop}>
         Primary
       </Tag>
@@ -144,19 +188,27 @@ export const AllVariants: Story = {
       <Tag variant="ghost" onDismiss={noop}>
         Ghost
       </Tag>
-    </div>
+    </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" gap="sm" align="center">
+  <Tag variant="primary" onDismiss={() => {}}>Primary</Tag>
+  <Tag variant="secondary" onDismiss={() => {}}>Secondary</Tag>
+  <Tag variant="outline" onDismiss={() => {}}>Outline</Tag>
+  <Tag variant="ghost" onDismiss={() => {}}>Ghost</Tag>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const AllSizes: Story = {
   render: () => (
-    <div
-      style={{
-        display: "flex",
-        gap: "0.75rem",
-        alignItems: "flex-end",
-      }}
-    >
+    <Stack direction="row" gap="sm" align="end">
       <Tag size="sm" onDismiss={noop}>
         Small
       </Tag>
@@ -166,8 +218,21 @@ export const AllSizes: Story = {
       <Tag size="lg" onDismiss={noop}>
         Large
       </Tag>
-    </div>
+    </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" gap="sm" align="end">
+  <Tag size="sm" onDismiss={() => {}}>Small</Tag>
+  <Tag size="md" onDismiss={() => {}}>Medium</Tag>
+  <Tag size="lg" onDismiss={() => {}}>Large</Tag>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const Dismissible: Story = {
@@ -177,13 +242,9 @@ export const Dismissible: Story = {
 
     if (!visible) {
       return (
-        <button
-          type="button"
-          onClick={() => setVisible(true)}
-          style={{ fontSize: "0.875rem" }}
-        >
+        <Button variant="ghost" size="sm" onClick={() => setVisible(true)}>
           Reset
-        </button>
+        </Button>
       );
     }
 
@@ -193,17 +254,53 @@ export const Dismissible: Story = {
       </Tag>
     );
   },
+  parameters: {
+    docs: {
+      source: {
+        code: `
+function Example() {
+  const [visible, setVisible] = React.useState(true);
+  if (!visible) {
+    return (
+      <Button variant="ghost" size="sm" onClick={() => setVisible(true)}>
+        Reset
+      </Button>
+    );
+  }
+  return (
+    <Tag onDismiss={() => setVisible(false)} dismissLabel="Remove React">
+      React
+    </Tag>
+  );
+}
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const Static: Story = {
   name: "Static",
   render: () => (
-    <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
+    <Stack direction="row" gap="sm" align="center">
       <Tag>React</Tag>
       <Tag>TypeScript</Tag>
       <Tag>Tailwind</Tag>
-    </div>
+    </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" gap="sm" align="center">
+  <Tag>React</Tag>
+  <Tag>TypeScript</Tag>
+  <Tag>Tailwind</Tag>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const FilterTags: Story = {
@@ -222,20 +319,20 @@ export const FilterTags: Story = {
 
     if (tags.length === 0) {
       return (
-        <button
-          type="button"
+        <Button
+          variant="ghost"
+          size="sm"
           onClick={() =>
             setTags(["React", "TypeScript", "Tailwind", "Storybook"])
           }
-          style={{ fontSize: "0.875rem" }}
         >
           Reset filters
-        </button>
+        </Button>
       );
     }
 
     return (
-      <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+      <Stack direction="row" gap="xs" className="flex-wrap">
         {tags.map((tag) => (
           <Tag
             key={tag}
@@ -246,7 +343,54 @@ export const FilterTags: Story = {
             {tag}
           </Tag>
         ))}
-      </div>
+      </Stack>
     );
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `
+function Example() {
+  const [tags, setTags] = React.useState([
+    "React",
+    "TypeScript",
+    "Tailwind",
+    "Storybook",
+  ]);
+
+  const removeTag = (tag: string) => {
+    setTags((prev) => prev.filter((t) => t !== tag));
+  };
+
+  if (tags.length === 0) {
+    return (
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={() => setTags(["React", "TypeScript", "Tailwind", "Storybook"])}
+      >
+        Reset filters
+      </Button>
+    );
+  }
+
+  return (
+    <Stack direction="row" gap="xs" className="flex-wrap">
+      {tags.map((tag) => (
+        <Tag
+          key={tag}
+          variant="secondary"
+          onDismiss={() => removeTag(tag)}
+          dismissLabel={\`Remove \${tag}\`}
+        >
+          {tag}
+        </Tag>
+      ))}
+    </Stack>
+  );
+}
+        `.trim(),
+      },
+    },
   },
 };

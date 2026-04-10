@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Checkbox } from "@nuka/components/Checkbox";
 import { FormField } from "@nuka/components/FormField";
 import { Label } from "@nuka/components/Label";
+import { Stack } from "@nuka/components/Stack";
 
 const meta = {
   title: "Forms/Inputs/Checkbox",
@@ -51,8 +52,22 @@ export const WithLabel: Story = {
 };
 
 export const AllIntents: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" gap="lg" align="center">
+  <Checkbox defaultChecked intent="default">Default</Checkbox>
+  <Checkbox defaultChecked intent="danger">Danger</Checkbox>
+  <Checkbox defaultChecked intent="success">Success</Checkbox>
+  <Checkbox defaultChecked intent="warning">Warning</Checkbox>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
   render: () => (
-    <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
+    <Stack direction="row" gap="lg" align="center">
       <Checkbox defaultChecked intent="default">
         Default
       </Checkbox>
@@ -65,13 +80,26 @@ export const AllIntents: Story = {
       <Checkbox defaultChecked intent="warning">
         Warning
       </Checkbox>
-    </div>
+    </Stack>
   ),
 };
 
 export const AllSizes: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" gap="lg" align="end">
+  <Checkbox defaultChecked size="sm">Small</Checkbox>
+  <Checkbox defaultChecked size="md">Medium</Checkbox>
+  <Checkbox defaultChecked size="lg">Large</Checkbox>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
   render: () => (
-    <div style={{ display: "flex", gap: "1.5rem", alignItems: "flex-end" }}>
+    <Stack direction="row" gap="lg" align="end">
       <Checkbox defaultChecked size="sm">
         Small
       </Checkbox>
@@ -81,23 +109,46 @@ export const AllSizes: Story = {
       <Checkbox defaultChecked size="lg">
         Large
       </Checkbox>
-    </div>
+    </Stack>
   ),
 };
 
 export const Disabled: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" gap="lg" align="center">
+  <Checkbox disabled>Unchecked disabled</Checkbox>
+  <Checkbox disabled defaultChecked>Checked disabled</Checkbox>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
   render: () => (
-    <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
+    <Stack direction="row" gap="lg" align="center">
       <Checkbox disabled>Unchecked disabled</Checkbox>
       <Checkbox disabled defaultChecked>
         Checked disabled
       </Checkbox>
-    </div>
+    </Stack>
   ),
 };
 
 export const InFormField: Story = {
   name: "Pattern: In FormField",
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<FormField id="newsletter" error="You must subscribe to continue">
+  <Checkbox intent="danger">Subscribe to newsletter</Checkbox>
+</FormField>
+        `.trim(),
+      },
+    },
+  },
   render: () => (
     <FormField id="newsletter" error="You must subscribe to continue">
       <Checkbox intent="danger">Subscribe to newsletter</Checkbox>
@@ -107,12 +158,27 @@ export const InFormField: Story = {
 
 export const TermsAcceptance: Story = {
   name: "Pattern: Terms Acceptance",
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<div className="max-w-sm">
+  <FormField id="terms" required>
+    <Stack gap="sm">
+      <Checkbox>I agree to the Terms of Service and Privacy Policy</Checkbox>
+      <Checkbox>I want to receive marketing emails (optional)</Checkbox>
+      <Label htmlFor="terms" className="sr-only">Terms agreement</Label>
+    </Stack>
+  </FormField>
+</div>
+        `.trim(),
+      },
+    },
+  },
   render: () => (
-    <div style={{ maxWidth: "24rem" }}>
+    <div className="max-w-sm">
       <FormField id="terms" required>
-        <div
-          style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}
-        >
+        <Stack gap="sm">
           <Checkbox>
             I agree to the Terms of Service and Privacy Policy
           </Checkbox>
@@ -120,7 +186,7 @@ export const TermsAcceptance: Story = {
           <Label htmlFor="terms" className="sr-only">
             Terms agreement
           </Label>
-        </div>
+        </Stack>
       </FormField>
     </div>
   ),

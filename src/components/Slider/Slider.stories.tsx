@@ -66,11 +66,30 @@ export const Controlled: Story = {
       />
     );
   },
+  parameters: {
+    docs: {
+      source: {
+        code: `
+function Example() {
+  const [value, setValue] = React.useState(50);
+  return (
+    <Slider
+      value={value}
+      onValueChange={setValue}
+      showValue
+      aria-label="Volume"
+    />
+  );
+}
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const AllIntents: Story = {
   render: () => (
-    <div className="flex flex-col gap-(--space-6)" style={{ width: 320 }}>
+    <div className="flex flex-col gap-(--space-6) w-80">
       {(["default", "danger", "success", "warning"] as const).map((intent) => (
         <div key={intent} className="flex flex-col gap-(--space-1)">
           <Text size="sm" color="muted">
@@ -85,11 +104,37 @@ export const AllIntents: Story = {
       ))}
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<div className="flex flex-col gap-(--space-6) w-80">
+  <div className="flex flex-col gap-(--space-1)">
+    <Text size="sm" color="muted">default</Text>
+    <Slider intent="default" defaultValue={60} aria-label="default slider" />
+  </div>
+  <div className="flex flex-col gap-(--space-1)">
+    <Text size="sm" color="muted">danger</Text>
+    <Slider intent="danger" defaultValue={60} aria-label="danger slider" />
+  </div>
+  <div className="flex flex-col gap-(--space-1)">
+    <Text size="sm" color="muted">success</Text>
+    <Slider intent="success" defaultValue={60} aria-label="success slider" />
+  </div>
+  <div className="flex flex-col gap-(--space-1)">
+    <Text size="sm" color="muted">warning</Text>
+    <Slider intent="warning" defaultValue={60} aria-label="warning slider" />
+  </div>
+</div>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const AllSizes: Story = {
   render: () => (
-    <div className="flex flex-col gap-(--space-6)" style={{ width: 320 }}>
+    <div className="flex flex-col gap-(--space-6) w-80">
       {(["sm", "md", "lg"] as const).map((size) => (
         <div key={size} className="flex flex-col gap-(--space-1)">
           <Text size="sm" color="muted">
@@ -100,6 +145,28 @@ export const AllSizes: Story = {
       ))}
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<div className="flex flex-col gap-(--space-6) w-80">
+  <div className="flex flex-col gap-(--space-1)">
+    <Text size="sm" color="muted">sm</Text>
+    <Slider size="sm" defaultValue={50} aria-label="sm slider" />
+  </div>
+  <div className="flex flex-col gap-(--space-1)">
+    <Text size="sm" color="muted">md</Text>
+    <Slider size="md" defaultValue={50} aria-label="md slider" />
+  </div>
+  <div className="flex flex-col gap-(--space-1)">
+    <Text size="sm" color="muted">lg</Text>
+    <Slider size="lg" defaultValue={50} aria-label="lg slider" />
+  </div>
+</div>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const WithSteps: Story = {
@@ -119,6 +186,29 @@ export const WithSteps: Story = {
         </Text>
       </div>
     );
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `
+function Example() {
+  const [value, setValue] = React.useState(50);
+  return (
+    <div className="flex flex-col gap-(--space-2)">
+      <Slider
+        value={value}
+        onValueChange={setValue}
+        step={10}
+        showValue
+        aria-label="Stepped value"
+      />
+      <Text size="xs" color="muted">Step: 10</Text>
+    </div>
+  );
+}
+        `.trim(),
+      },
+    },
   },
 };
 
@@ -147,13 +237,25 @@ export const InFormField: Story = {
       <Slider defaultValue={80} />
     </FormField>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<FormField id="brightness" hint="Adjust brightness" error="Value too high">
+  <Label>Brightness</Label>
+  <Slider defaultValue={80} />
+</FormField>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const VolumeControl: Story = {
   render: function VolumeControlSlider() {
     const [value, setValue] = React.useState(50);
     return (
-      <div className="flex flex-col gap-(--space-2)" style={{ width: 320 }}>
+      <div className="flex flex-col gap-(--space-2) w-80">
         <div className="flex items-center justify-between">
           <Label htmlFor="volume">Volume</Label>
           <Text size="sm" color="muted">
@@ -176,5 +278,34 @@ export const VolumeControl: Story = {
         </div>
       </div>
     );
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `
+function Example() {
+  const [value, setValue] = React.useState(50);
+  return (
+    <div className="flex flex-col gap-(--space-2) w-80">
+      <div className="flex items-center justify-between">
+        <Label htmlFor="volume">Volume</Label>
+        <Text size="sm" color="muted">{value}%</Text>
+      </div>
+      <div className="flex items-center gap-(--space-3)">
+        <Text size="xs" color="muted">0</Text>
+        <Slider
+          id="volume"
+          value={value}
+          onValueChange={setValue}
+          aria-label="Volume"
+        />
+        <Text size="xs" color="muted">100</Text>
+      </div>
+    </div>
+  );
+}
+        `.trim(),
+      },
+    },
   },
 };

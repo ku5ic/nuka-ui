@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Badge } from "@nuka/components/Badge";
+import { Stack } from "@nuka/components/Stack";
+import { Text } from "@nuka/components/Text";
 
 const meta = {
   title: "Display/Badge",
@@ -87,22 +89,26 @@ export const WarningIntent: Story = {
 export const AllVariants: Story = {
   render: () => (
     <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(5, auto)",
-        gap: "0.75rem",
-        alignItems: "center",
-      }}
+      className="grid items-center gap-3"
+      style={{ gridTemplateColumns: "repeat(5, auto)" }}
     >
-      {/* Header row */}
       <span />
-      <span style={{ fontSize: "0.75rem", color: "#666" }}>Default</span>
-      <span style={{ fontSize: "0.75rem", color: "#666" }}>Danger</span>
-      <span style={{ fontSize: "0.75rem", color: "#666" }}>Success</span>
-      <span style={{ fontSize: "0.75rem", color: "#666" }}>Warning</span>
+      <Text size="xs" color="muted">
+        Default
+      </Text>
+      <Text size="xs" color="muted">
+        Danger
+      </Text>
+      <Text size="xs" color="muted">
+        Success
+      </Text>
+      <Text size="xs" color="muted">
+        Warning
+      </Text>
 
-      {/* Solid */}
-      <span style={{ fontSize: "0.75rem", color: "#666" }}>Solid</span>
+      <Text size="xs" color="muted">
+        Solid
+      </Text>
       <Badge variant="solid" intent="default">
         Default
       </Badge>
@@ -116,8 +122,9 @@ export const AllVariants: Story = {
         Warning
       </Badge>
 
-      {/* Subtle */}
-      <span style={{ fontSize: "0.75rem", color: "#666" }}>Subtle</span>
+      <Text size="xs" color="muted">
+        Subtle
+      </Text>
       <Badge variant="subtle" intent="default">
         Default
       </Badge>
@@ -131,8 +138,9 @@ export const AllVariants: Story = {
         Warning
       </Badge>
 
-      {/* Outline */}
-      <span style={{ fontSize: "0.75rem", color: "#666" }}>Outline</span>
+      <Text size="xs" color="muted">
+        Outline
+      </Text>
       <Badge variant="outline" intent="default">
         Default
       </Badge>
@@ -147,29 +155,62 @@ export const AllVariants: Story = {
       </Badge>
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Badge variant="solid" intent="default">Default</Badge>
+<Badge variant="solid" intent="danger">Danger</Badge>
+<Badge variant="solid" intent="success">Success</Badge>
+<Badge variant="solid" intent="warning">Warning</Badge>
+<Badge variant="subtle" intent="default">Default</Badge>
+<Badge variant="subtle" intent="danger">Danger</Badge>
+<Badge variant="subtle" intent="success">Success</Badge>
+<Badge variant="subtle" intent="warning">Warning</Badge>
+<Badge variant="outline" intent="default">Default</Badge>
+<Badge variant="outline" intent="danger">Danger</Badge>
+<Badge variant="outline" intent="success">Success</Badge>
+<Badge variant="outline" intent="warning">Warning</Badge>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const AllSizes: Story = {
   render: () => (
-    <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
+    <Stack direction="row" align="center" gap="sm">
       <Badge size="sm">Small</Badge>
       <Badge size="md">Medium</Badge>
       <Badge size="lg">Large</Badge>
-    </div>
+    </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" align="center" gap="sm">
+  <Badge size="sm">Small</Badge>
+  <Badge size="md">Medium</Badge>
+  <Badge size="lg">Large</Badge>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const WithIcon: Story = {
   name: "Pattern: With Icon",
   render: () => (
-    <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
+    <Stack direction="row" align="center" gap="sm">
       <Badge variant="solid" intent="success">
         <svg
           width="12"
           height="12"
           viewBox="0 0 12 12"
           fill="none"
-          style={{ marginRight: "0.25rem" }}
+          className="mr-(--space-1)"
         >
           <path
             d="M10 3L4.5 8.5L2 6"
@@ -187,7 +228,7 @@ export const WithIcon: Story = {
           height="12"
           viewBox="0 0 12 12"
           fill="none"
-          style={{ marginRight: "0.25rem" }}
+          className="mr-(--space-1)"
         >
           <circle
             cx="6"
@@ -199,22 +240,60 @@ export const WithIcon: Story = {
         </svg>
         Error
       </Badge>
-    </div>
+    </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" align="center" gap="sm">
+  <Badge variant="solid" intent="success">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="mr-(--space-1)">
+      <path d="M10 3L4.5 8.5L2 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+    Verified
+  </Badge>
+  <Badge variant="subtle" intent="danger">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="mr-(--space-1)">
+      <circle cx="6" cy="6" r="4.5" stroke="currentColor" strokeWidth="1.5" />
+    </svg>
+    Error
+  </Badge>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const AsChild: Story = {
   name: "Pattern: As Child",
   render: () => (
-    <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
+    <Stack direction="row" align="center" gap="sm">
       <Badge asChild variant="subtle" intent="default">
         <abbr title="Work in Progress">WIP</abbr>
       </Badge>
       <Badge asChild variant="outline" intent="success">
-        <a href="#stable" style={{ textDecoration: "none" }}>
+        <a href="#stable" className="no-underline">
           v2.0 Stable
         </a>
       </Badge>
-    </div>
+    </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" align="center" gap="sm">
+  <Badge asChild variant="subtle" intent="default">
+    <abbr title="Work in Progress">WIP</abbr>
+  </Badge>
+  <Badge asChild variant="outline" intent="success">
+    <a href="#stable" className="no-underline">v2.0 Stable</a>
+  </Badge>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };

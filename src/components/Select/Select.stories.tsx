@@ -7,6 +7,8 @@ import { SelectItem } from "@nuka/components/Select/SelectItem";
 import { SelectSeparator } from "@nuka/components/Select/SelectSeparator";
 import { FormField } from "@nuka/components/FormField";
 import { Label } from "@nuka/components/Label";
+import { Stack } from "@nuka/components/Stack";
+import { Text } from "@nuka/components/Text";
 
 const meta: Meta = {
   title: "Forms/Inputs/Select",
@@ -21,8 +23,26 @@ export default meta;
 type Story = StoryObj;
 
 export const Default: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<div className="w-64">
+  <Select>
+    <SelectTrigger placeholder="Choose an option" />
+    <SelectContent>
+      <SelectItem value="a">Option A</SelectItem>
+      <SelectItem value="b">Option B</SelectItem>
+      <SelectItem value="c">Option C</SelectItem>
+    </SelectContent>
+  </Select>
+</div>
+        `.trim(),
+      },
+    },
+  },
   render: () => (
-    <div style={{ width: "16rem" }}>
+    <div className="w-64">
       <Select>
         <SelectTrigger placeholder="Choose an option" />
         <SelectContent>
@@ -36,8 +56,26 @@ export const Default: Story = {
 };
 
 export const WithDefaultValue: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<div className="w-64">
+  <Select defaultValue="b">
+    <SelectTrigger placeholder="Choose an option" />
+    <SelectContent>
+      <SelectItem value="a">Option A</SelectItem>
+      <SelectItem value="b">Option B</SelectItem>
+      <SelectItem value="c">Option C</SelectItem>
+    </SelectContent>
+  </Select>
+</div>
+        `.trim(),
+      },
+    },
+  },
   render: () => (
-    <div style={{ width: "16rem" }}>
+    <div className="w-64">
       <Select defaultValue="b">
         <SelectTrigger placeholder="Choose an option" />
         <SelectContent>
@@ -53,14 +91,7 @@ export const WithDefaultValue: Story = {
 function ControlledSelect() {
   const [value, setValue] = React.useState("a");
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "0.5rem",
-        width: "16rem",
-      }}
-    >
+    <Stack direction="column" gap="sm" className="w-64">
       <Select value={value} onValueChange={setValue}>
         <SelectTrigger placeholder="Choose an option" />
         <SelectContent>
@@ -69,33 +100,84 @@ function ControlledSelect() {
           <SelectItem value="c">Option C</SelectItem>
         </SelectContent>
       </Select>
-      <p
-        style={{
-          fontSize: "0.875rem",
-          color: "var(--nuka-text-muted)",
-          margin: 0,
-        }}
-      >
+      <Text size="sm" color="muted">
         Selected: {value}
-      </p>
-    </div>
+      </Text>
+    </Stack>
   );
 }
 
 export const Controlled: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `
+function Example() {
+  const [value, setValue] = React.useState("a");
+  return (
+    <Stack direction="column" gap="sm" className="w-64">
+      <Select value={value} onValueChange={setValue}>
+        <SelectTrigger placeholder="Choose an option" />
+        <SelectContent>
+          <SelectItem value="a">Option A</SelectItem>
+          <SelectItem value="b">Option B</SelectItem>
+          <SelectItem value="c">Option C</SelectItem>
+        </SelectContent>
+      </Select>
+      <Text size="sm" color="muted">Selected: {value}</Text>
+    </Stack>
+  );
+}
+        `.trim(),
+      },
+    },
+  },
   render: () => <ControlledSelect />,
 };
 
 export const AllSizes: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="column" gap="md" className="w-64">
+  <div>
+    <Label htmlFor="sm-select">Small</Label>
+    <Select>
+      <SelectTrigger id="sm-select" size="sm" placeholder="Small" />
+      <SelectContent>
+        <SelectItem value="a">Option A</SelectItem>
+        <SelectItem value="b">Option B</SelectItem>
+      </SelectContent>
+    </Select>
+  </div>
+  <div>
+    <Label htmlFor="md-select">Medium</Label>
+    <Select>
+      <SelectTrigger id="md-select" size="md" placeholder="Medium" />
+      <SelectContent>
+        <SelectItem value="a">Option A</SelectItem>
+        <SelectItem value="b">Option B</SelectItem>
+      </SelectContent>
+    </Select>
+  </div>
+  <div>
+    <Label htmlFor="lg-select">Large</Label>
+    <Select>
+      <SelectTrigger id="lg-select" size="lg" placeholder="Large" />
+      <SelectContent>
+        <SelectItem value="a">Option A</SelectItem>
+        <SelectItem value="b">Option B</SelectItem>
+      </SelectContent>
+    </Select>
+  </div>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
   render: () => (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "1rem",
-        width: "16rem",
-      }}
-    >
+    <Stack direction="column" gap="md" className="w-64">
       <div>
         <Label htmlFor="sm-select">Small</Label>
         <Select>
@@ -126,20 +208,59 @@ export const AllSizes: Story = {
           </SelectContent>
         </Select>
       </div>
-    </div>
+    </Stack>
   ),
 };
 
 export const AllIntents: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="column" gap="md" className="w-64">
+  <div>
+    <Label htmlFor="default-select">Default</Label>
+    <Select>
+      <SelectTrigger id="default-select" intent="default" placeholder="Default" />
+      <SelectContent>
+        <SelectItem value="a">Option A</SelectItem>
+      </SelectContent>
+    </Select>
+  </div>
+  <div>
+    <Label htmlFor="danger-select">Danger</Label>
+    <Select>
+      <SelectTrigger id="danger-select" intent="danger" placeholder="Danger" />
+      <SelectContent>
+        <SelectItem value="a">Option A</SelectItem>
+      </SelectContent>
+    </Select>
+  </div>
+  <div>
+    <Label htmlFor="success-select">Success</Label>
+    <Select>
+      <SelectTrigger id="success-select" intent="success" placeholder="Success" />
+      <SelectContent>
+        <SelectItem value="a">Option A</SelectItem>
+      </SelectContent>
+    </Select>
+  </div>
+  <div>
+    <Label htmlFor="warning-select">Warning</Label>
+    <Select>
+      <SelectTrigger id="warning-select" intent="warning" placeholder="Warning" />
+      <SelectContent>
+        <SelectItem value="a">Option A</SelectItem>
+      </SelectContent>
+    </Select>
+  </div>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
   render: () => (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "1rem",
-        width: "16rem",
-      }}
-    >
+    <Stack direction="column" gap="md" className="w-64">
       <div>
         <Label htmlFor="default-select">Default</Label>
         <Select>
@@ -192,13 +313,29 @@ export const AllIntents: Story = {
           </SelectContent>
         </Select>
       </div>
-    </div>
+    </Stack>
   ),
 };
 
 export const Disabled: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<div className="w-64">
+  <Select disabled>
+    <SelectTrigger placeholder="Disabled select" />
+    <SelectContent>
+      <SelectItem value="a">Option A</SelectItem>
+    </SelectContent>
+  </Select>
+</div>
+        `.trim(),
+      },
+    },
+  },
   render: () => (
-    <div style={{ width: "16rem" }}>
+    <div className="w-64">
       <Select disabled>
         <SelectTrigger placeholder="Disabled select" />
         <SelectContent>
@@ -210,8 +347,28 @@ export const Disabled: Story = {
 };
 
 export const DisabledOption: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<div className="w-64">
+  <Select>
+    <SelectTrigger placeholder="Choose an option" />
+    <SelectContent>
+      <SelectItem value="a">Option A</SelectItem>
+      <SelectItem value="b" disabled>
+        Option B (disabled)
+      </SelectItem>
+      <SelectItem value="c">Option C</SelectItem>
+    </SelectContent>
+  </Select>
+</div>
+        `.trim(),
+      },
+    },
+  },
   render: () => (
-    <div style={{ width: "16rem" }}>
+    <div className="w-64">
       <Select>
         <SelectTrigger placeholder="Choose an option" />
         <SelectContent>
@@ -227,8 +384,28 @@ export const DisabledOption: Story = {
 };
 
 export const WithSeparator: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<div className="w-64">
+  <Select>
+    <SelectTrigger placeholder="Choose a fruit" />
+    <SelectContent>
+      <SelectItem value="apple">Apple</SelectItem>
+      <SelectItem value="banana">Banana</SelectItem>
+      <SelectSeparator />
+      <SelectItem value="carrot">Carrot</SelectItem>
+      <SelectItem value="daikon">Daikon</SelectItem>
+    </SelectContent>
+  </Select>
+</div>
+        `.trim(),
+      },
+    },
+  },
   render: () => (
-    <div style={{ width: "16rem" }}>
+    <div className="w-64">
       <Select>
         <SelectTrigger placeholder="Choose a fruit" />
         <SelectContent>
@@ -244,8 +421,35 @@ export const WithSeparator: Story = {
 };
 
 export const LongOptionList: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<div className="w-64">
+  <Select>
+    <SelectTrigger placeholder="Choose a country" />
+    <SelectContent>
+      <SelectItem value="ar">Argentina</SelectItem>
+      <SelectItem value="au">Australia</SelectItem>
+      <SelectItem value="br">Brazil</SelectItem>
+      <SelectItem value="ca">Canada</SelectItem>
+      <SelectItem value="de">Germany</SelectItem>
+      <SelectItem value="fr">France</SelectItem>
+      <SelectItem value="gb">United Kingdom</SelectItem>
+      <SelectItem value="in">India</SelectItem>
+      <SelectItem value="jp">Japan</SelectItem>
+      <SelectItem value="kr">South Korea</SelectItem>
+      <SelectItem value="mx">Mexico</SelectItem>
+      <SelectItem value="us">United States</SelectItem>
+    </SelectContent>
+  </Select>
+</div>
+        `.trim(),
+      },
+    },
+  },
   render: () => (
-    <div style={{ width: "16rem" }}>
+    <div className="w-64">
       <Select>
         <SelectTrigger placeholder="Choose a country" />
         <SelectContent>
@@ -269,8 +473,34 @@ export const LongOptionList: Story = {
 
 export const InFormField: Story = {
   name: "Pattern: In FormField",
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<div className="w-80">
+  <FormField
+    id="country"
+    error="Please select a country"
+    hint="Where do you live?"
+    required
+  >
+    <Label>Country</Label>
+    <Select>
+      <SelectTrigger placeholder="Select a country" intent="danger" />
+      <SelectContent>
+        <SelectItem value="us">United States</SelectItem>
+        <SelectItem value="gb">United Kingdom</SelectItem>
+        <SelectItem value="de">Germany</SelectItem>
+      </SelectContent>
+    </Select>
+  </FormField>
+</div>
+        `.trim(),
+      },
+    },
+  },
   render: () => (
-    <div style={{ width: "20rem" }}>
+    <div className="w-80">
       <FormField
         id="country"
         error="Please select a country"
@@ -295,8 +525,8 @@ function FilterFormExample() {
   const [country, setCountry] = React.useState("");
   const [language, setLanguage] = React.useState("");
   return (
-    <div style={{ display: "flex", gap: "1rem", width: "32rem" }}>
-      <div style={{ flex: 1 }}>
+    <Stack gap="md" className="w-[32rem]">
+      <div className="flex-1">
         <Label htmlFor="filter-country">Country</Label>
         <Select
           value={country !== "" ? country : undefined}
@@ -310,7 +540,7 @@ function FilterFormExample() {
           </SelectContent>
         </Select>
       </div>
-      <div style={{ flex: 1 }}>
+      <div className="flex-1">
         <Label htmlFor="filter-language">Language</Label>
         <Select
           value={language !== "" ? language : undefined}
@@ -324,11 +554,55 @@ function FilterFormExample() {
           </SelectContent>
         </Select>
       </div>
-    </div>
+    </Stack>
   );
 }
 
 export const FilterForm: Story = {
   name: "Pattern: Filter Form",
+  parameters: {
+    docs: {
+      source: {
+        code: `
+function Example() {
+  const [country, setCountry] = React.useState("");
+  const [language, setLanguage] = React.useState("");
+  return (
+    <Stack gap="md" className="w-[32rem]">
+      <div className="flex-1">
+        <Label htmlFor="filter-country">Country</Label>
+        <Select
+          value={country !== "" ? country : undefined}
+          onValueChange={setCountry}
+        >
+          <SelectTrigger id="filter-country" placeholder="All countries" />
+          <SelectContent>
+            <SelectItem value="us">United States</SelectItem>
+            <SelectItem value="gb">United Kingdom</SelectItem>
+            <SelectItem value="de">Germany</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="flex-1">
+        <Label htmlFor="filter-language">Language</Label>
+        <Select
+          value={language !== "" ? language : undefined}
+          onValueChange={setLanguage}
+        >
+          <SelectTrigger id="filter-language" placeholder="All languages" />
+          <SelectContent>
+            <SelectItem value="en">English</SelectItem>
+            <SelectItem value="de">German</SelectItem>
+            <SelectItem value="fr">French</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+    </Stack>
+  );
+}
+        `.trim(),
+      },
+    },
+  },
   render: () => <FilterFormExample />,
 };

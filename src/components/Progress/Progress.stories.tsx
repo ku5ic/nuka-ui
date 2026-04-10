@@ -101,6 +101,19 @@ export const Sizes: Story = {
       </div>
     </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack gap="md">
+  <Progress size="sm" value={60} />
+  <Progress size="md" value={60} />
+  <Progress size="lg" value={60} />
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const FileUpload: Story = {

@@ -47,12 +47,25 @@ export const Vertical: Story = {
     orientation: "vertical",
   },
   render: (args) => (
-    <Stack direction="row" align="center" gap="md" style={{ height: "2rem" }}>
+    <Stack direction="row" align="center" gap="md" className="h-8">
       <Text size="sm">Left</Text>
       <Divider {...args} />
       <Text size="sm">Right</Text>
     </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" align="center" gap="md" className="h-8">
+  <Text size="sm">Left</Text>
+  <Divider orientation="vertical" />
+  <Text size="sm">Right</Text>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const WithLabel: Story = {
@@ -127,6 +140,25 @@ export const AllOrientations: Story = {
       </Stack>
     </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" gap="lg" className="items-stretch">
+  <Stack gap="sm" className="w-64">
+    <Text size="sm" color="muted">Horizontal</Text>
+    <Divider />
+  </Stack>
+  <Stack direction="row" align="center" gap="md">
+    <Text size="sm" color="muted">Vertical</Text>
+    <Divider orientation="vertical" />
+    <Text size="sm" color="muted">between</Text>
+  </Stack>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const AllSizes: Story = {
@@ -152,6 +184,28 @@ export const AllSizes: Story = {
       </Stack>
     </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack gap="lg" className="w-96">
+  <Stack gap="xs">
+    <Text size="xs" color="muted">sm (1px)</Text>
+    <Divider size="sm" />
+  </Stack>
+  <Stack gap="xs">
+    <Text size="xs" color="muted">md (1px, default)</Text>
+    <Divider size="md" />
+  </Stack>
+  <Stack gap="xs">
+    <Text size="xs" color="muted">lg (2px)</Text>
+    <Divider size="lg" />
+  </Stack>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const PatternSectionSeparator: Story = {
@@ -210,6 +264,22 @@ export const PatternLabeledDivider: Story = {
       </Stack>
     </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack className="max-w-xs">
+  <Button variant="outline" className="w-full">Continue with Google</Button>
+  <Divider label="or" className="my-(--space-4)" />
+  <Stack gap="sm">
+    <Input type="email" placeholder="Email" />
+    <Input type="password" placeholder="Password" />
+  </Stack>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const PatternVerticalInNav: Story = {
@@ -225,7 +295,7 @@ export const PatternVerticalInNav: Story = {
             <Text as="span" size="sm">
               Projects
             </Text>
-            <Divider orientation="vertical" style={{ height: "1.25rem" }} />
+            <Divider orientation="vertical" className="h-5" />
             <Text as="span" size="sm" color="muted">
               Settings
             </Text>
@@ -237,4 +307,25 @@ export const PatternVerticalInNav: Story = {
       </nav>
     </Card>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Card asChild>
+  <nav>
+    <CardBody>
+      <Stack direction="row" align="center" gap="sm">
+        <Text as="span" size="sm" weight="medium">Home</Text>
+        <Text as="span" size="sm">Projects</Text>
+        <Divider orientation="vertical" className="h-5" />
+        <Text as="span" size="sm" color="muted">Settings</Text>
+        <Text as="span" size="sm" color="muted">Help</Text>
+      </Stack>
+    </CardBody>
+  </nav>
+</Card>
+        `.trim(),
+      },
+    },
+  },
 };

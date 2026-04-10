@@ -101,6 +101,46 @@ const InboxIcon = () => (
   </svg>
 );
 
+const ShieldIcon = () => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+  </svg>
+);
+
+const ClipboardIcon = () => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2" />
+    <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+  </svg>
+);
+
+const ActivityIcon = () => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+  </svg>
+);
+
 function SidebarLayout({
   defaultExpanded = true,
 }: {
@@ -110,15 +150,7 @@ function SidebarLayout({
     <SidebarProvider defaultExpanded={defaultExpanded}>
       <Sidebar>
         <SidebarHeader>
-          <span
-            style={{
-              fontWeight: 600,
-              fontSize: 16,
-              display: "flex",
-              alignItems: "center",
-              gap: 8,
-            }}
-          >
+          <span className="font-semibold text-base flex items-center gap-2">
             <Icon size="md">
               <svg viewBox="0 0 24 24" fill="currentColor">
                 <circle cx="12" cy="12" r="10" />
@@ -193,19 +225,11 @@ function SidebarLayout({
         </SidebarFooter>
       </Sidebar>
       <SidebarInset>
-        <header
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 12,
-            padding: 16,
-            borderBottom: "1px solid var(--nuka-border-base)",
-          }}
-        >
+        <header className="flex items-center gap-3 p-(--space-4) border-b border-(--nuka-border-base)">
           <SidebarTrigger />
-          <h1 style={{ fontSize: 18, fontWeight: 600 }}>Dashboard</h1>
+          <h1 className="text-lg font-semibold">Dashboard</h1>
         </header>
-        <main style={{ padding: 24 }}>
+        <main className="p-(--space-6)">
           <p>Main content area. Resize the browser to see mobile behavior.</p>
         </main>
       </SidebarInset>
@@ -216,11 +240,177 @@ function SidebarLayout({
 export const Expanded: Story = {
   name: "Desktop Expanded",
   render: () => <SidebarLayout />,
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<SidebarProvider defaultExpanded>
+  <Sidebar>
+    <SidebarHeader>
+      <span className="font-semibold text-base flex items-center gap-2">
+        <Icon size="md">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <circle cx="12" cy="12" r="10" />
+          </svg>
+        </Icon>
+        <span>Acme</span>
+      </span>
+    </SidebarHeader>
+    <SidebarContent>
+      <SidebarGroup>
+        <SidebarGroupLabel>Main</SidebarGroupLabel>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton tooltip="Dashboard">
+              <Icon size="sm"><HomeIcon /></Icon>
+              <span>Dashboard</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton tooltip="Analytics">
+              <Icon size="sm"><BarChartIcon /></Icon>
+              <span>Analytics</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton tooltip="Inbox">
+              <Icon size="sm"><InboxIcon /></Icon>
+              <span>Inbox</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarGroup>
+      <SidebarGroup>
+        <SidebarGroupLabel>Manage</SidebarGroupLabel>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton tooltip="Team">
+              <Icon size="sm"><UsersIcon /></Icon>
+              <span>Team</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton tooltip="Settings">
+              <Icon size="sm"><SettingsIcon /></Icon>
+              <span>Settings</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarGroup>
+    </SidebarContent>
+    <SidebarFooter>
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <SidebarMenuButton tooltip="Profile">
+            <Icon size="sm"><UsersIcon /></Icon>
+            <span>John Doe</span>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    </SidebarFooter>
+  </Sidebar>
+  <SidebarInset>
+    <header className="flex items-center gap-3 p-(--space-4) border-b border-(--nuka-border-base)">
+      <SidebarTrigger />
+      <h1 className="text-lg font-semibold">Dashboard</h1>
+    </header>
+    <main className="p-(--space-6)">
+      <p>Main content area. Resize the browser to see mobile behavior.</p>
+    </main>
+  </SidebarInset>
+</SidebarProvider>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const Collapsed: Story = {
   name: "Desktop Collapsed",
   render: () => <SidebarLayout defaultExpanded={false} />,
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<SidebarProvider defaultExpanded={false}>
+  <Sidebar>
+    <SidebarHeader>
+      <span className="font-semibold text-base flex items-center gap-2">
+        <Icon size="md">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <circle cx="12" cy="12" r="10" />
+          </svg>
+        </Icon>
+        <span>Acme</span>
+      </span>
+    </SidebarHeader>
+    <SidebarContent>
+      <SidebarGroup>
+        <SidebarGroupLabel>Main</SidebarGroupLabel>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton tooltip="Dashboard">
+              <Icon size="sm"><HomeIcon /></Icon>
+              <span>Dashboard</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton tooltip="Analytics">
+              <Icon size="sm"><BarChartIcon /></Icon>
+              <span>Analytics</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton tooltip="Inbox">
+              <Icon size="sm"><InboxIcon /></Icon>
+              <span>Inbox</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarGroup>
+      <SidebarGroup>
+        <SidebarGroupLabel>Manage</SidebarGroupLabel>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton tooltip="Team">
+              <Icon size="sm"><UsersIcon /></Icon>
+              <span>Team</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton tooltip="Settings">
+              <Icon size="sm"><SettingsIcon /></Icon>
+              <span>Settings</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarGroup>
+    </SidebarContent>
+    <SidebarFooter>
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <SidebarMenuButton tooltip="Profile">
+            <Icon size="sm"><UsersIcon /></Icon>
+            <span>John Doe</span>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    </SidebarFooter>
+  </Sidebar>
+  <SidebarInset>
+    <header className="flex items-center gap-3 p-(--space-4) border-b border-(--nuka-border-base)">
+      <SidebarTrigger />
+      <h1 className="text-lg font-semibold">Dashboard</h1>
+    </header>
+    <main className="p-(--space-6)">
+      <p>Main content area. Resize the browser to see mobile behavior.</p>
+    </main>
+  </SidebarInset>
+</SidebarProvider>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const WithLinks: Story = {
@@ -229,7 +419,7 @@ export const WithLinks: Story = {
     <SidebarProvider defaultExpanded>
       <Sidebar>
         <SidebarHeader>
-          <span style={{ fontWeight: 600 }}>App</span>
+          <span className="font-semibold">App</span>
         </SidebarHeader>
         <SidebarContent>
           <SidebarMenu>
@@ -257,29 +447,228 @@ export const WithLinks: Story = {
         </SidebarContent>
       </Sidebar>
       <SidebarInset>
-        <header
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 12,
-            padding: 16,
-            borderBottom: "1px solid var(--nuka-border-base)",
-          }}
-        >
+        <header className="flex items-center gap-3 p-(--space-4) border-b border-(--nuka-border-base)">
           <SidebarTrigger />
-          <h1 style={{ fontSize: 18, fontWeight: 600 }}>Home</h1>
+          <h1 className="text-lg font-semibold">Home</h1>
         </header>
-        <main style={{ padding: 24 }}>
+        <main className="p-(--space-6)">
           <p>Menu buttons rendered as links via asChild.</p>
         </main>
       </SidebarInset>
     </SidebarProvider>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<SidebarProvider defaultExpanded>
+  <Sidebar>
+    <SidebarHeader>
+      <span className="font-semibold">App</span>
+    </SidebarHeader>
+    <SidebarContent>
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <SidebarMenuButton asChild tooltip="Home">
+            <a href="#home">
+              <Icon size="sm"><HomeIcon /></Icon>
+              <span>Home</span>
+            </a>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+        <SidebarMenuItem>
+          <SidebarMenuButton asChild tooltip="Settings">
+            <a href="#settings">
+              <Icon size="sm"><SettingsIcon /></Icon>
+              <span>Settings</span>
+            </a>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    </SidebarContent>
+  </Sidebar>
+  <SidebarInset>
+    <header className="flex items-center gap-3 p-(--space-4) border-b border-(--nuka-border-base)">
+      <SidebarTrigger />
+      <h1 className="text-lg font-semibold">Home</h1>
+    </header>
+    <main className="p-(--space-6)">
+      <p>Menu buttons rendered as links via asChild.</p>
+    </main>
+  </SidebarInset>
+</SidebarProvider>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const AdminDashboard: Story = {
   name: "Pattern: Admin Dashboard",
-  render: function AdminDashboardStory() {
-    return <SidebarLayout />;
+  render: () => (
+    <SidebarProvider defaultExpanded>
+      <Sidebar>
+        <SidebarHeader>
+          <span className="font-semibold text-base flex items-center gap-2">
+            <Icon size="md">
+              <ShieldIcon />
+            </Icon>
+            <span>Admin Portal</span>
+          </span>
+        </SidebarHeader>
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarGroupLabel>Administration</SidebarGroupLabel>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton tooltip="Users">
+                  <Icon size="sm">
+                    <UsersIcon />
+                  </Icon>
+                  <span>Users</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton tooltip="Roles">
+                  <Icon size="sm">
+                    <ClipboardIcon />
+                  </Icon>
+                  <span>Roles</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton tooltip="Audit Log">
+                  <Icon size="sm">
+                    <ClipboardIcon />
+                  </Icon>
+                  <span>Audit Log</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroup>
+          <SidebarGroup>
+            <SidebarGroupLabel>System</SidebarGroupLabel>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton tooltip="Monitoring">
+                  <Icon size="sm">
+                    <ActivityIcon />
+                  </Icon>
+                  <span>Monitoring</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton tooltip="Configuration">
+                  <Icon size="sm">
+                    <SettingsIcon />
+                  </Icon>
+                  <span>Configuration</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroup>
+        </SidebarContent>
+        <SidebarFooter>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton tooltip="Profile">
+                <Icon size="sm">
+                  <UsersIcon />
+                </Icon>
+                <span>Admin User</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarFooter>
+      </Sidebar>
+      <SidebarInset>
+        <header className="flex items-center gap-3 p-(--space-4) border-b border-(--nuka-border-base)">
+          <SidebarTrigger />
+          <h1 className="text-lg font-semibold">Administration</h1>
+        </header>
+        <main className="p-(--space-6)">
+          <p>System overview and administration panel.</p>
+        </main>
+      </SidebarInset>
+    </SidebarProvider>
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<SidebarProvider defaultExpanded>
+  <Sidebar>
+    <SidebarHeader>
+      <span className="font-semibold text-base flex items-center gap-2">
+        <Icon size="md"><ShieldIcon /></Icon>
+        <span>Admin Portal</span>
+      </span>
+    </SidebarHeader>
+    <SidebarContent>
+      <SidebarGroup>
+        <SidebarGroupLabel>Administration</SidebarGroupLabel>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton tooltip="Users">
+              <Icon size="sm"><UsersIcon /></Icon>
+              <span>Users</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton tooltip="Roles">
+              <Icon size="sm"><ClipboardIcon /></Icon>
+              <span>Roles</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton tooltip="Audit Log">
+              <Icon size="sm"><ClipboardIcon /></Icon>
+              <span>Audit Log</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarGroup>
+      <SidebarGroup>
+        <SidebarGroupLabel>System</SidebarGroupLabel>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton tooltip="Monitoring">
+              <Icon size="sm"><ActivityIcon /></Icon>
+              <span>Monitoring</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton tooltip="Configuration">
+              <Icon size="sm"><SettingsIcon /></Icon>
+              <span>Configuration</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarGroup>
+    </SidebarContent>
+    <SidebarFooter>
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <SidebarMenuButton tooltip="Profile">
+            <Icon size="sm"><UsersIcon /></Icon>
+            <span>Admin User</span>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    </SidebarFooter>
+  </Sidebar>
+  <SidebarInset>
+    <header className="flex items-center gap-3 p-(--space-4) border-b border-(--nuka-border-base)">
+      <SidebarTrigger />
+      <h1 className="text-lg font-semibold">Administration</h1>
+    </header>
+    <main className="p-(--space-6)">
+      <p>System overview and administration panel.</p>
+    </main>
+  </SidebarInset>
+</SidebarProvider>
+        `.trim(),
+      },
+    },
   },
 };

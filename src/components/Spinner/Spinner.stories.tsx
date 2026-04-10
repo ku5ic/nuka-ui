@@ -104,6 +104,17 @@ export const AllSizes: Story = {
       </Stack>
     </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Spinner size="sm" />
+<Spinner size="md" />
+<Spinner size="lg" />
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const WithLabel: Story = {
@@ -152,13 +163,13 @@ export const PatternButtonLoading: Story = {
 export const PatternPageLoading: Story = {
   name: "Pattern: Page Loading",
   render: () => (
-    <Card style={{ width: "24rem" }}>
+    <Card className="w-(--size-sm)">
       <CardBody>
         <Stack
           align="center"
           justify="center"
           gap="md"
-          style={{ height: "14rem" }}
+          className="h-(--size-56)"
         >
           <Spinner size="lg" label="Loading page" />
           <Text size="sm" color="muted">
@@ -168,4 +179,20 @@ export const PatternPageLoading: Story = {
       </CardBody>
     </Card>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Card>
+  <CardBody>
+    <Stack align="center" justify="center" gap="md">
+      <Spinner size="lg" label="Loading page" />
+      <Text size="sm" color="muted">Loading...</Text>
+    </Stack>
+  </CardBody>
+</Card>
+        `.trim(),
+      },
+    },
+  },
 };

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { RadioGroup } from "@nuka/components/RadioGroup/RadioGroup";
 import { Radio } from "@nuka/components/RadioGroup/Radio";
+import { Stack } from "@nuka/components/Stack";
 import { FormField } from "@nuka/components/FormField";
 import { Label } from "@nuka/components/Label";
 
@@ -38,6 +39,19 @@ export const Default: Story = {
       <Radio value="cherry">Cherry</Radio>
     </RadioGroup>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<RadioGroup name="fruit" aria-label="Fruit">
+  <Radio value="apple">Apple</Radio>
+  <Radio value="banana">Banana</Radio>
+  <Radio value="cherry">Cherry</Radio>
+</RadioGroup>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const WithDefault: Story = {
@@ -49,6 +63,19 @@ export const WithDefault: Story = {
       <Radio value="cherry">Cherry</Radio>
     </RadioGroup>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<RadioGroup name="fruit" defaultValue="banana" aria-label="Fruit">
+  <Radio value="apple">Apple</Radio>
+  <Radio value="banana">Banana</Radio>
+  <Radio value="cherry">Cherry</Radio>
+</RadioGroup>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const Horizontal: Story = {
@@ -60,12 +87,25 @@ export const Horizontal: Story = {
       <Radio value="cherry">Cherry</Radio>
     </RadioGroup>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<RadioGroup name="fruit" orientation="horizontal" aria-label="Fruit">
+  <Radio value="apple">Apple</Radio>
+  <Radio value="banana">Banana</Radio>
+  <Radio value="cherry">Cherry</Radio>
+</RadioGroup>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const AllSizes: Story = {
   args: { name: "size", children: null },
   render: () => (
-    <div style={{ display: "flex", gap: "2rem", alignItems: "flex-start" }}>
+    <Stack direction="row" gap="xl" align="start">
       <RadioGroup name="sm" defaultValue="a" aria-label="Small">
         <Radio value="a" size="sm">
           Small A
@@ -90,8 +130,30 @@ export const AllSizes: Story = {
           Large B
         </Radio>
       </RadioGroup>
-    </div>
+    </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" gap="xl" align="start">
+  <RadioGroup name="sm" defaultValue="a" aria-label="Small">
+    <Radio value="a" size="sm">Small A</Radio>
+    <Radio value="b" size="sm">Small B</Radio>
+  </RadioGroup>
+  <RadioGroup name="md" defaultValue="a" aria-label="Medium">
+    <Radio value="a" size="md">Medium A</Radio>
+    <Radio value="b" size="md">Medium B</Radio>
+  </RadioGroup>
+  <RadioGroup name="lg" defaultValue="a" aria-label="Large">
+    <Radio value="a" size="lg">Large A</Radio>
+    <Radio value="b" size="lg">Large B</Radio>
+  </RadioGroup>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const Disabled: Story = {
@@ -103,6 +165,19 @@ export const Disabled: Story = {
       <Radio value="cherry">Cherry</Radio>
     </RadioGroup>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<RadioGroup name="fruit" defaultValue="banana" disabled aria-label="Fruit">
+  <Radio value="apple">Apple</Radio>
+  <Radio value="banana">Banana</Radio>
+  <Radio value="cherry">Cherry</Radio>
+</RadioGroup>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const DisabledOption: Story = {
@@ -117,6 +192,19 @@ export const DisabledOption: Story = {
       <Radio value="cherry">Cherry</Radio>
     </RadioGroup>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<RadioGroup name="fruit" aria-label="Fruit">
+  <Radio value="apple">Apple</Radio>
+  <Radio value="banana" disabled>Banana (sold out)</Radio>
+  <Radio value="cherry">Cherry</Radio>
+</RadioGroup>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const InFormField: Story = {
@@ -132,13 +220,29 @@ export const InFormField: Story = {
       </RadioGroup>
     </FormField>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<FormField id="plan" error="Please select a plan" required>
+  <Label>Select a plan</Label>
+  <RadioGroup name="plan" aria-label="Plan">
+    <Radio value="free">Free</Radio>
+    <Radio value="pro">Pro</Radio>
+    <Radio value="enterprise">Enterprise</Radio>
+  </RadioGroup>
+</FormField>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const PaymentMethod: Story = {
   name: "Pattern: Payment Method",
   args: { name: "payment", children: null },
   render: () => (
-    <div style={{ maxWidth: "20rem" }}>
+    <div className="max-w-xs">
       <FormField id="payment">
         <Label>Payment method</Label>
         <RadioGroup
@@ -154,4 +258,23 @@ export const PaymentMethod: Story = {
       </FormField>
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<div className="max-w-xs">
+  <FormField id="payment">
+    <Label>Payment method</Label>
+    <RadioGroup name="payment" defaultValue="card" aria-label="Payment method">
+      <Radio value="card">Credit or debit card</Radio>
+      <Radio value="paypal">PayPal</Radio>
+      <Radio value="bank">Bank transfer</Radio>
+      <Radio value="crypto">Cryptocurrency</Radio>
+    </RadioGroup>
+  </FormField>
+</div>
+        `.trim(),
+      },
+    },
+  },
 };

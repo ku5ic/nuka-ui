@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Kbd } from "@nuka/components/Kbd";
+import { Stack } from "@nuka/components/Stack";
 import { Text } from "@nuka/components/Text";
 
 const meta = {
@@ -53,63 +54,71 @@ export const SizeLg: Story = {
 
 export const AllSizes: Story = {
   render: () => (
-    <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "0.5rem",
-        }}
-      >
+    <Stack direction="row" align="center" gap="xl">
+      <Stack direction="column" align="center" gap="xs">
         <Kbd size="sm">Esc</Kbd>
-        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>
+        <Text size="xs" color="muted">
           sm
-        </span>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "0.5rem",
-        }}
-      >
+        </Text>
+      </Stack>
+      <Stack direction="column" align="center" gap="xs">
         <Kbd size="md">Tab</Kbd>
-        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>
+        <Text size="xs" color="muted">
           md
-        </span>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "0.5rem",
-        }}
-      >
+        </Text>
+      </Stack>
+      <Stack direction="column" align="center" gap="xs">
         <Kbd size="lg">Enter</Kbd>
-        <span style={{ fontSize: "0.75rem", color: "var(--nuka-text-muted)" }}>
+        <Text size="xs" color="muted">
           lg
-        </span>
-      </div>
-    </div>
+        </Text>
+      </Stack>
+    </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" align="center" gap="xl">
+  <Stack direction="column" align="center" gap="xs">
+    <Kbd size="sm">Esc</Kbd>
+    <Text size="xs" color="muted">sm</Text>
+  </Stack>
+  <Stack direction="column" align="center" gap="xs">
+    <Kbd size="md">Tab</Kbd>
+    <Text size="xs" color="muted">md</Text>
+  </Stack>
+  <Stack direction="column" align="center" gap="xs">
+    <Kbd size="lg">Enter</Kbd>
+    <Text size="xs" color="muted">lg</Text>
+  </Stack>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const PatternKeyboardShortcut: Story = {
   name: "Pattern: Keyboard Shortcut",
   render: () => (
-    <kbd
-      style={{ display: "inline-flex", alignItems: "center", gap: "0.25rem" }}
-    >
+    <kbd className="inline-flex items-center gap-(--space-1)">
       <Kbd>Ctrl</Kbd>
-      <span style={{ color: "var(--nuka-text-muted)" }}>+</span>
+      <span className="text-(--nuka-text-muted)">+</span>
       <Kbd>K</Kbd>
     </kbd>
   ),
   parameters: {
     docs: {
+      source: {
+        code: `
+<kbd className="inline-flex items-center gap-(--space-1)">
+  <Kbd>Ctrl</Kbd>
+  <span className="text-(--nuka-text-muted)">+</span>
+  <Kbd>K</Kbd>
+</kbd>
+        `.trim(),
+      },
       description: {
         story:
           "Compound shortcuts use a wrapping `<kbd>` element containing individual `<Kbd>` components, following the HTML spec for keyboard input semantics.",

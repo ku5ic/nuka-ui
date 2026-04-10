@@ -110,6 +110,20 @@ export const AllSizes: Story = {
       ))}
     </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" align="end" gap="lg">
+  <Icon size="sm"><YourIcon /></Icon>
+  <Icon size="md"><YourIcon /></Icon>
+  <Icon size="lg"><YourIcon /></Icon>
+  <Icon size="xl"><YourIcon /></Icon>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const ColorBase: Story = {
@@ -201,6 +215,22 @@ export const PatternInlineWithText: Story = {
       </Text>
     </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" align="center" gap="sm">
+  <Icon size="md" color="muted">
+    <CheckIcon />
+  </Icon>
+  <Text size="sm" color="muted">
+    Changes saved successfully
+  </Text>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const PatternIconButton: Story = {
@@ -221,4 +251,25 @@ export const PatternIconButton: Story = {
       </Button>
     </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" align="center" gap="md">
+  <Button variant="ghost" intent="default" size="sm" aria-label="Close">
+    <Icon size="md">
+      <CloseIcon />
+    </Icon>
+  </Button>
+  <Button variant="primary" intent="default" size="md">
+    <Icon size="md" color="inverse">
+      <CheckIcon />
+    </Icon>
+    Confirm
+  </Button>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };

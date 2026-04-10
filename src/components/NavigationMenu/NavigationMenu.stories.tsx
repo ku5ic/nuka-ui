@@ -7,6 +7,7 @@ import {
   NavigationMenuContent,
   NavigationMenuLink,
 } from "@nuka/components/NavigationMenu";
+import { Stack } from "@nuka/components/Stack";
 import { Text } from "@nuka/components/Text";
 
 const meta = {
@@ -33,14 +34,7 @@ export const Default: Story = {
         <NavigationMenuItem value="products">
           <NavigationMenuTrigger>Products</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "0.5rem",
-                minWidth: 200,
-              }}
-            >
+            <Stack gap="xs" className="min-w-[200px]">
               <NavigationMenuLink href="/products/analytics">
                 Analytics
               </NavigationMenuLink>
@@ -50,26 +44,19 @@ export const Default: Story = {
               <NavigationMenuLink href="/products/integrations">
                 Integrations
               </NavigationMenuLink>
-            </div>
+            </Stack>
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem value="resources">
           <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "0.5rem",
-                minWidth: 200,
-              }}
-            >
+            <Stack gap="xs" className="min-w-[200px]">
               <NavigationMenuLink href="/docs">
                 Documentation
               </NavigationMenuLink>
               <NavigationMenuLink href="/blog">Blog</NavigationMenuLink>
               <NavigationMenuLink href="/support">Support</NavigationMenuLink>
-            </div>
+            </Stack>
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem value="about">
@@ -81,6 +68,44 @@ export const Default: Story = {
       </NavigationMenuList>
     </NavigationMenu>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<NavigationMenu>
+  <NavigationMenuList>
+    <NavigationMenuItem value="products">
+      <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+      <NavigationMenuContent>
+        <Stack gap="xs" className="min-w-[200px]">
+          <NavigationMenuLink href="/products/analytics">Analytics</NavigationMenuLink>
+          <NavigationMenuLink href="/products/security">Security</NavigationMenuLink>
+          <NavigationMenuLink href="/products/integrations">Integrations</NavigationMenuLink>
+        </Stack>
+      </NavigationMenuContent>
+    </NavigationMenuItem>
+    <NavigationMenuItem value="resources">
+      <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
+      <NavigationMenuContent>
+        <Stack gap="xs" className="min-w-[200px]">
+          <NavigationMenuLink href="/docs">Documentation</NavigationMenuLink>
+          <NavigationMenuLink href="/blog">Blog</NavigationMenuLink>
+          <NavigationMenuLink href="/support">Support</NavigationMenuLink>
+        </Stack>
+      </NavigationMenuContent>
+    </NavigationMenuItem>
+    <NavigationMenuItem value="about">
+      <NavigationMenuLink href="/about">About</NavigationMenuLink>
+    </NavigationMenuItem>
+    <NavigationMenuItem value="contact">
+      <NavigationMenuLink href="/contact">Contact</NavigationMenuLink>
+    </NavigationMenuItem>
+  </NavigationMenuList>
+</NavigationMenu>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const WithActiveLink: Story = {
@@ -102,21 +127,36 @@ export const WithActiveLink: Story = {
       </NavigationMenuList>
     </NavigationMenu>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<NavigationMenu>
+  <NavigationMenuList>
+    <NavigationMenuItem value="home">
+      <NavigationMenuLink href="/">Home</NavigationMenuLink>
+    </NavigationMenuItem>
+    <NavigationMenuItem value="products">
+      <NavigationMenuLink href="/products" active>
+        Products
+      </NavigationMenuLink>
+    </NavigationMenuItem>
+    <NavigationMenuItem value="about">
+      <NavigationMenuLink href="/about">About</NavigationMenuLink>
+    </NavigationMenuItem>
+  </NavigationMenuList>
+</NavigationMenu>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const SiteHeader: Story = {
   name: "Pattern: Site Header",
   render: () => (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "0.75rem 1.5rem",
-        borderBottom: "1px solid var(--nuka-border-base)",
-      }}
-    >
-      <div style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
+    <div className="flex items-center justify-between px-6 py-3 border-b border-(--nuka-border-base)">
+      <div className="flex items-center gap-8">
         <Text weight="bold" size="lg">
           Acme Inc
         </Text>
@@ -125,14 +165,7 @@ export const SiteHeader: Story = {
             <NavigationMenuItem value="features">
               <NavigationMenuTrigger>Features</NavigationMenuTrigger>
               <NavigationMenuContent>
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1fr",
-                    gap: "0.5rem",
-                    minWidth: 320,
-                  }}
-                >
+                <div className="grid grid-cols-2 gap-2 min-w-[320px]">
                   <NavigationMenuLink href="/features/analytics">
                     Analytics
                   </NavigationMenuLink>
@@ -159,4 +192,38 @@ export const SiteHeader: Story = {
       </div>
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<div className="flex items-center justify-between px-6 py-3 border-b border-(--nuka-border-base)">
+  <div className="flex items-center gap-8">
+    <Text weight="bold" size="lg">Acme Inc</Text>
+    <NavigationMenu>
+      <NavigationMenuList>
+        <NavigationMenuItem value="features">
+          <NavigationMenuTrigger>Features</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <div className="grid grid-cols-2 gap-2 min-w-[320px]">
+              <NavigationMenuLink href="/features/analytics">Analytics</NavigationMenuLink>
+              <NavigationMenuLink href="/features/automation">Automation</NavigationMenuLink>
+              <NavigationMenuLink href="/features/reporting">Reporting</NavigationMenuLink>
+              <NavigationMenuLink href="/features/api">API Access</NavigationMenuLink>
+            </div>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+        <NavigationMenuItem value="pricing">
+          <NavigationMenuLink href="/pricing">Pricing</NavigationMenuLink>
+        </NavigationMenuItem>
+        <NavigationMenuItem value="docs">
+          <NavigationMenuLink href="/docs">Docs</NavigationMenuLink>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+    </NavigationMenu>
+  </div>
+</div>
+        `.trim(),
+      },
+    },
+  },
 };

@@ -201,6 +201,19 @@ export const EmptyInbox: Story = {
       illustration={<InboxIcon />}
     />
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<EmptyState
+  heading="Inbox zero!"
+  description="You've read all your messages. Enjoy the peace and quiet."
+  illustration={<InboxIcon />}
+/>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const EmptyTable: Story = {

@@ -79,6 +79,33 @@ export const Dismissible: Story = {
       </Banner>
     );
   },
+  parameters: {
+    docs: {
+      source: {
+        code: `
+function Example() {
+  const [visible, setVisible] = React.useState(true);
+  if (!visible) {
+    return (
+      <Button variant="ghost" size="sm" onClick={() => setVisible(true)}>
+        Show banner again
+      </Button>
+    );
+  }
+  return (
+    <Banner
+      aria-label="Dismissible notice"
+      intent="default"
+      onDismiss={() => setVisible(false)}
+    >
+      This banner can be dismissed.
+    </Banner>
+  );
+}
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const WithAction: Story = {
@@ -122,6 +149,38 @@ export const WithActionAndDismiss: Story = {
       </Banner>
     );
   },
+  parameters: {
+    docs: {
+      source: {
+        code: `
+function Example() {
+  const [visible, setVisible] = React.useState(true);
+  if (!visible) {
+    return (
+      <Button variant="ghost" size="sm" onClick={() => setVisible(true)}>
+        Show banner again
+      </Button>
+    );
+  }
+  return (
+    <Banner
+      aria-label="Update notice"
+      intent="success"
+      action={
+        <Button variant="link" size="sm">
+          View changelog
+        </Button>
+      }
+      onDismiss={() => setVisible(false)}
+    >
+      Deployment complete. All services are operational.
+    </Banner>
+  );
+}
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const MaintenanceNotice: Story = {
@@ -146,6 +205,34 @@ export const MaintenanceNotice: Story = {
         on April 5th from 2:00 AM to 4:00 AM UTC.
       </Banner>
     );
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `
+function Example() {
+  const [visible, setVisible] = React.useState(true);
+  if (!visible) {
+    return (
+      <Button variant="ghost" size="sm" onClick={() => setVisible(true)}>
+        Show banner again
+      </Button>
+    );
+  }
+  return (
+    <Banner
+      aria-label="Scheduled maintenance"
+      intent="warning"
+      onDismiss={() => setVisible(false)}
+    >
+      <strong>Scheduled maintenance:</strong> The system will be unavailable
+      on April 5th from 2:00 AM to 4:00 AM UTC.
+    </Banner>
+  );
+}
+        `.trim(),
+      },
+    },
   },
 };
 

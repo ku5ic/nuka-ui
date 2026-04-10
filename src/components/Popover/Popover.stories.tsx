@@ -33,6 +33,24 @@ export default meta;
 type Story = StoryObj;
 
 export const Default: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Popover>
+  <PopoverTrigger asChild>
+    <Button variant="outline">Options</Button>
+  </PopoverTrigger>
+  <PopoverContent>
+    <p className="text-sm text-(--nuka-text-base)">
+      This is a basic popover with some content inside.
+    </p>
+  </PopoverContent>
+</Popover>
+        `.trim(),
+      },
+    },
+  },
   render: () => (
     <Popover>
       <PopoverTrigger asChild>
@@ -48,6 +66,32 @@ export const Default: Story = {
 };
 
 export const WithForm: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Popover>
+  <PopoverTrigger asChild>
+    <Button>Edit name</Button>
+  </PopoverTrigger>
+  <PopoverContent>
+    <div className="flex flex-col gap-3">
+      <label className="text-sm font-medium text-(--nuka-text-base)">
+        Display name
+        <input
+          type="text"
+          className="mt-1 block w-full rounded-(--radius-md) border border-(--nuka-input-border) bg-(--nuka-input-bg) px-(--space-3) py-(--space-2) text-sm text-(--nuka-text-base) focus:border-(--nuka-border-focus) focus:outline-none"
+          defaultValue="Jane Doe"
+        />
+      </label>
+      <Button size="sm">Save</Button>
+    </div>
+  </PopoverContent>
+</Popover>
+        `.trim(),
+      },
+    },
+  },
   render: () => (
     <Popover>
       <PopoverTrigger asChild>
@@ -71,6 +115,39 @@ export const WithForm: Story = {
 };
 
 export const ControlledOpen: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `
+function Example() {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <div className="flex flex-col items-center gap-4">
+      <label className="flex items-center gap-2 text-sm text-(--nuka-text-base)">
+        <input
+          type="checkbox"
+          checked={open}
+          onChange={(e) => setOpen(e.target.checked)}
+        />
+        Popover open
+      </label>
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button variant="outline">Controlled</Button>
+        </PopoverTrigger>
+        <PopoverContent>
+          <p className="text-sm text-(--nuka-text-base)">
+            Controlled popover content
+          </p>
+        </PopoverContent>
+      </Popover>
+    </div>
+  );
+}
+        `.trim(),
+      },
+    },
+  },
   render: function ControlledOpenStory() {
     const [open, setOpen] = React.useState(false);
     return (
@@ -99,6 +176,35 @@ export const ControlledOpen: Story = {
 };
 
 export const Placement: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<div className="flex items-center gap-8 p-16">
+  <Popover placement="bottom-start">
+    <PopoverTrigger asChild>
+      <Button variant="outline">Bottom Start</Button>
+    </PopoverTrigger>
+    <PopoverContent>
+      <p className="text-sm text-(--nuka-text-base)">
+        Placed at bottom-start
+      </p>
+    </PopoverContent>
+  </Popover>
+
+  <Popover placement="top-start">
+    <PopoverTrigger asChild>
+      <Button variant="outline">Top Start</Button>
+    </PopoverTrigger>
+    <PopoverContent>
+      <p className="text-sm text-(--nuka-text-base)">Placed at top-start</p>
+    </PopoverContent>
+  </Popover>
+</div>
+        `.trim(),
+      },
+    },
+  },
   render: () => (
     <div className="flex items-center gap-8 p-16">
       <Popover placement="bottom-start">
@@ -125,6 +231,78 @@ export const Placement: Story = {
 };
 
 export const FilterPanel: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `
+function Example() {
+  const [filters, setFilters] = React.useState({
+    active: true,
+    completed: false,
+    archived: false,
+  });
+
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button variant="secondary">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+          </svg>
+          Filters
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent aria-labelledby="filter-heading">
+        <div className="flex flex-col gap-3">
+          <h3
+            id="filter-heading"
+            className="text-sm font-semibold text-(--nuka-text-base)"
+          >
+            Filter by status
+          </h3>
+          <label className="flex items-center gap-2 text-sm text-(--nuka-text-base)">
+            <input
+              type="checkbox"
+              checked={filters.active}
+              onChange={(e) => setFilters((prev) => ({ ...prev, active: e.target.checked }))}
+            />
+            Active
+          </label>
+          <label className="flex items-center gap-2 text-sm text-(--nuka-text-base)">
+            <input
+              type="checkbox"
+              checked={filters.completed}
+              onChange={(e) => setFilters((prev) => ({ ...prev, completed: e.target.checked }))}
+            />
+            Completed
+          </label>
+          <label className="flex items-center gap-2 text-sm text-(--nuka-text-base)">
+            <input
+              type="checkbox"
+              checked={filters.archived}
+              onChange={(e) => setFilters((prev) => ({ ...prev, archived: e.target.checked }))}
+            />
+            Archived
+          </label>
+        </div>
+      </PopoverContent>
+    </Popover>
+  );
+}
+        `.trim(),
+      },
+    },
+  },
   render: function FilterPanelStory() {
     const [filters, setFilters] = React.useState({
       active: true,
@@ -183,6 +361,55 @@ export const FilterPanel: Story = {
 };
 
 export const UserMenu: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Popover>
+  <PopoverTrigger asChild>
+    <button
+      type="button"
+      className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-(--nuka-accent-bg) text-xs font-medium text-(--nuka-text-inverse)"
+      aria-label="User menu"
+    >
+      JD
+    </button>
+  </PopoverTrigger>
+  <PopoverContent aria-labelledby="user-menu-heading">
+    <div className="flex flex-col gap-2">
+      <h3
+        id="user-menu-heading"
+        className="text-sm font-semibold text-(--nuka-text-base)"
+      >
+        Jane Doe
+      </h3>
+      <p className="text-xs text-(--nuka-text-muted)">jane@example.com</p>
+      <hr className="border-(--nuka-border-base)" />
+      <a
+        href="#profile"
+        className="block rounded-(--radius-sm) px-(--space-2) py-(--space-1) text-sm text-(--nuka-text-base) hover:bg-(--nuka-bg-muted)"
+      >
+        Profile
+      </a>
+      <a
+        href="#settings"
+        className="block rounded-(--radius-sm) px-(--space-2) py-(--space-1) text-sm text-(--nuka-text-base) hover:bg-(--nuka-bg-muted)"
+      >
+        Settings
+      </a>
+      <a
+        href="#signout"
+        className="block rounded-(--radius-sm) px-(--space-2) py-(--space-1) text-sm text-(--nuka-danger-text) hover:bg-(--nuka-danger-bg)"
+      >
+        Sign out
+      </a>
+    </div>
+  </PopoverContent>
+</Popover>
+        `.trim(),
+      },
+    },
+  },
   render: () => (
     <Popover>
       <PopoverTrigger asChild>

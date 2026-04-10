@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "@nuka/components/Button";
+import { Stack } from "@nuka/components/Stack";
 
 const meta = {
   title: "Actions/Button",
@@ -80,29 +81,57 @@ export const Disabled: Story = {
 
 export const AllVariants: Story = {
   render: () => (
-    <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+    <Stack direction="row" align="center" gap="md">
       <Button variant="primary">Primary</Button>
       <Button variant="secondary">Secondary</Button>
       <Button variant="outline">Outline</Button>
       <Button variant="ghost">Ghost</Button>
       <Button variant="link">Link</Button>
-    </div>
+    </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" align="center" gap="md">
+  <Button variant="primary">Primary</Button>
+  <Button variant="secondary">Secondary</Button>
+  <Button variant="outline">Outline</Button>
+  <Button variant="ghost">Ghost</Button>
+  <Button variant="link">Link</Button>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const AllSizes: Story = {
   render: () => (
-    <div style={{ display: "flex", gap: "1rem", alignItems: "flex-end" }}>
+    <Stack direction="row" align="end" gap="md">
       <Button size="sm">Small</Button>
       <Button size="md">Medium</Button>
       <Button size="lg">Large</Button>
-    </div>
+    </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" align="end" gap="md">
+  <Button size="sm">Small</Button>
+  <Button size="md">Medium</Button>
+  <Button size="lg">Large</Button>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const IntentDanger: Story = {
   render: () => (
-    <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+    <Stack direction="row" align="center" gap="md">
       <Button variant="primary" intent="danger">
         Primary
       </Button>
@@ -118,13 +147,28 @@ export const IntentDanger: Story = {
       <Button variant="link" intent="danger">
         Link
       </Button>
-    </div>
+    </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" align="center" gap="md">
+  <Button variant="primary" intent="danger">Primary</Button>
+  <Button variant="secondary" intent="danger">Secondary</Button>
+  <Button variant="outline" intent="danger">Outline</Button>
+  <Button variant="ghost" intent="danger">Ghost</Button>
+  <Button variant="link" intent="danger">Link</Button>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const IntentSuccess: Story = {
   render: () => (
-    <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+    <Stack direction="row" align="center" gap="md">
       <Button variant="primary" intent="success">
         Primary
       </Button>
@@ -140,13 +184,28 @@ export const IntentSuccess: Story = {
       <Button variant="link" intent="success">
         Link
       </Button>
-    </div>
+    </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" align="center" gap="md">
+  <Button variant="primary" intent="success">Primary</Button>
+  <Button variant="secondary" intent="success">Secondary</Button>
+  <Button variant="outline" intent="success">Outline</Button>
+  <Button variant="ghost" intent="success">Ghost</Button>
+  <Button variant="link" intent="success">Link</Button>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const IntentWarning: Story = {
   render: () => (
-    <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+    <Stack direction="row" align="center" gap="md">
       <Button variant="primary" intent="warning">
         Primary
       </Button>
@@ -162,8 +221,23 @@ export const IntentWarning: Story = {
       <Button variant="link" intent="warning">
         Link
       </Button>
-    </div>
+    </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" align="center" gap="md">
+  <Button variant="primary" intent="warning">Primary</Button>
+  <Button variant="secondary" intent="warning">Secondary</Button>
+  <Button variant="outline" intent="warning">Outline</Button>
+  <Button variant="ghost" intent="warning">Ghost</Button>
+  <Button variant="link" intent="warning">Link</Button>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const ConfirmationDialog: Story = {

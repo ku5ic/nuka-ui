@@ -50,23 +50,48 @@ export const WithLabel: Story = {
 
 export const AllSizes: Story = {
   render: () => (
-    <div style={{ display: "flex", gap: "1.5rem", alignItems: "flex-end" }}>
+    <Stack direction="row" gap="lg" align="end">
       <Switch size="sm">Small</Switch>
       <Switch size="md">Medium</Switch>
       <Switch size="lg">Large</Switch>
-    </div>
+    </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" gap="lg" align="end">
+  <Switch size="sm">Small</Switch>
+  <Switch size="md">Medium</Switch>
+  <Switch size="lg">Large</Switch>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const Disabled: Story = {
   render: () => (
-    <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
+    <Stack direction="row" gap="lg" align="center">
       <Switch disabled>Off disabled</Switch>
       <Switch disabled defaultChecked>
         On disabled
       </Switch>
-    </div>
+    </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction="row" gap="lg" align="center">
+  <Switch disabled>Off disabled</Switch>
+  <Switch disabled defaultChecked>On disabled</Switch>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const InFormField: Story = {
@@ -77,6 +102,18 @@ export const InFormField: Story = {
       <Switch />
     </FormField>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<FormField id="notifications" hint="We'll send you push notifications">
+  <Label htmlFor="notifications">Enable notifications</Label>
+  <Switch />
+</FormField>
+        `.trim(),
+      },
+    },
+  },
 };
 
 export const NotificationsPanel: Story = {
