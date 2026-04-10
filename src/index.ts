@@ -1,5 +1,7 @@
 // nuka-ui public API
 
+export { cn } from "./utils/cn";
+
 export type { Responsive, Breakpoint, GapScale } from "./utils/responsive";
 
 export {

@@ -129,6 +129,7 @@ function getSnapshot(): ToastItem[] {
 }
 
 function __reset(): void {
+  if (process.env.NODE_ENV !== "test") return;
   for (const timer of timers.values()) {
     clearTimeout(timer);
   }
