@@ -5,6 +5,7 @@ A production-grade React component library built on Tailwind v4. Composable, acc
 [![npm](https://img.shields.io/npm/v/nuka-ui)](https://www.npmjs.com/package/nuka-ui)
 [![license](https://img.shields.io/npm/l/nuka-ui)](./LICENSE)
 [![storybook](https://img.shields.io/badge/storybook-live-ff4785)](https://ku5ic.github.io/nuka-ui)
+[![stackblitz](https://img.shields.io/badge/stackblitz-try_it-1389fd)](https://stackblitz.com/github/ku5ic/nuka-ui)
 [![typescript](https://img.shields.io/badge/TypeScript-strict-3178c6)](./tsconfig.json)
 [![wcag](https://img.shields.io/badge/WCAG_2.2-AA-00857C)](./docs/DECISIONS.md)
 
@@ -58,6 +59,14 @@ Add `data-theme` to your root element:
 
 ```html
 <html data-theme="light"></html>
+```
+
+> **No ThemeProvider required.** nuka-ui does not ship a ThemeProvider component or useTheme hook. This is intentional. Theming is a single DOM attribute (`data-theme`), not a React context. If you are coming from Radix, MUI, or similar libraries, this is a deliberate simplification, not a missing feature.
+
+Toggle the theme by mutating the attribute directly:
+
+```ts
+document.documentElement.dataset.theme = "dark";
 ```
 
 ---
