@@ -234,6 +234,31 @@ import { Button } from "nuka-ui";
 
 Accessibility behavior is your responsibility when using `asChild`. If you render a Button as a `<div>`, you lose the native `button` role, keyboard activation, and disabled state handling. The component cannot enforce semantics on an arbitrary element.
 
+### Disabled links
+
+The `disabled` attribute is invalid on `<a>` elements and has no native effect. When using `asChild` to render a Button as a link, disabled state requires three attributes on the anchor element:
+
+- `aria-disabled="true"` communicates the disabled state to assistive technology
+- `tabIndex={-1}` removes the element from the tab order
+- `pointer-events-none` prevents click activation
+
+All three are required. Missing any one leaves a gap in either keyboard, pointer, or assistive technology interaction.
+
+```tsx
+<Button asChild variant="primary">
+  <a
+    href="/dashboard"
+    aria-disabled="true"
+    tabIndex={-1}
+    className="pointer-events-none"
+  >
+    Go to dashboard
+  </a>
+</Button>
+```
+
+nuka-ui applies visual disabled styling when it detects `aria-disabled="true"` on the rendered element. The interaction prevention is your responsibility because the library cannot intercept native anchor behavior from the outside.
+
 ---
 
 ## 4. Wrapping components
@@ -332,7 +357,136 @@ The wrapper inherits all other Button behavior: size prop, intent prop, asChild,
 
 ---
 
-## 5. Limitations
+## 5. Form library integration
+
+nuka-ui form controls are standard HTML inputs. They work with any form library that operates on refs and native form elements. This section shows the pattern for React Hook Form (RHF), but the same approach applies to Formik or other libraries.
+
+### Uncontrolled fields with register()
+
+`Input` and `Textarea` render native `<input>` and `<textarea>` elements. RHF's `register()` works directly:
+
+```tsx
+import { useForm } from "react-hook-form";
+import { Input, Textarea, FormField, Button } from "nuka-ui";
+
+interface ContactForm {
+  name: string;
+  message: string;
+}
+
+function ContactPage() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ContactForm>();
+
+  return (
+    <form onSubmit={handleSubmit((data) => console.log(data))}>
+      <FormField label="Name" error={errors.name?.message}>
+        <Input
+          {...register("name", { required: "Name is required" })}
+          intent={errors.name ? "danger" : "default"}
+        />
+      </FormField>
+
+      <FormField label="Message" error={errors.message?.message}>
+        <Textarea
+          {...register("message", { required: "Message is required" })}
+          intent={errors.message ? "danger" : "default"}
+        />
+      </FormField>
+
+      <Button type="submit" variant="primary">
+        Send
+      </Button>
+    </form>
+  );
+}
+```
+
+The key patterns:
+
+- `formState.errors.field?.message` drives `intent="danger"` on the control
+- The error message string is passed to `FormField` as the `error` prop
+- `register()` spreads directly onto the input, providing `ref`, `onChange`, `onBlur`, and `name`
+
+### Controlled fields with Controller
+
+`Select` and `Checkbox` are controlled components. Use RHF's `Controller` to bridge them:
+
+```tsx
+import { useForm, Controller } from "react-hook-form";
+import {
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+  Checkbox,
+  FormField,
+  Button,
+} from "nuka-ui";
+
+interface SettingsForm {
+  role: string;
+  terms: boolean;
+}
+
+function SettingsPage() {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SettingsForm>();
+
+  return (
+    <form onSubmit={handleSubmit((data) => console.log(data))}>
+      <FormField label="Role" error={errors.role?.message}>
+        <Controller
+          name="role"
+          control={control}
+          rules={{ required: "Role is required" }}
+          render={({ field }) => (
+            <Select value={field.value} onValueChange={field.onChange}>
+              <SelectTrigger intent={errors.role ? "danger" : "default"} />
+              <SelectContent>
+                <SelectItem value="admin">Admin</SelectItem>
+                <SelectItem value="editor">Editor</SelectItem>
+                <SelectItem value="viewer">Viewer</SelectItem>
+              </SelectContent>
+            </Select>
+          )}
+        />
+      </FormField>
+
+      <Controller
+        name="terms"
+        control={control}
+        rules={{ required: "You must accept the terms" }}
+        render={({ field }) => (
+          <Checkbox
+            checked={field.value}
+            onCheckedChange={field.onChange}
+            intent={errors.terms ? "danger" : "default"}
+          >
+            I accept the terms
+          </Checkbox>
+        )}
+      />
+
+      <Button type="submit" variant="primary">
+        Save
+      </Button>
+    </form>
+  );
+}
+```
+
+React Hook Form is not a dependency of nuka-ui. These examples are illustrative. The patterns work with any version of RHF that supports `register()` and `Controller`.
+
+---
+
+## 6. Limitations
 
 These are deliberate constraints, not gaps.
 
