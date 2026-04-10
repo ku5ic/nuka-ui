@@ -113,6 +113,12 @@
   --radius-2xl: 1rem;
   --radius-full: 9999px;
 
+  /* Duration primitives */
+  --duration-fast: 100ms;
+  --duration-base: 200ms;
+  --duration-slow: 300ms;
+  --duration-deliberate: 500ms;
+
   /* Typography primitives */
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
@@ -189,6 +195,12 @@
      0.5 opacity is intentional for both themes. Consumer-overridable
      if dark mode needs higher opacity for visual weight. */
   --nuka-bg-overlay: oklch(0% 0 0 / 0.5);
+
+  /* Duration */
+  --nuka-duration-fast: var(--duration-fast);
+  --nuka-duration-base: var(--duration-base);
+  --nuka-duration-slow: var(--duration-slow);
+  --nuka-duration-deliberate: var(--duration-deliberate);
 
   /* Input surfaces */
   --nuka-input-bg: var(--color-neutral-0);
