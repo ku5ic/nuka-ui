@@ -32,6 +32,8 @@ Run after `cmd-preflight` is confirmed. Do not write code during this step.
 
 7. State the acceptance criteria: what does "done" look like?
 
+8. Write plan in plan.md
+
 ## Stop
 
 Present the plan and wait for explicit confirmation before doing anything else.

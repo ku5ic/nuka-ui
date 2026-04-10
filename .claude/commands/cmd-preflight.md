@@ -31,6 +31,7 @@ Run this before every task. Most problems come from starting without understandi
    - Which files will be affected
    - Current health of the codebase (typecheck, tests, lint)
    - Any risks or constraints identified
+   - Write findings in preflight-report.md
 
 ## Stop
 
