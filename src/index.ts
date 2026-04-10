@@ -29,6 +29,19 @@ export {
 export { Alert, alertVariants } from "./components/Alert";
 export type { AlertProps, AlertVariantProps } from "./components/Alert";
 
+export {
+  AppShell,
+  AppShellHeader,
+  AppShellBody,
+  AppShellMain,
+} from "./components/AppShell";
+export type {
+  AppShellProps,
+  AppShellHeaderProps,
+  AppShellBodyProps,
+  AppShellMainProps,
+} from "./components/AppShell";
+
 export { Banner, bannerVariants } from "./components/Banner";
 export type { BannerProps, BannerVariantProps } from "./components/Banner";
 

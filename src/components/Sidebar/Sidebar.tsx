@@ -108,7 +108,7 @@ const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
         data-expanded={expanded ? "" : undefined}
         data-collapsed={!expanded ? "" : undefined}
         className={cn(
-          "flex h-svh flex-col",
+          "flex h-full flex-col",
           "border-r border-(--nuka-border-base)",
           "bg-(--nuka-bg-base)",
           "transition-[width] duration-200 ease-in-out",
