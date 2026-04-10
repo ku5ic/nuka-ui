@@ -7,6 +7,8 @@ export interface SelectContentProps {
   children: React.ReactNode;
 }
 
+// TODO: migrate to Portal + Floating UI positioning to avoid overflow/stacking
+// context clipping (deferred from audit batch 2).
 const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps>(
   ({ className, children }, ref) => {
     const ctx = useSelect();

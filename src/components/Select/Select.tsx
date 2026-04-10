@@ -127,6 +127,8 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
       [],
     );
 
+    // TODO: extract to useOutsideClick or migrate to Floating UI useDismiss
+    // when SelectContent moves to Portal rendering (deferred from audit batch 2).
     // Close on outside click. Manual listener because Select uses absolute
     // positioning (ADR-013), not Floating UI. A Portal + useFloating refactor
     // would unify this with useDismiss but requires rearchitecting SelectContent.
