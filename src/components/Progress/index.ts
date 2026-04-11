@@ -1,11 +1,11 @@
+export { Progress } from "./Progress";
 export {
-  Progress,
   progressTrackVariants,
   progressFillVariants,
-} from "./Progress";
+} from "@nuka/components/Progress/Progress.variants";
+export type { ProgressProps } from "./Progress";
 export type {
-  ProgressProps,
   ProgressVariantProps,
   ProgressTrackVariantProps,
   ProgressFillVariantProps,
-} from "./Progress";
+} from "@nuka/components/Progress/Progress.variants";

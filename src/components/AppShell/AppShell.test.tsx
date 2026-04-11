@@ -6,7 +6,7 @@ import {
   AppShellHeader,
   AppShellBody,
   AppShellMain,
-} from "./AppShell";
+} from "@nuka/components/AppShell";
 
 describe("displayName", () => {
   it("sets displayName on all parts", () => {

@@ -1,18 +1,14 @@
-export {
-  Breadcrumb,
-  BreadcrumbList,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-  BreadcrumbEllipsis,
-} from "./Breadcrumb";
-export type {
-  BreadcrumbProps,
-  BreadcrumbListProps,
-  BreadcrumbItemProps,
-  BreadcrumbLinkProps,
-  BreadcrumbPageProps,
-  BreadcrumbSeparatorProps,
-  BreadcrumbEllipsisProps,
-} from "./Breadcrumb";
+export { Breadcrumb } from "./Breadcrumb";
+export type { BreadcrumbProps } from "./Breadcrumb";
+export { BreadcrumbList } from "./BreadcrumbList";
+export type { BreadcrumbListProps } from "./BreadcrumbList";
+export { BreadcrumbItem } from "./BreadcrumbItem";
+export type { BreadcrumbItemProps } from "./BreadcrumbItem";
+export { BreadcrumbLink } from "./BreadcrumbLink";
+export type { BreadcrumbLinkProps } from "./BreadcrumbLink";
+export { BreadcrumbPage } from "./BreadcrumbPage";
+export type { BreadcrumbPageProps } from "./BreadcrumbPage";
+export { BreadcrumbSeparator } from "./BreadcrumbSeparator";
+export type { BreadcrumbSeparatorProps } from "./BreadcrumbSeparator";
+export { BreadcrumbEllipsis } from "./BreadcrumbEllipsis";
+export type { BreadcrumbEllipsisProps } from "./BreadcrumbEllipsis";

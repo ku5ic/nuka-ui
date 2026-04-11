@@ -10,5 +10,5 @@ export type { TooltipContentProps } from "@nuka/components/Tooltip/TooltipConten
 export {
   TooltipContext,
   useTooltipContext,
-} from "@nuka/components/Tooltip/TooltipContext";
-export type { TooltipContextValue } from "@nuka/components/Tooltip/TooltipContext";
+} from "@nuka/components/Tooltip/Tooltip.context";
+export type { TooltipContextValue } from "@nuka/components/Tooltip/Tooltip.context";
