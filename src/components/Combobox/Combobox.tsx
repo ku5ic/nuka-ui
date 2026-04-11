@@ -12,7 +12,7 @@ import {
   size,
   autoUpdate,
 } from "@floating-ui/react";
-import { useControllableState } from "@nuka/utils/use-controllable-state";
+import { useControllableState } from "@nuka/hooks/use-controllable-state";
 import { ComboboxContext } from "@nuka/components/Combobox/Combobox.context";
 import type {
   ComboboxProps,

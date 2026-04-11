@@ -1,15 +1,11 @@
 import * as React from "react";
 import { composeRefs } from "@nuka/utils/slot";
-import {
-  MenuItemBase,
-  MenuCheckboxItemBase,
-  MenuRadioItemBase,
-} from "@nuka/components/Menu/MenuItemBase";
-import type {
-  MenuItemBaseProps,
-  MenuCheckboxItemBaseProps,
-  MenuRadioItemBaseProps,
-} from "@nuka/components/Menu/MenuItemBase";
+import { MenuItemBase } from "@nuka/components/Menu/MenuItemBase";
+import type { MenuItemBaseProps } from "@nuka/components/Menu/MenuItemBase";
+import { MenuCheckboxItemBase } from "@nuka/components/Menu/MenuCheckboxItemBase";
+import type { MenuCheckboxItemBaseProps } from "@nuka/components/Menu/MenuCheckboxItemBase";
+import { MenuRadioItemBase } from "@nuka/components/Menu/MenuRadioItemBase";
+import type { MenuRadioItemBaseProps } from "@nuka/components/Menu/MenuRadioItemBase";
 
 export interface MenuItemContextValue {
   getItemProps: (index: number) => {
