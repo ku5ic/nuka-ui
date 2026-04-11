@@ -1,50 +1,12 @@
 import * as React from "react";
-import {
-  cva,
-  selectionIndicatorIntentVariants,
-  type VariantProps,
-} from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
 import { composeRefs } from "@nuka/utils/slot";
 import { Text } from "@nuka/components/Text";
-import { useRadioGroup } from "@nuka/components/RadioGroup/RadioGroupContext";
-
-const radioIndicatorVariants = cva(
-  [
-    "inline-flex items-center justify-center shrink-0",
-    "rounded-full",
-    "border",
-    "bg-(--nuka-input-bg)",
-    "text-(--nuka-text-inverse)",
-    "transition-colors duration-150",
-    "peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2",
-    "peer-focus-visible:outline-(--nuka-border-focus)",
-    "peer-disabled:cursor-not-allowed peer-disabled:opacity-50",
-    "peer-checked:*:block",
-  ],
-  {
-    variants: {
-      intent: {
-        default: "",
-        danger: "",
-        success: "",
-        warning: "",
-      },
-      size: {
-        sm: "size-4",
-        md: "size-5",
-        lg: "size-6",
-      },
-    },
-    compoundVariants: selectionIndicatorIntentVariants,
-    defaultVariants: {
-      intent: "default",
-      size: "md",
-    },
-  },
-);
-
-export type RadioVariantProps = VariantProps<typeof radioIndicatorVariants>;
+import { useRadioGroup } from "@nuka/components/RadioGroup/RadioGroup.context";
+import {
+  radioIndicatorVariants,
+  type RadioVariantProps,
+} from "@nuka/components/RadioGroup/Radio.variants";
 
 export interface RadioProps
   extends
@@ -115,4 +77,4 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
 
 Radio.displayName = "Radio";
 
-export { Radio, radioIndicatorVariants as radioVariants };
+export { Radio };
