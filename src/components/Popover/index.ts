@@ -10,5 +10,5 @@ export type { PopoverContentProps } from "@nuka/components/Popover/PopoverConten
 export {
   PopoverContext,
   usePopoverContext,
-} from "@nuka/components/Popover/PopoverContext";
-export type { PopoverContextValue } from "@nuka/components/Popover/PopoverContext";
+} from "@nuka/components/Popover/Popover.context";
+export type { PopoverContextValue } from "@nuka/components/Popover/Popover.context";

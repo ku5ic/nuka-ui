@@ -9,7 +9,7 @@ import {
   StepperContent,
   StepperTitle,
   StepperDescription,
-} from "./Stepper";
+} from "@nuka/components/Stepper";
 
 function renderStepper({
   currentStep = 1,

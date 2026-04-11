@@ -1,2 +1,4 @@
-export { Input, inputVariants } from "./Input";
-export type { InputProps, InputVariantProps } from "./Input";
+export { Input } from "./Input";
+export { inputVariants } from "@nuka/components/Input/Input.variants";
+export type { InputProps } from "./Input";
+export type { InputVariantProps } from "@nuka/components/Input/Input.variants";

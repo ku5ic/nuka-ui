@@ -1,7 +1,7 @@
 import * as React from "react";
 import { describe, it, expect, beforeEach } from "vitest";
 import { render } from "@testing-library/react";
-import { useScrollLock, __resetScrollLock } from "./use-scroll-lock";
+import { useScrollLock, __resetScrollLock } from "@nuka/hooks/use-scroll-lock";
 
 function LockHarness({ active }: { active: boolean }) {
   useScrollLock(active);

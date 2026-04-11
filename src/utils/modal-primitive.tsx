@@ -2,8 +2,8 @@ import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 import { Slot } from "@nuka/utils/slot";
 import { DismissButton } from "@nuka/utils/dismiss-button";
-import { useControllableState } from "@nuka/utils/use-controllable-state";
-import { useEscapeKey } from "@nuka/utils/use-escape-key";
+import { useControllableState } from "@nuka/hooks/use-controllable-state";
+import { useEscapeKey } from "@nuka/hooks/use-escape-key";
 import { Heading } from "@nuka/components/Heading";
 import { Text } from "@nuka/components/Text";
 

@@ -20,5 +20,5 @@ export type {
 export {
   CommandMenuContext,
   useCommandMenuContext,
-} from "@nuka/components/CommandMenu/CommandMenuContext";
-export type { CommandMenuContextValue } from "@nuka/components/CommandMenu/CommandMenuContext";
+} from "@nuka/components/CommandMenu/CommandMenu.context";
+export type { CommandMenuContextValue } from "@nuka/components/CommandMenu/CommandMenu.context";
