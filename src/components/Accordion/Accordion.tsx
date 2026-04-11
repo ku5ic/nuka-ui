@@ -1,7 +1,7 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 import { composeRefs } from "@nuka/utils/slot";
-import { useControllableState } from "@nuka/utils/use-controllable-state";
+import { useControllableState } from "@nuka/hooks/use-controllable-state";
 import { Icon } from "@nuka/components/Icon";
 import {
   Collapsible,

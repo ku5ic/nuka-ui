@@ -14,7 +14,7 @@ import type { Placement } from "@floating-ui/react";
 import { cn } from "@nuka/utils/cn";
 import { Slot, composeRefs } from "@nuka/utils/slot";
 import { Portal } from "@nuka/utils/portal";
-import { useFocusFirstInteractive } from "@nuka/utils/use-focus-first-interactive";
+import { useFocusFirstInteractive } from "@nuka/hooks/use-focus-first-interactive";
 import { Icon } from "@nuka/components/Icon";
 import {
   NavigationMenuContext,

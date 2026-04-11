@@ -1,8 +1,8 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 import { Slot } from "@nuka/utils/slot";
-import { useControllableState } from "@nuka/utils/use-controllable-state";
-import { useMediaQuery } from "@nuka/utils/use-media-query";
+import { useControllableState } from "@nuka/hooks/use-controllable-state";
+import { useMediaQuery } from "@nuka/hooks/use-media-query";
 import { Icon } from "@nuka/components/Icon";
 import { Text } from "@nuka/components/Text";
 import {

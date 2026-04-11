@@ -1,8 +1,8 @@
 import * as React from "react";
 import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
-import { useFormFieldProps } from "@nuka/utils/use-form-field-props";
-import { useControllableState } from "@nuka/utils/use-controllable-state";
+import { useFormFieldProps } from "@nuka/hooks/use-form-field-props";
+import { useControllableState } from "@nuka/hooks/use-controllable-state";
 
 const sliderWrapperVariants = cva(["relative flex items-center w-full"], {
   variants: {

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Slot } from "@nuka/utils/slot";
 import { cn } from "@nuka/utils/cn";
-import { useControllableState } from "@nuka/utils/use-controllable-state";
+import { useControllableState } from "@nuka/hooks/use-controllable-state";
 import {
   CollapsibleContext,
   useCollapsibleContext,

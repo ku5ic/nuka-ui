@@ -1,9 +1,9 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 import { Portal } from "@nuka/utils/portal";
-import { useScrollLock } from "@nuka/utils/use-scroll-lock";
-import { useEscapeKey } from "@nuka/utils/use-escape-key";
-import { useControllableState } from "@nuka/utils/use-controllable-state";
+import { useScrollLock } from "@nuka/hooks/use-scroll-lock";
+import { useEscapeKey } from "@nuka/hooks/use-escape-key";
+import { useControllableState } from "@nuka/hooks/use-controllable-state";
 import { Icon } from "@nuka/components/Icon";
 import { Text } from "@nuka/components/Text";
 import {

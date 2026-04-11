@@ -12,8 +12,8 @@ import {
 } from "@floating-ui/react";
 import type { Placement } from "@floating-ui/react";
 import { cn } from "@nuka/utils/cn";
-import { useControllableState } from "@nuka/utils/use-controllable-state";
-import { useMenuNavigation } from "@nuka/utils/use-menu-navigation";
+import { useControllableState } from "@nuka/hooks/use-controllable-state";
+import { useMenuNavigation } from "@nuka/hooks/use-menu-navigation";
 import { Portal } from "@nuka/utils/portal";
 import { Slot, composeRefs } from "@nuka/utils/slot";
 import { DropdownMenuContext } from "@nuka/components/DropdownMenu/DropdownMenu.context";

@@ -5,7 +5,7 @@ import {
   type VariantProps,
 } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
-import { useFormFieldProps } from "@nuka/utils/use-form-field-props";
+import { useFormFieldProps } from "@nuka/hooks/use-form-field-props";
 import { Text } from "@nuka/components/Text";
 
 const checkboxWrapperVariants = cva(

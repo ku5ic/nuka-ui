@@ -11,7 +11,7 @@ import {
   autoUpdate,
 } from "@floating-ui/react";
 import type { Placement } from "@floating-ui/react";
-import { useControllableState } from "@nuka/utils/use-controllable-state";
+import { useControllableState } from "@nuka/hooks/use-controllable-state";
 import { PopoverContext } from "@nuka/components/Popover/Popover.context";
 import type { PopoverContextValue } from "@nuka/components/Popover/Popover.context";
 

@@ -11,7 +11,7 @@ import {
   shift,
   autoUpdate,
 } from "@floating-ui/react";
-import { useControllableState } from "@nuka/utils/use-controllable-state";
+import { useControllableState } from "@nuka/hooks/use-controllable-state";
 import { TooltipContext } from "@nuka/components/Tooltip/Tooltip.context";
 import type { TooltipContextValue } from "@nuka/components/Tooltip/Tooltip.context";
 

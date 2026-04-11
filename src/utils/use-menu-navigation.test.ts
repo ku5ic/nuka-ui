@@ -2,7 +2,7 @@ import * as React from "react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { useMenuNavigation } from "@nuka/utils/use-menu-navigation";
+import { useMenuNavigation } from "@nuka/hooks/use-menu-navigation";
 
 function TestMenu({
   onEscape,

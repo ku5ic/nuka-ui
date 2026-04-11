@@ -10,7 +10,7 @@ import {
   autoUpdate,
 } from "@floating-ui/react";
 import { cn } from "@nuka/utils/cn";
-import { useMenuNavigation } from "@nuka/utils/use-menu-navigation";
+import { useMenuNavigation } from "@nuka/hooks/use-menu-navigation";
 import { Portal } from "@nuka/utils/portal";
 import { Slot, composeRefs } from "@nuka/utils/slot";
 import { ContextMenuContext } from "@nuka/components/ContextMenu/ContextMenu.context";

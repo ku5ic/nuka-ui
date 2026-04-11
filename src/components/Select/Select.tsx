@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useControllableState } from "@nuka/utils/use-controllable-state";
+import { useControllableState } from "@nuka/hooks/use-controllable-state";
 import { composeRefs } from "@nuka/utils/slot";
 import { SelectContext } from "@nuka/components/Select/Select.context";
 import type { SelectContextValue } from "@nuka/components/Select/Select.context";
