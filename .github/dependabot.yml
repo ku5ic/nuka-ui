@@ -1,0 +1,52 @@
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Europe/Zagreb"
+    open-pull-requests-limit: 10
+    groups:
+      storybook:
+        patterns:
+          - "@storybook/*"
+          - "storybook"
+      tailwind:
+        patterns:
+          - "tailwindcss"
+          - "@tailwindcss/*"
+      testing:
+        patterns:
+          - "vitest"
+          - "@vitest/*"
+          - "@testing-library/*"
+      typescript:
+        patterns:
+          - "typescript"
+          - "@typescript-eslint/*"
+      eslint:
+        patterns:
+          - "eslint"
+          - "eslint-*"
+      vite:
+        patterns:
+          - "vite"
+          - "@vitejs/*"
+    ignore:
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-dom"
+        update-types: ["version-update:semver-major"]
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Europe/Zagreb"
+    open-pull-requests-limit: 5
