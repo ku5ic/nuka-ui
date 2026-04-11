@@ -1,5 +1,4 @@
 import * as React from "react";
-import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
 import { composeRefs } from "@nuka/utils/slot";
 import { useControllableState } from "@nuka/hooks/use-controllable-state";
@@ -7,6 +6,10 @@ import {
   TabsContext,
   useTabsContext,
 } from "@nuka/components/Tabs/Tabs.context";
+import {
+  tabsListVariants,
+  type TabsListVariantProps,
+} from "@nuka/components/Tabs/Tabs.variants";
 
 const TRIGGER_SELECTOR = '[role="tab"]:not([aria-disabled="true"])';
 
@@ -74,31 +77,6 @@ const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
 );
 
 Tabs.displayName = "Tabs";
-
-const tabsListVariants = cva(["flex shrink-0", "focus-visible:outline-none"], {
-  variants: {
-    variant: {
-      underline: ["border-b border-(--nuka-border-base)", "gap-(--space-4)"],
-      pill: [
-        "bg-(--nuka-bg-muted)",
-        "rounded-(--radius-lg)",
-        "p-(--space-1)",
-        "gap-(--space-1)",
-      ],
-      boxed: [
-        "border border-(--nuka-border-base)",
-        "rounded-(--radius-lg)",
-        "p-(--space-1)",
-        "gap-(--space-1)",
-      ],
-    },
-  },
-  defaultVariants: {
-    variant: "underline",
-  },
-});
-
-export type TabsListVariantProps = VariantProps<typeof tabsListVariants>;
 
 export interface TabsListProps
   extends React.HTMLAttributes<HTMLDivElement>, TabsListVariantProps {}

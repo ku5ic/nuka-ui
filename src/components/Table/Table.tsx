@@ -1,5 +1,4 @@
 import * as React from "react";
-import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
 import { Icon } from "@nuka/components/Icon";
 import {
@@ -7,20 +6,10 @@ import {
   useTableContext,
 } from "@nuka/components/Table/Table.context";
 import type { TableContextValue } from "@nuka/components/Table/Table.context";
-
-const tableVariants = cva(["overflow-x-auto"], {
-  variants: {
-    variant: {
-      default: "",
-      bordered: ["border border-(--nuka-border-base)", "rounded-(--radius-lg)"],
-    },
-  },
-  defaultVariants: {
-    variant: "default",
-  },
-});
-
-export type TableVariantProps = VariantProps<typeof tableVariants>;
+import {
+  tableVariants,
+  type TableVariantProps,
+} from "@nuka/components/Table/Table.variants";
 
 export interface TableProps
   extends React.HTMLAttributes<HTMLDivElement>, TableVariantProps {

@@ -1,7 +1,9 @@
 import * as React from "react";
-import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
 import { Text } from "@nuka/components/Text";
+import { timelineItemMarkerVariants } from "@nuka/components/Timeline/Timeline.variants";
+
+export type { TimelineItemMarkerVariantProps } from "@nuka/components/Timeline/Timeline.variants";
 
 export interface TimelineProps extends React.OlHTMLAttributes<HTMLOListElement> {}
 
@@ -18,33 +20,6 @@ const Timeline = React.forwardRef<HTMLOListElement, TimelineProps>(
 );
 
 Timeline.displayName = "Timeline";
-
-const timelineItemMarkerVariants = cva(
-  [
-    "flex items-center justify-center",
-    "w-8 h-8 rounded-full",
-    "border-2",
-    "shrink-0 z-10",
-    "bg-(--nuka-bg-base)",
-  ],
-  {
-    variants: {
-      intent: {
-        default: "border-(--nuka-accent-bg) text-(--nuka-accent-text)",
-        success: "border-(--nuka-success-base) text-(--nuka-success-text)",
-        danger: "border-(--nuka-danger-base) text-(--nuka-danger-text)",
-        warning: "border-(--nuka-warning-base) text-(--nuka-warning-text)",
-      },
-    },
-    defaultVariants: {
-      intent: "default",
-    },
-  },
-);
-
-export type TimelineItemMarkerVariantProps = VariantProps<
-  typeof timelineItemMarkerVariants
->;
 
 export interface TimelineItemProps extends React.LiHTMLAttributes<HTMLLIElement> {
   timestamp?: string;

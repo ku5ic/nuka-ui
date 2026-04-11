@@ -1,6 +1,5 @@
 export {
   Table,
-  tableVariants,
   TableHeader,
   TableBody,
   TableFooter,
@@ -8,9 +7,9 @@ export {
   TableHead,
   TableCell,
 } from "@nuka/components/Table/Table";
+export { tableVariants } from "@nuka/components/Table/Table.variants";
 export type {
   TableProps,
-  TableVariantProps,
   TableHeaderProps,
   TableBodyProps,
   TableFooterProps,
@@ -20,6 +19,7 @@ export type {
   TableCellProps,
   SortDirection,
 } from "@nuka/components/Table/Table";
+export type { TableVariantProps } from "@nuka/components/Table/Table.variants";
 
 export {
   TableContext,
