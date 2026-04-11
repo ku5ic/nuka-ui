@@ -152,6 +152,9 @@ export {
 } from "./components/ContextMenu";
 export type { ContextMenuContextValue } from "./components/ContextMenu";
 
+export { DataTable } from "./components/DataTable";
+export type { DataTableProps, DataTableColumn } from "./components/DataTable";
+
 export { Divider, dividerVariants } from "./components/Divider";
 
 export {
