@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Slot, composeRefs } from "@nuka/utils/slot";
-import { useTooltipContext } from "@nuka/components/Tooltip/TooltipContext";
+import { useTooltipContext } from "@nuka/components/Tooltip/Tooltip.context";
 
 export interface TooltipTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;

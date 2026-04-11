@@ -1,18 +1,14 @@
-export {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationPrevious,
-  PaginationNext,
-  PaginationEllipsis,
-} from "./Pagination";
-export type {
-  PaginationProps,
-  PaginationContentProps,
-  PaginationItemProps,
-  PaginationLinkProps,
-  PaginationPreviousProps,
-  PaginationNextProps,
-  PaginationEllipsisProps,
-} from "./Pagination";
+export { Pagination } from "./Pagination";
+export type { PaginationProps } from "./Pagination";
+export { PaginationContent } from "./PaginationContent";
+export type { PaginationContentProps } from "./PaginationContent";
+export { PaginationItem } from "./PaginationItem";
+export type { PaginationItemProps } from "./PaginationItem";
+export { PaginationLink } from "./PaginationLink";
+export type { PaginationLinkProps } from "./PaginationLink";
+export { PaginationPrevious } from "./PaginationPrevious";
+export type { PaginationPreviousProps } from "./PaginationPrevious";
+export { PaginationNext } from "./PaginationNext";
+export type { PaginationNextProps } from "./PaginationNext";
+export { PaginationEllipsis } from "./PaginationEllipsis";
+export type { PaginationEllipsisProps } from "./PaginationEllipsis";

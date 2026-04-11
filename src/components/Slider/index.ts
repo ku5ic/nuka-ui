@@ -1,9 +1,10 @@
+export { Slider } from "./Slider";
 export {
-  Slider,
   sliderWrapperVariants,
   sliderTrackVariants,
   sliderFillVariants,
   sliderThumbVariants,
   sliderValueVariants,
-} from "./Slider";
-export type { SliderProps, SliderVariantProps } from "./Slider";
+} from "@nuka/components/Slider/Slider.variants";
+export type { SliderProps } from "./Slider";
+export type { SliderVariantProps } from "@nuka/components/Slider/Slider.variants";

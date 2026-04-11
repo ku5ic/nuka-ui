@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Slot, composeRefs } from "@nuka/utils/slot";
-import { usePopoverContext } from "@nuka/components/Popover/PopoverContext";
+import { usePopoverContext } from "@nuka/components/Popover/Popover.context";
 
 export interface PopoverTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;
