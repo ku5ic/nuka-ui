@@ -179,6 +179,22 @@ export type { ContextMenuContextValue } from "./components/ContextMenu";
 export { DataTable } from "./components/DataTable";
 export type { DataTableProps, DataTableColumn } from "./components/DataTable";
 
+export {
+  DatePicker,
+  DatePickerInput,
+  DatePickerCalendar,
+} from "./components/DatePicker";
+export type {
+  DatePickerProps,
+  DatePickerInputProps,
+  DatePickerCalendarProps,
+} from "./components/DatePicker";
+export {
+  DatePickerContext,
+  useDatePickerContext,
+} from "./components/DatePicker";
+export type { DatePickerContextValue } from "./components/DatePicker";
+
 export { Divider, dividerVariants } from "./components/Divider";
 
 export {

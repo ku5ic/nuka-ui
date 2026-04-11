@@ -114,7 +114,7 @@ This document defines the full component scope for nuka-ui.
 | `Table`       | Done   | Sortable, accessible. `thead`/`tbody`/`tfoot`.                                       |
 | `DataTable`   | Done   | Table + pagination + filtering.                                                      |
 | `CommandMenu` | Done   | Keyboard-first search/action palette.                                                |
-| `DatePicker`  | -      | Popover + calendar.                                                                  |
+| `DatePicker`  | Done   | Popover + calendar.                                                                  |
 | `Combobox`    | -      | Custom searchable select.                                                            |
 
 ---
