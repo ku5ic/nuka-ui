@@ -1,112 +1,21 @@
 import * as React from "react";
-import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
 import { useFormFieldProps } from "@nuka/hooks/use-form-field-props";
 import { useControllableState } from "@nuka/hooks/use-controllable-state";
-
-const sliderWrapperVariants = cva(["relative flex items-center w-full"], {
-  variants: {
-    size: {
-      sm: "min-h-[24px]",
-      md: "min-h-[24px]",
-      lg: "min-h-[24px]",
-    },
-  },
-  defaultVariants: {
-    size: "md",
-  },
-});
-
-const sliderTrackVariants = cva(
-  ["relative w-full rounded-full", "bg-(--nuka-border-base)"],
-  {
-    variants: {
-      size: {
-        sm: "h-1",
-        md: "h-1.5",
-        lg: "h-2",
-      },
-    },
-    defaultVariants: {
-      size: "md",
-    },
-  },
-);
-
-const sliderFillVariants = cva(
-  [
-    "absolute left-0 top-0 h-full rounded-full",
-    "transition-[width] duration-75",
-  ],
-  {
-    variants: {
-      intent: {
-        default: "bg-(--nuka-accent-bg)",
-        danger: "bg-(--nuka-danger-base)",
-        success: "bg-(--nuka-success-base)",
-        warning: "bg-(--nuka-warning-base)",
-      },
-    },
-    defaultVariants: {
-      intent: "default",
-    },
-  },
-);
-
-const sliderThumbVariants = cva(
-  [
-    "absolute top-1/2 -translate-y-1/2",
-    "rounded-full",
-    "border-2 border-(--nuka-bg-base)",
-    "shadow-sm",
-    "transition-[left] duration-75",
-    "pointer-events-none",
-  ],
-  {
-    variants: {
-      intent: {
-        default: "bg-(--nuka-accent-bg)",
-        danger: "bg-(--nuka-danger-base)",
-        success: "bg-(--nuka-success-base)",
-        warning: "bg-(--nuka-warning-base)",
-      },
-      size: {
-        sm: "w-6 h-6",
-        md: "w-[18px] h-[18px]",
-        lg: "w-[22px] h-[22px]",
-      },
-    },
-    defaultVariants: {
-      intent: "default",
-      size: "md",
-    },
-  },
-);
-
-const sliderValueVariants = cva(
-  ["tabular-nums text-(--nuka-text-muted)", "ml-(--space-3)", "select-none"],
-  {
-    variants: {
-      size: {
-        sm: "text-xs",
-        md: "text-sm",
-        lg: "text-base",
-      },
-    },
-    defaultVariants: {
-      size: "md",
-    },
-  },
-);
+import {
+  sliderWrapperVariants,
+  sliderTrackVariants,
+  sliderFillVariants,
+  sliderThumbVariants,
+  sliderValueVariants,
+  type SliderVariantProps,
+} from "@nuka/components/Slider/Slider.variants";
 
 const THUMB_SIZES = {
   sm: 24,
   md: 18,
   lg: 22,
 } as const;
-
-export type SliderVariantProps = VariantProps<typeof sliderFillVariants> &
-  VariantProps<typeof sliderThumbVariants>;
 
 export interface SliderProps
   extends
