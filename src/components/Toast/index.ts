@@ -6,7 +6,8 @@ export type {
   ToastAction,
 } from "./toastStore";
 
-export { Toast, toastVariants } from "./Toast";
+export { Toast } from "./Toast";
+export { toastVariants } from "@nuka/components/Toast/Toast.variants";
 export type { ToastProps } from "./Toast";
 
 export { Toaster } from "./Toaster";

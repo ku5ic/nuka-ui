@@ -2,7 +2,7 @@ import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 import { Portal } from "@nuka/utils/portal";
 import { composeRefs } from "@nuka/utils/slot";
-import { useTooltipContext } from "@nuka/components/Tooltip/TooltipContext";
+import { useTooltipContext } from "@nuka/components/Tooltip/Tooltip.context";
 
 export interface TooltipContentProps extends React.HTMLAttributes<HTMLDivElement> {}
 
