@@ -1,2 +1,7 @@
-export { Spinner, spinnerVariants, spinnerColorVariants } from "./Spinner";
-export type { SpinnerProps, SpinnerVariantProps } from "./Spinner";
+export { Spinner } from "./Spinner";
+export {
+  spinnerVariants,
+  spinnerColorVariants,
+} from "@nuka/components/Spinner/Spinner.variants";
+export type { SpinnerProps } from "./Spinner";
+export type { SpinnerVariantProps } from "@nuka/components/Spinner/Spinner.variants";

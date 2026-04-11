@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { renderHook, act } from "@testing-library/react";
-import { useMediaQuery } from "@nuka/utils/use-media-query";
+import { useMediaQuery } from "@nuka/hooks/use-media-query";
 
 type ChangeListener = (e: MediaQueryListEvent) => void;
 

@@ -1,12 +1,8 @@
-export {
-  AppShell,
-  AppShellHeader,
-  AppShellBody,
-  AppShellMain,
-} from "@nuka/components/AppShell/AppShell";
-export type {
-  AppShellProps,
-  AppShellHeaderProps,
-  AppShellBodyProps,
-  AppShellMainProps,
-} from "@nuka/components/AppShell/AppShell";
+export { AppShell } from "./AppShell";
+export type { AppShellProps } from "./AppShell";
+export { AppShellHeader } from "./AppShellHeader";
+export type { AppShellHeaderProps } from "./AppShellHeader";
+export { AppShellBody } from "./AppShellBody";
+export type { AppShellBodyProps } from "./AppShellBody";
+export { AppShellMain } from "./AppShellMain";
+export type { AppShellMainProps } from "./AppShellMain";
