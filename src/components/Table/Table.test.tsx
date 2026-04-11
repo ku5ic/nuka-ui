@@ -10,7 +10,7 @@ import {
   TableRow,
   TableHead,
   TableCell,
-} from "./Table";
+} from "@nuka/components/Table";
 
 function renderTable({
   variant,

@@ -7,7 +7,7 @@ import {
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
-} from "./Accordion";
+} from "@nuka/components/Accordion";
 
 function renderSingleAccordion(
   props: Omit<

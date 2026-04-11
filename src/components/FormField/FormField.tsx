@@ -1,8 +1,8 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 import { Text } from "@nuka/components/Text";
-import { FormFieldContext } from "@nuka/components/FormField/FormFieldContext";
-import type { FormFieldContextValue } from "@nuka/components/FormField/FormFieldContext";
+import { FormFieldContext } from "@nuka/components/FormField/FormField.context";
+import type { FormFieldContextValue } from "@nuka/components/FormField/FormField.context";
 
 export interface FormFieldProps extends React.HTMLAttributes<HTMLDivElement> {
   id?: string;

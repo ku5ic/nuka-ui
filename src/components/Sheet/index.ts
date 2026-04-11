@@ -15,5 +15,5 @@ export type {
   SheetDescriptionProps,
   SheetCloseProps,
 } from "./Sheet";
-export { SheetContext, useSheetContext } from "./SheetContext";
-export type { SheetContextValue } from "./SheetContext";
+export { SheetContext, useSheetContext } from "./Sheet.context";
+export type { SheetContextValue } from "./Sheet.context";
