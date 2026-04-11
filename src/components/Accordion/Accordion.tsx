@@ -1,20 +1,8 @@
 import * as React from "react";
-import { cn } from "@nuka/utils/cn";
 import { composeRefs } from "@nuka/utils/slot";
-import { useControllableState } from "@nuka/utils/use-controllable-state";
-import { Icon } from "@nuka/components/Icon";
-import {
-  Collapsible,
-  CollapsibleTrigger,
-  CollapsibleContent,
-} from "@nuka/components/Collapsible";
-import {
-  AccordionContext,
-  AccordionItemContext,
-  useAccordionContext,
-  useAccordionItemContext,
-} from "@nuka/components/Accordion/AccordionContext";
-import type { HeadingLevel } from "@nuka/components/Accordion/AccordionContext";
+import { useControllableState } from "@nuka/hooks/use-controllable-state";
+import { AccordionContext } from "@nuka/components/Accordion/Accordion.context";
+import type { HeadingLevel } from "@nuka/components/Accordion/Accordion.context";
 
 interface AccordionSingleProps extends React.HTMLAttributes<HTMLDivElement> {
   type: "single";
@@ -163,7 +151,7 @@ function AccordionSingle({
         if (value === itemValue) {
           if (collapsible) {
             // Safe: useControllableState<string> expects string, but clearing a collapsible
-            // single-mode accordion requires undefined. The onValueChange cast on line 153
+            // single-mode accordion requires undefined. The onValueChange cast above
             // widens the callback to accept string | undefined, so the runtime value is correct.
             setValue(undefined as unknown as string);
           }
@@ -245,110 +233,4 @@ function AccordionMultiple({
   );
 }
 
-export interface AccordionItemProps extends React.HTMLAttributes<HTMLDivElement> {
-  value: string;
-  disabled?: boolean;
-}
-
-const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemProps>(
-  ({ value, disabled = false, className, children, ...props }, ref) => {
-    const { isItemOpen, toggleItem } = useAccordionContext();
-    const open = isItemOpen(value);
-
-    const itemContextValue = React.useMemo(
-      () => ({ value, disabled, open }),
-      [value, disabled, open],
-    );
-
-    return (
-      <AccordionItemContext value={itemContextValue}>
-        <Collapsible
-          ref={ref}
-          open={open}
-          onOpenChange={() => toggleItem(value)}
-          disabled={disabled}
-          className={cn("border-b border-(--nuka-border-base)", className)}
-          {...props}
-        >
-          {children}
-        </Collapsible>
-      </AccordionItemContext>
-    );
-  },
-);
-
-AccordionItem.displayName = "AccordionItem";
-
-export interface AccordionTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
-
-const AccordionTrigger = React.forwardRef<
-  HTMLButtonElement,
-  AccordionTriggerProps
->(({ className, children, ...props }, ref) => {
-  const { headingLevel } = useAccordionContext();
-  const { open } = useAccordionItemContext();
-  const HeadingTag = headingLevel;
-
-  return (
-    <HeadingTag className="flex">
-      <CollapsibleTrigger
-        ref={ref}
-        data-accordion-trigger=""
-        className={cn(
-          "flex flex-1 items-center justify-between",
-          "py-(--space-4)",
-          "text-[length:var(--font-size-sm)]",
-          "font-[number:var(--font-weight-medium)]",
-          "text-(--nuka-text-base)",
-          "transition-colors duration-150",
-          "hover:underline",
-          "focus-visible:outline-2 focus-visible:outline-offset-2",
-          "focus-visible:outline-(--nuka-border-focus)",
-          "disabled:pointer-events-none disabled:opacity-50",
-          className,
-        )}
-        {...props}
-      >
-        {children}
-        <Icon
-          size="sm"
-          className={cn(
-            "transition-transform duration-200",
-            open && "rotate-180",
-          )}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="m6 9 6 6 6-6" />
-          </svg>
-        </Icon>
-      </CollapsibleTrigger>
-    </HeadingTag>
-  );
-});
-
-AccordionTrigger.displayName = "AccordionTrigger";
-
-export interface AccordionContentProps extends React.HTMLAttributes<HTMLDivElement> {}
-
-const AccordionContent = React.forwardRef<
-  HTMLDivElement,
-  AccordionContentProps
->(({ className, children, ...props }, ref) => {
-  return (
-    <CollapsibleContent ref={ref} className={className} {...props}>
-      <div className="pb-(--space-4)">{children}</div>
-    </CollapsibleContent>
-  );
-});
-
-AccordionContent.displayName = "AccordionContent";
-
-export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };
+export { Accordion };

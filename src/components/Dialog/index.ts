@@ -14,5 +14,5 @@ export type {
   DialogDescriptionProps,
   DialogCloseProps,
 } from "./Dialog";
-export { DialogContext, useDialogContext } from "./DialogContext";
-export type { DialogContextValue } from "./DialogContext";
+export { DialogContext, useDialogContext } from "./Dialog.context";
+export type { DialogContextValue } from "./Dialog.context";
