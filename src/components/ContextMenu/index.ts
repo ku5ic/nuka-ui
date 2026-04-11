@@ -1,25 +1,21 @@
-export {
-  ContextMenu,
-  ContextMenuTrigger,
-  ContextMenuContent,
-  ContextMenuItem,
-  ContextMenuCheckboxItem,
-  ContextMenuRadioGroup,
-  ContextMenuRadioItem,
-  ContextMenuSeparator,
-  ContextMenuLabel,
-} from "@nuka/components/ContextMenu/ContextMenu";
-export type {
-  ContextMenuProps,
-  ContextMenuTriggerProps,
-  ContextMenuContentProps,
-  ContextMenuItemProps,
-  ContextMenuCheckboxItemProps,
-  ContextMenuRadioGroupProps,
-  ContextMenuRadioItemProps,
-  ContextMenuSeparatorProps,
-  ContextMenuLabelProps,
-} from "@nuka/components/ContextMenu/ContextMenu";
+export { ContextMenu } from "./ContextMenu";
+export type { ContextMenuProps } from "./ContextMenu";
+export { ContextMenuTrigger } from "./ContextMenuTrigger";
+export type { ContextMenuTriggerProps } from "./ContextMenuTrigger";
+export { ContextMenuContent } from "./ContextMenuContent";
+export type { ContextMenuContentProps } from "./ContextMenuContent";
+export { ContextMenuItem } from "./ContextMenuItem";
+export type { ContextMenuItemProps } from "./ContextMenuItem";
+export { ContextMenuCheckboxItem } from "./ContextMenuCheckboxItem";
+export type { ContextMenuCheckboxItemProps } from "./ContextMenuCheckboxItem";
+export { ContextMenuRadioGroup } from "./ContextMenuRadioGroup";
+export type { ContextMenuRadioGroupProps } from "./ContextMenuRadioGroup";
+export { ContextMenuRadioItem } from "./ContextMenuRadioItem";
+export type { ContextMenuRadioItemProps } from "./ContextMenuRadioItem";
+export { ContextMenuSeparator } from "./ContextMenuSeparator";
+export type { ContextMenuSeparatorProps } from "./ContextMenuSeparator";
+export { ContextMenuLabel } from "./ContextMenuLabel";
+export type { ContextMenuLabelProps } from "./ContextMenuLabel";
 export {
   ContextMenuContext,
   useContextMenuContext,
