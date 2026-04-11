@@ -1,67 +1,12 @@
 import * as React from "react";
-import {
-  cva,
-  selectionIndicatorIntentVariants,
-  type VariantProps,
-} from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
-import { useFormFieldProps } from "@nuka/utils/use-form-field-props";
+import { useFormFieldProps } from "@nuka/hooks/use-form-field-props";
 import { Text } from "@nuka/components/Text";
-
-const checkboxWrapperVariants = cva(
-  ["inline-flex items-center gap-(--space-2)", "cursor-pointer", "select-none"],
-  {
-    variants: {
-      size: {
-        sm: "min-h-6 min-w-6 text-xs",
-        md: "min-h-6 min-w-6 text-sm",
-        lg: "min-h-6 min-w-6 text-base",
-      },
-    },
-    defaultVariants: {
-      size: "md",
-    },
-  },
-);
-
-const checkboxIndicatorVariants = cva(
-  [
-    "inline-flex items-center justify-center shrink-0",
-    "rounded-(--radius-sm)",
-    "border",
-    "bg-(--nuka-input-bg)",
-    "text-(--nuka-text-inverse)",
-    "transition-colors duration-150",
-    "peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2",
-    "peer-focus-visible:outline-(--nuka-border-focus)",
-    "peer-disabled:cursor-not-allowed peer-disabled:opacity-50",
-    "peer-checked:*:block",
-  ],
-  {
-    variants: {
-      intent: {
-        default: "",
-        danger: "",
-        success: "",
-        warning: "",
-      },
-      size: {
-        sm: "size-4",
-        md: "size-5",
-        lg: "size-6",
-      },
-    },
-    compoundVariants: selectionIndicatorIntentVariants,
-    defaultVariants: {
-      intent: "default",
-      size: "md",
-    },
-  },
-);
-
-export type CheckboxVariantProps = VariantProps<
-  typeof checkboxIndicatorVariants
->;
+import {
+  checkboxWrapperVariants,
+  checkboxIndicatorVariants,
+  type CheckboxVariantProps,
+} from "@nuka/components/Checkbox/Checkbox.variants";
 
 export interface CheckboxProps
   extends
@@ -129,8 +74,4 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
 
 Checkbox.displayName = "Checkbox";
 
-export {
-  Checkbox,
-  checkboxIndicatorVariants as checkboxVariants,
-  checkboxWrapperVariants,
-};
+export { Checkbox };

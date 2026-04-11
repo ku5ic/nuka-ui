@@ -2,7 +2,7 @@ import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 import { Icon } from "@nuka/components/Icon";
 import { useFormField } from "@nuka/components/FormField";
-import { useFormFieldProps } from "@nuka/utils/use-form-field-props";
+import { useFormFieldProps } from "@nuka/hooks/use-form-field-props";
 import { comboboxTriggerVariants } from "@nuka/components/Combobox/Combobox.variants";
 import type { ComboboxTriggerProps } from "@nuka/components/Combobox/Combobox.types";
 import { useComboboxContext } from "@nuka/components/Combobox/Combobox.context";
