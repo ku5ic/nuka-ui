@@ -49,21 +49,53 @@ All variant x intent combinations must be valid. CVA `compoundVariants` handles 
 
 ### CVA conventions
 
-Defined in `src/utils/variants.ts`:
-
 - `cva` instance named `<component>Variants`: e.g. `buttonVariants`
 - Exported type named `<Component>VariantProps`: e.g. `ButtonVariantProps`
 - Base classes in an array, one concern per string
 - `intent` variant entries are empty strings: all color work lives in `compoundVariants`
+- CVA definitions live in the component's own `<Component>.variants.ts` file, not inlined in the component file
+- `src/utils/variants.ts` is reserved for shared CVA base utilities only (helpers used across multiple components)
 
 ### Component structure
 
-Every component lives in `src/components/<Name>/`:
+Every component lives in `src/components/<n>/`. Required layout:
 
-Name.tsx # Implementation
-Name.test.tsx # Vitest + Testing Library
-Name.stories.tsx # Storybook stories
-index.ts # Public exports
+```
+Name/
+  Name.tsx             # Component implementation, no CVA calls, no large type blocks
+  Name.variants.ts     # CVA definitions and VariantProps type (required if component uses CVA)
+  Name.types.ts        # Props interfaces and supporting types (see threshold below)
+  Name.utils.ts        # Helper functions (see threshold below)
+  Name.context.tsx     # Context definition, provider, and consumer hook (if component needs context)
+  Name.test.tsx        # Vitest + Testing Library
+  Name.stories.tsx     # Storybook stories
+  index.ts             # Re-exports only, no implementation code
+```
+
+Optional files are created when their content meets the thresholds below. They must not exist as empty stubs.
+
+**Variants file:** Required for any component that uses `cva(...)`. No exceptions. The variants file exports the CVA result and its inferred `VariantProps` type. The component file imports from `./<n>.variants` using the `@nuka/*` alias.
+
+**Types file:** Required when the combined line count of all exported interfaces, type aliases, and union types in a component file exceeds 40 lines. Types shared between a parent and its sub-components (shared context value types, shared size unions) must always live in the types file regardless of line count.
+
+**Utils file:** Required when any of the following is true:
+
+- A helper function exceeds 15 lines
+- A helper function is used by more than one file in the component directory
+- A helper function contains logic unrelated to rendering (ID generation, string manipulation, DOM measurement, event delegation)
+
+Single-expression inline helpers are not subject to this rule.
+
+**Context file:** Required when the component needs a React context. Contains the context definition, provider component, and consumer hook. Component-local contexts always co-locate here regardless of whether they are shared across the codebase or internal to the component only.
+
+**Compound components:** Each independently usable sub-component lives in its own file named after the sub-component (`CardHeader.tsx`, `CardContent.tsx`, etc.). A single file that defines multiple independently usable sub-components is a violation. Exception: a tightly coupled parent/child pair where the child has no independent use may coexist in the parent file. The `index.ts` re-exports all sub-components.
+
+**index.ts discipline:** `index.ts` contains re-export syntax only. No component definitions, CVA calls, helper functions, context definitions, or type definitions. Any implementation code in `index.ts` is a violation.
+
+**File size limits:**
+
+- Soft limit: 200 lines. Files exceeding this require a comment at the top explaining why they cannot be split. Absence of the comment is a violation.
+- Hard limit: 300 lines. No exceptions. Files over 300 lines must be split regardless of any comment.
 
 Add exports to `src/index.ts` when adding a new component.
 
@@ -91,12 +123,12 @@ typography token changes propagate correctly.
 ### Controlled/uncontrolled state uses useControllableState
 
 Any component with a controlled/uncontrolled prop pair must use `useControllableState`
-from `@nuka/utils/use-controllable-state`.
+from `@nuka/hooks/use-controllable-state`.
 
 ### Form controls use useFormFieldProps
 
 Any component that integrates with `FormField` context must use `useFormFieldProps`
-from `@nuka/utils/use-form-field-props`.
+from `@nuka/hooks/use-form-field-props`.
 
 ### Dismissible components use DismissButton
 
@@ -107,6 +139,15 @@ from `@nuka/utils/dismiss-button`.
 
 Any component that renders content outside its DOM position must use `Portal`
 from `@nuka/utils/portal`.
+
+### src/ directory conventions
+
+- `src/utils/` - pure, framework-agnostic helper functions with no React dependency
+- `src/hooks/` - standalone custom hooks; no provider components; hooks that read a shared context live here only if that context is defined in `src/context/`
+- `src/context/` - shared infrastructure contexts consumed across unrelated components; each context owns its provider and consumer hook in the same file
+- `src/components/<n>/Name.context.tsx` - component-local context; always co-located with the component that owns it
+
+Hooks must never live in `src/utils/`. Context definitions must never live in `src/utils/` or `src/hooks/`.
 
 ## Code standards
 
@@ -148,6 +189,9 @@ Full reasoning is in `docs/DECISIONS.md`. Summary:
 - **`data-theme` attribute**: enables nested themes, no class pollution
 - **No component-level tokens by default**: added per component only when semantic tokens are insufficient
 - **No relative imports**: `@nuka/*` alias everywhere for consistency and refactor safety
+- **Per-component variants files**: CVA definitions are never inlined in the component file; they live in `<n>.variants.ts` to keep component files focused on rendering logic
+- **Hooks in src/hooks/, not src/utils/**: hooks have lifecycle semantics distinct from pure utilities; mixing them obscures what each file is
+- **Context co-location**: component-local context lives in `<n>.context.tsx`; shared infrastructure context lives in `src/context/`
 
 ## Component inventory
 

@@ -112,6 +112,134 @@ one-sentence description.
 
 ---
 
+#### [STRUCTURE] - component source
+
+This category audits file organization within component directories and across the
+`src/` tree. Each rule below describes a structural expectation. Violations indicate
+that a file is doing too much, that concerns are mixed in ways that make code harder
+to navigate, or that shared definitions are not placed where consumers can import
+them without pulling in implementation code.
+
+**Variants in dedicated files:**
+
+Every component that uses CVA must have its `cva(...)` call in a separate
+`<Component>.variants.ts` file, not inlined in the component file.
+
+- Flag any component file that contains a `cva(...)` call.
+- The variants file must export the CVA result and its inferred `VariantProps` type.
+- The component file must import from `./<n>.variants` using the `@nuka/*` alias.
+
+To find violations:
+
+```bash
+grep -rn "cva(" src/components --include="*.tsx" | grep -v ".variants.ts" | grep -v ".stories.tsx" | grep -v ".test.tsx"
+```
+
+**Compound components in dedicated files:**
+
+Each independently usable sub-component must live in its own file named after the
+sub-component. A single file that defines multiple independently usable sub-components
+is a violation.
+
+- Flag any component file that contains more than one exported component definition,
+  unless they form a tightly coupled parent/child pair where the child has no
+  independent use.
+- Sub-component files must be named after the sub-component: `CardHeader.tsx`, etc.
+- The directory `index.ts` re-exports all sub-components.
+
+**Types in dedicated files:**
+
+Required when the combined line count of all exported interfaces, type aliases, and
+union types in a component file exceeds 40 lines.
+
+- Flag any component file that contains more than 40 lines of type-only definitions
+  without a corresponding `<Component>.types.ts` in the same directory.
+- When a `<Component>.types.ts` exists, the component file must not re-define any
+  type already exported from the types file.
+- Types shared between a parent and its sub-components must live in the types file
+  regardless of line count.
+
+**Helper functions in dedicated files:**
+
+Non-trivial helper functions must be extracted to `<Component>.utils.ts` when any of
+the following is true:
+
+- The function exceeds 15 lines
+- The function is used by more than one file in the component directory
+- The function contains logic unrelated to rendering (ID generation, string
+  manipulation, DOM measurement, event delegation)
+
+Flag any component file that contains helper functions meeting the above criteria
+without a corresponding `<Component>.utils.ts`.
+
+Note: single-expression inline helpers are not violations.
+
+**Context in dedicated files:**
+
+Any React context defined inside a component file is a violation. Context definitions,
+providers, and consumer hooks must live in `<Component>.context.tsx`, co-located with
+the component that owns them.
+
+- Flag any component file that contains a `React.createContext(` or `createContext(`
+  call outside of a `.context.tsx` file.
+
+To find violations:
+
+```bash
+grep -rn "createContext(" src/components --include="*.tsx" | grep -v ".context.tsx" | grep -v ".test.tsx" | grep -v ".stories.tsx"
+```
+
+**Hooks outside src/hooks/:**
+
+Custom hooks (functions prefixed with `use`) must not live in `src/utils/`. Hooks have
+React lifecycle semantics that are categorically different from pure utility functions.
+
+To find violations:
+
+```bash
+grep -rn "^export.*function use\|^export const use" src/utils --include="*.ts" --include="*.tsx"
+```
+
+**Context outside src/context/ or component directories:**
+
+Shared infrastructure contexts (consumed across unrelated components) must live in
+`src/context/`. Context definitions must never live in `src/utils/` or `src/hooks/`.
+
+To find violations:
+
+```bash
+grep -rn "createContext(" src/utils src/hooks --include="*.ts" --include="*.tsx" 2>/dev/null
+```
+
+**index.ts discipline:**
+
+Each component directory must have an `index.ts` that re-exports the public API only.
+`index.ts` must contain no component definitions, CVA calls, helper logic, context
+definitions, or type definitions other than re-export syntax.
+
+- Flag any `index.ts` that contains implementation code.
+- Flag any component directory that lacks an `index.ts`.
+
+**File size thresholds:**
+
+Every file in component source must stay within these line count limits:
+
+- Soft limit: 200 lines. Files exceeding this must have a comment at the top
+  explaining why they cannot be split. Absence of the comment is a violation.
+- Hard limit: 300 lines. Unconditional violation regardless of any comment.
+
+To check:
+
+```bash
+find src/components -name "*.tsx" -o -name "*.ts" | grep -v node_modules \
+  | xargs wc -l | sort -rn | head -30
+```
+
+Report the top 30 longest files. Flag every file over 200 lines. Treat every file
+over 300 lines as a hard violation.
+
+---
+
 #### [COMPOSITION] - component source
 
 Components using raw HTML elements where a library component should be used,
