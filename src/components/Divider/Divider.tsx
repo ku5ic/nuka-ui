@@ -1,35 +1,10 @@
 import * as React from "react";
-import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
 import { Text } from "@nuka/components/Text";
-
-const dividerVariants = cva([], {
-  variants: {
-    orientation: {
-      horizontal: "w-full",
-      vertical: "self-stretch",
-    },
-    size: {
-      sm: "",
-      md: "",
-      lg: "",
-    },
-  },
-  compoundVariants: [
-    { orientation: "horizontal", size: "sm", className: "h-px" },
-    { orientation: "horizontal", size: "md", className: "h-px" },
-    { orientation: "horizontal", size: "lg", className: "h-0.5" },
-    { orientation: "vertical", size: "sm", className: "w-px" },
-    { orientation: "vertical", size: "md", className: "w-px" },
-    { orientation: "vertical", size: "lg", className: "w-0.5" },
-  ],
-  defaultVariants: {
-    orientation: "horizontal",
-    size: "md",
-  },
-});
-
-export type DividerVariantProps = VariantProps<typeof dividerVariants>;
+import {
+  dividerVariants,
+  type DividerVariantProps,
+} from "@nuka/components/Divider/Divider.variants";
 
 export interface DividerProps
   extends React.ComponentPropsWithoutRef<"div">, DividerVariantProps {

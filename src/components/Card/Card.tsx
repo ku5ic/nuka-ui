@@ -1,30 +1,14 @@
 import * as React from "react";
 import { Slot } from "@nuka/utils/slot";
-import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
 import { Heading } from "@nuka/components/Heading";
 import type { HeadingElement } from "@nuka/components/Heading";
 import { Text } from "@nuka/components/Text";
 import { Stack } from "@nuka/components/Stack";
-
-const cardVariants = cva(["rounded-(--radius-lg)", "text-(--nuka-text-base)"], {
-  variants: {
-    variant: {
-      outlined: [
-        "bg-(--nuka-bg-base)",
-        "border",
-        "border-(--nuka-border-base)",
-      ],
-      elevated: ["bg-(--nuka-bg-base)", "shadow-(--nuka-shadow-card)"],
-      filled: ["bg-(--nuka-bg-muted)"],
-    },
-  },
-  defaultVariants: {
-    variant: "outlined",
-  },
-});
-
-export type CardVariantProps = VariantProps<typeof cardVariants>;
+import {
+  cardVariants,
+  type CardVariantProps,
+} from "@nuka/components/Card/Card.variants";
 
 export interface CardProps
   extends React.HTMLAttributes<HTMLDivElement>, CardVariantProps {

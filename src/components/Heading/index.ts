@@ -1,6 +1,4 @@
-export { Heading, headingVariants } from "./Heading";
-export type {
-  HeadingProps,
-  HeadingVariantProps,
-  HeadingElement,
-} from "./Heading";
+export { Heading } from "./Heading";
+export { headingVariants } from "@nuka/components/Heading/Heading.variants";
+export type { HeadingProps, HeadingElement } from "./Heading";
+export type { HeadingVariantProps } from "@nuka/components/Heading/Heading.variants";
