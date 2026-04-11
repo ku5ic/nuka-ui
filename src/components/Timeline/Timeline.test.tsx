@@ -1,7 +1,8 @@
 import * as React from "react";
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { Timeline, TimelineItem } from "./Timeline";
+import { Timeline } from "@nuka/components/Timeline/Timeline";
+import { TimelineItem } from "@nuka/components/Timeline/TimelineItem";
 
 describe("Timeline", () => {
   describe("rendering", () => {

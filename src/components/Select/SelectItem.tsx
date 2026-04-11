@@ -1,7 +1,7 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 import { composeRefs } from "@nuka/utils/slot";
-import { useSelect } from "@nuka/components/Select/SelectContext";
+import { useSelect } from "@nuka/components/Select/Select.context";
 
 export interface SelectItemProps {
   value: string;

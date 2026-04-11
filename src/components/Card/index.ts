@@ -1,18 +1,18 @@
 export {
   Card,
-  cardVariants,
   CardHeader,
   CardTitle,
   CardDescription,
   CardBody,
   CardFooter,
 } from "./Card";
+export { cardVariants } from "@nuka/components/Card/Card.variants";
 export type {
   CardProps,
-  CardVariantProps,
   CardHeaderProps,
   CardTitleProps,
   CardDescriptionProps,
   CardBodyProps,
   CardFooterProps,
 } from "./Card";
+export type { CardVariantProps } from "@nuka/components/Card/Card.variants";

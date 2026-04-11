@@ -15,7 +15,7 @@ import {
   SidebarMenuButton,
   SidebarTrigger,
   SidebarInset,
-} from "./Sidebar";
+} from "@nuka/components/Sidebar";
 
 type ChangeListener = (e: MediaQueryListEvent) => void;
 
