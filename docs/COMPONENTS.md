@@ -113,7 +113,7 @@ This document defines the full component scope for nuka-ui.
 | `AppShell`    | Done   | Top-level layout: sidebar + header + main. Composes `Sidebar`, `Stack`, `Container`. |
 | `Table`       | Done   | Sortable, accessible. `thead`/`tbody`/`tfoot`.                                       |
 | `DataTable`   | Done   | Table + pagination + filtering.                                                      |
-| `CommandMenu` | -      | Keyboard-first search/action palette.                                                |
+| `CommandMenu` | Done   | Keyboard-first search/action palette.                                                |
 | `DatePicker`  | -      | Popover + calendar.                                                                  |
 | `Combobox`    | -      | Custom searchable select.                                                            |
 

@@ -3,24 +3,9 @@ import { cn } from "@nuka/utils/cn";
 import { Slot } from "@nuka/utils/slot";
 import { DismissButton } from "@nuka/utils/dismiss-button";
 import { useControllableState } from "@nuka/utils/use-controllable-state";
+import { useEscapeKey } from "@nuka/utils/use-escape-key";
 import { Heading } from "@nuka/components/Heading";
 import { Text } from "@nuka/components/Text";
-
-function useEscapeKey(onEscape: () => void, enabled: boolean): void {
-  React.useEffect(() => {
-    if (!enabled) return undefined;
-
-    function handleEscape(e: KeyboardEvent) {
-      if (e.key === "Escape") {
-        e.stopPropagation();
-        onEscape();
-      }
-    }
-
-    document.addEventListener("keydown", handleEscape);
-    return () => document.removeEventListener("keydown", handleEscape);
-  }, [enabled, onEscape]);
-}
 
 function useModalTitleWarning(
   displayName: string,

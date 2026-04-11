@@ -102,6 +102,30 @@ export {
 export { Code, codeVariants } from "./components/Code";
 export type { CodeProps, CodeVariantProps } from "./components/Code";
 
+export {
+  CommandMenu,
+  CommandMenuInput,
+  CommandMenuList,
+  CommandMenuEmpty,
+  CommandMenuGroup,
+  CommandMenuItem,
+  CommandMenuShortcut,
+} from "./components/CommandMenu";
+export type {
+  CommandMenuProps,
+  CommandMenuInputProps,
+  CommandMenuListProps,
+  CommandMenuEmptyProps,
+  CommandMenuGroupProps,
+  CommandMenuItemProps,
+  CommandMenuShortcutProps,
+} from "./components/CommandMenu";
+export {
+  CommandMenuContext,
+  useCommandMenuContext,
+} from "./components/CommandMenu";
+export type { CommandMenuContextValue } from "./components/CommandMenu";
+
 export { Container } from "./components/Container";
 export type { ContainerProps, ContainerSize } from "./components/Container";
 
