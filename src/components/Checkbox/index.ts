@@ -1,6 +1,7 @@
+export { Checkbox } from "./Checkbox";
 export {
-  Checkbox,
   checkboxVariants,
   checkboxWrapperVariants,
-} from "./Checkbox";
-export type { CheckboxProps, CheckboxVariantProps } from "./Checkbox";
+} from "@nuka/components/Checkbox/Checkbox.variants";
+export type { CheckboxProps } from "./Checkbox";
+export type { CheckboxVariantProps } from "@nuka/components/Checkbox/Checkbox.variants";

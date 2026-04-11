@@ -1,2 +1,4 @@
-export { Code, codeVariants } from "./Code";
-export type { CodeProps, CodeVariantProps } from "./Code";
+export { Code } from "./Code";
+export { codeVariants } from "@nuka/components/Code/Code.variants";
+export type { CodeProps } from "./Code";
+export type { CodeVariantProps } from "@nuka/components/Code/Code.variants";
