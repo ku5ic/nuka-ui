@@ -1,6 +1,6 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
-import { Slot } from "@nuka/utils/slot";
+import { Slot, composeRefs } from "@nuka/utils/slot";
 import { Button } from "@nuka/components/Button";
 import { Icon } from "@nuka/components/Icon";
 
@@ -77,15 +77,78 @@ export interface PaginationPreviousProps extends React.AnchorHTMLAttributes<HTML
   asChild?: boolean;
 }
 
+const PreviousIcon = () => (
+  <Icon size="sm">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="m15 18-6-6 6-6" />
+    </svg>
+  </Icon>
+);
+
 const PaginationPrevious = React.forwardRef<
   HTMLAnchorElement,
   PaginationPreviousProps
 >(
   (
-    { disabled = false, asChild = false, className, children, ...props },
+    {
+      disabled = false,
+      asChild = false,
+      className,
+      children,
+      onClick,
+      ...props
+    },
     ref,
   ) => {
-    const Comp = asChild ? Slot : disabled ? "span" : "a";
+    const handleClick = disabled
+      ? (e: React.MouseEvent<HTMLAnchorElement>) => {
+          e.preventDefault();
+        }
+      : onClick;
+
+    // When asChild, the consumer provides a single child element (e.g. <button>).
+    // We inject the icon + label as that element's children via cloneElement,
+    // avoiding the Slot multiple-children error.
+    if (asChild && React.isValidElement(children)) {
+      const child = children as React.ReactElement<
+        Record<string, unknown> & { ref?: React.Ref<HTMLElement> }
+      >;
+      const label = (child.props.children as React.ReactNode) ?? "Previous";
+
+      return (
+        <Button
+          asChild
+          variant="ghost"
+          size="sm"
+          className={className}
+          disabled={disabled}
+        >
+          {React.cloneElement(
+            child,
+            {
+              ref: composeRefs(
+                ref as React.Ref<HTMLElement>,
+                child.props.ref,
+              ) as React.Ref<never>,
+              "aria-label": "Go to previous page",
+              ...props,
+            } as Partial<Record<string, unknown>> & React.Attributes,
+            <PreviousIcon />,
+            label,
+          )}
+        </Button>
+      );
+    }
+
+    const Comp = disabled ? "span" : "a";
 
     return (
       <Button
@@ -96,29 +159,15 @@ const PaginationPrevious = React.forwardRef<
         disabled={disabled}
       >
         <Comp
-          // Safe: Comp resolves to Slot | "span" | "a" based on disabled/asChild,
-          // making the ref type a union no single React.Ref<T> satisfies. Each branch
-          // renders one concrete element, so the ref assignment is correct at runtime.
           ref={ref as React.Ref<never>}
           aria-label="Go to previous page"
+          onClick={handleClick}
           {...props}
-          {...(disabled && !asChild
+          {...(disabled
             ? { role: "link" as const, "aria-disabled": true }
             : {})}
         >
-          <Icon size="sm">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="m15 18-6-6 6-6" />
-            </svg>
-          </Icon>
+          <PreviousIcon />
           {children ?? "Previous"}
         </Comp>
       </Button>
@@ -133,12 +182,72 @@ export interface PaginationNextProps extends React.AnchorHTMLAttributes<HTMLAnch
   asChild?: boolean;
 }
 
+const NextIcon = () => (
+  <Icon size="sm">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="m9 18 6-6-6-6" />
+    </svg>
+  </Icon>
+);
+
 const PaginationNext = React.forwardRef<HTMLAnchorElement, PaginationNextProps>(
   (
-    { disabled = false, asChild = false, className, children, ...props },
+    {
+      disabled = false,
+      asChild = false,
+      className,
+      children,
+      onClick,
+      ...props
+    },
     ref,
   ) => {
-    const Comp = asChild ? Slot : disabled ? "span" : "a";
+    const handleClick = disabled
+      ? (e: React.MouseEvent<HTMLAnchorElement>) => {
+          e.preventDefault();
+        }
+      : onClick;
+
+    if (asChild && React.isValidElement(children)) {
+      const child = children as React.ReactElement<
+        Record<string, unknown> & { ref?: React.Ref<HTMLElement> }
+      >;
+      const label = (child.props.children as React.ReactNode) ?? "Next";
+
+      return (
+        <Button
+          asChild
+          variant="ghost"
+          size="sm"
+          className={className}
+          disabled={disabled}
+        >
+          {React.cloneElement(
+            child,
+            {
+              ref: composeRefs(
+                ref as React.Ref<HTMLElement>,
+                child.props.ref,
+              ) as React.Ref<never>,
+              "aria-label": "Go to next page",
+              ...props,
+            } as Partial<Record<string, unknown>> & React.Attributes,
+            label,
+            <NextIcon />,
+          )}
+        </Button>
+      );
+    }
+
+    const Comp = disabled ? "span" : "a";
 
     return (
       <Button
@@ -149,28 +258,16 @@ const PaginationNext = React.forwardRef<HTMLAnchorElement, PaginationNextProps>(
         disabled={disabled}
       >
         <Comp
-          // Safe: same polymorphic Comp pattern as PaginationPrevious above.
           ref={ref as React.Ref<never>}
           aria-label="Go to next page"
+          onClick={handleClick}
           {...props}
-          {...(disabled && !asChild
+          {...(disabled
             ? { role: "link" as const, "aria-disabled": true }
             : {})}
         >
           {children ?? "Next"}
-          <Icon size="sm">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="m9 18 6-6-6-6" />
-            </svg>
-          </Icon>
+          <NextIcon />
         </Comp>
       </Button>
     );

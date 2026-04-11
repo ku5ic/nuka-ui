@@ -1222,3 +1222,57 @@ Additionally, `--nuka-accent-bg-subtle` in dark mode referenced `accent-800` (20
 **Keeping hardcoded values in the semantic layer**: rejected. Prevents consumer theming of dark surfaces without editing the semantic layer.
 
 **White text for all filled surfaces in dark mode**: rejected. Fails WCAG AA on danger-250 (3.95:1) and success-250 (4.28:1). Darkening these surfaces to pass with white would collapse them into the 300-step values, defeating the two-step light/dark architecture.
+
+---
+
+## ADR-035: cloneElement vs Slot for asChild components with internal content
+
+**Date:** 2026-04-11
+**Status:** Accepted
+
+### Context
+
+The `asChild` pattern in nuka-ui uses `Slot` to merge props from a wrapper component onto a consumer-provided child element. Slot requires exactly one React element as its child. This works for components like `PaginationLink` and `Button` where the component's `Comp` element has no internal children of its own: the consumer's child IS the sole content.
+
+`PaginationPrevious` and `PaginationNext` are different. They render internal structural content (an Icon + label text) as children of their `Comp` element. When `asChild=true` and `Comp=Slot`, Slot receives both the internal Icon and the consumer's child element, violating the single-child constraint.
+
+### Decision
+
+Components with internal content that use `asChild` bypass `Slot` and use `React.cloneElement` directly. The consumer's child element is cloned with merged props (aria-label, ref, event handlers), and the component's internal content (Icon, label) is injected as the cloned element's children.
+
+```tsx
+if (asChild && React.isValidElement(children)) {
+  const child = children;
+  const label = child.props.children ?? "Previous";
+  return (
+    <Button asChild variant="ghost" size="sm">
+      {React.cloneElement(
+        child,
+        { ref, "aria-label": "...", ...props },
+        <Icon />,
+        label,
+      )}
+    </Button>
+  );
+}
+```
+
+When `asChild=false`, the component uses its standard element (`"a"` or `"span"`) with internal content rendered normally.
+
+### Reasoning
+
+**Slot cannot handle multiple children**: this is by design. Slot merges props onto a single element. Passing multiple children is not an edge case to work around; it is a misuse of the abstraction.
+
+**cloneElement preserves the consumer's element type**: the consumer passes `<button>`, and a `<button>` is what renders. Props from the wrapper (aria-label, ref) are merged. The consumer's own props (disabled, onClick) are preserved. This matches the semantic contract of `asChild`.
+
+**Internal content injection is intentional**: PaginationPrevious/PaginationNext provide structural chrome (navigation icons, default labels) that should appear regardless of the rendered element type. The consumer can override the label via their element's children, but the Icon is always present.
+
+### Consequences
+
+- Two patterns exist for `asChild`: Slot (for components without internal content) and cloneElement (for components with internal content). The choice is determined by whether the component renders its own children inside `Comp`.
+- `composeRefs` must be imported from `@nuka/utils/slot` when using cloneElement, to merge the forwarded ref with any ref on the consumer's child.
+- Future components with internal content + `asChild` should follow PaginationPrevious as the reference implementation, not Button or PaginationLink.
+
+### First instances
+
+`PaginationPrevious` and `PaginationNext` in `src/components/Pagination/Pagination.tsx`.

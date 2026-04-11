@@ -1,6 +1,7 @@
 import * as React from "react";
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import {
   Pagination,
   PaginationContent,
@@ -134,6 +135,39 @@ describe("Pagination", () => {
         screen.getByRole("link", { name: "Go to previous page" }),
       ).toHaveAttribute("href", "/page/1");
     });
+
+    it("renders as span with aria-disabled when disabled", () => {
+      render(
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious disabled />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>,
+      );
+      const el = screen.getByRole("link", { name: "Go to previous page" });
+      expect(el.tagName).toBe("SPAN");
+      expect(el).toHaveAttribute("aria-disabled", "true");
+    });
+
+    it("does not fire onClick when disabled", async () => {
+      const user = userEvent.setup();
+      const onClick = vi.fn();
+      render(
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious disabled onClick={onClick} />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>,
+      );
+      await user.click(
+        screen.getByRole("link", { name: "Go to previous page" }),
+      );
+      expect(onClick).not.toHaveBeenCalled();
+    });
   });
 
   describe("PaginationNext", () => {
@@ -156,6 +190,37 @@ describe("Pagination", () => {
       expect(
         screen.getByRole("link", { name: "Go to next page" }),
       ).toHaveAttribute("href", "/page/3");
+    });
+
+    it("renders as span with aria-disabled when disabled", () => {
+      render(
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationNext disabled />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>,
+      );
+      const el = screen.getByRole("link", { name: "Go to next page" });
+      expect(el.tagName).toBe("SPAN");
+      expect(el).toHaveAttribute("aria-disabled", "true");
+    });
+
+    it("does not fire onClick when disabled", async () => {
+      const user = userEvent.setup();
+      const onClick = vi.fn();
+      render(
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationNext disabled onClick={onClick} />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>,
+      );
+      await user.click(screen.getByRole("link", { name: "Go to next page" }));
+      expect(onClick).not.toHaveBeenCalled();
     });
   });
 
