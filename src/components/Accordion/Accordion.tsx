@@ -1,9 +1,7 @@
 import * as React from "react";
 import { composeRefs } from "@nuka/utils/slot";
 import { useControllableState } from "@nuka/hooks/use-controllable-state";
-import {
-  AccordionContext,
-} from "@nuka/components/Accordion/Accordion.context";
+import { AccordionContext } from "@nuka/components/Accordion/Accordion.context";
 import type { HeadingLevel } from "@nuka/components/Accordion/Accordion.context";
 
 interface AccordionSingleProps extends React.HTMLAttributes<HTMLDivElement> {

@@ -1,8 +1,6 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
-import {
-  StepperContext,
-} from "@nuka/components/Stepper/Stepper.context";
+import { StepperContext } from "@nuka/components/Stepper/Stepper.context";
 import type {
   StepperOrientation,
   StepState,

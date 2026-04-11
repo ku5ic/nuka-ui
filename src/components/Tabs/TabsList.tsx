@@ -10,8 +10,7 @@ import {
 const TRIGGER_SELECTOR = '[role="tab"]:not([aria-disabled="true"])';
 
 export interface TabsListProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    TabsListVariantProps {}
+  extends React.HTMLAttributes<HTMLDivElement>, TabsListVariantProps {}
 
 const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
   ({ variant, className, onKeyDown, children, ...props }, ref) => {

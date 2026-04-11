@@ -13,8 +13,7 @@ import {
   useAutoFocusFirstItem,
 } from "@nuka/components/Menu/MenuContentBase";
 
-export interface MenubarContentProps
-  extends React.HTMLAttributes<HTMLDivElement> {}
+export interface MenubarContentProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const MenubarContent = React.forwardRef<HTMLDivElement, MenubarContentProps>(
   ({ className, children, ...props }, ref) => {

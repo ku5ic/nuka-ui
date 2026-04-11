@@ -7,8 +7,7 @@ import {
   useAccordionItemContext,
 } from "@nuka/components/Accordion/Accordion.context";
 
-export interface AccordionTriggerProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+export interface AccordionTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
 const AccordionTrigger = React.forwardRef<
   HTMLButtonElement,

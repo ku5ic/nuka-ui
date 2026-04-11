@@ -3,8 +3,7 @@ import { cn } from "@nuka/utils/cn";
 import { Text } from "@nuka/components/Text";
 import { timelineItemMarkerVariants } from "@nuka/components/Timeline/Timeline.variants";
 
-export interface TimelineItemProps
-  extends React.LiHTMLAttributes<HTMLLIElement> {
+export interface TimelineItemProps extends React.LiHTMLAttributes<HTMLLIElement> {
   timestamp?: string;
   title: string;
   description?: string;

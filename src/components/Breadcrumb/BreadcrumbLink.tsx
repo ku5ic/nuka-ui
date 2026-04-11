@@ -2,8 +2,7 @@ import * as React from "react";
 import { Slot } from "@nuka/utils/slot";
 import { cn } from "@nuka/utils/cn";
 
-export interface BreadcrumbLinkProps
-  extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+export interface BreadcrumbLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   asChild?: boolean;
 }
 

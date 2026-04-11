@@ -9,8 +9,7 @@ import type {
   StepperItemContextValue,
 } from "@nuka/components/Stepper/Stepper.context";
 
-export interface StepperItemProps
-  extends React.LiHTMLAttributes<HTMLLIElement> {
+export interface StepperItemProps extends React.LiHTMLAttributes<HTMLLIElement> {
   step: number;
   state?: StepState;
   disabled?: boolean;

@@ -1,8 +1,7 @@
 import * as React from "react";
 import { CollapsibleContent } from "@nuka/components/Collapsible";
 
-export interface AccordionContentProps
-  extends React.HTMLAttributes<HTMLDivElement> {}
+export interface AccordionContentProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const AccordionContent = React.forwardRef<
   HTMLDivElement,

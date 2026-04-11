@@ -4,8 +4,7 @@ import { Icon } from "@nuka/components/Icon";
 import { menuRadioItemVariants } from "@nuka/components/Menu/menuItemVariants";
 import { useMenuRadioGroup } from "@nuka/components/Menu/MenuRadioGroupBase";
 
-export interface MenuRadioItemBaseProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export interface MenuRadioItemBaseProps extends React.HTMLAttributes<HTMLDivElement> {
   value: string;
   disabled?: boolean;
   onClose?: () => void;

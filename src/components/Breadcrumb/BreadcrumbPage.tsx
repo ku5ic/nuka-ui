@@ -1,8 +1,7 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 
-export interface BreadcrumbPageProps
-  extends React.HTMLAttributes<HTMLSpanElement> {}
+export interface BreadcrumbPageProps extends React.HTMLAttributes<HTMLSpanElement> {}
 
 const BreadcrumbPage = React.forwardRef<HTMLSpanElement, BreadcrumbPageProps>(
   ({ className, ...props }, ref) => (

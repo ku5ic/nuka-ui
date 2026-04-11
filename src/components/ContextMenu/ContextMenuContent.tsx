@@ -10,8 +10,7 @@ import {
   useAutoFocusFirstItem,
 } from "@nuka/components/Menu/MenuContentBase";
 
-export interface ContextMenuContentProps
-  extends React.HTMLAttributes<HTMLDivElement> {}
+export interface ContextMenuContentProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const ContextMenuContent = React.forwardRef<
   HTMLDivElement,

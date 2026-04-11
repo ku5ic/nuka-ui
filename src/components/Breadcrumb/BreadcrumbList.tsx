@@ -1,8 +1,7 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 
-export interface BreadcrumbListProps
-  extends React.OlHTMLAttributes<HTMLOListElement> {}
+export interface BreadcrumbListProps extends React.OlHTMLAttributes<HTMLOListElement> {}
 
 const BreadcrumbList = React.forwardRef<HTMLOListElement, BreadcrumbListProps>(
   ({ className, ...props }, ref) => (

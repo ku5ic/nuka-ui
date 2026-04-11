@@ -2,8 +2,7 @@ import * as React from "react";
 import { Slot } from "@nuka/utils/slot";
 import { useCollapsibleContext } from "@nuka/components/Collapsible/Collapsible.context";
 
-export interface CollapsibleTriggerProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface CollapsibleTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;
 }
 

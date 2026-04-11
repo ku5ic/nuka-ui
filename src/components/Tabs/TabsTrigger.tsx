@@ -2,8 +2,7 @@ import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 import { useTabsContext } from "@nuka/components/Tabs/Tabs.context";
 
-export interface TabsTriggerProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface TabsTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   value: string;
 }
 

@@ -1,8 +1,7 @@
 import * as React from "react";
 import { MenuLabelBase } from "@nuka/components/Menu/MenuLabelBase";
 
-export interface ContextMenuLabelProps
-  extends React.HTMLAttributes<HTMLDivElement> {}
+export interface ContextMenuLabelProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const ContextMenuLabel = React.forwardRef<
   HTMLDivElement,

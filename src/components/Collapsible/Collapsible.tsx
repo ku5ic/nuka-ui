@@ -1,8 +1,6 @@
 import * as React from "react";
 import { useControllableState } from "@nuka/hooks/use-controllable-state";
-import {
-  CollapsibleContext,
-} from "@nuka/components/Collapsible/Collapsible.context";
+import { CollapsibleContext } from "@nuka/components/Collapsible/Collapsible.context";
 
 export interface CollapsibleProps extends React.HTMLAttributes<HTMLDivElement> {
   open?: boolean;

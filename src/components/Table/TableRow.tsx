@@ -10,8 +10,7 @@ const rowIntentClasses: Record<TableRowIntent, string> = {
   warning: "bg-(--nuka-warning-bg)",
 };
 
-export interface TableRowProps
-  extends React.HTMLAttributes<HTMLTableRowElement> {
+export interface TableRowProps extends React.HTMLAttributes<HTMLTableRowElement> {
   intent?: TableRowIntent;
   selected?: boolean;
 }

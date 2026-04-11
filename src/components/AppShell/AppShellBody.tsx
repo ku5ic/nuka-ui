@@ -1,8 +1,7 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 
-export interface AppShellBodyProps
-  extends React.HTMLAttributes<HTMLDivElement> {}
+export interface AppShellBodyProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const AppShellBody = React.forwardRef<HTMLDivElement, AppShellBodyProps>(
   ({ className, ...props }, ref) => (

@@ -4,8 +4,7 @@ import { menuItemVariants } from "@nuka/components/Menu/menuItemVariants";
 import type { MenuItemVariantProps } from "@nuka/components/Menu/menuItemVariants";
 
 export interface MenuItemBaseProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    MenuItemVariantProps {
+  extends React.HTMLAttributes<HTMLDivElement>, MenuItemVariantProps {
   disabled?: boolean;
   onSelect?: () => void;
   onClose?: () => void;

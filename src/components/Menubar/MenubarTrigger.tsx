@@ -6,8 +6,7 @@ import {
   useMenubarMenuContext,
 } from "@nuka/components/Menubar/Menubar.context";
 
-export interface MenubarTriggerProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+export interface MenubarTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
 const MenubarTrigger = React.forwardRef<HTMLButtonElement, MenubarTriggerProps>(
   ({ className, children, onKeyDown, ...props }, ref) => {

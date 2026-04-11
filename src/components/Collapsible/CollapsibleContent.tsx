@@ -2,8 +2,7 @@ import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 import { useCollapsibleContext } from "@nuka/components/Collapsible/Collapsible.context";
 
-export interface CollapsibleContentProps
-  extends React.HTMLAttributes<HTMLDivElement> {}
+export interface CollapsibleContentProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const CollapsibleContent = React.forwardRef<
   HTMLDivElement,

@@ -2,8 +2,7 @@ import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 import { useTableContext } from "@nuka/components/Table/Table.context";
 
-export interface TableCellProps
-  extends React.TdHTMLAttributes<HTMLTableCellElement> {}
+export interface TableCellProps extends React.TdHTMLAttributes<HTMLTableCellElement> {}
 
 const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
   ({ className, ...props }, ref) => {

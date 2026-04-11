@@ -1,8 +1,7 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 
-export interface TimelineProps
-  extends React.OlHTMLAttributes<HTMLOListElement> {}
+export interface TimelineProps extends React.OlHTMLAttributes<HTMLOListElement> {}
 
 const Timeline = React.forwardRef<HTMLOListElement, TimelineProps>(
   ({ className, ...props }, ref) => {

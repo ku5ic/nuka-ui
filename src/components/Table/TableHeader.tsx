@@ -1,8 +1,7 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 
-export interface TableHeaderProps
-  extends React.HTMLAttributes<HTMLTableSectionElement> {}
+export interface TableHeaderProps extends React.HTMLAttributes<HTMLTableSectionElement> {}
 
 const TableHeader = React.forwardRef<HTMLTableSectionElement, TableHeaderProps>(
   ({ className, ...props }, ref) => (

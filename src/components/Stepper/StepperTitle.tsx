@@ -3,8 +3,10 @@ import { cn } from "@nuka/utils/cn";
 import { Text } from "@nuka/components/Text";
 import { useStepperContext } from "@nuka/components/Stepper/Stepper.context";
 
-export interface StepperTitleProps
-  extends Omit<React.HTMLAttributes<HTMLElement>, "color"> {}
+export interface StepperTitleProps extends Omit<
+  React.HTMLAttributes<HTMLElement>,
+  "color"
+> {}
 
 const StepperTitle = React.forwardRef<HTMLElement, StepperTitleProps>(
   ({ className, ...props }, ref) => {

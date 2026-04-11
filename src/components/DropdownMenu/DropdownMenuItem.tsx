@@ -4,9 +4,10 @@ import type { MenuItemWithNavProps } from "@nuka/components/Menu/MenuContentBase
 
 export type DropdownMenuItemProps = MenuItemWithNavProps;
 
-const DropdownMenuItem = React.forwardRef<HTMLDivElement, DropdownMenuItemProps>(
-  (props, ref) => <MenuItemWithNav ref={ref} {...props} />,
-);
+const DropdownMenuItem = React.forwardRef<
+  HTMLDivElement,
+  DropdownMenuItemProps
+>((props, ref) => <MenuItemWithNav ref={ref} {...props} />);
 
 DropdownMenuItem.displayName = "DropdownMenuItem";
 

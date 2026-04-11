@@ -1,8 +1,7 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 
-export interface BreadcrumbEllipsisProps
-  extends React.HTMLAttributes<HTMLSpanElement> {}
+export interface BreadcrumbEllipsisProps extends React.HTMLAttributes<HTMLSpanElement> {}
 
 const BreadcrumbEllipsis = React.forwardRef<
   HTMLSpanElement,

@@ -1,8 +1,7 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 
-export interface PaginationContentProps
-  extends React.HTMLAttributes<HTMLUListElement> {}
+export interface PaginationContentProps extends React.HTMLAttributes<HTMLUListElement> {}
 
 const PaginationContent = React.forwardRef<
   HTMLUListElement,

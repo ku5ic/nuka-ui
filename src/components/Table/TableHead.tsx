@@ -39,8 +39,7 @@ const SortDescIcon = () => (
 
 export type SortDirection = "asc" | "desc" | "none";
 
-export interface TableHeadProps
-  extends React.ThHTMLAttributes<HTMLTableCellElement> {
+export interface TableHeadProps extends React.ThHTMLAttributes<HTMLTableCellElement> {
   sortable?: boolean;
   sortDirection?: SortDirection;
   onSort?: () => void;

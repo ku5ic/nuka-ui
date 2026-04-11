@@ -1,7 +1,6 @@
 import * as React from "react";
 
-export interface MenuRadioGroupBaseProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export interface MenuRadioGroupBaseProps extends React.HTMLAttributes<HTMLDivElement> {
   value: string;
   onValueChange?: (value: string) => void;
   "aria-label"?: string;

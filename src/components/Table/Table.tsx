@@ -8,8 +8,7 @@ import {
 } from "@nuka/components/Table/Table.variants";
 
 export interface TableProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    TableVariantProps {
+  extends React.HTMLAttributes<HTMLDivElement>, TableVariantProps {
   caption: string;
 }
 

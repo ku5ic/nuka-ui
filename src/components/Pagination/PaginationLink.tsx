@@ -2,8 +2,7 @@ import * as React from "react";
 import { Slot } from "@nuka/utils/slot";
 import { Button } from "@nuka/components/Button";
 
-export interface PaginationLinkProps
-  extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+export interface PaginationLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   isActive?: boolean;
   asChild?: boolean;
 }

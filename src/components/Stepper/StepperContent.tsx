@@ -2,8 +2,7 @@ import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 import { useStepperContext } from "@nuka/components/Stepper/Stepper.context";
 
-export interface StepperContentProps
-  extends React.HTMLAttributes<HTMLDivElement> {}
+export interface StepperContentProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const StepperContent = React.forwardRef<HTMLDivElement, StepperContentProps>(
   ({ className, ...props }, ref) => {

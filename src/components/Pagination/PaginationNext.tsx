@@ -3,8 +3,7 @@ import { composeRefs } from "@nuka/utils/slot";
 import { Button } from "@nuka/components/Button";
 import { Icon } from "@nuka/components/Icon";
 
-export interface PaginationNextProps
-  extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+export interface PaginationNextProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   disabled?: boolean;
   asChild?: boolean;
 }

@@ -3,8 +3,7 @@ import { cn } from "@nuka/utils/cn";
 import { Slot, composeRefs } from "@nuka/utils/slot";
 import { useContextMenuContext } from "@nuka/components/ContextMenu/ContextMenu.context";
 
-export interface ContextMenuTriggerProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export interface ContextMenuTriggerProps extends React.HTMLAttributes<HTMLDivElement> {
   asChild?: boolean;
 }
 

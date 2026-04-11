@@ -3,8 +3,7 @@ import { cn } from "@nuka/utils/cn";
 import { Icon } from "@nuka/components/Icon";
 import { menuCheckboxItemVariants } from "@nuka/components/Menu/menuItemVariants";
 
-export interface MenuCheckboxItemBaseProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export interface MenuCheckboxItemBaseProps extends React.HTMLAttributes<HTMLDivElement> {
   checked: boolean;
   onCheckedChange?: (checked: boolean) => void;
   disabled?: boolean;

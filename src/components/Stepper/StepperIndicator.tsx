@@ -7,8 +7,7 @@ import {
   useStepperItemContext,
 } from "@nuka/components/Stepper/Stepper.context";
 
-export interface StepperIndicatorProps
-  extends React.HTMLAttributes<HTMLDivElement> {}
+export interface StepperIndicatorProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const StepperIndicator = React.forwardRef<
   HTMLDivElement,

@@ -1,15 +1,12 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
-import {
-  Collapsible,
-} from "@nuka/components/Collapsible";
+import { Collapsible } from "@nuka/components/Collapsible";
 import {
   AccordionItemContext,
   useAccordionContext,
 } from "@nuka/components/Accordion/Accordion.context";
 
-export interface AccordionItemProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export interface AccordionItemProps extends React.HTMLAttributes<HTMLDivElement> {
   value: string;
   disabled?: boolean;
 }
