@@ -6,7 +6,7 @@ import {
   Collapsible,
   CollapsibleTrigger,
   CollapsibleContent,
-} from "./Collapsible";
+} from "@nuka/components/Collapsible";
 
 function renderCollapsible(
   props: React.ComponentProps<typeof Collapsible> = {},

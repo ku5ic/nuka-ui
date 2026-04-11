@@ -1,9 +1,4 @@
-export {
-  Tabs,
-  TabsList,
-  TabsTrigger,
-  TabsContent,
-} from "./Tabs";
+export { Tabs, TabsList, TabsTrigger, TabsContent } from "./Tabs";
 export { tabsListVariants } from "@nuka/components/Tabs/Tabs.variants";
 export type {
   TabsProps,

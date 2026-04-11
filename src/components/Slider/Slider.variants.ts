@@ -1,17 +1,20 @@
 import { cva, type VariantProps } from "@nuka/utils/variants";
 
-export const sliderWrapperVariants = cva(["relative flex items-center w-full"], {
-  variants: {
-    size: {
-      sm: "min-h-[24px]",
-      md: "min-h-[24px]",
-      lg: "min-h-[24px]",
+export const sliderWrapperVariants = cva(
+  ["relative flex items-center w-full"],
+  {
+    variants: {
+      size: {
+        sm: "min-h-[24px]",
+        md: "min-h-[24px]",
+        lg: "min-h-[24px]",
+      },
+    },
+    defaultVariants: {
+      size: "md",
     },
   },
-  defaultVariants: {
-    size: "md",
-  },
-});
+);
 
 export const sliderTrackVariants = cva(
   ["relative w-full rounded-full", "bg-(--nuka-border-base)"],

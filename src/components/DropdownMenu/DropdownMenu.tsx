@@ -18,12 +18,10 @@ import { Portal } from "@nuka/utils/portal";
 import { Slot, composeRefs } from "@nuka/utils/slot";
 import { DropdownMenuContext } from "@nuka/components/DropdownMenu/DropdownMenu.context";
 import type { DropdownMenuContextValue } from "@nuka/components/DropdownMenu/DropdownMenu.context";
-import {
-  MenuRadioGroupBase,
-  MenuSeparatorBase,
-  MenuLabelBase,
-} from "@nuka/components/Menu/MenuItemBase";
-import type { MenuRadioGroupBaseProps } from "@nuka/components/Menu/MenuItemBase";
+import { MenuRadioGroupBase } from "@nuka/components/Menu/MenuRadioGroupBase";
+import type { MenuRadioGroupBaseProps } from "@nuka/components/Menu/MenuRadioGroupBase";
+import { MenuSeparatorBase } from "@nuka/components/Menu/MenuSeparatorBase";
+import { MenuLabelBase } from "@nuka/components/Menu/MenuLabelBase";
 import { menuContentVariants } from "@nuka/components/Menu/menuItemVariants";
 import {
   MenuItemContext,

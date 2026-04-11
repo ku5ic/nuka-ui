@@ -1,7 +1,6 @@
-export { Timeline, TimelineItem } from "./Timeline";
+export { Timeline } from "./Timeline";
+export type { TimelineProps } from "./Timeline";
+export { TimelineItem } from "./TimelineItem";
+export type { TimelineItemProps } from "./TimelineItem";
 export { timelineItemMarkerVariants } from "@nuka/components/Timeline/Timeline.variants";
-export type {
-  TimelineProps,
-  TimelineItemProps,
-} from "./Timeline";
 export type { TimelineItemMarkerVariantProps } from "@nuka/components/Timeline/Timeline.variants";

@@ -24,11 +24,9 @@ import type {
   MenubarContextValue,
   MenubarMenuContextValue,
 } from "@nuka/components/Menubar/Menubar.context";
-import {
-  MenuRadioGroupBase,
-  MenuSeparatorBase,
-} from "@nuka/components/Menu/MenuItemBase";
-import type { MenuRadioGroupBaseProps } from "@nuka/components/Menu/MenuItemBase";
+import { MenuRadioGroupBase } from "@nuka/components/Menu/MenuRadioGroupBase";
+import type { MenuRadioGroupBaseProps } from "@nuka/components/Menu/MenuRadioGroupBase";
+import { MenuSeparatorBase } from "@nuka/components/Menu/MenuSeparatorBase";
 import { menuContentVariants } from "@nuka/components/Menu/menuItemVariants";
 import {
   MenuItemContext,

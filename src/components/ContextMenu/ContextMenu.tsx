@@ -15,12 +15,10 @@ import { Portal } from "@nuka/utils/portal";
 import { Slot, composeRefs } from "@nuka/utils/slot";
 import { ContextMenuContext } from "@nuka/components/ContextMenu/ContextMenu.context";
 import type { ContextMenuContextValue } from "@nuka/components/ContextMenu/ContextMenu.context";
-import {
-  MenuRadioGroupBase,
-  MenuSeparatorBase,
-  MenuLabelBase,
-} from "@nuka/components/Menu/MenuItemBase";
-import type { MenuRadioGroupBaseProps } from "@nuka/components/Menu/MenuItemBase";
+import { MenuRadioGroupBase } from "@nuka/components/Menu/MenuRadioGroupBase";
+import type { MenuRadioGroupBaseProps } from "@nuka/components/Menu/MenuRadioGroupBase";
+import { MenuSeparatorBase } from "@nuka/components/Menu/MenuSeparatorBase";
+import { MenuLabelBase } from "@nuka/components/Menu/MenuLabelBase";
 import { menuContentVariants } from "@nuka/components/Menu/menuItemVariants";
 import {
   MenuItemContext,
