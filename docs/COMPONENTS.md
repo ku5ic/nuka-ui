@@ -106,7 +106,7 @@ This document defines the full component scope for nuka-ui.
 
 ---
 
-## Composites (planned)
+## Composites
 
 | Component     | Status | Notes                                                                                |
 | ------------- | ------ | ------------------------------------------------------------------------------------ |
@@ -115,7 +115,7 @@ This document defines the full component scope for nuka-ui.
 | `DataTable`   | Done   | Table + pagination + filtering.                                                      |
 | `CommandMenu` | Done   | Keyboard-first search/action palette.                                                |
 | `DatePicker`  | Done   | Popover + calendar.                                                                  |
-| `Combobox`    | -      | Custom searchable select.                                                            |
+| `Combobox`    | Done   | Custom searchable select.                                                            |
 
 ---
 

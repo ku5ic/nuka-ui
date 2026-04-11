@@ -126,6 +126,31 @@ export {
 } from "./components/CommandMenu";
 export type { CommandMenuContextValue } from "./components/CommandMenu";
 
+export {
+  Combobox,
+  ComboboxTrigger,
+  comboboxTriggerVariants,
+  ComboboxContent,
+  ComboboxInput,
+  ComboboxListbox,
+  ComboboxOption,
+  ComboboxGroup,
+  ComboboxEmpty,
+} from "./components/Combobox";
+export type {
+  ComboboxProps,
+  ComboboxTriggerProps,
+  ComboboxTriggerVariantProps,
+  ComboboxContentProps,
+  ComboboxInputProps,
+  ComboboxListboxProps,
+  ComboboxOptionProps,
+  ComboboxGroupProps,
+  ComboboxEmptyProps,
+} from "./components/Combobox";
+export { ComboboxContext, useComboboxContext } from "./components/Combobox";
+export type { ComboboxContextValue } from "./components/Combobox";
+
 export { Container } from "./components/Container";
 export type { ContainerProps, ContainerSize } from "./components/Container";
 
