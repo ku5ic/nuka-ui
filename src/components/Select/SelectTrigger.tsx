@@ -2,7 +2,7 @@ import * as React from "react";
 import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
 import { Icon } from "@nuka/components/Icon";
-import { useSelect } from "@nuka/components/Select/SelectContext";
+import { useSelect } from "@nuka/components/Select/Select.context";
 import { useFormField } from "@nuka/components/FormField";
 import { useFormFieldProps } from "@nuka/utils/use-form-field-props";
 

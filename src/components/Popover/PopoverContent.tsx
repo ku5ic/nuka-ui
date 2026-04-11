@@ -3,7 +3,7 @@ import { cn } from "@nuka/utils/cn";
 import { Portal } from "@nuka/utils/portal";
 import { composeRefs } from "@nuka/utils/slot";
 import { useFocusFirstInteractive } from "@nuka/utils/use-focus-first-interactive";
-import { usePopoverContext } from "@nuka/components/Popover/PopoverContext";
+import { usePopoverContext } from "@nuka/components/Popover/Popover.context";
 
 export interface PopoverContentProps extends React.HTMLAttributes<HTMLDivElement> {
   "aria-label"?: string;

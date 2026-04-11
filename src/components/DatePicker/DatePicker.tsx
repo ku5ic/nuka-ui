@@ -18,8 +18,8 @@ import { Input } from "@nuka/components/Input";
 import { Button } from "@nuka/components/Button";
 import { Icon } from "@nuka/components/Icon";
 import { Text } from "@nuka/components/Text";
-import { DatePickerContext } from "@nuka/components/DatePicker/DatePickerContext";
-import type { DatePickerContextValue } from "@nuka/components/DatePicker/DatePickerContext";
+import { DatePickerContext } from "@nuka/components/DatePicker/DatePicker.context";
+import type { DatePickerContextValue } from "@nuka/components/DatePicker/DatePicker.context";
 
 function isSameDay(a: Date, b: Date): boolean {
   return (

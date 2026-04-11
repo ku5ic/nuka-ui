@@ -23,7 +23,7 @@ import {
   useNavigationMenuContext,
   useNavigationMenuItemContext,
   useIsInsideContent,
-} from "@nuka/components/NavigationMenu/NavigationMenuContext";
+} from "@nuka/components/NavigationMenu/NavigationMenu.context";
 
 export interface NavigationMenuProps extends React.HTMLAttributes<HTMLElement> {
   "aria-label"?: string;

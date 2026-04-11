@@ -12,8 +12,8 @@ import {
 } from "@floating-ui/react";
 import type { Placement } from "@floating-ui/react";
 import { useControllableState } from "@nuka/utils/use-controllable-state";
-import { PopoverContext } from "@nuka/components/Popover/PopoverContext";
-import type { PopoverContextValue } from "@nuka/components/Popover/PopoverContext";
+import { PopoverContext } from "@nuka/components/Popover/Popover.context";
+import type { PopoverContextValue } from "@nuka/components/Popover/Popover.context";
 
 export interface PopoverProps {
   children: React.ReactNode;

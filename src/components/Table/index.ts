@@ -24,5 +24,5 @@ export type {
 export {
   TableContext,
   useTableContext,
-} from "@nuka/components/Table/TableContext";
-export type { TableContextValue } from "@nuka/components/Table/TableContext";
+} from "@nuka/components/Table/Table.context";
+export type { TableContextValue } from "@nuka/components/Table/Table.context";

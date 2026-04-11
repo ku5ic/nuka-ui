@@ -16,8 +16,8 @@ import { useControllableState } from "@nuka/utils/use-controllable-state";
 import { useMenuNavigation } from "@nuka/utils/use-menu-navigation";
 import { Portal } from "@nuka/utils/portal";
 import { Slot, composeRefs } from "@nuka/utils/slot";
-import { DropdownMenuContext } from "@nuka/components/DropdownMenu/DropdownMenuContext";
-import type { DropdownMenuContextValue } from "@nuka/components/DropdownMenu/DropdownMenuContext";
+import { DropdownMenuContext } from "@nuka/components/DropdownMenu/DropdownMenu.context";
+import type { DropdownMenuContextValue } from "@nuka/components/DropdownMenu/DropdownMenu.context";
 import {
   MenuRadioGroupBase,
   MenuSeparatorBase,

@@ -20,7 +20,7 @@ import type {
 import {
   SheetContext,
   useSheetContext,
-} from "@nuka/components/Sheet/SheetContext";
+} from "@nuka/components/Sheet/Sheet.context";
 
 export type SheetSide = "top" | "right" | "bottom" | "left";
 

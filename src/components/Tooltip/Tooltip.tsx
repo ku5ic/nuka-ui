@@ -12,8 +12,8 @@ import {
   autoUpdate,
 } from "@floating-ui/react";
 import { useControllableState } from "@nuka/utils/use-controllable-state";
-import { TooltipContext } from "@nuka/components/Tooltip/TooltipContext";
-import type { TooltipContextValue } from "@nuka/components/Tooltip/TooltipContext";
+import { TooltipContext } from "@nuka/components/Tooltip/Tooltip.context";
+import type { TooltipContextValue } from "@nuka/components/Tooltip/Tooltip.context";
 
 export interface TooltipProps {
   children: React.ReactNode;

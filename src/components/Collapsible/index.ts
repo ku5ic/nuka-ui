@@ -11,5 +11,5 @@ export type {
 export {
   CollapsibleContext,
   useCollapsibleContext,
-} from "./CollapsibleContext";
-export type { CollapsibleContextValue } from "./CollapsibleContext";
+} from "./Collapsible.context";
+export type { CollapsibleContextValue } from "./Collapsible.context";

@@ -12,5 +12,5 @@ export type {
   TabsTriggerProps,
   TabsContentProps,
 } from "./Tabs";
-export { TabsContext, useTabsContext } from "./TabsContext";
-export type { TabsContextValue } from "./TabsContext";
+export { TabsContext, useTabsContext } from "./Tabs.context";
+export type { TabsContextValue } from "./Tabs.context";

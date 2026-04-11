@@ -7,13 +7,13 @@ import {
   useStepperContext,
   StepperItemContext,
   useStepperItemContext,
-} from "@nuka/components/Stepper/StepperContext";
+} from "@nuka/components/Stepper/Stepper.context";
 import type {
   StepperOrientation,
   StepState,
   StepperContextValue,
   StepperItemContextValue,
-} from "@nuka/components/Stepper/StepperContext";
+} from "@nuka/components/Stepper/Stepper.context";
 
 function resolveStepState(
   child: React.ReactNode,

@@ -23,5 +23,5 @@ export type {
 export {
   DropdownMenuContext,
   useDropdownMenuContext,
-} from "@nuka/components/DropdownMenu/DropdownMenuContext";
-export type { DropdownMenuContextValue } from "@nuka/components/DropdownMenu/DropdownMenuContext";
+} from "@nuka/components/DropdownMenu/DropdownMenu.context";
+export type { DropdownMenuContextValue } from "@nuka/components/DropdownMenu/DropdownMenu.context";

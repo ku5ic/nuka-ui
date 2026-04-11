@@ -30,5 +30,5 @@ export type {
 export {
   SidebarContext,
   useSidebarContext,
-} from "@nuka/components/Sidebar/SidebarContext";
-export type { SidebarContextValue } from "@nuka/components/Sidebar/SidebarContext";
+} from "@nuka/components/Sidebar/Sidebar.context";
+export type { SidebarContextValue } from "@nuka/components/Sidebar/Sidebar.context";

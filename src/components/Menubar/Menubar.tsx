@@ -19,11 +19,11 @@ import {
   MenubarMenuContext,
   useMenubarContext,
   useMenubarMenuContext,
-} from "@nuka/components/Menubar/MenubarContext";
+} from "@nuka/components/Menubar/Menubar.context";
 import type {
   MenubarContextValue,
   MenubarMenuContextValue,
-} from "@nuka/components/Menubar/MenubarContext";
+} from "@nuka/components/Menubar/Menubar.context";
 import {
   MenuRadioGroupBase,
   MenuSeparatorBase,

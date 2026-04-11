@@ -9,7 +9,7 @@ import { Text } from "@nuka/components/Text";
 import {
   CommandMenuContext,
   useCommandMenuContext,
-} from "@nuka/components/CommandMenu/CommandMenuContext";
+} from "@nuka/components/CommandMenu/CommandMenu.context";
 
 export interface CommandMenuProps {
   children: React.ReactNode;

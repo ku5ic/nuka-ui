@@ -23,5 +23,5 @@ export type {
 export {
   ContextMenuContext,
   useContextMenuContext,
-} from "@nuka/components/ContextMenu/ContextMenuContext";
-export type { ContextMenuContextValue } from "@nuka/components/ContextMenu/ContextMenuContext";
+} from "@nuka/components/ContextMenu/ContextMenu.context";
+export type { ContextMenuContextValue } from "@nuka/components/ContextMenu/ContextMenu.context";

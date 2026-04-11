@@ -20,7 +20,7 @@ import type {
 import {
   DialogContext,
   useDialogContext,
-} from "@nuka/components/Dialog/DialogContext";
+} from "@nuka/components/Dialog/Dialog.context";
 
 const {
   Root: Dialog,

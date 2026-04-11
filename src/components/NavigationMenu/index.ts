@@ -20,8 +20,8 @@ export {
   useNavigationMenuContext,
   NavigationMenuItemContext,
   useNavigationMenuItemContext,
-} from "./NavigationMenuContext";
+} from "./NavigationMenu.context";
 export type {
   NavigationMenuContextValue,
   NavigationMenuItemContextValue,
-} from "./NavigationMenuContext";
+} from "./NavigationMenu.context";

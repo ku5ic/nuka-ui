@@ -5,8 +5,8 @@ import { Icon } from "@nuka/components/Icon";
 import {
   TableContext,
   useTableContext,
-} from "@nuka/components/Table/TableContext";
-import type { TableContextValue } from "@nuka/components/Table/TableContext";
+} from "@nuka/components/Table/Table.context";
+import type { TableContextValue } from "@nuka/components/Table/Table.context";
 
 const tableVariants = cva(["overflow-x-auto"], {
   variants: {

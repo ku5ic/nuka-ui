@@ -20,10 +20,10 @@ export {
   useStepperContext,
   StepperItemContext,
   useStepperItemContext,
-} from "@nuka/components/Stepper/StepperContext";
+} from "@nuka/components/Stepper/Stepper.context";
 export type {
   StepperOrientation,
   StepState,
   StepperContextValue,
   StepperItemContextValue,
-} from "@nuka/components/Stepper/StepperContext";
+} from "@nuka/components/Stepper/Stepper.context";

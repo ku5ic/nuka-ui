@@ -7,7 +7,7 @@ import {
 import { cn } from "@nuka/utils/cn";
 import { composeRefs } from "@nuka/utils/slot";
 import { Text } from "@nuka/components/Text";
-import { useRadioGroup } from "@nuka/components/RadioGroup/RadioGroupContext";
+import { useRadioGroup } from "@nuka/components/RadioGroup/RadioGroup.context";
 
 const radioIndicatorVariants = cva(
   [

@@ -16,5 +16,5 @@ export type { SelectItemProps } from "./SelectItem";
 export { SelectSeparator } from "./SelectSeparator";
 export type { SelectSeparatorProps } from "./SelectSeparator";
 
-export { SelectContext, useSelect } from "./SelectContext";
-export type { SelectContextValue } from "./SelectContext";
+export { SelectContext, useSelect } from "./Select.context";
+export type { SelectContextValue } from "./Select.context";

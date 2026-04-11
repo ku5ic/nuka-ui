@@ -4,5 +4,5 @@ export type {
   DatePickerInputProps,
   DatePickerCalendarProps,
 } from "./DatePicker";
-export { DatePickerContext, useDatePickerContext } from "./DatePickerContext";
-export type { DatePickerContextValue } from "./DatePickerContext";
+export { DatePickerContext, useDatePickerContext } from "./DatePicker.context";
+export type { DatePickerContextValue } from "./DatePicker.context";

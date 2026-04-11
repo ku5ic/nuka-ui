@@ -25,8 +25,8 @@ export {
   useMenubarContext,
   MenubarMenuContext,
   useMenubarMenuContext,
-} from "@nuka/components/Menubar/MenubarContext";
+} from "@nuka/components/Menubar/Menubar.context";
 export type {
   MenubarContextValue,
   MenubarMenuContextValue,
-} from "@nuka/components/Menubar/MenubarContext";
+} from "@nuka/components/Menubar/Menubar.context";

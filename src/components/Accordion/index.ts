@@ -15,9 +15,9 @@ export {
   useAccordionContext,
   AccordionItemContext,
   useAccordionItemContext,
-} from "./AccordionContext";
+} from "./Accordion.context";
 export type {
   AccordionContextValue,
   AccordionItemContextValue,
   HeadingLevel,
-} from "./AccordionContext";
+} from "./Accordion.context";

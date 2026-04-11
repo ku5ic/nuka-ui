@@ -3,7 +3,10 @@ import { cva, type VariantProps } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
 import { composeRefs } from "@nuka/utils/slot";
 import { useControllableState } from "@nuka/utils/use-controllable-state";
-import { TabsContext, useTabsContext } from "@nuka/components/Tabs/TabsContext";
+import {
+  TabsContext,
+  useTabsContext,
+} from "@nuka/components/Tabs/Tabs.context";
 
 const TRIGGER_SELECTOR = '[role="tab"]:not([aria-disabled="true"])';
 

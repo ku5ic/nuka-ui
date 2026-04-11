@@ -19,8 +19,8 @@ import {
 import {
   SidebarContext,
   useSidebarContext,
-} from "@nuka/components/Sidebar/SidebarContext";
-import type { SidebarContextValue } from "@nuka/components/Sidebar/SidebarContext";
+} from "@nuka/components/Sidebar/Sidebar.context";
+import type { SidebarContextValue } from "@nuka/components/Sidebar/Sidebar.context";
 
 export interface SidebarProviderProps extends React.HTMLAttributes<HTMLDivElement> {
   expanded?: boolean;
