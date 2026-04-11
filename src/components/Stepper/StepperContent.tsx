@@ -1,0 +1,30 @@
+import * as React from "react";
+import { cn } from "@nuka/utils/cn";
+import { useStepperContext } from "@nuka/components/Stepper/Stepper.context";
+
+export interface StepperContentProps
+  extends React.HTMLAttributes<HTMLDivElement> {}
+
+const StepperContent = React.forwardRef<HTMLDivElement, StepperContentProps>(
+  ({ className, ...props }, ref) => {
+    const { orientation } = useStepperContext();
+
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          "flex flex-col",
+          orientation === "horizontal"
+            ? "w-0 mt-(--space-1) items-center text-center"
+            : "flex-1 min-w-0 pt-(--space-0.5)",
+          className,
+        )}
+        {...props}
+      />
+    );
+  },
+);
+
+StepperContent.displayName = "StepperContent";
+
+export { StepperContent };
