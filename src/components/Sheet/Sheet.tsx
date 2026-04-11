@@ -3,8 +3,8 @@ import { cn } from "@nuka/utils/cn";
 import { composeRefs } from "@nuka/utils/slot";
 import { Portal } from "@nuka/utils/portal";
 import { DismissButton } from "@nuka/utils/dismiss-button";
-import { useFocusTrap } from "@nuka/utils/use-focus-trap";
-import { useScrollLock } from "@nuka/utils/use-scroll-lock";
+import { useFocusTrap } from "@nuka/hooks/use-focus-trap";
+import { useScrollLock } from "@nuka/hooks/use-scroll-lock";
 import {
   createModalPrimitive,
   useEscapeKey,
@@ -20,7 +20,7 @@ import type {
 import {
   SheetContext,
   useSheetContext,
-} from "@nuka/components/Sheet/SheetContext";
+} from "@nuka/components/Sheet/Sheet.context";
 
 export type SheetSide = "top" | "right" | "bottom" | "left";
 

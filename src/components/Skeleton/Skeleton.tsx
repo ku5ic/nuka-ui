@@ -1,19 +1,6 @@
 import * as React from "react";
-import { cva } from "@nuka/utils/variants";
 import { cn } from "@nuka/utils/cn";
-
-const skeletonVariants = cva(["animate-pulse bg-(--nuka-bg-muted)"], {
-  variants: {
-    shape: {
-      rect: "rounded-(--radius-md)",
-      circle: "rounded-full aspect-square",
-      text: "rounded-(--radius-sm) h-[1em]",
-    },
-  },
-  defaultVariants: {
-    shape: "rect",
-  },
-});
+import { skeletonVariants } from "@nuka/components/Skeleton/Skeleton.variants";
 
 export interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {
   shape?: "rect" | "circle" | "text";

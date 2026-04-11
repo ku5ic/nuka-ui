@@ -2,7 +2,7 @@ import * as React from "react";
 import { describe, it, expect } from "vitest";
 import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { useFocusTrap } from "./use-focus-trap";
+import { useFocusTrap } from "@nuka/hooks/use-focus-trap";
 
 function TrapHarness({ active }: { active: boolean }) {
   const ref = React.useRef<HTMLDivElement>(null);
