@@ -26,12 +26,14 @@ Run this before every task. Most problems come from starting without understandi
 
 8. Run `npm run lint` and report current state: clean or errors.
 
-9. Summarize findings:
-   - What the task requires
-   - Which files will be affected
-   - Current health of the codebase (typecheck, tests, lint)
-   - Any risks or constraints identified
-   - Write findings in preflight-report.md
+9. Run `npm run format:check` and report current state. Clean all errors
+
+10. Summarize findings:
+    - What the task requires
+    - Which files will be affected
+    - Current health of the codebase (typecheck, tests, lint)
+    - Any risks or constraints identified
+    - Write findings in preflight-report.md
 
 ## Stop
 

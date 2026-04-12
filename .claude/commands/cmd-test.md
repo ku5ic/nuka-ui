@@ -21,7 +21,7 @@ Run after `cmd-implement` is confirmed. Fix bugs here before proceeding to `cmd-
    - Do not suppress rules with disable comments unless the rule is genuinely incorrect for the use case — if so, explain why
    - Report final state
 
-4. RUn `npm run format:check`
+4. Run `npm run format:check`
    - If errors: fix them with `npm run format`
    - Report final state
 
@@ -45,7 +45,7 @@ Run after `cmd-implement` is confirmed. Fix bugs here before proceeding to `cmd-
 Once all checks above are passing, run the full pipeline cold in sequence with no fixes:
 
 ```bash
-npm run typecheck && npm test && npm run lint && npm run build
+npm run typecheck && npm test && npm run lint && npm run format:check && npm run build
 ```
 
 This is a single uninterrupted run. Do not fix anything between steps. Do not re-run individual commands. The purpose is to verify the exact state CI will see: no incremental fixes, no partial passes.
