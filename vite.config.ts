@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from "fs";
+import { mkdirSync, readFileSync, writeFileSync } from "fs";
 import { fileURLToPath } from "url";
 import { dirname, resolve } from "path";
 import react from "@vitejs/plugin-react";
@@ -15,6 +15,8 @@ export default defineConfig({
     {
       name: "copy-styles",
       closeBundle() {
+        mkdirSync(resolve(__dirname, "dist"), { recursive: true });
+
         const animations = readFileSync(
           resolve(__dirname, "src/styles/animations.css"),
           "utf-8",
