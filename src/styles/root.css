@@ -4,8 +4,6 @@
    Dark mode is not included in this stylesheet.
    For multi-theme support, use the default "nuka-ui/styles" import instead. */
 
-@import "./animations.css";
-
 :root {
   /* Color primitives */
 
@@ -96,6 +94,7 @@
     0 10px 15px oklch(0% 0 0 / 0.5), 0 4px 6px oklch(0% 0 0 / 0.3);
 
   /* Z-index primitives */
+  --z-header: 10;
   --z-dropdown: 50;
   --z-modal: 100;
   --z-toast: 150;
@@ -187,6 +186,7 @@
   --nuka-shadow-modal: var(--shadow-lg);
 
   /* Z-index */
+  --nuka-z-header: var(--z-header);
   --nuka-z-dropdown: var(--z-dropdown);
   --nuka-z-modal: var(--z-modal);
   --nuka-z-toast: var(--z-toast);

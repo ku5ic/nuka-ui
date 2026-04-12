@@ -77,11 +77,12 @@ This document defines the full component scope for nuka-ui.
 
 ## Layout
 
-| Component   | Status | Notes                                                   |
-| ----------- | ------ | ------------------------------------------------------- |
-| `Stack`     | Done   | Flex container. `direction`, `gap`, `align`, `justify`. |
-| `Grid`      | Done   | Grid container. `cols`, `gap`.                          |
-| `Container` | Done   | Max-width centered wrapper. `size` variants.            |
+| Component     | Status | Notes                                                   |
+| ------------- | ------ | ------------------------------------------------------- |
+| `Stack`       | Done   | Flex container. `direction`, `gap`, `align`, `justify`. |
+| `Grid`        | Done   | Grid container. `cols`, `gap`.                          |
+| `Container`   | Done   | Max-width centered wrapper. `size` variants.            |
+| `AspectRatio` | Done   | Fixed aspect ratio wrapper. Named and numeric ratios.   |
 
 ---
 
@@ -133,21 +134,22 @@ This document defines the full component scope for nuka-ui.
 
 ## Internal Utilities
 
-Not exported from the public package. Shared implementation primitives used by components.
+Shared implementation primitives used by components. Most are internal; `cn` and the `Responsive`, `Breakpoint`, and `GapScale` types are part of the public API.
 
 | Utility                                         | Location                                   | Used by                                                                                                                  |
 | ----------------------------------------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `useControllableState`                          | `src/utils/use-controllable-state.ts`      | Switch, Slider, RadioGroup, Tooltip, Popover, Select, Tabs, Accordion, Collapsible, DropdownMenu, Sidebar, Dialog, Sheet |
-| `useFormFieldProps`                             | `src/utils/use-form-field-props.ts`        | Input, Textarea, Slider, Switch, RadioGroup, SelectTrigger                                                               |
+| `useControllableState`                          | `src/hooks/use-controllable-state.ts`      | Switch, Slider, RadioGroup, Tooltip, Popover, Select, Tabs, Accordion, Collapsible, DropdownMenu, Sidebar, Dialog, Sheet |
+| `useFormFieldProps`                             | `src/hooks/use-form-field-props.ts`        | Input, Textarea, Slider, Switch, RadioGroup, SelectTrigger                                                               |
 | `DismissButton`                                 | `src/utils/dismiss-button.tsx`             | Alert, Banner, Tag, Toast                                                                                                |
 | `Portal`                                        | `src/utils/portal.tsx`                     | Tooltip, Popover, DropdownMenu, ContextMenu, NavigationMenu, Menubar, Dialog, Sheet, Toaster                             |
 | `Slot`, `composeRefs`                           | `src/utils/slot.tsx`                       | Button, Badge, and all asChild components                                                                                |
 | `cn`                                            | `src/utils/cn.ts`                          | All components                                                                                                           |
-| `useFocusTrap`                                  | `src/utils/use-focus-trap.ts`              | Dialog, Sheet                                                                                                            |
-| `useScrollLock`                                 | `src/utils/use-scroll-lock.ts`             | Dialog, Sheet                                                                                                            |
-| `useMenuNavigation`                             | `src/utils/use-menu-navigation.ts`         | DropdownMenu, ContextMenu, Menubar                                                                                       |
+| `useFocusTrap`                                  | `src/hooks/use-focus-trap.ts`              | Dialog, Sheet                                                                                                            |
+| `useScrollLock`                                 | `src/hooks/use-scroll-lock.ts`             | Dialog, Sheet                                                                                                            |
+| `useMenuNavigation`                             | `src/hooks/use-menu-navigation.ts`         | DropdownMenu, ContextMenu, Menubar                                                                                       |
 | `createModalPrimitive`                          | `src/utils/modal-primitive.tsx`            | Dialog, Sheet                                                                                                            |
 | `Responsive`, `resolveResponsiveClasses`        | `src/utils/responsive.ts`                  | Stack, Grid, Container                                                                                                   |
-| `useMediaQuery`                                 | `src/utils/use-media-query.ts`             | Sidebar                                                                                                                  |
-| `useFocusFirstInteractive`                      | `src/utils/use-focus-first-interactive.ts` | Popover, NavigationMenu                                                                                                  |
+| `useMediaQuery`                                 | `src/hooks/use-media-query.ts`             | Sidebar                                                                                                                  |
+| `useFocusFirstInteractive`                      | `src/hooks/use-focus-first-interactive.ts` | Popover, NavigationMenu                                                                                                  |
+| `useEscapeKey`                                  | `src/hooks/use-escape-key.ts`              | CommandMenu, Dialog, Sheet                                                                                               |
 | `cva`, `VariantProps`, `intentCompoundVariants` | `src/utils/variants.ts`                    | All components with variant/intent                                                                                       |

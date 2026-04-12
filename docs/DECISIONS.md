@@ -620,7 +620,7 @@ When `toast.dismiss(id)` is called, the toast is marked `dismissing: true` (trig
 - The singleton pattern means only one toast queue per JavaScript context; multiple `<Toaster />` instances would render duplicate toasts (documented, not prevented)
 - `__reset()` must be called in test/story setup to avoid state leaking between tests
 - The `action` slot is additive and does not affect consumers who don't use it
-- CSS keyframes for enter/exit animation live in `src/styles/index.css`, following the Spinner pattern. A `@media (prefers-reduced-motion: reduce)` override disables all `data-state` animations globally
+- CSS keyframes for enter/exit animation live in `src/styles/animations.css`, following the Spinner pattern. A `@media (prefers-reduced-motion: reduce)` override disables all `data-state` animations globally
 
 ---
 
@@ -820,7 +820,7 @@ The controlled/uncontrolled state pattern was inlined identically across Switch,
 
 ### Decision
 
-Extracted into `src/utils/use-controllable-state.ts`. The hook accepts a controlled value, a default value, and an optional onChange callback. It returns the current value and a stable setter. The setter updates internal state when uncontrolled and always calls onChange.
+Extracted into `src/hooks/use-controllable-state.ts`. The hook accepts a controlled value, a default value, and an optional onChange callback. It returns the current value and a stable setter. The setter updates internal state when uncontrolled and always calls onChange.
 
 ### Consequences
 
@@ -842,7 +842,7 @@ Every form control (Input, Textarea, Slider, Switch, RadioGroup, SelectTrigger) 
 
 ### Decision
 
-Extracted into `src/utils/use-form-field-props.ts`. The hook accepts consumer prop values and an options object, calls `useFormField()` internally, and returns resolved ARIA attributes ready to spread. A `skipInvalid` option allows components like Switch to opt out of aria-invalid without fighting the hook output.
+Extracted into `src/hooks/use-form-field-props.ts`. The hook accepts consumer prop values and an options object, calls `useFormField()` internally, and returns resolved ARIA attributes ready to spread. A `skipInvalid` option allows components like Switch to opt out of aria-invalid without fighting the hook output.
 
 ### Consequences
 

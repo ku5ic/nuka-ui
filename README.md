@@ -283,11 +283,12 @@ WCAG 2.2 AA compliance is a hard constraint, not a goal. It is verified at the t
 
 ### Layout
 
-| Component   | Description                                             |
-| ----------- | ------------------------------------------------------- |
-| `Stack`     | Flex container. `direction`, `gap`, `align`, `justify`. |
-| `Grid`      | Grid container. `cols`, `gap`.                          |
-| `Container` | Max-width centered wrapper. `size` variants.            |
+| Component     | Description                                             |
+| ------------- | ------------------------------------------------------- |
+| `Stack`       | Flex container. `direction`, `gap`, `align`, `justify`. |
+| `Grid`        | Grid container. `cols`, `gap`.                          |
+| `Container`   | Max-width centered wrapper. `size` variants.            |
+| `AspectRatio` | Fixed aspect ratio wrapper. Named and numeric ratios.   |
 
 ### Navigation
 
