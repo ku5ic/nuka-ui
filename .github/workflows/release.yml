@@ -18,6 +18,7 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    if: false # temporarily disabled: npm package name locked for 24 hours after unpublish
     steps:
       - name: Checkout
         uses: actions/checkout@v6
