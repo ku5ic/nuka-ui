@@ -55,13 +55,24 @@ Import the stylesheet once at your application entry point:
 import "nuka-ui/styles";
 ```
 
+If you only need the CSS custom property definitions without component styles (for
+example, when embedding nuka-ui tokens into an existing design system), import the
+token-only stylesheet instead:
+
+```tsx
+import "nuka-ui/styles/root";
+```
+
 Add `data-theme` to your root element:
 
 ```html
 <html data-theme="light"></html>
 ```
 
-> **No ThemeProvider required.** nuka-ui does not ship a ThemeProvider component or useTheme hook. This is intentional. Theming is a single DOM attribute (`data-theme`), not a React context. If you are coming from Radix, MUI, or similar libraries, this is a deliberate simplification, not a missing feature.
+> **No ThemeProvider required.** nuka-ui does not ship a ThemeProvider component or
+> useTheme hook. This is intentional. Theming is a single DOM attribute (`data-theme`),
+> not a React context. If you are coming from Radix, MUI, or similar libraries, this is
+> a deliberate simplification, not a missing feature.
 
 Toggle the theme by mutating the attribute directly:
 
@@ -154,8 +165,8 @@ nuka-ui uses a two-layer CSS custom property system.
 
 ```
 --color-accent-500        <- primitive (raw oklch value)
---nuka-accent-bg         <- semantic (references the primitive)
-bg-(--nuka-accent-bg)        <- component (references the semantic token)
+--nuka-accent-bg          <- semantic (references the primitive)
+bg-(--nuka-accent-bg)     <- component (references the semantic token)
 ```
 
 This indirection means you can retheme the entire library by overriding semantic tokens, without touching a single component file.
@@ -205,11 +216,12 @@ WCAG 2.2 AA compliance is a hard constraint, not a goal. It is verified at the t
 **What this means in practice:**
 
 - All text color tokens are verified at 4.5:1 minimum contrast ratio against their intended backgrounds
-- The primary accent color (`#43546a`) achieves 7.74:1 on white (AAA)
+- The primary accent color achieves 7.74:1 on white (AAA)
 - Focus indicators meet WCAG 2.2's updated 2.4.11 requirements
 - Interactive target sizes meet 2.5.8 (24x24px minimum)
 - `asChild` correctly delegates accessible names to child elements
 - Disabled states use the native `disabled` attribute, not just visual opacity
+- Intent-specific foreground tokens (`--nuka-danger-fg`, `--nuka-success-fg`, `--nuka-warning-fg`) ensure filled surfaces pass contrast in both light and dark themes
 
 ---
 
@@ -277,11 +289,41 @@ WCAG 2.2 AA compliance is a hard constraint, not a goal. It is verified at the t
 | `Grid`      | Grid container. `cols`, `gap`.                          |
 | `Container` | Max-width centered wrapper. `size` variants.            |
 
+### Navigation
+
+| Component        | Description                                                             |
+| ---------------- | ----------------------------------------------------------------------- |
+| `Card`           | Surface container. Header/body/footer slots. Elevated, outlined, flat.  |
+| `Collapsible`    | Generic expand/collapse primitive. CSS grid-rows animation.             |
+| `Accordion`      | Expand/collapse group with keyboard navigation.                         |
+| `Tabs`           | Tab group with keyboard navigation. Three visual variants.              |
+| `Dialog`         | Modal dialog with focus trapping and scroll lock.                       |
+| `Sheet`          | Slide-in panel. Dialog variant for side drawers.                        |
+| `DropdownMenu`   | Dropdown with keyboard navigation and type-ahead.                       |
+| `ContextMenu`    | Right-click menu. Cursor-position placement via Floating UI.            |
+| `Menubar`        | Horizontal application menu. Cross-menu keyboard coordination.          |
+| `NavigationMenu` | Site-level navigation with floating sub-panels. `role="dialog"` panels. |
+| `Breadcrumb`     | Navigation trail. `<nav><ol>` with `aria-current="page"`.               |
+| `Pagination`     | Page navigation. Compound API with `asChild` links.                     |
+| `Stepper`        | Multi-step flow indicator. State inference from `currentStep`.          |
+| `Sidebar`        | App navigation panel. Collapsible. Sheet-based drawer on mobile.        |
+
+### Composites
+
+| Component     | Description                                            |
+| ------------- | ------------------------------------------------------ |
+| `AppShell`    | Top-level layout: sidebar + header + main.             |
+| `Table`       | Sortable, accessible. `thead`/`tbody`/`tfoot`.         |
+| `DataTable`   | Table with pagination and filtering.                   |
+| `CommandMenu` | Keyboard-first search and action palette.              |
+| `DatePicker`  | Popover calendar. Text input with keyboard navigation. |
+| `Combobox`    | Searchable select with keyboard navigation.            |
+
 ---
 
 ## Architecture
 
-The key decisions that shaped this library are documented in [`docs/DECISIONS.md`](./docs/DECISIONS.md). Reading it gives you a clear picture of not just what was built, but why - which tradeoffs were accepted, which alternatives were considered, and which decisions are explicitly deferred.
+The key decisions that shaped this library are documented in [`docs/DECISIONS.md`](./docs/DECISIONS.md). Reading it gives you a clear picture of not just what was built, but why: which tradeoffs were accepted, which alternatives were considered, and which decisions are explicitly deferred.
 
 For the full component inventory and build status, see [`docs/COMPONENTS.md`](./docs/COMPONENTS.md). For customization options, limitations, and the correct approach for each use case, see [`docs/CUSTOMIZATION.md`](./docs/CUSTOMIZATION.md).
 
@@ -290,6 +332,7 @@ Short version:
 - **Variant + intent**: over flat variants, `ghost` + `danger` is cleaner than `ghost-danger` and scales to any combination
 - **Two-layer tokens**: primitives for scale, semantics for purpose, components touch only semantics
 - **`data-theme` attribute**: enables nested themes and avoids class pollution
+- **No third-party UI primitives**: `Slot`, `composeRefs`, focus trap, scroll lock, and all ARIA patterns are first-party
 - **No component-level tokens by default**: added only when semantic tokens are genuinely insufficient
 
 ---
@@ -311,6 +354,9 @@ npm run typecheck
 
 # Lint
 npm run lint
+
+# Format
+npm run format
 
 # Build
 npm run build
