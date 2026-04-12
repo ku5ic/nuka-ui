@@ -4,6 +4,8 @@
    Dark mode is not included in this stylesheet.
    For multi-theme support, use the default "nuka-ui/styles" import instead. */
 
+@import "./animations.css";
+
 :root {
   /* Color primitives */
 

@@ -55,9 +55,9 @@ Import the stylesheet once at your application entry point:
 import "nuka-ui/styles";
 ```
 
-If you only need the CSS custom property definitions without component styles (for
-example, when embedding nuka-ui tokens into an existing design system), import the
-token-only stylesheet instead:
+If your project does not need dark mode or runtime theme switching, import the
+light-theme-only stylesheet instead. It scopes all tokens to `:root` and omits the
+`[data-theme]` selectors entirely:
 
 ```tsx
 import "nuka-ui/styles/root";

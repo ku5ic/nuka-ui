@@ -1,4 +1,4 @@
-import { copyFileSync } from "fs";
+import { copyFileSync, readFileSync, writeFileSync } from "fs";
 import { fileURLToPath } from "url";
 import { dirname, resolve } from "path";
 import react from "@vitejs/plugin-react";
@@ -13,11 +13,27 @@ export default defineConfig({
     react(),
     tailwindcss(),
     {
-      name: "copy-root-styles",
+      name: "copy-styles",
       closeBundle() {
+        // styles-root.css: light-theme only, no dark mode, single :root scope
         copyFileSync(
           resolve(__dirname, "src/styles/root.css"),
           resolve(__dirname, "dist/styles-root.css"),
+        );
+
+        // styles.css: tokens (light + dark) + animations, no Tailwind base layer
+        const tokens = readFileSync(
+          resolve(__dirname, "src/styles/tokens.css"),
+          "utf-8",
+        );
+        const animations = readFileSync(
+          resolve(__dirname, "src/styles/animations.css"),
+          "utf-8",
+        );
+        writeFileSync(
+          resolve(__dirname, "dist/styles.css"),
+          `/* nuka-ui styles */\n\n${tokens}\n\n${animations}`,
+          "utf-8",
         );
       },
     },
