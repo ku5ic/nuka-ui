@@ -42,6 +42,12 @@ export type {
   AppShellMainProps,
 } from "./components/AppShell";
 
+export { AspectRatio } from "./components/AspectRatio";
+export type {
+  AspectRatioProps,
+  AspectRatioValue,
+} from "./components/AspectRatio";
+
 export { Banner, bannerVariants } from "./components/Banner";
 export type { BannerProps, BannerVariantProps } from "./components/Banner";
 
