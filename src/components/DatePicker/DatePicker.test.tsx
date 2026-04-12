@@ -4,8 +4,8 @@ import userEvent from "@testing-library/user-event";
 import * as React from "react";
 import type * as FloatingUI from "@floating-ui/react";
 import { DatePicker } from "@nuka/components/DatePicker/DatePicker";
-import { DatePickerInput } from "@nuka/components/DatePicker/DatePicker";
-import { DatePickerCalendar } from "@nuka/components/DatePicker/DatePicker";
+import { DatePickerInput } from "@nuka/components/DatePicker/DatePickerInput";
+import { DatePickerCalendar } from "@nuka/components/DatePicker/DatePickerCalendar";
 import { FormField } from "@nuka/components/FormField";
 
 vi.mock("@floating-ui/react", async () => {
