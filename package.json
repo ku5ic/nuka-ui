@@ -49,7 +49,7 @@
     "email": "contact.sinisa@gmail.com",
     "url": "https://github.com/ku5ic"
   },
-  "license": "ISC",
+  "license": "MIT",
   "type": "module",
   "peerDependencies": {
     "react": ">=19.0.0",
