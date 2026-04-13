@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.2
+
+### Patch Changes
+
+- fa4dde5: Pre-compile Tailwind utilities into dist/styles.css so consumers do not need to configure Tailwind to scan node_modules
+
 ## 1.0.1
 
 ### Patch Changes
