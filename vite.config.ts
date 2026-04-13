@@ -45,6 +45,7 @@ export default defineConfig({
           resolve(__dirname, "dist/styles.css"),
           [
             "/* @nuka-ui/core styles */",
+            '@source "./index.js";',
             compiled,
             tokens,
             animations,
@@ -62,6 +63,7 @@ export default defineConfig({
           resolve(__dirname, "dist/styles-root.css"),
           [
             "/* @nuka-ui/core styles/root */",
+            '@source "./index.js";',
             compiled,
             root,
             animations,
