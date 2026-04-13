@@ -3,6 +3,7 @@ import { fileURLToPath } from "url";
 import { dirname, resolve } from "path";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
+import dts from "vite-plugin-dts";
 import { defineConfig } from "vite";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -12,6 +13,10 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
+    dts({
+      tsconfigPath: "./tsconfig.build.json",
+      outDir: "dist",
+    }),
     {
       name: "copy-styles",
       closeBundle() {
