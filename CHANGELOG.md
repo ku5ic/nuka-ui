@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.3
+
+### Patch Changes
+
+- f61e67d: Fix distributed stylesheets to restore dev and production compatibility
+
 ## 1.0.2
 
 ### Patch Changes
