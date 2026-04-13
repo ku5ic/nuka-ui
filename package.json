@@ -21,7 +21,7 @@
     "*.css"
   ],
   "scripts": {
-    "build": "vite build && tsc -p tsconfig.build.json",
+    "build": "vite build",
     "dev": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "vitest run",
