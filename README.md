@@ -2,7 +2,7 @@
 
 A production-grade React component library built on Tailwind v4. Composable, accessible, and designed from the ground up with the kind of API and architectural rigor that scales to more components, more developers, more products, and more edge cases.
 
-[![npm](https://img.shields.io/npm/v/nuka-ui)](https://www.npmjs.com/package/nuka-ui)
+[![npm](https://img.shields.io/npm/v/@nuka-ui/core)](https://www.npmjs.com/package/@nuka-ui/core)
 [![license](https://img.shields.io/npm/l/nuka-ui)](./LICENSE)
 [![storybook](https://img.shields.io/badge/storybook-live-ff4785)](https://ku5ic.github.io/nuka-ui)
 [![stackblitz](https://img.shields.io/badge/stackblitz-try_it-1389fd)](https://stackblitz.com/github/ku5ic/nuka-ui)
@@ -46,13 +46,13 @@ nuka-ui takes a different position. It is opinionated about the things that shou
 ## Installation
 
 ```bash
-npm install nuka-ui
+npm install @nuka-ui/core
 ```
 
 Import the stylesheet once at your application entry point:
 
 ```tsx
-import "nuka-ui/styles";
+import "@nuka-ui/core/styles";
 ```
 
 If your project does not need dark mode or runtime theme switching, import the
@@ -60,7 +60,7 @@ light-theme-only stylesheet instead. It scopes all tokens to `:root` and omits t
 `[data-theme]` selectors entirely:
 
 ```tsx
-import "nuka-ui/styles/root";
+import "@nuka-ui/core/styles/root";
 ```
 
 Add `data-theme` to your root element:
@@ -87,7 +87,7 @@ document.documentElement.dataset.theme = "dark";
 ### Basic
 
 ```tsx
-import { Button } from "nuka-ui";
+import { Button } from "@nuka-ui/core";
 
 export function SaveButton() {
   return <Button variant="primary">Save changes</Button>;
@@ -133,7 +133,7 @@ Render as any element or component while preserving all styles and behavior. Bui
 
 ```tsx
 import { Link } from "react-router-dom";
-import { Button } from "nuka-ui";
+import { Button } from "@nuka-ui/core";
 
 // Renders as <a> with full Button styles
 <Button asChild variant="primary">

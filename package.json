@@ -1,5 +1,5 @@
 {
-  "name": "nuka-ui",
+  "name": "@nuka-ui/core",
   "version": "1.0.0",
   "description": "A React component library built on Tailwind v4, composable and customizable via CSS variables and props.",
   "main": "./dist/index.cjs",
@@ -30,6 +30,7 @@
     "lint": "eslint src",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist",
+    "prepare": "npm run build",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\"",
     "release": "npm run build && changeset publish"
@@ -48,6 +49,10 @@
     "name": "Sinisa Kusic",
     "email": "contact.sinisa@gmail.com",
     "url": "https://github.com/ku5ic"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ku5ic/nuka-ui.git"
   },
   "license": "MIT",
   "type": "module",
