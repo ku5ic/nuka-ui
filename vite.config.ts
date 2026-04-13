@@ -43,13 +43,7 @@ export default defineConfig({
         );
         writeFileSync(
           resolve(__dirname, "dist/styles.css"),
-          [
-            "/* @nuka-ui/core styles */",
-            '@source "./index.js";',
-            compiled,
-            tokens,
-            animations,
-          ]
+          ["/* @nuka-ui/core styles */", compiled, tokens, animations]
             .filter(Boolean)
             .join("\n\n"),
           "utf-8",
@@ -61,13 +55,7 @@ export default defineConfig({
         );
         writeFileSync(
           resolve(__dirname, "dist/styles-root.css"),
-          [
-            "/* @nuka-ui/core styles/root */",
-            '@source "./index.js";',
-            compiled,
-            root,
-            animations,
-          ]
+          ["/* @nuka-ui/core styles/root */", compiled, root, animations]
             .filter(Boolean)
             .join("\n\n"),
           "utf-8",
