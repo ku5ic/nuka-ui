@@ -47,16 +47,18 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: () => (
-    <Section>
-      <Container>
-        <Heading size="2xl">Default section</Heading>
-        <Text color="muted" className="mt-(--space-2)">
-          Medium spacing, no background, no divider.
-        </Text>
-      </Container>
-    </Section>
-  ),
+  args: {
+    children: (
+      <Section>
+        <Container>
+          <Heading size="2xl">Default section</Heading>
+          <Text color="muted" className="mt-(--space-2)">
+            Medium spacing, no background, no divider.
+          </Text>
+        </Container>
+      </Section>
+    ),
+  },
   parameters: {
     docs: {
       source: {
