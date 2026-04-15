@@ -348,12 +348,14 @@ const NavigationMenuTrigger = React.forwardRef<
 
 NavigationMenuTrigger.displayName = "NavigationMenuTrigger";
 
-export interface NavigationMenuContentProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface NavigationMenuContentProps extends React.HTMLAttributes<HTMLDivElement> {
+  portal?: boolean;
+}
 
 const NavigationMenuContent = React.forwardRef<
   HTMLDivElement,
   NavigationMenuContentProps
->(({ className, children, ...props }, ref) => {
+>(({ portal = false, className, children, ...props }, ref) => {
   const rootCtx = useNavigationMenuContext();
   const itemCtx = useNavigationMenuItemContext();
   const contentRef = React.useRef<HTMLDivElement>(null);
@@ -361,39 +363,41 @@ const NavigationMenuContent = React.forwardRef<
 
   useFocusFirstInteractive(contentRef, itemCtx.open);
 
-  if (!itemCtx.open) return null;
-
   const floatingProps = itemCtx.getFloatingProps(props);
 
-  return (
-    <Portal>
-      <NavigationMenuContentContext value={true}>
-        <div
-          ref={composedRef}
-          id={itemCtx.contentId}
-          role="dialog"
-          aria-label={
-            rootCtx.itemLabels.current.get(itemCtx.value) ?? itemCtx.value
-          }
-          tabIndex={-1}
-          style={itemCtx.floatingStyles}
-          // Safe: Floating UI getFloatingProps() returns Record<string, unknown>;
-          // values are standard DOM attributes and event handlers.
-          {...(floatingProps as React.HTMLAttributes<HTMLDivElement>)}
-          className={cn(
-            "z-(--nuka-z-dropdown) min-w-48",
-            "rounded-(--radius-md) border border-(--nuka-border-base)",
-            "bg-(--nuka-bg-base) shadow-md",
-            "p-(--space-4)",
-            "focus-visible:outline-none",
-            className,
-          )}
-        >
-          {children}
-        </div>
-      </NavigationMenuContentContext>
-    </Portal>
+  const content = (
+    <NavigationMenuContentContext value={true}>
+      <div
+        ref={composedRef}
+        id={itemCtx.contentId}
+        role="dialog"
+        aria-label={
+          rootCtx.itemLabels.current.get(itemCtx.value) ?? itemCtx.value
+        }
+        aria-hidden={!itemCtx.open}
+        tabIndex={-1}
+        style={itemCtx.floatingStyles}
+        // Safe: Floating UI getFloatingProps() returns Record<string, unknown>;
+        // values are standard DOM attributes and event handlers.
+        {...(floatingProps as React.HTMLAttributes<HTMLDivElement>)}
+        className={cn(
+          "z-(--nuka-z-dropdown) min-w-48",
+          "rounded-(--radius-md) border border-(--nuka-border-base)",
+          "bg-(--nuka-bg-base) shadow-md",
+          "p-(--space-4)",
+          "focus-visible:outline-none",
+          itemCtx.open
+            ? "visible pointer-events-auto"
+            : "invisible pointer-events-none",
+          className,
+        )}
+      >
+        {children}
+      </div>
+    </NavigationMenuContentContext>
   );
+
+  return portal ? <Portal>{content}</Portal> : content;
 });
 
 NavigationMenuContent.displayName = "NavigationMenuContent";
