@@ -286,6 +286,23 @@ export { Label } from "./components/Label";
 export type { LabelProps } from "./components/Label";
 
 export {
+  Nav,
+  NavList,
+  NavItem,
+  NavLink,
+  NavTrigger,
+  NavSubmenu,
+} from "./components/Nav";
+export type {
+  NavProps,
+  NavListProps,
+  NavItemProps,
+  NavLinkProps,
+  NavTriggerProps,
+  NavSubmenuProps,
+} from "./components/Nav";
+
+export {
   Menubar,
   MenubarMenu,
   MenubarTrigger,
