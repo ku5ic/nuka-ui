@@ -389,6 +389,9 @@ export type { SectionProps, SectionVariantProps } from "./components/Section";
 export { Skeleton, skeletonVariants } from "./components/Skeleton";
 export type { SkeletonProps } from "./components/Skeleton";
 
+export { SplitLayout } from "./components/SplitLayout";
+export type { SplitLayoutProps } from "./components/SplitLayout";
+
 export {
   Slider,
   sliderWrapperVariants,
