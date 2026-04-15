@@ -9,6 +9,7 @@ This document defines the full component scope for nuka-ui.
 | Component | Status | Notes                                                           |
 | --------- | ------ | --------------------------------------------------------------- |
 | `Button`  | Done   | Actions and form submissions. 5 variants x 4 intents x 3 sizes. |
+| `Chip`    | Done   | Toggle/filter pill. `selected` state with `aria-pressed`.       |
 
 ---
 
@@ -94,9 +95,10 @@ This document defines the full component scope for nuka-ui.
 
 ## Accessibility Utilities
 
-| Component        | Status | Notes                                           |
-| ---------------- | ------ | ----------------------------------------------- |
-| `VisuallyHidden` | Done   | Screen-reader-only text. Polymorphic `as` prop. |
+| Component        | Status | Notes                                                     |
+| ---------------- | ------ | --------------------------------------------------------- |
+| `VisuallyHidden` | Done   | Screen-reader-only text. Polymorphic `as` prop.           |
+| `SkipLink`       | Done   | Skip-to-content link. Visible on focus, hidden otherwise. |
 
 ---
 

@@ -6,7 +6,7 @@ import { Stack } from "@nuka/components/Stack";
 import { Text } from "@nuka/components/Text";
 
 const meta = {
-  title: "Utilities/VisuallyHidden",
+  title: "Accessibility/VisuallyHidden",
   component: VisuallyHidden,
   tags: ["autodocs"],
   parameters: {

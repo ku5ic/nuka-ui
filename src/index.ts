@@ -167,6 +167,9 @@ export type { ComboboxContextValue } from "./components/Combobox";
 export { Container } from "./components/Container";
 export type { ContainerProps, ContainerSize } from "./components/Container";
 
+export { Chip, chipVariants } from "./components/Chip";
+export type { ChipProps, ChipVariantProps } from "./components/Chip";
+
 export {
   Dialog,
   DialogTrigger,
@@ -400,6 +403,9 @@ export type {
 
 export { Section, sectionVariants } from "./components/Section";
 export type { SectionProps, SectionVariantProps } from "./components/Section";
+
+export { SkipLink } from "./components/SkipLink";
+export type { SkipLinkProps } from "./components/SkipLink";
 
 export { Skeleton, skeletonVariants } from "./components/Skeleton";
 export type { SkeletonProps } from "./components/Skeleton";

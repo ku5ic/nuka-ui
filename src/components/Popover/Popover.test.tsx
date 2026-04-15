@@ -184,7 +184,9 @@ describe("Popover", () => {
     render(
       <Popover>
         <PopoverTrigger>Open</PopoverTrigger>
-        <PopoverContent aria-label="Details">No focusable children here</PopoverContent>
+        <PopoverContent aria-label="Details">
+          No focusable children here
+        </PopoverContent>
       </Popover>,
     );
 
@@ -200,7 +202,9 @@ describe("Popover", () => {
     render(
       <Popover>
         <PopoverTrigger>Open</PopoverTrigger>
-        <PopoverContent aria-label="Details" className="custom-class">Panel content</PopoverContent>
+        <PopoverContent aria-label="Details" className="custom-class">
+          Panel content
+        </PopoverContent>
       </Popover>,
     );
 
@@ -226,7 +230,9 @@ describe("Popover", () => {
     render(
       <Popover>
         <PopoverTrigger>Open</PopoverTrigger>
-        <PopoverContent ref={ref} aria-label="Details">Panel content</PopoverContent>
+        <PopoverContent ref={ref} aria-label="Details">
+          Panel content
+        </PopoverContent>
       </Popover>,
     );
 
