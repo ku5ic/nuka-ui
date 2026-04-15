@@ -2,13 +2,29 @@ import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 import { Text } from "@nuka/components/Text";
 import {
-  dividerVariants,
-  type DividerVariantProps,
-} from "@nuka/components/Divider/Divider.variants";
+  resolveResponsiveClasses,
+  dividerOrientationClasses,
+} from "@nuka/utils/responsive";
+import type { Responsive, DividerOrientation } from "@nuka/utils/responsive";
+import type { DividerVariantProps } from "@nuka/components/Divider/Divider.variants";
+
+export type { DividerVariantProps };
 
 export interface DividerProps
   extends React.ComponentPropsWithoutRef<"div">, DividerVariantProps {
   label?: React.ReactNode;
+}
+
+function resolveBaseOrientation(
+  orientation: Responsive<DividerOrientation>,
+): DividerOrientation {
+  if (typeof orientation === "string") return orientation;
+  return orientation.base ?? "horizontal";
+}
+
+function hasVertical(orientation: Responsive<DividerOrientation>): boolean {
+  if (typeof orientation === "string") return orientation === "vertical";
+  return Object.values(orientation).some((v) => v === "vertical");
 }
 
 /**
@@ -21,11 +37,13 @@ const Divider = React.forwardRef<HTMLElement, DividerProps>(
     { className, orientation = "horizontal", size = "md", label, ...props },
     ref,
   ) => {
-    const isVertical = orientation === "vertical";
+    const baseOrientation = resolveBaseOrientation(orientation);
     const hasLabel = label != null;
+    const lookup = dividerOrientationClasses[size];
+    const orientationClasses = resolveResponsiveClasses(orientation, lookup);
 
     // Vertical + label is explicitly unsupported
-    if (isVertical && hasLabel) {
+    if (hasVertical(orientation) && hasLabel) {
       if (process.env.NODE_ENV !== "production") {
         console.warn(
           'Divider: `label` is not supported with `orientation="vertical"`. The label will be ignored.',
@@ -36,10 +54,10 @@ const Divider = React.forwardRef<HTMLElement, DividerProps>(
         <div
           ref={ref as React.Ref<HTMLDivElement>}
           role="separator"
-          aria-orientation="vertical"
+          aria-orientation={baseOrientation}
           className={cn(
             "bg-(--nuka-border-base)",
-            dividerVariants({ orientation: "vertical", size }),
+            ...orientationClasses,
             className,
           )}
           {...props}
@@ -60,7 +78,7 @@ const Divider = React.forwardRef<HTMLElement, DividerProps>(
           <div
             className={cn(
               "flex-1 bg-(--nuka-border-base)",
-              dividerVariants({ orientation: "horizontal", size }),
+              ...orientationClasses,
             )}
             aria-hidden="true"
           />
@@ -75,7 +93,7 @@ const Divider = React.forwardRef<HTMLElement, DividerProps>(
           <div
             className={cn(
               "flex-1 bg-(--nuka-border-base)",
-              dividerVariants({ orientation: "horizontal", size }),
+              ...orientationClasses,
             )}
             aria-hidden="true"
           />
@@ -83,8 +101,8 @@ const Divider = React.forwardRef<HTMLElement, DividerProps>(
       );
     }
 
-    // Vertical without label: div with role="separator"
-    if (isVertical) {
+    // Vertical: div with role="separator"
+    if (baseOrientation === "vertical") {
       return (
         <div
           ref={ref as React.Ref<HTMLDivElement>}
@@ -92,7 +110,7 @@ const Divider = React.forwardRef<HTMLElement, DividerProps>(
           aria-orientation="vertical"
           className={cn(
             "bg-(--nuka-border-base)",
-            dividerVariants({ orientation: "vertical", size }),
+            ...orientationClasses,
             className,
           )}
           {...props}
@@ -106,7 +124,7 @@ const Divider = React.forwardRef<HTMLElement, DividerProps>(
         ref={ref as React.Ref<HTMLHRElement>}
         className={cn(
           "border-0 bg-(--nuka-border-base)",
-          dividerVariants({ orientation: "horizontal", size }),
+          ...orientationClasses,
           className,
         )}
         {...(props as React.ComponentPropsWithoutRef<"hr">)}
@@ -117,4 +135,4 @@ const Divider = React.forwardRef<HTMLElement, DividerProps>(
 
 Divider.displayName = "Divider";
 
-export { Divider, dividerVariants };
+export { Divider };

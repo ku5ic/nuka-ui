@@ -78,6 +78,34 @@ describe("Divider", () => {
     });
   });
 
+  describe("responsive orientation", () => {
+    it("accepts an object form for orientation", () => {
+      render(
+        <Divider
+          orientation={{ base: "horizontal", md: "vertical" }}
+          data-testid="divider"
+        />,
+      );
+      const cls = screen.getByTestId("divider").className;
+      expect(cls).toContain("w-full");
+      expect(cls).toContain("md:self-stretch");
+    });
+
+    it("warns when any breakpoint is vertical and label is present", () => {
+      const warnSpy = vi.spyOn(console, "warn").mockImplementation(vi.fn());
+      render(
+        <Divider
+          orientation={{ base: "horizontal", md: "vertical" }}
+          label="Should not show"
+          data-testid="divider"
+        />,
+      );
+      expect(screen.queryByText("Should not show")).not.toBeInTheDocument();
+      expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining("label"));
+      warnSpy.mockRestore();
+    });
+  });
+
   describe("label", () => {
     it("renders label content when label is provided", () => {
       render(<Divider label="Or" />);

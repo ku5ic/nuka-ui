@@ -87,6 +87,8 @@
   --space-10: 2.5rem;
   --space-12: 3rem;
   --space-16: 4rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
 
   /* Shadow primitives */
   --shadow-sm: 0 1px 3px oklch(0% 0 0 / 0.1), 0 1px 2px oklch(0% 0 0 / 0.06);
@@ -139,6 +141,10 @@
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
+
+  --font-family-sans: ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-family-serif: ui-serif, Georgia, Cambria, serif;
+  --font-family-mono: ui-monospace, "SFMono-Regular", Menlo, monospace;
 }
 
 /* Semantic tokens: light theme */
@@ -192,6 +198,12 @@
   --nuka-z-modal: var(--z-modal);
   --nuka-z-toast: var(--z-toast);
 
+  /* Font family */
+  --nuka-font-heading: var(--font-family-serif);
+  --nuka-font-body: var(--font-family-sans);
+  --nuka-font-ui: var(--font-family-sans);
+  --nuka-font-code: var(--font-family-mono);
+
   /* Overlay */
   /* No matching primitive: alpha-composite value, not a scale step.
      0.5 opacity is intentional for both themes. Consumer-overridable
@@ -212,6 +224,10 @@
   /* Input borders */
   --nuka-input-border: var(--color-neutral-300);
   --nuka-input-border-hover: var(--color-neutral-400);
+
+  /* Scrollbar */
+  --nuka-scroll-thumb: var(--color-neutral-400);
+  --nuka-scroll-track: var(--color-neutral-100);
 
   /* Feedback */
   --nuka-success-base: var(--color-success-300);
@@ -240,6 +256,8 @@
   --nuka-info-bg: var(--color-info-100);
   --nuka-info-text: var(--color-info-500);
   --nuka-info-border: var(--color-info-300);
+  --nuka-info-fg: var(--color-neutral-0);
+  /* 4.69:1 on info-base (info-300). White on filled info surface. */
 }
 
 /* Semantic tokens: dark theme */
@@ -304,6 +322,10 @@
   --nuka-input-border: var(--color-neutral-700);
   --nuka-input-border-hover: var(--color-neutral-500);
 
+  /* Scrollbar */
+  --nuka-scroll-thumb: var(--color-neutral-dark-border);
+  --nuka-scroll-track: var(--color-neutral-dark-subtle);
+
   /* Feedback */
   --nuka-success-base: var(--color-success-250);
   --nuka-success-bg: var(--color-success-600);
@@ -331,4 +353,6 @@
   --nuka-info-bg: var(--color-info-600);
   --nuka-info-text: var(--color-info-200);
   --nuka-info-border: var(--color-info-400);
+  --nuka-info-fg: var(--color-neutral-950);
+  /* Dark fg on lighter dark-mode info surface. Symmetric with danger/success/warning. */
 }

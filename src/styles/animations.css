@@ -115,3 +115,17 @@
     --nuka-duration-deliberate: 0ms;
   }
 }
+
+.nuka-scroll-area::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.nuka-scroll-area::-webkit-scrollbar-track {
+  background: var(--nuka-scroll-track);
+}
+
+.nuka-scroll-area::-webkit-scrollbar-thumb {
+  background: var(--nuka-scroll-thumb);
+  border-radius: var(--radius-full);
+}

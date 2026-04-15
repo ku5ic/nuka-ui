@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 import { StepperContext } from "@nuka/components/Stepper/Stepper.context";

@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 import { Portal } from "@nuka/utils/portal";
@@ -122,6 +123,9 @@ function CommandMenu({
           aria-hidden="true"
         />
         <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Command menu"
           className={cn(
             "fixed z-(--nuka-z-modal)",
             "left-1/2 top-[20%] -translate-x-1/2",

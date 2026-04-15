@@ -187,6 +187,24 @@ describe("Text", () => {
     });
   });
 
+  describe("responsive size", () => {
+    it("accepts an object form for size", () => {
+      render(<Text size={{ base: "sm", md: "lg" }}>Responsive</Text>);
+      const cls = screen.getByText("Responsive").className;
+      expect(cls).toContain("text-[length:var(--font-size-sm)]");
+      expect(cls).toContain("md:text-[length:var(--font-size-lg)]");
+    });
+  });
+
+  describe("responsive align", () => {
+    it("accepts an object form for align", () => {
+      render(<Text align={{ base: "left", md: "center" }}>Responsive</Text>);
+      const cls = screen.getByText("Responsive").className;
+      expect(cls).toContain("text-left");
+      expect(cls).toContain("md:text-center");
+    });
+  });
+
   describe("truncate", () => {
     it("does not apply truncate by default", () => {
       render(<Text>Not truncated</Text>);

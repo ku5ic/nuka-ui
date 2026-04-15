@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 import { Slot } from "@nuka/utils/slot";
 import { useCollapsibleContext } from "@nuka/components/Collapsible/Collapsible.context";
@@ -28,6 +29,7 @@ const CollapsibleTrigger = React.forwardRef<
       aria-expanded={open}
       aria-controls={contentId}
       disabled={disabled}
+      aria-disabled={disabled || undefined}
       data-state={open ? "open" : "closed"}
       className={className}
       onClick={handleClick}

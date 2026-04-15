@@ -303,3 +303,64 @@ export const RealWorldExample: Story = {
     </Card>
   ),
 };
+
+export const ResponsiveSize: Story = {
+  name: "Responsive Size",
+  render: () => (
+    <Stack gap="md">
+      <Text size={{ base: "sm", md: "lg", xl: "xl" }}>
+        This text scales from sm to lg at md breakpoint, and xl at xl
+        breakpoint.
+      </Text>
+      <Text
+        size={{ base: "xs", md: "md" }}
+        align={{ base: "left", md: "center" }}
+        color="muted"
+      >
+        Smaller responsive text with responsive alignment.
+      </Text>
+    </Stack>
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Text size={{ base: "sm", md: "lg", xl: "xl" }}>
+  This text scales from sm to lg at md breakpoint, and xl at xl breakpoint.
+</Text>
+<Text
+  size={{ base: "xs", md: "md" }}
+  align={{ base: "left", md: "center" }}
+  color="muted"
+>
+  Smaller responsive text with responsive alignment.
+</Text>
+        `.trim(),
+      },
+    },
+  },
+};
+
+export const FontFamily: Story = {
+  name: "Font Family",
+  render: () => (
+    <Stack gap="md">
+      <Text family="body">Body family (sans)</Text>
+      <Text family="heading">Heading family (serif)</Text>
+      <Text family="ui">UI family (sans)</Text>
+      <Text family="code">Code family (mono)</Text>
+    </Stack>
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Text family="body">Body family (sans)</Text>
+<Text family="heading">Heading family (serif)</Text>
+<Text family="ui">UI family (sans)</Text>
+<Text family="code">Code family (mono)</Text>
+        `.trim(),
+      },
+    },
+  },
+};

@@ -11,6 +11,12 @@ export const kbdVariants = cva(
   ],
   {
     variants: {
+      family: {
+        heading: "[font-family:var(--nuka-font-heading)]",
+        body: "[font-family:var(--nuka-font-body)]",
+        ui: "[font-family:var(--nuka-font-ui)]",
+        code: "[font-family:var(--nuka-font-code)]",
+      },
       size: {
         sm: "min-h-5 px-(--space-1) text-[length:var(--font-size-xs)] leading-(--line-height-normal)",
         md: "min-h-6 px-(--space-2) text-[length:var(--font-size-sm)] leading-(--line-height-normal)",
@@ -18,6 +24,7 @@ export const kbdVariants = cva(
       },
     },
     defaultVariants: {
+      family: "code",
       size: "md",
     },
   },

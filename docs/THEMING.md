@@ -57,6 +57,57 @@ These ratios are documented on the primitives themselves in `tokens.css`:
 | `--color-danger-300`  | neutral-950 on | 4.59:1 | AA   | dark-mode filled surface         |
 | `--color-info-400`    | white on       | 4.69:1 | AA   | darkened from 55% L for contrast |
 
+## Non-color semantic tokens
+
+These semantic tokens have no contrast obligation but are part of the themeable surface.
+
+### Font family
+
+| Token                 | Default                    | Purpose                      |
+| --------------------- | -------------------------- | ---------------------------- |
+| `--nuka-font-heading` | `var(--font-family-serif)` | Heading component            |
+| `--nuka-font-body`    | `var(--font-family-sans)`  | Text, Eyebrow                |
+| `--nuka-font-ui`      | `var(--font-family-sans)`  | Button, Label, form controls |
+| `--nuka-font-code`    | `var(--font-family-mono)`  | Code, Kbd                    |
+
+### Duration
+
+| Token                        | Default                      | Purpose               |
+| ---------------------------- | ---------------------------- | --------------------- |
+| `--nuka-duration-fast`       | `var(--duration-fast)`       | Micro-interactions    |
+| `--nuka-duration-base`       | `var(--duration-base)`       | Standard transitions  |
+| `--nuka-duration-slow`       | `var(--duration-slow)`       | Panel animations      |
+| `--nuka-duration-deliberate` | `var(--duration-deliberate)` | Full-page transitions |
+
+### Z-index
+
+| Token               | Default             | Purpose             |
+| ------------------- | ------------------- | ------------------- |
+| `--nuka-z-header`   | `var(--z-header)`   | Sticky headers      |
+| `--nuka-z-dropdown` | `var(--z-dropdown)` | Menus, popovers     |
+| `--nuka-z-modal`    | `var(--z-modal)`    | Dialogs, sheets     |
+| `--nuka-z-toast`    | `var(--z-toast)`    | Toast notifications |
+
+### Input surfaces and borders
+
+| Token                       | Light default              | Dark default                               |
+| --------------------------- | -------------------------- | ------------------------------------------ |
+| `--nuka-input-bg`           | `var(--color-neutral-0)`   | `var(--color-neutral-dark-input)`          |
+| `--nuka-input-bg-disabled`  | `var(--color-neutral-100)` | `var(--color-neutral-800)`                 |
+| `--nuka-input-bg-readonly`  | `var(--color-neutral-50)`  | `var(--color-neutral-dark-input-readonly)` |
+| `--nuka-input-border`       | `var(--color-neutral-300)` | `var(--color-neutral-700)`                 |
+| `--nuka-input-border-hover` | `var(--color-neutral-400)` | `var(--color-neutral-500)`                 |
+
+### Scrollbar
+
+| Token                 | Light default              | Dark default                       |
+| --------------------- | -------------------------- | ---------------------------------- |
+| `--nuka-scroll-thumb` | `var(--color-neutral-400)` | `var(--color-neutral-dark-border)` |
+| `--nuka-scroll-track` | `var(--color-neutral-100)` | `var(--color-neutral-dark-subtle)` |
+
+Font family, duration, and z-index tokens are defined once on `:root` / `[data-theme="light"]` and
+are not redefined in dark mode because their values are theme-independent.
+
 ## Safe override checklist
 
 When overriding semantic tokens, some groups require contrast re-verification and some do not.

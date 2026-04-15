@@ -158,3 +158,33 @@ export const PatternInlineInText: Story = {
     },
   },
 };
+
+export const FontFamily: Story = {
+  name: "Font Family",
+  render: () => (
+    <Stack direction="row" gap="md" align="center">
+      <Stack gap="xs" align="center">
+        <Text size="xs" color="muted">
+          Default (mono)
+        </Text>
+        <Kbd>Shift</Kbd>
+      </Stack>
+      <Stack gap="xs" align="center">
+        <Text size="xs" color="muted">
+          Sans override
+        </Text>
+        <Kbd family="body">Shift</Kbd>
+      </Stack>
+    </Stack>
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Kbd>Shift</Kbd>
+<Kbd family="body">Shift</Kbd>
+        `.trim(),
+      },
+    },
+  },
+};

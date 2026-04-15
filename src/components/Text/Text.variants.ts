@@ -2,12 +2,11 @@ import { cva, type VariantProps } from "@nuka/utils/variants";
 
 export const textVariants = cva([], {
   variants: {
-    size: {
-      xs: "text-[length:var(--font-size-xs)] leading-(--line-height-normal)",
-      sm: "text-[length:var(--font-size-sm)] leading-(--line-height-normal)",
-      md: "text-[length:var(--font-size-md)] leading-(--line-height-normal)",
-      lg: "text-[length:var(--font-size-lg)] leading-(--line-height-snug)",
-      xl: "text-[length:var(--font-size-xl)] leading-(--line-height-snug)",
+    family: {
+      heading: "[font-family:var(--nuka-font-heading)]",
+      body: "[font-family:var(--nuka-font-body)]",
+      ui: "[font-family:var(--nuka-font-ui)]",
+      code: "[font-family:var(--nuka-font-code)]",
     },
     weight: {
       regular: "font-[number:var(--font-weight-regular)]",
@@ -26,21 +25,15 @@ export const textVariants = cva([], {
       success: "text-(--nuka-success-text)",
       warning: "text-(--nuka-warning-text)",
     },
-    align: {
-      left: "text-left",
-      center: "text-center",
-      right: "text-right",
-    },
     truncate: {
       true: "truncate",
       false: "",
     },
   },
   defaultVariants: {
-    size: "md",
+    family: "body",
     weight: "regular",
     color: "base",
-    align: "left",
     truncate: false,
   },
 });

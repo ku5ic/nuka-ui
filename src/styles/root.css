@@ -81,6 +81,8 @@
   --space-10: 2.5rem;
   --space-12: 3rem;
   --space-16: 4rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
 
   /* Shadow primitives */
   --shadow-sm: 0 1px 3px oklch(0% 0 0 / 0.1), 0 1px 2px oklch(0% 0 0 / 0.06);
@@ -134,6 +136,10 @@
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
 
+  --font-family-sans: ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-family-serif: ui-serif, Georgia, Cambria, serif;
+  --font-family-mono: ui-monospace, "SFMono-Regular", Menlo, monospace;
+
   /* Semantic tokens (light theme values, root-scoped) */
 
   /* Surfaces */
@@ -180,6 +186,10 @@
   --nuka-input-border: var(--color-neutral-300);
   --nuka-input-border-hover: var(--color-neutral-400);
 
+  /* Scrollbar */
+  --nuka-scroll-thumb: var(--color-neutral-400);
+  --nuka-scroll-track: var(--color-neutral-100);
+
   /* Shadows */
   --nuka-shadow-card: var(--shadow-sm);
   --nuka-shadow-overlay: var(--shadow-md);
@@ -190,6 +200,12 @@
   --nuka-z-dropdown: var(--z-dropdown);
   --nuka-z-modal: var(--z-modal);
   --nuka-z-toast: var(--z-toast);
+
+  /* Font family */
+  --nuka-font-heading: var(--font-family-serif);
+  --nuka-font-body: var(--font-family-sans);
+  --nuka-font-ui: var(--font-family-sans);
+  --nuka-font-code: var(--font-family-mono);
 
   /* Overlay */
   --nuka-bg-overlay: oklch(0% 0 0 / 0.5);

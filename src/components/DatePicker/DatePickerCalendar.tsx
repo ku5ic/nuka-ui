@@ -1,3 +1,4 @@
+"use client";
 // Exceeds 200 lines: calendar grid JSX is inseparable from the hooks that feed it.
 // Hook calls, Intl formatters, memos, and selectDay/navigateToDate callbacks all
 // close over the same display state and cannot be moved to a sibling file.

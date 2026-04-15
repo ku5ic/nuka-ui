@@ -9,11 +9,11 @@ export interface KbdProps
   extends React.HTMLAttributes<HTMLElement>, KbdVariantProps {}
 
 const Kbd = React.forwardRef<HTMLElement, KbdProps>(
-  ({ className, size, ...props }, ref) => {
+  ({ className, family, size, ...props }, ref) => {
     return (
       <kbd
         ref={ref}
-        className={cn(kbdVariants({ size }), className)}
+        className={cn(kbdVariants({ family, size }), className)}
         {...props}
       />
     );

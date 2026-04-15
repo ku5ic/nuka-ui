@@ -110,11 +110,16 @@ describe("NavigationMenu", () => {
   });
 
   describe("content", () => {
-    it("is not rendered when closed", () => {
+    it("is always in the DOM but hidden from the accessibility tree when closed", () => {
       renderNav();
       expect(
         screen.queryByRole("dialog", { name: "Products" }),
       ).not.toBeInTheDocument();
+      const panel = document.querySelector(
+        '[role="dialog"][aria-label="Products"]',
+      );
+      expect(panel).toBeInTheDocument();
+      expect(panel).toHaveAttribute("aria-hidden", "true");
     });
 
     it("renders with role=dialog when open", async () => {
@@ -251,6 +256,10 @@ describe("NavigationMenu", () => {
       expect(
         screen.queryByRole("dialog", { name: "Products" }),
       ).not.toBeInTheDocument();
+      const panel = document.querySelector(
+        '[role="dialog"][aria-label="Products"]',
+      );
+      expect(panel).toHaveAttribute("aria-hidden", "true");
       expect(trigger).toHaveFocus();
     });
 
@@ -370,6 +379,10 @@ describe("NavigationMenu", () => {
       ).toBeInTheDocument();
 
       await user.keyboard("{Escape}");
+      const panel = document.querySelector(
+        '[role="dialog"][aria-label="Products"]',
+      );
+      expect(panel).toHaveAttribute("aria-hidden", "true");
       expect(productsTrigger).toHaveFocus();
       expect(productsTrigger).toHaveAttribute("tabindex", "0");
     });

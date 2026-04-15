@@ -5,31 +5,28 @@
 ```
 src/components/<Name>/
   <Name>.tsx
+  <Name>.variants.ts
   <Name>.test.tsx
   <Name>.stories.tsx
   index.ts
 ```
 
-## <Name>.tsx structure
+## <Name>.variants.ts structure
 
 ```tsx
-import * as React from 'react'
-import { Slot } from '@radix-ui/react-slot'
 import { cva, type VariantProps } from '@nuka/utils/variants'
-import { cn } from '@nuka/utils/cn'
 
-const <name>Variants = cva(
+export const <name>Variants = cva(
   [
     // base classes: applied to every instance
   ],
   {
     variants: {
       variant: {
-        primary: [],
-        secondary: [],
-        outline: [],
-        ghost: [],
-        link: [],
+        // variant values are component-specific:
+        //   Button uses: primary, secondary, outline, ghost, link
+        //   Badge/Chip/Tag use: solid, subtle, outline
+        // Choose the set that fits the component's role.
       },
       intent: {
         default: '',
@@ -45,10 +42,10 @@ const <name>Variants = cva(
     },
     compoundVariants: [
       // one entry per variant x intent combination
-      // group by variant: primary, secondary, outline, ghost, link
+      // group by variant
     ],
     defaultVariants: {
-      variant: 'primary',
+      variant: '<first-variant>',
       intent: 'default',
       size: 'md',
     },
@@ -56,6 +53,18 @@ const <name>Variants = cva(
 )
 
 export type <Name>VariantProps = VariantProps<typeof <name>Variants>
+```
+
+## <Name>.tsx structure
+
+```tsx
+import * as React from 'react'
+import { Slot } from '@nuka/utils/slot'
+import { cn } from '@nuka/utils/cn'
+import {
+  <name>Variants,
+  type <Name>VariantProps,
+} from '@nuka/components/<Name>/<Name>.variants'
 
 export interface <Name>Props
   extends React.HTMLAttributes<HTMLElement>,
@@ -86,7 +95,9 @@ export { <Name>, <name>Variants }
 
 ```ts
 export { <Name>, <name>Variants } from './<Name>'
-export type { <Name>Props, <Name>VariantProps } from './<Name>'
+export type { <Name>Props } from './<Name>'
+export { <name>Variants } from '@nuka/components/<Name>/<Name>.variants'
+export type { <Name>VariantProps } from '@nuka/components/<Name>/<Name>.variants'
 ```
 
 ## Token usage
@@ -126,4 +137,4 @@ Never use raw Tailwind color utilities like `bg-blue-500`.
 },
 ```
 
-See `src/components/Button/Button.tsx` for all 20 compound variant combinations.
+See `src/components/Button/Button.variants.ts` for all 20 compound variant combinations.

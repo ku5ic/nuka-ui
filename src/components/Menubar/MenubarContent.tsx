@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 import { composeRefs } from "@nuka/utils/slot";
@@ -31,12 +32,17 @@ const MenubarContent = React.forwardRef<HTMLDivElement, MenubarContentProps>(
       menu.onOpenChange(false);
     }, [menu]);
 
-    const { getItemProps, focusItem, itemsRef } = useMenuNavigation({
-      onEscape: handleEscape,
-      onTab: handleTab,
-    });
+    const { getItemProps, focusItem, itemsRef, resetTypeAhead } =
+      useMenuNavigation({
+        onEscape: handleEscape,
+        onTab: handleTab,
+      });
 
     const itemIndexRef = React.useRef(0);
+
+    React.useEffect(() => {
+      if (!menu.open) resetTypeAhead();
+    }, [menu.open, resetTypeAhead]);
 
     const handleArrowToAdjacentMenu = React.useCallback(
       (direction: -1 | 1) => {

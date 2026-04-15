@@ -1,3 +1,4 @@
+"use client";
 import type * as React from "react";
 import { useCallback, useRef } from "react";
 
@@ -16,6 +17,7 @@ interface UseMenuNavigationReturn {
   getItemProps: (index: number) => ItemProps;
   focusItem: (index: number) => void;
   itemsRef: React.RefObject<(HTMLElement | null)[]>;
+  resetTypeAhead: () => void;
 }
 
 function useMenuNavigation(
@@ -173,7 +175,15 @@ function useMenuNavigation(
     [handleKeyDown],
   );
 
-  return { getItemProps, focusItem, itemsRef };
+  const resetTypeAhead = useCallback(() => {
+    typeAheadBuffer.current = "";
+    if (typeAheadTimer.current) {
+      clearTimeout(typeAheadTimer.current);
+      typeAheadTimer.current = undefined;
+    }
+  }, []);
+
+  return { getItemProps, focusItem, itemsRef, resetTypeAhead };
 }
 
 export { useMenuNavigation };
