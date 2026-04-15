@@ -272,6 +272,12 @@ export type { EmptyStateProps } from "./components/EmptyState";
 export { Eyebrow, eyebrowVariants } from "./components/Eyebrow";
 export type { EyebrowProps, EyebrowVariantProps } from "./components/Eyebrow";
 
+export { FileInput, fileInputZoneVariants } from "./components/FileInput";
+export type {
+  FileInputProps,
+  FileInputVariantProps,
+} from "./components/FileInput";
+
 export {
   FormField,
   FormFieldContext,
