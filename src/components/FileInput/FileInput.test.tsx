@@ -114,6 +114,7 @@ describe("FileInput", () => {
 
   describe("maxFiles", () => {
     it("caps files at maxFiles limit", () => {
+      const warnSpy = vi.spyOn(console, "warn").mockImplementation(vi.fn());
       const spy = vi.fn();
       render(<FileInput onFilesChange={spy} maxFiles={2} multiple />);
       const zone = screen.getByTestId("file-input-zone");
@@ -129,6 +130,10 @@ describe("FileInput", () => {
       expect(screen.getByText("a.txt")).toBeInTheDocument();
       expect(screen.getByText("b.txt")).toBeInTheDocument();
       expect(screen.queryByText("c.txt")).not.toBeInTheDocument();
+      expect(warnSpy).toHaveBeenCalledWith(
+        expect.stringContaining("maxFiles=2"),
+      );
+      warnSpy.mockRestore();
     });
   });
 

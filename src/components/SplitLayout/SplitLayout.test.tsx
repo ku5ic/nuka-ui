@@ -146,6 +146,7 @@ describe("SplitLayout", () => {
 
   describe("asChild", () => {
     it("renders child element when asChild is true", () => {
+      const warnSpy = vi.spyOn(console, "warn").mockImplementation(vi.fn());
       render(
         <SplitLayout asChild>
           <section data-testid="sl">
@@ -155,6 +156,7 @@ describe("SplitLayout", () => {
         </SplitLayout>,
       );
       expect(screen.getByTestId("sl").tagName).toBe("SECTION");
+      warnSpy.mockRestore();
     });
   });
 

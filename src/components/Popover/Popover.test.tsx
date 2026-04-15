@@ -20,7 +20,7 @@ describe("Popover", () => {
     render(
       <Popover>
         <PopoverTrigger>Open</PopoverTrigger>
-        <PopoverContent>Panel content</PopoverContent>
+        <PopoverContent aria-label="Details">Panel content</PopoverContent>
       </Popover>,
     );
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
@@ -31,7 +31,7 @@ describe("Popover", () => {
     render(
       <Popover>
         <PopoverTrigger>Open</PopoverTrigger>
-        <PopoverContent>Panel content</PopoverContent>
+        <PopoverContent aria-label="Details">Panel content</PopoverContent>
       </Popover>,
     );
 
@@ -48,7 +48,7 @@ describe("Popover", () => {
     render(
       <Popover>
         <PopoverTrigger>Open</PopoverTrigger>
-        <PopoverContent>Panel content</PopoverContent>
+        <PopoverContent aria-label="Details">Panel content</PopoverContent>
       </Popover>,
     );
 
@@ -64,7 +64,7 @@ describe("Popover", () => {
     render(
       <Popover>
         <PopoverTrigger>Open</PopoverTrigger>
-        <PopoverContent>Panel content</PopoverContent>
+        <PopoverContent aria-label="Details">Panel content</PopoverContent>
       </Popover>,
     );
 
@@ -80,7 +80,7 @@ describe("Popover", () => {
     render(
       <Popover>
         <PopoverTrigger>Open</PopoverTrigger>
-        <PopoverContent>Panel content</PopoverContent>
+        <PopoverContent aria-label="Details">Panel content</PopoverContent>
       </Popover>,
     );
 
@@ -97,7 +97,7 @@ describe("Popover", () => {
       <div>
         <Popover>
           <PopoverTrigger>Open</PopoverTrigger>
-          <PopoverContent>Panel content</PopoverContent>
+          <PopoverContent aria-label="Details">Panel content</PopoverContent>
         </Popover>
         <button type="button">Outside</button>
       </div>,
@@ -116,7 +116,7 @@ describe("Popover", () => {
     render(
       <Popover onOpenChange={handleOpenChange}>
         <PopoverTrigger>Open</PopoverTrigger>
-        <PopoverContent>Panel content</PopoverContent>
+        <PopoverContent aria-label="Details">Panel content</PopoverContent>
       </Popover>,
     );
 
@@ -131,7 +131,7 @@ describe("Popover", () => {
     const { rerender } = render(
       <Popover open={true}>
         <PopoverTrigger>Open</PopoverTrigger>
-        <PopoverContent>Panel content</PopoverContent>
+        <PopoverContent aria-label="Details">Panel content</PopoverContent>
       </Popover>,
     );
 
@@ -140,7 +140,7 @@ describe("Popover", () => {
     rerender(
       <Popover open={false}>
         <PopoverTrigger>Open</PopoverTrigger>
-        <PopoverContent>Panel content</PopoverContent>
+        <PopoverContent aria-label="Details">Panel content</PopoverContent>
       </Popover>,
     );
 
@@ -152,7 +152,7 @@ describe("Popover", () => {
     render(
       <Popover>
         <PopoverTrigger>Open</PopoverTrigger>
-        <PopoverContent>Panel content</PopoverContent>
+        <PopoverContent aria-label="Details">Panel content</PopoverContent>
       </Popover>,
     );
 
@@ -165,7 +165,7 @@ describe("Popover", () => {
     render(
       <Popover>
         <PopoverTrigger>Open</PopoverTrigger>
-        <PopoverContent>
+        <PopoverContent aria-label="Details">
           <button type="button">Inside</button>
         </PopoverContent>
       </Popover>,
@@ -184,7 +184,7 @@ describe("Popover", () => {
     render(
       <Popover>
         <PopoverTrigger>Open</PopoverTrigger>
-        <PopoverContent>No focusable children here</PopoverContent>
+        <PopoverContent aria-label="Details">No focusable children here</PopoverContent>
       </Popover>,
     );
 
@@ -200,7 +200,7 @@ describe("Popover", () => {
     render(
       <Popover>
         <PopoverTrigger>Open</PopoverTrigger>
-        <PopoverContent className="custom-class">Panel content</PopoverContent>
+        <PopoverContent aria-label="Details" className="custom-class">Panel content</PopoverContent>
       </Popover>,
     );
 
@@ -213,7 +213,7 @@ describe("Popover", () => {
     render(
       <Popover>
         <PopoverTrigger ref={ref}>Open</PopoverTrigger>
-        <PopoverContent>Panel content</PopoverContent>
+        <PopoverContent aria-label="Details">Panel content</PopoverContent>
       </Popover>,
     );
 
@@ -226,7 +226,7 @@ describe("Popover", () => {
     render(
       <Popover>
         <PopoverTrigger>Open</PopoverTrigger>
-        <PopoverContent ref={ref}>Panel content</PopoverContent>
+        <PopoverContent ref={ref} aria-label="Details">Panel content</PopoverContent>
       </Popover>,
     );
 
@@ -241,7 +241,7 @@ describe("Popover", () => {
         <PopoverTrigger asChild>
           <button type="button">Custom trigger</button>
         </PopoverTrigger>
-        <PopoverContent>Panel content</PopoverContent>
+        <PopoverContent aria-label="Details">Panel content</PopoverContent>
       </Popover>,
     );
 
