@@ -383,6 +383,9 @@ export type {
 export { SheetContext, useSheetContext } from "./components/Sheet";
 export type { SheetContextValue } from "./components/Sheet";
 
+export { Section, sectionVariants } from "./components/Section";
+export type { SectionProps, SectionVariantProps } from "./components/Section";
+
 export { Skeleton, skeletonVariants } from "./components/Skeleton";
 export type { SkeletonProps } from "./components/Skeleton";
 
