@@ -235,26 +235,29 @@ WCAG 2.2 AA compliance is a hard constraint, not a goal. It is verified at the t
 
 ### Typography
 
-| Component | Description                                         |
-| --------- | --------------------------------------------------- |
-| `Heading` | `h1`-`h6` via `as` prop. Semantic size scale.       |
-| `Text`    | Typography component. Size, weight, color variants. |
-| `Code`    | Inline code. Monospace, subtle background.          |
-| `Kbd`     | Keyboard shortcut display.                          |
+| Component | Description                                                |
+| --------- | ---------------------------------------------------------- |
+| `Heading` | `h1`-`h6` via `as` prop. Semantic size scale.              |
+| `Text`    | Typography component. Size, weight, color variants.        |
+| `Code`    | Inline code. Monospace, subtle background.                 |
+| `Kbd`     | Keyboard shortcut display.                                 |
+| `Eyebrow` | Uppercase label text. Color variants: base, muted, accent. |
 
 ### Forms
 
-| Component    | Description                                                    |
-| ------------ | -------------------------------------------------------------- |
-| `Input`      | Text input. Intent for validation state. Size variants.        |
-| `Textarea`   | Multi-line input. Same API as Input.                           |
-| `Select`     | Custom select with keyboard navigation. Styled to match Input. |
-| `Checkbox`   | Custom checkbox. Intent for validation.                        |
-| `RadioGroup` | Custom radio group.                                            |
-| `Switch`     | Custom toggle switch.                                          |
-| `Slider`     | Custom range slider.                                           |
-| `Label`      | Associates with form controls. Required indicator.             |
-| `FormField`  | Layout wrapper: Label + control + error message.               |
+| Component     | Description                                                    |
+| ------------- | -------------------------------------------------------------- |
+| `Input`       | Text input. Intent for validation state. Size variants.        |
+| `Textarea`    | Multi-line input. Same API as Input.                           |
+| `Select`      | Custom select with keyboard navigation. Styled to match Input. |
+| `Checkbox`    | Custom checkbox. Intent for validation.                        |
+| `RadioGroup`  | Custom radio group.                                            |
+| `Switch`      | Custom toggle switch.                                          |
+| `Slider`      | Custom range slider.                                           |
+| `NumberInput` | Number input with increment/decrement controls.                |
+| `FileInput`   | Drag-and-drop file upload zone with file list.                 |
+| `Label`       | Associates with form controls. Required indicator.             |
+| `FormField`   | Layout wrapper: Label + control + error message.               |
 
 ### Feedback
 
@@ -280,15 +283,24 @@ WCAG 2.2 AA compliance is a hard constraint, not a goal. It is verified at the t
 | `Divider`    | Horizontal/vertical separator. Optional label.                |
 | `EmptyState` | Blank slate. Illustration slot, heading, description, action. |
 | `Timeline`   | Vertical event sequence. Display-only.                        |
+| `ScrollArea` | Custom scrollbar container. Orientation and max dimensions.   |
 
 ### Layout
 
-| Component     | Description                                             |
-| ------------- | ------------------------------------------------------- |
-| `Stack`       | Flex container. `direction`, `gap`, `align`, `justify`. |
-| `Grid`        | Grid container. `cols`, `gap`.                          |
-| `Container`   | Max-width centered wrapper. `size` variants.            |
-| `AspectRatio` | Fixed aspect ratio wrapper. Named and numeric ratios.   |
+| Component     | Description                                                      |
+| ------------- | ---------------------------------------------------------------- |
+| `Stack`       | Flex container. `direction`, `gap`, `align`, `justify`.          |
+| `Grid`        | Grid container. `cols`, `gap`.                                   |
+| `Container`   | Max-width centered wrapper. `size` variants.                     |
+| `AspectRatio` | Fixed aspect ratio wrapper. Named and numeric ratios.            |
+| `Section`     | Semantic section with spacing, background, and divider variants. |
+| `SplitLayout` | Two-column grid with sidebar width and responsive stacking.      |
+
+### Accessibility
+
+| Component        | Description                                     |
+| ---------------- | ----------------------------------------------- |
+| `VisuallyHidden` | Screen-reader-only text. Polymorphic `as` prop. |
 
 ### Navigation
 
@@ -308,6 +320,7 @@ WCAG 2.2 AA compliance is a hard constraint, not a goal. It is verified at the t
 | `Pagination`     | Page navigation. Compound API with `asChild` links.                     |
 | `Stepper`        | Multi-step flow indicator. State inference from `currentStep`.          |
 | `Sidebar`        | App navigation panel. Collapsible. Sheet-based drawer on mobile.        |
+| `Nav`            | Horizontal nav with CSS-driven submenu support.                         |
 
 ### Composites
 
@@ -319,6 +332,102 @@ WCAG 2.2 AA compliance is a hard constraint, not a goal. It is verified at the t
 | `CommandMenu` | Keyboard-first search and action palette.              |
 | `DatePicker`  | Popover calendar. Text input with keyboard navigation. |
 | `Combobox`    | Searchable select with keyboard navigation.            |
+
+### Typography patterns
+
+```tsx
+import { Eyebrow, Heading, Text } from "@nuka-ui/core";
+
+<Eyebrow color="accent">Case study</Eyebrow>
+<Heading as="h2" size="3xl">Scaling the design system</Heading>
+<Text color="muted">How we shipped faster with fewer regressions.</Text>
+```
+
+### Layout patterns
+
+```tsx
+import { Section, SplitLayout } from "@nuka-ui/core";
+
+<Section spacing="lg" background="subtle">
+  <SplitLayout sideWidth="md" sidebar="left" gap="lg">
+    <aside>Sidebar content</aside>
+    <main>Main content</main>
+  </SplitLayout>
+</Section>;
+```
+
+### Accessible hidden content
+
+`VisuallyHidden` renders content that is invisible but accessible to screen readers. Use it for icon-only buttons and other cases where visual context is sufficient but a text label is needed for assistive technology.
+
+```tsx
+import { VisuallyHidden } from "@nuka-ui/core";
+
+<button>
+  <SearchIcon />
+  <VisuallyHidden>Search</VisuallyHidden>
+</button>;
+```
+
+### Form controls
+
+```tsx
+import { FormField, Label, NumberInput, FileInput } from "@nuka-ui/core";
+
+<FormField id="quantity" hint="Between 1 and 99">
+  <Label>Quantity</Label>
+  <NumberInput min={1} max={99} defaultValue={1} />
+</FormField>
+
+<FormField id="documents">
+  <Label>Upload files</Label>
+  <FileInput multiple accept=".pdf,.doc" />
+</FormField>
+```
+
+### Navigation
+
+```tsx
+import {
+  Nav,
+  NavList,
+  NavItem,
+  NavLink,
+  NavTrigger,
+  NavSubmenu,
+} from "@nuka-ui/core";
+
+<Nav>
+  <NavList>
+    <NavItem>
+      <NavLink href="/" active>
+        Home
+      </NavLink>
+    </NavItem>
+    <NavItem>
+      <NavTrigger>Products</NavTrigger>
+      <NavSubmenu>
+        <NavItem>
+          <NavLink href="/widgets">Widgets</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink href="/tools">Tools</NavLink>
+        </NavItem>
+      </NavSubmenu>
+    </NavItem>
+  </NavList>
+</Nav>;
+```
+
+### RSC compatibility
+
+Components without interactive state ship without a `"use client"` directive and work in React Server Components (Next.js App Router, etc.) without modification:
+
+**Server-safe:** Alert, AppShell, AspectRatio, Badge, Banner, Breadcrumb, Button, Card, Code, Container, Divider, EmptyState, Eyebrow, Grid, Heading, Icon, Kbd, Nav, Pagination, ScrollArea, Section, Skeleton, Spinner, SplitLayout, Stack, Tag, Text, Textarea, Timeline, VisuallyHidden
+
+**Client-required (`"use client"`):** Accordion, Avatar, Checkbox, Collapsible, Combobox, CommandMenu, ContextMenu, DataTable, DatePicker, Dialog, DropdownMenu, FileInput, FormField, Input, Label, Menubar, NavigationMenu, NumberInput, Popover, Progress, RadioGroup, Select, Sheet, Sidebar, Slider, Stepper, Switch, Table, Tabs, Toast/Toaster, Tooltip
+
+Client-required components include the `"use client"` directive in their compiled output. In Next.js App Router, import them from any server or client component without additional configuration.
 
 ---
 
@@ -335,6 +444,7 @@ Short version:
 - **`data-theme` attribute**: enables nested themes and avoids class pollution
 - **No third-party UI primitives**: `Slot`, `composeRefs`, focus trap, scroll lock, and all ARIA patterns are first-party
 - **No component-level tokens by default**: added only when semantic tokens are genuinely insufficient
+- **`"use client"` in compiled output**: interactive components include the directive; server-safe components omit it
 
 ---
 

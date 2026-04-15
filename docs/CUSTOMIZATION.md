@@ -142,6 +142,25 @@ Because theming is anchored to a `data-theme` attribute, you can nest different 
 
 Components inside the `data-theme="dark"` element pick up dark tokens automatically. No JavaScript required.
 
+### Changing scrollbar appearance
+
+`ScrollArea` uses two semantic tokens for custom scrollbar styling:
+
+```css
+:root,
+[data-theme="light"] {
+  --nuka-scroll-thumb: var(--color-neutral-400);
+  --nuka-scroll-track: var(--color-neutral-100);
+}
+
+[data-theme="dark"] {
+  --nuka-scroll-thumb: var(--color-neutral-dark-border);
+  --nuka-scroll-track: var(--color-neutral-dark-subtle);
+}
+```
+
+These control both the WebKit `::-webkit-scrollbar` pseudo-elements and the standard `scrollbar-color` property.
+
 ### Full token reference
 
 See [`src/styles/tokens.css`](../src/styles/tokens.css) for the complete list of primitives and semantic tokens with inline documentation.
@@ -486,7 +505,58 @@ React Hook Form is not a dependency of nuka-ui. These examples are illustrative.
 
 ---
 
-## 6. Limitations
+## 6. Typography and font families
+
+nuka-ui exposes four semantic font family tokens:
+
+| Token                 | Default                    | Purpose                      |
+| --------------------- | -------------------------- | ---------------------------- |
+| `--nuka-font-heading` | `var(--font-family-serif)` | Heading component            |
+| `--nuka-font-body`    | `var(--font-family-sans)`  | Text, Eyebrow                |
+| `--nuka-font-ui`      | `var(--font-family-sans)`  | Button, Label, form controls |
+| `--nuka-font-code`    | `var(--font-family-mono)`  | Code, Kbd                    |
+
+Override them on `:root` or `[data-theme]` to change typography globally:
+
+```css
+:root {
+  --nuka-font-heading: "Inter", sans-serif;
+  --nuka-font-body: "Inter", sans-serif;
+  --nuka-font-ui: "Inter", sans-serif;
+}
+```
+
+The `Heading` component accepts a `family` prop to override the token per instance:
+
+```tsx
+<Heading family="sans">Sans-serif heading</Heading>
+```
+
+When `family` is not provided, the component uses `font-[family-name:var(--nuka-font-heading)]`. The prop overrides the CSS variable with the selected primitive (`--font-family-sans`, `--font-family-serif`, `--font-family-mono`).
+
+---
+
+## 7. Responsive props
+
+Layout primitives (Stack, Grid, Container, Section, SplitLayout) and typography components (Heading, Text) accept responsive prop values via the `Responsive<T>` type:
+
+```tsx
+// Scalar: applies at all breakpoints
+<Stack direction="row" gap="md" />
+
+// Object: per-breakpoint control
+<Stack direction={{ base: "column", md: "row" }} gap={{ base: "sm", lg: "lg" }} />
+```
+
+The `base` key is the mobile-first default (no breakpoint prefix). Breakpoints follow Tailwind v4 defaults: `sm` (640px), `md` (768px), `lg` (1024px), `xl` (1280px), `2xl` (1536px).
+
+Only the breakpoints you specify are emitted as classes. Unspecified breakpoints inherit from the nearest smaller breakpoint via CSS cascade.
+
+Not all props on all components are responsive. Check the TypeScript type: if a prop accepts `Responsive<T>`, it supports per-breakpoint values. If it accepts `T` directly, it does not.
+
+---
+
+## 8. Limitations
 
 These are deliberate constraints, not gaps.
 
@@ -520,18 +590,26 @@ nuka-ui does not ship a `ThemeProvider` or `useTheme` hook. Switching themes is 
 
 ## Choosing the right approach
 
-| Goal                                                    | Approach                                                                   |
-| ------------------------------------------------------- | -------------------------------------------------------------------------- |
-| Change the accent color across the product              | Token override on `[data-theme]`                                           |
-| Support dark mode                                       | Token override on `[data-theme="dark"]`                                    |
-| Isolate a dark section within a light page              | Nested `data-theme` attribute                                              |
-| Change border radius globally                           | Override `--radius-*` primitives on `:root`                                |
-| Change spacing scale globally                           | Override `--space-*` primitives on `:root`                                 |
-| Adjust margin or width on one instance                  | `className` prop                                                           |
-| Override a background color on one instance             | `className` prop                                                           |
-| Render a Button as a router link                        | `asChild` with Link as child                                               |
-| Create a `PrimaryButton` shortcut for your product      | Wrap with fixed `variant` and `intent`                                     |
-| Create a `StatusBadge` mapping domain values to intents | Wrap with a status-to-intent map                                           |
-| Add a new `brand` variant with compound logic           | Not supported - wrap or build from scratch                                 |
-| Add an `info` intent to all components                  | Not supported - remap an existing intent via tokens, or build from scratch |
-| Restructure a component's internal layout               | Not supported - build your own                                             |
+| Goal                                                    | Approach                                                                               |
+| ------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| Change the accent color across the product              | Token override on `[data-theme]`                                                       |
+| Support dark mode                                       | Token override on `[data-theme="dark"]`                                                |
+| Isolate a dark section within a light page              | Nested `data-theme` attribute                                                          |
+| Change border radius globally                           | Override `--radius-*` primitives on `:root`                                            |
+| Change spacing scale globally                           | Override `--space-*` primitives on `:root`                                             |
+| Adjust margin or width on one instance                  | `className` prop                                                                       |
+| Override a background color on one instance             | `className` prop                                                                       |
+| Render a Button as a router link                        | `asChild` with Link as child                                                           |
+| Create a `PrimaryButton` shortcut for your product      | Wrap with fixed `variant` and `intent`                                                 |
+| Create a `StatusBadge` mapping domain values to intents | Wrap with a status-to-intent map                                                       |
+| Add a new `brand` variant with compound logic           | Not supported - wrap or build from scratch                                             |
+| Add an `info` intent to all components                  | Not supported - remap an existing intent via tokens, or build from scratch             |
+| Restructure a component's internal layout               | Not supported - build your own                                                         |
+| Change heading/body/UI font family globally             | Token override: `--nuka-font-heading`, `--nuka-font-body`, `--nuka-font-ui` on `:root` |
+| Change font family on one heading instance              | `family` prop on `Heading`                                                             |
+| Responsive direction/gap/cols on layout components      | `Responsive<T>` object: `direction={{ base: "column", md: "row" }}`                    |
+| Customize scrollbar colors                              | Token override: `--nuka-scroll-thumb`, `--nuka-scroll-track`                           |
+| Add semantic spacing and background to a page section   | `Section` component with `spacing` and `background` props                              |
+| Create a two-column layout with sidebar                 | `SplitLayout` component with `sideWidth` and `sidebar` props                           |
+| Hide content visually but keep it accessible            | `VisuallyHidden` component                                                             |
+| Add a scrollable container with custom scrollbar        | `ScrollArea` component with `orientation` and `maxHeight`/`maxWidth`                   |

@@ -14,12 +14,13 @@ This document defines the full component scope for nuka-ui.
 
 ## Typography
 
-| Component | Status | Notes                                               |
-| --------- | ------ | --------------------------------------------------- |
-| `Heading` | Done   | `h1`-`h6` via `as` prop. Semantic size scale.       |
-| `Text`    | Done   | Typography component. size, weight, color variants. |
-| `Code`    | Done   | Inline code. Monospace, subtle background.          |
-| `Kbd`     | Done   | Keyboard shortcut display.                          |
+| Component | Status | Notes                                                   |
+| --------- | ------ | ------------------------------------------------------- |
+| `Heading` | Done   | `h1`-`h6` via `as` prop. Semantic size scale.           |
+| `Text`    | Done   | Typography component. size, weight, color variants.     |
+| `Code`    | Done   | Inline code. Monospace, subtle background.              |
+| `Kbd`     | Done   | Keyboard shortcut display.                              |
+| `Eyebrow` | Done   | Uppercase label. `color` variants: base, muted, accent. |
 
 ---
 
@@ -36,6 +37,8 @@ This document defines the full component scope for nuka-ui.
 | `Radio` / `RadioGroup` | Done   | Custom radio group.                                            |
 | `Switch`               | Done   | Custom toggle switch.                                          |
 | `Slider`               | Done   | Custom range slider.                                           |
+| `NumberInput`          | Done   | Number input with increment/decrement. Min/max clamping.       |
+| `FileInput`            | Done   | Drag-and-drop file upload zone. File list with remove.         |
 
 ### Structure
 
@@ -72,17 +75,28 @@ This document defines the full component scope for nuka-ui.
 | `Divider`    | Done   | Horizontal/vertical separator. Optional label.                |
 | `EmptyState` | Done   | Blank slate. Illustration slot, heading, description, action. |
 | `Timeline`   | Done   | Vertical event sequence. Display-only.                        |
+| `ScrollArea` | Done   | Custom scrollbar container. Orientation, maxHeight/maxWidth.  |
 
 ---
 
 ## Layout
 
-| Component     | Status | Notes                                                   |
-| ------------- | ------ | ------------------------------------------------------- |
-| `Stack`       | Done   | Flex container. `direction`, `gap`, `align`, `justify`. |
-| `Grid`        | Done   | Grid container. `cols`, `gap`.                          |
-| `Container`   | Done   | Max-width centered wrapper. `size` variants.            |
-| `AspectRatio` | Done   | Fixed aspect ratio wrapper. Named and numeric ratios.   |
+| Component     | Status | Notes                                                        |
+| ------------- | ------ | ------------------------------------------------------------ |
+| `Stack`       | Done   | Flex container. `direction`, `gap`, `align`, `justify`.      |
+| `Grid`        | Done   | Grid container. `cols`, `gap`.                               |
+| `Container`   | Done   | Max-width centered wrapper. `size` variants.                 |
+| `AspectRatio` | Done   | Fixed aspect ratio wrapper. Named and numeric ratios.        |
+| `Section`     | Done   | Semantic section with spacing, background, divider variants. |
+| `SplitLayout` | Done   | Two-column grid. Sidebar width, responsive stacking.         |
+
+---
+
+## Accessibility Utilities
+
+| Component        | Status | Notes                                           |
+| ---------------- | ------ | ----------------------------------------------- |
+| `VisuallyHidden` | Done   | Screen-reader-only text. Polymorphic `as` prop. |
 
 ---
 
@@ -104,6 +118,7 @@ This document defines the full component scope for nuka-ui.
 | `Pagination`       | Done   | Page navigation. Compound API with links. Uses `Button` with `asChild`.               |
 | `Stepper`          | Done   | Multi-step flow indicator. No Radix primitive, fully custom.                          |
 | `Sidebar`          | Done   | App navigation panel. Collapsible. Sheet-based drawer on mobile. Needs `Sheet` first. |
+| `Nav`              | Done   | Horizontal nav with submenu support. CSS hover/focus-within.                          |
 
 ---
 
@@ -136,20 +151,20 @@ This document defines the full component scope for nuka-ui.
 
 Shared implementation primitives used by components. Most are internal; `cn` and the `Responsive`, `Breakpoint`, and `GapScale` types are part of the public API.
 
-| Utility                                         | Location                                   | Used by                                                                                                                  |
-| ----------------------------------------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `useControllableState`                          | `src/hooks/use-controllable-state.ts`      | Switch, Slider, RadioGroup, Tooltip, Popover, Select, Tabs, Accordion, Collapsible, DropdownMenu, Sidebar, Dialog, Sheet |
-| `useFormFieldProps`                             | `src/hooks/use-form-field-props.ts`        | Input, Textarea, Slider, Switch, RadioGroup, SelectTrigger                                                               |
-| `DismissButton`                                 | `src/utils/dismiss-button.tsx`             | Alert, Banner, Tag, Toast                                                                                                |
-| `Portal`                                        | `src/utils/portal.tsx`                     | Tooltip, Popover, DropdownMenu, ContextMenu, NavigationMenu, Menubar, Dialog, Sheet, Toaster                             |
-| `Slot`, `composeRefs`                           | `src/utils/slot.tsx`                       | Button, Badge, and all asChild components                                                                                |
-| `cn`                                            | `src/utils/cn.ts`                          | All components                                                                                                           |
-| `useFocusTrap`                                  | `src/hooks/use-focus-trap.ts`              | Dialog, Sheet                                                                                                            |
-| `useScrollLock`                                 | `src/hooks/use-scroll-lock.ts`             | Dialog, Sheet                                                                                                            |
-| `useMenuNavigation`                             | `src/hooks/use-menu-navigation.ts`         | DropdownMenu, ContextMenu, Menubar                                                                                       |
-| `createModalPrimitive`                          | `src/utils/modal-primitive.tsx`            | Dialog, Sheet                                                                                                            |
-| `Responsive`, `resolveResponsiveClasses`        | `src/utils/responsive.ts`                  | Stack, Grid, Container                                                                                                   |
-| `useMediaQuery`                                 | `src/hooks/use-media-query.ts`             | Sidebar                                                                                                                  |
-| `useFocusFirstInteractive`                      | `src/hooks/use-focus-first-interactive.ts` | Popover, NavigationMenu                                                                                                  |
-| `useEscapeKey`                                  | `src/hooks/use-escape-key.ts`              | CommandMenu, Dialog, Sheet                                                                                               |
-| `cva`, `VariantProps`, `intentCompoundVariants` | `src/utils/variants.ts`                    | All components with variant/intent                                                                                       |
+| Utility                                         | Location                                   | Used by                                                                                                                               |
+| ----------------------------------------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `useControllableState`                          | `src/hooks/use-controllable-state.ts`      | Switch, Slider, RadioGroup, Tooltip, Popover, Select, Tabs, Accordion, Collapsible, DropdownMenu, Sidebar, Dialog, Sheet, NumberInput |
+| `useFormFieldProps`                             | `src/hooks/use-form-field-props.ts`        | Input, Textarea, Slider, Switch, RadioGroup, SelectTrigger, NumberInput, FileInput                                                    |
+| `DismissButton`                                 | `src/utils/dismiss-button.tsx`             | Alert, Banner, Tag, Toast, FileInput                                                                                                  |
+| `Portal`                                        | `src/utils/portal.tsx`                     | Tooltip, Popover, DropdownMenu, ContextMenu, NavigationMenu, Menubar, Dialog, Sheet, Toaster                                          |
+| `Slot`, `composeRefs`                           | `src/utils/slot.tsx`                       | Button, Badge, and all asChild components                                                                                             |
+| `cn`                                            | `src/utils/cn.ts`                          | All components                                                                                                                        |
+| `useFocusTrap`                                  | `src/hooks/use-focus-trap.ts`              | Dialog, Sheet                                                                                                                         |
+| `useScrollLock`                                 | `src/hooks/use-scroll-lock.ts`             | Dialog, Sheet                                                                                                                         |
+| `useMenuNavigation`                             | `src/hooks/use-menu-navigation.ts`         | DropdownMenu, ContextMenu, Menubar                                                                                                    |
+| `createModalPrimitive`                          | `src/utils/modal-primitive.tsx`            | Dialog, Sheet                                                                                                                         |
+| `Responsive`, `resolveResponsiveClasses`        | `src/utils/responsive.ts`                  | Stack, Grid, Container, Section, SplitLayout, Heading, Text                                                                           |
+| `useMediaQuery`                                 | `src/hooks/use-media-query.ts`             | Sidebar                                                                                                                               |
+| `useFocusFirstInteractive`                      | `src/hooks/use-focus-first-interactive.ts` | Popover, NavigationMenu                                                                                                               |
+| `useEscapeKey`                                  | `src/hooks/use-escape-key.ts`              | CommandMenu, Dialog, Sheet                                                                                                            |
+| `cva`, `VariantProps`, `intentCompoundVariants` | `src/utils/variants.ts`                    | All components with variant/intent                                                                                                    |

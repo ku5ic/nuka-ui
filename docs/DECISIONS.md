@@ -1276,3 +1276,272 @@ When `asChild=false`, the component uses its standard element (`"a"` or `"span"`
 ### First instances
 
 `PaginationPrevious` and `PaginationNext` in `src/components/Pagination/Pagination.tsx`.
+
+---
+
+## ADR-036: Eyebrow typography component
+
+**Date:** 2026-04-12
+**Status:** Accepted
+
+### Context
+
+Page sections frequently use a small uppercase label above a heading to establish hierarchy (e.g. "Case study" above "Scaling the design system"). This pattern was being built ad hoc with `Text` plus manual `uppercase tracking-wide text-xs font-semibold` classes.
+
+### Decision
+
+Add `Eyebrow` as a dedicated typography component with a `color` variant (base, muted, accent) and fixed typographic treatment: uppercase, wide tracking, extra-small size, semibold weight. Polymorphic `as` prop accepting `p` (default) or `span`. No `variant`/`intent` system because the component has no semantic color meaning beyond the three color options.
+
+### Consequences
+
+- Eliminates repeated utility class combinations for the eyebrow pattern.
+- `color` is the only variant axis. No `size` prop because the typographic treatment is fixed by design.
+- No `"use client"` directive. Pure render component, server-safe.
+
+---
+
+## ADR-037: VisuallyHidden accessibility utility component
+
+**Date:** 2026-04-12
+**Status:** Accepted
+
+### Context
+
+Screen-reader-only content is needed by multiple components (FileInput uses it for the hidden file input, icon-only buttons need accessible labels) and by consumers building accessible patterns. The `sr-only` Tailwind class handles the styling, but wrapping it in a component provides a discoverable API and consistent `as` polymorphism.
+
+### Decision
+
+Add `VisuallyHidden` as a thin wrapper around `sr-only`. Polymorphic `as` prop accepting `span` (default), `p`, `div`, and heading elements (`h1`-`h6`). No variant system. Ref forwarded via generic cast to `HTMLElement`.
+
+### Consequences
+
+- Internal and external use: FileInput uses it for the hidden file input, consumers use it for accessible labels.
+- The heading element options allow hidden headings for document outline without visual presence.
+- No `"use client"` directive. Server-safe.
+
+---
+
+## ADR-038: Section layout component with spacing and background variants
+
+**Date:** 2026-04-13
+**Status:** Accepted
+
+### Context
+
+Page layouts need semantic `<section>` elements with consistent vertical spacing and background colors from the token system. Consumers were using raw HTML sections with manual padding and background classes.
+
+### Decision
+
+Add `Section` with three CVA variant axes: `spacing` (none/sm/md/lg/xl), `background` (base/subtle/muted/emphasis), and `divider` (boolean for top border). Polymorphic `as` prop covering all block-level semantic elements (section, div, article, aside, main, header, footer). `asChild` supported via Slot.
+
+### Consequences
+
+- Spacing variant uses responsive padding values (e.g. `py-(--space-6) md:py-(--space-8)` for `md`).
+- Background variant maps directly to semantic surface tokens (`--nuka-bg-base`, `--nuka-bg-subtle`, etc.).
+- No `variant`/`intent` pattern because Section is structural chrome with no semantic color meaning.
+- The `emphasis` background with `text-(--nuka-text-inverse)` enables dark section blocks within light pages.
+
+---
+
+## ADR-039: SplitLayout two-column grid component
+
+**Date:** 2026-04-13
+**Status:** Accepted
+
+### Context
+
+Two-column layouts (sidebar + main, form + preview) are a common pattern. Consumers were building them with raw CSS grid or flex classes. The responsive stacking behavior (columns on desktop, single column on mobile) requires breakpoint-aware classes.
+
+### Decision
+
+Add `SplitLayout` as a CSS grid component with `sidebar` (left/right), `sideWidth` (sm/md/lg/xl mapping to fractional grid templates), `stackBelow` (breakpoint at which columns collapse to single column), and responsive `gap` via `Responsive<GapScale>`. Uses a pre-computed 32-entry layout class map (4 widths x 2 sides x 4 breakpoints) to ensure all grid-template-columns classes are statically present for Tailwind scanning. Expects exactly two children with a dev-mode warning.
+
+### Consequences
+
+- The lookup table approach follows ADR-022 for responsive class generation.
+- `asChild` supported for rendering as semantic elements.
+- No `"use client"` directive. Server-safe layout primitive.
+- The two-child constraint is validated only in development to avoid runtime overhead.
+
+---
+
+## ADR-040: ScrollArea with CSS-only custom scrollbar
+
+**Date:** 2026-04-14
+**Status:** Accepted
+
+### Context
+
+Custom scrollbar styling improves visual consistency across the library. The two approaches are: (1) a JavaScript-based virtual scrollbar (Radix ScrollArea pattern) that replaces native scrolling, or (2) CSS-only styling of the native scrollbar.
+
+### Decision
+
+CSS-only approach. A `.nuka-scroll-area` class in `animations.css` styles WebKit scrollbars (`::-webkit-scrollbar`, `::-webkit-scrollbar-track`, `::-webkit-scrollbar-thumb`) at 6px width/height. Firefox is handled via `scrollbar-width: thin` and `scrollbar-color` standard properties referencing the same tokens. The component adds `orientation` (vertical/horizontal/both) for overflow control, `maxHeight`/`maxWidth` as inline styles (justified exception: arbitrary consumer-provided dimensions), and `tabIndex` defaulting to 0 for keyboard accessibility.
+
+### Consequences
+
+- No JavaScript scrollbar replacement. Native scrolling behavior is preserved, including momentum scrolling on mobile and accessibility features.
+- WebKit and Firefox have different levels of customization. WebKit gets full track/thumb styling; Firefox gets thin width and two-color scheme. This is an acceptable tradeoff.
+- `tabIndex={0}` ensures keyboard users can scroll the container with arrow keys.
+- No `"use client"` directive. Server-safe.
+
+---
+
+## ADR-041: Scroll tokens for custom scrollbar theming
+
+**Date:** 2026-04-14
+**Status:** Accepted
+
+### Context
+
+ScrollArea needs theme-aware scrollbar colors that respond to light/dark mode. Hardcoding colors would prevent consumer theming.
+
+### Decision
+
+Add two semantic tokens: `--nuka-scroll-thumb` and `--nuka-scroll-track`. Light theme: neutral-400 and neutral-100. Dark theme: neutral-dark-border and neutral-dark-subtle. These follow the existing two-layer architecture: semantic tokens reference primitives, components reference semantic tokens.
+
+### Consequences
+
+- Consumers can retheme scrollbar colors by overriding two tokens.
+- Both tokens are added to `tokens.css` (multi-theme) and `root.css` (light-only).
+- The dark theme values reuse existing dark surface primitives, maintaining visual coherence with borders and subtle surfaces.
+
+---
+
+## ADR-042: NumberInput with controlled/uncontrolled state and FormField integration
+
+**Date:** 2026-04-14
+**Status:** Accepted
+
+### Context
+
+Number inputs with increment/decrement controls are a common form pattern. The native `<input type="number">` provides arrow keys and spinner buttons, but the spinner UI varies across browsers and is not styleable.
+
+### Decision
+
+Add `NumberInput` wrapping a native `<input type="number">` with browser spinner hidden (`appearance: textfield`), plus custom increment/decrement buttons with Icon-wrapped SVGs. Uses `useControllableState` for controlled/uncontrolled dual API (following Slider pattern) and `useFormFieldProps` for FormField integration (following Input pattern). Renders as `<div role="group">` with `aria-label` forwarded to the group. Buttons disabled at min/max boundaries. `incrementLabel` and `decrementLabel` props allow consumer-provided accessible button labels.
+
+### Consequences
+
+- `"use client"` directive required (interactive state).
+- Reuses `inputVariants` from Input for visual consistency. No separate CVA needed.
+- `tabIndex={0}` on control buttons ensures keyboard accessibility.
+- The `role="group"` wrapper with `aria-label` provides an accessible grouping for the three controls.
+- Custom button labels enable localization.
+
+---
+
+## ADR-043: FileInput with drag-and-drop and file list
+
+**Date:** 2026-04-14
+**Status:** Accepted
+
+### Context
+
+File upload patterns need drag-and-drop support, file list display with removal, and visual feedback for drag-over state. These behaviors are not available from native file inputs.
+
+### Decision
+
+Add `FileInput` with a drag-and-drop zone styled via `fileInputZoneVariants` CVA (intent x isDragOver compound variants), a hidden native `<input type="file">` wrapped in `VisuallyHidden`, and a file list rendered as `<ul role="list">` with `DismissButton` for file removal. Uses `useFormFieldProps` for FormField integration. File size formatting is an internal utility (B/KB/MB). `maxFiles` prop caps the file count with a dev-mode warning. Single-file mode (no `multiple` prop) replaces the file list on each selection.
+
+### Consequences
+
+- `"use client"` directive required (drag state, file state).
+- Consumes three internal utilities: `VisuallyHidden` (hidden input), `DismissButton` (file removal), `Text` (labels and file info).
+- The compound variant matrix (4 intents x 2 drag states = 8 entries) provides visual feedback for all intent/drag combinations.
+- `dragLabel` and `browseLabel` props enable localization.
+- `React.useId()` generates input IDs when FormField does not provide one.
+
+---
+
+## ADR-044: Nav compound component with CSS-driven submenus
+
+**Date:** 2026-04-14
+**Status:** Accepted
+
+### Context
+
+Horizontal navigation with optional dropdown submenus is a standard site-level pattern. The menu system (ADR-030) handles application menus with ARIA menu semantics and arrow-key navigation. Site navigation is different: it uses link semantics, Tab-based focus order, and hover/focus-within for submenu visibility.
+
+### Decision
+
+Add `Nav` as a compound component: `Nav` (root `<nav>`), `NavList` (`<ul>`), `NavItem` (`<li>` with `group` class), `NavLink` (`<a>` with `active` prop for `aria-current="page"`), `NavTrigger` (`<button>` with chevron icon and `aria-haspopup`), `NavSubmenu` (`<ul>` positioned absolutely with `group-hover`/`group-focus-within` visibility).
+
+Submenus are CSS-driven via Tailwind `group-hover:` and `group-focus-within:` utilities. No JavaScript state management. `NavLink` and `NavTrigger` support `asChild` via Slot.
+
+### Consequences
+
+- No `"use client"` directive on any Nav component. Fully server-safe.
+- CSS-driven submenus work without JavaScript but do not support the ARIA menu keyboard model (arrow-key navigation between items). This is intentional: site navigation uses Tab-based focus, not menu-based focus.
+- `NavSubmenu` `align` prop (start/end) controls horizontal positioning for edge-of-viewport menus.
+- `NavLink` `active` prop sets `aria-current="page"` and accent text color, following the Breadcrumb pattern (ADR-031).
+
+### Alternatives considered
+
+**Using useMenuNavigation from the menu system**: rejected. Site navigation links follow standard Tab focus order. Imposing arrow-key menu navigation on site nav links would violate user expectations and conflict with the ARIA link role.
+
+---
+
+## ADR-045: "use client" directive strategy for RSC compatibility
+
+**Date:** 2026-04-14
+**Status:** Accepted
+
+### Context
+
+React Server Components (Next.js App Router) require explicit `"use client"` boundaries for components that use hooks, event handlers managed via state, or browser APIs. Components that are pure render functions can run on the server without the directive.
+
+### Decision
+
+Include `"use client"` only on components that contain React hooks (`useState`, `useEffect`, `useRef` with mutation, `useContext`, custom hooks). Components that use only `cn()`, CVA, `Slot`, and `forwardRef` do not include the directive. The directive is placed at the top of the component source file (not in `index.ts`), and the build preserves it in the compiled output.
+
+### Consequences
+
+- Server-safe components (Alert, AppShell, AspectRatio, Badge, Banner, Breadcrumb, Button, Card, Code, Container, Divider, EmptyState, Eyebrow, Grid, Heading, Icon, Kbd, Nav, Pagination, ScrollArea, Section, Skeleton, Spinner, SplitLayout, Stack, Tag, Text, Textarea, Timeline, VisuallyHidden) work in RSC without wrapping.
+- Client-required components include the directive and can be imported from server components in Next.js without additional configuration (the bundler creates the client boundary automatically).
+- The decision is per-file, not per-component-directory. A compound component may have server-safe sub-components and client-required sub-components in the same directory.
+
+---
+
+## ADR-046: Semantic font family tokens with component-level override
+
+**Date:** 2026-04-14
+**Status:** Accepted
+
+### Context
+
+Typography components need a way to reference font families via the token system while allowing per-instance overrides. A single `--nuka-font-family` token would force all typography to use the same family. Different roles (headings, body, UI, code) typically use different families.
+
+### Decision
+
+Four semantic font family tokens: `--nuka-font-heading` (serif default), `--nuka-font-body` (sans default), `--nuka-font-ui` (sans default), `--nuka-font-code` (mono default). Each typography component references the token appropriate to its role. `Heading` accepts a `family` prop that overrides the token with a specific primitive. `Text` references `--nuka-font-body`. `Eyebrow` references `--nuka-font-body`. `Code` and `Kbd` reference `--nuka-font-code`.
+
+When the `family` prop is not provided, the CSS variable drives the font. When provided, the component applies the corresponding primitive directly, bypassing the variable. This means a consumer can set all headings to sans globally via `--nuka-font-heading: var(--font-family-sans)`, and still override one heading to serif via `<Heading family="serif">`.
+
+### Consequences
+
+- Global typography changes require overriding one token per role, not touching component files.
+- The `family` prop on `Heading` is the only component-level font override. Other components use their token without an override prop, keeping the API minimal.
+- `--nuka-font-ui` is separate from `--nuka-font-body` even though both default to sans. This allows products that use different fonts for UI chrome vs. long-form text.
+
+---
+
+## ADR-047: inputVariants reuse in NumberInput and FileInput
+
+**Date:** 2026-04-14
+**Status:** Accepted
+
+### Context
+
+NumberInput wraps a native `<input type="number">` and FileInput contains a hidden `<input type="file">`. Both need intent-based border styling consistent with Input.
+
+### Decision
+
+NumberInput imports and applies `inputVariants` from `Input.variants.ts` directly on its native input, rather than defining its own CVA instance. This ensures visual parity with Input for intent and size variants. FileInput defines its own `fileInputZoneVariants` because its drop zone has a fundamentally different visual treatment (dashed border, larger padding, drag-over state) that does not overlap with input field styling. The hidden file input inside FileInput receives no visual styling.
+
+### Consequences
+
+- NumberInput has no `NumberInput.variants.ts` file. This is a justified exception to the "every component with CVA gets a variants file" rule because the CVA instance belongs to Input, not NumberInput.
+- FileInput has `FileInput.variants.ts` with its own compound variant matrix (intent x isDragOver).
+- Future form controls that wrap a styled `<input>` should follow NumberInput's pattern of reusing `inputVariants` rather than duplicating the definitions.
+- Visual consistency between Input, NumberInput, and Textarea is guaranteed by the shared CVA source.
