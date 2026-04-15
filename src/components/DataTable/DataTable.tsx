@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 import { Input } from "@nuka/components/Input";
 import { EmptyState } from "@nuka/components/EmptyState";

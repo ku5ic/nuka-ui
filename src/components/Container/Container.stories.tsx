@@ -3,6 +3,7 @@ import { Container } from "@nuka/components/Container";
 import { Stack } from "@nuka/components/Stack";
 import { Heading } from "@nuka/components/Heading";
 import { Text } from "@nuka/components/Text";
+import { Nav, NavList, NavItem, NavLink } from "@nuka/components/Nav";
 
 // Story-only placeholder: demonstrates layout structure, not a nuka-ui component
 const Placeholder = ({ label }: { label: string }) => (
@@ -170,12 +171,21 @@ export const PageLayout: Story = {
             <Text size="lg" weight="bold">
               App Name
             </Text>
-            {/* TODO: replace nav spans with nav link component once implemented */}
-            <Stack direction="row" gap="md">
-              <span>Home</span>
-              <span>About</span>
-              <span>Contact</span>
-            </Stack>
+            <Nav>
+              <NavList>
+                <NavItem>
+                  <NavLink href="/" active>
+                    Home
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/about">About</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/contact">Contact</NavLink>
+                </NavItem>
+              </NavList>
+            </Nav>
           </Stack>
         </header>
         <main>
@@ -212,10 +222,13 @@ export const PageLayout: Story = {
     <header>
       <Stack direction="row" justify="between" align="center">
         <Text size="lg" weight="bold">App Name</Text>
-        <Stack direction="row" gap="md">
-          <a href="/">Home</a>
-          <a href="/about">About</a>
-        </Stack>
+        <Nav>
+          <NavList>
+            <NavItem><NavLink href="/" active>Home</NavLink></NavItem>
+            <NavItem><NavLink href="/about">About</NavLink></NavItem>
+            <NavItem><NavLink href="/contact">Contact</NavLink></NavItem>
+          </NavList>
+        </Nav>
       </Stack>
     </header>
     <main>

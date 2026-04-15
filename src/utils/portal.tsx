@@ -1,3 +1,4 @@
+"use client";
 import * as ReactDOM from "react-dom";
 import type { ReactNode } from "react";
 

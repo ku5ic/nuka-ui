@@ -9,11 +9,14 @@ export interface CodeProps
   extends React.HTMLAttributes<HTMLElement>, CodeVariantProps {}
 
 const Code = React.forwardRef<HTMLElement, CodeProps>(
-  ({ className, variant, intent, size, ...props }, ref) => {
+  ({ className, family, variant, intent, size, ...props }, ref) => {
     return (
       <code
         ref={ref}
-        className={cn(codeVariants({ variant, intent, size }), className)}
+        className={cn(
+          codeVariants({ family, variant, intent, size }),
+          className,
+        )}
         {...props}
       />
     );

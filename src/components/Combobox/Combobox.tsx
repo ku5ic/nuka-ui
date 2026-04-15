@@ -1,3 +1,4 @@
+"use client";
 // > 200 lines: root orchestrates Floating UI, option registry, and context
 // value assembly; splitting further would scatter tightly coupled state.
 import * as React from "react";

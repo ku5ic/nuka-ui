@@ -1,6 +1,11 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 import {
+  resolveResponsiveClasses,
+  headingSizeClasses,
+} from "@nuka/utils/responsive";
+import type { Responsive, HeadingSize } from "@nuka/utils/responsive";
+import {
   headingVariants,
   type HeadingVariantProps,
 } from "@nuka/components/Heading/Heading.variants";
@@ -14,6 +19,7 @@ export interface HeadingProps
     Omit<React.HTMLAttributes<HTMLElement>, "color">,
     HeadingVariantProps {
   as?: HeadingElement;
+  size?: Responsive<HeadingSize>;
 }
 
 const Heading = React.forwardRef<HTMLElement, HeadingProps>(
@@ -23,7 +29,8 @@ const Heading = React.forwardRef<HTMLElement, HeadingProps>(
       // h1 is reserved for the page title (typically one per page).
       as: Comp = "h2",
       className,
-      size,
+      size = "3xl",
+      family,
       weight,
       color,
       truncate,
@@ -37,7 +44,8 @@ const Heading = React.forwardRef<HTMLElement, HeadingProps>(
         // Same polymorphic element pattern as Text.tsx.
         ref={ref as React.RefObject<never>}
         className={cn(
-          headingVariants({ size, weight, color, truncate }),
+          headingVariants({ family, weight, color, truncate }),
+          ...resolveResponsiveClasses(size, headingSizeClasses),
           className,
         )}
         {...props}

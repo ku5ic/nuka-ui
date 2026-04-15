@@ -408,3 +408,56 @@ export const PageHeader: Story = {
     </Stack>
   ),
 };
+
+export const ResponsiveSize: Story = {
+  name: "Responsive Size",
+  render: () => (
+    <Stack gap="md">
+      <Heading size={{ base: "xl", md: "3xl", xl: "4xl" }}>
+        Scales across breakpoints
+      </Heading>
+      <Text color="muted">
+        This heading is xl on mobile, 3xl at md, and 4xl at xl.
+      </Text>
+    </Stack>
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Heading size={{ base: "xl", md: "3xl", xl: "4xl" }}>
+  Scales across breakpoints
+</Heading>
+        `.trim(),
+      },
+    },
+  },
+};
+
+export const FontFamily: Story = {
+  name: "Font Family",
+  render: () => (
+    <Stack gap="md">
+      <Heading size="2xl" family="heading">
+        Serif heading (default token)
+      </Heading>
+      <Heading size="2xl" family="body">
+        Sans heading
+      </Heading>
+      <Heading size="2xl" family="code">
+        Mono heading
+      </Heading>
+    </Stack>
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Heading family="heading">Serif heading (default token)</Heading>
+<Heading family="body">Sans heading</Heading>
+<Heading family="code">Mono heading</Heading>
+        `.trim(),
+      },
+    },
+  },
+};

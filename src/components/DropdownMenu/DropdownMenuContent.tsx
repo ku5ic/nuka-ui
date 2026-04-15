@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 import { composeRefs } from "@nuka/utils/slot";
@@ -20,12 +21,17 @@ const DropdownMenuContent = React.forwardRef<
   const contentRef = React.useRef<HTMLDivElement>(null);
   const composedRef = composeRefs(ref, contentRef, ctx.refs.setFloating);
 
-  const { getItemProps, focusItem, itemsRef } = useMenuNavigation({
-    onEscape: () => ctx.onOpenChange(false),
-    onTab: () => ctx.onOpenChange(false),
-  });
+  const { getItemProps, focusItem, itemsRef, resetTypeAhead } =
+    useMenuNavigation({
+      onEscape: () => ctx.onOpenChange(false),
+      onTab: () => ctx.onOpenChange(false),
+    });
 
   const itemIndexRef = React.useRef(0);
+
+  React.useEffect(() => {
+    if (!ctx.open) resetTypeAhead();
+  }, [ctx.open, resetTypeAhead]);
 
   useAutoFocusFirstItem(ctx.open, focusItem, itemsRef, itemIndexRef);
 

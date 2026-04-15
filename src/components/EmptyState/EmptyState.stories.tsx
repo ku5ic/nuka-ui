@@ -1,6 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { EmptyState } from "@nuka/components/EmptyState";
 import { Button } from "@nuka/components/Button";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableHead,
+  TableCell,
+} from "@nuka/components/Table";
 
 const meta = {
   title: "Display/EmptyState",
@@ -220,39 +228,30 @@ export const EmptyTable: Story = {
   name: "Pattern: Empty Table",
   args: { heading: "No records" },
   render: () => (
-    /* TODO: replace table wrapper with <Table> once implemented */
-    <div
-      style={{
-        border: "1px solid #e5e7eb",
-        borderRadius: "0.5rem",
-        overflow: "hidden",
-      }}
-    >
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr 1fr",
-          padding: "0.75rem 1rem",
-          borderBottom: "1px solid #e5e7eb",
-          fontSize: 13,
-          fontWeight: 600,
-          color: "#6b7280",
-        }}
-      >
-        <span>Name</span>
-        <span>Status</span>
-        <span>Created</span>
-      </div>
-      <EmptyState
-        heading="No records"
-        description="Add a record to see it here."
-        action={
-          <Button variant="primary" size="sm">
-            Add record
-          </Button>
-        }
-      />
-    </div>
+    <Table caption="Records">
+      <TableHeader>
+        <TableRow>
+          <TableHead>Name</TableHead>
+          <TableHead>Status</TableHead>
+          <TableHead>Created</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        <TableRow>
+          <TableCell colSpan={3}>
+            <EmptyState
+              heading="No records"
+              description="Add a record to see it here."
+              action={
+                <Button variant="primary" size="sm">
+                  Add record
+                </Button>
+              }
+            />
+          </TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
   ),
   parameters: {
     docs: {

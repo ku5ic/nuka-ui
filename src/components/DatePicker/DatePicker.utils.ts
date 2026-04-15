@@ -11,13 +11,18 @@ export function isDateDisabled(
   min: Date | undefined,
   max: Date | undefined,
 ): boolean {
+  const dateStart = new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate(),
+  );
   if (min !== undefined) {
     const minStart = new Date(min.getFullYear(), min.getMonth(), min.getDate());
-    if (date < minStart) return true;
+    if (dateStart < minStart) return true;
   }
   if (max !== undefined) {
     const maxEnd = new Date(max.getFullYear(), max.getMonth(), max.getDate());
-    if (date > maxEnd) return true;
+    if (dateStart > maxEnd) return true;
   }
   return false;
 }

@@ -1,28 +1,31 @@
 import * as React from "react";
 import { Slot } from "@nuka/utils/slot";
 import { cn } from "@nuka/utils/cn";
-import { resolveRatio } from "@nuka/components/AspectRatio/AspectRatio.utils";
-import type { AspectRatioValue } from "@nuka/components/AspectRatio/AspectRatio.utils";
+import {
+  resolveResponsiveClasses,
+  aspectRatioClasses,
+} from "@nuka/utils/responsive";
+import type { Responsive, AspectRatioValue } from "@nuka/utils/responsive";
 
 export type { AspectRatioValue };
 
 export interface AspectRatioProps extends React.HTMLAttributes<HTMLDivElement> {
-  ratio?: AspectRatioValue;
+  ratio?: Responsive<AspectRatioValue>;
   asChild?: boolean;
 }
 
 const AspectRatio = React.forwardRef<HTMLDivElement, AspectRatioProps>(
-  (
-    { ratio = "1/1", asChild = false, className, style, children, ...props },
-    ref,
-  ) => {
+  ({ ratio = "1/1", asChild = false, className, children, ...props }, ref) => {
     const Comp = asChild ? Slot : "div";
 
     return (
       <Comp
         ref={ref}
-        className={cn("w-full overflow-hidden", className)}
-        style={{ aspectRatio: resolveRatio(ratio), ...style }}
+        className={cn(
+          "w-full overflow-hidden",
+          ...resolveResponsiveClasses(ratio, aspectRatioClasses),
+          className,
+        )}
         {...props}
       >
         {children}

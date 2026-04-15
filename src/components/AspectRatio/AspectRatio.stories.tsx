@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { AspectRatio } from "@nuka/components/AspectRatio";
 import { Grid } from "@nuka/components/Grid";
+import { Stack } from "@nuka/components/Stack";
+import { Text } from "@nuka/components/Text";
 import { Skeleton } from "@nuka/components/Skeleton";
 
 const Fill = ({ label }: { label?: string }) => (
@@ -31,7 +33,7 @@ const meta = {
   argTypes: {
     ratio: {
       control: "select",
-      options: ["1/1", "16/9", "9/16", "4/3", "3/4", "21/9"],
+      options: ["1/1", "16/9", "9/16", "4/3", "3/2", "2/1"],
     },
     asChild: {
       control: false,
@@ -64,49 +66,52 @@ export const Default: Story = {
 export const NamedPresets: Story = {
   name: "Named Presets",
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-      {(["16/9", "4/3", "1/1", "3/4", "9/16", "21/9"] as const).map((ratio) => (
-        <div key={ratio} style={{ maxWidth: 320 }}>
-          <div
-            style={{
-              marginBottom: "0.25rem",
-              fontSize: "0.75rem",
-              color: "var(--nuka-text-muted)",
-            }}
-          >
+    <Stack gap="lg" className="max-w-xs">
+      {(["16/9", "4/3", "1/1", "3/2", "9/16", "2/1"] as const).map((ratio) => (
+        <Stack key={ratio} gap="xs">
+          <Text size="xs" color="muted">
             ratio=&quot;{ratio}&quot;
-          </div>
+          </Text>
           <AspectRatio ratio={ratio}>
             <Fill label={ratio} />
           </AspectRatio>
-        </div>
+        </Stack>
       ))}
-    </div>
+    </Stack>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<AspectRatio ratio="16/9"><img ... /></AspectRatio>
+<AspectRatio ratio="4/3"><img ... /></AspectRatio>
+<AspectRatio ratio="1/1"><img ... /></AspectRatio>
+<AspectRatio ratio="3/2"><img ... /></AspectRatio>
+<AspectRatio ratio="9/16"><img ... /></AspectRatio>
+<AspectRatio ratio="2/1"><img ... /></AspectRatio>
+        `.trim(),
+      },
+    },
+  },
 };
 
-export const CustomRatio: Story = {
-  name: "Custom Ratio (number)",
+export const ResponsiveRatio: Story = {
+  name: "Responsive Ratio",
   render: () => (
-    <div style={{ maxWidth: 480 }}>
-      <div
-        style={{
-          marginBottom: "0.25rem",
-          fontSize: "0.75rem",
-          color: "var(--nuka-text-muted)",
-        }}
-      >
-        ratio={"{2.35}"} (cinescope)
-      </div>
-      <AspectRatio ratio={2.35}>
-        <Fill label="2.35" />
+    <div className="max-w-lg">
+      <AspectRatio ratio={{ base: "1/1", md: "16/9" }}>
+        <Fill label="1/1 -> 16/9 at md" />
       </AspectRatio>
     </div>
   ),
   parameters: {
     docs: {
       source: {
-        code: "<AspectRatio ratio={2.35}>...</AspectRatio>",
+        code: `
+<AspectRatio ratio={{ base: "1/1", md: "16/9" }}>
+  <img src="..." alt="..." className="object-cover w-full h-full" />
+</AspectRatio>
+        `.trim(),
       },
     },
   },
@@ -145,20 +150,14 @@ const PORTRAIT_IMG =
 const LANDSCAPE_IMG =
   "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=900&h=500&fit=crop";
 
-const labelStyle = {
-  fontSize: "0.75rem",
-  color: "var(--nuka-text-muted)",
-  marginBottom: "0.5rem",
-};
-
 export const MismatchedRatios: Story = {
   name: "Mismatched Ratios",
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
-      <div>
-        <div style={labelStyle}>
-          Portrait image (3/4) in landscape box (16/9)
-        </div>
+    <Stack gap="lg">
+      <Stack gap="xs">
+        <Text size="xs" color="muted">
+          Portrait image in landscape box (16/9)
+        </Text>
         <AspectRatio ratio="16/9" className="max-w-xl rounded-md">
           <img
             src={PORTRAIT_IMG}
@@ -166,9 +165,11 @@ export const MismatchedRatios: Story = {
             className="object-cover w-full h-full"
           />
         </AspectRatio>
-      </div>
-      <div>
-        <div style={labelStyle}>Landscape image (16/9) in square box (1/1)</div>
+      </Stack>
+      <Stack gap="xs">
+        <Text size="xs" color="muted">
+          Landscape image (16/9) in square box (1/1)
+        </Text>
         <AspectRatio ratio="1/1" className="max-w-xs rounded-md">
           <img
             src={LANDSCAPE_IMG}
@@ -176,11 +177,11 @@ export const MismatchedRatios: Story = {
             className="object-cover w-full h-full"
           />
         </AspectRatio>
-      </div>
-      <div>
-        <div style={labelStyle}>
+      </Stack>
+      <Stack gap="xs">
+        <Text size="xs" color="muted">
           Landscape image (16/9) in portrait box (9/16)
-        </div>
+        </Text>
         <AspectRatio
           ratio="9/16"
           style={{ maxWidth: 200 }}
@@ -192,42 +193,23 @@ export const MismatchedRatios: Story = {
             className="object-cover w-full h-full"
           />
         </AspectRatio>
-      </div>
-    </div>
+      </Stack>
+    </Stack>
   ),
   parameters: {
     docs: {
-      description: {
-        story:
-          "Demonstrates object-cover behavior when the image intrinsic ratio does not match the box ratio. The image fills without distortion and clips to center in all cases. No special handling is required beyond object-cover w-full h-full on the img element.",
-      },
       source: {
         code: `
-{/* Portrait image in landscape box */}
 <AspectRatio ratio="16/9" className="max-w-xl rounded-md">
-  <img
-    src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=600&h=900&fit=crop"
-    alt="Tall waterfall surrounded by green cliffs"
-    className="object-cover w-full h-full"
-  />
+  <img src="..." alt="Portrait in landscape" className="object-cover w-full h-full" />
 </AspectRatio>
 
-{/* Landscape image in square box */}
 <AspectRatio ratio="1/1" className="max-w-xs rounded-md">
-  <img
-    src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=900&h=500&fit=crop"
-    alt="Snow-capped mountain range with forest valley"
-    className="object-cover w-full h-full"
-  />
+  <img src="..." alt="Landscape in square" className="object-cover w-full h-full" />
 </AspectRatio>
 
-{/* Landscape image in portrait box */}
 <AspectRatio ratio="9/16" style={{ maxWidth: 200 }} className="rounded-md">
-  <img
-    src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=900&h=500&fit=crop"
-    alt="Snow-capped mountain range with forest valley"
-    className="object-cover w-full h-full"
-  />
+  <img src="..." alt="Landscape in portrait" className="object-cover w-full h-full" />
 </AspectRatio>
         `.trim(),
       },

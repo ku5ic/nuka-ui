@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 import { Slot, composeRefs } from "@nuka/utils/slot";
 import { useTooltipContext } from "@nuka/components/Tooltip/Tooltip.context";

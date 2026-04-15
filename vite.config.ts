@@ -16,6 +16,7 @@ export default defineConfig({
     dts({
       tsconfigPath: "./tsconfig.build.json",
       outDir: "dist",
+      entryRoot: "src",
     }),
     {
       name: "copy-styles",
@@ -75,26 +76,41 @@ export default defineConfig({
         styles: resolve(__dirname, "src/styles/bundle.css"),
       },
       name: "NukaUI",
-      formats: ["es", "cjs"],
-      fileName: (format, entryName) => {
-        if (entryName === "styles")
-          return `bundle.${format === "es" ? "js" : "cjs"}`;
-        return `index.${format === "es" ? "js" : "cjs"}`;
-      },
     },
     rollupOptions: {
       external: ["react", "react-dom", "react/jsx-runtime"],
-      output: {
-        globals: {
-          react: "React",
-          "react-dom": "ReactDOM",
+      output: [
+        {
+          format: "es",
+          preserveModules: true,
+          preserveModulesRoot: "src",
+          entryFileNames: "[name].js",
+          globals: {
+            react: "React",
+            "react-dom": "ReactDOM",
+          },
+          assetFileNames: (assetInfo) => {
+            const name = assetInfo.names[0];
+            if (name?.endsWith(".css")) return "bundle.css";
+            return name ?? "asset";
+          },
         },
-        assetFileNames: (assetInfo) => {
-          const name = assetInfo.names[0];
-          if (name?.endsWith(".css")) return "bundle.css";
-          return name ?? "asset";
+        {
+          format: "cjs",
+          preserveModules: true,
+          preserveModulesRoot: "src",
+          entryFileNames: "[name].cjs",
+          globals: {
+            react: "React",
+            "react-dom": "ReactDOM",
+          },
+          assetFileNames: (assetInfo) => {
+            const name = assetInfo.names[0];
+            if (name?.endsWith(".css")) return "bundle.css";
+            return name ?? "asset";
+          },
         },
-      },
+      ],
     },
     cssCodeSplit: true,
     sourcemap: true,

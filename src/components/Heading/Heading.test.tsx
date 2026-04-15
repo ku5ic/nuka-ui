@@ -120,6 +120,15 @@ describe("Heading", () => {
     });
   });
 
+  describe("responsive size", () => {
+    it("accepts an object form for size", () => {
+      render(<Heading size={{ base: "xl", md: "3xl" }}>Responsive</Heading>);
+      const cls = screen.getByRole("heading", { name: "Responsive" }).className;
+      expect(cls).toContain("text-[length:var(--font-size-xl)]");
+      expect(cls).toContain("md:text-[length:var(--font-size-3xl)]");
+    });
+  });
+
   describe("weights", () => {
     it("applies bold weight by default", () => {
       render(<Heading>Bold</Heading>);

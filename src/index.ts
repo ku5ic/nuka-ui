@@ -2,7 +2,14 @@
 
 export { cn } from "./utils/cn";
 
-export type { Responsive, Breakpoint, GapScale } from "./utils/responsive";
+export type {
+  Responsive,
+  Breakpoint,
+  GapScale,
+  TextSize,
+  HeadingSize,
+  TextAlign,
+} from "./utils/responsive";
 
 export {
   Accordion,
@@ -160,6 +167,9 @@ export type { ComboboxContextValue } from "./components/Combobox";
 export { Container } from "./components/Container";
 export type { ContainerProps, ContainerSize } from "./components/Container";
 
+export { Chip, chipVariants } from "./components/Chip";
+export type { ChipProps, ChipVariantProps } from "./components/Chip";
+
 export {
   Dialog,
   DialogTrigger,
@@ -226,7 +236,7 @@ export {
 } from "./components/DatePicker";
 export type { DatePickerContextValue } from "./components/DatePicker";
 
-export { Divider, dividerVariants } from "./components/Divider";
+export { Divider } from "./components/Divider";
 
 export {
   DropdownMenu,
@@ -262,6 +272,15 @@ export type { GridProps } from "./components/Grid";
 export { EmptyState } from "./components/EmptyState";
 export type { EmptyStateProps } from "./components/EmptyState";
 
+export { Eyebrow, eyebrowVariants } from "./components/Eyebrow";
+export type { EyebrowProps, EyebrowVariantProps } from "./components/Eyebrow";
+
+export { FileInput, fileInputZoneVariants } from "./components/FileInput";
+export type {
+  FileInputProps,
+  FileInputVariantProps,
+} from "./components/FileInput";
+
 export {
   FormField,
   FormFieldContext,
@@ -282,8 +301,28 @@ export type { InputProps, InputVariantProps } from "./components/Input";
 export { Kbd, kbdVariants } from "./components/Kbd";
 export type { KbdProps, KbdVariantProps } from "./components/Kbd";
 
+export { NumberInput } from "./components/NumberInput";
+export type { NumberInputProps } from "./components/NumberInput";
+
 export { Label } from "./components/Label";
 export type { LabelProps } from "./components/Label";
+
+export {
+  Nav,
+  NavList,
+  NavItem,
+  NavLink,
+  NavTrigger,
+  NavSubmenu,
+} from "./components/Nav";
+export type {
+  NavProps,
+  NavListProps,
+  NavItemProps,
+  NavLinkProps,
+  NavTriggerProps,
+  NavSubmenuProps,
+} from "./components/Nav";
 
 export {
   Menubar,
@@ -356,8 +395,23 @@ export type {
 export { SheetContext, useSheetContext } from "./components/Sheet";
 export type { SheetContextValue } from "./components/Sheet";
 
+export { ScrollArea } from "./components/ScrollArea";
+export type {
+  ScrollAreaProps,
+  ScrollAreaOrientation,
+} from "./components/ScrollArea";
+
+export { Section, sectionVariants } from "./components/Section";
+export type { SectionProps, SectionVariantProps } from "./components/Section";
+
+export { SkipLink } from "./components/SkipLink";
+export type { SkipLinkProps } from "./components/SkipLink";
+
 export { Skeleton, skeletonVariants } from "./components/Skeleton";
 export type { SkeletonProps } from "./components/Skeleton";
+
+export { SplitLayout } from "./components/SplitLayout";
+export type { SplitLayoutProps } from "./components/SplitLayout";
 
 export {
   Slider,
@@ -465,6 +519,9 @@ export type {
   TextareaProps,
   TextareaVariantProps,
 } from "./components/Textarea";
+
+export { VisuallyHidden } from "./components/VisuallyHidden";
+export type { VisuallyHiddenProps } from "./components/VisuallyHidden";
 
 export { Tooltip, TooltipTrigger, TooltipContent } from "./components/Tooltip";
 export type {
