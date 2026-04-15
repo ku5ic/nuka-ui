@@ -186,6 +186,10 @@
   --nuka-input-border: var(--color-neutral-300);
   --nuka-input-border-hover: var(--color-neutral-400);
 
+  /* Scrollbar */
+  --nuka-scroll-thumb: var(--color-neutral-400);
+  --nuka-scroll-track: var(--color-neutral-100);
+
   /* Shadows */
   --nuka-shadow-card: var(--shadow-sm);
   --nuka-shadow-overlay: var(--shadow-md);

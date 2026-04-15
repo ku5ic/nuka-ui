@@ -383,6 +383,12 @@ export type {
 export { SheetContext, useSheetContext } from "./components/Sheet";
 export type { SheetContextValue } from "./components/Sheet";
 
+export { ScrollArea } from "./components/ScrollArea";
+export type {
+  ScrollAreaProps,
+  ScrollAreaOrientation,
+} from "./components/ScrollArea";
+
 export { Section, sectionVariants } from "./components/Section";
 export type { SectionProps, SectionVariantProps } from "./components/Section";
 
