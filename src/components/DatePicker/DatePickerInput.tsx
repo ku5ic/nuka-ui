@@ -1,3 +1,4 @@
+"use client";
 // Exceeds 200 lines: single forwardRef component with input handling, blur/keydown/click
 // callbacks, form field integration, and calendar toggle. Cannot split without violating
 // single-component-per-file.

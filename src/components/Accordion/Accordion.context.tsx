@@ -1,3 +1,4 @@
+"use client";
 import { createContext, useContext } from "react";
 
 type HeadingLevel = "h2" | "h3" | "h4";

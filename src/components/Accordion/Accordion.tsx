@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 import { composeRefs } from "@nuka/utils/slot";
 import { useControllableState } from "@nuka/hooks/use-controllable-state";

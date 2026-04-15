@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 import { CollapsibleContent } from "@nuka/components/Collapsible";
 
