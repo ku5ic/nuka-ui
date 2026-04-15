@@ -292,6 +292,9 @@ export type { InputProps, InputVariantProps } from "./components/Input";
 export { Kbd, kbdVariants } from "./components/Kbd";
 export type { KbdProps, KbdVariantProps } from "./components/Kbd";
 
+export { NumberInput } from "./components/NumberInput";
+export type { NumberInputProps } from "./components/NumberInput";
+
 export { Label } from "./components/Label";
 export type { LabelProps } from "./components/Label";
 
