@@ -269,6 +269,9 @@ export type { GridProps } from "./components/Grid";
 export { EmptyState } from "./components/EmptyState";
 export type { EmptyStateProps } from "./components/EmptyState";
 
+export { Eyebrow, eyebrowVariants } from "./components/Eyebrow";
+export type { EyebrowProps, EyebrowVariantProps } from "./components/Eyebrow";
+
 export {
   FormField,
   FormFieldContext,
