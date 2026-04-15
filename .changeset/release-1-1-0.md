@@ -16,10 +16,12 @@ Server-safe components (`Stack`, `Grid`, `Container`, `Heading`, `Text`, `Nav`, 
 - **NumberInput**: Number input with increment/decrement controls, min/max clamping, customizable button labels, and FormField integration.
 - **FileInput**: Drag-and-drop file upload zone with file list, file size display, dismissible file entries, and FormField integration.
 - **Nav**: Horizontal navigation with CSS-driven submenu support. Compound API: Nav, NavList, NavItem, NavLink, NavTrigger, NavSubmenu.
+- **Chip**: Toggle/filter pill with `selected` state via `aria-pressed`. Variants: solid, subtle, outline.
+- **SkipLink**: Skip-to-content accessibility link. Visible on focus, hidden otherwise. Configurable `targetId`.
 
 ### Responsive props
 
-`Heading.size`, `Text.size`, `Text.align`, `Divider.orientation`, and `AspectRatio.ratio` now accept `Responsive<T>` for per-breakpoint control. Scalar usage is unchanged.
+Layout components (`Stack.direction`, `Stack.gap`, `Stack.align`, `Stack.justify`, `Stack.wrap`, `Grid.cols`, `Grid.gap`, `Grid.colGap`, `Grid.rowGap`, `SplitLayout.gap`), typography components (`Heading.size`, `Text.size`, `Text.align`), and display components (`Divider.orientation`, `AspectRatio.ratio`) now accept `Responsive<T>` for per-breakpoint control. Scalar usage is unchanged.
 
 ### Font family tokens
 
@@ -52,7 +54,7 @@ Sub-panel content now renders inline in the DOM by default, making navigation li
 ### Documentation
 
 - ADR-036 through ADR-047 documenting all architectural decisions for 1.1.0
-- Updated COMPONENTS.md, README.md, and customization.md with all new components
+- Updated COMPONENTS.md, README.md, and CUSTOMIZATION.md with all new components including Chip and SkipLink
 - RSC compatibility section in README listing server-safe vs client-required components
 - Typography, layout, forms, navigation, and accessibility usage examples in README
 - Typography font family tokens and responsive props sections in customization guide

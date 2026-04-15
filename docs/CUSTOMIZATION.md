@@ -43,6 +43,8 @@ Components only ever reference semantic tokens. Primitives are internal. This me
 
 The accent color drives the `default` intent across primary, secondary, outline, ghost, and link variants on every component that uses the variant + intent pattern.
 
+Example: switching the default slate accent to a vivid blue:
+
 ```css
 [data-theme="light"] {
   --nuka-accent-bg: oklch(44% 0.19 264);
@@ -67,7 +69,7 @@ The accent color drives the `default` intent across primary, secondary, outline,
 
 ### Changing feedback colors
 
-Each intent (danger, success, warning) has four tokens: background, text, border, and base. The base token is used for filled/primary visual weight. The others are used for subtle, secondary, and outline treatments.
+Each intent (danger, success, warning) has five tokens: background, text, border, base, and foreground. The base token is used for filled/primary visual weight. The foreground (`-fg`) token is the text color on filled surfaces. The others are used for subtle, secondary, and outline treatments.
 
 ```css
 [data-theme="light"] {
@@ -75,10 +77,11 @@ Each intent (danger, success, warning) has four tokens: background, text, border
   --nuka-danger-text: oklch(42% 0.2 15);
   --nuka-danger-border: oklch(75% 0.14 15);
   --nuka-danger-base: oklch(56% 0.22 15);
+  --nuka-danger-fg: oklch(100% 0 0);
 }
 ```
 
-The same four-token pattern applies to `--nuka-success-*` and `--nuka-warning-*`.
+The same five-token pattern applies to `--nuka-success-*` and `--nuka-warning-*`. The `--nuka-warning-fg` uses dark text (neutral-900) because amber hues cannot pass 4.5:1 contrast with white.
 
 ### Changing dark theme surfaces
 
@@ -123,6 +126,14 @@ This is different from accent token overrides, which are set on `[data-theme]` s
   --space-2: 0.5rem;
   --space-3: 0.75rem;
   --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
 }
 ```
 
@@ -564,7 +575,7 @@ These are deliberate constraints, not gaps.
 
 `variant` and `intent` prop types are closed enums. Passing `variant="brand"` or `intent="info"` is a TypeScript error. The CVA instance that resolves compound variants is built at library compile time and is not extensible at runtime.
 
-If you need a new named combination, wrap the component as described in section 4. If you need an `info` intent across your entire product with proper compound variant logic, you have two options: remap an existing intent via token overrides (for example, remap `--nuka-warning-*` to info colors if warning is unused in your product), or build your own CVA instance outside the library using the same pattern.
+Note: `--nuka-info-*` tokens (base, bg, text, border) are defined in `tokens.css` for both light and dark themes. The CSS layer is ready for an `info` intent, but no component CVA maps to it yet. If you need info styling today, you have three options: remap an existing intent via token overrides (for example, remap `--nuka-warning-*` to info colors if warning is unused in your product), reference the `--nuka-info-*` tokens directly via `className`, or build your own CVA instance outside the library using the same pattern.
 
 ### className cannot override base structural classes reliably
 

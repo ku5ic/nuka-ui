@@ -256,6 +256,8 @@
   --nuka-info-bg: var(--color-info-100);
   --nuka-info-text: var(--color-info-500);
   --nuka-info-border: var(--color-info-300);
+  --nuka-info-fg: var(--color-neutral-0);
+  /* 4.69:1 on info-base (info-300). White on filled info surface. */
 }
 
 /* Semantic tokens: dark theme */
@@ -351,4 +353,6 @@
   --nuka-info-bg: var(--color-info-600);
   --nuka-info-text: var(--color-info-200);
   --nuka-info-border: var(--color-info-400);
+  --nuka-info-fg: var(--color-neutral-950);
+  /* Dark fg on lighter dark-mode info surface. Symmetric with danger/success/warning. */
 }

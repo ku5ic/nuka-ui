@@ -3,10 +3,12 @@
 ## Implementation
 
 - [ ] Component directory created at `src/components/<Name>/`
+- [ ] `<Name>.variants.ts` created with `cva` instance and `VariantProps` type
+- [ ] `cva` instance named `<name>Variants`
+- [ ] `<Name>VariantProps` type exported from variants file
+- [ ] `<Name>.tsx` imports variants from `@nuka/components/<Name>/<Name>.variants`
 - [ ] `React.forwardRef` used
 - [ ] Correct HTML attributes interface extended
-- [ ] `cva` instance named `<name>Variants`
-- [ ] `<Name>VariantProps` type exported
 - [ ] `<Name>Props` interface exported
 - [ ] `displayName` set
 - [ ] All imports use `@nuka/*` alias, no relative imports

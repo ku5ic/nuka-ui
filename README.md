@@ -232,6 +232,7 @@ WCAG 2.2 AA compliance is a hard constraint, not a goal. It is verified at the t
 | Component | Description                                                     |
 | --------- | --------------------------------------------------------------- |
 | `Button`  | Actions and form submissions. 5 variants x 4 intents x 3 sizes. |
+| `Chip`    | Toggle/filter pill. `selected` state with `aria-pressed`.       |
 
 ### Typography
 
@@ -298,9 +299,10 @@ WCAG 2.2 AA compliance is a hard constraint, not a goal. It is verified at the t
 
 ### Accessibility
 
-| Component        | Description                                     |
-| ---------------- | ----------------------------------------------- |
-| `VisuallyHidden` | Screen-reader-only text. Polymorphic `as` prop. |
+| Component        | Description                                               |
+| ---------------- | --------------------------------------------------------- |
+| `VisuallyHidden` | Screen-reader-only text. Polymorphic `as` prop.           |
+| `SkipLink`       | Skip-to-content link. Visible on focus, hidden otherwise. |
 
 ### Navigation
 
@@ -423,7 +425,7 @@ import {
 
 Components without interactive state ship without a `"use client"` directive and work in React Server Components (Next.js App Router, etc.) without modification:
 
-**Server-safe:** Alert, AppShell, AspectRatio, Badge, Banner, Breadcrumb, Button, Card, Code, Container, Divider, EmptyState, Eyebrow, Grid, Heading, Icon, Kbd, Nav, Pagination, ScrollArea, Section, Skeleton, Spinner, SplitLayout, Stack, Tag, Text, Textarea, Timeline, VisuallyHidden
+**Server-safe:** Alert, AppShell, AspectRatio, Badge, Banner, Breadcrumb, Button, Card, Chip, Code, Container, Divider, EmptyState, Eyebrow, Grid, Heading, Icon, Kbd, Nav, Pagination, ScrollArea, Section, Skeleton, SkipLink, Spinner, SplitLayout, Stack, Tag, Text, Textarea, Timeline, VisuallyHidden
 
 **Client-required (`"use client"`):** Accordion, Avatar, Checkbox, Collapsible, Combobox, CommandMenu, ContextMenu, DataTable, DatePicker, Dialog, DropdownMenu, FileInput, FormField, Input, Label, Menubar, NavigationMenu, NumberInput, Popover, Progress, RadioGroup, Select, Sheet, Sidebar, Slider, Stepper, Switch, Table, Tabs, Toast/Toaster, Tooltip
 
