@@ -490,6 +490,9 @@ export type {
   TextareaVariantProps,
 } from "./components/Textarea";
 
+export { VisuallyHidden } from "./components/VisuallyHidden";
+export type { VisuallyHiddenProps } from "./components/VisuallyHidden";
+
 export { Tooltip, TooltipTrigger, TooltipContent } from "./components/Tooltip";
 export type {
   TooltipProps,
