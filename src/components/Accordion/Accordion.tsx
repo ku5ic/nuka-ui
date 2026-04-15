@@ -136,7 +136,7 @@ function AccordionSingle({
   onKeyDown,
   ...divProps
 }: Omit<AccordionSingleProps, "type"> & AccordionInternalProps) {
-  const [value, setValue] = useControllableState(
+  const [value, setValue] = useControllableState<string | undefined>(
     controlledValue,
     defaultValue,
     onValueChange as ((value: string | undefined) => void) | undefined,
@@ -151,10 +151,7 @@ function AccordionSingle({
       toggleItem: (itemValue: string) => {
         if (value === itemValue) {
           if (collapsible) {
-            // Safe: useControllableState<string> expects string, but clearing a collapsible
-            // single-mode accordion requires undefined. The onValueChange cast above
-            // widens the callback to accept string | undefined, so the runtime value is correct.
-            setValue(undefined as unknown as string);
+            setValue(undefined);
           }
         } else {
           setValue(itemValue);

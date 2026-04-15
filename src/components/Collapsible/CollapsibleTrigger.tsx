@@ -29,6 +29,7 @@ const CollapsibleTrigger = React.forwardRef<
       aria-expanded={open}
       aria-controls={contentId}
       disabled={disabled}
+      aria-disabled={disabled || undefined}
       data-state={open ? "open" : "closed"}
       className={className}
       onClick={handleClick}

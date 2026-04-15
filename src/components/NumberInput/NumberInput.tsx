@@ -71,6 +71,15 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
       onValueChange,
     );
 
+    const [displayValue, setDisplayValue] = React.useState(
+      String(currentValue),
+    );
+
+    // Sync displayValue when the committed value changes externally
+    React.useEffect(() => {
+      setDisplayValue(String(currentValue));
+    }, [currentValue]);
+
     if (process.env.NODE_ENV !== "production") {
       if (!ariaLabel && !ariaLabelledBy && !field.resolvedId) {
         console.warn(
@@ -88,10 +97,19 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const raw = e.target.value;
+      setDisplayValue(raw);
       if (raw === "" || raw === "-") return;
       const parsed = Number(raw);
       if (!Number.isNaN(parsed)) {
         setCurrentValue(clamp(parsed, min, max));
+      }
+    };
+
+    const handleBlur = () => {
+      if (displayValue === "" || displayValue === "-") {
+        const clamped = clamp(currentValue, min, max);
+        setCurrentValue(clamped);
+        setDisplayValue(String(clamped));
       }
     };
 
@@ -165,8 +183,9 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
           ref={ref}
           type="number"
           id={field.resolvedId}
-          value={currentValue}
+          value={displayValue}
           onChange={handleChange}
+          onBlur={handleBlur}
           min={min}
           max={max}
           step={step}

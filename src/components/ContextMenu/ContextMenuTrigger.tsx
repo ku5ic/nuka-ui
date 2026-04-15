@@ -82,6 +82,8 @@ const ContextMenuTrigger = React.forwardRef<
       <Comp
         ref={composedTriggerRef}
         tabIndex={0}
+        aria-haspopup="menu"
+        aria-expanded={ctx.open}
         onContextMenu={handleContextMenu}
         onKeyDown={handleKeyDown}
         className={cn(

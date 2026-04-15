@@ -75,7 +75,7 @@ describe("ContextMenu", () => {
   });
 
   describe("ARIA attributes", () => {
-    it("does not add aria-haspopup to trigger", () => {
+    it("has aria-haspopup=menu on trigger", () => {
       render(
         <ContextMenu>
           <ContextMenuTrigger>Right-click here</ContextMenuTrigger>
@@ -85,12 +85,13 @@ describe("ContextMenu", () => {
         </ContextMenu>,
       );
 
-      expect(screen.getByText("Right-click here")).not.toHaveAttribute(
+      expect(screen.getByText("Right-click here")).toHaveAttribute(
         "aria-haspopup",
+        "menu",
       );
     });
 
-    it("does not add aria-expanded to trigger", () => {
+    it("has aria-expanded=false on trigger when closed", () => {
       render(
         <ContextMenu>
           <ContextMenuTrigger>Right-click here</ContextMenuTrigger>
@@ -100,8 +101,9 @@ describe("ContextMenu", () => {
         </ContextMenu>,
       );
 
-      expect(screen.getByText("Right-click here")).not.toHaveAttribute(
+      expect(screen.getByText("Right-click here")).toHaveAttribute(
         "aria-expanded",
+        "false",
       );
     });
   });
