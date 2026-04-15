@@ -351,3 +351,31 @@ export const IntentInContext: Story = {
     </div>
   ),
 };
+
+export const FontFamily: Story = {
+  name: "Font Family",
+  render: () => (
+    <Stack gap="sm">
+      <Text as="span" size="sm">
+        Default (mono): <Code>console.log()</Code>
+      </Text>
+      <Text as="span" size="sm">
+        Sans override: <Code family="body">console.log()</Code>
+      </Text>
+      <Text as="span" size="sm">
+        Serif override: <Code family="heading">console.log()</Code>
+      </Text>
+    </Stack>
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Code>console.log()</Code>
+<Code family="body">console.log()</Code>
+<Code family="heading">console.log()</Code>
+        `.trim(),
+      },
+    },
+  },
+};

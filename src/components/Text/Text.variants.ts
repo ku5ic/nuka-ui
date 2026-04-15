@@ -2,6 +2,12 @@ import { cva, type VariantProps } from "@nuka/utils/variants";
 
 export const textVariants = cva([], {
   variants: {
+    family: {
+      heading: "[font-family:var(--nuka-font-heading)]",
+      body: "[font-family:var(--nuka-font-body)]",
+      ui: "[font-family:var(--nuka-font-ui)]",
+      code: "[font-family:var(--nuka-font-code)]",
+    },
     weight: {
       regular: "font-[number:var(--font-weight-regular)]",
       medium: "font-[number:var(--font-weight-medium)]",
@@ -25,6 +31,7 @@ export const textVariants = cva([], {
     },
   },
   defaultVariants: {
+    family: "body",
     weight: "regular",
     color: "base",
     truncate: false,

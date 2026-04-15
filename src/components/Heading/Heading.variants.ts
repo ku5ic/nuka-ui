@@ -4,6 +4,12 @@ export const headingVariants = cva(
   ["font-[number:var(--font-weight-bold)]", "text-(--nuka-text-base)"],
   {
     variants: {
+      family: {
+        heading: "[font-family:var(--nuka-font-heading)]",
+        body: "[font-family:var(--nuka-font-body)]",
+        ui: "[font-family:var(--nuka-font-ui)]",
+        code: "[font-family:var(--nuka-font-code)]",
+      },
       weight: {
         regular: "font-[number:var(--font-weight-regular)]",
         medium: "font-[number:var(--font-weight-medium)]",
@@ -27,6 +33,7 @@ export const headingVariants = cva(
       },
     },
     defaultVariants: {
+      family: "heading",
       weight: "bold",
       color: "base",
       truncate: false,

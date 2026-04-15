@@ -433,3 +433,31 @@ export const ResponsiveSize: Story = {
     },
   },
 };
+
+export const FontFamily: Story = {
+  name: "Font Family",
+  render: () => (
+    <Stack gap="md">
+      <Heading size="2xl" family="heading">
+        Serif heading (default token)
+      </Heading>
+      <Heading size="2xl" family="body">
+        Sans heading
+      </Heading>
+      <Heading size="2xl" family="code">
+        Mono heading
+      </Heading>
+    </Stack>
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Heading family="heading">Serif heading (default token)</Heading>
+<Heading family="body">Sans heading</Heading>
+<Heading family="code">Mono heading</Heading>
+        `.trim(),
+      },
+    },
+  },
+};

@@ -12,6 +12,12 @@ export const codeVariants = cva(
   ],
   {
     variants: {
+      family: {
+        heading: "[font-family:var(--nuka-font-heading)]",
+        body: "[font-family:var(--nuka-font-body)]",
+        ui: "[font-family:var(--nuka-font-ui)]",
+        code: "[font-family:var(--nuka-font-code)]",
+      },
       variant: {
         subtle: [],
         outline: [],
@@ -105,6 +111,7 @@ export const codeVariants = cva(
     ],
 
     defaultVariants: {
+      family: "code",
       variant: "subtle",
       intent: "default",
       size: "md",

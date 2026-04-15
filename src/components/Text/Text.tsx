@@ -34,6 +34,7 @@ const Text = React.forwardRef<HTMLElement, TextProps>(
       as: Comp = "p",
       className,
       size = "md",
+      family,
       weight,
       color,
       align = "left",
@@ -49,7 +50,7 @@ const Text = React.forwardRef<HTMLElement, TextProps>(
         // concrete element, so the ref assignment is correct at runtime.
         ref={ref as React.RefObject<never>}
         className={cn(
-          textVariants({ weight, color, truncate }),
+          textVariants({ family, weight, color, truncate }),
           ...resolveResponsiveClasses(size, textSizeClasses),
           ...resolveResponsiveClasses(align, textAlignClasses),
           className,

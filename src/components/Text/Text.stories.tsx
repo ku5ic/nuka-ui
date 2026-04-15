@@ -340,3 +340,27 @@ export const ResponsiveSize: Story = {
     },
   },
 };
+
+export const FontFamily: Story = {
+  name: "Font Family",
+  render: () => (
+    <Stack gap="md">
+      <Text family="body">Body family (sans)</Text>
+      <Text family="heading">Heading family (serif)</Text>
+      <Text family="ui">UI family (sans)</Text>
+      <Text family="code">Code family (mono)</Text>
+    </Stack>
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Text family="body">Body family (sans)</Text>
+<Text family="heading">Heading family (serif)</Text>
+<Text family="ui">UI family (sans)</Text>
+<Text family="code">Code family (mono)</Text>
+        `.trim(),
+      },
+    },
+  },
+};

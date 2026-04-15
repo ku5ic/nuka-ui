@@ -139,6 +139,10 @@
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
+
+  --font-family-sans: ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-family-serif: ui-serif, Georgia, Cambria, serif;
+  --font-family-mono: ui-monospace, "SFMono-Regular", Menlo, monospace;
 }
 
 /* Semantic tokens: light theme */
@@ -191,6 +195,12 @@
   --nuka-z-dropdown: var(--z-dropdown);
   --nuka-z-modal: var(--z-modal);
   --nuka-z-toast: var(--z-toast);
+
+  /* Font family */
+  --nuka-font-heading: var(--font-family-serif);
+  --nuka-font-body: var(--font-family-sans);
+  --nuka-font-ui: var(--font-family-sans);
+  --nuka-font-code: var(--font-family-mono);
 
   /* Overlay */
   /* No matching primitive: alpha-composite value, not a scale step.

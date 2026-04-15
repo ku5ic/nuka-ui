@@ -30,6 +30,7 @@ const Heading = React.forwardRef<HTMLElement, HeadingProps>(
       as: Comp = "h2",
       className,
       size = "3xl",
+      family,
       weight,
       color,
       truncate,
@@ -43,7 +44,7 @@ const Heading = React.forwardRef<HTMLElement, HeadingProps>(
         // Same polymorphic element pattern as Text.tsx.
         ref={ref as React.RefObject<never>}
         className={cn(
-          headingVariants({ weight, color, truncate }),
+          headingVariants({ family, weight, color, truncate }),
           ...resolveResponsiveClasses(size, headingSizeClasses),
           className,
         )}
