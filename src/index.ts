@@ -2,7 +2,14 @@
 
 export { cn } from "./utils/cn";
 
-export type { Responsive, Breakpoint, GapScale } from "./utils/responsive";
+export type {
+  Responsive,
+  Breakpoint,
+  GapScale,
+  TextSize,
+  HeadingSize,
+  TextAlign,
+} from "./utils/responsive";
 
 export {
   Accordion,
@@ -226,7 +233,7 @@ export {
 } from "./components/DatePicker";
 export type { DatePickerContextValue } from "./components/DatePicker";
 
-export { Divider, dividerVariants } from "./components/Divider";
+export { Divider } from "./components/Divider";
 
 export {
   DropdownMenu,

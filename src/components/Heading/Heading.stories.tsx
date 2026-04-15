@@ -408,3 +408,28 @@ export const PageHeader: Story = {
     </Stack>
   ),
 };
+
+export const ResponsiveSize: Story = {
+  name: "Responsive Size",
+  render: () => (
+    <Stack gap="md">
+      <Heading size={{ base: "xl", md: "3xl", xl: "4xl" }}>
+        Scales across breakpoints
+      </Heading>
+      <Text color="muted">
+        This heading is xl on mobile, 3xl at md, and 4xl at xl.
+      </Text>
+    </Stack>
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Heading size={{ base: "xl", md: "3xl", xl: "4xl" }}>
+  Scales across breakpoints
+</Heading>
+        `.trim(),
+      },
+    },
+  },
+};

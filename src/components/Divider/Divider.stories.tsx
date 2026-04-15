@@ -329,3 +329,33 @@ export const PatternVerticalInNav: Story = {
     },
   },
 };
+
+export const ResponsiveOrientation: Story = {
+  name: "Responsive Orientation",
+  render: () => (
+    <Stack
+      direction={{ base: "column", md: "row" }}
+      gap="md"
+      align={{ base: "stretch", md: "center" }}
+    >
+      <Text>First section</Text>
+      <Divider orientation={{ base: "horizontal", md: "vertical" }} />
+      <Text>Second section</Text>
+      <Divider orientation={{ base: "horizontal", md: "vertical" }} />
+      <Text>Third section</Text>
+    </Stack>
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack direction={{ base: "column", md: "row" }} gap="md" align={{ base: "stretch", md: "center" }}>
+  <Text>First section</Text>
+  <Divider orientation={{ base: "horizontal", md: "vertical" }} />
+  <Text>Second section</Text>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
+};

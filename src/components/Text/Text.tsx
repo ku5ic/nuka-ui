@@ -1,6 +1,12 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 import {
+  resolveResponsiveClasses,
+  textSizeClasses,
+  textAlignClasses,
+} from "@nuka/utils/responsive";
+import type { Responsive, TextSize, TextAlign } from "@nuka/utils/responsive";
+import {
   textVariants,
   type TextVariantProps,
 } from "@nuka/components/Text/Text.variants";
@@ -18,6 +24,8 @@ type TextElement =
 export interface TextProps
   extends Omit<React.HTMLAttributes<HTMLElement>, "color">, TextVariantProps {
   as?: TextElement;
+  size?: Responsive<TextSize>;
+  align?: Responsive<TextAlign>;
 }
 
 const Text = React.forwardRef<HTMLElement, TextProps>(
@@ -25,10 +33,10 @@ const Text = React.forwardRef<HTMLElement, TextProps>(
     {
       as: Comp = "p",
       className,
-      size,
+      size = "md",
       weight,
       color,
-      align,
+      align = "left",
       truncate,
       ...props
     },
@@ -41,7 +49,9 @@ const Text = React.forwardRef<HTMLElement, TextProps>(
         // concrete element, so the ref assignment is correct at runtime.
         ref={ref as React.RefObject<never>}
         className={cn(
-          textVariants({ size, weight, color, align, truncate }),
+          textVariants({ weight, color, truncate }),
+          ...resolveResponsiveClasses(size, textSizeClasses),
+          ...resolveResponsiveClasses(align, textAlignClasses),
           className,
         )}
         {...props}
