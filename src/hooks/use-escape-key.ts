@@ -7,7 +7,6 @@ function useEscapeKey(onEscape: () => void, enabled: boolean): void {
 
     function handleEscape(e: KeyboardEvent) {
       if (e.key === "Escape") {
-        e.stopPropagation();
         onEscape();
       }
     }

@@ -1473,6 +1473,7 @@ Submenus are CSS-driven via Tailwind `group-hover:` and `group-focus-within:` ut
 
 - No `"use client"` directive on any Nav component. Fully server-safe.
 - CSS-driven submenus work without JavaScript but do not support the ARIA menu keyboard model (arrow-key navigation between items). This is intentional: site navigation uses Tab-based focus, not menu-based focus.
+- `NavTrigger` declares `aria-haspopup` but not `aria-expanded`. Toggling `aria-expanded` requires JavaScript state, which would force a `"use client"` boundary and remove the server-safe guarantee. The tradeoff is accepted: screen readers announce the trigger as having a popup, and `group-focus-within` ensures the submenu is keyboard-reachable via Tab.
 - `NavSubmenu` `align` prop (start/end) controls horizontal positioning for edge-of-viewport menus.
 - `NavLink` `active` prop sets `aria-current="page"` and accent text color, following the Breadcrumb pattern (ADR-031).
 

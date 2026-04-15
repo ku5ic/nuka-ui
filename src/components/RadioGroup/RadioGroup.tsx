@@ -75,7 +75,7 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
     // has tabIndex=0 so the group is reachable by Tab. Depends on
     // registrationCount so it re-runs after radios mount and populate refsMap.
     React.useEffect(() => {
-      if (focusedValue === undefined && currentValue === undefined) {
+      if (focusedValue === undefined) {
         const firstKey = Array.from(refsMap.current.keys())[0];
         if (firstKey !== undefined) {
           setFocusedValue(firstKey);

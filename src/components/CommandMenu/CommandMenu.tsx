@@ -123,6 +123,9 @@ function CommandMenu({
           aria-hidden="true"
         />
         <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Command menu"
           className={cn(
             "fixed z-(--nuka-z-modal)",
             "left-1/2 top-[20%] -translate-x-1/2",
