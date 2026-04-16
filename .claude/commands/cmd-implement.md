@@ -19,7 +19,7 @@ Run after `cmd-plan` is confirmed. Follow the plan exactly: do not improvise.
 5. Follow all conventions from `CLAUDE.md`:
    - `@nuka/*` alias - no relative imports
    - `--nuka-*` semantic tokens only - no raw Tailwind colors
-   - `React.forwardRef` on all DOM-rendering components
+   - Ref is accepted as a typed prop in the Props interface; no `React.forwardRef` wrapping
    - Type imports: `import type { ... }`
    - CVA definitions go in `<Component>.variants.ts`, not in the component file
    - Hooks go in `src/hooks/`, not `src/utils/`

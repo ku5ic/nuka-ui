@@ -7,7 +7,7 @@
 - [ ] `cva` instance named `<name>Variants`
 - [ ] `<Name>VariantProps` type exported from variants file
 - [ ] `<Name>.tsx` imports variants from `@nuka/components/<Name>/<Name>.variants`
-- [ ] `React.forwardRef` used
+- [ ] `ref` typed as a prop on the Props interface (no `React.forwardRef` wrapping)
 - [ ] Correct HTML attributes interface extended
 - [ ] `<Name>Props` interface exported
 - [ ] `displayName` set

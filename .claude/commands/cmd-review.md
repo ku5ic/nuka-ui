@@ -15,7 +15,7 @@ Run after `cmd-test` is confirmed. Act as a senior peer reviewer.
    - Will this API age well, or will it need breaking changes soon?
 
 3. Check implementation quality:
-   - Is `React.forwardRef` used on all DOM-rendering components?
+   - Is `ref` accepted as a typed prop in the Props interface, without `React.forwardRef` wrapping?
    - Are all imports using `@nuka/*` alias?
    - Are only `--nuka-*` semantic tokens referenced?
    - Is CVA structured correctly: base, variants, compoundVariants, defaults?

@@ -7,8 +7,8 @@ One sentence describing what this component is and when to use it.
 ## Usage
 
 ```tsx
-import { ComponentName } from "nuka-ui";
-import "nuka-ui/styles";
+import { ComponentName } from "@nuka-ui/core";
+import "@nuka-ui/core/styles";
 
 <ComponentName variant="primary" intent="default">
   Label
@@ -17,15 +17,15 @@ import "nuka-ui/styles";
 
 ## Props
 
-| Prop        | Type                                                         | Default     | Description                               |
-| ----------- | ------------------------------------------------------------ | ----------- | ----------------------------------------- |
-| `variant`   | `'primary' \| 'secondary' \| 'outline' \| 'ghost' \| 'link'` | `'primary'` | Visual weight                             |
-| `intent`    | `'default' \| 'danger' \| 'success' \| 'warning'`            | `'default'` | Semantic color                            |
-| `size`      | `'sm' \| 'md' \| 'lg'`                                       | `'md'`      | Size scale                                |
-| `asChild`   | `boolean`                                                    | `false`     | Render as child element via Radix Slot    |
-| `disabled`  | `boolean`                                                    | `false`     | Disabled state                            |
-| `className` | `string`                                                     | -           | Additional CSS classes, merged via `cn()` |
-| `ref`       | `React.Ref<HTMLElement>`                                     | -           | Forwarded to the root element             |
+| Prop        | Type                                                         | Default     | Description                                                |
+| ----------- | ------------------------------------------------------------ | ----------- | ---------------------------------------------------------- |
+| `variant`   | `'primary' \| 'secondary' \| 'outline' \| 'ghost' \| 'link'` | `'primary'` | Visual weight                                              |
+| `intent`    | `'default' \| 'danger' \| 'success' \| 'warning'`            | `'default'` | Semantic color                                             |
+| `size`      | `'sm' \| 'md' \| 'lg'`                                       | `'md'`      | Size scale                                                 |
+| `asChild`   | `boolean`                                                    | `false`     | Render as child element via the first-party `Slot` utility |
+| `disabled`  | `boolean`                                                    | `false`     | Disabled state                                             |
+| `className` | `string`                                                     | -           | Additional CSS classes, merged via `cn()`                  |
+| `ref`       | `React.Ref<HTMLElement>`                                     | -           | Forwarded to the root element                              |
 
 Extends all native `<element>` HTML attributes.
 

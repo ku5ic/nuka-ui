@@ -64,15 +64,15 @@ Check every claim in `README.md` against the source files. At minimum verify:
 
 **Installation and import instructions:**
 
-- The install command is correct (`npm install nuka-ui`)
+- The install command is correct (`npm install @nuka-ui/core`)
 - The main stylesheet import path matches the `exports` map in `package.json`
   (`"./styles"` resolves to `"./dist/styles.css"`)
 - The root stylesheet import path matches the `exports` map in `package.json`
   (`"./styles/root"` resolves to `"./dist/styles-root.css"`)
 - The description of what each stylesheet contains matches what the files
   actually contain:
-  - `nuka-ui/styles`: tokens (light + dark themes) + animations, no Tailwind base layer
-  - `nuka-ui/styles/root`: light theme only, all tokens scoped to `:root`, no dark
+  - `@nuka-ui/core/styles`: tokens (light + dark themes) + animations, no Tailwind base layer
+  - `@nuka-ui/core/styles/root`: light theme only, all tokens scoped to `:root`, no dark
     mode, no animations
 - No claim is made that either stylesheet contains "component styles" (there are
   none; all component styling is Tailwind utility classes applied at render time)
@@ -196,9 +196,9 @@ documentation files.
 
 The ground truth is:
 
-- `nuka-ui/styles` -> `dist/styles.css` -> `tokens.css` (both themes) +
+- `@nuka-ui/core/styles` -> `dist/styles.css` -> `tokens.css` (both themes) +
   `animations.css`, no Tailwind base layer, no component styles
-- `nuka-ui/styles/root` -> `dist/styles-root.css` -> `root.css` (light theme
+- `@nuka-ui/core/styles/root` -> `dist/styles-root.css` -> `root.css` (light theme
   only, single `:root` scope, no dark mode, no animations)
 
 Any description that contradicts this is a bug.
