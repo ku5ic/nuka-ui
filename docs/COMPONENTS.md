@@ -140,7 +140,7 @@ This document defines the full component scope for nuka-ui.
 ## Rules for every component
 
 - WCAG 2.2 AA: hard requirement, verified at token and component level
-- `React.forwardRef`: mandatory on all DOM-rendering components
+- React 19 ref-as-prop: `ref` accepted as a typed prop, no `React.forwardRef`
 - `variant` + `intent`: applied where the component carries semantic meaning
 - `asChild`: included where polymorphism is genuinely useful
 - Full test coverage: rendering, variants, intent, attributes, ref, asChild
@@ -153,20 +153,22 @@ This document defines the full component scope for nuka-ui.
 
 Shared implementation primitives used by components. Most are internal; `cn` and the `Responsive`, `Breakpoint`, and `GapScale` types are part of the public API.
 
-| Utility                                         | Location                                   | Used by                                                                                                                               |
-| ----------------------------------------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `useControllableState`                          | `src/hooks/use-controllable-state.ts`      | Switch, Slider, RadioGroup, Tooltip, Popover, Select, Tabs, Accordion, Collapsible, DropdownMenu, Sidebar, Dialog, Sheet, NumberInput |
-| `useFormFieldProps`                             | `src/hooks/use-form-field-props.ts`        | Input, Textarea, Slider, Switch, RadioGroup, SelectTrigger, NumberInput, FileInput                                                    |
-| `DismissButton`                                 | `src/utils/dismiss-button.tsx`             | Alert, Banner, Tag, Toast, FileInput                                                                                                  |
-| `Portal`                                        | `src/utils/portal.tsx`                     | Tooltip, Popover, DropdownMenu, ContextMenu, NavigationMenu, Menubar, Dialog, Sheet, Toaster                                          |
-| `Slot`, `composeRefs`                           | `src/utils/slot.tsx`                       | Button, Badge, and all asChild components                                                                                             |
-| `cn`                                            | `src/utils/cn.ts`                          | All components                                                                                                                        |
-| `useFocusTrap`                                  | `src/hooks/use-focus-trap.ts`              | Dialog, Sheet                                                                                                                         |
-| `useScrollLock`                                 | `src/hooks/use-scroll-lock.ts`             | Dialog, Sheet                                                                                                                         |
-| `useMenuNavigation`                             | `src/hooks/use-menu-navigation.ts`         | DropdownMenu, ContextMenu, Menubar                                                                                                    |
-| `createModalPrimitive`                          | `src/utils/modal-primitive.tsx`            | Dialog, Sheet                                                                                                                         |
-| `Responsive`, `resolveResponsiveClasses`        | `src/utils/responsive.ts`                  | Stack, Grid, Container, Section, SplitLayout, Heading, Text                                                                           |
-| `useMediaQuery`                                 | `src/hooks/use-media-query.ts`             | Sidebar                                                                                                                               |
-| `useFocusFirstInteractive`                      | `src/hooks/use-focus-first-interactive.ts` | Popover, NavigationMenu                                                                                                               |
-| `useEscapeKey`                                  | `src/hooks/use-escape-key.ts`              | CommandMenu, Dialog, Sheet                                                                                                            |
-| `cva`, `VariantProps`, `intentCompoundVariants` | `src/utils/variants.ts`                    | All components with variant/intent                                                                                                    |
+| Utility                                         | Location                                   | Used by                                                                                                                                         |
+| ----------------------------------------------- | ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `useControllableState`                          | `src/hooks/use-controllable-state.ts`      | Switch, Slider, RadioGroup, Tooltip, Popover, Select, Tabs, Accordion, Collapsible, DropdownMenu, Sidebar, Dialog, Sheet, NumberInput, Combobox |
+| `useFormFieldProps`                             | `src/hooks/use-form-field-props.ts`        | Input, Textarea, Slider, Switch, RadioGroup, SelectTrigger, NumberInput, FileInput                                                              |
+| `DismissButton`                                 | `src/utils/dismiss-button.tsx`             | Alert, Banner, Tag, Toast, FileInput                                                                                                            |
+| `Portal`                                        | `src/utils/portal.tsx`                     | Tooltip, Popover, DropdownMenu, ContextMenu, NavigationMenu, Menubar, Dialog, Sheet, Toaster                                                    |
+| `Slot`, `composeRefs`                           | `src/utils/slot.tsx`                       | Button, Badge, and all asChild components                                                                                                       |
+| `cn`                                            | `src/utils/cn.ts`                          | All components                                                                                                                                  |
+| `useFocusTrap`                                  | `src/hooks/use-focus-trap.ts`              | Dialog, Sheet                                                                                                                                   |
+| `useScrollLock`                                 | `src/hooks/use-scroll-lock.ts`             | Dialog, Sheet                                                                                                                                   |
+| `useMenuNavigation`                             | `src/hooks/use-menu-navigation.ts`         | DropdownMenu, ContextMenu, Menubar                                                                                                              |
+| `createModalPrimitive`                          | `src/utils/modal-primitive.tsx`            | Dialog, Sheet                                                                                                                                   |
+| `Responsive`, `resolveResponsiveClasses`        | `src/utils/responsive.ts`                  | Stack, Grid, SplitLayout, Heading, Text, AspectRatio, Divider                                                                                   |
+| `useMediaQuery`                                 | `src/hooks/use-media-query.ts`             | Sidebar                                                                                                                                         |
+| `useFocusFirstInteractive`                      | `src/hooks/use-focus-first-interactive.ts` | Popover, NavigationMenu                                                                                                                         |
+| `useEscapeKey`                                  | `src/hooks/use-escape-key.ts`              | CommandMenu, Dialog, Sheet                                                                                                                      |
+| `useOptionRegistry`                             | `src/hooks/use-option-registry.ts`         | Select, Combobox                                                                                                                                |
+| `getRovingIndex`                                | `src/utils/roving-index.ts`                | RadioGroup, Tabs, Accordion, Select, Combobox, CommandMenu                                                                                      |
+| `cva`, `VariantProps`, `intentCompoundVariants` | `src/utils/variants.ts`                    | All components with variant/intent                                                                                                              |
