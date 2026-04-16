@@ -1,19 +1,19 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 
-export interface TimelineProps extends React.OlHTMLAttributes<HTMLOListElement> {}
+export interface TimelineProps extends React.OlHTMLAttributes<HTMLOListElement> {
+  ref?: React.Ref<HTMLOListElement> | undefined;
+}
 
-const Timeline = React.forwardRef<HTMLOListElement, TimelineProps>(
-  ({ className, ...props }, ref) => {
-    return (
-      <ol
-        ref={ref}
-        className={cn("relative flex flex-col", "list-none", className)}
-        {...props}
-      />
-    );
-  },
-);
+function Timeline({ ref, className, ...props }: TimelineProps) {
+  return (
+    <ol
+      ref={ref}
+      className={cn("relative flex flex-col", "list-none", className)}
+      {...props}
+    />
+  );
+}
 
 Timeline.displayName = "Timeline";
 

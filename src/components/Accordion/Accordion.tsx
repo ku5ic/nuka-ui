@@ -6,6 +6,7 @@ import { AccordionContext } from "@nuka/components/Accordion/Accordion.context";
 import type { HeadingLevel } from "@nuka/components/Accordion/Accordion.context";
 
 interface AccordionSingleProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
   type: "single";
   value?: string;
   defaultValue?: string;
@@ -15,6 +16,7 @@ interface AccordionSingleProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 interface AccordionMultipleProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
   type: "multiple";
   value?: string[];
   defaultValue?: string[];
@@ -62,42 +64,25 @@ function handleKeyboardNavigation(
   items[nextIndex]?.focus();
 }
 
-const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
-  (props, ref) => {
-    const {
-      type,
-      headingLevel = "h3",
-      className,
-      children,
-      onKeyDown,
-      ...rest
-    } = props;
+function Accordion(props: AccordionProps) {
+  const {
+    ref,
+    type,
+    headingLevel = "h3",
+    className,
+    children,
+    onKeyDown,
+    ...rest
+  } = props;
 
-    const rootRef = React.useRef<HTMLDivElement>(null);
-    const composedRef = composeRefs(ref, rootRef);
+  const rootRef = React.useRef<HTMLDivElement>(null);
+  const composedRef = composeRefs(ref, rootRef);
 
-    if (type === "single") {
-      return (
-        <AccordionSingle
-          {...(rest as Omit<
-            AccordionSingleProps,
-            "type" | "headingLevel" | "className" | "children" | "onKeyDown"
-          >)}
-          headingLevel={headingLevel}
-          className={className}
-          rootRef={rootRef}
-          composedRef={composedRef}
-          onKeyDown={onKeyDown}
-        >
-          {children}
-        </AccordionSingle>
-      );
-    }
-
+  if (type === "single") {
     return (
-      <AccordionMultiple
+      <AccordionSingle
         {...(rest as Omit<
-          AccordionMultipleProps,
+          AccordionSingleProps,
           "type" | "headingLevel" | "className" | "children" | "onKeyDown"
         >)}
         headingLevel={headingLevel}
@@ -107,10 +92,26 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
         onKeyDown={onKeyDown}
       >
         {children}
-      </AccordionMultiple>
+      </AccordionSingle>
     );
-  },
-);
+  }
+
+  return (
+    <AccordionMultiple
+      {...(rest as Omit<
+        AccordionMultipleProps,
+        "type" | "headingLevel" | "className" | "children" | "onKeyDown"
+      >)}
+      headingLevel={headingLevel}
+      className={className}
+      rootRef={rootRef}
+      composedRef={composedRef}
+      onKeyDown={onKeyDown}
+    >
+      {children}
+    </AccordionMultiple>
+  );
+}
 
 Accordion.displayName = "Accordion";
 

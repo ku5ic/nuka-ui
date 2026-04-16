@@ -1,14 +1,17 @@
 import * as React from "react";
 
 export interface BreadcrumbProps extends React.HTMLAttributes<HTMLElement> {
+  ref?: React.Ref<HTMLElement> | undefined;
   "aria-label"?: string;
 }
 
-const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
-  ({ "aria-label": ariaLabel = "Breadcrumb", ...props }, ref) => (
-    <nav ref={ref} aria-label={ariaLabel} {...props} />
-  ),
-);
+function Breadcrumb({
+  ref,
+  "aria-label": ariaLabel = "Breadcrumb",
+  ...props
+}: BreadcrumbProps) {
+  return <nav ref={ref} aria-label={ariaLabel} {...props} />;
+}
 
 Breadcrumb.displayName = "Breadcrumb";
 

@@ -10,14 +10,19 @@ import {
 } from "@nuka/components/Tooltip";
 
 export interface SidebarMenuButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  ref?: React.Ref<HTMLButtonElement> | undefined;
   asChild?: boolean;
   tooltip?: string;
 }
 
-const SidebarMenuButton = React.forwardRef<
-  HTMLButtonElement,
-  SidebarMenuButtonProps
->(({ asChild = false, tooltip, className, children, ...props }, ref) => {
+function SidebarMenuButton({
+  ref,
+  asChild = false,
+  tooltip,
+  className,
+  children,
+  ...props
+}: SidebarMenuButtonProps) {
   const { expanded, isMobile } = useSidebarContext();
   const showTooltip = !expanded && !isMobile && tooltip !== undefined;
 
@@ -53,7 +58,7 @@ const SidebarMenuButton = React.forwardRef<
   }
 
   return button;
-});
+}
 
 SidebarMenuButton.displayName = "SidebarMenuButton";
 

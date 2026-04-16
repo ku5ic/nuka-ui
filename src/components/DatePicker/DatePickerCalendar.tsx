@@ -21,12 +21,15 @@ import {
   useCalendarKeyboard,
 } from "@nuka/components/DatePicker/DatePicker.hooks";
 
-export interface DatePickerCalendarProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface DatePickerCalendarProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
+}
 
-const DatePickerCalendar = React.forwardRef<
-  HTMLDivElement,
-  DatePickerCalendarProps
->(({ className, ...props }, ref) => {
+function DatePickerCalendar({
+  ref,
+  className,
+  ...props
+}: DatePickerCalendarProps) {
   const ctx = useDatePickerContext();
   const contentRef = React.useRef<HTMLDivElement>(null);
   const composedRef = composeRefs(
@@ -281,7 +284,7 @@ const DatePickerCalendar = React.forwardRef<
       </div>
     </Portal>
   );
-});
+}
 
 DatePickerCalendar.displayName = "DatePickerCalendar";
 

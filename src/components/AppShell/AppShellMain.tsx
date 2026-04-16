@@ -2,11 +2,17 @@ import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 
 export interface AppShellMainProps extends React.HTMLAttributes<HTMLElement> {
+  ref?: React.Ref<HTMLElement> | undefined;
   padded?: boolean;
 }
 
-const AppShellMain = React.forwardRef<HTMLElement, AppShellMainProps>(
-  ({ padded = true, className, ...props }, ref) => (
+function AppShellMain({
+  ref,
+  padded = true,
+  className,
+  ...props
+}: AppShellMainProps) {
+  return (
     <main
       ref={ref}
       className={cn(
@@ -16,8 +22,8 @@ const AppShellMain = React.forwardRef<HTMLElement, AppShellMainProps>(
       )}
       {...props}
     />
-  ),
-);
+  );
+}
 
 AppShellMain.displayName = "AppShellMain";
 

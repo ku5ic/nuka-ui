@@ -11,18 +11,25 @@ export interface EyebrowProps
   extends
     Omit<React.HTMLAttributes<HTMLElement>, "color">,
     EyebrowVariantProps {
+  ref?: React.Ref<HTMLElement> | undefined;
   as?: EyebrowElement;
 }
 
-const Eyebrow = React.forwardRef<HTMLElement, EyebrowProps>(
-  ({ as: Comp = "p", className, color, ...props }, ref) => (
+function Eyebrow({
+  ref,
+  as: Comp = "p",
+  className,
+  color,
+  ...props
+}: EyebrowProps) {
+  return (
     <Comp
       ref={ref as React.RefObject<never>}
       className={cn(eyebrowVariants({ color }), className)}
       {...props}
     />
-  ),
-);
+  );
+}
 
 Eyebrow.displayName = "Eyebrow";
 

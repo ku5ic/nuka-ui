@@ -1,10 +1,12 @@
 import * as React from "react";
 
-export interface PaginationItemProps extends React.LiHTMLAttributes<HTMLLIElement> {}
+export interface PaginationItemProps extends React.LiHTMLAttributes<HTMLLIElement> {
+  ref?: React.Ref<HTMLLIElement> | undefined;
+}
 
-const PaginationItem = React.forwardRef<HTMLLIElement, PaginationItemProps>(
-  (props, ref) => <li ref={ref} {...props} />,
-);
+function PaginationItem({ ref, ...props }: PaginationItemProps) {
+  return <li ref={ref} {...props} />;
+}
 
 PaginationItem.displayName = "PaginationItem";
 

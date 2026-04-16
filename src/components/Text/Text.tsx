@@ -23,43 +23,40 @@ type TextElement =
 
 export interface TextProps
   extends Omit<React.HTMLAttributes<HTMLElement>, "color">, TextVariantProps {
+  ref?: React.Ref<HTMLElement> | undefined;
   as?: TextElement;
   size?: Responsive<TextSize>;
   align?: Responsive<TextAlign>;
 }
 
-const Text = React.forwardRef<HTMLElement, TextProps>(
-  (
-    {
-      as: Comp = "p",
-      className,
-      size = "md",
-      family,
-      weight,
-      color,
-      align = "left",
-      truncate,
-      ...props
-    },
-    ref,
-  ) => {
-    return (
-      <Comp
-        // Safe: the `as` prop makes the element type dynamic (p | span | label | ...),
-        // so ref cannot satisfy any single element ref type. Each render produces one
-        // concrete element, so the ref assignment is correct at runtime.
-        ref={ref as React.RefObject<never>}
-        className={cn(
-          textVariants({ family, weight, color, truncate }),
-          ...resolveResponsiveClasses(size, textSizeClasses),
-          ...resolveResponsiveClasses(align, textAlignClasses),
-          className,
-        )}
-        {...props}
-      />
-    );
-  },
-);
+function Text({
+  ref,
+  as: Comp = "p",
+  className,
+  size = "md",
+  family,
+  weight,
+  color,
+  align = "left",
+  truncate,
+  ...props
+}: TextProps) {
+  return (
+    <Comp
+      // Safe: the `as` prop makes the element type dynamic (p | span | label | ...),
+      // so ref cannot satisfy any single element ref type. Each render produces one
+      // concrete element, so the ref assignment is correct at runtime.
+      ref={ref as React.RefObject<never>}
+      className={cn(
+        textVariants({ family, weight, color, truncate }),
+        ...resolveResponsiveClasses(size, textSizeClasses),
+        ...resolveResponsiveClasses(align, textAlignClasses),
+        className,
+      )}
+      {...props}
+    />
+  );
+}
 
 Text.displayName = "Text";
 

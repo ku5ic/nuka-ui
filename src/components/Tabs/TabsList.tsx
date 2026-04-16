@@ -11,38 +11,45 @@ import {
 const TRIGGER_SELECTOR = '[role="tab"]:not([aria-disabled="true"])';
 
 export interface TabsListProps
-  extends React.HTMLAttributes<HTMLDivElement>, TabsListVariantProps {}
+  extends React.HTMLAttributes<HTMLDivElement>, TabsListVariantProps {
+  ref?: React.Ref<HTMLDivElement> | undefined;
+}
 
-const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
-  ({ variant, className, onKeyDown, children, ...props }, ref) => {
-    const { orientation } = useTabsContext();
-    const listRef = React.useRef<HTMLDivElement>(null);
+function TabsList({
+  ref,
+  variant,
+  className,
+  onKeyDown,
+  children,
+  ...props
+}: TabsListProps) {
+  const { orientation } = useTabsContext();
+  const listRef = React.useRef<HTMLDivElement>(null);
 
-    const composedRef = composeRefs(ref, listRef);
+  const composedRef = composeRefs(ref, listRef);
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-      handleTabsKeyboard(e, listRef);
-      onKeyDown?.(e);
-    };
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    handleTabsKeyboard(e, listRef);
+    onKeyDown?.(e);
+  };
 
-    return (
-      <div
-        ref={composedRef}
-        role="tablist"
-        aria-orientation={orientation}
-        className={cn(
-          tabsListVariants({ variant }),
-          orientation === "vertical" && "flex-col",
-          className,
-        )}
-        onKeyDown={handleKeyDown}
-        {...props}
-      >
-        {children}
-      </div>
-    );
-  },
-);
+  return (
+    <div
+      ref={composedRef}
+      role="tablist"
+      aria-orientation={orientation}
+      className={cn(
+        tabsListVariants({ variant }),
+        orientation === "vertical" && "flex-col",
+        className,
+      )}
+      onKeyDown={handleKeyDown}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+}
 
 TabsList.displayName = "TabsList";
 

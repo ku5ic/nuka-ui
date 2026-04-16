@@ -16,6 +16,7 @@ export interface NumberInputProps
       "size" | "type" | "onChange"
     >,
     InputVariantProps {
+  ref?: React.Ref<HTMLInputElement> | undefined;
   value?: number;
   defaultValue?: number;
   min?: number;
@@ -34,178 +35,172 @@ function clamp(value: number, min?: number, max?: number): number {
   return clamped;
 }
 
-const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
-  (
-    {
-      className,
-      intent,
-      size,
-      value: controlledValue,
-      defaultValue,
-      min,
-      max,
-      step = 1,
-      onValueChange,
-      showControls = true,
-      incrementLabel = "Increment",
-      decrementLabel = "Decrement",
-      id,
-      disabled,
-      "aria-label": ariaLabel,
-      "aria-labelledby": ariaLabelledBy,
-      ...props
-    },
-    ref,
-  ) => {
-    const field = useFormFieldProps({
-      id,
-      disabled,
-      "aria-invalid": props["aria-invalid"],
-      "aria-describedby": props["aria-describedby"],
-      "aria-required": props["aria-required"],
-    });
+function NumberInput({
+  ref,
+  className,
+  intent,
+  size,
+  value: controlledValue,
+  defaultValue,
+  min,
+  max,
+  step = 1,
+  onValueChange,
+  showControls = true,
+  incrementLabel = "Increment",
+  decrementLabel = "Decrement",
+  id,
+  disabled,
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledBy,
+  ...props
+}: NumberInputProps) {
+  const field = useFormFieldProps({
+    id,
+    disabled,
+    "aria-invalid": props["aria-invalid"],
+    "aria-describedby": props["aria-describedby"],
+    "aria-required": props["aria-required"],
+  });
 
-    const [currentValue, setCurrentValue] = useControllableState(
-      controlledValue,
-      defaultValue ?? clamp(0, min, max),
-      onValueChange,
-    );
+  const [currentValue, setCurrentValue] = useControllableState(
+    controlledValue,
+    defaultValue ?? clamp(0, min, max),
+    onValueChange,
+  );
 
-    const [displayValue, setDisplayValue] = React.useState(
-      String(currentValue),
-    );
+  const [displayValue, setDisplayValue] = React.useState(String(currentValue));
 
-    // Sync displayValue when the committed value changes externally
-    React.useEffect(() => {
-      setDisplayValue(String(currentValue));
-    }, [currentValue]);
+  // Sync displayValue when the committed value changes externally
+  React.useEffect(() => {
+    setDisplayValue(String(currentValue));
+  }, [currentValue]);
 
-    if (process.env.NODE_ENV !== "production") {
-      if (!ariaLabel && !ariaLabelledBy && !field.resolvedId) {
-        console.warn(
-          "[nuka-ui] NumberInput: provide aria-label, aria-labelledby, or wrap in FormField for accessibility.",
-        );
-      }
+  if (process.env.NODE_ENV !== "production") {
+    if (!ariaLabel && !ariaLabelledBy && !field.resolvedId) {
+      console.warn(
+        "[nuka-ui] NumberInput: provide aria-label, aria-labelledby, or wrap in FormField for accessibility.",
+      );
     }
+  }
 
-    const atMin = min !== undefined && currentValue <= min;
-    const atMax = max !== undefined && currentValue >= max;
+  const atMin = min !== undefined && currentValue <= min;
+  const atMax = max !== undefined && currentValue >= max;
 
-    const nudge = (direction: 1 | -1) => {
-      setCurrentValue(clamp(currentValue + step * direction, min, max));
-    };
+  const nudge = (direction: 1 | -1) => {
+    setCurrentValue(clamp(currentValue + step * direction, min, max));
+  };
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const raw = e.target.value;
-      setDisplayValue(raw);
-      if (raw === "" || raw === "-") return;
-      const parsed = Number(raw);
-      if (!Number.isNaN(parsed)) {
-        setCurrentValue(clamp(parsed, min, max));
-      }
-    };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = e.target.value;
+    setDisplayValue(raw);
+    if (raw === "" || raw === "-") return;
+    const parsed = Number(raw);
+    if (!Number.isNaN(parsed)) {
+      setCurrentValue(clamp(parsed, min, max));
+    }
+  };
 
-    const handleBlur = () => {
-      if (displayValue === "" || displayValue === "-") {
-        const clamped = clamp(currentValue, min, max);
-        setCurrentValue(clamped);
-        setDisplayValue(String(clamped));
-      }
-    };
+  const handleBlur = () => {
+    if (displayValue === "" || displayValue === "-") {
+      const clamped = clamp(currentValue, min, max);
+      setCurrentValue(clamped);
+      setDisplayValue(String(clamped));
+    }
+  };
 
-    const controlButton = (
-      direction: "increment" | "decrement",
-      isDisabled: boolean,
-      icon: React.ReactNode,
-    ) => (
-      <button
-        type="button"
-        aria-label={direction === "increment" ? incrementLabel : decrementLabel}
-        tabIndex={0}
-        disabled={field.resolvedDisabled === true || isDisabled}
-        onClick={() => nudge(direction === "increment" ? 1 : -1)}
+  const controlButton = (
+    direction: "increment" | "decrement",
+    isDisabled: boolean,
+    icon: React.ReactNode,
+  ) => (
+    <button
+      type="button"
+      aria-label={direction === "increment" ? incrementLabel : decrementLabel}
+      tabIndex={0}
+      disabled={field.resolvedDisabled === true || isDisabled}
+      onClick={() => nudge(direction === "increment" ? 1 : -1)}
+      className={cn(
+        "inline-flex items-center justify-center",
+        "px-(--space-2) text-(--nuka-text-muted)",
+        "hover:text-(--nuka-text-base) hover:bg-(--nuka-bg-muted)",
+        "disabled:opacity-50 disabled:pointer-events-none",
+        "transition-colors cursor-pointer",
+        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--nuka-border-focus)",
+        direction === "decrement" && "rounded-l-(--radius-md)",
+        direction === "increment" && "rounded-r-(--radius-md)",
+      )}
+    >
+      <Icon size="sm">{icon as React.ReactElement}</Icon>
+    </button>
+  );
+
+  const minusSvg = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <line x1="5" y1="12" x2="19" y2="12" />
+    </svg>
+  );
+
+  const plusSvg = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <line x1="12" y1="5" x2="12" y2="19" />
+      <line x1="5" y1="12" x2="19" y2="12" />
+    </svg>
+  );
+
+  const ariaInvalid =
+    field.ariaInvalid ?? (intent === "danger" ? true : undefined);
+
+  return (
+    <div
+      role="group"
+      aria-label={ariaLabel}
+      aria-labelledby={ariaLabelledBy}
+      className={cn("inline-flex items-stretch", className)}
+    >
+      {showControls && controlButton("decrement", atMin, minusSvg)}
+      <input
+        ref={ref}
+        type="number"
+        id={field.resolvedId}
+        value={displayValue}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        min={min}
+        max={max}
+        step={step}
+        disabled={field.resolvedDisabled}
         className={cn(
-          "inline-flex items-center justify-center",
-          "px-(--space-2) text-(--nuka-text-muted)",
-          "hover:text-(--nuka-text-base) hover:bg-(--nuka-bg-muted)",
-          "disabled:opacity-50 disabled:pointer-events-none",
-          "transition-colors cursor-pointer",
-          "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--nuka-border-focus)",
-          direction === "decrement" && "rounded-l-(--radius-md)",
-          direction === "increment" && "rounded-r-(--radius-md)",
+          inputVariants({ intent, size }),
+          "text-center rounded-none",
+          "[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none",
+          !showControls && "rounded-(--radius-md)",
         )}
-      >
-        <Icon size="sm">{icon as React.ReactElement}</Icon>
-      </button>
-    );
-
-    const minusSvg = (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <line x1="5" y1="12" x2="19" y2="12" />
-      </svg>
-    );
-
-    const plusSvg = (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <line x1="12" y1="5" x2="12" y2="19" />
-        <line x1="5" y1="12" x2="19" y2="12" />
-      </svg>
-    );
-
-    const ariaInvalid =
-      field.ariaInvalid ?? (intent === "danger" ? true : undefined);
-
-    return (
-      <div
-        role="group"
-        aria-label={ariaLabel}
-        aria-labelledby={ariaLabelledBy}
-        className={cn("inline-flex items-stretch", className)}
-      >
-        {showControls && controlButton("decrement", atMin, minusSvg)}
-        <input
-          ref={ref}
-          type="number"
-          id={field.resolvedId}
-          value={displayValue}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          min={min}
-          max={max}
-          step={step}
-          disabled={field.resolvedDisabled}
-          className={cn(
-            inputVariants({ intent, size }),
-            "text-center rounded-none",
-            "[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none",
-            !showControls && "rounded-(--radius-md)",
-          )}
-          aria-invalid={ariaInvalid}
-          aria-describedby={field.ariaDescribedBy}
-          aria-required={field.ariaRequired}
-          {...props}
-        />
-        {showControls && controlButton("increment", atMax, plusSvg)}
-      </div>
-    );
-  },
-);
+        aria-invalid={ariaInvalid}
+        aria-describedby={field.ariaDescribedBy}
+        aria-required={field.ariaRequired}
+        {...props}
+      />
+      {showControls && controlButton("increment", atMax, plusSvg)}
+    </div>
+  );
+}
 
 NumberInput.displayName = "NumberInput";
 

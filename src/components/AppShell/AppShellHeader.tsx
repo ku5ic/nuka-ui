@@ -2,11 +2,17 @@ import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 
 export interface AppShellHeaderProps extends React.HTMLAttributes<HTMLElement> {
+  ref?: React.Ref<HTMLElement> | undefined;
   border?: boolean;
 }
 
-const AppShellHeader = React.forwardRef<HTMLElement, AppShellHeaderProps>(
-  ({ border = true, className, ...props }, ref) => (
+function AppShellHeader({
+  ref,
+  border = true,
+  className,
+  ...props
+}: AppShellHeaderProps) {
+  return (
     <header
       ref={ref}
       className={cn(
@@ -19,8 +25,8 @@ const AppShellHeader = React.forwardRef<HTMLElement, AppShellHeaderProps>(
       )}
       {...props}
     />
-  ),
-);
+  );
+}
 
 AppShellHeader.displayName = "AppShellHeader";
 

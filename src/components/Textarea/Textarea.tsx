@@ -9,33 +9,40 @@ import {
 export interface TextareaProps
   extends
     React.TextareaHTMLAttributes<HTMLTextAreaElement>,
-    TextareaVariantProps {}
+    TextareaVariantProps {
+  ref?: React.Ref<HTMLTextAreaElement> | undefined;
+}
 
-const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ className, intent, size, id, ...props }, ref) => {
-    const field = useFormFieldProps({
-      id,
-      "aria-invalid": props["aria-invalid"],
-      "aria-describedby": props["aria-describedby"],
-      "aria-required": props["aria-required"],
-    });
+function Textarea({
+  ref,
+  className,
+  intent,
+  size,
+  id,
+  ...props
+}: TextareaProps) {
+  const field = useFormFieldProps({
+    id,
+    "aria-invalid": props["aria-invalid"],
+    "aria-describedby": props["aria-describedby"],
+    "aria-required": props["aria-required"],
+  });
 
-    const ariaInvalid =
-      field.ariaInvalid ?? (intent === "danger" ? true : undefined);
+  const ariaInvalid =
+    field.ariaInvalid ?? (intent === "danger" ? true : undefined);
 
-    return (
-      <textarea
-        ref={ref}
-        id={field.resolvedId}
-        className={cn(textareaVariants({ intent, size }), className)}
-        {...props}
-        aria-invalid={ariaInvalid}
-        aria-describedby={field.ariaDescribedBy}
-        aria-required={field.ariaRequired}
-      />
-    );
-  },
-);
+  return (
+    <textarea
+      ref={ref}
+      id={field.resolvedId}
+      className={cn(textareaVariants({ intent, size }), className)}
+      {...props}
+      aria-invalid={ariaInvalid}
+      aria-describedby={field.ariaDescribedBy}
+      aria-required={field.ariaRequired}
+    />
+  );
+}
 
 Textarea.displayName = "Textarea";
 

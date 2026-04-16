@@ -13,18 +13,24 @@ type VisuallyHiddenElement =
   | "h6";
 
 export interface VisuallyHiddenProps extends React.HTMLAttributes<HTMLElement> {
+  ref?: React.Ref<HTMLElement> | undefined;
   as?: VisuallyHiddenElement;
 }
 
-const VisuallyHidden = React.forwardRef<HTMLElement, VisuallyHiddenProps>(
-  ({ as: Comp = "span", className, ...props }, ref) => (
+function VisuallyHidden({
+  ref,
+  as: Comp = "span",
+  className,
+  ...props
+}: VisuallyHiddenProps) {
+  return (
     <Comp
       ref={ref as React.RefObject<never>}
       className={cn("sr-only", className)}
       {...props}
     />
-  ),
-);
+  );
+}
 
 VisuallyHidden.displayName = "VisuallyHidden";
 

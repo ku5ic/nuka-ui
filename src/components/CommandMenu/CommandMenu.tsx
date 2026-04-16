@@ -161,12 +161,11 @@ const SearchIcon = () => (
 export interface CommandMenuInputProps extends Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
   "value" | "onChange"
-> {}
+> {
+  ref?: React.Ref<HTMLInputElement> | undefined;
+}
 
-const CommandMenuInput = React.forwardRef<
-  HTMLInputElement,
-  CommandMenuInputProps
->(({ className, ...props }, ref) => {
+function CommandMenuInput({ ref, className, ...props }: CommandMenuInputProps) {
   const ctx = useCommandMenuContext();
   const internalRef = React.useRef<HTMLInputElement>(null);
   const composedRef = React.useCallback(
@@ -296,48 +295,52 @@ const CommandMenuInput = React.forwardRef<
       />
     </div>
   );
-});
+}
 
 CommandMenuInput.displayName = "CommandMenuInput";
 
-export interface CommandMenuListProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface CommandMenuListProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
+}
 
-const CommandMenuList = React.forwardRef<HTMLDivElement, CommandMenuListProps>(
-  ({ className, ...props }, ref) => {
-    const ctx = useCommandMenuContext();
-    const composedRef = React.useCallback(
-      (node: HTMLDivElement | null) => {
-        ctx.listRef.current = node;
-        if (typeof ref === "function") {
-          ref(node);
-        } else if (ref != null) {
-          ref.current = node;
-        }
-      },
-      [ref, ctx.listRef],
-    );
+function CommandMenuList({ ref, className, ...props }: CommandMenuListProps) {
+  const ctx = useCommandMenuContext();
+  const composedRef = React.useCallback(
+    (node: HTMLDivElement | null) => {
+      ctx.listRef.current = node;
+      if (typeof ref === "function") {
+        ref(node);
+      } else if (ref != null) {
+        ref.current = node;
+      }
+    },
+    [ref, ctx.listRef],
+  );
 
-    return (
-      <div
-        ref={composedRef}
-        id={ctx.listboxId}
-        role="listbox"
-        aria-label="Suggestions"
-        className={cn("overflow-y-auto max-h-80 p-(--space-1)", className)}
-        {...props}
-      />
-    );
-  },
-);
+  return (
+    <div
+      ref={composedRef}
+      id={ctx.listboxId}
+      role="listbox"
+      aria-label="Suggestions"
+      className={cn("overflow-y-auto max-h-80 p-(--space-1)", className)}
+      {...props}
+    />
+  );
+}
 
 CommandMenuList.displayName = "CommandMenuList";
 
-export interface CommandMenuEmptyProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface CommandMenuEmptyProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
+}
 
-const CommandMenuEmpty = React.forwardRef<
-  HTMLDivElement,
-  CommandMenuEmptyProps
->(({ className, children, ...props }, ref) => {
+function CommandMenuEmpty({
+  ref,
+  className,
+  children,
+  ...props
+}: CommandMenuEmptyProps) {
   const ctx = useCommandMenuContext();
 
   if (ctx.visibleCount > 0) return null;
@@ -354,18 +357,22 @@ const CommandMenuEmpty = React.forwardRef<
       </Text>
     </div>
   );
-});
+}
 
 CommandMenuEmpty.displayName = "CommandMenuEmpty";
 
 export interface CommandMenuGroupProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
   heading?: string;
 }
 
-const CommandMenuGroup = React.forwardRef<
-  HTMLDivElement,
-  CommandMenuGroupProps
->(({ heading, className, children, ...props }, ref) => {
+function CommandMenuGroup({
+  ref,
+  heading,
+  className,
+  children,
+  ...props
+}: CommandMenuGroupProps) {
   const headingId = React.useId();
   const groupRef = React.useRef<HTMLDivElement>(null);
   const [hasVisibleItems, setHasVisibleItems] = React.useState(true);
@@ -414,7 +421,7 @@ const CommandMenuGroup = React.forwardRef<
       {children}
     </div>
   );
-});
+}
 
 CommandMenuGroup.displayName = "CommandMenuGroup";
 
@@ -422,93 +429,102 @@ export interface CommandMenuItemProps extends Omit<
   React.HTMLAttributes<HTMLDivElement>,
   "onSelect"
 > {
+  ref?: React.Ref<HTMLDivElement> | undefined;
   value?: string;
   disabled?: boolean;
   onSelect?: () => void;
 }
 
-const CommandMenuItem = React.forwardRef<HTMLDivElement, CommandMenuItemProps>(
-  (
-    { value, disabled = false, onSelect, className, children, ...props },
-    ref,
-  ) => {
-    const ctx = useCommandMenuContext();
-    const itemId = React.useId();
-    const internalRef = React.useRef<HTMLDivElement>(null);
+function CommandMenuItem({
+  ref,
+  value,
+  disabled = false,
+  onSelect,
+  className,
+  children,
+  ...props
+}: CommandMenuItemProps) {
+  const ctx = useCommandMenuContext();
+  const itemId = React.useId();
+  const internalRef = React.useRef<HTMLDivElement>(null);
 
-    const composedRef = React.useCallback(
-      (node: HTMLDivElement | null) => {
-        internalRef.current = node;
-        if (typeof ref === "function") {
-          ref(node);
-        } else if (ref != null) {
-          ref.current = node;
-        }
-      },
-      [ref],
-    );
-
-    const isFiltered =
-      value != null &&
-      ctx.filter !== "" &&
-      !value.toLowerCase().includes(ctx.filter.toLowerCase());
-
-    const isActive = ctx.activeItemId === itemId;
-
-    // Auto-scroll active item into view
-    React.useEffect(() => {
-      if (isActive && internalRef.current != null) {
-        internalRef.current.scrollIntoView({ block: "nearest" });
+  const composedRef = React.useCallback(
+    (node: HTMLDivElement | null) => {
+      internalRef.current = node;
+      if (typeof ref === "function") {
+        ref(node);
+      } else if (ref != null) {
+        ref.current = node;
       }
-    }, [isActive]);
+    },
+    [ref],
+  );
 
-    const handleClick = () => {
-      if (disabled) return;
-      onSelect?.();
-      ctx.onOpenChange(false);
-    };
+  const isFiltered =
+    value != null &&
+    ctx.filter !== "" &&
+    !value.toLowerCase().includes(ctx.filter.toLowerCase());
 
-    return (
-      <div
-        ref={composedRef}
-        id={itemId}
-        role="option"
-        aria-selected={isActive}
-        aria-disabled={disabled || undefined}
-        hidden={isFiltered || undefined}
-        onClick={handleClick}
-        className={cn(
-          "flex items-center gap-(--space-2)",
-          "px-(--space-3) py-(--space-2)",
-          "rounded-(--radius-md) text-sm cursor-default",
-          "select-none",
-          isActive && "bg-(--nuka-bg-muted)",
-          disabled ? "text-(--nuka-text-disabled)" : "text-(--nuka-text-base)",
-          className,
-        )}
-        {...props}
-      >
-        {children}
-      </div>
-    );
-  },
-);
+  const isActive = ctx.activeItemId === itemId;
+
+  // Auto-scroll active item into view
+  React.useEffect(() => {
+    if (isActive && internalRef.current != null) {
+      internalRef.current.scrollIntoView({ block: "nearest" });
+    }
+  }, [isActive]);
+
+  const handleClick = () => {
+    if (disabled) return;
+    onSelect?.();
+    ctx.onOpenChange(false);
+  };
+
+  return (
+    <div
+      ref={composedRef}
+      id={itemId}
+      role="option"
+      aria-selected={isActive}
+      aria-disabled={disabled || undefined}
+      hidden={isFiltered || undefined}
+      onClick={handleClick}
+      className={cn(
+        "flex items-center gap-(--space-2)",
+        "px-(--space-3) py-(--space-2)",
+        "rounded-(--radius-md) text-sm cursor-default",
+        "select-none",
+        isActive && "bg-(--nuka-bg-muted)",
+        disabled ? "text-(--nuka-text-disabled)" : "text-(--nuka-text-base)",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+}
 
 CommandMenuItem.displayName = "CommandMenuItem";
 
-export interface CommandMenuShortcutProps extends React.HTMLAttributes<HTMLSpanElement> {}
+export interface CommandMenuShortcutProps extends React.HTMLAttributes<HTMLSpanElement> {
+  ref?: React.Ref<HTMLSpanElement> | undefined;
+}
 
-const CommandMenuShortcut = React.forwardRef<
-  HTMLSpanElement,
-  CommandMenuShortcutProps
->(({ className, ...props }, ref) => (
-  <span
-    ref={ref}
-    aria-hidden="true"
-    className={cn("ml-auto text-xs text-(--nuka-text-muted)", className)}
-    {...props}
-  />
-));
+function CommandMenuShortcut({
+  ref,
+  className,
+  ...props
+}: CommandMenuShortcutProps) {
+  return (
+    <span
+      ref={ref}
+      aria-hidden="true"
+      className={cn("ml-auto text-xs text-(--nuka-text-muted)", className)}
+      {...props}
+    />
+  );
+}
 
 CommandMenuShortcut.displayName = "CommandMenuShortcut";
 

@@ -10,6 +10,7 @@ import {
 
 export interface TableProps
   extends React.HTMLAttributes<HTMLDivElement>, TableVariantProps {
+  ref?: React.Ref<HTMLDivElement> | undefined;
   caption: string;
 }
 
@@ -17,30 +18,35 @@ export interface TableProps
 // Consumers who need the <table> element directly can use a callback ref
 // on a child or query the DOM. This is an acceptable tradeoff for the
 // overflow-x-auto scroll wrapper pattern.
-const Table = React.forwardRef<HTMLDivElement, TableProps>(
-  ({ caption, variant = "default", className, children, ...props }, ref) => {
-    const contextValue: TableContextValue = React.useMemo(
-      () => ({ variant: variant ?? "default" }),
-      [variant],
-    );
+function Table({
+  ref,
+  caption,
+  variant = "default",
+  className,
+  children,
+  ...props
+}: TableProps) {
+  const contextValue: TableContextValue = React.useMemo(
+    () => ({ variant: variant ?? "default" }),
+    [variant],
+  );
 
-    return (
-      <TableContext value={contextValue}>
-        <div
-          ref={ref}
-          data-variant={variant}
-          className={cn(tableVariants({ variant }), className)}
-          {...props}
-        >
-          <table className="w-full border-collapse text-sm">
-            <caption className="sr-only">{caption}</caption>
-            {children}
-          </table>
-        </div>
-      </TableContext>
-    );
-  },
-);
+  return (
+    <TableContext value={contextValue}>
+      <div
+        ref={ref}
+        data-variant={variant}
+        className={cn(tableVariants({ variant }), className)}
+        {...props}
+      >
+        <table className="w-full border-collapse text-sm">
+          <caption className="sr-only">{caption}</caption>
+          {children}
+        </table>
+      </div>
+    </TableContext>
+  );
+}
 
 Table.displayName = "Table";
 

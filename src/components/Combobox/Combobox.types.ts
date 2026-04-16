@@ -26,10 +26,12 @@ export interface ComboboxTriggerProps
   extends
     Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "children">,
     ComboboxTriggerVariantProps {
+  ref?: React.Ref<HTMLButtonElement> | undefined;
   placeholder?: string;
 }
 
 export interface ComboboxContentProps {
+  ref?: React.Ref<HTMLDivElement> | undefined;
   className?: string;
   children: React.ReactNode;
 }
@@ -37,11 +39,16 @@ export interface ComboboxContentProps {
 export interface ComboboxInputProps extends Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
   "value" | "onChange"
-> {}
+> {
+  ref?: React.Ref<HTMLInputElement> | undefined;
+}
 
-export interface ComboboxListboxProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface ComboboxListboxProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
+}
 
 export interface ComboboxOptionProps {
+  ref?: React.Ref<HTMLDivElement> | undefined;
   value: string;
   disabled?: boolean;
   className?: string;
@@ -50,10 +57,13 @@ export interface ComboboxOptionProps {
 }
 
 export interface ComboboxGroupProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
   label?: string;
 }
 
-export interface ComboboxEmptyProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface ComboboxEmptyProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
+}
 
 export interface ComboboxContextValue {
   open: boolean;

@@ -1,13 +1,13 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 
-export interface TableBodyProps extends React.HTMLAttributes<HTMLTableSectionElement> {}
+export interface TableBodyProps extends React.HTMLAttributes<HTMLTableSectionElement> {
+  ref?: React.Ref<HTMLTableSectionElement> | undefined;
+}
 
-const TableBody = React.forwardRef<HTMLTableSectionElement, TableBodyProps>(
-  ({ className, ...props }, ref) => (
-    <tbody ref={ref} className={cn(className)} {...props} />
-  ),
-);
+function TableBody({ ref, className, ...props }: TableBodyProps) {
+  return <tbody ref={ref} className={cn(className)} {...props} />;
+}
 
 TableBody.displayName = "TableBody";
 

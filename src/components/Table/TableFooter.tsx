@@ -1,10 +1,12 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 
-export interface TableFooterProps extends React.HTMLAttributes<HTMLTableSectionElement> {}
+export interface TableFooterProps extends React.HTMLAttributes<HTMLTableSectionElement> {
+  ref?: React.Ref<HTMLTableSectionElement> | undefined;
+}
 
-const TableFooter = React.forwardRef<HTMLTableSectionElement, TableFooterProps>(
-  ({ className, ...props }, ref) => (
+function TableFooter({ ref, className, ...props }: TableFooterProps) {
+  return (
     <tfoot
       ref={ref}
       className={cn(
@@ -15,8 +17,8 @@ const TableFooter = React.forwardRef<HTMLTableSectionElement, TableFooterProps>(
       )}
       {...props}
     />
-  ),
-);
+  );
+}
 
 TableFooter.displayName = "TableFooter";
 

@@ -11,12 +11,16 @@ import {
   useAutoFocusFirstItem,
 } from "@nuka/components/Menu/MenuContentBase";
 
-export interface ContextMenuContentProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface ContextMenuContentProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
+}
 
-const ContextMenuContent = React.forwardRef<
-  HTMLDivElement,
-  ContextMenuContentProps
->(({ className, children, ...props }, ref) => {
+function ContextMenuContent({
+  ref,
+  className,
+  children,
+  ...props
+}: ContextMenuContentProps) {
   const ctx = useContextMenuContext();
   const contentRef = React.useRef<HTMLDivElement>(null);
   const composedRef = composeRefs(ref, contentRef, ctx.refs.setFloating);
@@ -62,7 +66,7 @@ const ContextMenuContent = React.forwardRef<
       </MenuItemContext>
     </Portal>
   );
-});
+}
 
 ContextMenuContent.displayName = "ContextMenuContent";
 

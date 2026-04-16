@@ -4,6 +4,7 @@ import { cn } from "@nuka/utils/cn";
 import { Icon } from "@nuka/components/Icon";
 
 export interface NavTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  ref?: React.Ref<HTMLButtonElement> | undefined;
   asChild?: boolean;
 }
 
@@ -34,24 +35,16 @@ const triggerClasses = [
   "focus-visible:outline-(--nuka-border-focus)",
 ] as const;
 
-const NavTrigger = React.forwardRef<HTMLButtonElement, NavTriggerProps>(
-  ({ asChild = false, className, children, ...props }, ref) => {
-    if (asChild) {
-      return (
-        <Slot
-          ref={ref}
-          type="button"
-          aria-haspopup="true"
-          className={cn(...triggerClasses, className)}
-          {...props}
-        >
-          {children}
-        </Slot>
-      );
-    }
-
+function NavTrigger({
+  ref,
+  asChild = false,
+  className,
+  children,
+  ...props
+}: NavTriggerProps) {
+  if (asChild) {
     return (
-      <button
+      <Slot
         ref={ref}
         type="button"
         aria-haspopup="true"
@@ -59,11 +52,23 @@ const NavTrigger = React.forwardRef<HTMLButtonElement, NavTriggerProps>(
         {...props}
       >
         {children}
-        {chevron}
-      </button>
+      </Slot>
     );
-  },
-);
+  }
+
+  return (
+    <button
+      ref={ref}
+      type="button"
+      aria-haspopup="true"
+      className={cn(...triggerClasses, className)}
+      {...props}
+    >
+      {children}
+      {chevron}
+    </button>
+  );
+}
 
 NavTrigger.displayName = "NavTrigger";
 

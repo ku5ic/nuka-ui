@@ -38,62 +38,62 @@ const ExpandIcon = () => (
   </svg>
 );
 
-export interface SidebarTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+export interface SidebarTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  ref?: React.Ref<HTMLButtonElement> | undefined;
+}
 
-const SidebarTrigger = React.forwardRef<HTMLButtonElement, SidebarTriggerProps>(
-  ({ className, ...props }, ref) => {
-    const { expanded, setExpanded, isMobile, setMobileOpen, mobileOpen } =
-      useSidebarContext();
+function SidebarTrigger({ ref, className, ...props }: SidebarTriggerProps) {
+  const { expanded, setExpanded, isMobile, setMobileOpen, mobileOpen } =
+    useSidebarContext();
 
-    function handleClick() {
-      if (isMobile) {
-        setMobileOpen(!mobileOpen);
-      } else {
-        setExpanded(!expanded);
-      }
+  function handleClick() {
+    if (isMobile) {
+      setMobileOpen(!mobileOpen);
+    } else {
+      setExpanded(!expanded);
     }
+  }
 
-    const IconSvg = isMobile
-      ? mobileOpen
-        ? CloseIcon
-        : MenuIcon
-      : expanded
-        ? CollapseIcon
-        : ExpandIcon;
+  const IconSvg = isMobile
+    ? mobileOpen
+      ? CloseIcon
+      : MenuIcon
+    : expanded
+      ? CollapseIcon
+      : ExpandIcon;
 
-    return (
-      <button
-        ref={ref}
-        type="button"
-        aria-label={
-          isMobile
-            ? mobileOpen
-              ? "Close navigation"
-              : "Open navigation"
-            : expanded
-              ? "Collapse sidebar"
-              : "Expand sidebar"
-        }
-        onClick={handleClick}
-        className={cn(
-          "inline-flex items-center justify-center",
-          "w-8 h-8 rounded-(--radius-md)",
-          "text-(--nuka-text-muted)",
-          "hover:bg-(--nuka-bg-muted) hover:text-(--nuka-text-base)",
-          "transition-colors duration-150",
-          "focus-visible:outline-2 focus-visible:outline-offset-2",
-          "focus-visible:outline-(--nuka-border-focus)",
-          className,
-        )}
-        {...props}
-      >
-        <Icon size="sm">
-          <IconSvg />
-        </Icon>
-      </button>
-    );
-  },
-);
+  return (
+    <button
+      ref={ref}
+      type="button"
+      aria-label={
+        isMobile
+          ? mobileOpen
+            ? "Close navigation"
+            : "Open navigation"
+          : expanded
+            ? "Collapse sidebar"
+            : "Expand sidebar"
+      }
+      onClick={handleClick}
+      className={cn(
+        "inline-flex items-center justify-center",
+        "w-8 h-8 rounded-(--radius-md)",
+        "text-(--nuka-text-muted)",
+        "hover:bg-(--nuka-bg-muted) hover:text-(--nuka-text-base)",
+        "transition-colors duration-150",
+        "focus-visible:outline-2 focus-visible:outline-offset-2",
+        "focus-visible:outline-(--nuka-border-focus)",
+        className,
+      )}
+      {...props}
+    >
+      <Icon size="sm">
+        <IconSvg />
+      </Icon>
+    </button>
+  );
+}
 
 SidebarTrigger.displayName = "SidebarTrigger";
 

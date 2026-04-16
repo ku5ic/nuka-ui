@@ -41,75 +41,72 @@ const SortDescIcon = () => (
 export type SortDirection = "asc" | "desc" | "none";
 
 export interface TableHeadProps extends React.ThHTMLAttributes<HTMLTableCellElement> {
+  ref?: React.Ref<HTMLTableCellElement> | undefined;
   sortable?: boolean;
   sortDirection?: SortDirection;
   onSort?: () => void;
 }
 
-const TableHead = React.forwardRef<HTMLTableCellElement, TableHeadProps>(
-  (
-    {
-      sortable = false,
-      sortDirection = "none",
-      onSort,
-      className,
-      children,
-      ...props
-    },
-    ref,
-  ) => {
-    const { variant } = useTableContext();
-    const isBordered = variant === "bordered";
+function TableHead({
+  ref,
+  sortable = false,
+  sortDirection = "none",
+  onSort,
+  className,
+  children,
+  ...props
+}: TableHeadProps) {
+  const { variant } = useTableContext();
+  const isBordered = variant === "bordered";
 
-    return (
-      <th
-        ref={ref}
-        scope="col"
-        aria-sort={sortable ? ariaSortMap[sortDirection] : undefined}
-        className={cn(
-          "text-left font-medium text-(--nuka-text-muted)",
-          "px-(--space-4) py-(--space-3)",
-          isBordered && "border-r border-(--nuka-border-base) last:border-r-0",
-          className,
-        )}
-        {...props}
-      >
-        {sortable ? (
-          <button
-            type="button"
-            onClick={onSort}
-            className={cn(
-              "group inline-flex items-center gap-(--space-1)",
-              "rounded-(--radius-sm)",
-              "-mx-(--space-1) px-(--space-1)",
-              "hover:bg-(--nuka-bg-muted)",
-              "focus-visible:outline-2 focus-visible:outline-offset-2",
-              "focus-visible:outline-(--nuka-border-focus)",
+  return (
+    <th
+      ref={ref}
+      scope="col"
+      aria-sort={sortable ? ariaSortMap[sortDirection] : undefined}
+      className={cn(
+        "text-left font-medium text-(--nuka-text-muted)",
+        "px-(--space-4) py-(--space-3)",
+        isBordered && "border-r border-(--nuka-border-base) last:border-r-0",
+        className,
+      )}
+      {...props}
+    >
+      {sortable ? (
+        <button
+          type="button"
+          onClick={onSort}
+          className={cn(
+            "group inline-flex items-center gap-(--space-1)",
+            "rounded-(--radius-sm)",
+            "-mx-(--space-1) px-(--space-1)",
+            "hover:bg-(--nuka-bg-muted)",
+            "focus-visible:outline-2 focus-visible:outline-offset-2",
+            "focus-visible:outline-(--nuka-border-focus)",
+          )}
+        >
+          {children}
+          <Icon size="sm">
+            {sortDirection === "desc" ? (
+              <SortDescIcon />
+            ) : (
+              <span
+                className={cn(
+                  sortDirection === "none" &&
+                    "opacity-0 group-hover:opacity-50",
+                )}
+              >
+                <SortAscIcon />
+              </span>
             )}
-          >
-            {children}
-            <Icon size="sm">
-              {sortDirection === "desc" ? (
-                <SortDescIcon />
-              ) : (
-                <span
-                  className={cn(
-                    sortDirection === "none" &&
-                      "opacity-0 group-hover:opacity-50",
-                  )}
-                >
-                  <SortAscIcon />
-                </span>
-              )}
-            </Icon>
-          </button>
-        ) : (
-          children
-        )}
-      </th>
-    );
-  },
-);
+          </Icon>
+        </button>
+      ) : (
+        children
+      )}
+    </th>
+  );
+}
 
 TableHead.displayName = "TableHead";
 

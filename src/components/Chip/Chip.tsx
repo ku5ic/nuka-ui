@@ -9,22 +9,21 @@ export interface ChipProps
   extends
     Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "color">,
     Omit<ChipVariantProps, "selected"> {
+  ref?: React.Ref<HTMLButtonElement> | undefined;
   selected?: boolean;
 }
 
-const Chip = React.forwardRef<HTMLButtonElement, ChipProps>(
-  (
-    {
-      className,
-      variant,
-      intent,
-      size,
-      selected = false,
-      type = "button",
-      ...props
-    },
-    ref,
-  ) => (
+function Chip({
+  ref,
+  className,
+  variant,
+  intent,
+  size,
+  selected = false,
+  type = "button",
+  ...props
+}: ChipProps) {
+  return (
     <button
       ref={ref}
       type={type}
@@ -35,8 +34,8 @@ const Chip = React.forwardRef<HTMLButtonElement, ChipProps>(
       )}
       {...props}
     />
-  ),
-);
+  );
+}
 
 Chip.displayName = "Chip";
 

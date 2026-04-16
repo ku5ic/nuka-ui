@@ -10,29 +10,35 @@ import type { Responsive, AspectRatioValue } from "@nuka/utils/responsive";
 export type { AspectRatioValue };
 
 export interface AspectRatioProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
   ratio?: Responsive<AspectRatioValue>;
   asChild?: boolean;
 }
 
-const AspectRatio = React.forwardRef<HTMLDivElement, AspectRatioProps>(
-  ({ ratio = "1/1", asChild = false, className, children, ...props }, ref) => {
-    const Comp = asChild ? Slot : "div";
+function AspectRatio({
+  ref,
+  ratio = "1/1",
+  asChild = false,
+  className,
+  children,
+  ...props
+}: AspectRatioProps) {
+  const Comp = asChild ? Slot : "div";
 
-    return (
-      <Comp
-        ref={ref}
-        className={cn(
-          "w-full overflow-hidden",
-          ...resolveResponsiveClasses(ratio, aspectRatioClasses),
-          className,
-        )}
-        {...props}
-      >
-        {children}
-      </Comp>
-    );
-  },
-);
+  return (
+    <Comp
+      ref={ref}
+      className={cn(
+        "w-full overflow-hidden",
+        ...resolveResponsiveClasses(ratio, aspectRatioClasses),
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </Comp>
+  );
+}
 
 AspectRatio.displayName = "AspectRatio";
 

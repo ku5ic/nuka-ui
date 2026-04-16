@@ -2,11 +2,17 @@ import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 
 export interface NavSubmenuProps extends React.HTMLAttributes<HTMLUListElement> {
+  ref?: React.Ref<HTMLUListElement> | undefined;
   align?: "start" | "end";
 }
 
-const NavSubmenu = React.forwardRef<HTMLUListElement, NavSubmenuProps>(
-  ({ align = "start", className, ...props }, ref) => (
+function NavSubmenu({
+  ref,
+  align = "start",
+  className,
+  ...props
+}: NavSubmenuProps) {
+  return (
     <ul
       ref={ref}
       className={cn(
@@ -23,8 +29,8 @@ const NavSubmenu = React.forwardRef<HTMLUListElement, NavSubmenuProps>(
       )}
       {...props}
     />
-  ),
-);
+  );
+}
 
 NavSubmenu.displayName = "NavSubmenu";
 

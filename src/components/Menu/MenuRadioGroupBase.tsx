@@ -1,6 +1,7 @@
 import * as React from "react";
 
 export interface MenuRadioGroupBaseProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
   value: string;
   onValueChange?: (value: string) => void;
   "aria-label"?: string;
@@ -23,10 +24,13 @@ function useMenuRadioGroup() {
   return ctx;
 }
 
-const MenuRadioGroupBase = React.forwardRef<
-  HTMLDivElement,
-  MenuRadioGroupBaseProps
->(({ value, onValueChange, children, ...props }, ref) => {
+function MenuRadioGroupBase({
+  ref,
+  value,
+  onValueChange,
+  children,
+  ...props
+}: MenuRadioGroupBaseProps) {
   const ctxValue = React.useMemo(
     () => ({ value, onValueChange }),
     [value, onValueChange],
@@ -39,7 +43,7 @@ const MenuRadioGroupBase = React.forwardRef<
       </div>
     </MenuRadioGroupContext>
   );
-});
+}
 
 MenuRadioGroupBase.displayName = "MenuRadioGroupBase";
 

@@ -3,12 +3,16 @@ import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 import { useCollapsibleContext } from "@nuka/components/Collapsible/Collapsible.context";
 
-export interface CollapsibleContentProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface CollapsibleContentProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
+}
 
-const CollapsibleContent = React.forwardRef<
-  HTMLDivElement,
-  CollapsibleContentProps
->(({ className, children, ...props }, ref) => {
+function CollapsibleContent({
+  ref,
+  className,
+  children,
+  ...props
+}: CollapsibleContentProps) {
   const { open, contentId, triggerId } = useCollapsibleContext();
 
   return (
@@ -30,7 +34,7 @@ const CollapsibleContent = React.forwardRef<
       <div className="overflow-hidden">{children}</div>
     </div>
   );
-});
+}
 
 CollapsibleContent.displayName = "CollapsibleContent";
 

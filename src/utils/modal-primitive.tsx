@@ -53,6 +53,7 @@ export interface ModalRootProps {
 }
 
 export interface ModalTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  ref?: React.Ref<HTMLButtonElement> | undefined;
   asChild?: boolean;
 }
 
@@ -60,32 +61,28 @@ export interface ModalTitleProps extends Omit<
   React.HTMLAttributes<HTMLElement>,
   "color"
 > {
+  ref?: React.Ref<HTMLElement> | undefined;
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 }
 
 export interface ModalDescriptionProps extends Omit<
   React.HTMLAttributes<HTMLElement>,
   "color"
-> {}
+> {
+  ref?: React.Ref<HTMLElement> | undefined;
+}
 
 export interface ModalCloseProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  ref?: React.Ref<HTMLButtonElement> | undefined;
   asChild?: boolean;
 }
 
 interface ModalPrimitiveResult {
   Root: React.FC<ModalRootProps>;
-  Trigger: React.ForwardRefExoticComponent<
-    ModalTriggerProps & React.RefAttributes<HTMLButtonElement>
-  >;
-  Title: React.ForwardRefExoticComponent<
-    ModalTitleProps & React.RefAttributes<HTMLElement>
-  >;
-  Description: React.ForwardRefExoticComponent<
-    ModalDescriptionProps & React.RefAttributes<HTMLElement>
-  >;
-  Close: React.ForwardRefExoticComponent<
-    ModalCloseProps & React.RefAttributes<HTMLButtonElement>
-  >;
+  Trigger: React.FC<ModalTriggerProps>;
+  Title: React.FC<ModalTitleProps>;
+  Description: React.FC<ModalDescriptionProps>;
+  Close: React.FC<ModalCloseProps>;
 }
 
 function createModalPrimitive(
@@ -127,99 +124,96 @@ function createModalPrimitive(
 
   Root.displayName = displayNamePrefix;
 
-  const Trigger = React.forwardRef<HTMLButtonElement, ModalTriggerProps>(
-    ({ asChild = false, onClick, ...props }, ref) => {
-      const ctx = useContext();
-      const Comp = asChild ? Slot : "button";
+  function Trigger({
+    ref,
+    asChild = false,
+    onClick,
+    ...props
+  }: ModalTriggerProps) {
+    const ctx = useContext();
+    const Comp = asChild ? Slot : "button";
 
-      const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-        ctx.onOpenChange(true);
-        onClick?.(e);
-      };
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+      ctx.onOpenChange(true);
+      onClick?.(e);
+    };
 
-      return (
-        <Comp
-          ref={ref}
-          type={asChild ? undefined : "button"}
-          aria-haspopup="dialog"
-          aria-expanded={ctx.open}
-          onClick={handleClick}
-          {...props}
-        />
-      );
-    },
-  );
+    return (
+      <Comp
+        ref={ref}
+        type={asChild ? undefined : "button"}
+        aria-haspopup="dialog"
+        aria-expanded={ctx.open}
+        onClick={handleClick}
+        {...props}
+      />
+    );
+  }
 
   Trigger.displayName = `${displayNamePrefix}Trigger`;
 
-  const Title = React.forwardRef<HTMLElement, ModalTitleProps>(
-    ({ as = "h2", className, ...props }, ref) => {
-      const ctx = useContext();
+  function Title({ ref, as = "h2", className, ...props }: ModalTitleProps) {
+    const ctx = useContext();
 
-      return (
-        <Heading
-          ref={ref}
-          as={as}
-          size="xl"
-          weight="semibold"
-          id={ctx.titleId}
-          className={className}
-          {...props}
-        />
-      );
-    },
-  );
+    return (
+      <Heading
+        ref={ref}
+        as={as}
+        size="xl"
+        weight="semibold"
+        id={ctx.titleId}
+        className={className}
+        {...props}
+      />
+    );
+  }
 
   Title.displayName = `${displayNamePrefix}Title`;
 
-  const Description = React.forwardRef<HTMLElement, ModalDescriptionProps>(
-    ({ className, ...props }, ref) => {
-      const ctx = useContext();
+  function Description({ ref, className, ...props }: ModalDescriptionProps) {
+    const ctx = useContext();
 
-      const { setHasDescription } = ctx;
-      React.useEffect(() => {
-        setHasDescription(true);
-        return () => setHasDescription(false);
-      }, [setHasDescription]);
+    const { setHasDescription } = ctx;
+    React.useEffect(() => {
+      setHasDescription(true);
+      return () => setHasDescription(false);
+    }, [setHasDescription]);
 
-      return (
-        <Text
-          ref={ref}
-          color="muted"
-          size="sm"
-          id={ctx.descriptionId}
-          className={cn("mt-(--space-2)", className)}
-          {...props}
-        />
-      );
-    },
-  );
+    return (
+      <Text
+        ref={ref}
+        color="muted"
+        size="sm"
+        id={ctx.descriptionId}
+        className={cn("mt-(--space-2)", className)}
+        {...props}
+      />
+    );
+  }
 
   Description.displayName = `${displayNamePrefix}Description`;
 
-  const Close = React.forwardRef<HTMLButtonElement, ModalCloseProps>(
-    ({ asChild = false, onClick, ...props }, ref) => {
-      const ctx = useContext();
+  function Close({ ref, asChild = false, onClick, ...props }: ModalCloseProps) {
+    const ctx = useContext();
 
-      const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-        ctx.onOpenChange(false);
-        onClick?.(e);
-      };
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+      ctx.onOpenChange(false);
+      onClick?.(e);
+    };
 
-      if (asChild) {
-        return <Slot ref={ref} onClick={handleClick} {...props} />;
-      }
+    if (asChild) {
+      return <Slot ref={ref} onClick={handleClick} {...props} />;
+    }
 
-      return (
-        <DismissButton
-          {...props}
-          ref={ref}
-          onClick={() => ctx.onOpenChange(false)}
-          label={closeLabel}
-        />
-      );
-    },
-  );
+    return (
+      <DismissButton
+        {...props}
+        ref={ref}
+        onClick={() => ctx.onOpenChange(false)}
+        label={closeLabel}
+      />
+    );
+  }
 
   Close.displayName = `${displayNamePrefix}Close`;
 

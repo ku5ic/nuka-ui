@@ -7,27 +7,27 @@ import { useStepperContext } from "@nuka/components/Stepper/Stepper.context";
 export interface StepperTitleProps extends Omit<
   React.HTMLAttributes<HTMLElement>,
   "color"
-> {}
+> {
+  ref?: React.Ref<HTMLElement> | undefined;
+}
 
-const StepperTitle = React.forwardRef<HTMLElement, StepperTitleProps>(
-  ({ className, ...props }, ref) => {
-    const { orientation } = useStepperContext();
+function StepperTitle({ ref, className, ...props }: StepperTitleProps) {
+  const { orientation } = useStepperContext();
 
-    return (
-      <Text
-        ref={ref}
-        as="span"
-        size="sm"
-        weight="medium"
-        className={cn(
-          orientation === "horizontal" && "whitespace-nowrap",
-          className,
-        )}
-        {...props}
-      />
-    );
-  },
-);
+  return (
+    <Text
+      ref={ref}
+      as="span"
+      size="sm"
+      weight="medium"
+      className={cn(
+        orientation === "horizontal" && "whitespace-nowrap",
+        className,
+      )}
+      {...props}
+    />
+  );
+}
 
 StepperTitle.displayName = "StepperTitle";
 

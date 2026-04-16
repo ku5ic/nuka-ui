@@ -26,42 +26,41 @@ const positionClasses: Record<ToasterPosition, string> = {
 const emptySnapshot: ToastItem[] = [];
 
 export interface ToasterProps {
+  ref?: React.Ref<HTMLDivElement> | undefined;
   position?: ToasterPosition;
   className?: string;
 }
 
-const Toaster = React.forwardRef<HTMLDivElement, ToasterProps>(
-  ({ position = "bottom-right", className }, ref) => {
-    const toasts = React.useSyncExternalStore(
-      toastStore.subscribe,
-      toastStore.getSnapshot,
-      () => emptySnapshot,
-    );
+function Toaster({ ref, position = "bottom-right", className }: ToasterProps) {
+  const toasts = React.useSyncExternalStore(
+    toastStore.subscribe,
+    toastStore.getSnapshot,
+    () => emptySnapshot,
+  );
 
-    const visibleToasts = toasts.filter((t) => t.visible);
+  const visibleToasts = toasts.filter((t) => t.visible);
 
-    if (visibleToasts.length === 0) return null;
+  if (visibleToasts.length === 0) return null;
 
-    return (
-      <Portal>
-        <div
-          ref={ref}
-          role="region"
-          aria-label="Notifications"
-          className={cn(
-            "fixed z-(--nuka-z-toast) flex flex-col gap-(--space-2) p-(--space-4)",
-            positionClasses[position],
-            className,
-          )}
-        >
-          {visibleToasts.map((t) => (
-            <Toast key={t.id} toast={t} onDismiss={toast.dismiss} />
-          ))}
-        </div>
-      </Portal>
-    );
-  },
-);
+  return (
+    <Portal>
+      <div
+        ref={ref}
+        role="region"
+        aria-label="Notifications"
+        className={cn(
+          "fixed z-(--nuka-z-toast) flex flex-col gap-(--space-2) p-(--space-4)",
+          positionClasses[position],
+          className,
+        )}
+      >
+        {visibleToasts.map((t) => (
+          <Toast key={t.id} toast={t} onDismiss={toast.dismiss} />
+        ))}
+      </div>
+    </Portal>
+  );
+}
 
 Toaster.displayName = "Toaster";
 

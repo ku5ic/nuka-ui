@@ -30,80 +30,75 @@ function resolveStepState(
 }
 
 export interface StepperProps extends React.HTMLAttributes<HTMLElement> {
+  ref?: React.Ref<HTMLElement> | undefined;
   currentStep: number;
   orientation?: StepperOrientation;
   onStepClick?: (step: number) => void;
 }
 
-const Stepper = React.forwardRef<HTMLElement, StepperProps>(
-  (
-    {
-      currentStep,
-      orientation = "horizontal",
-      onStepClick,
-      className,
-      children,
-      "aria-label": ariaLabel = "Progress",
-      ...props
-    },
-    ref,
-  ) => {
-    const contextValue: StepperContextValue = React.useMemo(
-      () => ({ currentStep, orientation, onStepClick }),
-      [currentStep, orientation, onStepClick],
-    );
+function Stepper({
+  ref,
+  currentStep,
+  orientation = "horizontal",
+  onStepClick,
+  className,
+  children,
+  "aria-label": ariaLabel = "Progress",
+  ...props
+}: StepperProps) {
+  const contextValue: StepperContextValue = React.useMemo(
+    () => ({ currentStep, orientation, onStepClick }),
+    [currentStep, orientation, onStepClick],
+  );
 
-    const childArray = React.Children.toArray(children);
-    let listChildren: React.ReactNode[];
+  const childArray = React.Children.toArray(children);
+  let listChildren: React.ReactNode[];
 
-    if (orientation === "horizontal") {
-      listChildren = [];
-      childArray.forEach((child, i) => {
-        listChildren.push(child);
-        if (i < childArray.length - 1) {
-          const leftStepState = resolveStepState(child, i, currentStep);
-          const segmentCompleted = leftStepState === "completed";
-          listChildren.push(
-            <li
-              key={`connector-${String(i)}`}
-              role="presentation"
-              aria-hidden="true"
-              className="flex items-start flex-1"
-            >
-              <div
-                className={cn(
-                  "h-px w-full mt-(--space-4)",
-                  segmentCompleted
-                    ? "bg-(--nuka-accent-bg)"
-                    : "bg-(--nuka-border-base)",
-                )}
-              />
-            </li>,
-          );
-        }
-      });
-    } else {
-      listChildren = childArray;
-    }
-
-    return (
-      <StepperContext value={contextValue}>
-        <nav ref={ref} aria-label={ariaLabel} className={className} {...props}>
-          <ol
-            className={cn(
-              "flex list-none",
-              orientation === "horizontal"
-                ? "flex-row items-start"
-                : "flex-col",
-            )}
+  if (orientation === "horizontal") {
+    listChildren = [];
+    childArray.forEach((child, i) => {
+      listChildren.push(child);
+      if (i < childArray.length - 1) {
+        const leftStepState = resolveStepState(child, i, currentStep);
+        const segmentCompleted = leftStepState === "completed";
+        listChildren.push(
+          <li
+            key={`connector-${String(i)}`}
+            role="presentation"
+            aria-hidden="true"
+            className="flex items-start flex-1"
           >
-            {listChildren}
-          </ol>
-        </nav>
-      </StepperContext>
-    );
-  },
-);
+            <div
+              className={cn(
+                "h-px w-full mt-(--space-4)",
+                segmentCompleted
+                  ? "bg-(--nuka-accent-bg)"
+                  : "bg-(--nuka-border-base)",
+              )}
+            />
+          </li>,
+        );
+      }
+    });
+  } else {
+    listChildren = childArray;
+  }
+
+  return (
+    <StepperContext value={contextValue}>
+      <nav ref={ref} aria-label={ariaLabel} className={className} {...props}>
+        <ol
+          className={cn(
+            "flex list-none",
+            orientation === "horizontal" ? "flex-row items-start" : "flex-col",
+          )}
+        >
+          {listChildren}
+        </ol>
+      </nav>
+    </StepperContext>
+  );
+}
 
 Stepper.displayName = "Stepper";
 

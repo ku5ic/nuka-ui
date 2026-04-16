@@ -4,6 +4,7 @@ import { Icon } from "@nuka/components/Icon";
 import { menuCheckboxItemVariants } from "@nuka/components/Menu/menuItemVariants";
 
 export interface MenuCheckboxItemBaseProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
   checked: boolean;
   onCheckedChange?: (checked: boolean) => void;
   disabled?: boolean;
@@ -24,70 +25,63 @@ const CheckIcon = () => (
   </svg>
 );
 
-const MenuCheckboxItemBase = React.forwardRef<
-  HTMLDivElement,
-  MenuCheckboxItemBaseProps
->(
-  (
-    {
-      className,
-      checked,
-      onCheckedChange,
-      disabled = false,
-      onClose,
-      children,
-      onClick,
-      onKeyDown,
-      ...props
-    },
-    ref,
-  ) => {
-    const handleActivate = () => {
-      if (disabled) return;
-      onCheckedChange?.(!checked);
-      onClose?.();
-    };
+function MenuCheckboxItemBase({
+  ref,
+  className,
+  checked,
+  onCheckedChange,
+  disabled = false,
+  onClose,
+  children,
+  onClick,
+  onKeyDown,
+  ...props
+}: MenuCheckboxItemBaseProps) {
+  const handleActivate = () => {
+    if (disabled) return;
+    onCheckedChange?.(!checked);
+    onClose?.();
+  };
 
-    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-      onClick?.(e);
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    onClick?.(e);
+    handleActivate();
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    onKeyDown?.(e);
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
       handleActivate();
-    };
+    }
+  };
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-      onKeyDown?.(e);
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        handleActivate();
-      }
-    };
-
-    return (
-      <div
-        ref={ref}
-        role="menuitemcheckbox"
-        aria-checked={checked}
-        aria-disabled={disabled || undefined}
-        className={cn(
-          menuCheckboxItemVariants(),
-          disabled && "opacity-50 pointer-events-none",
-          className,
+  return (
+    <div
+      ref={ref}
+      role="menuitemcheckbox"
+      aria-checked={checked}
+      aria-disabled={disabled || undefined}
+      className={cn(
+        menuCheckboxItemVariants(),
+        disabled && "opacity-50 pointer-events-none",
+        className,
+      )}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      {...props}
+    >
+      <span className="inline-flex size-4 items-center justify-center shrink-0">
+        {checked && (
+          <Icon size="sm">
+            <CheckIcon />
+          </Icon>
         )}
-        onClick={handleClick}
-        onKeyDown={handleKeyDown}
-        {...props}
-      >
-        <span className="inline-flex size-4 items-center justify-center shrink-0">
-          {checked && (
-            <Icon size="sm">
-              <CheckIcon />
-            </Icon>
-          )}
-        </span>
-        {children}
-      </div>
-    );
-  },
-);
+      </span>
+      {children}
+    </div>
+  );
+}
 
 MenuCheckboxItemBase.displayName = "MenuCheckboxItemBase";
 

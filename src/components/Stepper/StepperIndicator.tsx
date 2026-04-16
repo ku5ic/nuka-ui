@@ -8,12 +8,11 @@ import {
   useStepperItemContext,
 } from "@nuka/components/Stepper/Stepper.context";
 
-export interface StepperIndicatorProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface StepperIndicatorProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
+}
 
-const StepperIndicator = React.forwardRef<
-  HTMLDivElement,
-  StepperIndicatorProps
->(({ className, ...props }, ref) => {
+function StepperIndicator({ ref, className, ...props }: StepperIndicatorProps) {
   const { state, step } = useStepperItemContext();
   const { orientation } = useStepperContext();
 
@@ -98,7 +97,7 @@ const StepperIndicator = React.forwardRef<
   }
 
   return circle;
-});
+}
 
 StepperIndicator.displayName = "StepperIndicator";
 
