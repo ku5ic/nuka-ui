@@ -9,6 +9,20 @@ import { defineConfig } from "vite";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+const assetFileNames = (assetInfo: { names: string[] }) => {
+  const name = assetInfo.names[0];
+  if (name?.endsWith(".css")) return "bundle.css";
+  return name ?? "asset";
+};
+
+const sharedOutputOptions = {
+  assetFileNames,
+  globals: {
+    react: "React",
+    "react-dom": "ReactDOM",
+  },
+};
+
 export default defineConfig({
   plugins: [
     react(),
@@ -96,30 +110,14 @@ export default defineConfig({
           preserveModules: true,
           preserveModulesRoot: "src",
           entryFileNames: "[name].js",
-          globals: {
-            react: "React",
-            "react-dom": "ReactDOM",
-          },
-          assetFileNames: (assetInfo) => {
-            const name = assetInfo.names[0];
-            if (name?.endsWith(".css")) return "bundle.css";
-            return name ?? "asset";
-          },
+          ...sharedOutputOptions,
         },
         {
           format: "cjs",
           preserveModules: true,
           preserveModulesRoot: "src",
           entryFileNames: "[name].cjs",
-          globals: {
-            react: "React",
-            "react-dom": "ReactDOM",
-          },
-          assetFileNames: (assetInfo) => {
-            const name = assetInfo.names[0];
-            if (name?.endsWith(".css")) return "bundle.css";
-            return name ?? "asset";
-          },
+          ...sharedOutputOptions,
         },
       ],
     },
