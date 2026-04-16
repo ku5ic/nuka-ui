@@ -1,4 +1,2 @@
 @import "tailwindcss";
-@source "../components";
-@source "../utils";
-@source "../hooks";
+@import "./sources.css";
