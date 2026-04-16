@@ -14,4 +14,10 @@ export {
   type UseMenuNavigationOptions,
   type UseMenuNavigationReturn,
 } from "./use-menu-navigation";
+export { useModalTitleWarning } from "./use-modal-title-warning";
+export {
+  useOptionRegistry,
+  type OptionEntry,
+  type UseOptionRegistryReturn,
+} from "./use-option-registry";
 export { useScrollLock, __resetScrollLock } from "./use-scroll-lock";

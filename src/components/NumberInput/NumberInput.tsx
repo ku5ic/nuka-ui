@@ -69,12 +69,8 @@ function NumberInput({
     onValueChange,
   );
 
-  const [displayValue, setDisplayValue] = React.useState(String(currentValue));
-
-  // Sync displayValue when the committed value changes externally
-  React.useEffect(() => {
-    setDisplayValue(String(currentValue));
-  }, [currentValue]);
+  const [editText, setEditText] = React.useState<string | null>(null);
+  const inputValue = editText ?? String(currentValue);
 
   if (process.env.NODE_ENV !== "production") {
     if (!ariaLabel && !ariaLabelledBy && !field.resolvedId) {
@@ -93,7 +89,7 @@ function NumberInput({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const raw = e.target.value;
-    setDisplayValue(raw);
+    setEditText(raw);
     if (raw === "" || raw === "-") return;
     const parsed = Number(raw);
     if (!Number.isNaN(parsed)) {
@@ -102,11 +98,10 @@ function NumberInput({
   };
 
   const handleBlur = () => {
-    if (displayValue === "" || displayValue === "-") {
-      const clamped = clamp(currentValue, min, max);
-      setCurrentValue(clamped);
-      setDisplayValue(String(clamped));
+    if (editText === "" || editText === "-") {
+      setCurrentValue(clamp(currentValue, min, max));
     }
+    setEditText(null);
   };
 
   const controlButton = (
@@ -179,7 +174,7 @@ function NumberInput({
         ref={ref}
         type="number"
         id={field.resolvedId}
-        value={displayValue}
+        value={inputValue}
         onChange={handleChange}
         onBlur={handleBlur}
         min={min}

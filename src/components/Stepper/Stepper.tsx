@@ -7,22 +7,17 @@ import type {
   StepState,
   StepperContextValue,
 } from "@nuka/components/Stepper/Stepper.context";
+import type { StepperItemProps } from "@nuka/components/Stepper/StepperItem";
 
 function resolveStepState(
   child: React.ReactNode,
   index: number,
   currentStep: number,
 ): StepState {
-  if (React.isValidElement(child)) {
-    const explicitState = (child.props as Record<string, unknown>).state as
-      | StepState
-      | undefined;
-    if (explicitState !== undefined) return explicitState;
+  if (React.isValidElement<StepperItemProps>(child)) {
+    if (child.props.state !== undefined) return child.props.state;
 
-    const step = (child.props as Record<string, unknown>).step as
-      | number
-      | undefined;
-    const stepIndex = step ?? index;
+    const stepIndex = child.props.step;
     if (stepIndex < currentStep) return "completed";
     if (stepIndex === currentStep) return "current";
   }

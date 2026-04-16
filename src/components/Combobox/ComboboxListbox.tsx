@@ -21,15 +21,17 @@ function ComboboxListbox({
     [ref, ctx.listRef],
   );
 
+  const { filterText, setVisibleCount, listRef } = ctx;
+
   // Count visible options for ComboboxEmpty. Layout effect avoids
   // flash-of-empty-state by updating before paint.
   React.useLayoutEffect(() => {
-    if (ctx.listRef.current == null) return;
-    const count = ctx.listRef.current.querySelectorAll(
+    if (listRef.current == null) return;
+    const count = listRef.current.querySelectorAll(
       '[role="option"]:not([hidden])',
     ).length;
-    ctx.setVisibleCount(count);
-  }, [ctx, ctx.filterText, ctx.setVisibleCount, ctx.listRef]);
+    setVisibleCount(count);
+  }, [filterText, setVisibleCount, listRef]);
 
   return (
     <div

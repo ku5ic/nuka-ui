@@ -1,6 +1,8 @@
 "use client";
 import * as React from "react";
 import { composeRefs } from "@nuka/utils/slot";
+import { getActiveElement } from "@nuka/utils/get-active-element";
+import { getRovingIndex } from "@nuka/utils/roving-index";
 import { useControllableState } from "@nuka/hooks/use-controllable-state";
 import { AccordionContext } from "@nuka/components/Accordion/Accordion.context";
 import type { HeadingLevel } from "@nuka/components/Accordion/Accordion.context";
@@ -36,29 +38,18 @@ function handleKeyboardNavigation(
   const triggers = rootRef.current?.querySelectorAll(TRIGGER_SELECTOR);
   if (!triggers || triggers.length === 0) return;
 
-  const active = document.activeElement;
+  const active = getActiveElement();
   const items = Array.from(triggers) as HTMLButtonElement[];
   const currentIndex = items.indexOf(active as HTMLButtonElement);
   if (currentIndex === -1) return;
 
-  let nextIndex: number | undefined;
-
-  switch (e.key) {
-    case "ArrowDown":
-      nextIndex = (currentIndex + 1) % items.length;
-      break;
-    case "ArrowUp":
-      nextIndex = (currentIndex - 1 + items.length) % items.length;
-      break;
-    case "Home":
-      nextIndex = 0;
-      break;
-    case "End":
-      nextIndex = items.length - 1;
-      break;
-    default:
-      return;
-  }
+  const nextIndex = getRovingIndex(
+    e.key,
+    currentIndex,
+    items.length,
+    "vertical",
+  );
+  if (nextIndex === undefined) return;
 
   e.preventDefault();
   items[nextIndex]?.focus();

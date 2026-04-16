@@ -21,7 +21,7 @@ import {
   CommandMenuGroup,
   CommandMenuItem,
   CommandMenuShortcut,
-} from "@nuka/components/CommandMenu/CommandMenu";
+} from "@nuka/components/CommandMenu";
 
 function renderCommandMenu({
   onOpenChange = vi.fn(),

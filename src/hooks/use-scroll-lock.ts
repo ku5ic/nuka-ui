@@ -7,17 +7,18 @@ interface ScrollLockState {
   originalPaddingRight: string;
 }
 
+let scrollLockState: ScrollLockState | undefined;
+
 function getScrollLockState(): ScrollLockState {
   if (typeof window === "undefined") {
     return { count: 0, originalOverflow: "", originalPaddingRight: "" };
   }
-  const win = window as typeof window & { __nukaScrollLock?: ScrollLockState };
-  win.__nukaScrollLock ??= {
+  scrollLockState ??= {
     count: 0,
     originalOverflow: "",
     originalPaddingRight: "",
   };
-  return win.__nukaScrollLock;
+  return scrollLockState;
 }
 
 function useScrollLock(active: boolean) {
@@ -54,12 +55,7 @@ function useScrollLock(active: boolean) {
 
 // Exposed for test cleanup only. Not part of the public API.
 function __resetScrollLock() {
-  if (typeof window !== "undefined") {
-    const win = window as typeof window & {
-      __nukaScrollLock?: ScrollLockState;
-    };
-    delete win.__nukaScrollLock;
-  }
+  scrollLockState = undefined;
 }
 
 export { useScrollLock, __resetScrollLock };

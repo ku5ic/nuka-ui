@@ -2,6 +2,8 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 import { Icon } from "@nuka/components/Icon";
+import { getRovingIndex } from "@nuka/utils/roving-index";
+import { scrollIntoViewSafe } from "@nuka/utils/scroll-into-view-safe";
 import type { ComboboxInputProps } from "@nuka/components/Combobox/Combobox.types";
 import { useComboboxContext } from "@nuka/components/Combobox/Combobox.context";
 import { getNavigableOptions } from "@nuka/components/Combobox/Combobox.utils";
@@ -34,9 +36,7 @@ function ComboboxInput({ ref, className, ...props }: ComboboxInputProps) {
         const target = dir === "first" ? items[0] : items[items.length - 1];
         if (target != null) {
           ctx.setActiveDescendantId(target.id);
-          if (typeof target.scrollIntoView === "function") {
-            target.scrollIntoView({ block: "nearest" });
-          }
+          scrollIntoViewSafe(target);
         }
       }
     }
@@ -45,65 +45,22 @@ function ComboboxInput({ ref, className, ...props }: ComboboxInputProps) {
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const items = getNavigableOptions(ctx.listRef);
+    const currentIdx = items.findIndex(
+      (el) => el.id === ctx.activeDescendantId,
+    );
+    const nextIdx = getRovingIndex(e.key, currentIdx, items.length, "vertical");
+
+    if (nextIdx !== undefined) {
+      e.preventDefault();
+      const next = items[nextIdx];
+      if (next != null) {
+        ctx.setActiveDescendantId(next.id);
+        scrollIntoViewSafe(next);
+      }
+      return;
+    }
 
     switch (e.key) {
-      case "ArrowDown": {
-        e.preventDefault();
-        if (items.length === 0) return;
-        const currentIdx = items.findIndex(
-          (el) => el.id === ctx.activeDescendantId,
-        );
-        const nextIdx = currentIdx === -1 ? 0 : (currentIdx + 1) % items.length;
-        const next = items[nextIdx];
-        if (next != null) {
-          ctx.setActiveDescendantId(next.id);
-          if (typeof next.scrollIntoView === "function") {
-            next.scrollIntoView({ block: "nearest" });
-          }
-        }
-        break;
-      }
-      case "ArrowUp": {
-        e.preventDefault();
-        if (items.length === 0) return;
-        const currentIdx = items.findIndex(
-          (el) => el.id === ctx.activeDescendantId,
-        );
-        const prevIdx =
-          currentIdx === -1
-            ? items.length - 1
-            : (currentIdx - 1 + items.length) % items.length;
-        const prev = items[prevIdx];
-        if (prev != null) {
-          ctx.setActiveDescendantId(prev.id);
-          if (typeof prev.scrollIntoView === "function") {
-            prev.scrollIntoView({ block: "nearest" });
-          }
-        }
-        break;
-      }
-      case "Home": {
-        e.preventDefault();
-        const first = items[0];
-        if (first != null) {
-          ctx.setActiveDescendantId(first.id);
-          if (typeof first.scrollIntoView === "function") {
-            first.scrollIntoView({ block: "nearest" });
-          }
-        }
-        break;
-      }
-      case "End": {
-        e.preventDefault();
-        const last = items[items.length - 1];
-        if (last != null) {
-          ctx.setActiveDescendantId(last.id);
-          if (typeof last.scrollIntoView === "function") {
-            last.scrollIntoView({ block: "nearest" });
-          }
-        }
-        break;
-      }
       case "Enter": {
         e.preventDefault();
         if (ctx.activeDescendantId != null) {

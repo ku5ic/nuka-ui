@@ -1,7 +1,12 @@
 "use client";
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
-import { Icon } from "@nuka/components/Icon";
+import { getRovingIndex } from "@nuka/utils/roving-index";
+import { scrollIntoViewSafe } from "@nuka/utils/scroll-into-view-safe";
+import {
+  TYPEAHEAD_TIMEOUT,
+  ChevronIcon,
+} from "@nuka/components/Select/SelectTrigger.utils";
 import { useSelect } from "@nuka/components/Select/Select.context";
 import { useFormField } from "@nuka/components/FormField";
 import { useFormFieldProps } from "@nuka/hooks/use-form-field-props";
@@ -17,8 +22,6 @@ export interface SelectTriggerProps
   ref?: React.Ref<HTMLButtonElement> | undefined;
   placeholder?: string;
 }
-
-const TYPEAHEAD_TIMEOUT = 300;
 
 function SelectTrigger({
   ref,
@@ -68,10 +71,7 @@ function SelectTrigger({
     (optionValue: string | undefined) => {
       ctx.onHighlightChange(optionValue);
       if (optionValue !== undefined) {
-        const optionEl = ctx.getOptionRef(optionValue);
-        if (typeof optionEl?.scrollIntoView === "function") {
-          optionEl.scrollIntoView({ block: "nearest" });
-        }
+        scrollIntoViewSafe(ctx.getOptionRef(optionValue));
       }
     },
     [ctx],
@@ -94,21 +94,19 @@ function SelectTrigger({
           ? options.indexOf(ctx.highlightedValue)
           : -1;
 
-      let nextIndex: number;
-      switch (direction) {
-        case "next":
-          nextIndex = currentIndex < options.length - 1 ? currentIndex + 1 : 0;
-          break;
-        case "prev":
-          nextIndex = currentIndex > 0 ? currentIndex - 1 : options.length - 1;
-          break;
-        case "first":
-          nextIndex = 0;
-          break;
-        case "last":
-          nextIndex = options.length - 1;
-          break;
-      }
+      const keyMap = {
+        next: "ArrowDown",
+        prev: "ArrowUp",
+        first: "Home",
+        last: "End",
+      } as const;
+      const nextIndex = getRovingIndex(
+        keyMap[direction],
+        currentIndex,
+        options.length,
+        "vertical",
+      );
+      if (nextIndex === undefined) return;
 
       const nextValue = options[nextIndex];
       if (nextValue !== undefined) {
@@ -294,26 +292,7 @@ function SelectTrigger({
       >
         {displayLabel ?? placeholder}
       </span>
-      <Icon
-        size="sm"
-        color="muted"
-        className={cn(
-          "transition-transform duration-150",
-          ctx.open && "rotate-180",
-        )}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="m6 9 6 6 6-6" />
-        </svg>
-      </Icon>
+      <ChevronIcon open={ctx.open} />
     </button>
   );
 }

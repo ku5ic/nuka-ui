@@ -3,6 +3,12 @@ import { composeRefs } from "@nuka/utils/slot";
 import { Button } from "@nuka/components/Button";
 import { Icon } from "@nuka/components/Icon";
 
+interface PaginationChildProps {
+  ref?: React.Ref<HTMLElement>;
+  children?: React.ReactNode;
+  [key: string]: unknown;
+}
+
 export interface PaginationPreviousProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   ref?: React.Ref<HTMLAnchorElement> | undefined;
   disabled?: boolean;
@@ -40,14 +46,9 @@ function PaginationPrevious({
       }
     : onClick;
 
-  // When asChild, the consumer provides a single child element (e.g. <button>).
-  // We inject the icon + label as that element's children via cloneElement,
-  // avoiding the Slot multiple-children error.
-  if (asChild && React.isValidElement(children)) {
-    const child = children as React.ReactElement<
-      Record<string, unknown> & { ref?: React.Ref<HTMLElement> }
-    >;
-    const label = (child.props.children as React.ReactNode) ?? "Previous";
+  if (asChild && React.isValidElement<PaginationChildProps>(children)) {
+    const child = children;
+    const label = child.props.children ?? "Previous";
 
     return (
       <Button
@@ -60,13 +61,10 @@ function PaginationPrevious({
         {React.cloneElement(
           child,
           {
-            ref: composeRefs(
-              ref as React.Ref<HTMLElement>,
-              child.props.ref,
-            ) as React.Ref<never>,
+            ref: composeRefs(ref as React.Ref<HTMLElement>, child.props.ref),
             "aria-label": "Go to previous page",
             ...props,
-          } as Partial<Record<string, unknown>> & React.Attributes,
+          },
           <PreviousIcon />,
           label,
         )}
@@ -84,6 +82,8 @@ function PaginationPrevious({
       className={className}
       disabled={disabled}
     >
+      {/* Comp is a union of "span" | "a"; TypeScript cannot unify their ref
+          types. This widening cast is safe because both accept HTMLElement. */}
       <Comp
         ref={ref as React.Ref<never>}
         aria-label="Go to previous page"

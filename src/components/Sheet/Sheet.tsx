@@ -9,8 +9,8 @@ import { useScrollLock } from "@nuka/hooks/use-scroll-lock";
 import {
   createModalPrimitive,
   useEscapeKey,
-  useModalTitleWarning,
 } from "@nuka/utils/modal-primitive";
+import { useModalTitleWarning } from "@nuka/hooks/use-modal-title-warning";
 import type {
   ModalRootProps,
   ModalTriggerProps,

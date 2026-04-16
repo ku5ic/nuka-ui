@@ -1,6 +1,7 @@
 "use client";
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
+import { getRovingIndex } from "@nuka/utils/roving-index";
 import { useFormFieldProps } from "@nuka/hooks/use-form-field-props";
 import { useControllableState } from "@nuka/hooks/use-controllable-state";
 import { RadioGroupContext } from "@nuka/components/RadioGroup/RadioGroup.context";
@@ -99,65 +100,29 @@ function RadioGroup({
     return values;
   }, []);
 
-  const moveFocus = React.useCallback(
-    (direction: "next" | "prev" | "first" | "last") => {
+  const handleKeyDown = React.useCallback(
+    (e: React.KeyboardEvent<HTMLDivElement>) => {
+      props.onKeyDown?.(e);
+      if (e.defaultPrevented) return;
+
       const values = getOrderedValues();
-      if (values.length === 0) return;
-
       const currentIndex = values.indexOf(focusedValue ?? "");
-      let nextIndex: number;
+      const nextIndex = getRovingIndex(
+        e.key,
+        currentIndex,
+        values.length,
+        "both",
+      );
+      if (nextIndex === undefined) return;
 
-      switch (direction) {
-        case "next":
-          nextIndex = currentIndex < values.length - 1 ? currentIndex + 1 : 0;
-          break;
-        case "prev":
-          nextIndex = currentIndex > 0 ? currentIndex - 1 : values.length - 1;
-          break;
-        case "first":
-          nextIndex = 0;
-          break;
-        case "last":
-          nextIndex = values.length - 1;
-          break;
-      }
-
+      e.preventDefault();
       const nextValue = values[nextIndex];
       if (nextValue === undefined) return;
       setFocusedValue(nextValue);
       handleChange(nextValue);
       refsMap.current.get(nextValue)?.focus();
     },
-    [focusedValue, getOrderedValues, handleChange],
-  );
-
-  const handleKeyDown = React.useCallback(
-    (e: React.KeyboardEvent<HTMLDivElement>) => {
-      props.onKeyDown?.(e);
-      if (e.defaultPrevented) return;
-
-      switch (e.key) {
-        case "ArrowDown":
-        case "ArrowRight":
-          e.preventDefault();
-          moveFocus("next");
-          break;
-        case "ArrowUp":
-        case "ArrowLeft":
-          e.preventDefault();
-          moveFocus("prev");
-          break;
-        case "Home":
-          e.preventDefault();
-          moveFocus("first");
-          break;
-        case "End":
-          e.preventDefault();
-          moveFocus("last");
-          break;
-      }
-    },
-    [moveFocus, props],
+    [focusedValue, getOrderedValues, handleChange, props],
   );
 
   const contextValue: RadioGroupContextValue = React.useMemo(

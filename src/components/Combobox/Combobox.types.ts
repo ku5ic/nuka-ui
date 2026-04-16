@@ -3,12 +3,6 @@ import type { useFloating, useInteractions } from "@floating-ui/react";
 
 import type { ComboboxTriggerVariantProps } from "@nuka/components/Combobox/Combobox.variants";
 
-export interface OptionEntry {
-  label: string;
-  ref: HTMLElement | null;
-  disabled: boolean;
-}
-
 export interface ComboboxProps {
   children: React.ReactNode;
   value?: string | undefined;

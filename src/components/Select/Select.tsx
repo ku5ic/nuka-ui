@@ -1,6 +1,7 @@
 "use client";
 import * as React from "react";
 import { useControllableState } from "@nuka/hooks/use-controllable-state";
+import { useOptionRegistry } from "@nuka/hooks/use-option-registry";
 import { composeRefs } from "@nuka/utils/slot";
 import { SelectContext } from "@nuka/components/Select/Select.context";
 import type { SelectContextValue } from "@nuka/components/Select/Select.context";
@@ -16,12 +17,6 @@ export interface SelectProps {
   onOpenChange?: (open: boolean) => void;
   disabled?: boolean;
   name?: string;
-}
-
-interface OptionEntry {
-  label: string;
-  ref: HTMLElement | null;
-  disabled: boolean;
 }
 
 function Select({
@@ -50,11 +45,7 @@ function Select({
     string | undefined
   >(undefined);
 
-  const optionsRef = React.useRef(new Map<string, OptionEntry>());
-  const [registryVersion, setRegistryVersion] = React.useState(0);
-  const bumpRegistry = React.useCallback(() => {
-    setRegistryVersion((v) => v + 1);
-  }, []);
+  const registry = useOptionRegistry();
   const rootRef = React.useRef<HTMLDivElement>(null);
 
   const generatedId = React.useId();
@@ -68,59 +59,6 @@ function Select({
       }
     },
     [setOpen],
-  );
-
-  const registerOption = React.useCallback(
-    (optionValue: string, label: string, ref: HTMLElement | null) => {
-      const existing = optionsRef.current.get(optionValue);
-      optionsRef.current.set(optionValue, {
-        label,
-        ref,
-        disabled: existing?.disabled ?? false,
-      });
-      bumpRegistry();
-    },
-    [bumpRegistry],
-  );
-
-  const unregisterOption = React.useCallback(
-    (optionValue: string) => {
-      optionsRef.current.delete(optionValue);
-      bumpRegistry();
-    },
-    [bumpRegistry],
-  );
-
-  const getOptions = React.useCallback((): string[] => {
-    return Array.from(optionsRef.current.keys());
-  }, []);
-
-  const getOptionLabel = React.useCallback(
-    (optionValue: string): string | undefined => {
-      return optionsRef.current.get(optionValue)?.label;
-    },
-    [],
-  );
-
-  const getOptionRef = React.useCallback(
-    (optionValue: string): HTMLElement | null | undefined => {
-      return optionsRef.current.get(optionValue)?.ref;
-    },
-    [],
-  );
-
-  const isOptionDisabled = React.useCallback((optionValue: string): boolean => {
-    return optionsRef.current.get(optionValue)?.disabled ?? false;
-  }, []);
-
-  const registerDisabledOption = React.useCallback(
-    (optionValue: string, optionDisabled: boolean) => {
-      const existing = optionsRef.current.get(optionValue);
-      if (existing) {
-        existing.disabled = optionDisabled;
-      }
-    },
-    [],
   );
 
   // TODO: extract to useOutsideClick or migrate to Floating UI useDismiss
@@ -144,8 +82,7 @@ function Select({
   }, [currentOpen, handleOpenChange]);
 
   const contextValue: SelectContextValue = React.useMemo(() => {
-    // registryVersion is read to invalidate the memo when options register/unregister
-    void registryVersion;
+    void registry.registryVersion;
     return {
       open: currentOpen,
       value: currentValue,
@@ -155,13 +92,13 @@ function Select({
       onOpenChange: handleOpenChange,
       onValueChange: handleValueChange,
       onHighlightChange: setHighlightedValue,
-      registerOption,
-      unregisterOption,
-      getOptions,
-      getOptionLabel,
-      getOptionRef,
-      isOptionDisabled,
-      registerDisabledOption,
+      registerOption: registry.registerOption,
+      unregisterOption: registry.unregisterOption,
+      getOptions: registry.getOptions,
+      getOptionLabel: registry.getOptionLabel,
+      getOptionRef: registry.getOptionRef,
+      isOptionDisabled: registry.isOptionDisabled,
+      registerDisabledOption: registry.registerDisabledOption,
     };
   }, [
     currentOpen,
@@ -171,14 +108,7 @@ function Select({
     listboxId,
     handleOpenChange,
     handleValueChange,
-    registerOption,
-    unregisterOption,
-    getOptions,
-    getOptionLabel,
-    getOptionRef,
-    isOptionDisabled,
-    registerDisabledOption,
-    registryVersion,
+    registry,
   ]);
 
   return (
