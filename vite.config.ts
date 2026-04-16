@@ -61,6 +61,17 @@ export default defineConfig({
             .join("\n\n"),
           "utf-8",
         );
+
+        const tailwind = readFileSync(
+          resolve(__dirname, "src/styles/sources.css"),
+          "utf-8",
+        );
+
+        writeFileSync(
+          resolve(__dirname, "dist/tailwind.css"),
+          tailwind,
+          "utf-8",
+        );
       },
     },
   ],

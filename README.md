@@ -49,19 +49,45 @@ nuka-ui takes a different position. It is opinionated about the things that shou
 npm install @nuka-ui/core
 ```
 
-Import the stylesheet once at your application entry point:
+nuka-ui ships fully precompiled CSS. It works in any React project regardless of styling approach. If your project uses Tailwind v4, an additional stylesheet import is available to register nuka-ui's source paths with your Tailwind build.
+
+### Framework-agnostic (recommended default)
+
+Import the precompiled stylesheet once at your application entry point. All styles, tokens, and animations are included. No Tailwind installation required.
 
 ```tsx
 import "@nuka-ui/core/styles";
 ```
 
-If your project does not need dark mode or runtime theme switching, import the
-light-theme-only stylesheet instead. It scopes all tokens to `:root` and omits the
-`[data-theme]` selectors entirely:
+If your project does not need dark mode or runtime theme switching, import the light-theme-only stylesheet instead. It scopes all tokens to `:root` and omits the `[data-theme]` selectors entirely:
 
 ```tsx
 import "@nuka-ui/core/styles/root";
 ```
+
+### With Tailwind v4
+
+If your project uses Tailwind v4, add the Tailwind-specific stylesheet alongside the precompiled one. This registers nuka-ui's `@source` directives so your Tailwind build includes nuka-ui component classes.
+
+In your global CSS file:
+
+```css
+@import "@nuka-ui/core/styles";
+@import "@nuka-ui/core/styles/tailwind";
+@import "tailwindcss";
+```
+
+Or with the light-theme-only variant:
+
+```css
+@import "@nuka-ui/core/styles/root";
+@import "@nuka-ui/core/styles/tailwind";
+@import "tailwindcss";
+```
+
+Import order matters: both nuka-ui stylesheets must come before `@import "tailwindcss"` so the tokens are defined and the `@source` directives are registered before Tailwind compiles its output.
+
+### Theme setup
 
 Add `data-theme` to your root element:
 
