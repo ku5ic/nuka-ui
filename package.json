@@ -1,6 +1,6 @@
 {
   "name": "@nuka-ui/core",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A React component library built on Tailwind v4, composable and customizable via CSS variables and props.",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
