@@ -1,20 +1,36 @@
 "use client";
 import { useEffect } from "react";
 
-let lockCount = 0;
-let originalOverflow = "";
-let originalPaddingRight = "";
+interface ScrollLockState {
+  count: number;
+  originalOverflow: string;
+  originalPaddingRight: string;
+}
+
+function getScrollLockState(): ScrollLockState {
+  if (typeof window === "undefined") {
+    return { count: 0, originalOverflow: "", originalPaddingRight: "" };
+  }
+  const win = window as typeof window & { __nukaScrollLock?: ScrollLockState };
+  win.__nukaScrollLock ??= {
+    count: 0,
+    originalOverflow: "",
+    originalPaddingRight: "",
+  };
+  return win.__nukaScrollLock;
+}
 
 function useScrollLock(active: boolean) {
   useEffect(() => {
     if (!active) return undefined;
     if (typeof document === "undefined") return undefined;
 
-    lockCount++;
+    const state = getScrollLockState();
+    state.count++;
 
-    if (lockCount === 1) {
-      originalOverflow = document.body.style.overflow;
-      originalPaddingRight = document.body.style.paddingRight;
+    if (state.count === 1) {
+      state.originalOverflow = document.body.style.overflow;
+      state.originalPaddingRight = document.body.style.paddingRight;
 
       const scrollbarWidth =
         window.innerWidth - document.documentElement.clientWidth;
@@ -26,11 +42,11 @@ function useScrollLock(active: boolean) {
     }
 
     return () => {
-      lockCount--;
+      state.count--;
 
-      if (lockCount === 0) {
-        document.body.style.overflow = originalOverflow;
-        document.body.style.paddingRight = originalPaddingRight;
+      if (state.count === 0) {
+        document.body.style.overflow = state.originalOverflow;
+        document.body.style.paddingRight = state.originalPaddingRight;
       }
     };
   }, [active]);
@@ -38,9 +54,12 @@ function useScrollLock(active: boolean) {
 
 // Exposed for test cleanup only. Not part of the public API.
 function __resetScrollLock() {
-  lockCount = 0;
-  originalOverflow = "";
-  originalPaddingRight = "";
+  if (typeof window !== "undefined") {
+    const win = window as typeof window & {
+      __nukaScrollLock?: ScrollLockState;
+    };
+    delete win.__nukaScrollLock;
+  }
 }
 
 export { useScrollLock, __resetScrollLock };

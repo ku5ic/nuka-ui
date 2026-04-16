@@ -93,13 +93,12 @@ function Slot({ ref: forwardedRef, children, ...slotProps }: SlotProps) {
   const cloneProps: Record<string, unknown> & React.Attributes = {
     ...mergedProps,
     ref: composedRef,
+    ...(childElement.key != null ? { key: childElement.key } : {}),
   };
 
-  return React.cloneElement(
-    childElement,
-    cloneProps as Partial<
-      Record<string, unknown> & { ref?: React.Ref<HTMLElement> }
-    >,
+  return React.createElement(
+    childElement.type as React.ElementType,
+    cloneProps,
   );
 }
 
