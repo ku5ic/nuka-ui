@@ -80,38 +80,41 @@ function createMenuItemKeyHandler(
 export interface MenuItemWithNavProps extends Omit<
   MenuItemBaseProps,
   "onClose"
-> {}
+> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
+}
 
-const MenuItemWithNav = React.forwardRef<HTMLDivElement, MenuItemWithNavProps>(
-  ({ onKeyDown, ...props }, ref) => {
-    const itemCtx = useMenuItemContext();
-    const index = itemCtx.indexRef.current++;
-    const navProps = itemCtx.getItemProps(index);
-    const composedRef = composeRefs(ref, navProps.ref);
+function MenuItemWithNav({ ref, onKeyDown, ...props }: MenuItemWithNavProps) {
+  const itemCtx = useMenuItemContext();
+  const index = itemCtx.indexRef.current++;
+  const navProps = itemCtx.getItemProps(index);
+  const composedRef = composeRefs(ref, navProps.ref);
 
-    return (
-      <MenuItemBase
-        ref={composedRef}
-        tabIndex={navProps.tabIndex}
-        onKeyDown={createMenuItemKeyHandler(itemCtx, navProps, onKeyDown)}
-        onClose={itemCtx.close}
-        {...props}
-      />
-    );
-  },
-);
+  return (
+    <MenuItemBase
+      ref={composedRef}
+      tabIndex={navProps.tabIndex}
+      onKeyDown={createMenuItemKeyHandler(itemCtx, navProps, onKeyDown)}
+      onClose={itemCtx.close}
+      {...props}
+    />
+  );
+}
 
 MenuItemWithNav.displayName = "MenuItemWithNav";
 
 export interface MenuCheckboxItemWithNavProps extends Omit<
   MenuCheckboxItemBaseProps,
   "onClose"
-> {}
+> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
+}
 
-const MenuCheckboxItemWithNav = React.forwardRef<
-  HTMLDivElement,
-  MenuCheckboxItemWithNavProps
->(({ onKeyDown, ...props }, ref) => {
+function MenuCheckboxItemWithNav({
+  ref,
+  onKeyDown,
+  ...props
+}: MenuCheckboxItemWithNavProps) {
   const itemCtx = useMenuItemContext();
   const index = itemCtx.indexRef.current++;
   const navProps = itemCtx.getItemProps(index);
@@ -126,19 +129,22 @@ const MenuCheckboxItemWithNav = React.forwardRef<
       {...props}
     />
   );
-});
+}
 
 MenuCheckboxItemWithNav.displayName = "MenuCheckboxItemWithNav";
 
 export interface MenuRadioItemWithNavProps extends Omit<
   MenuRadioItemBaseProps,
   "onClose"
-> {}
+> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
+}
 
-const MenuRadioItemWithNav = React.forwardRef<
-  HTMLDivElement,
-  MenuRadioItemWithNavProps
->(({ onKeyDown, ...props }, ref) => {
+function MenuRadioItemWithNav({
+  ref,
+  onKeyDown,
+  ...props
+}: MenuRadioItemWithNavProps) {
   const itemCtx = useMenuItemContext();
   const index = itemCtx.indexRef.current++;
   const navProps = itemCtx.getItemProps(index);
@@ -153,7 +159,7 @@ const MenuRadioItemWithNav = React.forwardRef<
       {...props}
     />
   );
-});
+}
 
 MenuRadioItemWithNav.displayName = "MenuRadioItemWithNav";
 

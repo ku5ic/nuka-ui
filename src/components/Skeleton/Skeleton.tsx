@@ -3,21 +3,20 @@ import { cn } from "@nuka/utils/cn";
 import { skeletonVariants } from "@nuka/components/Skeleton/Skeleton.variants";
 
 export interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
   shape?: "rect" | "circle" | "text";
 }
 
-const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
-  ({ className, shape, ...props }, ref) => {
-    return (
-      <div
-        ref={ref}
-        {...props}
-        aria-hidden="true"
-        className={cn(skeletonVariants({ shape }), className)}
-      />
-    );
-  },
-);
+function Skeleton({ ref, className, shape, ...props }: SkeletonProps) {
+  return (
+    <div
+      ref={ref}
+      {...props}
+      aria-hidden="true"
+      className={cn(skeletonVariants({ shape }), className)}
+    />
+  );
+}
 
 Skeleton.displayName = "Skeleton";
 

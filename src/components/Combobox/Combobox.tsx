@@ -14,11 +14,12 @@ import {
   autoUpdate,
 } from "@floating-ui/react";
 import { useControllableState } from "@nuka/hooks/use-controllable-state";
+import { useOptionRegistry } from "@nuka/hooks/use-option-registry";
+import { getActiveElement } from "@nuka/utils/get-active-element";
 import { ComboboxContext } from "@nuka/components/Combobox/Combobox.context";
 import type {
   ComboboxProps,
   ComboboxContextValue,
-  OptionEntry,
 } from "@nuka/components/Combobox/Combobox.types";
 
 function Combobox({
@@ -49,14 +50,9 @@ function Combobox({
   >(undefined);
   const [visibleCount, setVisibleCount] = React.useState(0);
 
-  // Split registry: labelMap persists for trigger label display across open/close,
-  // activeOptions tracks mounted option elements for keyboard navigation
+  // labelMapRef persists option labels across open/close for trigger display
   const labelMapRef = React.useRef(new Map<string, string>());
-  const activeOptionsRef = React.useRef(new Map<string, OptionEntry>());
-  const [registryVersion, setRegistryVersion] = React.useState(0);
-  const bumpRegistry = React.useCallback(() => {
-    setRegistryVersion((v) => v + 1);
-  }, []);
+  const registry = useOptionRegistry();
 
   const generatedId = React.useId();
   const listboxId = `${generatedId}-listbox`;
@@ -81,10 +77,8 @@ function Combobox({
   React.useEffect(() => {
     if (prevOpenRef.current && !currentOpen) {
       requestAnimationFrame(() => {
-        if (
-          document.activeElement === document.body ||
-          document.activeElement === null
-        ) {
+        const active = getActiveElement();
+        if (active === document.body || active === null) {
           triggerRef.current?.focus();
         }
       });
@@ -119,28 +113,16 @@ function Combobox({
     dismiss,
   ]);
 
+  // Wraps the hook's registerOption to also persist labels in labelMapRef
   const registerOption = React.useCallback(
     (optionValue: string, label: string, ref: HTMLElement | null) => {
       labelMapRef.current.set(optionValue, label);
-      const existing = activeOptionsRef.current.get(optionValue);
-      activeOptionsRef.current.set(optionValue, {
-        label,
-        ref,
-        disabled: existing?.disabled ?? false,
-      });
-      bumpRegistry();
+      registry.registerOption(optionValue, label, ref);
     },
-    [bumpRegistry],
+    [registry],
   );
 
-  const unregisterOption = React.useCallback((optionValue: string) => {
-    activeOptionsRef.current.delete(optionValue);
-  }, []);
-
-  const getOptions = React.useCallback((): string[] => {
-    return Array.from(activeOptionsRef.current.keys());
-  }, []);
-
+  // Labels are read from labelMapRef so they persist across panel close/open
   const getOptionLabel = React.useCallback(
     (optionValue: string): string | undefined => {
       return labelMapRef.current.get(optionValue);
@@ -148,30 +130,8 @@ function Combobox({
     [],
   );
 
-  const getOptionRef = React.useCallback(
-    (optionValue: string): HTMLElement | null | undefined => {
-      return activeOptionsRef.current.get(optionValue)?.ref;
-    },
-    [],
-  );
-
-  const isOptionDisabled = React.useCallback((optionValue: string): boolean => {
-    return activeOptionsRef.current.get(optionValue)?.disabled ?? false;
-  }, []);
-
-  const registerDisabledOption = React.useCallback(
-    (optionValue: string, optionDisabled: boolean) => {
-      const existing = activeOptionsRef.current.get(optionValue);
-      if (existing) {
-        existing.disabled = optionDisabled;
-      }
-    },
-    [],
-  );
-
-  // registryVersion invalidates memo when options register
   const contextValue: ComboboxContextValue = React.useMemo(() => {
-    void registryVersion;
+    void registry.registryVersion;
     return {
       open: currentOpen,
       onOpenChange: handleOpenChange,
@@ -191,12 +151,12 @@ function Combobox({
       triggerRef,
       highlightOnOpenRef,
       registerOption,
-      unregisterOption,
-      getOptions,
+      unregisterOption: registry.unregisterOption,
+      getOptions: registry.getOptions,
       getOptionLabel,
-      getOptionRef,
-      isOptionDisabled,
-      registerDisabledOption,
+      getOptionRef: registry.getOptionRef,
+      isOptionDisabled: registry.isOptionDisabled,
+      registerDisabledOption: registry.registerDisabledOption,
       refs,
       floatingStyles,
       getReferenceProps,
@@ -215,17 +175,12 @@ function Combobox({
     listboxId,
     inputId,
     registerOption,
-    unregisterOption,
-    getOptions,
     getOptionLabel,
-    getOptionRef,
-    isOptionDisabled,
-    registerDisabledOption,
+    registry,
     refs,
     floatingStyles,
     getReferenceProps,
     getFloatingProps,
-    registryVersion,
   ]);
 
   return (

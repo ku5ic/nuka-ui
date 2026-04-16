@@ -2,20 +2,19 @@ import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 
 export interface SkipLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  ref?: React.Ref<HTMLAnchorElement> | undefined;
   /** Target element ID without the # prefix */
   targetId?: string;
 }
 
-const SkipLink = React.forwardRef<HTMLAnchorElement, SkipLinkProps>(
-  (
-    {
-      className,
-      targetId = "main-content",
-      children = "Skip to main content",
-      ...props
-    },
-    ref,
-  ) => (
+function SkipLink({
+  ref,
+  className,
+  targetId = "main-content",
+  children = "Skip to main content",
+  ...props
+}: SkipLinkProps) {
+  return (
     <a
       ref={ref}
       href={`#${targetId}`}
@@ -34,8 +33,8 @@ const SkipLink = React.forwardRef<HTMLAnchorElement, SkipLinkProps>(
     >
       {children}
     </a>
-  ),
-);
+  );
+}
 
 SkipLink.displayName = "SkipLink";
 

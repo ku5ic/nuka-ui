@@ -288,7 +288,7 @@ per the component reuse rules in `CLAUDE.md`:
 - Non-null assertions (`!`) without a comment explaining why they are safe
 - Optional chaining used to silence errors that should be handled explicitly
 - Missing `type` keyword on import statements that import only types
-- `React.forwardRef` missing on any component that renders a DOM element
+- `React.forwardRef` used in component source (deprecated; ref is a prop in React 19)
 - Exported component props types not following the `<Component>Props` naming convention
 - `VariantProps` exported types not following the `<Component>VariantProps` naming convention
 

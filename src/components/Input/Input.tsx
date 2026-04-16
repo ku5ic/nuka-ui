@@ -10,33 +10,33 @@ import {
 export interface InputProps
   extends
     Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">,
-    InputVariantProps {}
+    InputVariantProps {
+  ref?: React.Ref<HTMLInputElement> | undefined;
+}
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, intent, size, id, ...props }, ref) => {
-    const field = useFormFieldProps({
-      id,
-      "aria-invalid": props["aria-invalid"],
-      "aria-describedby": props["aria-describedby"],
-      "aria-required": props["aria-required"],
-    });
+function Input({ ref, className, intent, size, id, ...props }: InputProps) {
+  const field = useFormFieldProps({
+    id,
+    "aria-invalid": props["aria-invalid"],
+    "aria-describedby": props["aria-describedby"],
+    "aria-required": props["aria-required"],
+  });
 
-    const ariaInvalid =
-      field.ariaInvalid ?? (intent === "danger" ? true : undefined);
+  const ariaInvalid =
+    field.ariaInvalid ?? (intent === "danger" ? true : undefined);
 
-    return (
-      <input
-        ref={ref}
-        id={field.resolvedId}
-        className={cn(inputVariants({ intent, size }), className)}
-        {...props}
-        aria-invalid={ariaInvalid}
-        aria-describedby={field.ariaDescribedBy}
-        aria-required={field.ariaRequired}
-      />
-    );
-  },
-);
+  return (
+    <input
+      ref={ref}
+      id={field.resolvedId}
+      className={cn(inputVariants({ intent, size }), className)}
+      {...props}
+      aria-invalid={ariaInvalid}
+      aria-describedby={field.ariaDescribedBy}
+      aria-required={field.ariaRequired}
+    />
+  );
+}
 
 Input.displayName = "Input";
 

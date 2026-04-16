@@ -8,46 +8,45 @@ import type { ToastItem } from "@nuka/components/Toast/toastStore";
 import { toastVariants } from "@nuka/components/Toast/Toast.variants";
 
 export interface ToastProps {
+  ref?: React.Ref<HTMLDivElement> | undefined;
   toast: ToastItem;
   onDismiss: (id: string) => void;
 }
 
-const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
-  ({ toast: toastItem, onDismiss }, ref) => {
-    return (
-      <div
-        ref={ref}
-        role="status"
-        aria-live={toastItem.intent === "danger" ? "assertive" : "polite"}
-        aria-atomic="true"
-        data-state={toastItem.dismissing ? "closed" : "open"}
-        className={cn(toastVariants({ intent: toastItem.intent }))}
-      >
-        <Text as="div" size="sm" weight="medium" className="flex-1">
-          {toastItem.message}
-        </Text>
-        {toastItem.action != null && (
-          <Button
-            variant="link"
-            size="sm"
-            className="shrink-0"
-            onClick={() => {
-              toastItem.action?.onClick();
-              onDismiss(toastItem.id);
-            }}
-          >
-            {toastItem.action.label}
-          </Button>
-        )}
-        <DismissButton
-          onClick={() => onDismiss(toastItem.id)}
-          label="Dismiss notification"
+function Toast({ ref, toast: toastItem, onDismiss }: ToastProps) {
+  return (
+    <div
+      ref={ref}
+      role="status"
+      aria-live={toastItem.intent === "danger" ? "assertive" : "polite"}
+      aria-atomic="true"
+      data-state={toastItem.dismissing ? "closed" : "open"}
+      className={cn(toastVariants({ intent: toastItem.intent }))}
+    >
+      <Text as="div" size="sm" weight="medium" className="flex-1">
+        {toastItem.message}
+      </Text>
+      {toastItem.action != null && (
+        <Button
+          variant="link"
+          size="sm"
           className="shrink-0"
-        />
-      </div>
-    );
-  },
-);
+          onClick={() => {
+            toastItem.action?.onClick();
+            onDismiss(toastItem.id);
+          }}
+        >
+          {toastItem.action.label}
+        </Button>
+      )}
+      <DismissButton
+        onClick={() => onDismiss(toastItem.id)}
+        label="Dismiss notification"
+        className="shrink-0"
+      />
+    </div>
+  );
+}
 
 Toast.displayName = "Toast";
 

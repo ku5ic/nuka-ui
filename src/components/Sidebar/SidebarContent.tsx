@@ -2,10 +2,12 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 
-export interface SidebarContentProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface SidebarContentProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
+}
 
-const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
-  ({ className, ...props }, ref) => (
+function SidebarContent({ ref, className, ...props }: SidebarContentProps) {
+  return (
     <div
       ref={ref}
       className={cn(
@@ -14,8 +16,8 @@ const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
       )}
       {...props}
     />
-  ),
-);
+  );
+}
 
 SidebarContent.displayName = "SidebarContent";
 

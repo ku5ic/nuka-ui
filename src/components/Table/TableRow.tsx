@@ -11,12 +11,19 @@ const rowIntentClasses: Record<TableRowIntent, string> = {
 };
 
 export interface TableRowProps extends React.HTMLAttributes<HTMLTableRowElement> {
+  ref?: React.Ref<HTMLTableRowElement> | undefined;
   intent?: TableRowIntent;
   selected?: boolean;
 }
 
-const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(
-  ({ intent = "default", selected = false, className, ...props }, ref) => (
+function TableRow({
+  ref,
+  intent = "default",
+  selected = false,
+  className,
+  ...props
+}: TableRowProps) {
+  return (
     <tr
       ref={ref}
       aria-selected={selected ? true : undefined}
@@ -30,8 +37,8 @@ const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(
       )}
       {...props}
     />
-  ),
-);
+  );
+}
 
 TableRow.displayName = "TableRow";
 

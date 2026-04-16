@@ -9,8 +9,8 @@ import { useScrollLock } from "@nuka/hooks/use-scroll-lock";
 import {
   createModalPrimitive,
   useEscapeKey,
-  useModalTitleWarning,
 } from "@nuka/utils/modal-primitive";
+import { useModalTitleWarning } from "@nuka/hooks/use-modal-title-warning";
 import type {
   ModalRootProps,
   ModalTriggerProps,
@@ -54,67 +54,72 @@ const sideClasses: Record<SheetSide, string> = {
 };
 
 export interface SheetContentProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
   side?: SheetSide;
 }
 
-const SheetContent = React.forwardRef<HTMLDivElement, SheetContentProps>(
-  ({ side = "right", className, children, ...props }, ref) => {
-    const ctx = useSheetContext();
-    const panelRef = React.useRef<HTMLDivElement>(null);
-    const composedRef = composeRefs(ref, panelRef);
+function SheetContent({
+  ref,
+  side = "right",
+  className,
+  children,
+  ...props
+}: SheetContentProps) {
+  const ctx = useSheetContext();
+  const panelRef = React.useRef<HTMLDivElement>(null);
+  const composedRef = composeRefs(ref, panelRef);
 
-    useFocusTrap(panelRef, ctx.open);
-    useScrollLock(ctx.open);
-    useModalTitleWarning("Sheet", ctx.titleId, ctx.open);
-    useEscapeKey(() => ctx.onOpenChange(false), ctx.open);
+  useFocusTrap(panelRef, ctx.open);
+  useScrollLock(ctx.open);
+  useModalTitleWarning("Sheet", ctx.titleId, ctx.open);
+  useEscapeKey(() => ctx.onOpenChange(false), ctx.open);
 
-    if (!ctx.open) return null;
+  if (!ctx.open) return null;
 
-    return (
-      <Portal>
-        <div
-          className={cn(
-            "fixed inset-0 z-(--nuka-z-modal)",
-            "bg-(--nuka-bg-overlay)",
-            "data-[state=open]:animate-[nuka-dialog-overlay-enter_150ms_ease-out]",
-          )}
-          data-state="open"
+  return (
+    <Portal>
+      <div
+        className={cn(
+          "fixed inset-0 z-(--nuka-z-modal)",
+          "bg-(--nuka-bg-overlay)",
+          "data-[state=open]:animate-[nuka-dialog-overlay-enter_150ms_ease-out]",
+        )}
+        data-state="open"
+        onClick={() => ctx.onOpenChange(false)}
+        aria-hidden="true"
+      />
+      <div
+        ref={composedRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={ctx.titleId}
+        aria-describedby={ctx.hasDescription ? ctx.descriptionId : undefined}
+        tabIndex={-1}
+        data-state="open"
+        data-side={side}
+        className={cn(
+          "fixed z-(--nuka-z-modal)",
+          "bg-(--nuka-bg-base) border-(--nuka-border-base) shadow-md",
+          "p-(--space-6)",
+          "transition-transform duration-300 ease-in-out",
+          "motion-reduce:transition-none",
+          // Programmatic focus via useFocusTrap; :focus-visible does not activate, so this is inert
+          "focus-visible:outline-none",
+          sideClasses[side],
+          className,
+        )}
+        {...props}
+      >
+        <DismissButton
           onClick={() => ctx.onOpenChange(false)}
-          aria-hidden="true"
+          label="Close sheet"
+          className="absolute top-(--space-4) right-(--space-4) text-(--nuka-text-muted)"
         />
-        <div
-          ref={composedRef}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby={ctx.titleId}
-          aria-describedby={ctx.hasDescription ? ctx.descriptionId : undefined}
-          tabIndex={-1}
-          data-state="open"
-          data-side={side}
-          className={cn(
-            "fixed z-(--nuka-z-modal)",
-            "bg-(--nuka-bg-base) border-(--nuka-border-base) shadow-md",
-            "p-(--space-6)",
-            "transition-transform duration-300 ease-in-out",
-            "motion-reduce:transition-none",
-            // Programmatic focus via useFocusTrap; :focus-visible does not activate, so this is inert
-            "focus-visible:outline-none",
-            sideClasses[side],
-            className,
-          )}
-          {...props}
-        >
-          <DismissButton
-            onClick={() => ctx.onOpenChange(false)}
-            label="Close sheet"
-            className="absolute top-(--space-4) right-(--space-4) text-(--nuka-text-muted)"
-          />
-          {children}
-        </div>
-      </Portal>
-    );
-  },
-);
+        {children}
+      </div>
+    </Portal>
+  );
+}
 
 SheetContent.displayName = "SheetContent";
 

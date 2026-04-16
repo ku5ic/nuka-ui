@@ -11,6 +11,7 @@ export interface AvatarProps
   extends
     Omit<React.HTMLAttributes<HTMLSpanElement>, "children">,
     AvatarVariantProps {
+  ref?: React.Ref<HTMLSpanElement> | undefined;
   src?: string;
   alt?: string;
   name?: string;
@@ -74,55 +75,62 @@ function resolveAriaLabel(
   return "User avatar";
 }
 
-const Avatar = React.forwardRef<HTMLSpanElement, AvatarProps>(
-  ({ className, size, shape, src, alt, name, ...props }, ref) => {
-    const [loaded, setLoaded] = React.useState(false);
-    const [errored, setErrored] = React.useState(false);
-    const prevSrcRef = React.useRef(src);
+function Avatar({
+  ref,
+  className,
+  size,
+  shape,
+  src,
+  alt,
+  name,
+  ...props
+}: AvatarProps) {
+  const [loaded, setLoaded] = React.useState(false);
+  const [errored, setErrored] = React.useState(false);
+  const prevSrcRef = React.useRef(src);
 
-    if (prevSrcRef.current !== src) {
-      prevSrcRef.current = src;
-      setLoaded(false);
-      setErrored(false);
-    }
+  if (prevSrcRef.current !== src) {
+    prevSrcRef.current = src;
+    setLoaded(false);
+    setErrored(false);
+  }
 
-    const initials = name !== undefined ? getInitials(name) : "";
-    const showInitials = initials !== "";
-    const ariaLabel = resolveAriaLabel(src, alt, name, loaded, errored);
+  const initials = name !== undefined ? getInitials(name) : "";
+  const showInitials = initials !== "";
+  const ariaLabel = resolveAriaLabel(src, alt, name, loaded, errored);
 
-    return (
-      <span
-        ref={ref}
-        role="img"
-        aria-label={ariaLabel}
-        className={cn(avatarVariants({ size, shape }), className)}
-        {...props}
-      >
-        {/* Fallback layer: always rendered */}
-        {showInitials ? (
-          <span aria-hidden="true">{initials}</span>
-        ) : (
-          <PersonIcon />
-        )}
+  return (
+    <span
+      ref={ref}
+      role="img"
+      aria-label={ariaLabel}
+      className={cn(avatarVariants({ size, shape }), className)}
+      {...props}
+    >
+      {/* Fallback layer: always rendered */}
+      {showInitials ? (
+        <span aria-hidden="true">{initials}</span>
+      ) : (
+        <PersonIcon />
+      )}
 
-        {/* Image layer: on top, hidden until loaded */}
-        {src !== undefined && !errored && (
-          <img
-            key={src}
-            src={src}
-            alt=""
-            onLoad={() => setLoaded(true)}
-            onError={() => setErrored(true)}
-            className={cn(
-              "absolute inset-0 h-full w-full object-cover",
-              loaded ? "opacity-100" : "opacity-0",
-            )}
-          />
-        )}
-      </span>
-    );
-  },
-);
+      {/* Image layer: on top, hidden until loaded */}
+      {src !== undefined && !errored && (
+        <img
+          key={src}
+          src={src}
+          alt=""
+          onLoad={() => setLoaded(true)}
+          onError={() => setErrored(true)}
+          className={cn(
+            "absolute inset-0 h-full w-full object-cover",
+            loaded ? "opacity-100" : "opacity-0",
+          )}
+        />
+      )}
+    </span>
+  );
+}
 
 Avatar.displayName = "Avatar";
 

@@ -18,41 +18,37 @@ export interface HeadingProps
   extends
     Omit<React.HTMLAttributes<HTMLElement>, "color">,
     HeadingVariantProps {
+  ref?: React.Ref<HTMLElement> | undefined;
   as?: HeadingElement;
   size?: Responsive<HeadingSize>;
 }
 
-const Heading = React.forwardRef<HTMLElement, HeadingProps>(
-  (
-    {
-      // Default element is h2: the most common non-landmark heading level.
-      // h1 is reserved for the page title (typically one per page).
-      as: Comp = "h2",
-      className,
-      size = "3xl",
-      family,
-      weight,
-      color,
-      truncate,
-      ...props
-    },
-    ref,
-  ) => {
-    return (
-      <Comp
-        // Safe: the `as` prop selects h1-h6, making the ref type a union.
-        // Same polymorphic element pattern as Text.tsx.
-        ref={ref as React.RefObject<never>}
-        className={cn(
-          headingVariants({ family, weight, color, truncate }),
-          ...resolveResponsiveClasses(size, headingSizeClasses),
-          className,
-        )}
-        {...props}
-      />
-    );
-  },
-);
+function Heading({
+  ref, // Default element is h2: the most common non-landmark heading level.
+  // h1 is reserved for the page title (typically one per page).
+  as: Comp = "h2",
+  className,
+  size = "3xl",
+  family,
+  weight,
+  color,
+  truncate,
+  ...props
+}: HeadingProps) {
+  return (
+    <Comp
+      // Safe: the `as` prop selects h1-h6, making the ref type a union.
+      // Same polymorphic element pattern as Text.tsx.
+      ref={ref as React.RefObject<never>}
+      className={cn(
+        headingVariants({ family, weight, color, truncate }),
+        ...resolveResponsiveClasses(size, headingSizeClasses),
+        className,
+      )}
+      {...props}
+    />
+  );
+}
 
 Heading.displayName = "Heading";
 

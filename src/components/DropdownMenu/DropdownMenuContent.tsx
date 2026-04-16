@@ -11,12 +11,16 @@ import {
 } from "@nuka/components/Menu/MenuContentBase";
 import { useDropdownMenuContext } from "@nuka/components/DropdownMenu/DropdownMenu.context";
 
-export interface DropdownMenuContentProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface DropdownMenuContentProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
+}
 
-const DropdownMenuContent = React.forwardRef<
-  HTMLDivElement,
-  DropdownMenuContentProps
->(({ className, children, ...props }, ref) => {
+function DropdownMenuContent({
+  ref,
+  className,
+  children,
+  ...props
+}: DropdownMenuContentProps) {
   const ctx = useDropdownMenuContext();
   const contentRef = React.useRef<HTMLDivElement>(null);
   const composedRef = composeRefs(ref, contentRef, ctx.refs.setFloating);
@@ -62,7 +66,7 @@ const DropdownMenuContent = React.forwardRef<
       </MenuItemContext>
     </Portal>
   );
-});
+}
 
 DropdownMenuContent.displayName = "DropdownMenuContent";
 

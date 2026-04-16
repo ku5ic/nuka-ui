@@ -62,33 +62,40 @@ import * as React from 'react'
 import { Slot } from '@nuka/utils/slot'
 import { cn } from '@nuka/utils/cn'
 import {
-  <name>Variants,
-  type <Name>VariantProps,
-} from '@nuka/components/<Name>/<Name>.variants'
+  <n>Variants,
+  type <n>VariantProps,
+} from '@nuka/components/<n>/<n>.variants'
 
-export interface <Name>Props
+export interface <n>Props
   extends React.HTMLAttributes<HTMLElement>,
-    <Name>VariantProps {
+    <n>VariantProps {
+  ref?: React.Ref<HTMLElement> | undefined
   asChild?: boolean
 }
 
-const <Name> = React.forwardRef<<HTMLElement>, <Name>Props>(
-  ({ className, variant, intent, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : '<element>'
+function <n>({
+  ref,
+  className,
+  variant,
+  intent,
+  size,
+  asChild = false,
+  ...props
+}: <n>Props) {
+  const Comp = asChild ? Slot : '<element>'
 
-    return (
-      <Comp
-        ref={ref}
-        className={cn(<name>Variants({ variant, intent, size }), className)}
-        {...props}
-      />
-    )
-  }
-)
+  return (
+    <Comp
+      ref={ref}
+      className={cn(<n>Variants({ variant, intent, size }), className)}
+      {...props}
+    />
+  )
+}
 
-<Name>.displayName = '<Name>'
+<n>.displayName = '<n>'
 
-export { <Name>, <name>Variants }
+export { <n>, <n>Variants }
 ```
 
 ## index.ts structure

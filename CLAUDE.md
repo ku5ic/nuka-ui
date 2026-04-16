@@ -7,7 +7,7 @@ Context and instructions for Claude Code when working in this repository.
 nuka-ui is a React component library built on Tailwind v4. It abstracts Tailwind utility classes behind a composable component API, customizable via CSS variables and props.
 
 **Stack:** React 19, TypeScript 6 (strict), Tailwind v4, CVA, Storybook 10, Vitest 4, Testing Library  
-**Package:** `nuka-ui` on npm  
+**Package:** `@nuka-ui/core` on npm  
 **Repo:** github.com/ku5ic/nuka-ui
 
 ## Commands
@@ -155,8 +155,9 @@ Hooks must never live in `src/utils/`. Context definitions must never live in `s
 
 - Strict mode including `exactOptionalPropertyTypes` and `noUncheckedIndexedAccess`
 - Always use type imports: `import type { Foo } from './Foo'`
-- `React.forwardRef` is mandatory on all components that render DOM elements
-- Export `ComponentProps` and `ComponentVariantProps` types alongside every component
+- React 19 ref-as-prop: every DOM-rendering component accepts `ref?: React.Ref<ElementType> | undefined` in its props interface and destructures `ref` in the function signature. No component uses `React.forwardRef`.
+- Export `ComponentProps` types alongside every component
+- Export `ComponentVariantProps` types alongside every component that has a `.variants.ts` file
 
 ### Testing
 

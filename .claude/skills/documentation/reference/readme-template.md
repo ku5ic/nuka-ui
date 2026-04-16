@@ -7,7 +7,7 @@ A React component library built on Tailwind v4. Clean, composable components cus
 ## Installation
 
 ```bash
-npm install nuka-ui
+npm install @nuka-ui/core
 ```
 
 ## Setup
@@ -15,13 +15,13 @@ npm install nuka-ui
 Import the styles once at your app entry point:
 
 ```tsx
-import "nuka-ui/styles";
+import "@nuka-ui/core/styles";
 ```
 
 ## Usage
 
 ```tsx
-import { Button } from 'nuka-ui'
+import { Button } from '@nuka-ui/core'
 
 <Button variant="primary" intent="default">
   Save changes

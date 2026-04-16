@@ -7,28 +7,32 @@ import { useSidebarContext } from "@nuka/components/Sidebar/Sidebar.context";
 export interface SidebarGroupLabelProps extends Omit<
   React.HTMLAttributes<HTMLElement>,
   "color"
-> {}
+> {
+  ref?: React.Ref<HTMLElement> | undefined;
+}
 
-const SidebarGroupLabel = React.forwardRef<HTMLElement, SidebarGroupLabelProps>(
-  ({ className, ...props }, ref) => {
-    const { expanded, isMobile } = useSidebarContext();
-    const isVisible = expanded || isMobile;
+function SidebarGroupLabel({
+  ref,
+  className,
+  ...props
+}: SidebarGroupLabelProps) {
+  const { expanded, isMobile } = useSidebarContext();
+  const isVisible = expanded || isMobile;
 
-    if (!isVisible) return null;
+  if (!isVisible) return null;
 
-    return (
-      <Text
-        ref={ref}
-        as="span"
-        size="xs"
-        weight="semibold"
-        color="muted"
-        className={cn("block px-(--space-3) py-(--space-1)", className)}
-        {...props}
-      />
-    );
-  },
-);
+  return (
+    <Text
+      ref={ref}
+      as="span"
+      size="xs"
+      weight="semibold"
+      color="muted"
+      className={cn("block px-(--space-3) py-(--space-1)", className)}
+      {...props}
+    />
+  );
+}
 
 SidebarGroupLabel.displayName = "SidebarGroupLabel";
 

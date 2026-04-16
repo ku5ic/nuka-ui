@@ -7,12 +7,15 @@ import { useStepperContext } from "@nuka/components/Stepper/Stepper.context";
 export interface StepperDescriptionProps extends Omit<
   React.HTMLAttributes<HTMLElement>,
   "color"
-> {}
+> {
+  ref?: React.Ref<HTMLElement> | undefined;
+}
 
-const StepperDescription = React.forwardRef<
-  HTMLElement,
-  StepperDescriptionProps
->(({ className, ...props }, ref) => {
+function StepperDescription({
+  ref,
+  className,
+  ...props
+}: StepperDescriptionProps) {
   const { orientation } = useStepperContext();
 
   return (
@@ -28,7 +31,7 @@ const StepperDescription = React.forwardRef<
       {...props}
     />
   );
-});
+}
 
 StepperDescription.displayName = "StepperDescription";
 

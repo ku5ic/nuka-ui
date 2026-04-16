@@ -9,6 +9,7 @@ type SideWidth = "sm" | "md" | "lg" | "xl";
 type StackBelow = "sm" | "md" | "lg" | "xl";
 
 export interface SplitLayoutProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
   sidebar?: Sidebar;
   sideWidth?: SideWidth;
   stackBelow?: StackBelow;
@@ -54,48 +55,44 @@ const layoutClasses: Record<LayoutKey, string> = {
   "left-xl-xl":  "grid-cols-1 xl:grid-cols-[480px_1fr]",
 };
 
-const SplitLayout = React.forwardRef<HTMLDivElement, SplitLayoutProps>(
-  (
-    {
-      className,
-      sidebar = "right",
-      sideWidth = "md",
-      stackBelow = "md",
-      gap = "none",
-      asChild = false,
-      children,
-      ...props
-    },
-    ref,
-  ) => {
-    if (process.env.NODE_ENV !== "production") {
-      const count = React.Children.count(children);
-      if (count !== 2) {
-        console.warn(
-          `SplitLayout expects exactly 2 children (main + sidebar), received ${String(count)}.`,
-        );
-      }
+function SplitLayout({
+  ref,
+  className,
+  sidebar = "right",
+  sideWidth = "md",
+  stackBelow = "md",
+  gap = "none",
+  asChild = false,
+  children,
+  ...props
+}: SplitLayoutProps) {
+  if (process.env.NODE_ENV !== "production") {
+    const count = React.Children.count(children);
+    if (count !== 2) {
+      console.warn(
+        `SplitLayout expects exactly 2 children (main + sidebar), received ${String(count)}.`,
+      );
     }
+  }
 
-    const Comp = asChild ? Slot : "div";
-    const key: LayoutKey = `${sidebar}-${sideWidth}-${stackBelow}`;
+  const Comp = asChild ? Slot : "div";
+  const key: LayoutKey = `${sidebar}-${sideWidth}-${stackBelow}`;
 
-    return (
-      <Comp
-        ref={ref}
-        className={cn(
-          "grid",
-          layoutClasses[key],
-          ...resolveResponsiveClasses(gap, gapClasses),
-          className,
-        )}
-        {...props}
-      >
-        {children}
-      </Comp>
-    );
-  },
-);
+  return (
+    <Comp
+      ref={ref}
+      className={cn(
+        "grid",
+        layoutClasses[key],
+        ...resolveResponsiveClasses(gap, gapClasses),
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </Comp>
+  );
+}
 
 SplitLayout.displayName = "SplitLayout";
 

@@ -8,22 +8,29 @@ import {
 
 export interface BadgeProps
   extends React.HTMLAttributes<HTMLSpanElement>, BadgeVariantProps {
+  ref?: React.Ref<HTMLSpanElement> | undefined;
   asChild?: boolean;
 }
 
-const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
-  ({ className, variant, intent, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : "span";
+function Badge({
+  ref,
+  className,
+  variant,
+  intent,
+  size,
+  asChild = false,
+  ...props
+}: BadgeProps) {
+  const Comp = asChild ? Slot : "span";
 
-    return (
-      <Comp
-        ref={ref}
-        className={cn(badgeVariants({ variant, intent, size }), className)}
-        {...props}
-      />
-    );
-  },
-);
+  return (
+    <Comp
+      ref={ref}
+      className={cn(badgeVariants({ variant, intent, size }), className)}
+      {...props}
+    />
+  );
+}
 
 Badge.displayName = "Badge";
 

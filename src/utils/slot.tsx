@@ -63,43 +63,44 @@ function mergeProps(
   return merged;
 }
 
-const Slot = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(
-  ({ children, ...slotProps }, forwardedRef) => {
-    if (!React.isValidElement(children)) {
-      if (process.env.NODE_ENV !== "production") {
-        throw new Error(
-          "Slot requires a single valid React element as its child. " +
-            `Received: ${children === null ? "null" : typeof children}`,
-        );
-      }
-      return null;
+interface SlotProps extends React.HTMLAttributes<HTMLElement> {
+  ref?: React.Ref<HTMLElement> | undefined;
+}
+
+function Slot({ ref: forwardedRef, children, ...slotProps }: SlotProps) {
+  if (!React.isValidElement(children)) {
+    if (process.env.NODE_ENV !== "production") {
+      throw new Error(
+        "Slot requires a single valid React element as its child. " +
+          `Received: ${children === null ? "null" : typeof children}`,
+      );
     }
+    return null;
+  }
 
-    const childElement = children as React.ReactElement<
-      Record<string, unknown> & { ref?: React.Ref<HTMLElement> }
-    >;
+  const childElement = children as React.ReactElement<
+    Record<string, unknown> & { ref?: React.Ref<HTMLElement> }
+  >;
 
-    const childRef = childElement.props.ref;
-    const composedRef = composeRefs(forwardedRef, childRef);
+  const childRef = childElement.props.ref;
+  const composedRef = composeRefs(forwardedRef, childRef);
 
-    const mergedProps = mergeProps(
-      slotProps as Record<string, unknown>,
-      childElement.props as Record<string, unknown>,
-    );
+  const mergedProps = mergeProps(
+    slotProps as Record<string, unknown>,
+    childElement.props as Record<string, unknown>,
+  );
 
-    const cloneProps: Record<string, unknown> & React.Attributes = {
-      ...mergedProps,
-      ref: composedRef,
-    };
+  const cloneProps: Record<string, unknown> & React.Attributes = {
+    ...mergedProps,
+    ref: composedRef,
+    ...(childElement.key != null ? { key: childElement.key } : {}),
+  };
 
-    return React.cloneElement(
-      childElement,
-      cloneProps as Partial<
-        Record<string, unknown> & { ref?: React.Ref<HTMLElement> }
-      >,
-    );
-  },
-);
+  return React.createElement(
+    childElement.type as React.ElementType,
+    cloneProps,
+  );
+}
 
 Slot.displayName = "Slot";
 

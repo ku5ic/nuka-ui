@@ -8,12 +8,16 @@ import {
   useAccordionItemContext,
 } from "@nuka/components/Accordion/Accordion.context";
 
-export interface AccordionTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+export interface AccordionTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  ref?: React.Ref<HTMLButtonElement> | undefined;
+}
 
-const AccordionTrigger = React.forwardRef<
-  HTMLButtonElement,
-  AccordionTriggerProps
->(({ className, children, ...props }, ref) => {
+function AccordionTrigger({
+  ref,
+  className,
+  children,
+  ...props
+}: AccordionTriggerProps) {
   const { headingLevel } = useAccordionContext();
   const { open } = useAccordionItemContext();
   const HeadingTag = headingLevel;
@@ -61,7 +65,7 @@ const AccordionTrigger = React.forwardRef<
       </CollapsibleTrigger>
     </HeadingTag>
   );
-});
+}
 
 AccordionTrigger.displayName = "AccordionTrigger";
 

@@ -2,13 +2,15 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 
-export interface SidebarGroupProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface SidebarGroupProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
+}
 
-const SidebarGroup = React.forwardRef<HTMLDivElement, SidebarGroupProps>(
-  ({ className, ...props }, ref) => (
+function SidebarGroup({ ref, className, ...props }: SidebarGroupProps) {
+  return (
     <div ref={ref} className={cn("py-(--space-2)", className)} {...props} />
-  ),
-);
+  );
+}
 
 SidebarGroup.displayName = "SidebarGroup";
 

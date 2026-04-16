@@ -19,61 +19,67 @@ export interface SpinnerProps
   extends
     Omit<React.ComponentPropsWithoutRef<"span">, "color">,
     SpinnerVariantProps {
+  ref?: React.Ref<HTMLSpanElement> | undefined;
   label?: string;
 }
 
-const Spinner = React.forwardRef<HTMLSpanElement, SpinnerProps>(
-  ({ className, size: sizeProp, color: colorProp, label, ...props }, ref) => {
-    const size: SpinnerSize = sizeProp ?? "md";
-    const color: SpinnerColor = colorProp ?? "default";
+function Spinner({
+  ref,
+  className,
+  size: sizeProp,
+  color: colorProp,
+  label,
+  ...props
+}: SpinnerProps) {
+  const size: SpinnerSize = sizeProp ?? "md";
+  const color: SpinnerColor = colorProp ?? "default";
 
-    // Strict check: only boolean true triggers embedded mode
-    const isHidden = props["aria-hidden"] === true;
+  // Strict check: only boolean true triggers embedded mode
+  const isHidden = props["aria-hidden"] === true;
 
-    const strokeWidth = strokeWidthMap[size];
+  const strokeWidth = strokeWidthMap[size];
 
-    return (
-      <span
-        ref={ref}
-        {...(!isHidden && { role: "status" })}
-        {...(!isHidden && !label && { "aria-label": "Loading" })}
-        className={cn(spinnerVariants({ size }), className)}
-        {...props}
+  return (
+    <span
+      ref={ref}
+      {...(!isHidden && { role: "status" })}
+      {...(!isHidden && !label && { "aria-label": "Loading" })}
+      className={cn(spinnerVariants({ size }), className)}
+      {...props}
+    >
+      {label && !isHidden && <span className="sr-only">{label}</span>}
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        aria-hidden="true"
+        className="nuka-spinner size-full"
       >
-        {label && !isHidden && <span className="sr-only">{label}</span>}
-        <svg
-          viewBox="0 0 24 24"
+        {/* Track ring */}
+        <circle
+          cx="12"
+          cy="12"
+          r="9"
+          stroke="var(--nuka-border-base)"
+          strokeWidth={strokeWidth}
+          strokeLinecap="round"
           fill="none"
-          aria-hidden="true"
-          className="nuka-spinner size-full"
-        >
-          {/* Track ring */}
-          <circle
-            cx="12"
-            cy="12"
-            r="9"
-            stroke="var(--nuka-border-base)"
-            strokeWidth={strokeWidth}
-            strokeLinecap="round"
-            fill="none"
-          />
-          {/* Animated arc */}
-          <circle
-            cx="12"
-            cy="12"
-            r="9"
-            className={spinnerColorVariants({ color })}
-            strokeWidth={strokeWidth}
-            strokeLinecap="round"
-            strokeDasharray="56.5"
-            strokeDashoffset="42.4"
-            fill="none"
-          />
-        </svg>
-      </span>
-    );
-  },
-);
+        />
+        {/* Animated arc */}
+        <circle
+          cx="12"
+          cy="12"
+          r="9"
+          className={spinnerColorVariants({ color })}
+          strokeWidth={strokeWidth}
+          strokeLinecap="round"
+          strokeDasharray="56.5"
+          strokeDashoffset="42.4"
+          fill="none"
+        />
+      </svg>
+    </span>
+  );
+}
 
 Spinner.displayName = "Spinner";
 

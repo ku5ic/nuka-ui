@@ -425,6 +425,8 @@ The Storybook accessibility panel reports `aria-controls` as "inconclusive" on S
 - The registry pattern adds a render cycle on mount but ensures labels are always available to the trigger
 - No third-party UI primitive dependencies: all keyboard navigation, type-ahead, and ARIA semantics are owned
 
+**Implementation note (2026-04-16):** The option registry described in decision 3 has been extracted into `src/hooks/use-option-registry.ts` for reuse by Combobox. The architectural approach (Map in a ref, version counter for context re-render) is unchanged. The extraction is a refactor for code sharing, not a design change.
+
 ---
 
 ## ADR-014: Tier 3 Batch 1: Alert, Progress, and Skeleton design decisions
@@ -460,6 +462,8 @@ When `value` is `undefined`, Progress enters indeterminate mode with a CSS anima
 - The two-CVA-instance approach for Progress establishes a pattern for future components with multi-element styling (e.g., Slider already uses this)
 - Skeleton's lack of variant/intent reinforces that the pattern is opt-in per component, not mandatory, joining Divider (ADR-008) and Kbd (ADR-012) in this category
 - Reduced-motion handling via CSS `@media` query is consistent across Progress and Skeleton, with no per-component JavaScript required
+
+**See also:** ADR-025 extracts the dismiss button into a shared `DismissButton` utility (`src/utils/dismiss-button.tsx`), superseding the inline implementation described in decision 1 above.
 
 ---
 

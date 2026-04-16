@@ -5,10 +5,9 @@ import type { MenuRadioItemWithNavProps } from "@nuka/components/Menu/MenuConten
 
 export type DropdownMenuRadioItemProps = MenuRadioItemWithNavProps;
 
-const DropdownMenuRadioItem = React.forwardRef<
-  HTMLDivElement,
-  DropdownMenuRadioItemProps
->((props, ref) => <MenuRadioItemWithNav ref={ref} {...props} />);
+function DropdownMenuRadioItem({ ref, ...props }: DropdownMenuRadioItemProps) {
+  return <MenuRadioItemWithNav ref={ref} {...props} />;
+}
 
 DropdownMenuRadioItem.displayName = "DropdownMenuRadioItem";
 

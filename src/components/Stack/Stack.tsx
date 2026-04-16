@@ -19,6 +19,7 @@ import type {
 } from "@nuka/utils/responsive";
 
 export interface StackProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
   direction?: Responsive<Direction>;
   gap?: Responsive<GapScale>;
   align?: Responsive<Align>;
@@ -27,39 +28,35 @@ export interface StackProps extends React.HTMLAttributes<HTMLDivElement> {
   asChild?: boolean;
 }
 
-const Stack = React.forwardRef<HTMLDivElement, StackProps>(
-  (
-    {
-      className,
-      direction = "column",
-      gap = "none",
-      align,
-      justify,
-      wrap,
-      asChild = false,
-      ...props
-    },
-    ref,
-  ) => {
-    const Comp = asChild ? Slot : "div";
+function Stack({
+  ref,
+  className,
+  direction = "column",
+  gap = "none",
+  align,
+  justify,
+  wrap,
+  asChild = false,
+  ...props
+}: StackProps) {
+  const Comp = asChild ? Slot : "div";
 
-    return (
-      <Comp
-        ref={ref}
-        className={cn(
-          "flex",
-          ...resolveResponsiveClasses(direction, directionClasses),
-          ...resolveResponsiveClasses(gap, gapClasses),
-          ...resolveResponsiveClasses(align, alignClasses),
-          ...resolveResponsiveClasses(justify, justifyClasses),
-          ...resolveResponsiveClasses(wrap, wrapClasses),
-          className,
-        )}
-        {...props}
-      />
-    );
-  },
-);
+  return (
+    <Comp
+      ref={ref}
+      className={cn(
+        "flex",
+        ...resolveResponsiveClasses(direction, directionClasses),
+        ...resolveResponsiveClasses(gap, gapClasses),
+        ...resolveResponsiveClasses(align, alignClasses),
+        ...resolveResponsiveClasses(justify, justifyClasses),
+        ...resolveResponsiveClasses(wrap, wrapClasses),
+        className,
+      )}
+      {...props}
+    />
+  );
+}
 
 Stack.displayName = "Stack";
 

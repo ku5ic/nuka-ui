@@ -4,13 +4,16 @@ import { Slot, composeRefs } from "@nuka/utils/slot";
 import { useDropdownMenuContext } from "@nuka/components/DropdownMenu/DropdownMenu.context";
 
 export interface DropdownMenuTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  ref?: React.Ref<HTMLButtonElement> | undefined;
   asChild?: boolean;
 }
 
-const DropdownMenuTrigger = React.forwardRef<
-  HTMLButtonElement,
-  DropdownMenuTriggerProps
->(({ asChild = false, children, ...props }, ref) => {
+function DropdownMenuTrigger({
+  ref,
+  asChild = false,
+  children,
+  ...props
+}: DropdownMenuTriggerProps) {
   const ctx = useDropdownMenuContext();
   const composedRef = composeRefs(ref, ctx.refs.setReference);
   const Comp = asChild ? Slot : "button";
@@ -29,7 +32,7 @@ const DropdownMenuTrigger = React.forwardRef<
       {children}
     </Comp>
   );
-});
+}
 
 DropdownMenuTrigger.displayName = "DropdownMenuTrigger";
 

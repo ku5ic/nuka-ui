@@ -13,65 +13,73 @@ export interface CheckboxProps
   extends
     Omit<React.InputHTMLAttributes<HTMLInputElement>, "size" | "type">,
     CheckboxVariantProps {
+  ref?: React.Ref<HTMLInputElement> | undefined;
   children?: React.ReactNode;
 }
 
-const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
-  ({ className, intent, size, children, id, disabled, ...props }, ref) => {
-    const {
-      resolvedId,
-      resolvedDisabled,
-      ariaInvalid,
-      ariaDescribedBy,
-      ariaRequired,
-    } = useFormFieldProps({
-      id,
-      disabled,
-      "aria-invalid": props["aria-invalid"],
-      "aria-describedby": props["aria-describedby"],
-      "aria-required": props["aria-required"],
-    });
+function Checkbox({
+  ref,
+  className,
+  intent,
+  size,
+  children,
+  id,
+  disabled,
+  ...props
+}: CheckboxProps) {
+  const {
+    resolvedId,
+    resolvedDisabled,
+    ariaInvalid,
+    ariaDescribedBy,
+    ariaRequired,
+  } = useFormFieldProps({
+    id,
+    disabled,
+    "aria-invalid": props["aria-invalid"],
+    "aria-describedby": props["aria-describedby"],
+    "aria-required": props["aria-required"],
+  });
 
-    return (
-      <label
-        className={cn(
-          checkboxWrapperVariants({ size }),
-          resolvedDisabled ? "cursor-not-allowed" : undefined,
-          className,
-        )}
+  return (
+    <label
+      className={cn(
+        checkboxWrapperVariants({ size }),
+        resolvedDisabled ? "cursor-not-allowed" : undefined,
+        className,
+      )}
+    >
+      <input
+        ref={ref}
+        type="checkbox"
+        id={resolvedId}
+        disabled={resolvedDisabled}
+        className="peer sr-only"
+        {...props}
+        aria-invalid={ariaInvalid}
+        aria-describedby={ariaDescribedBy}
+        aria-required={ariaRequired}
+      />
+      <span
+        aria-hidden="true"
+        className={cn(checkboxIndicatorVariants({ intent, size }))}
       >
-        <input
-          ref={ref}
-          type="checkbox"
-          id={resolvedId}
-          disabled={resolvedDisabled}
-          className="peer sr-only"
-          {...props}
-          aria-invalid={ariaInvalid}
-          aria-describedby={ariaDescribedBy}
-          aria-required={ariaRequired}
-        />
-        <span
-          aria-hidden="true"
-          className={cn(checkboxIndicatorVariants({ intent, size }))}
+        <svg
+          className="hidden size-full p-0.5"
+          viewBox="0 0 16 16"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
-          <svg
-            className="hidden size-full p-0.5"
-            viewBox="0 0 16 16"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M3.5 8.5L6.5 11.5L12.5 4.5" />
-          </svg>
-        </span>
-        {children && <Text as="span">{children}</Text>}
-      </label>
-    );
-  },
-);
+          <path d="M3.5 8.5L6.5 11.5L12.5 4.5" />
+        </svg>
+      </span>
+      {children && <Text as="span">{children}</Text>}
+    </label>
+  );
+}
 
 Checkbox.displayName = "Checkbox";
 

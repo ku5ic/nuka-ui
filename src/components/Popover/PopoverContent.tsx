@@ -7,66 +7,63 @@ import { useFocusFirstInteractive } from "@nuka/hooks/use-focus-first-interactiv
 import { usePopoverContext } from "@nuka/components/Popover/Popover.context";
 
 export interface PopoverContentProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
   "aria-label"?: string;
   "aria-labelledby"?: string;
 }
 
-const PopoverContent = React.forwardRef<HTMLDivElement, PopoverContentProps>(
-  (
-    {
-      className,
-      "aria-label": ariaLabel,
-      "aria-labelledby": ariaLabelledBy,
-      ...props
-    },
-    ref,
-  ) => {
-    const ctx = usePopoverContext();
-    const contentRef = React.useRef<HTMLDivElement>(null);
-    const composedRef = composeRefs(ref, contentRef, ctx.refs.setFloating);
+function PopoverContent({
+  ref,
+  className,
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledBy,
+  ...props
+}: PopoverContentProps) {
+  const ctx = usePopoverContext();
+  const contentRef = React.useRef<HTMLDivElement>(null);
+  const composedRef = composeRefs(ref, contentRef, ctx.refs.setFloating);
 
-    React.useEffect(() => {
-      if (
-        ctx.open &&
-        process.env.NODE_ENV !== "production" &&
-        !ariaLabel &&
-        !ariaLabelledBy
-      ) {
-        console.error(
-          'Popover: PopoverContent has role="dialog" but no accessible name. ' +
-            "Provide an aria-label or aria-labelledby prop.",
-        );
-      }
-    }, [ctx.open, ariaLabel, ariaLabelledBy]);
+  React.useEffect(() => {
+    if (
+      ctx.open &&
+      process.env.NODE_ENV !== "production" &&
+      !ariaLabel &&
+      !ariaLabelledBy
+    ) {
+      console.error(
+        'Popover: PopoverContent has role="dialog" but no accessible name. ' +
+          "Provide an aria-label or aria-labelledby prop.",
+      );
+    }
+  }, [ctx.open, ariaLabel, ariaLabelledBy]);
 
-    useFocusFirstInteractive(contentRef, ctx.open);
+  useFocusFirstInteractive(contentRef, ctx.open);
 
-    if (!ctx.open) return null;
+  if (!ctx.open) return null;
 
-    const floatingProps = ctx.getFloatingProps(props);
+  const floatingProps = ctx.getFloatingProps(props);
 
-    return (
-      <Portal>
-        <div
-          ref={composedRef}
-          style={ctx.floatingStyles}
-          aria-label={ariaLabel}
-          aria-labelledby={ariaLabelledBy}
-          tabIndex={-1}
-          // Safe: Floating UI getFloatingProps() returns Record<string, unknown>;
-          // values are standard DOM attributes and event handlers.
-          {...(floatingProps as React.HTMLAttributes<HTMLDivElement>)}
-          className={cn(
-            "z-(--nuka-z-dropdown) rounded-(--radius-md) border border-(--nuka-border-base)",
-            "bg-(--nuka-bg-base) shadow-md p-(--space-4)",
-            "focus-visible:outline-none",
-            className,
-          )}
-        />
-      </Portal>
-    );
-  },
-);
+  return (
+    <Portal>
+      <div
+        ref={composedRef}
+        style={ctx.floatingStyles}
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
+        tabIndex={-1}
+        // Safe: Floating UI getFloatingProps() returns Record<string, unknown>;
+        // values are standard DOM attributes and event handlers.
+        {...(floatingProps as React.HTMLAttributes<HTMLDivElement>)}
+        className={cn(
+          "z-(--nuka-z-dropdown) rounded-(--radius-md) border border-(--nuka-border-base)",
+          "bg-(--nuka-bg-base) shadow-md p-(--space-4)",
+          "focus-visible:outline-none",
+          className,
+        )}
+      />
+    </Portal>
+  );
+}
 
 PopoverContent.displayName = "PopoverContent";
 

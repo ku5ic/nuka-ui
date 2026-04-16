@@ -1,11 +1,14 @@
 "use client";
 import * as React from "react";
 import { composeRefs } from "@nuka/utils/slot";
+import { getActiveElement } from "@nuka/utils/get-active-element";
+import { getRovingIndex } from "@nuka/utils/roving-index";
 import { useControllableState } from "@nuka/hooks/use-controllable-state";
 import { AccordionContext } from "@nuka/components/Accordion/Accordion.context";
 import type { HeadingLevel } from "@nuka/components/Accordion/Accordion.context";
 
 interface AccordionSingleProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
   type: "single";
   value?: string;
   defaultValue?: string;
@@ -15,6 +18,7 @@ interface AccordionSingleProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 interface AccordionMultipleProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
   type: "multiple";
   value?: string[];
   defaultValue?: string[];
@@ -34,70 +38,42 @@ function handleKeyboardNavigation(
   const triggers = rootRef.current?.querySelectorAll(TRIGGER_SELECTOR);
   if (!triggers || triggers.length === 0) return;
 
-  const active = document.activeElement;
+  const active = getActiveElement();
   const items = Array.from(triggers) as HTMLButtonElement[];
   const currentIndex = items.indexOf(active as HTMLButtonElement);
   if (currentIndex === -1) return;
 
-  let nextIndex: number | undefined;
-
-  switch (e.key) {
-    case "ArrowDown":
-      nextIndex = (currentIndex + 1) % items.length;
-      break;
-    case "ArrowUp":
-      nextIndex = (currentIndex - 1 + items.length) % items.length;
-      break;
-    case "Home":
-      nextIndex = 0;
-      break;
-    case "End":
-      nextIndex = items.length - 1;
-      break;
-    default:
-      return;
-  }
+  const nextIndex = getRovingIndex(
+    e.key,
+    currentIndex,
+    items.length,
+    "vertical",
+  );
+  if (nextIndex === undefined) return;
 
   e.preventDefault();
   items[nextIndex]?.focus();
 }
 
-const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
-  (props, ref) => {
-    const {
-      type,
-      headingLevel = "h3",
-      className,
-      children,
-      onKeyDown,
-      ...rest
-    } = props;
+function Accordion(props: AccordionProps) {
+  const {
+    ref,
+    type,
+    headingLevel = "h3",
+    className,
+    children,
+    onKeyDown,
+    ...rest
+  } = props;
 
-    const rootRef = React.useRef<HTMLDivElement>(null);
-    const composedRef = composeRefs(ref, rootRef);
+  const rootRef = React.useRef<HTMLDivElement>(null);
+  const composedRef = composeRefs(ref, rootRef);
 
-    if (type === "single") {
-      return (
-        <AccordionSingle
-          {...(rest as Omit<
-            AccordionSingleProps,
-            "type" | "headingLevel" | "className" | "children" | "onKeyDown"
-          >)}
-          headingLevel={headingLevel}
-          className={className}
-          rootRef={rootRef}
-          composedRef={composedRef}
-          onKeyDown={onKeyDown}
-        >
-          {children}
-        </AccordionSingle>
-      );
-    }
-
+  if (type === "single") {
     return (
-      <AccordionMultiple
+      <AccordionSingle
         {...(rest as Omit<
-          AccordionMultipleProps,
+          AccordionSingleProps,
           "type" | "headingLevel" | "className" | "children" | "onKeyDown"
         >)}
         headingLevel={headingLevel}
@@ -107,10 +83,26 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
         onKeyDown={onKeyDown}
       >
         {children}
-      </AccordionMultiple>
+      </AccordionSingle>
     );
-  },
-);
+  }
+
+  return (
+    <AccordionMultiple
+      {...(rest as Omit<
+        AccordionMultipleProps,
+        "type" | "headingLevel" | "className" | "children" | "onKeyDown"
+      >)}
+      headingLevel={headingLevel}
+      className={className}
+      rootRef={rootRef}
+      composedRef={composedRef}
+      onKeyDown={onKeyDown}
+    >
+      {children}
+    </AccordionMultiple>
+  );
+}
 
 Accordion.displayName = "Accordion";
 

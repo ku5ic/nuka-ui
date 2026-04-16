@@ -5,9 +5,9 @@ import type { MenuItemWithNavProps } from "@nuka/components/Menu/MenuContentBase
 
 export type MenubarItemProps = MenuItemWithNavProps;
 
-const MenubarItem = React.forwardRef<HTMLDivElement, MenubarItemProps>(
-  (props, ref) => <MenuItemWithNav ref={ref} {...props} />,
-);
+function MenubarItem({ ref, ...props }: MenubarItemProps) {
+  return <MenuItemWithNav ref={ref} {...props} />;
+}
 
 MenubarItem.displayName = "MenubarItem";
 

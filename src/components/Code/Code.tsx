@@ -6,22 +6,27 @@ import {
 } from "@nuka/components/Code/Code.variants";
 
 export interface CodeProps
-  extends React.HTMLAttributes<HTMLElement>, CodeVariantProps {}
+  extends React.HTMLAttributes<HTMLElement>, CodeVariantProps {
+  ref?: React.Ref<HTMLElement> | undefined;
+}
 
-const Code = React.forwardRef<HTMLElement, CodeProps>(
-  ({ className, family, variant, intent, size, ...props }, ref) => {
-    return (
-      <code
-        ref={ref}
-        className={cn(
-          codeVariants({ family, variant, intent, size }),
-          className,
-        )}
-        {...props}
-      />
-    );
-  },
-);
+function Code({
+  ref,
+  className,
+  family,
+  variant,
+  intent,
+  size,
+  ...props
+}: CodeProps) {
+  return (
+    <code
+      ref={ref}
+      className={cn(codeVariants({ family, variant, intent, size }), className)}
+      {...props}
+    />
+  );
+}
 
 Code.displayName = "Code";
 

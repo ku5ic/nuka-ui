@@ -4,13 +4,17 @@ import { Slot } from "@nuka/utils/slot";
 import { useCollapsibleContext } from "@nuka/components/Collapsible/Collapsible.context";
 
 export interface CollapsibleTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  ref?: React.Ref<HTMLButtonElement> | undefined;
   asChild?: boolean;
 }
 
-const CollapsibleTrigger = React.forwardRef<
-  HTMLButtonElement,
-  CollapsibleTriggerProps
->(({ asChild = false, className, onClick, ...props }, ref) => {
+function CollapsibleTrigger({
+  ref,
+  asChild = false,
+  className,
+  onClick,
+  ...props
+}: CollapsibleTriggerProps) {
   const { open, onOpenChange, contentId, triggerId, disabled } =
     useCollapsibleContext();
 
@@ -36,7 +40,7 @@ const CollapsibleTrigger = React.forwardRef<
       {...props}
     />
   );
-});
+}
 
 CollapsibleTrigger.displayName = "CollapsibleTrigger";
 

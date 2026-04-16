@@ -2,10 +2,12 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 
-export interface SelectSeparatorProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface SelectSeparatorProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
+}
 
-const SelectSeparator = React.forwardRef<HTMLDivElement, SelectSeparatorProps>(
-  ({ className, ...props }, ref) => (
+function SelectSeparator({ ref, className, ...props }: SelectSeparatorProps) {
+  return (
     <div
       ref={ref}
       role="separator"
@@ -13,8 +15,8 @@ const SelectSeparator = React.forwardRef<HTMLDivElement, SelectSeparatorProps>(
       className={cn("my-(--space-1) h-px bg-(--nuka-border-base)", className)}
       {...props}
     />
-  ),
-);
+  );
+}
 
 SelectSeparator.displayName = "SelectSeparator";
 

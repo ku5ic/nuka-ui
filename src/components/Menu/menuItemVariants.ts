@@ -19,11 +19,19 @@ const menuItemVariants = cva(
     compoundVariants: [
       {
         intent: "default",
-        className: ["text-(--nuka-text-base)", "focus:bg-(--nuka-bg-muted)"],
+        className: [
+          "text-(--nuka-text-base)",
+          "hover:bg-(--nuka-bg-muted)",
+          "focus:bg-(--nuka-bg-muted)",
+        ],
       },
       {
         intent: "danger",
-        className: ["text-(--nuka-danger-text)", "focus:bg-(--nuka-danger-bg)"],
+        className: [
+          "text-(--nuka-danger-text)",
+          "hover:bg-(--nuka-danger-bg)",
+          "focus:bg-(--nuka-danger-bg)",
+        ],
       },
     ],
     defaultVariants: {

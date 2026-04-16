@@ -14,83 +14,80 @@ export interface SwitchProps
   extends
     Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "onChange">,
     SwitchVariantProps {
+  ref?: React.Ref<HTMLButtonElement> | undefined;
   checked?: boolean;
   defaultChecked?: boolean;
   onChange?: (checked: boolean) => void;
   children?: React.ReactNode;
 }
 
-const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
-  (
+function Switch({
+  ref,
+  className,
+  size,
+  checked: controlledChecked,
+  defaultChecked,
+  onChange,
+  children,
+  id,
+  disabled,
+  ...props
+}: SwitchProps) {
+  const field = useFormFieldProps(
     {
-      className,
-      size,
-      checked: controlledChecked,
-      defaultChecked,
-      onChange,
-      children,
       id,
       disabled,
-      ...props
+      "aria-describedby": props["aria-describedby"],
     },
-    ref,
-  ) => {
-    const field = useFormFieldProps(
-      {
-        id,
-        disabled,
-        "aria-describedby": props["aria-describedby"],
-      },
-      { skipInvalid: true },
-    );
-    const [isChecked, setChecked] = useControllableState(
-      controlledChecked,
-      defaultChecked ?? false,
-      onChange,
-    );
+    { skipInvalid: true },
+  );
+  const [isChecked, setChecked] = useControllableState(
+    controlledChecked,
+    defaultChecked ?? false,
+    onChange,
+  );
 
-    const handleClick = () => {
-      setChecked(!isChecked);
-    };
+  const handleClick = () => {
+    setChecked(!isChecked);
+  };
 
-    const translateClass = {
-      sm: isChecked ? "translate-x-4" : "translate-x-0",
-      md: isChecked ? "translate-x-4" : "translate-x-0",
-      lg: isChecked ? "translate-x-5" : "translate-x-0",
-    }[size ?? "md"];
+  const translateClass = {
+    sm: isChecked ? "translate-x-4" : "translate-x-0",
+    md: isChecked ? "translate-x-4" : "translate-x-0",
+    lg: isChecked ? "translate-x-5" : "translate-x-0",
+  }[size ?? "md"];
 
-    return (
-      <div className="inline-flex items-center gap-(--space-2)">
-        <button
-          ref={ref}
-          type="button"
-          role="switch"
-          id={field.resolvedId}
-          aria-checked={isChecked}
-          aria-describedby={field.ariaDescribedBy}
-          disabled={field.resolvedDisabled}
-          className={cn(
-            switchVariants({ size }),
-            isChecked ? "bg-(--nuka-accent-bg)" : "bg-(--nuka-border-strong)",
-            className,
-          )}
-          onClick={handleClick}
-          {...props}
-        >
-          <span
-            aria-hidden="true"
-            className={cn(switchThumbVariants({ size }), translateClass)}
-          />
-        </button>
-        {children && (
-          <Text as="span" size="sm">
-            {children}
-          </Text>
+  return (
+    <div className="inline-flex items-center gap-(--space-2)">
+      <button
+        ref={ref}
+        type="button"
+        role="switch"
+        id={field.resolvedId}
+        aria-checked={isChecked}
+        aria-describedby={field.ariaDescribedBy}
+        disabled={field.resolvedDisabled}
+        className={cn(
+          switchVariants({ size }),
+          isChecked ? "bg-(--nuka-accent-bg)" : "bg-(--nuka-border-strong)",
+          className,
         )}
-      </div>
-    );
-  },
-);
+        onClick={handleClick}
+        {...props}
+      >
+        <span
+          aria-hidden="true"
+          className={cn(switchThumbVariants({ size }), translateClass)}
+        />
+      </button>
+      {children && (
+        <Text as="span" size="sm">
+          {children}
+        </Text>
+      )}
+    </div>
+  );
+}
 
 Switch.displayName = "Switch";
 

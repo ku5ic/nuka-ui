@@ -167,9 +167,9 @@ import { Button } from "@nuka-ui/core";
 </Button>;
 ```
 
-### Ref forwarding
+### Refs
 
-All components forward refs to their underlying DOM element.
+All components accept a `ref` prop using the React 19 ref-as-prop pattern. No component uses `React.forwardRef`.
 
 ```tsx
 const ref = useRef<HTMLButtonElement>(null)
@@ -178,6 +178,21 @@ const ref = useRef<HTMLButtonElement>(null)
   Focus me
 </Button>
 ```
+
+#### Extracting a component's ref type
+
+Use `React.ComponentRef` to extract the DOM element type a component accepts:
+
+```tsx
+// Before (React 18, deprecated)
+type ButtonRef = React.ElementRef<typeof Button>;
+
+// After (React 19)
+type ButtonRef = React.ComponentRef<typeof Button>;
+// resolves to HTMLButtonElement
+```
+
+If you have ref-typing code that uses `React.ElementRef`, update it to `React.ComponentRef`. Call sites are unchanged: `<Button ref={myRef} />` works the same way.
 
 ---
 
@@ -451,7 +466,9 @@ import {
 
 Components without interactive state ship without a `"use client"` directive and work in React Server Components (Next.js App Router, etc.) without modification:
 
-**Server-safe:** Alert, AppShell, AspectRatio, Badge, Banner, Breadcrumb, Button, Card, Chip, Code, Container, Divider, EmptyState, Eyebrow, Grid, Heading, Icon, Kbd, Nav, Pagination, ScrollArea, Section, Skeleton, SkipLink, Spinner, SplitLayout, Stack, Tag, Text, Textarea, Timeline, VisuallyHidden
+**Server-safe:** Alert\*, AppShell, AspectRatio, Badge, Banner\*, Breadcrumb, Button, Card, Chip\*, Code, Container, Divider, EmptyState, Eyebrow, Grid, Heading, Icon, Kbd, Nav, Pagination, ScrollArea, Section, Skeleton, SkipLink, Spinner, SplitLayout, Stack, Tag\*, Text, Textarea, Timeline, VisuallyHidden
+
+\*These components contain no hooks or effects and render correctly on the server. However, they accept interactive props (`selected`, `onDismiss`) that require a client boundary at the call site to function. Components like Button that accept only native HTML event handlers (`onClick`) do not need special handling because event handler forwarding on server-rendered elements is standard React behavior.
 
 **Client-required (`"use client"`):** Accordion, Avatar, Checkbox, Collapsible, Combobox, CommandMenu, ContextMenu, DataTable, DatePicker, Dialog, DropdownMenu, FileInput, FormField, Input, Label, Menubar, NavigationMenu, NumberInput, Popover, Progress, RadioGroup, Select, Sheet, Sidebar, Slider, Stepper, Switch, Table, Tabs, Toast/Toaster, Tooltip
 

@@ -23,7 +23,7 @@ Use this skill when adding any new component to `src/components/`.
    `src/components/<ComponentName>/`
 
 5. Create `<ComponentName>.tsx`:
-   - Use `React.forwardRef`: mandatory
+   - Accept `ref` as a typed prop on the Props interface (React 19 ref-as-prop pattern); do not wrap in `React.forwardRef`
    - Extend the correct HTML attributes interface
    - Define `cva` instance named `<componentName>Variants`
    - Export type `<ComponentName>VariantProps`

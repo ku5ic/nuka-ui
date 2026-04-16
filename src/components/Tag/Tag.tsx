@@ -8,38 +8,35 @@ import {
 
 export interface TagProps
   extends React.HTMLAttributes<HTMLSpanElement>, TagVariantProps {
+  ref?: React.Ref<HTMLSpanElement> | undefined;
   onDismiss?: () => void;
   dismissLabel?: string;
 }
 
-const Tag = React.forwardRef<HTMLSpanElement, TagProps>(
-  (
-    {
-      className,
-      variant,
-      intent,
-      size,
-      onDismiss,
-      dismissLabel = "Remove",
-      children,
-      ...props
-    },
-    ref,
-  ) => {
-    return (
-      <span
-        ref={ref}
-        className={cn(tagVariants({ variant, intent, size }), className)}
-        {...props}
-      >
-        {children}
-        {onDismiss !== undefined && (
-          <DismissButton onClick={onDismiss} label={dismissLabel} />
-        )}
-      </span>
-    );
-  },
-);
+function Tag({
+  ref,
+  className,
+  variant,
+  intent,
+  size,
+  onDismiss,
+  dismissLabel = "Remove",
+  children,
+  ...props
+}: TagProps) {
+  return (
+    <span
+      ref={ref}
+      className={cn(tagVariants({ variant, intent, size }), className)}
+      {...props}
+    >
+      {children}
+      {onDismiss !== undefined && (
+        <DismissButton onClick={onDismiss} label={dismissLabel} />
+      )}
+    </span>
+  );
+}
 
 Tag.displayName = "Tag";
 

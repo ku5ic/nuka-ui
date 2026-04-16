@@ -5,6 +5,7 @@ import { useControllableState } from "@nuka/hooks/use-controllable-state";
 import { TabsContext } from "@nuka/components/Tabs/Tabs.context";
 
 export interface TabsProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
   value?: string;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
@@ -12,60 +13,56 @@ export interface TabsProps extends React.HTMLAttributes<HTMLDivElement> {
   activationMode?: "automatic" | "manual";
 }
 
-const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
-  (
-    {
-      value: controlledValue,
-      defaultValue,
-      onValueChange,
-      orientation = "horizontal",
-      activationMode = "automatic",
-      className,
-      children,
-      ...props
-    },
-    ref,
-  ) => {
-    const [value, setValue] = useControllableState(
-      controlledValue,
-      defaultValue,
-      onValueChange,
-    );
+function Tabs({
+  ref,
+  value: controlledValue,
+  defaultValue,
+  onValueChange,
+  orientation = "horizontal",
+  activationMode = "automatic",
+  className,
+  children,
+  ...props
+}: TabsProps) {
+  const [value, setValue] = useControllableState(
+    controlledValue,
+    defaultValue,
+    onValueChange,
+  );
 
-    const baseId = React.useId();
-    const [focusedValue, setFocusedValue] = React.useState<string | undefined>(
-      undefined,
-    );
+  const baseId = React.useId();
+  const [focusedValue, setFocusedValue] = React.useState<string | undefined>(
+    undefined,
+  );
 
-    const contextValue = React.useMemo(
-      () => ({
-        value,
-        onValueChange: setValue,
-        orientation,
-        activationMode,
-        baseId,
-        focusedValue,
-        setFocusedValue,
-      }),
-      [value, setValue, orientation, activationMode, baseId, focusedValue],
-    );
+  const contextValue = React.useMemo(
+    () => ({
+      value,
+      onValueChange: setValue,
+      orientation,
+      activationMode,
+      baseId,
+      focusedValue,
+      setFocusedValue,
+    }),
+    [value, setValue, orientation, activationMode, baseId, focusedValue],
+  );
 
-    return (
-      <TabsContext value={contextValue}>
-        <div
-          ref={ref}
-          className={cn(
-            orientation === "horizontal" ? "flex flex-col" : "flex flex-row",
-            className,
-          )}
-          {...props}
-        >
-          {children}
-        </div>
-      </TabsContext>
-    );
-  },
-);
+  return (
+    <TabsContext value={contextValue}>
+      <div
+        ref={ref}
+        className={cn(
+          orientation === "horizontal" ? "flex flex-col" : "flex flex-row",
+          className,
+        )}
+        {...props}
+      >
+        {children}
+      </div>
+    </TabsContext>
+  );
+}
 
 Tabs.displayName = "Tabs";
 

@@ -5,6 +5,7 @@ import { cn } from "@nuka/utils/cn";
 export type ContainerSize = "sm" | "md" | "lg" | "xl" | "2xl" | "full";
 
 export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement> | undefined;
   size?: ContainerSize;
   padded?: boolean;
   centered?: boolean;
@@ -20,35 +21,31 @@ const sizeClasses: Record<ContainerSize, string> = {
   full: "max-w-full",
 };
 
-const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
-  (
-    {
-      className,
-      size = "xl",
-      padded = true,
-      centered = true,
-      asChild = false,
-      ...props
-    },
-    ref,
-  ) => {
-    const Comp = asChild ? Slot : "div";
+function Container({
+  ref,
+  className,
+  size = "xl",
+  padded = true,
+  centered = true,
+  asChild = false,
+  ...props
+}: ContainerProps) {
+  const Comp = asChild ? Slot : "div";
 
-    return (
-      <Comp
-        ref={ref}
-        className={cn(
-          "w-full",
-          sizeClasses[size],
-          centered && "mx-auto",
-          padded && "px-4 sm:px-6 lg:px-8",
-          className,
-        )}
-        {...props}
-      />
-    );
-  },
-);
+  return (
+    <Comp
+      ref={ref}
+      className={cn(
+        "w-full",
+        sizeClasses[size],
+        centered && "mx-auto",
+        padded && "px-4 sm:px-6 lg:px-8",
+        className,
+      )}
+      {...props}
+    />
+  );
+}
 
 Container.displayName = "Container";
 

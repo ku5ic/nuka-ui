@@ -4,31 +4,35 @@ import { Slot, composeRefs } from "@nuka/utils/slot";
 import { useTooltipContext } from "@nuka/components/Tooltip/Tooltip.context";
 
 export interface TooltipTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  ref?: React.Ref<HTMLButtonElement> | undefined;
   asChild?: boolean;
 }
 
-const TooltipTrigger = React.forwardRef<HTMLButtonElement, TooltipTriggerProps>(
-  ({ asChild = false, children, ...props }, ref) => {
-    const ctx = useTooltipContext();
-    const composedRef = composeRefs(ref, ctx.refs.setReference);
+function TooltipTrigger({
+  ref,
+  asChild = false,
+  children,
+  ...props
+}: TooltipTriggerProps) {
+  const ctx = useTooltipContext();
+  const composedRef = composeRefs(ref, ctx.refs.setReference);
 
-    const Comp = asChild ? Slot : "button";
+  const Comp = asChild ? Slot : "button";
 
-    const triggerProps = ctx.getReferenceProps(props);
+  const triggerProps = ctx.getReferenceProps(props);
 
-    return (
-      <Comp
-        ref={composedRef}
-        type={asChild ? undefined : "button"}
-        // Safe: Floating UI getReferenceProps() returns Record<string, unknown>;
-        // values are standard DOM event handlers.
-        {...(triggerProps as React.ButtonHTMLAttributes<HTMLButtonElement>)}
-      >
-        {children}
-      </Comp>
-    );
-  },
-);
+  return (
+    <Comp
+      ref={composedRef}
+      type={asChild ? undefined : "button"}
+      // Safe: Floating UI getReferenceProps() returns Record<string, unknown>;
+      // values are standard DOM event handlers.
+      {...(triggerProps as React.ButtonHTMLAttributes<HTMLButtonElement>)}
+    >
+      {children}
+    </Comp>
+  );
+}
 
 TooltipTrigger.displayName = "TooltipTrigger";
 

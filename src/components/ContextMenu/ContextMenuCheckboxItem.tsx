@@ -5,10 +5,12 @@ import type { MenuCheckboxItemWithNavProps } from "@nuka/components/Menu/MenuCon
 
 export type ContextMenuCheckboxItemProps = MenuCheckboxItemWithNavProps;
 
-const ContextMenuCheckboxItem = React.forwardRef<
-  HTMLDivElement,
-  ContextMenuCheckboxItemProps
->((props, ref) => <MenuCheckboxItemWithNav ref={ref} {...props} />);
+function ContextMenuCheckboxItem({
+  ref,
+  ...props
+}: ContextMenuCheckboxItemProps) {
+  return <MenuCheckboxItemWithNav ref={ref} {...props} />;
+}
 
 ContextMenuCheckboxItem.displayName = "ContextMenuCheckboxItem";
 
