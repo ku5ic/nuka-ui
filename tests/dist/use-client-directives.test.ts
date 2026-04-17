@@ -30,9 +30,15 @@ function firstLine(file: string): string {
   return idx === -1 ? content : content.slice(0, idx);
 }
 
+function sourceHasDirective(file: string): boolean {
+  return firstLine(file).trimEnd() === DIRECTIVE_DOUBLE;
+}
+
 function startsWithDirective(file: string): boolean {
-  const line = firstLine(file).trimEnd();
-  return line === DIRECTIVE_DOUBLE || line === DIRECTIVE_SINGLE;
+  const head = readFileSync(file, "utf8").slice(0, 64).trimStart();
+  return (
+    head.startsWith(DIRECTIVE_DOUBLE) || head.startsWith(DIRECTIVE_SINGLE)
+  );
 }
 
 interface Expected {
@@ -41,12 +47,15 @@ interface Expected {
 }
 
 function expectedFromSource(): Expected {
-  const tsxFiles = walk(srcDir, (p) => p.endsWith(".tsx"));
+  const sourceFiles = walk(
+    srcDir,
+    (p) => p.endsWith(".tsx") || p.endsWith(".ts"),
+  );
   const esm = new Set<string>();
   const cjs = new Set<string>();
-  for (const file of tsxFiles) {
-    if (firstLine(file).trimEnd() !== DIRECTIVE_DOUBLE) continue;
-    const rel = relative(srcDir, file).replace(/\.tsx$/, "");
+  for (const file of sourceFiles) {
+    if (!sourceHasDirective(file)) continue;
+    const rel = relative(srcDir, file).replace(/\.tsx?$/, "");
     esm.add(join(distDir, rel + ".js"));
     cjs.add(join(distDir, rel + ".cjs"));
   }
@@ -108,9 +117,9 @@ describe("dist 'use client' directives", () => {
         missing.push(`${file} (file does not exist)`);
         continue;
       }
-      const line = firstLine(file).trimEnd();
-      if (line !== DIRECTIVE_DOUBLE && line !== DIRECTIVE_SINGLE) {
-        missing.push(`${file} (first line: ${JSON.stringify(line)})`);
+      if (!startsWithDirective(file)) {
+        const head = readFileSync(file, "utf8").slice(0, 64);
+        missing.push(`${file} (first 64 bytes: ${JSON.stringify(head)})`);
       }
     }
     expect(missing, missing.join("\n")).toEqual([]);
