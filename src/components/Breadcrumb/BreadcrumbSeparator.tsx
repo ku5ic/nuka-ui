@@ -20,7 +20,7 @@ function BreadcrumbSeparator({
       role="presentation"
       aria-hidden="true"
       className={cn(
-        "flex items-center px-(--space-1) text-(--nuka-text-subtle",
+        "flex items-center px-(--space-1) text-(--nuka-text-subtle)",
         className,
       )}
       {...props}
