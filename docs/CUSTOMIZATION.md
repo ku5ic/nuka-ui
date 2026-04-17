@@ -230,7 +230,7 @@ The `asChild` prop is available on most nuka-ui components. It renders the compo
 
 ```tsx
 import { Link } from "react-router-dom";
-import { Button } from "nuka-ui";
+import { Button } from "@nuka-ui/core";
 
 <Button asChild variant="primary">
   <Link to="/dashboard">Go to dashboard</Link>
@@ -243,7 +243,7 @@ The DOM renders a single `<a>` element with all Button styles applied. No wrappe
 
 ```tsx
 import Link from "next/link";
-import { Button } from "nuka-ui";
+import { Button } from "@nuka-ui/core";
 
 <Button asChild variant="outline">
   <Link href="/settings">Settings</Link>
@@ -300,7 +300,7 @@ The correct pattern for creating named, reusable component variants with specifi
 When your product uses a specific combination repeatedly, encode it in a wrapper:
 
 ```tsx
-import { Button, type ButtonProps } from "nuka-ui";
+import { Button, type ButtonProps } from "@nuka-ui/core";
 
 type BrandButtonProps = Omit<ButtonProps, "variant" | "intent">;
 
@@ -318,7 +318,7 @@ The wrapper encodes the convention. Consumers cannot accidentally pass the wrong
 ### Destructive actions
 
 ```tsx
-import { Button, type ButtonProps } from "nuka-ui";
+import { Button, type ButtonProps } from "@nuka-ui/core";
 
 type DestructiveButtonProps = Omit<ButtonProps, "intent">;
 
@@ -338,7 +338,7 @@ export function DestructiveButton({ children, ...props }: DestructiveButtonProps
 ### Product-specific badge variants
 
 ```tsx
-import { Badge, type BadgeProps } from "nuka-ui";
+import { Badge, type BadgeProps } from "@nuka-ui/core";
 
 type StatusBadgeProps = Omit<BadgeProps, "variant" | "intent"> & {
   status: "active" | "pending" | "archived";
@@ -364,8 +364,7 @@ export function StatusBadge({ status, ...props }: StatusBadgeProps) {
 If you need custom CSS that goes beyond what `className` can achieve cleanly, wrap and add it:
 
 ```tsx
-import { Button, type ButtonProps } from "nuka-ui";
-import { cn } from "your-utils";
+import { Button, type ButtonProps, cn } from "@nuka-ui/core";
 
 type GradientButtonProps = Omit<ButtonProps, "variant">;
 
@@ -397,7 +396,7 @@ nuka-ui form controls are standard HTML inputs. They work with any form library 
 
 ```tsx
 import { useForm } from "react-hook-form";
-import { Input, Textarea, FormField, Button } from "nuka-ui";
+import { Input, Textarea, FormField, Button } from "@nuka-ui/core";
 
 interface ContactForm {
   name: string;
@@ -455,7 +454,7 @@ import {
   Checkbox,
   FormField,
   Button,
-} from "nuka-ui";
+} from "@nuka-ui/core";
 
 interface SettingsForm {
   role: string;
@@ -575,7 +574,7 @@ These are deliberate constraints, not gaps.
 
 `variant` and `intent` prop types are closed enums. Passing `variant="brand"` or `intent="info"` is a TypeScript error. The CVA instance that resolves compound variants is built at library compile time and is not extensible at runtime.
 
-Note: `--nuka-info-*` tokens (base, bg, text, border) are defined in `tokens.css` for both light and dark themes. The CSS layer is ready for an `info` intent, but no component CVA maps to it yet. If you need info styling today, you have three options: remap an existing intent via token overrides (for example, remap `--nuka-warning-*` to info colors if warning is unused in your product), reference the `--nuka-info-*` tokens directly via `className`, or build your own CVA instance outside the library using the same pattern.
+Note: `--nuka-info-*` tokens (base, bg, text, border, fg) are defined in `tokens.css` for both light and dark themes. The CSS layer is ready for an `info` intent, but no component CVA maps to it yet. If you need info styling today, you have three options: remap an existing intent via token overrides (for example, remap `--nuka-warning-*` to info colors if warning is unused in your product), reference the `--nuka-info-*` tokens directly via `className`, or build your own CVA instance outside the library using the same pattern.
 
 ### className cannot override base structural classes reliably
 
