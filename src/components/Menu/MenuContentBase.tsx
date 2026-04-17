@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import { composeRefs } from "@nuka/utils/slot";
 import { MenuItemBase } from "@nuka/components/Menu/MenuItemBase";
