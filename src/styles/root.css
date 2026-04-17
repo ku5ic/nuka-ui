@@ -236,4 +236,5 @@
   --nuka-info-bg: var(--color-info-100);
   --nuka-info-text: var(--color-info-500);
   --nuka-info-border: var(--color-info-300);
+  --nuka-info-fg: var(--color-neutral-0);
 }

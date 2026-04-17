@@ -2,6 +2,8 @@
 
 A production-grade React component library built on Tailwind v4. Composable, accessible, and designed from the ground up with the kind of API and architectural rigor that scales to more components, more developers, more products, and more edge cases.
 
+Maintained by [@ku5ic](https://github.com/ku5ic). [Sponsor this project](https://github.com/sponsors/ku5ic) or see the [full list of sponsors](./SPONSORS.md).
+
 [![npm](https://img.shields.io/npm/v/@nuka-ui/core)](https://www.npmjs.com/package/@nuka-ui/core)
 [![license](https://img.shields.io/npm/l/@nuka-ui/core)](./LICENSE)
 [![storybook](https://img.shields.io/badge/storybook-live-ff4785)](https://ku5ic.github.io/nuka-ui)
@@ -462,17 +464,15 @@ import {
 </Nav>;
 ```
 
-### RSC compatibility
+### React Server Components (Next.js App Router)
 
-Components without interactive state ship without a `"use client"` directive and work in React Server Components (Next.js App Router, etc.) without modification:
+Every nuka-ui component ships with `"use client";` at the top of its compiled output. No component opts out; there is no partial-coverage subset that renders on the server without the directive.
 
-**Server-safe:** Alert\*, AppShell, AspectRatio, Badge, Banner\*, Breadcrumb, Button, Card, Chip\*, Code, Container, Divider, EmptyState, Eyebrow, Grid, Heading, Icon, Kbd, Nav, Pagination, ScrollArea, Section, Skeleton, SkipLink, Spinner, SplitLayout, Stack, Tag\*, Text, Textarea, Timeline, VisuallyHidden
+Import any component from a Server Component page or layout; the bundler creates the client boundary automatically, so no additional configuration is required.
 
-\*These components contain no hooks or effects and render correctly on the server. However, they accept interactive props (`selected`, `onDismiss`) that require a client boundary at the call site to function. Components like Button that accept only native HTML event handlers (`onClick`) do not need special handling because event handler forwarding on server-rendered elements is standard React behavior.
+This does not affect SEO. Client Components are server-rendered to HTML in the initial response. Crawlers receive rendered markup identical to what a fully-server-rendered page would produce. The `"use client";` directive controls which code ships for hydration, not where the initial render runs.
 
-**Client-required (`"use client"`):** Accordion, Avatar, Checkbox, Collapsible, Combobox, CommandMenu, ContextMenu, DataTable, DatePicker, Dialog, DropdownMenu, FileInput, FormField, Input, Label, Menubar, NavigationMenu, NumberInput, Popover, Progress, RadioGroup, Select, Sheet, Sidebar, Slider, Stepper, Switch, Table, Tabs, Toast/Toaster, Tooltip
-
-Client-required components include the `"use client"` directive in their compiled output. In Next.js App Router, import them from any server or client component without additional configuration.
+The tradeoff is bundle size. Every component's code ships to the client. For an interactive UI component library this is the correct tradeoff: nearly every component accepts refs, uses `Slot` for `asChild`, or calls a React hook internally, so a narrower no-directive subset would be too small to rely on and too fragile to maintain.
 
 ---
 
@@ -489,7 +489,7 @@ Short version:
 - **`data-theme` attribute**: enables nested themes and avoids class pollution
 - **No third-party UI primitives**: `Slot`, `composeRefs`, focus trap, scroll lock, and all ARIA patterns are first-party
 - **No component-level tokens by default**: added only when semantic tokens are genuinely insufficient
-- **`"use client"` in compiled output**: interactive components include the directive; server-safe components omit it
+- **`"use client"` in compiled output**: every component includes the directive so consumers can import from any Server Component boundary without configuration
 
 ---
 

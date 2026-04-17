@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import { Slot } from "@nuka/utils/slot";
 import { Button } from "@nuka/components/Button";

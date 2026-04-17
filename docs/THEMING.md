@@ -22,6 +22,7 @@ comments in `src/styles/tokens.css`. Tokens without a documented ratio are marke
 | `--nuka-success-fg`   | `--nuka-success-base` (success-300) | 5.51:1       | AA   | white on filled success surface                                           |
 | `--nuka-warning-fg`   | `--nuka-warning-base` (warning-300) | 7.11:1       | AAA  | dark fg, amber cannot pass 4.5:1 with white                               |
 | `--nuka-danger-fg`    | `--nuka-danger-base` (danger-300)   | 4.65:1       | AA   | white on filled danger surface                                            |
+| `--nuka-info-fg`      | `--nuka-info-base` (info-300)       | 4.69:1       | AA   | white on filled info surface                                              |
 | `--nuka-text-base`    | `--nuka-bg-base`                    | not verified |      | neutral-900 on neutral-0                                                  |
 | `--nuka-text-muted`   | `--nuka-bg-base`                    | not verified |      | neutral-600 on neutral-0                                                  |
 | `--nuka-text-subtle`  | `--nuka-bg-base`                    | not verified |      | neutral-400 on neutral-0; intended for decorative/non-essential text only |
@@ -39,6 +40,7 @@ comments in `src/styles/tokens.css`. Tokens without a documented ratio are marke
 | `--nuka-success-fg`   | `--nuka-success-base` (success-250) | 4.65:1       | AA   | dark fg on lighter surface                          |
 | `--nuka-warning-fg`   | `--nuka-warning-base` (warning-300) | 7.30:1       | AAA  | dark fg; valid on warning-base only, not warning-bg |
 | `--nuka-danger-fg`    | `--nuka-danger-base` (danger-250)   | 5.04:1       | AA   | dark fg on lighter surface                          |
+| `--nuka-info-fg`      | `--nuka-info-base` (info-300)       | not verified |      | dark fg on dark-mode info surface                   |
 | `--nuka-text-base`    | `--nuka-bg-base`                    | not verified |      | neutral-150 on dark-base (30% L)                    |
 | `--nuka-text-muted`   | `--nuka-bg-base`                    | not verified |      | 68% L on dark-base (30% L)                          |
 | `--nuka-text-subtle`  | `--nuka-bg-base`                    | not verified |      | 46% L on dark-base (30% L)                          |

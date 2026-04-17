@@ -4,6 +4,7 @@ import tseslint from "typescript-eslint";
 import reactPlugin from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import prettierConfig from "eslint-config-prettier";
+import nukaPlugin from "./tools/eslint-plugin-nuka/index.js";
 
 export default defineConfig(
   eslint.configs.recommended,
@@ -13,6 +14,7 @@ export default defineConfig(
     plugins: {
       react: reactPlugin,
       "react-hooks": reactHooks as never,
+      nuka: nukaPlugin,
     },
     languageOptions: {
       parserOptions: {
@@ -50,6 +52,7 @@ export default defineConfig(
       "eslint.config.ts",
       "vite.config.ts",
       "vitest.config.ts",
+      "vitest.dist.config.ts",
       ".storybook/*.ts",
       ".storybook/*.tsx",
     ],
@@ -63,11 +66,18 @@ export default defineConfig(
     },
   },
   {
+    files: ["src/components/**/*.tsx", "src/utils/**/*.tsx"],
+    rules: {
+      "nuka/require-use-client": "error",
+    },
+  },
+  {
     ignores: [
       "dist/**",
       "coverage/**",
       "storybook-static/**",
       "node_modules/**",
+      "tools/**",
     ],
   },
   prettierConfig, // must be last

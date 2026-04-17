@@ -136,7 +136,7 @@ describe("Pagination", () => {
       ).toHaveAttribute("href", "/page/1");
     });
 
-    it("renders as span with aria-disabled when disabled", () => {
+    it("renders native disabled button when disabled", () => {
       render(
         <Pagination>
           <PaginationContent>
@@ -146,9 +146,9 @@ describe("Pagination", () => {
           </PaginationContent>
         </Pagination>,
       );
-      const el = screen.getByRole("link", { name: "Go to previous page" });
-      expect(el.tagName).toBe("SPAN");
-      expect(el).toHaveAttribute("aria-disabled", "true");
+      const el = screen.getByRole("button", { name: "Go to previous page" });
+      expect(el.tagName).toBe("BUTTON");
+      expect(el).toHaveAttribute("disabled");
     });
 
     it("does not fire onClick when disabled", async () => {
@@ -164,9 +164,24 @@ describe("Pagination", () => {
         </Pagination>,
       );
       await user.click(
-        screen.getByRole("link", { name: "Go to previous page" }),
+        screen.getByRole("button", { name: "Go to previous page" }),
       );
       expect(onClick).not.toHaveBeenCalled();
+    });
+
+    it("supports overriding aria-label", () => {
+      render(
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious href="/page/1" aria-label="Previous page" />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>,
+      );
+      expect(
+        screen.getByRole("link", { name: "Previous page" }),
+      ).toBeInTheDocument();
     });
   });
 
@@ -192,7 +207,7 @@ describe("Pagination", () => {
       ).toHaveAttribute("href", "/page/3");
     });
 
-    it("renders as span with aria-disabled when disabled", () => {
+    it("renders native disabled button when disabled", () => {
       render(
         <Pagination>
           <PaginationContent>
@@ -202,9 +217,9 @@ describe("Pagination", () => {
           </PaginationContent>
         </Pagination>,
       );
-      const el = screen.getByRole("link", { name: "Go to next page" });
-      expect(el.tagName).toBe("SPAN");
-      expect(el).toHaveAttribute("aria-disabled", "true");
+      const el = screen.getByRole("button", { name: "Go to next page" });
+      expect(el.tagName).toBe("BUTTON");
+      expect(el).toHaveAttribute("disabled");
     });
 
     it("does not fire onClick when disabled", async () => {
@@ -219,8 +234,23 @@ describe("Pagination", () => {
           </PaginationContent>
         </Pagination>,
       );
-      await user.click(screen.getByRole("link", { name: "Go to next page" }));
+      await user.click(screen.getByRole("button", { name: "Go to next page" }));
       expect(onClick).not.toHaveBeenCalled();
+    });
+
+    it("supports overriding aria-label", () => {
+      render(
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationNext href="/page/3" aria-label="Next page" />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>,
+      );
+      expect(
+        screen.getByRole("link", { name: "Next page" }),
+      ).toBeInTheDocument();
     });
   });
 

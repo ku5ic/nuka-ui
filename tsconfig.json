@@ -17,6 +17,6 @@
       "@nuka/*": ["./src/*"]
     },
   },
-  "include": ["src", ".storybook", "eslint.config.ts", "vite.config.ts", "vitest.config.ts", "global.d.ts"],
+  "include": ["src", ".storybook", "eslint.config.ts", "vite.config.ts", "vitest.config.ts", "vitest.dist.config.ts", "tests", "global.d.ts"],
   "exclude": ["node_modules", "dist"]
 }

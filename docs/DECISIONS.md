@@ -1506,6 +1506,16 @@ Include `"use client"` only on components that contain React hooks (`useState`, 
 - Client-required components include the directive and can be imported from server components in Next.js without additional configuration (the bundler creates the client boundary automatically).
 - The decision is per-file, not per-component-directory. A compound component may have server-safe sub-components and client-required sub-components in the same directory.
 
+### Amendment (2026-04-17, nuka-ui 1.1.3)
+
+The 1.1.2 release demonstrated that the server-safe subset was architecturally fragile: any consumer attaching a ref to a "server-safe" component from a Server Component triggered the RSC serialization error. `BreadcrumbLink` rendered with `asChild` and `next/link` is one concrete case that hit this in practice.
+
+nuka-ui 1.1.3 adopts a new policy: every component that accepts a `ref` prop, uses `Slot`, uses `asChild`, or calls a hook carries `"use client";`. In practice this means every public component.
+
+The SEO concern that originally motivated the server-safe subset was based on a misunderstanding. Client Components are still server-rendered during the initial response; the directive controls hydration code shipping, not rendering location.
+
+See ADR-048 for the new policy in full.
+
 ---
 
 ## ADR-046: Semantic font family tokens with component-level override
@@ -1550,3 +1560,38 @@ NumberInput imports and applies `inputVariants` from `Input.variants.ts` directl
 - FileInput has `FileInput.variants.ts` with its own compound variant matrix (intent x isDragOver).
 - Future form controls that wrap a styled `<input>` should follow NumberInput's pattern of reusing `inputVariants` rather than duplicating the definitions.
 - Visual consistency between Input, NumberInput, and Textarea is guaranteed by the shared CVA source.
+
+---
+
+## ADR-048: "use client" directive is required on every component that accepts a ref, uses Slot, or uses hooks
+
+**Date:** 2026-04-17
+**Status:** Accepted
+
+### Context
+
+nuka-ui 1.1.2 shipped with a partial "use client" policy: the directive was applied only to components that called React hooks. Components that used only `cn()`, CVA, `Slot`, and forwarded refs were considered "server-safe" and shipped without the directive.
+
+This policy broke in production. A consumer rendering `<BreadcrumbLink asChild>` wrapped around a `next/link` component from a Server Component page triggered "Refs cannot be used in Server Components" at runtime. The failure class is broader than this single case: any consumer attaching a ref from a Server Component to a "server-safe" component hits the same error. React Hook Form's `register()`, `framer-motion`'s ref props, and any `useRef` forwarded via composition all exhibit this pattern, so the "server-safe" subset was only safe under an unrealistic no-ref assumption.
+
+### Decision
+
+1. Every component that accepts a `ref` prop carries `"use client";` on line 1 of its source file.
+2. Every component that uses `Slot` from `@nuka/utils/slot` or accepts an `asChild` prop carries the directive.
+3. Every component that calls a React hook or a `useXxx` custom hook carries the directive.
+
+These conditions are enforced by the `nuka/require-use-client` ESLint rule introduced in Batch C of the 1.1.3 release. The rule runs in CI and blocks merges that regress the policy.
+
+### Consequences
+
+- Every public component ships as a Client Component. There is no "server-safe" subset.
+- Consumers can import any component from a Server Component boundary in Next.js App Router (or equivalent RSC-supporting frameworks) without additional configuration. The bundler creates the client boundary automatically.
+- Bundle size cost: every component's compiled code ships to the client. This is acceptable because nuka-ui components are interactive primitives. The previously "server-safe" subset (Stack, Grid, Container, Heading, etc.) was a distinction consumers could not safely rely on once refs or composition were introduced.
+- SEO is unaffected. Client Components render to HTML on the server during the initial response. The directive controls hydration code shipping, not rendering location.
+- Supersedes the partial-coverage strategy described in ADR-045. See the ADR-045 amendment for the reasoning.
+
+### Alternatives considered
+
+**Keep the server-safe subset, relax the ESLint rule for ref-only components**: rejected. Ref serialization from a Server Component is the exact failure class 1.1.2 hit. Allowing ref-only components to skip the directive reintroduces that class in a narrower but still production-breaking form. The rule must be uniform to be useful.
+
+**Move to a barrel-level directive (single `"use client";` on `src/index.ts`)**: rejected. A barrel-level directive would force every consumer to go through the full library bundle even when they import a single component, because the directive makes the whole file a client module. Per-file directives preserve tree-shaking and allow Next.js to include only the components a page actually uses.
