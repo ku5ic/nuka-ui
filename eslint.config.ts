@@ -52,6 +52,7 @@ export default defineConfig(
       "eslint.config.ts",
       "vite.config.ts",
       "vitest.config.ts",
+      "vitest.dist.config.ts",
       ".storybook/*.ts",
       ".storybook/*.tsx",
     ],

@@ -148,7 +148,7 @@ describe("dist 'use client' directives", () => {
         content.split(DIRECTIVE_DOUBLE).length - 1 +
         (content.split(DIRECTIVE_SINGLE).length - 1);
       if (occurrences !== 1) {
-        offenders.push(`${file} (${occurrences} occurrences)`);
+        offenders.push(`${file} (${String(occurrences)} occurrences)`);
       }
     }
     expect(offenders, offenders.join("\n")).toEqual([]);
