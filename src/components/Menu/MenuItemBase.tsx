@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 import { menuItemVariants } from "@nuka/components/Menu/menuItemVariants";
