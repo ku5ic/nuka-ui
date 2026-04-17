@@ -16,27 +16,42 @@ Run after `cmd-implement` is confirmed. Fix bugs here before proceeding to `cmd-
    - Re-run until all tests pass
    - Report final state and test count
 
-3. Run `npm run lint`:
+3. Run `npm run test:eslint-plugin`:
+   - If failures: diagnose each failure
+   - Fix the plugin rule or its tests depending on the cause
+   - Re-run until all tests pass
+   - Report final state
+
+4. Run `npm run test:dist`:
+   - Requires a built `dist/`. The `pretest:dist` hook handles this automatically.
+   - If failures: diagnose each failure
+   - Directive drift between source and dist, missing exports, missing type declarations, or broken stylesheet resolution are the common causes
+   - Re-run until all tests pass
+   - Report final state
+
+5. Run `npm run lint`:
    - If errors: fix them, re-run until clean
    - Do not suppress rules with disable comments unless the rule is genuinely incorrect for the use case — if so, explain why
    - Report final state
 
-4. Run `npm run format:check`
+6. Run `npm run format:check`
    - If errors: fix them with `npm run format`
    - Report final state
 
-5. If a new component was added:
+7. If a new component was added:
    - Run `npm run dev` and verify all stories render correctly in Storybook
    - Check the Accessibility panel for each story — zero violations required
    - Verify all variant × intent combinations render as expected
 
-6. If tokens were changed:
+8. If tokens were changed:
    - Run `npm run dev` and verify tokens resolve correctly in browser devtools
    - Check computed styles for affected components
 
-7. Report final status:
+9. Report final status:
    - Typecheck: clean / N errors
    - Tests: N passing / N failing
+   - ESLint plugin tests: N passing / N failing
+   - Build-output tests: N passing / N failing
    - Lint: clean / N errors
    - Storybook: verified / not applicable
 
@@ -45,10 +60,12 @@ Run after `cmd-implement` is confirmed. Fix bugs here before proceeding to `cmd-
 Once all checks above are passing, run the full pipeline cold in sequence with no fixes:
 
 ```bash
-npm run typecheck && npm test && npm run lint && npm run format:check && npm run build
+npm run typecheck && npm test && npm run test:eslint-plugin && npm run lint && npm run format:check && npm run test:dist
 ```
 
 This is a single uninterrupted run. Do not fix anything between steps. Do not re-run individual commands. The purpose is to verify the exact state CI will see: no incremental fixes, no partial passes.
+
+Note: `test:dist` triggers a build via its `pretest:dist` hook. No separate `build` step is needed in the chain.
 
 If this command exits with a non-zero code at any step:
 

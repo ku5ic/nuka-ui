@@ -24,11 +24,13 @@ Run this before every task. Most problems come from starting without understandi
 
 7. Run `npm test` and report current state: passing or failing.
 
-8. Run `npm run lint` and report current state: clean or errors.
+8. Run `npm run test:eslint-plugin` and report current state: passing or failing.
 
-9. Run `npm run format:check` and report current state. Clean all errors
+9. Run `npm run lint` and report current state: clean or errors.
 
-10. Summarize findings:
+10. Run `npm run format:check` and report current state. Clean all errors.
+
+11. Summarize findings:
     - What the task requires
     - Which files will be affected
     - Current health of the codebase (typecheck, tests, lint)
