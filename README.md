@@ -2,6 +2,8 @@
 
 A production-grade React component library built on Tailwind v4. Composable, accessible, and designed from the ground up with the kind of API and architectural rigor that scales to more components, more developers, more products, and more edge cases.
 
+Maintained by [@ku5ic](https://github.com/ku5ic). [Sponsor this project](https://github.com/sponsors/ku5ic) or see the [full list of sponsors](./SPONSORS.md).
+
 [![npm](https://img.shields.io/npm/v/@nuka-ui/core)](https://www.npmjs.com/package/@nuka-ui/core)
 [![license](https://img.shields.io/npm/l/@nuka-ui/core)](./LICENSE)
 [![storybook](https://img.shields.io/badge/storybook-live-ff4785)](https://ku5ic.github.io/nuka-ui)
