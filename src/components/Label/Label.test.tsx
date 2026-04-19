@@ -59,6 +59,40 @@ describe("Label", () => {
     });
   });
 
+  describe("weight", () => {
+    it("applies medium weight by default", () => {
+      render(<Label>Default</Label>);
+      expect(screen.getByText("Default").className).toContain(
+        "font-[number:var(--font-weight-medium)]",
+      );
+    });
+
+    const weightCases = [
+      ["thin", "font-[number:var(--font-weight-thin)]"],
+      ["extralight", "font-[number:var(--font-weight-extralight)]"],
+      ["light", "font-[number:var(--font-weight-light)]"],
+      ["regular", "font-[number:var(--font-weight-regular)]"],
+      ["medium", "font-[number:var(--font-weight-medium)]"],
+      ["semibold", "font-[number:var(--font-weight-semibold)]"],
+      ["bold", "font-[number:var(--font-weight-bold)]"],
+      ["extrabold", "font-[number:var(--font-weight-extrabold)]"],
+      ["black", "font-[number:var(--font-weight-black)]"],
+    ] as const;
+
+    for (const [weight, expected] of weightCases) {
+      it(`applies ${weight} weight`, () => {
+        render(<Label weight={weight}>Field</Label>);
+        expect(screen.getByText("Field").className).toContain(expected);
+      });
+    }
+
+    it("does not emit font-medium Tailwind literal at any weight", () => {
+      render(<Label weight="semibold">No literal</Label>);
+      const cls = screen.getByText("No literal").className;
+      expect(cls).not.toMatch(/\bfont-medium\b/);
+    });
+  });
+
   describe("ref forwarding", () => {
     it("forwards ref to the label element", () => {
       const ref = React.createRef<HTMLLabelElement>();
