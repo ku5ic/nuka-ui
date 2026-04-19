@@ -3,11 +3,19 @@
 import * as React from "react";
 import { Slot } from "@nuka/utils/slot";
 import { cn } from "@nuka/utils/cn";
+import type { LayoutElement } from "@nuka/utils/polymorphic";
 
 export type ContainerSize = "sm" | "md" | "lg" | "xl" | "2xl" | "full";
 
-export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
-  ref?: React.Ref<HTMLDivElement> | undefined;
+export interface ContainerProps extends React.HTMLAttributes<HTMLElement> {
+  ref?: React.Ref<HTMLElement> | undefined;
+  /**
+   * The HTML element to render. Defaults to "div".
+   *
+   * When `asChild` is true, this prop is ignored and the child element
+   * determines the rendered tag.
+   */
+  as?: LayoutElement;
   size?: ContainerSize;
   padded?: boolean;
   centered?: boolean;
@@ -26,17 +34,21 @@ const sizeClasses: Record<ContainerSize, string> = {
 function Container({
   ref,
   className,
+  as = "div",
   size = "xl",
   padded = true,
   centered = true,
   asChild = false,
   ...props
 }: ContainerProps) {
-  const Comp = asChild ? Slot : "div";
+  const Comp = asChild ? Slot : as;
 
   return (
     <Comp
-      ref={ref}
+      // Safe: the `as` prop makes the element type dynamic, so ref cannot
+      // satisfy any single element ref type. Each render produces one
+      // concrete element, so the ref assignment is correct at runtime.
+      ref={ref as React.RefObject<never>}
       className={cn(
         "w-full",
         sizeClasses[size],

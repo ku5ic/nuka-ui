@@ -182,4 +182,54 @@ describe("Container", () => {
       expect(cls).toContain("mx-auto");
     });
   });
+
+  describe("as", () => {
+    it("renders a main when as='main'", () => {
+      render(
+        <Container as="main" data-testid="container">
+          Content
+        </Container>,
+      );
+      expect(screen.getByTestId("container").tagName).toBe("MAIN");
+    });
+
+    it("renders an article when as='article'", () => {
+      render(
+        <Container as="article" data-testid="container">
+          Content
+        </Container>,
+      );
+      expect(screen.getByTestId("container").tagName).toBe("ARTICLE");
+    });
+
+    it("forwards ref when as is a non-div element", () => {
+      const ref = React.createRef<HTMLElement>();
+      render(
+        <Container as="main" ref={ref}>
+          Content
+        </Container>,
+      );
+      expect(ref.current).toBeInstanceOf(HTMLElement);
+      expect(ref.current?.tagName).toBe("MAIN");
+    });
+
+    it("asChild overrides as (renders child element, not as value)", () => {
+      render(
+        <Container asChild as="main">
+          <article data-testid="child">Content</article>
+        </Container>,
+      );
+      expect(screen.getByTestId("child").tagName).toBe("ARTICLE");
+    });
+
+    it("rejects interactive elements at compile time", () => {
+      render(
+        // @ts-expect-error -- `button` is not a member of LayoutElement
+        <Container as="button" data-testid="container">
+          Content
+        </Container>,
+      );
+      expect(screen.getByTestId("container")).toBeInTheDocument();
+    });
+  });
 });
