@@ -44,13 +44,37 @@ const meta = {
       control: "select",
       options: [
         "p",
-        "span",
-        "label",
-        "li",
-        "time",
-        "abbr",
-        "figcaption",
         "div",
+        "blockquote",
+        "pre",
+        "address",
+        "li",
+        "dt",
+        "dd",
+        "figcaption",
+        "caption",
+        "span",
+        "strong",
+        "em",
+        "b",
+        "i",
+        "u",
+        "s",
+        "small",
+        "mark",
+        "cite",
+        "q",
+        "abbr",
+        "dfn",
+        "samp",
+        "var",
+        "sub",
+        "sup",
+        "time",
+        "data",
+        "label",
+        "legend",
+        "output",
       ],
     },
   },
@@ -250,6 +274,65 @@ export const PolymorphicAs: Story = {
       <Text as="time" size="sm" color="muted">
         as=&quot;time&quot;: 2026-04-04
       </Text>
+    </Stack>
+  ),
+};
+
+export const SemanticElements: Story = {
+  name: "Semantic Elements",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Text accepts the full phrasing and flow element set sanctioned by the typography contract (docs/TYPOGRAPHY.md). This story showcases representative elements that are less common than p/span/label but legitimate in prose.",
+      },
+      source: {
+        code: `
+<Stack className="gap-3">
+  <Text as="blockquote" color="muted">Blockquote content</Text>
+  <Text as="pre" family="code">Preformatted code block</Text>
+  <Text as="address">Contact info</Text>
+  <Text>
+    Inline phrasing like <Text as="strong">strong</Text>,
+    <Text as="em">emphasis</Text>, <Text as="cite">citations</Text>,
+    <Text as="mark">marks</Text>, and
+    <Text as="time" dateTime="2026-04-19">absolute time</Text>.
+  </Text>
+  <dl>
+    <Text as="dt" weight="semibold">Term</Text>
+    <Text as="dd">Definition</Text>
+  </dl>
+  <Text as="output">Form output</Text>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
+  render: () => (
+    <Stack className="gap-3">
+      <Text as="blockquote" color="muted">
+        Blockquote content
+      </Text>
+      <Text as="pre" family="code">
+        Preformatted code block
+      </Text>
+      <Text as="address">Contact info</Text>
+      <Text>
+        Inline phrasing like <Text as="strong">strong</Text>,{" "}
+        <Text as="em">emphasis</Text>, <Text as="cite">citations</Text>,{" "}
+        <Text as="mark">marks</Text>, and{" "}
+        <Text as="time" dateTime="2026-04-19">
+          absolute time
+        </Text>
+        .
+      </Text>
+      <dl>
+        <Text as="dt" weight="semibold">
+          Term
+        </Text>
+        <Text as="dd">Definition</Text>
+      </dl>
+      <Text as="output">Form output</Text>
     </Stack>
   ),
 };

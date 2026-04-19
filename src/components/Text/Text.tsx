@@ -15,13 +15,37 @@ import {
 
 type TextElement =
   | "p"
-  | "span"
-  | "label"
+  | "div"
+  | "blockquote"
+  | "pre"
+  | "address"
   | "li"
-  | "time"
-  | "abbr"
+  | "dt"
+  | "dd"
   | "figcaption"
-  | "div";
+  | "caption"
+  | "span"
+  | "strong"
+  | "em"
+  | "b"
+  | "i"
+  | "u"
+  | "s"
+  | "small"
+  | "mark"
+  | "cite"
+  | "q"
+  | "abbr"
+  | "dfn"
+  | "samp"
+  | "var"
+  | "sub"
+  | "sup"
+  | "time"
+  | "data"
+  | "label"
+  | "legend"
+  | "output";
 
 export interface TextProps
   extends Omit<React.HTMLAttributes<HTMLElement>, "color">, TextVariantProps {

@@ -50,6 +50,42 @@ describe("Text", () => {
       render(<Text as="time">2026-04-04</Text>);
       expect(screen.getByText("2026-04-04").tagName).toBe("TIME");
     });
+
+    // Covers the full 31-element set added in the typography contract.
+    // Parameterized so the widened TextElement union stays honest as it evolves.
+    const newElements = [
+      ["blockquote", "BLOCKQUOTE"],
+      ["pre", "PRE"],
+      ["address", "ADDRESS"],
+      ["dt", "DT"],
+      ["dd", "DD"],
+      ["caption", "CAPTION"],
+      ["strong", "STRONG"],
+      ["em", "EM"],
+      ["b", "B"],
+      ["i", "I"],
+      ["u", "U"],
+      ["s", "S"],
+      ["small", "SMALL"],
+      ["mark", "MARK"],
+      ["cite", "CITE"],
+      ["q", "Q"],
+      ["dfn", "DFN"],
+      ["samp", "SAMP"],
+      ["var", "VAR"],
+      ["sub", "SUB"],
+      ["sup", "SUP"],
+      ["data", "DATA"],
+      ["legend", "LEGEND"],
+      ["output", "OUTPUT"],
+    ] as const;
+
+    for (const [as, tag] of newElements) {
+      it(`renders as ${tag.toLowerCase()} when as='${as}'`, () => {
+        render(<Text as={as}>Marker</Text>);
+        expect(screen.getByText("Marker").tagName).toBe(tag);
+      });
+    }
   });
 
   describe("sizes", () => {
