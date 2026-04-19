@@ -22,28 +22,28 @@ Every axis listed here has a sanctioned set of values. Components may choose not
 
 Four values. Consumer-facing typography (Text, Heading, Eyebrow) exposes this axis. Chrome components (Button, Badge, etc.) do not.
 
-| Value | Token |
-|-|-|
+| Value     | Token                      |
+| --------- | -------------------------- |
 | `heading` | `var(--nuka-font-heading)` |
-| `body` | `var(--nuka-font-body)` |
-| `ui` | `var(--nuka-font-ui)` |
-| `code` | `var(--nuka-font-code)` |
+| `body`    | `var(--nuka-font-body)`    |
+| `ui`      | `var(--nuka-font-ui)`      |
+| `code`    | `var(--nuka-font-code)`    |
 
 ### Weight
 
 Nine values. Matches the MDN / OpenType weight scale (CSS `font-weight: 100..900` in steps of 100). Weight 950 is intentionally excluded: per MDN it is not in the CSS specification, only Google Fonts.
 
-| Value | Token | CSS `font-weight` |
-|-|-|-|
-| `thin` | `var(--font-weight-thin)` | 100 |
-| `extralight` | `var(--font-weight-extralight)` | 200 |
-| `light` | `var(--font-weight-light)` | 300 |
-| `regular` | `var(--font-weight-regular)` | 400 |
-| `medium` | `var(--font-weight-medium)` | 500 |
-| `semibold` | `var(--font-weight-semibold)` | 600 |
-| `bold` | `var(--font-weight-bold)` | 700 |
-| `extrabold` | `var(--font-weight-extrabold)` | 800 |
-| `black` | `var(--font-weight-black)` | 900 |
+| Value        | Token                           | CSS `font-weight` |
+| ------------ | ------------------------------- | ----------------- |
+| `thin`       | `var(--font-weight-thin)`       | 100               |
+| `extralight` | `var(--font-weight-extralight)` | 200               |
+| `light`      | `var(--font-weight-light)`      | 300               |
+| `regular`    | `var(--font-weight-regular)`    | 400               |
+| `medium`     | `var(--font-weight-medium)`     | 500               |
+| `semibold`   | `var(--font-weight-semibold)`   | 600               |
+| `bold`       | `var(--font-weight-bold)`       | 700               |
+| `extrabold`  | `var(--font-weight-extrabold)`  | 800               |
+| `black`      | `var(--font-weight-black)`      | 900               |
 
 Every component that exposes a `weight` prop must accept all 9 values. See the exposure matrix below.
 
@@ -55,17 +55,17 @@ Text exposes 5 values (`xs`, `sm`, `md`, `lg`, `xl`). Heading exposes 5 values (
 
 Nine values. Any typography component that exposes `color` must accept the full set.
 
-| Value | Token |
-|-|-|
-| `base` | `var(--nuka-text-base)` |
-| `muted` | `var(--nuka-text-muted)` |
-| `subtle` | `var(--nuka-text-subtle)` |
-| `inverse` | `var(--nuka-text-inverse)` |
+| Value      | Token                       |
+| ---------- | --------------------------- |
+| `base`     | `var(--nuka-text-base)`     |
+| `muted`    | `var(--nuka-text-muted)`    |
+| `subtle`   | `var(--nuka-text-subtle)`   |
+| `inverse`  | `var(--nuka-text-inverse)`  |
 | `disabled` | `var(--nuka-text-disabled)` |
-| `accent` | `var(--nuka-accent-text)` |
-| `danger` | `var(--nuka-danger-text)` |
-| `success` | `var(--nuka-success-text)` |
-| `warning` | `var(--nuka-warning-text)` |
+| `accent`   | `var(--nuka-accent-text)`   |
+| `danger`   | `var(--nuka-danger-text)`   |
+| `success`  | `var(--nuka-success-text)`  |
+| `warning`  | `var(--nuka-warning-text)`  |
 
 ### Align
 
@@ -104,17 +104,17 @@ Some elements require a specific parent: `<caption>` inside `<table>`, `<legend>
 
 One row per component that renders user-visible typographic content.
 
-| Component | family | weight | size | color | align | truncate |
-|-|-|-|-|-|-|-|
-| `Text` | full | full | full | full | full | yes |
-| `Heading` | full | full | full | full | - | yes |
-| `Eyebrow` | hardcoded `ui` | full | hardcoded `xs` | full | - | - |
-| `Label` | hardcoded `body` | full | hardcoded `sm` | hardcoded `base` | - | - |
-| `CardTitle` | via `Heading` | pass-through | hardcoded `xl` | via `Heading` | - | via `Heading` |
-| `CardDescription` | via `Text` | pass-through | hardcoded `sm` | hardcoded `muted` | - | via `Text` |
-| `EmptyState` (heading slot) | via `Text` | pass-through via `headingWeight`, default `semibold` | hardcoded `md` | hardcoded `base` | - | - |
-| `EmptyState` (description slot) | via `Text` | pass-through via `descriptionWeight`, default `regular` | hardcoded `sm` | hardcoded `muted` | - | - |
-| `TimelineItem` (title slot) | via `Text` | hardcoded `medium` | hardcoded `sm` | hardcoded `base` | - | - |
+| Component                       | family           | weight                                                  | size           | color             | align | truncate      |
+| ------------------------------- | ---------------- | ------------------------------------------------------- | -------------- | ----------------- | ----- | ------------- |
+| `Text`                          | full             | full                                                    | full           | full              | full  | yes           |
+| `Heading`                       | full             | full                                                    | full           | full              | -     | yes           |
+| `Eyebrow`                       | hardcoded `ui`   | full                                                    | hardcoded `xs` | full              | -     | -             |
+| `Label`                         | hardcoded `body` | full                                                    | hardcoded `sm` | hardcoded `base`  | -     | -             |
+| `CardTitle`                     | via `Heading`    | pass-through                                            | hardcoded `xl` | via `Heading`     | -     | via `Heading` |
+| `CardDescription`               | via `Text`       | pass-through                                            | hardcoded `sm` | hardcoded `muted` | -     | via `Text`    |
+| `EmptyState` (heading slot)     | via `Text`       | pass-through via `headingWeight`, default `semibold`    | hardcoded `md` | hardcoded `base`  | -     | -             |
+| `EmptyState` (description slot) | via `Text`       | pass-through via `descriptionWeight`, default `regular` | hardcoded `sm` | hardcoded `muted` | -     | -             |
+| `TimelineItem` (title slot)     | via `Text`       | hardcoded `medium`                                      | hardcoded `sm` | hardcoded `base`  | -     | -             |
 
 Legend:
 
