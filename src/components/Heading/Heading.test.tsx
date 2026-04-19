@@ -192,6 +192,17 @@ describe("Heading", () => {
         screen.getByRole("heading", { name: "Black" }).className,
       ).toContain("font-[number:var(--font-weight-black)]");
     });
+
+    // Regression: ensure a non-bold weight doesn't leave the bold class in
+    // the emitted className. If the base class array hardcodes a weight again,
+    // both classes land in the DOM and CSS source order (unpredictable) picks
+    // the winner.
+    it("does not emit bold class when weight overrides it", () => {
+      render(<Heading weight="thin">Thin only</Heading>);
+      expect(
+        screen.getByRole("heading", { name: "Thin only" }).className,
+      ).not.toContain("font-[number:var(--font-weight-bold)]");
+    });
   });
 
   describe("colors", () => {
