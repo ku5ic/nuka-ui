@@ -1756,3 +1756,58 @@ All three sizes pass 2.5.8 AA; each size is visually distinct.
 **Trust the a11y-addon alone**: rejected. The addon does not enforce 2.5.8 by default, and even with enforcement enabled it runs only in Storybook runs, not in unit-test CI.
 
 **Naive Switch fix (h-5 → h-6 only)**: rejected in favor of the rebalance. Keeping all three tracks at the same 24 px height collapsed the visual ramp to width-only differences of 4-8 px, producing three toggles that looked nearly identical. The rebalance grows each size in three axes so the progression is obvious.
+
+## ADR-052: Typography contract and nine-value weight scale
+
+**Date:** 2026-04-19
+**Status:** Accepted
+
+### Context
+
+Before this ADR, four typography inconsistencies had accumulated across the component library:
+
+1. `Text.as` accepted 8 elements. Semantic HTML has roughly three times as many phrasing and flow elements that legitimately want typographic control.
+2. Font-weight scales were partial: Text and Heading accepted 4 weight values (regular / medium / semibold / bold). Eyebrow, Label, CardTitle, CardDescription, and EmptyState internals exposed nothing and hardcoded their own defaults. Button, Badge, Tag, Chip, Avatar, and 13 other chrome components hardcoded `font-medium` as a Tailwind literal, bypassing the `--font-weight-*` token contract.
+3. Color vocabularies differed across components. Text accepted 9 color values. Eyebrow accepted 3. Same semantic axis, different reachable set.
+4. There was no written document stating which component exposes which axis. The rule "new typography components should match existing ones" was implicit, relied on review, and had already drifted.
+
+The four-value weight scale was the most visible gap. Per MDN, CSS `font-weight` has nine common named steps (100, 200, 300, 400, 500, 600, 700, 800, 900) corresponding to the OpenType `usWeightClass` specification. Port feedback cited 48-72 px italic display numbers and 128 px hero treatments that require weights 800 or 900. Weight 950 is sometimes cited (Google Fonts) but is not in the CSS specification; MDN documents the nine-step ramp as canonical.
+
+### Decision
+
+1. **Contract document.** Add `docs/TYPOGRAPHY.md`. Specifies the canonical scale per axis (family, weight, size, color, align, truncate), a per-component exposure matrix, invariants new components must satisfy, and a rendering caveat about synthesized-weight fallback.
+
+2. **Nine-value weight token scale.** Extend `--font-weight-*` tokens in `tokens.css` and `root.css` from 4 values to 9: `thin` (100), `extralight` (200), `light` (300), `regular` (400, existing), `medium` (500, existing), `semibold` (600, existing), `bold` (700, existing), `extrabold` (800), `black` (900). The four existing tokens keep their names and values, so this is purely additive.
+
+3. **Full scale on every typography component.** Text, Heading, Eyebrow, and Label each expose a `weight` prop accepting all 9 values. No subsetting; subsets encode judgments nobody remembers. CardTitle, CardDescription, and EmptyState forward optional weight props to their internal Text or Heading instance so consumers can override typography through compound APIs.
+
+4. **Eyebrow color alignment.** Widen Eyebrow's `color` from 3 values to the full 9-value set that Text accepts. Same semantic axis, same reachable set.
+
+5. **Tokenize all chrome font-weight classes.** Replace every Tailwind font-weight literal (`font-medium`, `font-semibold`, etc.) in production component files with the arbitrary-value tokenized form `font-[number:var(--font-weight-<name>)]`. 15 occurrences across 14 files. A machine-executable grep guard in cmd-test enforces that no Tailwind font-weight keyword appears in any authored class string under `src/components/**/*.{ts,tsx}` (excluding stories and tests).
+
+6. **Chrome components do not expose weight props.** Button, Badge, Tag, Chip, Avatar, Nav, NavigationMenu triggers / links, MenubarTrigger, SkipLink, Stepper indicators, Table header / footer, BreadcrumbPage, CommandMenuGroup, and menu label variants hardcode their weight by design. Weight variation within a button group or badge row would look like a bug.
+
+### Consequences
+
+- Contributors have a single reference document for typography API shape. Future coherence reviews compare component implementations against `docs/TYPOGRAPHY.md` instead of against memory or against whichever sibling component a reviewer happens to remember.
+- Consumers can express the full CSS weight range through tokens, including sub-regular weights for editorial light body text and display-heavy weights for hero treatments. The tokens are customizable so a consumer can retune any weight value.
+- Consumers are responsible for loading font files that support the weights they use. The library exposes every CSS-spec weight but does not ship font files. Synthesized fallback glyphs (what the browser produces when the loaded font lacks a requested weight) are lower quality than hinted faces; at weights 100 and 200 combined with low contrast, MDN warns they may be unreadable. The contract document surfaces this risk.
+- API symmetry: every weight-bearing prop across Text, Heading, Eyebrow, Label accepts the same 9 values. Cross-component memorization is one mental model.
+- Chrome components cannot be retuned at the prop level. Consumers who need a display-light button label need a different primitive (Text-as-button, a Link composite, etc.). The library considers this the correct outcome; mixed weights in a button row signal a bug.
+- The grep guard catches regressions at cmd-test time, not at review time. New components that land with a `font-medium` literal fail CI.
+
+### Alternatives considered
+
+**Keep the four-value weight scale.** Rejected. Omits weights port feedback actively needs. Pushes consumers to `className` overrides that silently leak past the token system.
+
+**Subset the scale per component.** Rejected. A component accepting `regular / medium / semibold / bold / extrabold / black` looks intentional but encodes a judgment ("we don't think `thin` and `extralight` are ever useful for headings") that nobody remembers later. The partial-scale pattern is exactly what this ADR exists to eliminate.
+
+**Include weight 950.** Rejected. Not in the CSS specification per MDN. Google Fonts supports it, other foundries do not. Including it in the canonical scale would create a token consumers could legitimately use in a value that degrades inconsistently across font sources.
+
+**No contract document; rely on code review.** Rejected. Current state is the counter-example. Eyebrow's 3-value color enum survived multiple reviews.
+
+**Runtime enforcement (throw if a component passes a weight outside the canonical scale).** Rejected. The contract is a social artifact for maintainers, not a runtime check for consumers. TypeScript's structural type system already produces compile-time errors for out-of-union values.
+
+**Hardcoded-weight components expose the prop with a "recommended" subset.** Rejected. Violates invariant #1 of the contract (no subsetting). Also contradicts the goal: if variation looks like a bug in a button row, exposing it with a smaller menu does not change that.
+
+**Do Piece 5 (literal replacement) only in the five originally-named files.** Rejected during preflight. The goal of the cluster is eliminating token-bypass leaks; leaving 13 other sites with the same leak defeats the purpose. Bundling all sites into one refactor commit keeps the diff reviewable and the grep guard tractable.

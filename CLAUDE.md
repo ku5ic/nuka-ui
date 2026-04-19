@@ -183,6 +183,10 @@ Interactive primitives must present a 24x24 CSS px touch target at every size va
 - Every component needs: one story per variant, one per intent, an `AllVariants` render story, and at least one real-world pattern story
 - `asChild` always gets `control: false` in `argTypes`
 
+### Typography
+
+Every component that renders user-visible text must conform to the contract in `docs/TYPOGRAPHY.md`. Exposed typographic props (family, weight, size, color, align, truncate) accept the full canonical scale for that axis; subsets are not permitted. Weight references use the tokenized form `font-[number:var(--font-weight-<name>)]`, never Tailwind literals like `font-medium` or `font-semibold`.
+
 ## Key decisions
 
 Full reasoning is in `docs/DECISIONS.md`. Summary:
