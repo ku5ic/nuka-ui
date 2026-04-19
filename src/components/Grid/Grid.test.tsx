@@ -145,4 +145,55 @@ describe("Grid", () => {
       expect(cls).toContain("gap-4");
     });
   });
+
+  describe("as", () => {
+    it("renders a ul when as='ul'", () => {
+      render(
+        <Grid as="ul" data-testid="grid">
+          <li>one</li>
+          <li>two</li>
+        </Grid>,
+      );
+      expect(screen.getByTestId("grid").tagName).toBe("UL");
+    });
+
+    it("renders a section when as='section'", () => {
+      render(
+        <Grid as="section" data-testid="grid">
+          Content
+        </Grid>,
+      );
+      expect(screen.getByTestId("grid").tagName).toBe("SECTION");
+    });
+
+    it("forwards ref when as is a non-div element", () => {
+      const ref = React.createRef<HTMLElement>();
+      render(
+        <Grid as="ul" ref={ref}>
+          <li>one</li>
+        </Grid>,
+      );
+      expect(ref.current).toBeInstanceOf(HTMLElement);
+      expect(ref.current?.tagName).toBe("UL");
+    });
+
+    it("asChild overrides as (renders child element, not as value)", () => {
+      render(
+        <Grid asChild as="section">
+          <article data-testid="child">Content</article>
+        </Grid>,
+      );
+      expect(screen.getByTestId("child").tagName).toBe("ARTICLE");
+    });
+
+    it("rejects interactive elements at compile time", () => {
+      render(
+        // @ts-expect-error -- `button` is not a member of LayoutElement
+        <Grid as="button" data-testid="grid">
+          Content
+        </Grid>,
+      );
+      expect(screen.getByTestId("grid")).toBeInTheDocument();
+    });
+  });
 });

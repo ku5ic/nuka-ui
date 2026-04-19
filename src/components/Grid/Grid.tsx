@@ -11,9 +11,17 @@ import {
   colsClasses,
 } from "@nuka/utils/responsive";
 import type { Responsive, GapScale, ColCount } from "@nuka/utils/responsive";
+import type { LayoutElement } from "@nuka/utils/polymorphic";
 
-export interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
-  ref?: React.Ref<HTMLDivElement> | undefined;
+export interface GridProps extends React.HTMLAttributes<HTMLElement> {
+  ref?: React.Ref<HTMLElement> | undefined;
+  /**
+   * The HTML element to render. Defaults to "div".
+   *
+   * When `asChild` is true, this prop is ignored and the child element
+   * determines the rendered tag.
+   */
+  as?: LayoutElement;
   cols?: Responsive<ColCount>;
   gap?: Responsive<GapScale>;
   colGap?: Responsive<GapScale>;
@@ -24,6 +32,7 @@ export interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
 function Grid({
   ref,
   className,
+  as = "div",
   cols = 1,
   gap = "none",
   colGap,
@@ -31,11 +40,14 @@ function Grid({
   asChild = false,
   ...props
 }: GridProps) {
-  const Comp = asChild ? Slot : "div";
+  const Comp = asChild ? Slot : as;
 
   return (
     <Comp
-      ref={ref}
+      // Safe: the `as` prop makes the element type dynamic, so ref cannot
+      // satisfy any single element ref type. Each render produces one
+      // concrete element, so the ref assignment is correct at runtime.
+      ref={ref as React.RefObject<never>}
       className={cn(
         "grid",
         ...resolveResponsiveClasses(cols, colsClasses),
