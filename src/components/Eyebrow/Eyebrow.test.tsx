@@ -53,6 +53,48 @@ describe("Eyebrow", () => {
         "text-(--nuka-accent-text)",
       );
     });
+
+    it("applies subtle color", () => {
+      render(<Eyebrow color="subtle">Subtle</Eyebrow>);
+      expect(screen.getByText("Subtle").className).toContain(
+        "text-(--nuka-text-subtle)",
+      );
+    });
+
+    it("applies inverse color", () => {
+      render(<Eyebrow color="inverse">Inverse</Eyebrow>);
+      expect(screen.getByText("Inverse").className).toContain(
+        "text-(--nuka-text-inverse)",
+      );
+    });
+
+    it("applies disabled color", () => {
+      render(<Eyebrow color="disabled">Disabled</Eyebrow>);
+      expect(screen.getByText("Disabled").className).toContain(
+        "text-(--nuka-text-disabled)",
+      );
+    });
+
+    it("applies danger color", () => {
+      render(<Eyebrow color="danger">Danger</Eyebrow>);
+      expect(screen.getByText("Danger").className).toContain(
+        "text-(--nuka-danger-text)",
+      );
+    });
+
+    it("applies success color", () => {
+      render(<Eyebrow color="success">Success</Eyebrow>);
+      expect(screen.getByText("Success").className).toContain(
+        "text-(--nuka-success-text)",
+      );
+    });
+
+    it("applies warning color", () => {
+      render(<Eyebrow color="warning">Warning</Eyebrow>);
+      expect(screen.getByText("Warning").className).toContain(
+        "text-(--nuka-warning-text)",
+      );
+    });
   });
 
   describe("className override", () => {

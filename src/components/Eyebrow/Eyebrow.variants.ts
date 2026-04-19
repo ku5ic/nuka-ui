@@ -13,7 +13,13 @@ export const eyebrowVariants = cva(
       color: {
         base: "text-(--nuka-text-base)",
         muted: "text-(--nuka-text-muted)",
+        subtle: "text-(--nuka-text-subtle)",
+        inverse: "text-(--nuka-text-inverse)",
+        disabled: "text-(--nuka-text-disabled)",
         accent: "text-(--nuka-accent-text)",
+        danger: "text-(--nuka-danger-text)",
+        success: "text-(--nuka-success-text)",
+        warning: "text-(--nuka-warning-text)",
       },
     },
     defaultVariants: {

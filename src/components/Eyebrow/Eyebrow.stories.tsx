@@ -18,7 +18,17 @@ const meta = {
     },
     color: {
       control: "select",
-      options: ["base", "muted", "accent"],
+      options: [
+        "base",
+        "muted",
+        "subtle",
+        "inverse",
+        "disabled",
+        "accent",
+        "danger",
+        "success",
+        "warning",
+      ],
     },
   },
 } satisfies Meta<typeof Eyebrow>;
@@ -44,7 +54,15 @@ export const Colors: Story = {
     <Stack gap="md">
       <Eyebrow color="muted">Muted (default)</Eyebrow>
       <Eyebrow color="base">Base</Eyebrow>
+      <Eyebrow color="subtle">Subtle</Eyebrow>
+      <div className="p-(--space-3) bg-(--nuka-bg-emphasis) rounded-(--radius-md)">
+        <Eyebrow color="inverse">Inverse</Eyebrow>
+      </div>
+      <Eyebrow color="disabled">Disabled</Eyebrow>
       <Eyebrow color="accent">Accent</Eyebrow>
+      <Eyebrow color="danger">Danger</Eyebrow>
+      <Eyebrow color="success">Success</Eyebrow>
+      <Eyebrow color="warning">Warning</Eyebrow>
     </Stack>
   ),
   parameters: {
@@ -53,7 +71,15 @@ export const Colors: Story = {
         code: `
 <Eyebrow color="muted">Muted (default)</Eyebrow>
 <Eyebrow color="base">Base</Eyebrow>
+<Eyebrow color="subtle">Subtle</Eyebrow>
+<div className="p-(--space-3) bg-(--nuka-bg-emphasis) rounded-(--radius-md)">
+  <Eyebrow color="inverse">Inverse</Eyebrow>
+</div>
+<Eyebrow color="disabled">Disabled</Eyebrow>
 <Eyebrow color="accent">Accent</Eyebrow>
+<Eyebrow color="danger">Danger</Eyebrow>
+<Eyebrow color="success">Success</Eyebrow>
+<Eyebrow color="warning">Warning</Eyebrow>
         `.trim(),
       },
     },
