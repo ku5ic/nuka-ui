@@ -21,7 +21,17 @@ const meta = {
     },
     weight: {
       control: "select",
-      options: ["regular", "medium", "semibold", "bold"],
+      options: [
+        "thin",
+        "extralight",
+        "light",
+        "regular",
+        "medium",
+        "semibold",
+        "bold",
+        "extrabold",
+        "black",
+      ],
     },
     color: {
       control: "select",
@@ -166,13 +176,22 @@ export const AllSizes: Story = {
 export const AllWeights: Story = {
   parameters: {
     docs: {
+      description: {
+        story:
+          "Heading exposes the full nine-value weight scale per the typography contract. Headings most commonly ship at semibold, bold, or extrabold; the lighter display weights are available for editorial layouts.",
+      },
       source: {
         code: `
 <Stack className="gap-3">
+  <Heading weight="thin">Thin (100)</Heading>
+  <Heading weight="extralight">Extralight (200)</Heading>
+  <Heading weight="light">Light (300)</Heading>
   <Heading weight="regular">Regular (400)</Heading>
   <Heading weight="medium">Medium (500)</Heading>
   <Heading weight="semibold">Semibold (600)</Heading>
   <Heading weight="bold">Bold (700): default</Heading>
+  <Heading weight="extrabold">Extrabold (800)</Heading>
+  <Heading weight="black">Black (900)</Heading>
 </Stack>
         `.trim(),
       },
@@ -180,10 +199,15 @@ export const AllWeights: Story = {
   },
   render: () => (
     <Stack className="gap-3">
+      <Heading weight="thin">Thin (100)</Heading>
+      <Heading weight="extralight">Extralight (200)</Heading>
+      <Heading weight="light">Light (300)</Heading>
       <Heading weight="regular">Regular (400)</Heading>
       <Heading weight="medium">Medium (500)</Heading>
       <Heading weight="semibold">Semibold (600)</Heading>
       <Heading weight="bold">Bold (700): default</Heading>
+      <Heading weight="extrabold">Extrabold (800)</Heading>
+      <Heading weight="black">Black (900)</Heading>
     </Stack>
   ),
 };

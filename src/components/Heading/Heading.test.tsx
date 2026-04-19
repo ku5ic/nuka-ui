@@ -157,6 +157,41 @@ describe("Heading", () => {
         screen.getByRole("heading", { name: "Semibold" }).className,
       ).toContain("font-[number:var(--font-weight-semibold)]");
     });
+
+    it("applies thin weight", () => {
+      render(<Heading weight="thin">Thin</Heading>);
+      expect(screen.getByRole("heading", { name: "Thin" }).className).toContain(
+        "font-[number:var(--font-weight-thin)]",
+      );
+    });
+
+    it("applies extralight weight", () => {
+      render(<Heading weight="extralight">Extralight</Heading>);
+      expect(
+        screen.getByRole("heading", { name: "Extralight" }).className,
+      ).toContain("font-[number:var(--font-weight-extralight)]");
+    });
+
+    it("applies light weight", () => {
+      render(<Heading weight="light">Light</Heading>);
+      expect(
+        screen.getByRole("heading", { name: "Light" }).className,
+      ).toContain("font-[number:var(--font-weight-light)]");
+    });
+
+    it("applies extrabold weight", () => {
+      render(<Heading weight="extrabold">Extrabold</Heading>);
+      expect(
+        screen.getByRole("heading", { name: "Extrabold" }).className,
+      ).toContain("font-[number:var(--font-weight-extrabold)]");
+    });
+
+    it("applies black weight", () => {
+      render(<Heading weight="black">Black</Heading>);
+      expect(
+        screen.getByRole("heading", { name: "Black" }).className,
+      ).toContain("font-[number:var(--font-weight-black)]");
+    });
   });
 
   describe("colors", () => {
