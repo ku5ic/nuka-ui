@@ -30,6 +30,7 @@ comments in `src/styles/tokens.css`. Tokens without a documented ratio are marke
 | `--nuka-warning-text` | `--nuka-warning-bg`                 | not verified |      | warning-500 on warning-100                                                |
 | `--nuka-danger-text`  | `--nuka-danger-bg`                  | not verified |      | danger-500 on danger-100                                                  |
 | `--nuka-info-text`    | `--nuka-info-bg`                    | not verified |      | info-500 on info-100                                                      |
+| `--nuka-border-focus` | `--nuka-bg-emphasis` (neutral-900) under `data-surface="inverse"` | ~6.9:1 | AA | accent-400 on neutral-900; see [Surface-level token overrides](#surface-level-token-overrides) |
 
 ### Dark theme
 
@@ -48,6 +49,7 @@ comments in `src/styles/tokens.css`. Tokens without a documented ratio are marke
 | `--nuka-warning-text` | `--nuka-warning-bg`                 | not verified |      | warning-200 on warning-600                          |
 | `--nuka-danger-text`  | `--nuka-danger-bg`                  | not verified |      | danger-200 on danger-600                            |
 | `--nuka-info-text`    | `--nuka-info-bg`                    | not verified |      | info-200 on info-600                                |
+| `--nuka-border-focus` | `--nuka-bg-emphasis` (neutral-0) under `data-surface="inverse"` | ~7.8:1 | AA | accent-500 on white; see [Surface-level token overrides](#surface-level-token-overrides) |
 
 ### Primitive-level contrast notes
 
@@ -58,6 +60,56 @@ These ratios are documented on the primitives themselves in `tokens.css`:
 | `--color-success-300` | neutral-950 on | 5.04:1 | AA   | dark-mode filled surface         |
 | `--color-danger-300`  | neutral-950 on | 4.59:1 | AA   | dark-mode filled surface         |
 | `--color-info-400`    | white on       | 4.69:1 | AA   | darkened from 55% L for contrast |
+
+## Surface-level token overrides
+
+Some semantic tokens need different values on dark surfaces inside a light theme (or
+light surfaces inside a dark theme). The focus ring is the first case:
+`--nuka-border-focus` resolves to the theme default on normal surfaces, and to an
+inverted value inside any subtree marked with `data-surface="inverse"`.
+
+### Accepted values
+
+| Value       | Meaning                                                                                         |
+| ----------- | ----------------------------------------------------------------------------------------------- |
+| `"inverse"` | surface contrasts with the ambient theme (dark block in a light theme, or light block in dark) |
+
+Additional values may be added in future minor releases. Consumers should treat
+`data-surface` as a closed set and only pass values listed here.
+
+### Automatic wiring
+
+`<Section background="emphasis">` emits `data-surface="inverse"` automatically. This
+covers the common case of a dark-emphasis section inside a light page. No consumer
+action required.
+
+### Manual usage
+
+To mark any other container:
+
+    <div data-surface="inverse" className="bg-(--nuka-bg-emphasis)">
+      <Button>Focusable</Button>
+    </div>
+
+### Interaction with data-theme
+
+`data-surface` and `data-theme` are independent and compose via the CSS cascade.
+The attributes must be on different elements in the tree: the surface override
+selector is `[data-theme="..."] [data-surface="inverse"]`, which requires
+`data-surface` on a descendant, not on the same element. Consumers who need
+inverse-on-root should nest:
+
+    <html data-theme="dark">
+      <div data-surface="inverse">...</div>
+    </html>
+
+See [ADR-050](./DECISIONS.md) for the specificity reasoning and the alternatives
+that were considered.
+
+### Tokens affected
+
+Only `--nuka-border-focus` is redefined by `data-surface="inverse"` in this release.
+Additional tokens may follow if concrete cases emerge.
 
 ## Non-color semantic tokens
 

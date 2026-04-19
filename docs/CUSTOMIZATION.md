@@ -153,6 +153,30 @@ Because theming is anchored to a `data-theme` attribute, you can nest different 
 
 Components inside the `data-theme="dark"` element pick up dark tokens automatically. No JavaScript required.
 
+### Surface-level token overrides
+
+When a dark block sits inside a light page (a hero, a footer, a CTA panel), interactive
+elements inside that block need a focus ring with enough contrast against the dark
+background. Setting per-instance styles on every button, input, and link would be
+tedious and error-prone.
+
+Mark the container with `data-surface="inverse"`:
+
+```html
+<div data-surface="inverse" class="bg-(--nuka-bg-emphasis) p-6">
+  <button>Tab into me</button>
+</div>
+```
+
+Every interactive nuka component inside picks up the inverse focus-ring value
+automatically. `<Section background="emphasis">` emits `data-surface="inverse"`
+for you, so the wrapper is only needed when you build a custom dark surface
+outside the Section component.
+
+See [THEMING.md](./THEMING.md#surface-level-token-overrides) for the full list of
+accepted values and the cascade semantics, and [ADR-050](./DECISIONS.md) for the
+design decision.
+
 ### Changing scrollbar appearance
 
 `ScrollArea` uses two semantic tokens for custom scrollbar styling:
