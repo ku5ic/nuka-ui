@@ -167,6 +167,41 @@ describe("Text", () => {
         "font-[number:var(--font-weight-bold)]",
       );
     });
+
+    it("applies thin weight", () => {
+      render(<Text weight="thin">Thin</Text>);
+      expect(screen.getByText("Thin").className).toContain(
+        "font-[number:var(--font-weight-thin)]",
+      );
+    });
+
+    it("applies extralight weight", () => {
+      render(<Text weight="extralight">Extralight</Text>);
+      expect(screen.getByText("Extralight").className).toContain(
+        "font-[number:var(--font-weight-extralight)]",
+      );
+    });
+
+    it("applies light weight", () => {
+      render(<Text weight="light">Light</Text>);
+      expect(screen.getByText("Light").className).toContain(
+        "font-[number:var(--font-weight-light)]",
+      );
+    });
+
+    it("applies extrabold weight", () => {
+      render(<Text weight="extrabold">Extrabold</Text>);
+      expect(screen.getByText("Extrabold").className).toContain(
+        "font-[number:var(--font-weight-extrabold)]",
+      );
+    });
+
+    it("applies black weight", () => {
+      render(<Text weight="black">Black</Text>);
+      expect(screen.getByText("Black").className).toContain(
+        "font-[number:var(--font-weight-black)]",
+      );
+    });
   });
 
   describe("colors", () => {

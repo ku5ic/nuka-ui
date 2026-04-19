@@ -9,10 +9,15 @@ export const textVariants = cva([], {
       code: "[font-family:var(--nuka-font-code)]",
     },
     weight: {
+      thin: "font-[number:var(--font-weight-thin)]",
+      extralight: "font-[number:var(--font-weight-extralight)]",
+      light: "font-[number:var(--font-weight-light)]",
       regular: "font-[number:var(--font-weight-regular)]",
       medium: "font-[number:var(--font-weight-medium)]",
       semibold: "font-[number:var(--font-weight-semibold)]",
       bold: "font-[number:var(--font-weight-bold)]",
+      extrabold: "font-[number:var(--font-weight-extrabold)]",
+      black: "font-[number:var(--font-weight-black)]",
     },
     color: {
       base: "text-(--nuka-text-base)",

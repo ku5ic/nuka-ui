@@ -17,7 +17,17 @@ const meta = {
     },
     weight: {
       control: "select",
-      options: ["regular", "medium", "semibold", "bold"],
+      options: [
+        "thin",
+        "extralight",
+        "light",
+        "regular",
+        "medium",
+        "semibold",
+        "bold",
+        "extrabold",
+        "black",
+      ],
     },
     color: {
       control: "select",
@@ -119,13 +129,22 @@ export const AllSizes: Story = {
 export const AllWeights: Story = {
   parameters: {
     docs: {
+      description: {
+        story:
+          "Text exposes the full nine-value weight scale per the typography contract. Note: rendering quality at weights 100-200 and 800-900 depends on the loaded font supporting those weights; otherwise the browser synthesizes glyphs that may appear blurry.",
+      },
       source: {
         code: `
 <Stack className="gap-3">
+  <Text weight="thin">Thin (100)</Text>
+  <Text weight="extralight">Extralight (200)</Text>
+  <Text weight="light">Light (300)</Text>
   <Text weight="regular">Regular (400), default</Text>
   <Text weight="medium">Medium (500)</Text>
   <Text weight="semibold">Semibold (600)</Text>
   <Text weight="bold">Bold (700)</Text>
+  <Text weight="extrabold">Extrabold (800)</Text>
+  <Text weight="black">Black (900)</Text>
 </Stack>
         `.trim(),
       },
@@ -133,10 +152,15 @@ export const AllWeights: Story = {
   },
   render: () => (
     <Stack className="gap-3">
+      <Text weight="thin">Thin (100)</Text>
+      <Text weight="extralight">Extralight (200)</Text>
+      <Text weight="light">Light (300)</Text>
       <Text weight="regular">Regular (400), default</Text>
       <Text weight="medium">Medium (500)</Text>
       <Text weight="semibold">Semibold (600)</Text>
       <Text weight="bold">Bold (700)</Text>
+      <Text weight="extrabold">Extrabold (800)</Text>
+      <Text weight="black">Black (900)</Text>
     </Stack>
   ),
 };
