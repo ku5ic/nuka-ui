@@ -1647,3 +1647,59 @@ For every base map entry in `ALL_BASE_MAPS`, for every prefix in `BREAKPOINT_PRE
 **Parse `responsive.ts` for object literals in the generator**: rejected. The task brief allowed this as a fallback. Parsing TypeScript AST for literals couples generator correctness to code-shape details that the runtime refactor is free to change. Extracting the base maps into a dedicated module removes that coupling entirely for a single-file cost.
 
 **Vite plugin instead of npm script**: rejected. The scanner-visibility guarantee is not bundler-specific. An npm-lifecycle generator runs under every tool that invokes `npm run build`; a Vite plugin would only run under Vite.
+
+## ADR-050: Surface-aware focus ring via data-surface attribute cascade
+
+**Date:** 2026-04-19
+**Status:** Accepted
+
+### Context
+
+`--nuka-border-focus` is a single value per theme: accent-500 in light mode, accent-400 in dark mode. Components that render a focus ring reference this token directly.
+
+When a dark block appears inside a light page (a `<Section background="emphasis">`, a hero panel, a CTA strip), the light-theme focus ring fails WCAG 2.2 AA against the dark background. The computed ratio is ~2.3:1, below the 3:1 minimum for UI components. Symmetric failure exists in dark theme on inverse (white) blocks at ~2.6:1.
+
+The zanakadric port documented this by override: 8+ sites used `[--nuka-border-focus:...]` inline on buttons inside dark sections. That pattern is a workaround, not a solution.
+
+Adding a per-component `focusIntent` prop would propagate the fix to every interactive component (Button, Input, Select, Checkbox, Radio, Switch, Tabs trigger, Menu item, NavigationMenu trigger, every dismiss button). Each component would grow an identical prop, identical documentation, and identical tests for an identical concern. That is the wrong shape for a uniform cross-cutting token.
+
+### Decision
+
+Redefine `--nuka-border-focus` inside any subtree that carries the attribute `data-surface="inverse"`. The redefinition happens in `src/styles/tokens.css` via attribute selectors scoped to each theme:
+
+```css
+[data-theme="light"] [data-surface="inverse"],
+:root [data-surface="inverse"] {
+  --nuka-border-focus: var(--color-accent-400);
+}
+
+[data-theme="dark"] [data-surface="inverse"] {
+  --nuka-border-focus: var(--color-accent-500);
+}
+```
+
+`<Section background="emphasis">` emits `data-surface="inverse"` automatically in its render. The common case requires zero consumer action. Consumers who build custom dark surfaces set the attribute themselves.
+
+**Contrast ratios:**
+
+- Light inverse: accent-400 on neutral-900, ~6.9:1 (passes AA 3:1 for UI components)
+- Dark inverse: accent-500 on neutral-0, ~7.8:1 (passes AA 3:1 for UI components)
+
+### Consequences
+
+- `data-surface` becomes part of the library's public theming contract. **Removing or renaming it is a major version bump.**
+- `data-theme` and `data-surface` compose via CSS cascade. Both can appear on different ancestor elements in the tree. When both apply to the same subtree, the surface rule wins because its selector specificity `[data-theme="x"] [data-surface="inverse"]` is (0, 2, 0) vs the theme rule's (0, 1, 0).
+- Consumers learn one new attribute convention. `Section background="emphasis"` auto-wires, so most consumers do not need to see the attribute directly.
+- Zero interactive-component source code changes. Focus-ring resolution was already token-based; this task changes what the token resolves to in a given subtree.
+- If new tokens later need surface-scoped redefinition (for example `--nuka-text-base` on an emphasis surface), the mechanism is in place and only the override block is extended.
+- The mechanism does not support setting `data-theme` and `data-surface` on the same element. Consumers who need inverse-on-root nest: `<html data-theme="dark"><div data-surface="inverse">...</div></html>`. Documented in `docs/THEMING.md`.
+
+### Alternatives considered
+
+**Per-component `focusIntent` prop**: rejected. Scales poorly (one prop per interactive component, identical semantics in each), invites inconsistency (some components forget to add it), and puts burden on consumers to set it per instance.
+
+**Per-instance className override (`[--nuka-border-focus:...]`)**: rejected. Forces every consumer to rediscover the fix independently. Does not compose with nested dark surfaces. Was the exact pattern that produced the 8-site workaround in zanakadric.
+
+**Automatic detection via `color-mix()` or JS luminance inspection**: rejected. No reliable CSS-only path exists to inspect computed background luminance inside a selector. JS-based detection via `getComputedStyle` is fragile (does not re-run on prop changes, adds a hydration step), framework-coupled, and imposes a runtime cost on every focusable element.
+
+**`focusRingVariant` CVA variant per component**: rejected for the same scaling reasons as the prop option, plus adds compound-variant combinations that do not correspond to real design decisions.

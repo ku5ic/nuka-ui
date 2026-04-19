@@ -186,6 +186,61 @@ describe("Section", () => {
     });
   });
 
+  describe("data-surface", () => {
+    it("emits data-surface='inverse' when background='emphasis'", () => {
+      render(
+        <Section background="emphasis" data-testid="s">
+          Content
+        </Section>,
+      );
+      expect(screen.getByTestId("s")).toHaveAttribute(
+        "data-surface",
+        "inverse",
+      );
+    });
+
+    it("does not emit data-surface for other background values", () => {
+      for (const bg of ["base", "subtle", "muted"] as const) {
+        const { unmount } = render(
+          <Section background={bg} data-testid="s">
+            Content
+          </Section>,
+        );
+        expect(screen.getByTestId("s")).not.toHaveAttribute("data-surface");
+        unmount();
+      }
+    });
+
+    it("does not emit data-surface when background is undefined", () => {
+      render(<Section data-testid="s">Content</Section>);
+      expect(screen.getByTestId("s")).not.toHaveAttribute("data-surface");
+    });
+
+    it("attribute survives asChild composition", () => {
+      render(
+        <Section asChild background="emphasis">
+          <article data-testid="s">Content</article>
+        </Section>,
+      );
+      expect(screen.getByTestId("s")).toHaveAttribute(
+        "data-surface",
+        "inverse",
+      );
+    });
+
+    it("consumer data-surface overrides the computed value", () => {
+      render(
+        <Section background="emphasis" data-surface="default" data-testid="s">
+          Content
+        </Section>,
+      );
+      expect(screen.getByTestId("s")).toHaveAttribute(
+        "data-surface",
+        "default",
+      );
+    });
+  });
+
   describe("ref forwarding", () => {
     it("forwards ref to the rendered element", () => {
       const ref = React.createRef<HTMLElement>();
