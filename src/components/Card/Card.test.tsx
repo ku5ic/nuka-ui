@@ -147,7 +147,9 @@ describe("CardTitle", () => {
   it("forwards weight prop to Heading", () => {
     render(<CardTitle weight="extrabold">Heavy</CardTitle>);
     const title = screen.getByRole("heading", { name: "Heavy" });
-    expect(title.className).toContain("font-[number:var(--font-weight-extrabold)]");
+    expect(title.className).toContain(
+      "font-[number:var(--font-weight-extrabold)]",
+    );
   });
 
   it("preserves Heading's bold default when weight is omitted", () => {
@@ -173,13 +175,17 @@ describe("CardDescription", () => {
   it("forwards weight prop to Text", () => {
     render(<CardDescription weight="semibold">Emphasized</CardDescription>);
     const desc = screen.getByText("Emphasized");
-    expect(desc.className).toContain("font-[number:var(--font-weight-semibold)]");
+    expect(desc.className).toContain(
+      "font-[number:var(--font-weight-semibold)]",
+    );
   });
 
   it("preserves Text's regular default when weight is omitted", () => {
     render(<CardDescription>Default</CardDescription>);
     const desc = screen.getByText("Default");
-    expect(desc.className).toContain("font-[number:var(--font-weight-regular)]");
+    expect(desc.className).toContain(
+      "font-[number:var(--font-weight-regular)]",
+    );
   });
 });
 

@@ -178,7 +178,7 @@ export const AllWeights: Story = {
     docs: {
       description: {
         story:
-          "Heading exposes the full nine-value weight scale per the typography contract. **Rendering requires a font that supports the requested weight.** The default heading family resolves to the system serif stack (ui-serif / New York / Georgia / Cambria), which ships with only 4-5 hinted weights; thin, extralight, light, and extrabold may render identically or be synthesized. To demonstrate the full scale visibly, this story uses family=\"body\" which resolves to the system sans stack (SF Pro / Segoe UI / etc.) and typically carries all 9 weights. See docs/TYPOGRAPHY.md for the rendering caveat.",
+          'Heading exposes the full nine-value weight scale per the typography contract. **Rendering requires a font that supports the requested weight.** The default heading family resolves to the system serif stack (ui-serif / New York / Georgia / Cambria), which ships with only 4-5 hinted weights; thin, extralight, light, and extrabold may render identically or be synthesized. To demonstrate the full scale visibly, this story uses family="body" which resolves to the system sans stack (SF Pro / Segoe UI / etc.) and typically carries all 9 weights. See docs/TYPOGRAPHY.md for the rendering caveat.',
       },
       source: {
         code: `

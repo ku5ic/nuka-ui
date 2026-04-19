@@ -125,9 +125,7 @@ describe("EmptyState", () => {
     });
 
     it("description renders at regular default when descriptionWeight omitted", () => {
-      render(
-        <EmptyState heading="Title" description="Default description" />,
-      );
+      render(<EmptyState heading="Title" description="Default description" />);
       expect(screen.getByText("Default description").className).toContain(
         "font-[number:var(--font-weight-regular)]",
       );

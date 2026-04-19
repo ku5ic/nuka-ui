@@ -320,7 +320,7 @@ export const SemanticElements: Story = {
     Inline phrasing like <Text as="strong">strong</Text>,
     <Text as="em">emphasis</Text>, <Text as="cite">citations</Text>,
     <Text as="mark">marks</Text>, and
-    <Text as="time" dateTime="2026-04-19">absolute time</Text>.
+    <Text as="time">absolute time</Text>.
   </Text>
   <dl>
     <Text as="dt" weight="semibold">Term</Text>
@@ -344,11 +344,7 @@ export const SemanticElements: Story = {
       <Text>
         Inline phrasing like <Text as="strong">strong</Text>,{" "}
         <Text as="em">emphasis</Text>, <Text as="cite">citations</Text>,{" "}
-        <Text as="mark">marks</Text>, and{" "}
-        <Text as="time" dateTime="2026-04-19">
-          absolute time
-        </Text>
-        .
+        <Text as="mark">marks</Text>, and <Text as="time">absolute time</Text>.
       </Text>
       <dl>
         <Text as="dt" weight="semibold">
