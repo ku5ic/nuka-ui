@@ -36,9 +36,13 @@ export const switchThumbVariants = cva(
     "pointer-events-none",
   ],
   {
+    // Thumb sits inside the track (switchVariants). The track is the 24x24+
+    // touch target; the thumb is a decorative sub-element.
     variants: {
       size: {
+        // eslint-disable-next-line nuka/no-sub-touch-target-sizes
         sm: "size-4",
+        // eslint-disable-next-line nuka/no-sub-touch-target-sizes
         md: "size-5",
         lg: "size-6",
       },

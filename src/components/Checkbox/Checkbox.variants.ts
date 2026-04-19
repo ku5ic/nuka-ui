@@ -41,8 +41,12 @@ export const checkboxIndicatorVariants = cva(
         success: "",
         warning: "",
       },
+      // Indicator sits inside checkboxWrapperVariants, which provides the
+      // 24x24 touch target via min-h-6 min-w-6.
       size: {
+        // eslint-disable-next-line nuka/no-sub-touch-target-sizes
         sm: "size-4",
+        // eslint-disable-next-line nuka/no-sub-touch-target-sizes
         md: "size-5",
         lg: "size-6",
       },

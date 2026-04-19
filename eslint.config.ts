@@ -72,6 +72,12 @@ export default defineConfig(
     },
   },
   {
+    files: ["src/components/**/*.variants.ts"],
+    rules: {
+      "nuka/no-sub-touch-target-sizes": "error",
+    },
+  },
+  {
     ignores: [
       "dist/**",
       "coverage/**",

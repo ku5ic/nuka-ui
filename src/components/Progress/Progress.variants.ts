@@ -1,12 +1,17 @@
 import { cva, type VariantProps } from "@nuka/utils/variants";
 
+// Progress is a non-interactive status indicator (role="progressbar"), not a
+// pointer target. The 24x24 WCAG 2.5.8 minimum does not apply.
 export const progressTrackVariants = cva(
   ["w-full overflow-hidden rounded-full bg-(--nuka-bg-muted)"],
   {
     variants: {
       size: {
+        // eslint-disable-next-line nuka/no-sub-touch-target-sizes
         sm: "h-1.5",
+        // eslint-disable-next-line nuka/no-sub-touch-target-sizes
         md: "h-2.5",
+        // eslint-disable-next-line nuka/no-sub-touch-target-sizes
         lg: "h-4",
       },
     },

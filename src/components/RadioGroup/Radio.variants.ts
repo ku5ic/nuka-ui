@@ -25,8 +25,12 @@ export const radioIndicatorVariants = cva(
         success: "",
         warning: "",
       },
+      // Indicator sits inside the label wrapper in Radio.tsx, which provides
+      // the 24x24 touch target via min-h-6 min-w-6.
       size: {
+        // eslint-disable-next-line nuka/no-sub-touch-target-sizes
         sm: "size-4",
+        // eslint-disable-next-line nuka/no-sub-touch-target-sizes
         md: "size-5",
         lg: "size-6",
       },
