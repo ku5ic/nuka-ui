@@ -107,6 +107,29 @@ describe("Button", () => {
     });
   });
 
+  describe("fullWidth", () => {
+    it("emits w-full when fullWidth is true", () => {
+      render(<Button fullWidth>Wide</Button>);
+      expect(screen.getByRole("button", { name: "Wide" }).className).toContain(
+        "w-full",
+      );
+    });
+
+    it("does not emit w-full by default", () => {
+      render(<Button>Default</Button>);
+      expect(
+        screen.getByRole("button", { name: "Default" }).className,
+      ).not.toContain("w-full");
+    });
+
+    it("does not emit w-full when fullWidth is explicitly false", () => {
+      render(<Button fullWidth={false}>Fixed</Button>);
+      expect(
+        screen.getByRole("button", { name: "Fixed" }).className,
+      ).not.toContain("w-full");
+    });
+  });
+
   describe("className override", () => {
     it("merges consumer className with variant classes", () => {
       render(<Button className="mt-4">Button</Button>);

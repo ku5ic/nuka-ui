@@ -12,6 +12,7 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>, ButtonVariantProps {
   ref?: React.Ref<HTMLButtonElement> | undefined;
   asChild?: boolean;
+  fullWidth?: boolean;
 }
 
 function Button({
@@ -21,6 +22,7 @@ function Button({
   intent,
   size,
   asChild = false,
+  fullWidth = false,
   ...props
 }: ButtonProps) {
   const Comp = asChild ? Slot : "button";
@@ -28,7 +30,11 @@ function Button({
   return (
     <Comp
       ref={ref}
-      className={cn(buttonVariants({ variant, intent, size }), className)}
+      className={cn(
+        buttonVariants({ variant, intent, size }),
+        fullWidth && "w-full",
+        className,
+      )}
       {...props}
     />
   );

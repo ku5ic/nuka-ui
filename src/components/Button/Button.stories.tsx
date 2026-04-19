@@ -25,6 +25,9 @@ const meta = {
     disabled: {
       control: "boolean",
     },
+    fullWidth: {
+      control: "boolean",
+    },
     asChild: {
       control: false,
     },
@@ -76,6 +79,26 @@ export const Disabled: Story = {
     size: "md",
     children: "Button",
     disabled: true,
+  },
+};
+
+export const FullWidth: Story = {
+  name: "Full Width",
+  render: () => (
+    <div className="w-[320px]">
+      <Button fullWidth>Save and continue</Button>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<div className="w-[320px]">
+  <Button fullWidth>Save and continue</Button>
+</div>
+        `.trim(),
+      },
+    },
   },
 };
 
