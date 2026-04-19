@@ -165,6 +165,25 @@ Exposing all 9 weight values does not guarantee visual differentiation. A weight
 - The browser synthesizes the glyph by interpolating or thickening a nearby weight. Synthesized glyphs are lower quality than hinted faces. They can appear blurry or ill-balanced.
 - On the light end (100, 200), synthesized faces plus low-contrast text are legibility hazards. MDN explicitly notes that weights 100 and 200 may be unreadable for some users at low contrast, even on supported fonts, and recommends avoiding both unless the font is designed for them.
 
+### Concrete example with nuka-ui's default font stack
+
+This matters for `Heading` in particular, because its default `family` is `heading` which resolves to the system serif stack:
+
+```
+--nuka-font-heading -> var(--font-family-serif) -> ui-serif, Georgia, Cambria, serif
+```
+
+On macOS, `ui-serif` resolves to **New York** (5 hinted weights: 400, 500, 600, 700, 900). On Windows / Linux, `ui-serif` typically falls back to **Georgia** or **Cambria**, which ship with only 400 and 700. That means a default Heading with `weight="thin"`, `weight="extralight"`, or `weight="light"` often renders identical to `weight="regular"`, and `weight="extrabold"` often renders identical to `weight="bold"`.
+
+The emitted CSS is correct in every case. Each Heading outputs a distinct `font-[number:var(--font-weight-<name>)]` class that resolves to the corresponding `--font-weight-*` token. The browser honors that `font-weight` value; the font file simply has no hinted face to render it with, so the browser synthesizes or picks the nearest available weight.
+
+`Text` defaults to `family="body"` which resolves to `ui-sans-serif` (SF Pro on macOS, Segoe UI on Windows, etc.) and typically ships with all 9 weights, so Text renders all 9 weights visibly on the same OS where Heading cannot.
+
+### What to do about it
+
+- **For the library's Storybook demo:** the `Heading.AllWeights` story sets `family="body"` explicitly so all 9 weights render distinctly. A companion `AllWeightsDefaultFamily` story keeps the default serif family so the difference is visible in the docs.
+- **For consumer applications:** load a webfont with full weight support and remap `--nuka-font-heading` to it, or accept that the default serif family will collapse several weights on most systems.
+
 **The library exposes every CSS-spec weight and the tokens to reference them. Font loading is a consumer concern.** Consumers are responsible for:
 
 - Loading font files that support the weights they use
