@@ -157,7 +157,14 @@ export const dividerOrientationBaseMaps: Record<
   },
 };
 
-export type AspectRatioValue = "1/1" | "16/9" | "4/3" | "3/2" | "2/1" | "9/16";
+export type AspectRatioValue =
+  | "1/1"
+  | "16/9"
+  | "4/3"
+  | "3/2"
+  | "2/1"
+  | "9/16"
+  | "4/5";
 
 export const aspectRatioBaseMap: Record<AspectRatioValue, string> = {
   "1/1": "aspect-square",
@@ -166,6 +173,7 @@ export const aspectRatioBaseMap: Record<AspectRatioValue, string> = {
   "3/2": "aspect-[3/2]",
   "2/1": "aspect-[2/1]",
   "9/16": "aspect-[9/16]",
+  "4/5": "aspect-[4/5]",
 };
 
 /**
