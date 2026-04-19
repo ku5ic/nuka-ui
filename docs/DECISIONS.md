@@ -1811,3 +1811,56 @@ The four-value weight scale was the most visible gap. Per MDN, CSS `font-weight`
 **Hardcoded-weight components expose the prop with a "recommended" subset.** Rejected. Violates invariant #1 of the contract (no subsetting). Also contradicts the goal: if variation looks like a bug in a button row, exposing it with a smaller menu does not change that.
 
 **Do Piece 5 (literal replacement) only in the five originally-named files.** Rejected during preflight. The goal of the cluster is eliminating token-bypass leaks; leaving 13 other sites with the same leak defeats the purpose. Bundling all sites into one refactor commit keeps the diff reviewable and the grep guard tractable.
+
+## ADR-053: Callout primitive for pulled quotations and editorial emphasis
+
+**Date:** 2026-04-19
+**Status:** Accepted
+
+### Context
+
+Three port cases converge on a single primitive need:
+
+1. Pulled quotations from testimonials or case studies. A block of emphasized text attributed to a source. Semantically a `<blockquote>` with a `<cite>` child. Visually raised or bordered.
+2. Inline editorial asides. Short "note", "warning", or "tip" blocks that interrupt main-body prose. Visual treatment varies by intent; no urgency (not a live region).
+3. Marketing emphasis blocks. A sentence or paragraph pulled from surrounding copy to draw the eye, often with an accent border and larger type.
+
+Alert nearly serves cases 2 and 3 but fails case 1 (no citation, no blockquote semantics) and carries `role="alert"`, which announces the content in the live region. Editorial content should not interrupt screen reader flow. No existing component provides a blockquote primitive. The Cluster 1 TextElement union (ADR-052) added `blockquote` and `cite` specifically to enable this component.
+
+### Decision
+
+1. **New `Callout` component.** Default root `<blockquote>` (HTMLQuoteElement). 4-variant display-primitive shape (`primary`, `secondary`, `outline`, `ghost`) matching Alert, Badge, Tag, Chip. 4-intent (`default`, `danger`, `success`, `warning`). 3-size (`sm`, `md`, `lg`). Reuses `intentCompoundVariants({ secondaryDefault: [accent tokens] })` with the same secondary-default cell as Alert.
+
+2. **Optional `citation` prop.** Renders through `<Text as="cite">` with hardcoded `color="muted"` and `size="sm"`. Produces a `<cite>` child below the main body. Named `citation` (not `cite`) to avoid collision with the native HTML `cite` attribute on `<blockquote>`, which takes a source URL and stays reachable through prop spread.
+
+3. **`asChild` escape hatch.** Uses `Slot` from `@nuka/utils/slot` for a clean root swap. When `asChild` is true, the consumer's tree renders verbatim with Callout classes merged. The `citation` prop is ignored in this path; consumers compose their own figure+figcaption structure. A dev-mode `console.warn` fires when both `asChild` and `citation` are passed.
+
+4. **Body and citation both inherit color from the parent.** Body children render directly in the `<blockquote>` (matches Alert: consumer content is not structural chrome). The citation renders as a bare `<cite className="text-sm">` so it inherits the CVA intent color. Wrapping either body or citation in `<Text>` would emit a color class from Text's `defaultVariants.color = "base"` that overrides the intent color on the parent; `color="muted"` has the same problem since muted gray has insufficient contrast on primary+danger / primary+success / primary+warning colored backgrounds. Body font-size comes from CVA size variants (`text-sm / text-base / text-lg`); citation is hardcoded at `text-sm` with the browser default `<cite>` italic for visual hierarchy.
+
+5. **No icon slot.** Editorial callouts rarely benefit from a severity icon. Consumers who need iconography compose with `asChild` + `<figure>`.
+
+6. **No `role="alert"`.** Screen readers announce Callout as a standard blockquote region. Editorial content does not interrupt live-region speech.
+
+### Consequences
+
+- Consumers have a dedicated primitive for pulled / emphasized content distinct from Alert. Editorial content no longer reaches for `role="alert"`.
+- The citation pattern is structured (dedicated prop) for the simple case and composable (asChild with figure + figcaption) for the full HTML-spec-recommended case.
+- Validates the Cluster 1 typography work. Callout is the first component to render internal content through `<Text as="cite">`; the TextElement union addition in ADR-052 was made for exactly this use case.
+- Callout does not expose typographic props. Consumers who need custom weight, family, or color inside the body compose with their own Text children instead of a bare string.
+- Consumers who need the native HTML `cite` attribute (source URL) pass it via prop spread. The name collision between our `citation` display-text prop and the native `cite` URL attribute is resolved in favor of preserving both axes.
+
+### Alternatives considered
+
+**Extend Alert with a `citation` prop and a `role` prop override.** Rejected. Conflates urgent feedback (live region) with editorial emphasis. Role is not a prop and should not be consumer-swappable on a feedback component.
+
+**Render Callout as `<aside>`.** Rejected. `<aside>` is for tangentially related content (sidebars, page-level asides). A pulled quotation is the `<blockquote>` semantic.
+
+**Name the prop `cite` and `Omit<..., "cite">` from the base HTML attributes.** Rejected. Drops a native HTML attribute without replacement. `citation` preserves both axes and reads clearly.
+
+**Include an icon slot matching Alert.** Rejected. Editorial content rarely benefits from a severity icon; it reads as visual noise. Consumers who want iconography compose with `asChild` + `<figure>`.
+
+**Expose `weight`, `color`, and `family` props directly on Callout.** Rejected. Duplicates the Text API. Contract compliance means Callout defers to internal Text defaults. Consumers who need per-instance typographic control compose with their own Text inside Callout's children or use `asChild`.
+
+**Wrap body children in `<Text as="p">` to satisfy the compound-component Text-usage rule.** Rejected. The typography contract rule applies to structural text slots the component owns (titles, descriptions, labels), not to arbitrary consumer-provided children. Alert does not wrap its children either. More importantly, Text's `defaultVariants.color = "base"` emits `text-(--nuka-text-base)` unconditionally, which would override Callout's CVA intent color on the parent. The body correctly inherits from the blockquote.
+
+**Render citation through `<Text as="cite" color="muted">`.** Rejected. `muted` is a neutral gray token chosen for recede-on-neutral-surfaces; it fails WCAG 4.5:1 contrast on primary+danger, primary+success, and primary+warning colored backgrounds. Any fixed Text color choice has the same problem on at least some of the 16 variant x intent cells. Citation is rendered as a bare `<cite className="text-sm">` so it inherits the intent color from the parent blockquote. Hierarchy comes from size (smaller) and the browser default italic styling of `<cite>`. Font-family, weight, and color all propagate through inheritance, satisfying the token-tracking goal of the compound-component Text-usage rule without introducing a cross-variant contrast regression.

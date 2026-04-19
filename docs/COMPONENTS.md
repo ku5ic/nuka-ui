@@ -67,16 +67,17 @@ This document defines the full component scope for nuka-ui.
 
 ## Display
 
-| Component    | Status | Notes                                                         |
-| ------------ | ------ | ------------------------------------------------------------- |
-| `Badge`      | Done   | Inline label. variant + intent. No interactive states.        |
-| `Tag`        | Done   | Dismissible Badge variant. Adds close button.                 |
-| `Avatar`     | Done   | Image with fallback initials. Size variants.                  |
-| `Icon`       | Done   | Wrapper for icon libraries. Size + color tokens.              |
-| `Divider`    | Done   | Horizontal/vertical separator. Optional label.                |
-| `EmptyState` | Done   | Blank slate. Illustration slot, heading, description, action. |
-| `Timeline`   | Done   | Vertical event sequence. Display-only.                        |
-| `ScrollArea` | Done   | Custom scrollbar container. Orientation, maxHeight/maxWidth.  |
+| Component    | Status | Notes                                                                                  |
+| ------------ | ------ | -------------------------------------------------------------------------------------- |
+| `Badge`      | Done   | Inline label. variant + intent. No interactive states.                                 |
+| `Tag`        | Done   | Dismissible Badge variant. Adds close button.                                          |
+| `Avatar`     | Done   | Image with fallback initials. Size variants.                                           |
+| `Icon`       | Done   | Wrapper for icon libraries. Size + color tokens.                                       |
+| `Divider`    | Done   | Horizontal/vertical separator. Optional label.                                         |
+| `EmptyState` | Done   | Blank slate. Illustration slot, heading, description, action.                          |
+| `Callout`    | Done   | Pulled quotation / editorial emphasis block. variant + intent + size. `citation` slot. |
+| `Timeline`   | Done   | Vertical event sequence. Display-only.                                                 |
+| `ScrollArea` | Done   | Custom scrollbar container. Orientation, maxHeight/maxWidth.                           |
 
 ---
 
