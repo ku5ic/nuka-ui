@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Section } from "@nuka/components/Section";
+import { Button } from "@nuka/components/Button";
 import { Container } from "@nuka/components/Container";
 import { Eyebrow } from "@nuka/components/Eyebrow";
 import { Heading } from "@nuka/components/Heading";
@@ -300,6 +301,42 @@ export const PageLayout: Story = {
   <Container>
     <Heading size="2xl">Get started</Heading>
     <Text color="muted">Content goes here.</Text>
+  </Container>
+</Section>
+        `.trim(),
+      },
+    },
+  },
+};
+
+export const EmphasisWithFocusableContent: Story = {
+  name: "Emphasis with focusable content",
+  render: () => (
+    <Section background="emphasis" spacing="lg">
+      <Container>
+        <Stack gap="md" align="start">
+          <Heading size="2xl" color="inverse">
+            Ship faster with nuka-ui
+          </Heading>
+          <Text color="inverse">
+            Tab into the button. The focus ring adapts to the inverse surface
+            via the data-surface attribute emitted by
+            background=&quot;emphasis&quot;.
+          </Text>
+          <Button variant="primary">Get started</Button>
+        </Stack>
+      </Container>
+    </Section>
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Section background="emphasis" spacing="lg">
+  <Container>
+    <Heading size="2xl" color="inverse">Ship faster with nuka-ui</Heading>
+    <Text color="inverse">Tab into the button.</Text>
+    <Button variant="primary">Get started</Button>
   </Container>
 </Section>
         `.trim(),

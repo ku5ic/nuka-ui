@@ -284,3 +284,26 @@ export const ConfirmationDialog: Story = {
     },
   },
 };
+
+export const InverseSurface: Story = {
+  name: "Focus ring on inverse surface",
+  render: () => (
+    <div
+      data-surface="inverse"
+      className="bg-(--nuka-bg-emphasis) p-(--space-8) rounded-(--radius-lg)"
+    >
+      <Button variant="primary">Tab to focus</Button>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<div data-surface="inverse" className="bg-(--nuka-bg-emphasis) p-6 rounded-lg">
+  <Button variant="primary">Tab to focus</Button>
+</div>
+        `.trim(),
+      },
+    },
+  },
+};
