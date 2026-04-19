@@ -175,6 +175,8 @@ WCAG 2.2 AA is a hard requirement. Minimum contrast ratios:
 
 Verify contrast for every new color token before adding it.
 
+Interactive primitives must present a 24x24 CSS px touch target at every size variant per WCAG 2.5.8. Enforced by `tests/a11y/touch-targets.test.tsx` and the `nuka/no-sub-touch-target-sizes` ESLint rule. See `docs/ACCESSIBILITY.md`.
+
 ### Storybook
 
 - Stories are co-located with components

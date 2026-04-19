@@ -1703,3 +1703,56 @@ Redefine `--nuka-border-focus` inside any subtree that carries the attribute `da
 **Automatic detection via `color-mix()` or JS luminance inspection**: rejected. No reliable CSS-only path exists to inspect computed background luminance inside a selector. JS-based detection via `getComputedStyle` is fragile (does not re-run on prop changes, adds a hydration step), framework-coupled, and imposes a runtime cost on every focusable element.
 
 **`focusRingVariant` CVA variant per component**: rejected for the same scaling reasons as the prop option, plus adds compound-variant combinations that do not correspond to real design decisions.
+
+## ADR-051: 24x24 CSS px touch target invariant enforced via CSS, test, and lint
+
+**Date:** 2026-04-19
+**Status:** Accepted
+
+### Context
+
+WCAG 2.2 Level AA Success Criterion 2.5.8 (Target Size Minimum) requires each pointer target to be at least 24x24 CSS pixels. A cluster-5 audit of nuka-ui's interactive primitives surfaced one concrete failure: Switch at the `md` size rendered a 20x36 track, below the 24 px height minimum.
+
+The failure was easy to miss during development because:
+
+- jsdom does not compute CSS layout, so component unit tests cannot measure the rendered box.
+- The Storybook a11y addon does not enforce 2.5.8 by default.
+- A conformance gap on one size variant of one component is invisible in the variant matrix.
+
+The Switch fix revealed a secondary concern: the `sm`/`md`/`lg` size ramp, built around different heights (24/20/24), collapsed visually when md was raised to 24. The rebalance grows md and lg in all three axes (track height, track width, thumb size) to restore a clear visual progression.
+
+### Decision
+
+Defense in depth: three independent enforcement mechanisms.
+
+1. **CSS contract.** Each component's size variants declare classes that produce ≥24 px on the interactive element. Documented in `docs/ACCESSIBILITY.md`.
+2. **Regression test.** `tests/a11y/touch-targets.test.tsx` renders every interactive primitive at every size and asserts height ≥24 via a className→pixel lookup. jsdom cannot lay out CSS; className parsing is the substitute.
+3. **Lint rule.** `nuka/no-sub-touch-target-sizes` flags Tailwind classes `h-1..h-5`, `min-h-1..min-h-5`, `size-1..size-5`, and arbitrary-value equivalents inside CVA `variants.*.*` positions within `*.variants.ts` files. Indicator-inside-wrapper exemptions use `eslint-disable-next-line`.
+
+**Switch scale rebalance (concrete):**
+
+| Size | Track              | Thumb            | Fill ratio |
+| ---- | ------------------ | ---------------- | ---------- |
+| sm   | 24×40 (`h-6 w-10`) | 16×16 (`size-4`) | 67%        |
+| md   | 28×48 (`h-7 w-12`) | 20×20 (`size-5`) | 71%        |
+| lg   | 32×56 (`h-8 w-14`) | 24×24 (`size-6`) | 75%        |
+
+All three sizes pass 2.5.8 AA; each size is visually distinct.
+
+### Consequences
+
+- The Switch `md` fix and rebalance bring the library to full 2.5.8 AA compliance.
+- `md` and `lg` Switches are taller than in 1.1.3. Consumers with tight vertical layouts around these components may need to adjust. `sm` stays unchanged and remains the compact option.
+- Adding a new interactive primitive now requires passing the regression test and not tripping the lint rule. The cost is a handful of extra lines in a pull request.
+- The lint rule is a heuristic; it operates on string literals and will miss dynamic class composition. The regression test is the ground truth.
+- The test relies on a static Tailwind-class → pixel map. If the project switches Tailwind config values for the spacing or typography scale, the map must be updated. Current scale is default Tailwind (0.25rem = 4 px per step at 16 px root).
+
+### Alternatives considered
+
+**Storybook test-runner with real layout measurement**: rejected. Requires new infrastructure (test-runner config, headless browser in CI), high value but out of scope for a single-violation fix.
+
+**Per-component inline size assertions**: rejected. Scales poorly as the number of components grows. A shared regression test over a table of primitives is one place to change when the touch-target rule itself changes.
+
+**Trust the a11y-addon alone**: rejected. The addon does not enforce 2.5.8 by default, and even with enforcement enabled it runs only in Storybook runs, not in unit-test CI.
+
+**Naive Switch fix (h-5 → h-6 only)**: rejected in favor of the rebalance. Keeping all three tracks at the same 24 px height collapsed the visual ramp to width-only differences of 4-8 px, producing three toggles that looked nearly identical. The rebalance grows each size in three axes so the progression is obvious.
