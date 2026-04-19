@@ -436,6 +436,62 @@ export const ActivityLog: Story = {
   ),
 };
 
+export const WithHeadingTitle: Story = {
+  name: "With Heading Title",
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Timeline aria-label="Release history" className="w-[420px]">
+  <TimelineItem
+    title="1.1.4 released"
+    titleAs="h3"
+    timestamp="April 19, 2026"
+    description="Four additive prop additions across Button, CardBody, AspectRatio, Timeline."
+    intent="success"
+  />
+  <TimelineItem
+    title="1.1.3 released"
+    titleAs="h3"
+    timestamp="April 17, 2026"
+    description="Adopted full 'use client' directive policy for RSC compatibility."
+  />
+  <TimelineItem
+    title="1.1.2 released"
+    titleAs="h3"
+    timestamp="April 15, 2026"
+    description="Distributed stylesheet fixes."
+  />
+</Timeline>
+        `.trim(),
+      },
+    },
+  },
+  render: () => (
+    <Timeline aria-label="Release history" className="w-[420px]">
+      <TimelineItem
+        title="1.1.4 released"
+        titleAs="h3"
+        timestamp="April 19, 2026"
+        description="Four additive prop additions across Button, CardBody, AspectRatio, Timeline."
+        intent="success"
+      />
+      <TimelineItem
+        title="1.1.3 released"
+        titleAs="h3"
+        timestamp="April 17, 2026"
+        description="Adopted full 'use client' directive policy for RSC compatibility."
+      />
+      <TimelineItem
+        title="1.1.2 released"
+        titleAs="h3"
+        timestamp="April 15, 2026"
+        description="Distributed stylesheet fixes."
+      />
+    </Timeline>
+  ),
+};
+
 export const OnboardingSteps: Story = {
   name: "Pattern: Onboarding Steps",
   parameters: {

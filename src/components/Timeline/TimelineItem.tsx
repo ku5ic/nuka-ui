@@ -3,12 +3,19 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 import { Text } from "@nuka/components/Text";
+import { textVariants } from "@nuka/components/Text/Text.variants";
+import {
+  resolveResponsiveClasses,
+  textSizeClasses,
+  textAlignClasses,
+} from "@nuka/utils/responsive";
 import { timelineItemMarkerVariants } from "@nuka/components/Timeline/Timeline.variants";
 
 export interface TimelineItemProps extends React.LiHTMLAttributes<HTMLLIElement> {
   ref?: React.Ref<HTMLLIElement> | undefined;
   timestamp?: string;
   title: string;
+  titleAs?: "p" | "h2" | "h3" | "h4" | "h5" | "h6";
   description?: string;
   icon?: React.ReactNode;
   intent?: "default" | "danger" | "success" | "warning";
@@ -19,6 +26,7 @@ function TimelineItem({
   className,
   timestamp,
   title,
+  titleAs = "p",
   description,
   icon,
   intent,
@@ -59,9 +67,31 @@ function TimelineItem({
             {timestamp}
           </time>
         )}
-        <Text as="p" size="sm" weight="medium">
-          {title}
-        </Text>
+        {titleAs === "p" ? (
+          <Text as="p" size="sm" weight="medium">
+            {title}
+          </Text>
+        ) : (
+          // Heading element shares the class string Text would emit for
+          // size="sm" weight="medium" so visual output matches the default
+          // regardless of the tag.
+          React.createElement(
+            titleAs,
+            {
+              className: cn(
+                textVariants({
+                  family: "body",
+                  weight: "medium",
+                  color: "base",
+                  truncate: false,
+                }),
+                ...resolveResponsiveClasses("sm", textSizeClasses),
+                ...resolveResponsiveClasses("left", textAlignClasses),
+              ),
+            },
+            title,
+          )
+        )}
         {description != null && (
           <Text as="p" size="sm" color="muted" className="mt-(--space-1)">
             {description}

@@ -205,4 +205,71 @@ describe("TimelineItem", () => {
       expect(ref.current).toBeInstanceOf(HTMLLIElement);
     });
   });
+
+  describe("titleAs", () => {
+    it("renders title inside a <p> by default", () => {
+      render(
+        <Timeline aria-label="Events">
+          <TimelineItem title="Default Title" />
+        </Timeline>,
+      );
+      const el = screen.getByText("Default Title");
+      expect(el.tagName).toBe("P");
+    });
+
+    it("renders title inside <h3> when titleAs='h3'", () => {
+      render(
+        <Timeline aria-label="Events">
+          <TimelineItem title="Heading Title" titleAs="h3" />
+        </Timeline>,
+      );
+      const heading = screen.getByRole("heading", {
+        name: "Heading Title",
+        level: 3,
+      });
+      expect(heading).toBeInTheDocument();
+    });
+
+    it("accepts all valid heading levels h2-h6", () => {
+      const cases = [
+        { tag: "h2", level: 2, title: "Title h2" },
+        { tag: "h3", level: 3, title: "Title h3" },
+        { tag: "h4", level: 4, title: "Title h4" },
+        { tag: "h5", level: 5, title: "Title h5" },
+        { tag: "h6", level: 6, title: "Title h6" },
+      ] as const;
+      for (const { tag, level, title } of cases) {
+        const { unmount } = render(
+          <Timeline aria-label={`Events ${tag}`}>
+            <TimelineItem title={title} titleAs={tag} />
+          </Timeline>,
+        );
+        expect(
+          screen.getByRole("heading", { name: title, level }),
+        ).toBeInTheDocument();
+        unmount();
+      }
+    });
+
+    it("heading and default paragraph share the same className", () => {
+      const { rerender } = render(
+        <Timeline aria-label="Events">
+          <TimelineItem title="Same" />
+        </Timeline>,
+      );
+      const defaultClassName = screen.getByText("Same").className;
+
+      rerender(
+        <Timeline aria-label="Events">
+          <TimelineItem title="Same" titleAs="h3" />
+        </Timeline>,
+      );
+      const headingClassName = screen.getByRole("heading", {
+        name: "Same",
+        level: 3,
+      }).className;
+
+      expect(headingClassName).toBe(defaultClassName);
+    });
+  });
 });
