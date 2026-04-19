@@ -23,6 +23,9 @@
   ],
   "scripts": {
     "build": "vite build",
+    "build:safelist": "node tools/generate-safelist.mjs",
+    "check:safelist": "node tools/generate-safelist.mjs --check",
+    "prebuild": "npm run build:safelist",
     "build:storybook": "storybook build",
     "dev": "storybook dev -p 6006",
     "test": "vitest run",
@@ -31,7 +34,7 @@
     "pretest:dist": "npm run build",
     "test:dist": "vitest run --config vitest.dist.config.ts",
     "test:eslint-plugin": "node --test tools/eslint-plugin-nuka/",
-    "test:all": "npm run test && npm run test:eslint-plugin && npm run test:dist",
+    "test:all": "npm run check:safelist && npm run test && npm run test:eslint-plugin && npm run test:dist",
     "lint": "eslint src",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\"",

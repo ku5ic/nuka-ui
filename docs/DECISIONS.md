@@ -1595,3 +1595,55 @@ These conditions are enforced by the `nuka/require-use-client` ESLint rule intro
 **Keep the server-safe subset, relax the ESLint rule for ref-only components**: rejected. Ref serialization from a Server Component is the exact failure class 1.1.2 hit. Allowing ref-only components to skip the directive reintroduces that class in a narrower but still production-breaking form. The rule must be uniform to be useful.
 
 **Move to a barrel-level directive (single `"use client";` on `src/index.ts`)**: rejected. A barrel-level directive would force every consumer to go through the full library bundle even when they import a single component, because the directive makes the whole file a client module. Per-file directives preserve tree-shaking and allow Next.js to include only the components a page actually uses.
+
+## ADR-049: Generated Tailwind safelist for runtime-constructed responsive classes
+
+**Date:** 2026-04-19
+**Status:** Accepted
+
+### Context
+
+`src/utils/responsive.ts` exposes layout-primitive lookups (`gapClasses`, `directionClasses`, `textSizeClasses`, etc.) that components consume via the `Responsive<T>` prop pattern (ADR-021, ADR-022). Each lookup is produced by a `buildLookup<T>()` call that takes a base map like `{ none: "gap-0", xs: "gap-1", ... }` and builds a breakpoint-keyed `{ base, sm, md, lg, xl, "2xl" }` record at module init time, prefixing each base token with the matching Tailwind breakpoint (`"sm:"`, `"md:"`, etc.).
+
+Tailwind v4's scanner reads source files and includes a class in the compiled CSS only if it appears as a complete string literal in the source. `buildLookup` constructs its outputs at runtime by string concatenation, so `"sm:gap-4"` is never visible to the scanner as a literal even though it is returned by the lookup.
+
+Empirical measurement of the 1.1.3 `dist/styles.css` against every class the lookups can emit:
+
+- `aspectRatioClasses`: 100 percent coverage (36 of 36), because a hand-authored `_aspectRatioSafelist` array was embedded at the bottom of `responsive.ts` for exactly this purpose.
+- Every other lookup: 17 to 31 percent coverage. The responsive variants that happened to appear in the compiled bundle did so only because some Storybook story or component source coincidentally contained the literal string; there was no mechanism ensuring every variant was covered.
+- Aggregate: 228 of 324 originally expected classes were missing.
+
+Consumer impact: `<Stack gap={{ base: "sm", md: "lg" }}>` returns the strings `gap-2` and `md:gap-6`. If the consumer's own sources do not happen to contain the literal `md:gap-6`, no CSS rule exists and the component renders with no gap at `md` and up. Every layout primitive accepting a `Responsive<T>` prop was affected.
+
+### Decision
+
+Split the base maps into a shared module and generate a safelist file from them on every build.
+
+- `src/utils/responsive-maps.ts` is the single source of truth. It exports every base map, the `BREAKPOINT_PREFIXES` object, all type aliases (`GapScale`, `Direction`, ...), and an `ALL_BASE_MAPS` array that enumerates every base map by name.
+- `src/utils/responsive.ts` imports the base maps and passes each to `buildLookup<T>()`. Runtime behavior is unchanged. Public exports remain identical in name, type, and value.
+- `tools/generate-safelist.mjs` loads `responsive-maps.ts` via `esbuild.transformSync` plus a data-URL dynamic import (zero new dependencies; esbuild is already a transitive Vite dep), computes the full cross-product of breakpoint prefixes and whitespace-split base tokens, and writes `src/utils/_tailwind-safelist.ts`. The generator sorts, deduplicates, and formats the output with prettier so byte-for-byte determinism holds across runs.
+- `_tailwind-safelist.ts` exports a single `_safelist` array of string literals. Tailwind's scanner sees the literals. Nothing in `src/` imports it at runtime; the generator verifies this with an import-shaped regex across `src/` and fails if any runtime file pulls it in.
+- An npm `prebuild` lifecycle script wires the generator into every build path (`npm run build`, `npm run prepare`, `npm run test:dist`, `npm run release`). A `check:safelist` script runs the generator in dry-run mode and fails if the on-disk file is out of date. It is chained first in `test:all` because it is the cheapest signal with the clearest message when a developer forgot to regenerate.
+- A verification test at `tests/dist/responsive-safelist.test.ts` reads the actual `dist/styles.css`, recomputes the expected set from `ALL_BASE_MAPS`, and asserts every expected class appears as a correctly escaped rule in the bundle. It runs as part of `test:dist`, which runs against the built output.
+
+### Consequences
+
+- Every class that `buildLookup` can return at runtime is guaranteed to have a matching rule in `dist/styles.css`. The `<Stack gap={{ md: "lg" }}>` class of bug is extinguished for every `buildLookup` consumer.
+- The hand-authored `_aspectRatioSafelist` block is removed. The generated safelist is the single mechanism.
+- Adding a new lookup requires: add the base map and types to `responsive-maps.ts`, add an entry to `ALL_BASE_MAPS`, wire the lookup in `responsive.ts`, run `npm run build:safelist`, commit both files. The CI `check:safelist` step catches forgotten regenerations.
+- The safelist file's exact byte contents are tied to the installed prettier version. A prettier upgrade that changes formatting defaults will surface as a `check:safelist` failure in otherwise unrelated PRs. The fix is to regenerate and commit; no behavior changes.
+- Generator placement is npm-lifecycle rather than Vite-plugin. The scanner-visibility guarantee is a language-level concern (every emitted class appears as a source literal), not a bundler-level one. Running the generator as an npm script means Storybook, Vitest, and any future consumer build pipeline invoking `npm run build` inherits the guarantee for free.
+
+### Invariant enforced by the verification test
+
+For every base map entry in `ALL_BASE_MAPS`, for every prefix in `BREAKPOINT_PREFIXES`, for every whitespace-split token in every value of that map, the prefixed token appears as a CSS rule in `dist/styles.css` using Tailwind v4's escape form (`.\32 xl\:aspect-\[4\/3\]` and similar). The test also asserts that the generated `_safelist` contains exactly the expected set, so generator drift is caught independently of CSS coverage.
+
+### Alternatives considered
+
+**Extend the hand-authored safelist to all lookups**: rejected. The array would be roughly 500 lines and every base-map edit would require a manual, error-prone sync. The 228 missing classes in 1.1.3 are exactly the failure mode the hand-authored approach produces at scale.
+
+**Tailwind config-level safelist**: not available. Tailwind v4 does not expose a configuration-level safelist analogous to v3's `safelist` option. Literal-in-source is the only supported mechanism.
+
+**Parse `responsive.ts` for object literals in the generator**: rejected. The task brief allowed this as a fallback. Parsing TypeScript AST for literals couples generator correctness to code-shape details that the runtime refactor is free to change. Extracting the base maps into a dedicated module removes that coupling entirely for a single-file cost.
+
+**Vite plugin instead of npm script**: rejected. The scanner-visibility guarantee is not bundler-specific. An npm-lifecycle generator runs under every tool that invokes `npm run build`; a Vite plugin would only run under Vite.
