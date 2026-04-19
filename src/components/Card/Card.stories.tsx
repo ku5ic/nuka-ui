@@ -206,6 +206,54 @@ export const AllVariants: Story = {
   },
 };
 
+export const PaddingVariants: Story = {
+  name: "CardBody padding",
+  render: () => (
+    <Stack direction="row" gap="xl" align="start">
+      <Card variant="outlined" className="w-[220px]">
+        <CardBody padding="none">
+          <Text size="sm">padding=&quot;none&quot;</Text>
+        </CardBody>
+      </Card>
+      <Card variant="outlined" className="w-[220px]">
+        <CardBody padding="sm">
+          <Text size="sm">padding=&quot;sm&quot;</Text>
+        </CardBody>
+      </Card>
+      <Card variant="outlined" className="w-[220px]">
+        <CardBody padding="md">
+          <Text size="sm">padding=&quot;md&quot; (default)</Text>
+        </CardBody>
+      </Card>
+      <Card variant="outlined" className="w-[220px]">
+        <CardBody padding="lg">
+          <Text size="sm">padding=&quot;lg&quot;</Text>
+        </CardBody>
+      </Card>
+    </Stack>
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Card variant="outlined">
+  <CardBody padding="none">...</CardBody>
+</Card>
+<Card variant="outlined">
+  <CardBody padding="sm">...</CardBody>
+</Card>
+<Card variant="outlined">
+  <CardBody padding="md">...</CardBody>
+</Card>
+<Card variant="outlined">
+  <CardBody padding="lg">...</CardBody>
+</Card>
+        `.trim(),
+      },
+    },
+  },
+};
+
 export const WithoutHeader: Story = {
   render: () => (
     <Card className="w-[360px]">

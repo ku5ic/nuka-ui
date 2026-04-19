@@ -83,6 +83,7 @@ export type {
   CardTitleProps,
   CardDescriptionProps,
   CardBodyProps,
+  CardBodyPadding,
   CardFooterProps,
 } from "./components/Card";
 

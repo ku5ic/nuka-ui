@@ -181,6 +181,63 @@ describe("CardBody", () => {
     expect(body.tagName).toBe("SECTION");
     expect(body).toHaveTextContent("Body content");
   });
+
+  describe("padding", () => {
+    it("applies p-(--space-6) by default (md)", () => {
+      render(<CardBody data-testid="body">Body</CardBody>);
+      expect(screen.getByTestId("body").className).toContain("p-(--space-6)");
+    });
+
+    it("emits no padding class when padding is 'none'", () => {
+      render(
+        <CardBody data-testid="body" padding="none">
+          Body
+        </CardBody>,
+      );
+      const cls = screen.getByTestId("body").className;
+      expect(cls).not.toContain("p-(--space-4)");
+      expect(cls).not.toContain("p-(--space-6)");
+      expect(cls).not.toContain("p-(--space-8)");
+    });
+
+    it("applies p-(--space-4) when padding is 'sm'", () => {
+      render(
+        <CardBody data-testid="body" padding="sm">
+          Body
+        </CardBody>,
+      );
+      expect(screen.getByTestId("body").className).toContain("p-(--space-4)");
+    });
+
+    it("applies p-(--space-6) when padding is 'md'", () => {
+      render(
+        <CardBody data-testid="body" padding="md">
+          Body
+        </CardBody>,
+      );
+      expect(screen.getByTestId("body").className).toContain("p-(--space-6)");
+    });
+
+    it("applies p-(--space-8) when padding is 'lg'", () => {
+      render(
+        <CardBody data-testid="body" padding="lg">
+          Body
+        </CardBody>,
+      );
+      expect(screen.getByTestId("body").className).toContain("p-(--space-8)");
+    });
+
+    it("consumer className can override the default padding", () => {
+      render(
+        <CardBody data-testid="body" className="p-(--space-8)">
+          Body
+        </CardBody>,
+      );
+      const cls = screen.getByTestId("body").className;
+      expect(cls).toContain("p-(--space-8)");
+      expect(cls).not.toContain("p-(--space-6)");
+    });
+  });
 });
 
 describe("CardFooter", () => {

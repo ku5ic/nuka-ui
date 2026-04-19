@@ -110,21 +110,36 @@ function CardDescription({ ref, className, ...props }: CardDescriptionProps) {
 
 CardDescription.displayName = "CardDescription";
 
+export type CardBodyPadding = "none" | "sm" | "md" | "lg";
+
+const cardBodyPaddingClasses: Record<CardBodyPadding, string> = {
+  none: "",
+  sm: "p-(--space-4)",
+  md: "p-(--space-6)",
+  lg: "p-(--space-8)",
+};
+
 export interface CardBodyProps extends React.HTMLAttributes<HTMLDivElement> {
   ref?: React.Ref<HTMLDivElement> | undefined;
   asChild?: boolean;
+  padding?: CardBodyPadding;
 }
 
 function CardBody({
   ref,
   className,
   asChild = false,
+  padding = "md",
   ...props
 }: CardBodyProps) {
   const Comp = asChild ? Slot : "div";
 
   return (
-    <Comp ref={ref} className={cn("p-(--space-6)", className)} {...props} />
+    <Comp
+      ref={ref}
+      className={cn(cardBodyPaddingClasses[padding], className)}
+      {...props}
+    />
   );
 }
 
