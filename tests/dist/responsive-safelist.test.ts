@@ -14,8 +14,10 @@ const repoRoot = resolve(__filename, "../../..");
 const stylesPath = resolve(repoRoot, "dist/styles.css");
 
 // Tailwind v4 escapes CSS class selectors so:
-//   "sm:gap-4"        -> ".sm\:gap-4"
-//   "2xl:aspect-[4/3]" -> ".\32 xl\:aspect-\[4\/3\]"
+//   "sm:gap-4"                          -> ".sm\:gap-4"
+//   "2xl:aspect-[4/3]"                  -> ".\32 xl\:aspect-\[4\/3\]"
+//   "leading-(--line-height-normal)"    -> ".leading-\(--line-height-normal\)"
+//   "w-0.5"                             -> ".w-0\.5"
 // A leading digit becomes \3<digit> followed by a space delimiter.
 // Note: this helper only handles a single leading digit, which covers every
 // current Tailwind breakpoint token ("2xl"). Revisit if base maps ever emit
@@ -37,6 +39,9 @@ function toEscapedSelector(cls: string): string {
       .replace(/\[/g, "\\[")
       .replace(/\]/g, "\\]")
       .replace(/\//g, "\\/")
+      .replace(/\(/g, "\\(")
+      .replace(/\)/g, "\\)")
+      .replace(/\./g, "\\.")
   );
 }
 
