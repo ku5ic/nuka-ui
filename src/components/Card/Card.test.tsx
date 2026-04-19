@@ -143,6 +143,18 @@ describe("CardTitle", () => {
   it("sets displayName correctly", () => {
     expect(CardTitle.displayName).toBe("CardTitle");
   });
+
+  it("forwards weight prop to Heading", () => {
+    render(<CardTitle weight="extrabold">Heavy</CardTitle>);
+    const title = screen.getByRole("heading", { name: "Heavy" });
+    expect(title.className).toContain("font-[number:var(--font-weight-extrabold)]");
+  });
+
+  it("preserves Heading's bold default when weight is omitted", () => {
+    render(<CardTitle>Default</CardTitle>);
+    const title = screen.getByRole("heading", { name: "Default" });
+    expect(title.className).toContain("font-[number:var(--font-weight-bold)]");
+  });
 });
 
 describe("CardDescription", () => {
@@ -156,6 +168,18 @@ describe("CardDescription", () => {
 
   it("sets displayName correctly", () => {
     expect(CardDescription.displayName).toBe("CardDescription");
+  });
+
+  it("forwards weight prop to Text", () => {
+    render(<CardDescription weight="semibold">Emphasized</CardDescription>);
+    const desc = screen.getByText("Emphasized");
+    expect(desc.className).toContain("font-[number:var(--font-weight-semibold)]");
+  });
+
+  it("preserves Text's regular default when weight is omitted", () => {
+    render(<CardDescription>Default</CardDescription>);
+    const desc = screen.getByText("Default");
+    expect(desc.className).toContain("font-[number:var(--font-weight-regular)]");
   });
 });
 
