@@ -108,4 +108,42 @@ describe("EmptyState", () => {
       expect(ref.current).toBeInstanceOf(HTMLDivElement);
     });
   });
+
+  describe("weight pass-through", () => {
+    it("heading renders at semibold by default", () => {
+      render(<EmptyState heading="Default heading" />);
+      expect(screen.getByText("Default heading").className).toContain(
+        "font-[number:var(--font-weight-semibold)]",
+      );
+    });
+
+    it("forwards headingWeight to the heading Text", () => {
+      render(<EmptyState heading="Heavy" headingWeight="extrabold" />);
+      expect(screen.getByText("Heavy").className).toContain(
+        "font-[number:var(--font-weight-extrabold)]",
+      );
+    });
+
+    it("description renders at regular default when descriptionWeight omitted", () => {
+      render(
+        <EmptyState heading="Title" description="Default description" />,
+      );
+      expect(screen.getByText("Default description").className).toContain(
+        "font-[number:var(--font-weight-regular)]",
+      );
+    });
+
+    it("forwards descriptionWeight to the description Text", () => {
+      render(
+        <EmptyState
+          heading="Title"
+          description="Medium body"
+          descriptionWeight="medium"
+        />,
+      );
+      expect(screen.getByText("Medium body").className).toContain(
+        "font-[number:var(--font-weight-medium)]",
+      );
+    });
+  });
 });
