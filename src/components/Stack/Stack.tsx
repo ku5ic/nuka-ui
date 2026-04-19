@@ -19,9 +19,17 @@ import type {
   Justify,
   Wrap,
 } from "@nuka/utils/responsive";
+import type { LayoutElement } from "@nuka/utils/polymorphic";
 
-export interface StackProps extends React.HTMLAttributes<HTMLDivElement> {
-  ref?: React.Ref<HTMLDivElement> | undefined;
+export interface StackProps extends React.HTMLAttributes<HTMLElement> {
+  ref?: React.Ref<HTMLElement> | undefined;
+  /**
+   * The HTML element to render. Defaults to "div".
+   *
+   * When `asChild` is true, this prop is ignored and the child element
+   * determines the rendered tag.
+   */
+  as?: LayoutElement;
   direction?: Responsive<Direction>;
   gap?: Responsive<GapScale>;
   align?: Responsive<Align>;
@@ -33,6 +41,7 @@ export interface StackProps extends React.HTMLAttributes<HTMLDivElement> {
 function Stack({
   ref,
   className,
+  as = "div",
   direction = "column",
   gap = "none",
   align,
@@ -41,11 +50,14 @@ function Stack({
   asChild = false,
   ...props
 }: StackProps) {
-  const Comp = asChild ? Slot : "div";
+  const Comp = asChild ? Slot : as;
 
   return (
     <Comp
-      ref={ref}
+      // Safe: the `as` prop makes the element type dynamic, so ref cannot
+      // satisfy any single element ref type. Each render produces one
+      // concrete element, so the ref assignment is correct at runtime.
+      ref={ref as React.RefObject<never>}
       className={cn(
         "flex",
         ...resolveResponsiveClasses(direction, directionClasses),

@@ -312,3 +312,27 @@ export const NavBar: Story = {
     },
   },
 };
+
+export const AsAside: Story = {
+  name: "as aside",
+  render: () => (
+    <Stack as="aside" aria-label="Related links" gap="sm" className="w-[280px]">
+      <Box>Related topic one</Box>
+      <Box>Related topic two</Box>
+      <Box>Related topic three</Box>
+    </Stack>
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Stack as="aside" aria-label="Related links" gap="sm">
+  <a href="/topic-1">Related topic one</a>
+  <a href="/topic-2">Related topic two</a>
+  <a href="/topic-3">Related topic three</a>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
+};
