@@ -69,7 +69,7 @@ const menuSeparatorVariants = cva([
 
 const menuLabelVariants = cva([
   "px-(--space-2) py-(--space-1.5)",
-  "text-xs font-semibold",
+  "text-xs font-[number:var(--font-weight-semibold)]",
   "text-(--nuka-text-muted)",
   "select-none",
 ]);

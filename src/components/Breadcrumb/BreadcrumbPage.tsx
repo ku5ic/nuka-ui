@@ -12,7 +12,11 @@ function BreadcrumbPage({ ref, className, ...props }: BreadcrumbPageProps) {
     <span
       ref={ref}
       aria-current="page"
-      className={cn("text-(--nuka-text-base)", "font-medium", className)}
+      className={cn(
+        "text-(--nuka-text-base)",
+        "font-[number:var(--font-weight-medium)]",
+        className,
+      )}
       {...props}
     />
   );

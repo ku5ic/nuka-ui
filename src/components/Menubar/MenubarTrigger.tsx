@@ -81,7 +81,7 @@ function MenubarTrigger({
       className={cn(
         "inline-flex items-center justify-center",
         "rounded-(--radius-sm) px-(--space-3) py-(--space-1.5)",
-        "text-sm font-medium",
+        "text-sm font-[number:var(--font-weight-medium)]",
         "text-(--nuka-text-base)",
         "select-none cursor-default",
         "hover:bg-(--nuka-bg-muted)",

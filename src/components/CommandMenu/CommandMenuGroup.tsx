@@ -53,7 +53,7 @@ function CommandMenuGroup({
           id={headingId}
           role="presentation"
           className={cn(
-            "text-xs font-medium text-(--nuka-text-muted)",
+            "text-xs font-[number:var(--font-weight-medium)] text-(--nuka-text-muted)",
             "px-(--space-3) py-(--space-2)",
           )}
         >

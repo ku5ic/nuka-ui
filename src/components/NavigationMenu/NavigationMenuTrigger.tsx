@@ -91,7 +91,7 @@ function NavigationMenuTrigger({
       className={cn(
         "inline-flex items-center gap-(--space-1)",
         "rounded-(--radius-md) px-(--space-3) py-(--space-2)",
-        "text-sm font-medium",
+        "text-sm font-[number:var(--font-weight-medium)]",
         "text-(--nuka-text-base)",
         "select-none",
         "hover:bg-(--nuka-bg-muted)",

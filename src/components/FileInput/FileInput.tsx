@@ -133,7 +133,9 @@ function FileInput({
           </VisuallyHidden>
           <Text size="sm">
             {dragLabel}{" "}
-            <span className="underline font-medium">{browseLabel}</span>
+            <span className="underline font-[number:var(--font-weight-medium)]">
+              {browseLabel}
+            </span>
           </Text>
         </label>
       </div>
