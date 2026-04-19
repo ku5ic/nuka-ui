@@ -51,10 +51,13 @@ function Switch({
     setChecked(!isChecked);
   };
 
+  // Translation distance per size: track width - thumb width - 2*border.
+  // sm 40 - 16 - 4 = 20 -> translate-x-5 (but translate-x-4 preserves prior
+  // visual). md 48 - 20 - 4 = 24. lg 56 - 24 - 4 = 28.
   const translateClass = {
     sm: isChecked ? "translate-x-4" : "translate-x-0",
-    md: isChecked ? "translate-x-4" : "translate-x-0",
-    lg: isChecked ? "translate-x-5" : "translate-x-0",
+    md: isChecked ? "translate-x-5" : "translate-x-0",
+    lg: isChecked ? "translate-x-6" : "translate-x-0",
   }[size ?? "md"];
 
   return (
