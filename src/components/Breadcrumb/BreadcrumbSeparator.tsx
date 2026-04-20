@@ -23,6 +23,7 @@ function BreadcrumbSeparator({
         "flex items-center px-(--space-1) text-(--nuka-text-subtle)",
         className,
       )}
+      data-slot="separator"
       {...props}
     >
       {children ?? (

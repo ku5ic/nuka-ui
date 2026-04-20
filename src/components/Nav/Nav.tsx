@@ -12,7 +12,7 @@ function Nav({
   "aria-label": ariaLabel = "Main navigation",
   ...props
 }: NavProps) {
-  return <nav ref={ref} aria-label={ariaLabel} {...props} />;
+  return <nav ref={ref} aria-label={ariaLabel} data-slot="root" {...props} />;
 }
 
 Nav.displayName = "Nav";

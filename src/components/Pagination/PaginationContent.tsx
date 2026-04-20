@@ -20,6 +20,7 @@ function PaginationContent({
         "list-none",
         className,
       )}
+      data-slot="list"
       {...props}
     />
   );

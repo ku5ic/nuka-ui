@@ -17,6 +17,7 @@ function BreadcrumbEllipsis({
       ref={ref}
       role="presentation"
       className={cn("flex items-center justify-center size-6", className)}
+      data-slot="ellipsis"
       {...props}
     >
       <span aria-hidden="true">...</span>

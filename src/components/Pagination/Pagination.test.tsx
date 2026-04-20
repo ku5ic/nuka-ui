@@ -349,4 +349,35 @@ describe("Pagination", () => {
       ).toHaveClass("custom-pagination");
     });
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on every Pagination sub-component", () => {
+      const { container } = render(
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious href="/page/1" />
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationLink href="/page/1">1</PaginationLink>
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationNext href="/page/3" />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>,
+      );
+
+      expect(container.querySelector('[data-slot="root"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="list"]')).not.toBeNull();
+      expect(container.querySelectorAll('[data-slot="item"]').length).toBe(4);
+      expect(container.querySelector('[data-slot="link"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="previous"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="next"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="ellipsis"]')).not.toBeNull();
+    });
+  });
 });

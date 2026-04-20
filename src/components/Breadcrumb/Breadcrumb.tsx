@@ -12,7 +12,7 @@ function Breadcrumb({
   "aria-label": ariaLabel = "Breadcrumb",
   ...props
 }: BreadcrumbProps) {
-  return <nav ref={ref} aria-label={ariaLabel} {...props} />;
+  return <nav ref={ref} aria-label={ariaLabel} data-slot="root" {...props} />;
 }
 
 Breadcrumb.displayName = "Breadcrumb";

@@ -43,6 +43,7 @@ function NavigationMenuContent({
         aria-hidden={!itemCtx.open}
         tabIndex={-1}
         style={itemCtx.floatingStyles}
+        data-slot="content"
         // Safe: Floating UI getFloatingProps() returns Record<string, unknown>;
         // values are standard DOM attributes and event handlers.
         {...(floatingProps as React.HTMLAttributes<HTMLDivElement>)}

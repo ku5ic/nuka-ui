@@ -35,6 +35,7 @@ function NavLink({
         active && "text-(--nuka-accent-text)",
         className,
       )}
+      data-slot="link"
       {...props}
     />
   );

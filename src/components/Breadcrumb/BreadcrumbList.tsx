@@ -19,6 +19,7 @@ function BreadcrumbList({ ref, className, ...props }: BreadcrumbListProps) {
         "text-sm text-(--nuka-text-muted)",
         className,
       )}
+      data-slot="list"
       {...props}
     />
   );

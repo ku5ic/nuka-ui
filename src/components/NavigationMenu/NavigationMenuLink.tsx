@@ -86,6 +86,7 @@ function NavigationMenuLink({
         active && "text-(--nuka-accent-text)",
         className,
       )}
+      data-slot="link"
       {...menubarProps}
       onKeyDown={handleKeyDown}
       {...props}

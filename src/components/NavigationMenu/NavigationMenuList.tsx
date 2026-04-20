@@ -20,6 +20,7 @@ function NavigationMenuList({
         "list-none",
         className,
       )}
+      data-slot="list"
       {...props}
     />
   );

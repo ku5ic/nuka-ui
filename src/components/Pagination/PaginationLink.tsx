@@ -26,7 +26,12 @@ function PaginationLink({
       size="sm"
       className={className}
     >
-      <Comp ref={ref} aria-current={isActive ? "page" : undefined} {...props} />
+      <Comp
+        ref={ref}
+        aria-current={isActive ? "page" : undefined}
+        data-slot="link"
+        {...props}
+      />
     </Button>
   );
 }

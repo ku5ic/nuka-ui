@@ -351,3 +351,22 @@ describe("displayName", () => {
     expect(NavSubmenu.displayName).toBe("NavSubmenu");
   });
 });
+
+describe("data-slot attributes (ADR-054)", () => {
+  it("emits data-slot on every Nav sub-component", () => {
+    const { container } = renderNav();
+
+    expect(container.querySelector('[data-slot="root"]')).not.toBeNull();
+    expect(
+      container.querySelectorAll('[data-slot="list"]').length,
+    ).toBeGreaterThan(0);
+    expect(
+      container.querySelectorAll('[data-slot="item"]').length,
+    ).toBeGreaterThan(0);
+    expect(
+      container.querySelectorAll('[data-slot="link"]').length,
+    ).toBeGreaterThan(0);
+    expect(container.querySelector('[data-slot="trigger"]')).not.toBeNull();
+    expect(container.querySelector('[data-slot="submenu"]')).not.toBeNull();
+  });
+});

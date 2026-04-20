@@ -18,6 +18,7 @@ function NavItem({
     <li
       ref={ref}
       className={cn("relative group list-none", className)}
+      data-slot="item"
       {...props}
     />
   );

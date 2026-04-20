@@ -17,6 +17,7 @@ function BreadcrumbPage({ ref, className, ...props }: BreadcrumbPageProps) {
         "font-[number:var(--font-weight-medium)]",
         className,
       )}
+      data-slot="page"
       {...props}
     />
   );

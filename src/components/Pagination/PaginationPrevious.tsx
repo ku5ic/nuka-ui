@@ -58,6 +58,7 @@ function PaginationPrevious({
         className={className}
         disabled
         aria-label={ariaLabel}
+        data-slot="previous"
       >
         <PreviousIcon />
         {children ?? "Previous"}
@@ -76,6 +77,7 @@ function PaginationPrevious({
           {
             ref: composeRefs(ref as React.Ref<HTMLElement>, child.props.ref),
             "aria-label": ariaLabel,
+            "data-slot": "previous",
             ...props,
           },
           <PreviousIcon />,
@@ -87,7 +89,13 @@ function PaginationPrevious({
 
   return (
     <Button asChild variant="ghost" size="sm" className={className}>
-      <a ref={ref} aria-label={ariaLabel} onClick={onClick} {...props}>
+      <a
+        ref={ref}
+        aria-label={ariaLabel}
+        data-slot="previous"
+        onClick={onClick}
+        {...props}
+      >
         <PreviousIcon />
         {children ?? "Previous"}
       </a>

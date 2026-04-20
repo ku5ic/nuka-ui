@@ -51,6 +51,7 @@ function NavTrigger({
         type="button"
         aria-haspopup="true"
         className={cn(...triggerClasses, className)}
+        data-slot="trigger"
         {...props}
       >
         {children}
@@ -64,6 +65,7 @@ function NavTrigger({
       type="button"
       aria-haspopup="true"
       className={cn(...triggerClasses, className)}
+      data-slot="trigger"
       {...props}
     >
       {children}
