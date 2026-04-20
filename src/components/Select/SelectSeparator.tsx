@@ -13,6 +13,7 @@ function SelectSeparator({ ref, className, ...props }: SelectSeparatorProps) {
       role="separator"
       aria-orientation="horizontal"
       className={cn("my-(--space-1) h-px bg-(--nuka-border-base)", className)}
+      data-slot="separator"
       {...props}
     />
   );

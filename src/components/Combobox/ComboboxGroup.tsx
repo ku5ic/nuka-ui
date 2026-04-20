@@ -40,6 +40,7 @@ function ComboboxGroup({
       aria-labelledby={label != null ? headingId : undefined}
       hidden={!hasVisibleItems || undefined}
       className={cn(className)}
+      data-slot="group"
       {...props}
     >
       {label != null && (

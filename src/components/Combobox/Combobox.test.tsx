@@ -773,4 +773,47 @@ describe("Combobox", () => {
       );
     });
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on every compound sub-component", async () => {
+      const user = userEvent.setup();
+      renderComboboxWithGroups();
+
+      expect(screen.getByRole("button").getAttribute("data-slot")).toBe(
+        "trigger",
+      );
+
+      await user.click(screen.getByRole("button"));
+
+      expect(
+        document.body.querySelector('[data-slot="content"]'),
+      ).not.toBeNull();
+      expect(
+        document.body.querySelector('[data-slot="input-wrapper"]'),
+      ).not.toBeNull();
+      expect(
+        document.body.querySelector('[role="combobox"][data-slot="input"]'),
+      ).not.toBeNull();
+      expect(
+        document.body.querySelector('[data-slot="listbox"]'),
+      ).not.toBeNull();
+      expect(
+        document.body.querySelectorAll('[data-slot="item"]').length,
+      ).toBeGreaterThan(0);
+      expect(
+        document.body.querySelectorAll('[data-slot="group"]').length,
+      ).toBeGreaterThan(0);
+    });
+
+    it("emits data-slot=empty when no options match filter", async () => {
+      const user = userEvent.setup();
+      renderCombobox();
+      await user.click(
+        screen.getByRole("button", { name: "Select framework..." }),
+      );
+      const input = screen.getByRole("combobox");
+      await user.type(input, "zzz");
+      expect(document.body.querySelector('[data-slot="empty"]')).not.toBeNull();
+    });
+  });
 });

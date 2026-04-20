@@ -13,7 +13,7 @@ function ComboboxContent({ ref, className, children }: ComboboxContentProps) {
   // in a Portal with Floating UI positioning.
   if (!ctx.open) {
     return (
-      <div ref={ref} hidden>
+      <div ref={ref} data-slot="content" hidden>
         {children}
       </div>
     );
@@ -28,6 +28,7 @@ function ComboboxContent({ ref, className, children }: ComboboxContentProps) {
           ctx.refs.setFloating(node);
         }}
         style={ctx.floatingStyles}
+        data-slot="content"
         {...ctx.getFloatingProps()}
         className={cn(
           "z-(--nuka-z-dropdown)",
