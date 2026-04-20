@@ -272,4 +272,44 @@ describe("TimelineItem", () => {
       expect(headingClassName).toBe(defaultClassName);
     });
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on every nameable element", () => {
+      const { container } = render(
+        <Timeline aria-label="Events">
+          <TimelineItem
+            title="Shipped v1.0"
+            titleAs="h3"
+            timestamp="2026-04-01"
+            description="Initial release"
+          />
+          <TimelineItem title="Next release" />
+        </Timeline>,
+      );
+
+      expect(container.querySelector('[data-slot="root"]')).not.toBeNull();
+      expect(container.querySelectorAll('[data-slot="item"]').length).toBe(2);
+      expect(
+        container.querySelector('[data-slot="item-marker-wrapper"]'),
+      ).not.toBeNull();
+      expect(
+        container.querySelector('[data-slot="item-marker"]'),
+      ).not.toBeNull();
+      expect(
+        container.querySelector('[data-slot="item-connector"]'),
+      ).not.toBeNull();
+      expect(
+        container.querySelector('[data-slot="item-content"]'),
+      ).not.toBeNull();
+      expect(
+        container.querySelector('[data-slot="item-timestamp"]'),
+      ).not.toBeNull();
+      expect(
+        container.querySelector('[data-slot="item-title"]'),
+      ).not.toBeNull();
+      expect(
+        container.querySelector('[data-slot="item-description"]'),
+      ).not.toBeNull();
+    });
+  });
 });

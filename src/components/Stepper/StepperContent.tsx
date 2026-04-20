@@ -20,6 +20,7 @@ function StepperContent({ ref, className, ...props }: StepperContentProps) {
           : "flex-1 min-w-0 pt-(--space-0.5)",
         className,
       )}
+      data-slot="content"
       {...props}
     />
   );

@@ -12,6 +12,7 @@ function Timeline({ ref, className, ...props }: TimelineProps) {
     <ol
       ref={ref}
       className={cn("relative flex flex-col", "list-none", className)}
+      data-slot="root"
       {...props}
     />
   );

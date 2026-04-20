@@ -28,6 +28,7 @@ function StepperDescription({
         orientation === "horizontal" && "whitespace-nowrap",
         className,
       )}
+      data-slot="description"
       {...props}
     />
   );

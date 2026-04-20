@@ -24,6 +24,7 @@ function StepperTitle({ ref, className, ...props }: StepperTitleProps) {
         orientation === "horizontal" && "whitespace-nowrap",
         className,
       )}
+      data-slot="title"
       {...props}
     />
   );

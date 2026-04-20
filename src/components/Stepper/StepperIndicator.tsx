@@ -35,6 +35,7 @@ function StepperIndicator({ ref, className, ...props }: StepperIndicatorProps) {
           "border-(--nuka-danger-base) text-(--nuka-danger-fg) bg-(--nuka-danger-base)",
         className,
       )}
+      data-slot="indicator"
       {...props}
     >
       {state === "completed" ? (

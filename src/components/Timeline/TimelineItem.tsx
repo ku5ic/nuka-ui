@@ -40,11 +40,18 @@ function TimelineItem({
         "group relative flex gap-(--space-4) pb-(--space-6) last:pb-0",
         className,
       )}
+      data-slot="item"
       {...rest}
     >
       {/* Left column: marker + connector */}
-      <div className="flex flex-col items-center self-stretch -mb-(--space-6) group-last:mb-0">
-        <div className={cn(timelineItemMarkerVariants({ intent }))}>
+      <div
+        className="flex flex-col items-center self-stretch -mb-(--space-6) group-last:mb-0"
+        data-slot="item-marker-wrapper"
+      >
+        <div
+          className={cn(timelineItemMarkerVariants({ intent }))}
+          data-slot="item-marker"
+        >
           {icon ? (
             <span className="text-sm" aria-hidden="true">
               {icon}
@@ -57,18 +64,24 @@ function TimelineItem({
           )}
         </div>
         {/* Connector line: hidden on last item */}
-        <div className="w-px flex-1 bg-(--nuka-border-base) mt-(--space-1) group-last:hidden" />
+        <div
+          className="w-px flex-1 bg-(--nuka-border-base) mt-(--space-1) group-last:hidden"
+          data-slot="item-connector"
+        />
       </div>
 
       {/* Right column: content */}
-      <div className="flex-1 min-w-0 pb-(--space-1)">
+      <div className="flex-1 min-w-0 pb-(--space-1)" data-slot="item-content">
         {timestamp != null && (
-          <time className="block text-xs text-(--nuka-text-muted) mb-(--space-1)">
+          <time
+            className="block text-xs text-(--nuka-text-muted) mb-(--space-1)"
+            data-slot="item-timestamp"
+          >
             {timestamp}
           </time>
         )}
         {titleAs === "p" ? (
-          <Text as="p" size="sm" weight="medium">
+          <Text as="p" size="sm" weight="medium" data-slot="item-title">
             {title}
           </Text>
         ) : (
@@ -88,12 +101,19 @@ function TimelineItem({
                 ...resolveResponsiveClasses("sm", textSizeClasses),
                 ...resolveResponsiveClasses("left", textAlignClasses),
               ),
+              "data-slot": "item-title",
             },
             title,
           )
         )}
         {description != null && (
-          <Text as="p" size="sm" color="muted" className="mt-(--space-1)">
+          <Text
+            as="p"
+            size="sm"
+            color="muted"
+            className="mt-(--space-1)"
+            data-slot="item-description"
+          >
             {description}
           </Text>
         )}

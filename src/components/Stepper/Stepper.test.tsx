@@ -368,4 +368,46 @@ describe("Stepper", () => {
       expect(ref.current).toBeInstanceOf(HTMLLIElement);
     });
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on every Stepper sub-component (horizontal)", () => {
+      const { container } = render(
+        <Stepper currentStep={1} orientation="horizontal">
+          <StepperItem step={0}>
+            <StepperIndicator />
+            <StepperContent>
+              <StepperTitle>Step 1</StepperTitle>
+              <StepperDescription>First step</StepperDescription>
+            </StepperContent>
+          </StepperItem>
+          <StepperItem step={1}>
+            <StepperIndicator />
+            <StepperContent>
+              <StepperTitle>Step 2</StepperTitle>
+            </StepperContent>
+          </StepperItem>
+          <StepperItem step={2}>
+            <StepperIndicator />
+          </StepperItem>
+        </Stepper>,
+      );
+
+      expect(container.querySelector('[data-slot="root"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="list"]')).not.toBeNull();
+      expect(container.querySelectorAll('[data-slot="item"]').length).toBe(3);
+      expect(container.querySelectorAll('[data-slot="separator"]').length).toBe(
+        2,
+      );
+      expect(container.querySelectorAll('[data-slot="indicator"]').length).toBe(
+        3,
+      );
+      expect(container.querySelectorAll('[data-slot="title"]').length).toBe(2);
+      expect(
+        container.querySelector('[data-slot="description"]'),
+      ).not.toBeNull();
+      expect(container.querySelectorAll('[data-slot="content"]').length).toBe(
+        2,
+      );
+    });
+  });
 });

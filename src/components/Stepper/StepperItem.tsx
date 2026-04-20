@@ -56,6 +56,7 @@ function StepperItem({
             : "group relative flex gap-(--space-3) pb-(--space-8) last:pb-0",
           className,
         )}
+        data-slot="item"
         {...props}
       >
         {isInteractive ? (

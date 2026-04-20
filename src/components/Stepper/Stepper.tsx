@@ -61,6 +61,7 @@ function Stepper({
             key={`connector-${String(i)}`}
             role="presentation"
             aria-hidden="true"
+            data-slot="separator"
             className="flex items-start flex-1"
           >
             <div
@@ -81,12 +82,19 @@ function Stepper({
 
   return (
     <StepperContext value={contextValue}>
-      <nav ref={ref} aria-label={ariaLabel} className={className} {...props}>
+      <nav
+        ref={ref}
+        aria-label={ariaLabel}
+        className={className}
+        data-slot="root"
+        {...props}
+      >
         <ol
           className={cn(
             "flex list-none",
             orientation === "horizontal" ? "flex-row items-start" : "flex-col",
           )}
+          data-slot="list"
         >
           {listChildren}
         </ol>
