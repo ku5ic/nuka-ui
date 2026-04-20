@@ -1864,3 +1864,106 @@ Alert nearly serves cases 2 and 3 but fails case 1 (no citation, no blockquote s
 **Wrap body children in `<Text as="p">` to satisfy the compound-component Text-usage rule.** Rejected. The typography contract rule applies to structural text slots the component owns (titles, descriptions, labels), not to arbitrary consumer-provided children. Alert does not wrap its children either. More importantly, Text's `defaultVariants.color = "base"` emits `text-(--nuka-text-base)` unconditionally, which would override Callout's CVA intent color on the parent. The body correctly inherits from the blockquote.
 
 **Render citation through `<Text as="cite" color="muted">`.** Rejected. `muted` is a neutral gray token chosen for recede-on-neutral-surfaces; it fails WCAG 4.5:1 contrast on primary+danger, primary+success, and primary+warning colored backgrounds. Any fixed Text color choice has the same problem on at least some of the 16 variant x intent cells. Citation is rendered as a bare `<cite className="text-sm">` so it inherits the intent color from the parent blockquote. Hierarchy comes from size (smaller) and the browser default italic styling of `<cite>`. Font-family, weight, and color all propagate through inheritance, satisfying the token-tracking goal of the compound-component Text-usage rule without introducing a cross-variant contrast regression.
+
+---
+
+## ADR-054: `data-slot` attribute contract for compound components
+
+**Date:** 2026-04-20
+**Status:** Accepted
+
+### Context
+
+Consumers that want to target internal parts of compound components currently have three brittle paths:
+
+1. `className` on an exported sub-component. Works when the part is exported. Fails for parts that are not independently exported: Dialog's overlay, Select's listbox when closed, Accordion's connector line, Timeline's marker, every inline element inside a composite.
+2. Descendant selectors over DOM structure. `[&>div:nth-child(2)]` works until the internal DOM changes.
+3. CVA class names. Brittle: CVA output is not part of the library's public API and changes per release.
+
+The zanakadric downstream port accumulated eight sites using one of these approaches across Dialog, Select, Sheet, and Tabs. Each site is a maintenance timebomb. A refactor of any internal DOM structure breaks consumers silently.
+
+The ecosystem convention (Radix `data-radix-*`, shadcn/ui `data-slot` since late-2024) is a stable data-attribute contract.
+
+### Decision
+
+Every compound component emits a `data-slot="<name>"` attribute on every nameable internal DOM element. Slot names are kebab-case, describe role not implementation, and become part of the library's public API. Rename is a major version bump. Addition is a minor.
+
+Shared primitives emit `data-slot` from the base:
+
+- `src/utils/modal-primitive.tsx` emits `trigger`, `title`, `description`, `close`. Dialog and Sheet inherit. DialogContent and SheetContent add `overlay` and `content`.
+- `src/components/Menu/*Base.tsx` emit `item`, `checkbox-item`, `radio-item`, `group`, `label`, `separator`, `item-indicator`. DropdownMenu, ContextMenu, and Menubar inherit.
+
+Single-part components do not emit `data-slot`. The root element is the whole component; there is no ambiguity. Excluded: Button, Badge, Tag, Chip, Text, Heading, Label, Eyebrow, VisuallyHidden, Spinner, Skeleton, Progress, Icon, Kbd, Divider, Code, Section, Input, Textarea, Avatar, AspectRatio, Container, Grid, Stack, Banner, Alert, SkipLink.
+
+Pure context providers (Dialog, Sheet, Tooltip, Popover, DropdownMenu, ContextMenu, MenubarMenu, Combobox, CommandMenu when closed, DatePicker) do not emit a `root` slot because they render no DOM.
+
+CSS-only parts (ScrollArea scrollbar and thumb per ADR-040) do not emit slots. ScrollArea emits `root` only.
+
+Consumer-supplied slots are not attributed. SplitLayout emits `root` only; main and side are consumer-supplied children.
+
+`asChild`-composed parts forward `data-slot` through `src/utils/slot.tsx`. `mergeProps` spreads slot-provided props first; the consumer's child only overrides if it also sets `data-slot`, which is opt-in. Forwarding is locked by `src/utils/slot.test.tsx`.
+
+Accordion retains its existing `data-accordion-trigger=""` attribute (ADR-027 keyboard navigation) and adds `data-slot="trigger"` alongside. Two attributes, two purposes. Replacing `data-accordion-trigger` with a scoped `data-slot="trigger"` query would require every Accordion keyboard handler to ancestor-scope via `closest("[data-slot='root']")` before `querySelectorAll(...)` to avoid matching DialogTrigger, TooltipTrigger, and every other `trigger` in the tree. The dedicated attribute is safer and simpler.
+
+### Slot naming table
+
+The full table (approximately 140 rows) is enforced by `tests/contracts/data-slots.test.tsx` and mirrored in `docs/CUSTOMIZATION.md`. Summary by family:
+
+**Modal (Dialog, Sheet):** `trigger`, `title`, `description`, `close`, `content`, `overlay`. Sheet additionally coexists with `data-side`.
+
+**Floating (Tooltip, Popover):** `trigger`, `content`. No arrow element.
+
+**Menu (DropdownMenu, ContextMenu, Menubar):** `trigger`, `content`, `item`, `checkbox-item`, `radio-item`, `group`, `label`, `separator`, `item-indicator`. Menubar additionally emits `root` on its menu bar container. All three families share the item-level slot vocabulary; consumer disambiguation is by trigger-anchored ancestor scope.
+
+**Listbox:** Select `root`, `trigger`, `content`, `item`, `separator`. Combobox `trigger`, `input-wrapper`, `input`, `content`, `listbox`, `item`, `group`, `empty`.
+
+**Palette (CommandMenu):** `overlay`, `dialog`, `input-wrapper`, `input`, `list`, `item`, `group`, `group-heading`, `empty`, `shortcut`. Uses `dialog` not `content` because CommandMenu is a modal palette, not a drawer or popover.
+
+**Disclosure:** Card `root`, `header`, `title`, `description`, `body`, `footer`. Accordion `root`, `item`, `trigger-heading`, `trigger`, `content`. Collapsible `root`, `trigger`, `content`, `content-inner`. Tabs `root`, `list`, `trigger`, `content`.
+
+**Ordered display:** Timeline `root`, `item`, `item-marker-wrapper`, `item-marker`, `item-connector`, `item-content`, `item-timestamp`, `item-title`, `item-description`. Stepper `root`, `list`, `separator` (horizontal connector), `item`, `indicator`, `title`, `description`, `content`.
+
+**Navigation:** Breadcrumb `root`, `list`, `item`, `link`, `page`, `separator`, `ellipsis`. Pagination `root`, `list`, `item`, `link`, `previous`, `next`, `ellipsis`. Nav `root`, `list`, `item`, `link`, `trigger`, `submenu`. NavigationMenu `root`, `list`, `item`, `trigger`, `content`, `link`. No indicator or viewport elements in NavigationMenu; scope-list entries for them do not correspond to rendered DOM.
+
+**Tabular:** Table `root` (scroll wrapper), `table` (nested element), `caption`, `header`, `head-cell`, `body`, `row`, `cell`, `footer`. DataTable inherits Table and Pagination slots; no new attributes.
+
+**Form controls with internal parts:** RadioGroup `root`. Radio `item`, `item-input`, `item-indicator`, `item-label`. Checkbox `root`, `input`, `indicator`, `label`. Switch `root`, `thumb`, `label`. Slider `root`, `input`, `track`, `fill`, `thumb`, `value`. FileInput `root`, `zone`, `input`, `file-list`, `file-item`, `file-name`, `file-size`, `file-remove-button`. NumberInput `root`, `input`, `decrement`, `increment`.
+
+**Structural and remaining:** FormField `root`, `hint`, `error`. Sidebar `provider`, `root`, `header`, `content`, `footer`, `group`, `group-label`, `inset`, `menu`, `menu-item`, `menu-button`, `trigger`. AppShell `root`, `header`, `body`, `main`. EmptyState `root`, `visual`, `heading`, `description`, `action`. Callout `root`, `citation`. DatePicker: DatePickerInput `input-root`, `input`, `toggle`; DatePickerCalendar `calendar`, `calendar-header`, `prev-button`, `month-year-label`, `next-button`, `grid`, `weekday-row`, `weekday`, `week-row`, `day-cell`, `day-button`. Toast `toast`, `message`, `action`, `close`. Toaster `toaster`.
+
+### Consequences
+
+- Consumers target internal parts via `[data-slot="overlay"]` in plain CSS or `[&_[data-slot=overlay]]:...` in Tailwind arbitrary variants, without depending on class names or DOM structure.
+- Slot names are semver-protected. Renaming a slot is a breaking change and requires a major version bump.
+- Internal DOM can refactor freely as long as slot names remain on the correct elements.
+- Every existing `data-*` attribute (`data-state`, `data-theme`, `data-surface`, `data-variant`, `data-side`, `data-expanded`, `data-collapsed`, `data-accordion-trigger`) coexists with `data-slot` without collision. Each attribute serves a distinct purpose: structural identity, runtime state, context cascade, or style variant.
+- `data-testid` attributes on Slider (`slider-fill`, `slider-thumb`) and FileInput (`file-input-zone`) remain in place. No breaking change.
+- ScrollArea cannot target its scrollbar or thumb via `data-slot`. Those are pseudo-elements only per ADR-040; `::-webkit-scrollbar-thumb` and the `scrollbar-color` property are the consumer-facing hooks.
+- SplitLayout emits `root` only because main and side are consumer-supplied children. Consumers who want to attribute those parts do it themselves.
+- New compound components must register their slots in `tests/contracts/data-slots.test.tsx`. Missing registration is detectable in review.
+
+### Alternatives considered
+
+**Class-based targeting.** Rejected. CVA outputs are not public API. Class strings mutate between releases and break consumers silently.
+
+**Descendant tag-position selectors (`[&>div:nth-child(2)]`).** Rejected. Couples to DOM order. Breaks on any internal structure change.
+
+**Expose every internal as a public sub-component (`<DialogOverlay>`, `<TimelineMarker>`).** Rejected. Explodes the API surface without benefit. Dialog's overlay is not a standalone primitive; it is the backdrop of a specific modal. Timeline's marker is an inline column of its item; it does not compose elsewhere.
+
+**`data-radix-*` namespace for cross-library compatibility.** Rejected. nuka-ui has never depended on Radix. Inheriting the Radix namespace implies a relationship that does not exist and does not help consumers who are not using Radix.
+
+**`data-nuka-slot` prefix to future-proof against namespace collisions.** Rejected. `data-slot` is the ecosystem convention (shadcn/ui since late-2024). Matching the convention lowers consumer cognitive load.
+
+**Runtime slot derivation from `displayName`.** Rejected. `displayName` is dev-mode-only and not stable through minification. Static attribute is simpler, cheaper, and production-safe.
+
+**Differentiated slot vocabulary per menu family (`dropdown-menu-item`, `context-menu-item`).** Rejected. All three emit the same role (`menuitem`) and serve the same consumer purpose. Differentiation is handled by ancestor scoping; shared vocabulary matches the shared semantic.
+
+### F8 deferred (Timeline and Stepper component tokens)
+
+The zanakadric port backlog F8 proposed component-level tokens for Timeline marker size, Timeline connector thickness, Stepper indicator size, and Stepper connector thickness.
+
+ADR-004 states: "Components reference semantic tokens directly. Component-level tokens are added only when a component has styling needs that cannot be expressed through existing semantic tokens."
+
+Timeline markers use `w-8 h-8 rounded-full` + `border-2` with semantic tokens for color (`--nuka-accent-bg`, `--nuka-border-base`). The dimensions match the `Icon size="sm"` (32px) that the marker contains. Stepper's indicator uses the same size for the same reason. No consumer on record has requested override of these dimensions; the port itself never needed one. Adding four new tokens per component, each verified against every variant and surface, multiplies the contract doc surface area without concrete demand.
+
+F8 is filed as deferred, not rejected. If a future consumer raises a documented use case (a dense Timeline in a narrow panel that needs smaller markers, for instance), revisit with that use case in hand. For now, `className` escape hatch is sufficient for one-off sizing.

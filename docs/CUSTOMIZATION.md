@@ -622,6 +622,74 @@ nuka-ui does not ship a `ThemeProvider` or `useTheme` hook. Switching themes is 
 
 ---
 
+## 9. Targeting internal parts with `data-slot`
+
+Every compound component in nuka-ui emits a `data-slot="<name>"` attribute on every nameable internal DOM element. This gives you a stable CSS selector to target parts that are not independently exported as sub-components (Dialog's overlay, Timeline's marker, Select's listbox), without depending on class names or DOM structure.
+
+Slot names are kebab-case and describe the role of the part, not its implementation (`overlay`, `indicator`, `connector`). They are part of the public API: a rename is a breaking change. The full naming table lives in ADR-054.
+
+### Plain CSS
+
+```css
+/* Add backdrop blur to every Dialog and Sheet overlay */
+[data-slot="overlay"] {
+  backdrop-filter: blur(4px);
+}
+
+/* Hide the connector line on a specific Timeline */
+.product-history [data-slot="item-connector"] {
+  display: none;
+}
+```
+
+### Tailwind arbitrary variants
+
+```tsx
+// Tint the overlay on a specific Dialog instance
+<Dialog>
+  <DialogContent className="[&_[data-slot=overlay]]:bg-blue-500/20">
+    {/* ... */}
+  </DialogContent>
+</Dialog>
+
+// Restyle Accordion triggers inside a specific container
+<div className="[&_[data-slot=trigger]]:text-lg [&_[data-slot=trigger]]:font-(number:var(--font-weight-semibold))">
+  <Accordion>
+    {/* ... */}
+  </Accordion>
+</div>
+```
+
+### Scoping to a specific compound root
+
+When two compound components on the same page share a slot name (every `trigger` or every `content`), scope the selector to the compound root:
+
+```css
+/* Only style Sheet overlays, not Dialog overlays */
+[data-slot="content"][data-side] [data-slot="overlay"] {
+  /* Sheet only: SheetContent carries data-side="left|right|top|bottom" */
+}
+
+/* Only style Dropdown items, not Context items, via the content wrapper */
+[data-slot="content"][data-state="open"] > [data-slot="item"] {
+  /* ... */
+}
+```
+
+### What not to do
+
+- **Do not rely on class names.** CVA outputs are not part of the public API; they change between releases.
+- **Do not rely on element order** (`[&>div:nth-child(2)]`). Internal DOM structure can change without notice as long as the slot attributes stay on the correct elements.
+- **Do not assume slot values between components** that do not share a contract. Dialog's `close` and DropdownMenu's `item` are unrelated despite both being rendered as buttons.
+
+### Limits
+
+Slots attach to rendered DOM only. `ScrollArea` scrollbar and thumb are CSS-only pseudo-elements (see ADR-040) and do not carry `data-slot`. `SplitLayout` main and side are consumer-supplied children; nuka-ui does not attribute them for you.
+
+Single-part components (Button, Badge, Text, Heading, and similar primitives) do not emit `data-slot` because the root element is the whole component. Target those components directly via class name.
+
+---
+
 ## Choosing the right approach
 
 | Goal                                                    | Approach                                                                               |
@@ -647,3 +715,5 @@ nuka-ui does not ship a `ThemeProvider` or `useTheme` hook. Switching themes is 
 | Create a two-column layout with sidebar                 | `SplitLayout` component with `sideWidth` and `sidebar` props                           |
 | Hide content visually but keep it accessible            | `VisuallyHidden` component                                                             |
 | Add a scrollable container with custom scrollbar        | `ScrollArea` component with `orientation` and `maxHeight`/`maxWidth`                   |
+| Target an internal part of a compound component         | `[data-slot="<name>"]` CSS or `[&_[data-slot=<name>]]:...` Tailwind arbitrary variant  |
+| Differentiate compounds that share a slot name          | Scope the selector via the compound's root or a sibling `data-*` attribute             |
