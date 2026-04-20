@@ -15,6 +15,7 @@ function SidebarHeader({ ref, className, ...props }: SidebarHeaderProps) {
         "border-b border-(--nuka-border-base)",
         className,
       )}
+      data-slot="header"
       {...props}
     />
   );

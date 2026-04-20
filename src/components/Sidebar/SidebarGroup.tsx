@@ -8,7 +8,12 @@ export interface SidebarGroupProps extends React.HTMLAttributes<HTMLDivElement> 
 
 function SidebarGroup({ ref, className, ...props }: SidebarGroupProps) {
   return (
-    <div ref={ref} className={cn("py-(--space-2)", className)} {...props} />
+    <div
+      ref={ref}
+      className={cn("py-(--space-2)", className)}
+      data-slot="group"
+      {...props}
+    />
   );
 }
 

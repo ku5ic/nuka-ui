@@ -20,10 +20,17 @@ function Toast({ ref, toast: toastItem, onDismiss }: ToastProps) {
       role="status"
       aria-live={toastItem.intent === "danger" ? "assertive" : "polite"}
       aria-atomic="true"
+      data-slot="toast"
       data-state={toastItem.dismissing ? "closed" : "open"}
       className={cn(toastVariants({ intent: toastItem.intent }))}
     >
-      <Text as="div" size="sm" weight="medium" className="flex-1">
+      <Text
+        as="div"
+        size="sm"
+        weight="medium"
+        className="flex-1"
+        data-slot="message"
+      >
         {toastItem.message}
       </Text>
       {toastItem.action != null && (
@@ -31,6 +38,7 @@ function Toast({ ref, toast: toastItem, onDismiss }: ToastProps) {
           variant="link"
           size="sm"
           className="shrink-0"
+          data-slot="action"
           onClick={() => {
             toastItem.action?.onClick();
             onDismiss(toastItem.id);
@@ -40,6 +48,7 @@ function Toast({ ref, toast: toastItem, onDismiss }: ToastProps) {
         </Button>
       )}
       <DismissButton
+        data-slot="close"
         onClick={() => onDismiss(toastItem.id)}
         label="Dismiss notification"
         className="shrink-0"

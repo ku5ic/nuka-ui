@@ -109,4 +109,17 @@ describe("FormField", () => {
       expect(ref.current).toBeInstanceOf(HTMLDivElement);
     });
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on root, hint, and error", () => {
+      const { container } = render(
+        <FormField hint="Hint" error="Error">
+          children
+        </FormField>,
+      );
+      expect(container.querySelector('[data-slot="root"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="hint"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="error"]')).not.toBeNull();
+    });
+  });
 });

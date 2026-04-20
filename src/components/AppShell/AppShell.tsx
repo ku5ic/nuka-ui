@@ -12,6 +12,7 @@ function AppShell({ ref, className, ...props }: AppShellProps) {
     <div
       ref={ref}
       className={cn("flex h-svh flex-col", className)}
+      data-slot="root"
       {...props}
     />
   );

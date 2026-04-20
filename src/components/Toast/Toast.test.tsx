@@ -410,4 +410,19 @@ describe("Toaster", () => {
     expect(ref.current).toBeInstanceOf(HTMLDivElement);
     expect(ref.current).toHaveAttribute("aria-label", "Notifications");
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on toaster, toast, message, action, and close", () => {
+      toast("Saved", {
+        action: { label: "Undo", onClick: () => undefined },
+      });
+      render(<Toaster />);
+      const toaster = screen.getByLabelText("Notifications");
+      expect(toaster.getAttribute("data-slot")).toBe("toaster");
+      expect(toaster.querySelector('[data-slot="toast"]')).not.toBeNull();
+      expect(toaster.querySelector('[data-slot="message"]')).not.toBeNull();
+      expect(toaster.querySelector('[data-slot="action"]')).not.toBeNull();
+      expect(toaster.querySelector('[data-slot="close"]')).not.toBeNull();
+    });
+  });
 });

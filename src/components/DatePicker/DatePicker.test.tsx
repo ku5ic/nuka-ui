@@ -1014,4 +1014,56 @@ describe("DatePicker", () => {
       expect(ref.current).toBeInstanceOf(HTMLDivElement);
     });
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on every DatePicker sub-component when open", async () => {
+      const user = userEvent.setup();
+      const { container } = render(
+        <DatePicker defaultValue={new Date(2026, 3, 15)}>
+          <DatePickerInput />
+          <DatePickerCalendar />
+        </DatePicker>,
+      );
+
+      expect(
+        container.querySelector('[data-slot="input-root"]'),
+      ).not.toBeNull();
+      expect(container.querySelector('[data-slot="input"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="toggle"]')).not.toBeNull();
+
+      await openCalendar(user);
+
+      expect(
+        document.body.querySelector('[data-slot="calendar"]'),
+      ).not.toBeNull();
+      expect(
+        document.body.querySelector('[data-slot="calendar-header"]'),
+      ).not.toBeNull();
+      expect(
+        document.body.querySelector('[data-slot="prev-button"]'),
+      ).not.toBeNull();
+      expect(
+        document.body.querySelector('[data-slot="month-year-label"]'),
+      ).not.toBeNull();
+      expect(
+        document.body.querySelector('[data-slot="next-button"]'),
+      ).not.toBeNull();
+      expect(document.body.querySelector('[data-slot="grid"]')).not.toBeNull();
+      expect(
+        document.body.querySelector('[data-slot="weekday-row"]'),
+      ).not.toBeNull();
+      expect(
+        document.body.querySelectorAll('[data-slot="weekday"]').length,
+      ).toBe(7);
+      expect(
+        document.body.querySelectorAll('[data-slot="week-row"]').length,
+      ).toBeGreaterThan(0);
+      expect(
+        document.body.querySelectorAll('[data-slot="day-cell"]').length,
+      ).toBeGreaterThan(0);
+      expect(
+        document.body.querySelectorAll('[data-slot="day-button"]').length,
+      ).toBeGreaterThan(0);
+    });
+  });
 });

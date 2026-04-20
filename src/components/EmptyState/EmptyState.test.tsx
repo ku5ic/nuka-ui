@@ -144,4 +144,24 @@ describe("EmptyState", () => {
       );
     });
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on every optional slot when provided", () => {
+      const { container } = render(
+        <EmptyState
+          illustration={<svg />}
+          heading="Title"
+          description="Desc"
+          action={<button type="button">Act</button>}
+        />,
+      );
+      expect(container.querySelector('[data-slot="root"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="visual"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="heading"]')).not.toBeNull();
+      expect(
+        container.querySelector('[data-slot="description"]'),
+      ).not.toBeNull();
+      expect(container.querySelector('[data-slot="action"]')).not.toBeNull();
+    });
+  });
 });

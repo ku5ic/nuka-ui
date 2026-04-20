@@ -263,9 +263,8 @@ describe("FileInput", () => {
       expect(zone?.getAttribute("data-testid")).toBe("file-input-zone");
       expect(container.querySelector('[data-slot="input"]')).not.toBeNull();
 
-      const input = container.querySelector<HTMLInputElement>(
-        'input[type="file"]',
-      )!;
+      const input =
+        container.querySelector<HTMLInputElement>('input[type="file"]')!;
       fireEvent.change(input, {
         target: { files: [createFile("doc.txt", 500)] },
       });

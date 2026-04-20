@@ -15,6 +15,7 @@ function SidebarFooter({ ref, className, ...props }: SidebarFooterProps) {
         "border-t border-(--nuka-border-base)",
         className,
       )}
+      data-slot="footer"
       {...props}
     />
   );

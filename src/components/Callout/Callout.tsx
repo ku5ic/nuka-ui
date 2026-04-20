@@ -42,16 +42,20 @@ function Callout({
 
   if (asChild) {
     return (
-      <Slot ref={ref} className={classes} {...props}>
+      <Slot ref={ref} className={classes} data-slot="root" {...props}>
         {children}
       </Slot>
     );
   }
 
   return (
-    <blockquote ref={ref} className={classes} {...props}>
+    <blockquote ref={ref} className={classes} data-slot="root" {...props}>
       {children}
-      {citation && <cite className="text-sm">{citation}</cite>}
+      {citation && (
+        <cite className="text-sm" data-slot="citation">
+          {citation}
+        </cite>
+      )}
     </blockquote>
   );
 }

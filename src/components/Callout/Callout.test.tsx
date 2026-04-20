@@ -266,4 +266,12 @@ describe("Callout", () => {
       );
     });
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on root and citation", () => {
+      const { container } = render(<Callout citation="Source">Body</Callout>);
+      expect(container.querySelector('[data-slot="root"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="citation"]')).not.toBeNull();
+    });
+  });
 });

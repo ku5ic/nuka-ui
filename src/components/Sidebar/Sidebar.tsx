@@ -25,7 +25,7 @@ function Sidebar({ ref, className, children, ...props }: SidebarProps) {
           <SheetDescription className="sr-only">
             Main navigation menu
           </SheetDescription>
-          <div className="flex h-full flex-col" {...props}>
+          <div className="flex h-full flex-col" data-slot="root" {...props}>
             {children}
           </div>
         </SheetContent>
@@ -36,6 +36,7 @@ function Sidebar({ ref, className, children, ...props }: SidebarProps) {
   return (
     <aside
       ref={ref}
+      data-slot="root"
       data-expanded={expanded ? "" : undefined}
       data-collapsed={!expanded ? "" : undefined}
       className={cn(

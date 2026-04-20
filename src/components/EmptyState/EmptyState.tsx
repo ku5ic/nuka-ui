@@ -40,15 +40,24 @@ function EmptyState({
         "py-(--space-12) px-(--space-6)",
         className,
       )}
+      data-slot="root"
       {...props}
     >
       {visual && (
-        <div className="flex items-center justify-center text-(--nuka-text-muted)">
+        <div
+          className="flex items-center justify-center text-(--nuka-text-muted)"
+          data-slot="visual"
+        >
           {visual}
         </div>
       )}
       <div className="flex flex-col gap-(--space-2) max-w-sm">
-        <Text as="p" size="md" weight={headingWeight ?? "semibold"}>
+        <Text
+          as="p"
+          size="md"
+          weight={headingWeight ?? "semibold"}
+          data-slot="heading"
+        >
           {heading}
         </Text>
         {description != null && (
@@ -56,6 +65,7 @@ function EmptyState({
             as="p"
             size="sm"
             color="muted"
+            data-slot="description"
             {...(descriptionWeight !== undefined
               ? { weight: descriptionWeight }
               : {})}
@@ -64,7 +74,7 @@ function EmptyState({
           </Text>
         )}
       </div>
-      {action && <div>{action}</div>}
+      {action && <div data-slot="action">{action}</div>}
       {children}
     </div>
   );

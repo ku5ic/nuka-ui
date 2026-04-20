@@ -19,6 +19,7 @@ function SidebarInset({ ref, className, ...props }: SidebarInsetProps) {
         !isMobile && "motion-reduce:transition-none",
         className,
       )}
+      data-slot="inset"
       {...props}
     />
   );

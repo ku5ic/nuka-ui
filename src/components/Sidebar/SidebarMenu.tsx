@@ -11,6 +11,7 @@ function SidebarMenu({ ref, className, ...props }: SidebarMenuProps) {
     <ul
       ref={ref}
       className={cn("flex flex-col gap-(--space-0.5) list-none", className)}
+      data-slot="menu"
       {...props}
     />
   );

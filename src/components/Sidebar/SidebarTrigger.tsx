@@ -86,6 +86,7 @@ function SidebarTrigger({ ref, className, ...props }: SidebarTriggerProps) {
         "focus-visible:outline-(--nuka-border-focus)",
         className,
       )}
+      data-slot="trigger"
       {...props}
     >
       <Icon size="sm">

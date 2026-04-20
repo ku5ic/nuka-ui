@@ -48,6 +48,7 @@ function Toaster({ ref, position = "bottom-right", className }: ToasterProps) {
         ref={ref}
         role="region"
         aria-label="Notifications"
+        data-slot="toaster"
         className={cn(
           "fixed z-(--nuka-z-toast) flex flex-col gap-(--space-2) p-(--space-4)",
           positionClasses[position],

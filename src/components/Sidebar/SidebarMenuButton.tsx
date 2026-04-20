@@ -42,6 +42,7 @@ function SidebarMenuButton({
         !expanded && !isMobile && "justify-center px-(--space-2)",
         className,
       )}
+      data-slot="menu-button"
       {...props}
     >
       {children}

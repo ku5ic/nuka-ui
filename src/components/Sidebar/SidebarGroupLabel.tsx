@@ -29,6 +29,7 @@ function SidebarGroupLabel({
       weight="semibold"
       color="muted"
       className={cn("block px-(--space-3) py-(--space-1)", className)}
+      data-slot="group-label"
       {...props}
     />
   );

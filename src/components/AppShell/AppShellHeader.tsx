@@ -25,6 +25,7 @@ function AppShellHeader({
         border && "border-b border-(--nuka-border-base)",
         className,
       )}
+      data-slot="header"
       {...props}
     />
   );

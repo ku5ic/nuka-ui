@@ -308,4 +308,48 @@ describe("ref forwarding", () => {
     );
     expect(ref.current).toBeInstanceOf(HTMLElement);
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on every Sidebar sub-component (desktop)", () => {
+      mockMatchMedia(false);
+      const { container } = render(
+        <SidebarProvider>
+          <Sidebar>
+            <SidebarHeader>Header</SidebarHeader>
+            <SidebarContent>
+              <SidebarGroup>
+                <SidebarGroupLabel>Group</SidebarGroupLabel>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton>Button</SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </SidebarGroup>
+            </SidebarContent>
+            <SidebarFooter>
+              <SidebarTrigger />
+            </SidebarFooter>
+          </Sidebar>
+          <SidebarInset>Main</SidebarInset>
+        </SidebarProvider>,
+      );
+
+      expect(container.querySelector('[data-slot="provider"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="root"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="header"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="content"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="footer"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="group"]')).not.toBeNull();
+      expect(
+        container.querySelector('[data-slot="group-label"]'),
+      ).not.toBeNull();
+      expect(container.querySelector('[data-slot="inset"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="menu"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="menu-item"]')).not.toBeNull();
+      expect(
+        container.querySelector('[data-slot="menu-button"]'),
+      ).not.toBeNull();
+      expect(container.querySelector('[data-slot="trigger"]')).not.toBeNull();
+    });
+  });
 });

@@ -14,6 +14,7 @@ function SidebarContent({ ref, className, ...props }: SidebarContentProps) {
         "flex-1 overflow-y-auto px-(--space-2) py-(--space-2)",
         className,
       )}
+      data-slot="content"
       {...props}
     />
   );

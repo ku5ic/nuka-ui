@@ -43,6 +43,7 @@ function ScrollArea({
         className,
       )}
       style={{ ...style, maxHeight, maxWidth }}
+      data-slot="root"
       {...props}
     />
   );
