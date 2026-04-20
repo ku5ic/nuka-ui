@@ -123,6 +123,7 @@ function createModalPrimitive(
         type={asChild ? undefined : "button"}
         aria-haspopup="dialog"
         aria-expanded={ctx.open}
+        data-slot="trigger"
         onClick={handleClick}
         {...props}
       />
@@ -142,6 +143,7 @@ function createModalPrimitive(
         weight="semibold"
         id={ctx.titleId}
         className={className}
+        data-slot="title"
         {...props}
       />
     );
@@ -165,6 +167,7 @@ function createModalPrimitive(
         size="sm"
         id={ctx.descriptionId}
         className={cn("mt-(--space-2)", className)}
+        data-slot="description"
         {...props}
       />
     );
@@ -181,11 +184,14 @@ function createModalPrimitive(
     };
 
     if (asChild) {
-      return <Slot ref={ref} onClick={handleClick} {...props} />;
+      return (
+        <Slot ref={ref} data-slot="close" onClick={handleClick} {...props} />
+      );
     }
 
     return (
       <DismissButton
+        data-slot="close"
         {...props}
         ref={ref}
         onClick={() => ctx.onOpenChange(false)}

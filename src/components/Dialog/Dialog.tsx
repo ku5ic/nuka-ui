@@ -71,6 +71,7 @@ function DialogContent({
           "bg-(--nuka-bg-overlay)",
           "data-[state=open]:animate-[nuka-dialog-overlay-enter_150ms_ease-out]",
         )}
+        data-slot="overlay"
         data-state="open"
         onClick={() => ctx.onOpenChange(false)}
         aria-hidden="true"
@@ -82,6 +83,7 @@ function DialogContent({
         aria-labelledby={ctx.titleId}
         aria-describedby={ctx.hasDescription ? ctx.descriptionId : undefined}
         tabIndex={-1}
+        data-slot="content"
         data-state="open"
         className={cn(
           "fixed z-(--nuka-z-modal)",
