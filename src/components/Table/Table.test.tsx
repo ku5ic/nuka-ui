@@ -617,3 +617,25 @@ describe("full composition", () => {
     expect(screen.getByText("Total")).toBeInTheDocument();
   });
 });
+
+describe("data-slot attributes (ADR-054)", () => {
+  it("emits data-slot on every Table sub-component", () => {
+    const { container } = renderTable();
+
+    expect(container.querySelector('[data-slot="root"]')).not.toBeNull();
+    expect(container.querySelector('[data-slot="table"]')).not.toBeNull();
+    expect(container.querySelector('[data-slot="caption"]')).not.toBeNull();
+    expect(container.querySelector('[data-slot="header"]')).not.toBeNull();
+    expect(container.querySelector('[data-slot="body"]')).not.toBeNull();
+    expect(container.querySelector('[data-slot="footer"]')).not.toBeNull();
+    expect(
+      container.querySelectorAll('[data-slot="row"]').length,
+    ).toBeGreaterThan(0);
+    expect(container.querySelectorAll('[data-slot="head-cell"]').length).toBe(
+      2,
+    );
+    expect(
+      container.querySelectorAll('[data-slot="cell"]').length,
+    ).toBeGreaterThan(0);
+  });
+});

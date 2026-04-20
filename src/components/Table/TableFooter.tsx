@@ -17,6 +17,7 @@ function TableFooter({ ref, className, ...props }: TableFooterProps) {
         "text-(--nuka-text-muted) font-[number:var(--font-weight-medium)]",
         className,
       )}
+      data-slot="footer"
       {...props}
     />
   );

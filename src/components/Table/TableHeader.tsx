@@ -12,6 +12,7 @@ function TableHeader({ ref, className, ...props }: TableHeaderProps) {
     <thead
       ref={ref}
       className={cn("border-b border-(--nuka-border-base)", className)}
+      data-slot="header"
       {...props}
     />
   );

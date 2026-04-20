@@ -70,6 +70,7 @@ function TableHead({
         isBordered && "border-r border-(--nuka-border-base) last:border-r-0",
         className,
       )}
+      data-slot="head-cell"
       {...props}
     >
       {sortable ? (
