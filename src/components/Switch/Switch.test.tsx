@@ -220,4 +220,14 @@ describe("Switch", () => {
       ).not.toHaveAttribute("aria-invalid");
     });
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on root, thumb, and label", () => {
+      const { container } = render(<Switch>Dark mode</Switch>);
+
+      expect(container.querySelector('[data-slot="root"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="thumb"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="label"]')).not.toBeNull();
+    });
+  });
 });

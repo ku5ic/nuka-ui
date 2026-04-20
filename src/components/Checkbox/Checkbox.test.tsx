@@ -262,4 +262,15 @@ describe("Checkbox", () => {
       expect(screen.getByRole("checkbox", { name: "Accept" })).toBeDisabled();
     });
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on root, input, indicator, and label", () => {
+      const { container } = render(<Checkbox>Accept</Checkbox>);
+
+      expect(container.querySelector('[data-slot="root"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="input"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="indicator"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="label"]')).not.toBeNull();
+    });
+  });
 });

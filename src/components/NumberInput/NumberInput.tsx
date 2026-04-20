@@ -115,6 +115,7 @@ function NumberInput({
       tabIndex={0}
       disabled={field.resolvedDisabled === true || isDisabled}
       onClick={() => nudge(direction === "increment" ? 1 : -1)}
+      data-slot={direction}
       className={cn(
         "inline-flex items-center justify-center",
         "px-(--space-2) text-(--nuka-text-muted)",
@@ -168,6 +169,7 @@ function NumberInput({
       aria-label={ariaLabel}
       aria-labelledby={ariaLabelledBy}
       className={cn("inline-flex items-stretch", className)}
+      data-slot="root"
     >
       {showControls && controlButton("decrement", atMin, minusSvg)}
       <input
@@ -190,6 +192,7 @@ function NumberInput({
         aria-invalid={ariaInvalid}
         aria-describedby={field.ariaDescribedBy}
         aria-required={field.ariaRequired}
+        data-slot="input"
         {...props}
       />
       {showControls && controlButton("increment", atMax, plusSvg)}

@@ -253,4 +253,30 @@ describe("FileInput", () => {
       expect(container.firstElementChild?.className).toContain("mt-4");
     });
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on zone, input, and files list after selection", () => {
+      const { container } = render(<FileInput multiple />);
+      expect(container.querySelector('[data-slot="root"]')).not.toBeNull();
+      const zone = container.querySelector('[data-slot="zone"]');
+      expect(zone).not.toBeNull();
+      expect(zone?.getAttribute("data-testid")).toBe("file-input-zone");
+      expect(container.querySelector('[data-slot="input"]')).not.toBeNull();
+
+      const input = container.querySelector<HTMLInputElement>(
+        'input[type="file"]',
+      )!;
+      fireEvent.change(input, {
+        target: { files: [createFile("doc.txt", 500)] },
+      });
+
+      expect(container.querySelector('[data-slot="file-list"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="file-item"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="file-name"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="file-size"]')).not.toBeNull();
+      expect(
+        container.querySelector('[data-slot="file-remove-button"]'),
+      ).not.toBeNull();
+    });
+  });
 });

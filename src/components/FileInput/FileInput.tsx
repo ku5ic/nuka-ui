@@ -105,7 +105,10 @@ function FileInput({
   };
 
   return (
-    <div className={cn("flex flex-col gap-(--space-3)", className)}>
+    <div
+      className={cn("flex flex-col gap-(--space-3)", className)}
+      data-slot="root"
+    >
       <div
         role="region"
         aria-label={dragLabel}
@@ -113,6 +116,7 @@ function FileInput({
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         className={fileInputZoneVariants({ intent, isDragOver })}
+        data-slot="zone"
         data-testid="file-input-zone"
       >
         <label htmlFor={inputId} className="cursor-pointer text-center">
@@ -128,6 +132,7 @@ function FileInput({
               aria-invalid={ariaInvalid}
               aria-describedby={field.ariaDescribedBy}
               aria-required={field.ariaRequired}
+              data-slot="input"
               {...props}
             />
           </VisuallyHidden>
@@ -141,25 +146,36 @@ function FileInput({
       </div>
 
       {files.length > 0 && (
-        <ul role="list" className="flex flex-col gap-(--space-2)">
+        <ul
+          role="list"
+          className="flex flex-col gap-(--space-2)"
+          data-slot="file-list"
+        >
           {files.map((file, i) => (
             <li
               key={`${file.name}-${String(file.size)}-${String(i)}`}
               className="flex items-center gap-(--space-2) px-(--space-3) py-(--space-2) rounded-(--radius-md) bg-(--nuka-bg-subtle) border border-(--nuka-border-base)"
+              data-slot="file-item"
             >
-              <Text size="sm" className="flex-1 truncate min-w-0">
+              <Text
+                size="sm"
+                className="flex-1 truncate min-w-0"
+                data-slot="file-name"
+              >
                 {file.name}
               </Text>
               <Text
                 size="xs"
                 color="muted"
                 className="shrink-0 whitespace-nowrap"
+                data-slot="file-size"
               >
                 {formatFileSize(file.size)}
               </Text>
               <DismissButton
                 onClick={() => removeFile(i)}
                 label={`Remove ${file.name}`}
+                data-slot="file-remove-button"
               />
             </li>
           ))}

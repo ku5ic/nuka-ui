@@ -80,7 +80,10 @@ function Slider({
   };
 
   return (
-    <div className={cn(sliderWrapperVariants({ size }), className)}>
+    <div
+      className={cn(sliderWrapperVariants({ size }), className)}
+      data-slot="root"
+    >
       {/* Native input: invisible, covers full interactive area */}
       <input
         type="range"
@@ -101,15 +104,21 @@ function Slider({
         aria-invalid={field.ariaInvalid}
         aria-describedby={field.ariaDescribedBy}
         aria-required={field.ariaRequired}
+        data-slot="input"
         {...props}
       />
 
       {/* Track */}
-      <div className={sliderTrackVariants({ size })} aria-hidden="true">
+      <div
+        className={sliderTrackVariants({ size })}
+        aria-hidden="true"
+        data-slot="track"
+      >
         {/* Fill */}
         <div
           className={sliderFillVariants({ intent })}
           style={{ width: `${String(percentage)}%` }}
+          data-slot="fill"
           data-testid="slider-fill"
         />
 
@@ -123,13 +132,18 @@ function Slider({
           style={{
             left: `calc(${String(percentage)}% - ${String(thumbOffset)}px)`,
           }}
+          data-slot="thumb"
           data-testid="slider-thumb"
         />
       </div>
 
       {/* Optional value display */}
       {showValue && (
-        <span aria-hidden="true" className={sliderValueVariants({ size })}>
+        <span
+          aria-hidden="true"
+          className={sliderValueVariants({ size })}
+          data-slot="value"
+        >
           {currentValue}
         </span>
       )}

@@ -75,16 +75,18 @@ function Switch({
           isChecked ? "bg-(--nuka-accent-bg)" : "bg-(--nuka-border-strong)",
           className,
         )}
+        data-slot="root"
         onClick={handleClick}
         {...props}
       >
         <span
           aria-hidden="true"
           className={cn(switchThumbVariants({ size }), translateClass)}
+          data-slot="thumb"
         />
       </button>
       {children && (
-        <Text as="span" size="sm">
+        <Text as="span" size="sm" data-slot="label">
           {children}
         </Text>
       )}

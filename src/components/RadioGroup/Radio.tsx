@@ -58,6 +58,7 @@ function Radio({
         isDisabled ? "cursor-not-allowed" : undefined,
         className,
       )}
+      data-slot="item"
     >
       <input
         ref={composeRefs(ref, internalRef)}
@@ -68,16 +69,22 @@ function Radio({
         disabled={isDisabled}
         tabIndex={tabIndex}
         className="peer sr-only"
+        data-slot="item-input"
         {...props}
         onChange={handleChange}
       />
       <span
         aria-hidden="true"
         className={cn(radioIndicatorVariants({ intent, size }))}
+        data-slot="item-indicator"
       >
         <span className="hidden size-1/2 rounded-full bg-current" />
       </span>
-      {children && <Text as="span">{children}</Text>}
+      {children && (
+        <Text as="span" data-slot="item-label">
+          {children}
+        </Text>
+      )}
     </label>
   );
 }

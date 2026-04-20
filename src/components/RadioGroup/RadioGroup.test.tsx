@@ -335,4 +335,27 @@ describe("Radio", () => {
       expect(ref.current).toBeInstanceOf(HTMLInputElement);
     });
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on RadioGroup and Radio internals", () => {
+      const { container } = render(
+        <RadioGroup name="color" onChange={noop}>
+          <Radio value="red">Red</Radio>
+          <Radio value="blue">Blue</Radio>
+        </RadioGroup>,
+      );
+
+      expect(container.querySelector('[data-slot="root"]')).not.toBeNull();
+      expect(container.querySelectorAll('[data-slot="item"]').length).toBe(2);
+      expect(
+        container.querySelectorAll('[data-slot="item-input"]').length,
+      ).toBe(2);
+      expect(
+        container.querySelectorAll('[data-slot="item-indicator"]').length,
+      ).toBe(2);
+      expect(
+        container.querySelectorAll('[data-slot="item-label"]').length,
+      ).toBe(2);
+    });
+  });
 });
