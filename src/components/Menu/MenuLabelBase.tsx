@@ -15,7 +15,12 @@ function MenuLabelBase({
   ...props
 }: MenuLabelBaseProps) {
   return (
-    <div ref={ref} className={cn(menuLabelVariants(), className)} {...props}>
+    <div
+      ref={ref}
+      className={cn(menuLabelVariants(), className)}
+      data-slot="label"
+      {...props}
+    >
       {children}
     </div>
   );

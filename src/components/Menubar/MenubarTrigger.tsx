@@ -91,6 +91,7 @@ function MenubarTrigger({
         "data-[state=open]:bg-(--nuka-bg-muted)",
         className,
       )}
+      data-slot="trigger"
       data-state={menu.open ? "open" : "closed"}
       // Safe: Floating UI getReferenceProps() returns Record<string, unknown>;
       // values are standard DOM event handlers.

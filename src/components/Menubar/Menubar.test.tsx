@@ -354,4 +354,50 @@ describe("Menubar", () => {
       expect(ref.current).toBeInstanceOf(HTMLButtonElement);
     });
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on root, trigger, content, and item layers", async () => {
+      const user = userEvent.setup();
+      render(
+        <Menubar>
+          <MenubarMenu value="file">
+            <MenubarTrigger>File</MenubarTrigger>
+            <MenubarContent>
+              <MenubarItem>New</MenubarItem>
+              <MenubarSeparator />
+              <MenubarCheckboxItem checked>Show</MenubarCheckboxItem>
+              <MenubarRadioGroup value="a">
+                <MenubarRadioItem value="a">A</MenubarRadioItem>
+              </MenubarRadioGroup>
+            </MenubarContent>
+          </MenubarMenu>
+        </Menubar>,
+      );
+
+      expect(screen.getByRole("menubar").getAttribute("data-slot")).toBe(
+        "root",
+      );
+      expect(
+        screen
+          .getByRole("menuitem", { name: "File" })
+          .getAttribute("data-slot"),
+      ).toBe("trigger");
+
+      await user.click(screen.getByRole("menuitem", { name: "File" }));
+
+      expect(
+        document.body.querySelector('[data-slot="content"]'),
+      ).not.toBeNull();
+      expect(document.body.querySelector('[data-slot="item"]')).not.toBeNull();
+      expect(
+        document.body.querySelector('[data-slot="separator"]'),
+      ).not.toBeNull();
+      expect(
+        document.body.querySelector('[data-slot="checkbox-item"]'),
+      ).not.toBeNull();
+      expect(
+        document.body.querySelector('[data-slot="radio-item"]'),
+      ).not.toBeNull();
+    });
+  });
 });

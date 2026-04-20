@@ -54,6 +54,7 @@ function MenuItemBase({
         disabled && "opacity-50 pointer-events-none",
         className,
       )}
+      data-slot="item"
       onClick={handleClick}
       onKeyDown={handleKeyDown}
       {...props}

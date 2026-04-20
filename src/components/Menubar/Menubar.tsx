@@ -62,6 +62,7 @@ function Menubar({ ref, className, children, ...props }: MenubarProps) {
           "bg-(--nuka-bg-base) p-(--space-1)",
           className,
         )}
+        data-slot="root"
         {...props}
       >
         {children}

@@ -590,4 +590,53 @@ describe("DropdownMenu", () => {
       expect(ref.current).toBeInstanceOf(HTMLButtonElement);
     });
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on every compound sub-component", async () => {
+      const user = userEvent.setup();
+      render(
+        <DropdownMenu>
+          <DropdownMenuTrigger>Actions</DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>Section</DropdownMenuLabel>
+            <DropdownMenuItem>Edit</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuCheckboxItem checked>Show</DropdownMenuCheckboxItem>
+            <DropdownMenuRadioGroup value="a">
+              <DropdownMenuRadioItem value="a">A</DropdownMenuRadioItem>
+            </DropdownMenuRadioGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>,
+      );
+
+      expect(
+        screen
+          .getByRole("button", { name: "Actions" })
+          .getAttribute("data-slot"),
+      ).toBe("trigger");
+
+      await user.click(screen.getByRole("button", { name: "Actions" }));
+
+      expect(
+        document.body.querySelector('[data-slot="content"]'),
+      ).not.toBeNull();
+      expect(document.body.querySelector('[data-slot="label"]')).not.toBeNull();
+      expect(document.body.querySelector('[data-slot="item"]')).not.toBeNull();
+      expect(
+        document.body.querySelector('[data-slot="separator"]'),
+      ).not.toBeNull();
+      expect(
+        document.body.querySelector('[data-slot="checkbox-item"]'),
+      ).not.toBeNull();
+      expect(
+        document.body.querySelector('[data-slot="radio-item"]'),
+      ).not.toBeNull();
+      expect(
+        document.body.querySelectorAll('[data-slot="item-indicator"]').length,
+      ).toBeGreaterThanOrEqual(2);
+      expect(
+        document.body.querySelector('[role="group"][data-slot="group"]'),
+      ).not.toBeNull();
+    });
+  });
 });
