@@ -258,4 +258,24 @@ describe("Popover", () => {
     expect(screen.getByRole("dialog")).toBeInTheDocument();
     expect(trigger).toHaveAttribute("aria-expanded", "true");
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on trigger and content", async () => {
+      const user = userEvent.setup();
+      render(
+        <Popover>
+          <PopoverTrigger>Open</PopoverTrigger>
+          <PopoverContent aria-label="Details">Panel content</PopoverContent>
+        </Popover>,
+      );
+
+      const trigger = screen.getByRole("button", { name: "Open" });
+      expect(trigger.getAttribute("data-slot")).toBe("trigger");
+
+      await user.click(trigger);
+      expect(screen.getByRole("dialog").getAttribute("data-slot")).toBe(
+        "content",
+      );
+    });
+  });
 });

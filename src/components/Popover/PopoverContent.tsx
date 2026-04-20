@@ -51,6 +51,7 @@ function PopoverContent({
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
         tabIndex={-1}
+        data-slot="content"
         // Safe: Floating UI getFloatingProps() returns Record<string, unknown>;
         // values are standard DOM attributes and event handlers.
         {...(floatingProps as React.HTMLAttributes<HTMLDivElement>)}
