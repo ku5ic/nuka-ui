@@ -494,4 +494,22 @@ describe("Tabs", () => {
       expect(ref.current).toBeInstanceOf(HTMLDivElement);
     });
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on every Tabs sub-component", () => {
+      const { container } = renderTabs();
+
+      expect(container.querySelector('[data-slot="root"]')).not.toBeNull();
+      expect(screen.getByRole("tablist").getAttribute("data-slot")).toBe(
+        "list",
+      );
+      const triggers = screen.getAllByRole("tab");
+      for (const trigger of triggers) {
+        expect(trigger.getAttribute("data-slot")).toBe("trigger");
+      }
+      expect(container.querySelectorAll('[data-slot="content"]').length).toBe(
+        3,
+      );
+    });
+  });
 });

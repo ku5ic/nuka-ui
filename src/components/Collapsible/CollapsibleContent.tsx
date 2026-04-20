@@ -22,6 +22,7 @@ function CollapsibleContent({
       role="region"
       aria-labelledby={triggerId}
       aria-hidden={!open}
+      data-slot="content"
       data-state={open ? "open" : "closed"}
       className={cn(
         "grid grid-rows-[0fr] transition-[grid-template-rows] duration-200 ease-in-out",
@@ -31,7 +32,9 @@ function CollapsibleContent({
       )}
       {...props}
     >
-      <div className="overflow-hidden">{children}</div>
+      <div className="overflow-hidden" data-slot="content-inner">
+        {children}
+      </div>
     </div>
   );
 }

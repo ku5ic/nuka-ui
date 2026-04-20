@@ -481,4 +481,31 @@ describe("Accordion", () => {
       expect(screen.getByTestId("item").className).toContain("mt-4");
     });
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on every Accordion sub-component", () => {
+      const { container } = render(
+        <Accordion type="single" defaultValue="item-1">
+          <AccordionItem value="item-1">
+            <AccordionTrigger>Section 1</AccordionTrigger>
+            <AccordionContent>Content 1</AccordionContent>
+          </AccordionItem>
+        </Accordion>,
+      );
+
+      expect(container.querySelector('[data-slot="root"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="item"]')).not.toBeNull();
+      expect(
+        container.querySelector('[data-slot="trigger-heading"]'),
+      ).not.toBeNull();
+      const trigger = container.querySelector('[data-slot="trigger"]');
+      expect(trigger).not.toBeNull();
+      // Coexists with existing data-accordion-trigger keyboard selector
+      expect(trigger?.hasAttribute("data-accordion-trigger")).toBe(true);
+      expect(container.querySelector('[data-slot="content"]')).not.toBeNull();
+      expect(
+        container.querySelector('[data-slot="content-inner"]'),
+      ).not.toBeNull();
+    });
+  });
 });

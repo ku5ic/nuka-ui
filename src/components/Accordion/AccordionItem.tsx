@@ -37,6 +37,7 @@ function AccordionItem({
         onOpenChange={() => toggleItem(value)}
         disabled={disabled}
         className={cn("border-b border-(--nuka-border-base)", className)}
+        data-slot="item"
         {...props}
       >
         {children}

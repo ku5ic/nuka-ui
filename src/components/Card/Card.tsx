@@ -33,6 +33,7 @@ function Card({
     <Comp
       ref={ref}
       className={cn(cardVariants({ variant }), className)}
+      data-slot="root"
       {...props}
     />
   );
@@ -56,6 +57,7 @@ function CardHeader({
       <Slot
         ref={ref}
         className={cn("p-(--space-6) pb-0", className)}
+        data-slot="header"
         {...props}
       />
     );
@@ -67,6 +69,7 @@ function CardHeader({
       className={cn("p-(--space-6) pb-0", className)}
       direction="column"
       gap="xs"
+      data-slot="header"
       {...props}
     />
   );
@@ -96,6 +99,7 @@ function CardTitle({
       as={as}
       size="xl"
       className={className}
+      data-slot="title"
       {...(weight !== undefined ? { weight } : {})}
       {...props}
     />
@@ -125,6 +129,7 @@ function CardDescription({
       color="muted"
       size="sm"
       className={className}
+      data-slot="description"
       {...(weight !== undefined ? { weight } : {})}
       {...props}
     />
@@ -161,6 +166,7 @@ function CardBody({
     <Comp
       ref={ref}
       className={cn(cardBodyPaddingClasses[padding], className)}
+      data-slot="body"
       {...props}
     />
   );
@@ -184,6 +190,7 @@ function CardFooter({
       <Slot
         ref={ref}
         className={cn("p-(--space-6) pt-0", className)}
+        data-slot="footer"
         {...props}
       />
     );
@@ -196,6 +203,7 @@ function CardFooter({
       direction="row"
       gap="sm"
       justify="end"
+      data-slot="footer"
       {...props}
     />
   );

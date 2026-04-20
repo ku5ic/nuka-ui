@@ -56,6 +56,7 @@ function Tabs({
           orientation === "horizontal" ? "flex flex-col" : "flex flex-row",
           className,
         )}
+        data-slot="root"
         {...props}
       >
         {children}

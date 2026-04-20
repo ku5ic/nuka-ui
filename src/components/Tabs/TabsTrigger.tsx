@@ -50,6 +50,7 @@ function TabsTrigger({
       aria-disabled={disabled || undefined}
       disabled={disabled}
       tabIndex={isFocusTarget ? 0 : -1}
+      data-slot="trigger"
       data-state={isSelected ? "active" : "inactive"}
       className={cn(
         "inline-flex items-center justify-center whitespace-nowrap",

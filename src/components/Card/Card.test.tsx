@@ -326,4 +326,30 @@ describe("Card composition", () => {
     expect(screen.getByText("Body content")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Action" })).toBeInTheDocument();
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on every Card sub-component", () => {
+      const { container } = render(
+        <Card data-testid="card">
+          <CardHeader>
+            <CardTitle>Title</CardTitle>
+            <CardDescription>Description</CardDescription>
+          </CardHeader>
+          <CardBody>Body</CardBody>
+          <CardFooter>
+            <button type="button">Action</button>
+          </CardFooter>
+        </Card>,
+      );
+
+      expect(container.querySelector('[data-slot="root"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="header"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="title"]')).not.toBeNull();
+      expect(
+        container.querySelector('[data-slot="description"]'),
+      ).not.toBeNull();
+      expect(container.querySelector('[data-slot="body"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="footer"]')).not.toBeNull();
+    });
+  });
 });

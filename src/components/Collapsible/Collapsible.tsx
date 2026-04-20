@@ -37,6 +37,7 @@ function Collapsible({
     <CollapsibleContext value={contextValue}>
       <div
         ref={ref}
+        data-slot="root"
         data-state={open ? "open" : "closed"}
         className={className}
         {...props}
