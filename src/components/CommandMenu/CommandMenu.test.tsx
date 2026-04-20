@@ -434,4 +434,44 @@ describe("CommandMenu", () => {
       expect(scrollIntoViewMock).toHaveBeenCalledWith({ block: "nearest" });
     });
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on every rendered part", async () => {
+      renderCommandMenu();
+      await focusInput();
+
+      expect(
+        document.body.querySelector('[data-slot="overlay"]'),
+      ).not.toBeNull();
+      expect(
+        document.body.querySelector('[data-slot="dialog"]'),
+      ).not.toBeNull();
+      expect(
+        document.body.querySelector('[data-slot="input-wrapper"]'),
+      ).not.toBeNull();
+      expect(document.body.querySelector('[data-slot="input"]')).not.toBeNull();
+      expect(document.body.querySelector('[data-slot="list"]')).not.toBeNull();
+      expect(
+        document.body.querySelectorAll('[data-slot="item"]').length,
+      ).toBeGreaterThan(0);
+      expect(document.body.querySelectorAll('[data-slot="group"]').length).toBe(
+        2,
+      );
+      expect(
+        document.body.querySelectorAll('[data-slot="group-heading"]').length,
+      ).toBe(2);
+      expect(
+        document.body.querySelector('[data-slot="shortcut"]'),
+      ).not.toBeNull();
+    });
+
+    it("emits data-slot=empty when no items match", async () => {
+      const user = userEvent.setup();
+      renderCommandMenu();
+      await focusInput();
+      const input = screen.getByRole("combobox");
+      await user.type(input, "zzz");
+      expect(document.body.querySelector('[data-slot="empty"]')).not.toBeNull();
+    });
+  });
 });

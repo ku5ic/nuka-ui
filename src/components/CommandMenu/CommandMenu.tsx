@@ -102,6 +102,7 @@ function CommandMenu({
             "fixed inset-0 z-(--nuka-z-modal)",
             "bg-(--nuka-bg-overlay)",
           )}
+          data-slot="overlay"
           onClick={() => setOpen(false)}
           aria-hidden="true"
         />
@@ -109,6 +110,7 @@ function CommandMenu({
           role="dialog"
           aria-modal="true"
           aria-label="Command menu"
+          data-slot="dialog"
           className={cn(
             "fixed z-(--nuka-z-modal)",
             "left-1/2 top-[20%] -translate-x-1/2",

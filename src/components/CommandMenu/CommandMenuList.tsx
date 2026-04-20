@@ -25,6 +25,7 @@ function CommandMenuList({ ref, className, ...props }: CommandMenuListProps) {
     <div
       ref={composedRef}
       id={ctx.listboxId}
+      data-slot="list"
       role="listbox"
       aria-label="Suggestions"
       className={cn("overflow-y-auto max-h-80 p-(--space-1)", className)}
