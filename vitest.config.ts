@@ -22,6 +22,7 @@ export default defineConfig({
     include: [
       "src/**/*.{test,spec}.{ts,tsx}",
       "tests/a11y/**/*.{test,spec}.{ts,tsx}",
+      "tests/contracts/**/*.{test,spec}.{ts,tsx}",
     ],
     exclude: ["node_modules", "dist", "tests/dist/**"],
   },
