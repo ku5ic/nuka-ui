@@ -420,7 +420,7 @@ nuka-ui form controls are standard HTML inputs. They work with any form library 
 
 ```tsx
 import { useForm } from "react-hook-form";
-import { Input, Textarea, FormField, Button } from "@nuka-ui/core";
+import { Input, Textarea, FormField, Label, Button } from "@nuka-ui/core";
 
 interface ContactForm {
   name: string;
@@ -436,14 +436,16 @@ function ContactPage() {
 
   return (
     <form onSubmit={handleSubmit((data) => console.log(data))}>
-      <FormField label="Name" error={errors.name?.message}>
+      <FormField error={errors.name?.message}>
+        <Label>Name</Label>
         <Input
           {...register("name", { required: "Name is required" })}
           intent={errors.name ? "danger" : "default"}
         />
       </FormField>
 
-      <FormField label="Message" error={errors.message?.message}>
+      <FormField error={errors.message?.message}>
+        <Label>Message</Label>
         <Textarea
           {...register("message", { required: "Message is required" })}
           intent={errors.message ? "danger" : "default"}
@@ -477,6 +479,7 @@ import {
   SelectItem,
   Checkbox,
   FormField,
+  Label,
   Button,
 } from "@nuka-ui/core";
 
@@ -494,7 +497,8 @@ function SettingsPage() {
 
   return (
     <form onSubmit={handleSubmit((data) => console.log(data))}>
-      <FormField label="Role" error={errors.role?.message}>
+      <FormField error={errors.role?.message}>
+        <Label>Role</Label>
         <Controller
           name="role"
           control={control}
@@ -563,10 +567,10 @@ Override them on `:root` or `[data-theme]` to change typography globally:
 The `Heading` component accepts a `family` prop to override the token per instance:
 
 ```tsx
-<Heading family="sans">Sans-serif heading</Heading>
+<Heading family="body">Body-family heading</Heading>
 ```
 
-When `family` is not provided, the component uses `font-[family-name:var(--nuka-font-heading)]`. The prop overrides the CSS variable with the selected primitive (`--font-family-sans`, `--font-family-serif`, `--font-family-mono`).
+When `family` is not provided, the component renders with its default `--nuka-font-heading`. The prop selects one of four semantic token classes: `heading` (`--nuka-font-heading`), `body` (`--nuka-font-body`), `ui` (`--nuka-font-ui`), or `code` (`--nuka-font-code`).
 
 ---
 

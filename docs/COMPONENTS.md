@@ -15,13 +15,13 @@ This document defines the full component scope for nuka-ui.
 
 ## Typography
 
-| Component | Status | Notes                                                   |
-| --------- | ------ | ------------------------------------------------------- |
-| `Heading` | Done   | `h1`-`h6` via `as` prop. Semantic size scale.           |
-| `Text`    | Done   | Typography component. size, weight, color variants.     |
-| `Code`    | Done   | Inline code. Monospace, subtle background.              |
-| `Kbd`     | Done   | Keyboard shortcut display.                              |
-| `Eyebrow` | Done   | Uppercase label. `color` variants: base, muted, accent. |
+| Component | Status | Notes                                               |
+| --------- | ------ | --------------------------------------------------- |
+| `Heading` | Done   | `h1`-`h6` via `as` prop. Semantic size scale.       |
+| `Text`    | Done   | Typography component. size, weight, color variants. |
+| `Code`    | Done   | Inline code. Monospace, subtle background.          |
+| `Kbd`     | Done   | Keyboard shortcut display.                          |
+| `Eyebrow` | Done   | Uppercase label. Full typography `color` scale.     |
 
 ---
 

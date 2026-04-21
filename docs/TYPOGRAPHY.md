@@ -49,7 +49,7 @@ Every component that exposes a `weight` prop must accept all 9 values. See the e
 
 ### Size
 
-Text exposes 5 values (`xs`, `sm`, `md`, `lg`, `xl`). Heading exposes 5 values (`xl`, `2xl`, `3xl`, `4xl`, plus pairing rules with line height). Size is out of scope for this document's current revision; see component files for the authoritative scale. A future ADR will consolidate the size scale.
+Text exposes 5 values (`xs`, `sm`, `md`, `lg`, `xl`). Heading exposes 4 values (`xl`, `2xl`, `3xl`, `4xl`, each paired with a line-height token). Size is out of scope for this document's current revision; see component files for the authoritative scale. A future ADR will consolidate the size scale.
 
 ### Color
 
@@ -77,9 +77,9 @@ Boolean. Text and Heading expose this. Eyebrow and Label do not.
 
 ## Text `as` element set
 
-Text accepts the semantic phrasing and flow elements that legitimately want typographic control. 31 values in total.
+Text accepts the semantic phrasing and flow elements that legitimately want typographic control. 32 values in total.
 
-### Included (31)
+### Included (32)
 
 Block-level text: `p`, `div`, `blockquote`, `pre`, `address`
 List items: `li`, `dt`, `dd`
