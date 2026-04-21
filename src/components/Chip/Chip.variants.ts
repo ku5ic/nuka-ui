@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "@nuka/utils/variants";
 export const chipVariants = cva(
   [
     "inline-flex items-center",
-    "font-medium leading-none whitespace-nowrap",
+    "font-[number:var(--font-weight-medium)] leading-none whitespace-nowrap",
     "rounded-full",
     "border",
     "transition-colors duration-150",

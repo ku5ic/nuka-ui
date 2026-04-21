@@ -306,4 +306,21 @@ describe("Slider", () => {
       expect(wrapper?.className).toContain("relative");
     });
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on every Slider internal part (coexists with data-testid)", () => {
+      const { container } = render(<Slider aria-label="Volume" showValue />);
+
+      expect(container.querySelector('[data-slot="root"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="input"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="track"]')).not.toBeNull();
+      const fill = container.querySelector('[data-slot="fill"]');
+      expect(fill).not.toBeNull();
+      expect(fill?.getAttribute("data-testid")).toBe("slider-fill");
+      const thumb = container.querySelector('[data-slot="thumb"]');
+      expect(thumb).not.toBeNull();
+      expect(thumb?.getAttribute("data-testid")).toBe("slider-thumb");
+      expect(container.querySelector('[data-slot="value"]')).not.toBeNull();
+    });
+  });
 });

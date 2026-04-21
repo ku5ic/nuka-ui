@@ -17,7 +17,17 @@ const meta = {
     },
     weight: {
       control: "select",
-      options: ["regular", "medium", "semibold", "bold"],
+      options: [
+        "thin",
+        "extralight",
+        "light",
+        "regular",
+        "medium",
+        "semibold",
+        "bold",
+        "extrabold",
+        "black",
+      ],
     },
     color: {
       control: "select",
@@ -44,13 +54,37 @@ const meta = {
       control: "select",
       options: [
         "p",
-        "span",
-        "label",
-        "li",
-        "time",
-        "abbr",
-        "figcaption",
         "div",
+        "blockquote",
+        "pre",
+        "address",
+        "li",
+        "dt",
+        "dd",
+        "figcaption",
+        "caption",
+        "span",
+        "strong",
+        "em",
+        "b",
+        "i",
+        "u",
+        "s",
+        "small",
+        "mark",
+        "cite",
+        "q",
+        "abbr",
+        "dfn",
+        "samp",
+        "var",
+        "sub",
+        "sup",
+        "time",
+        "data",
+        "label",
+        "legend",
+        "output",
       ],
     },
   },
@@ -95,13 +129,22 @@ export const AllSizes: Story = {
 export const AllWeights: Story = {
   parameters: {
     docs: {
+      description: {
+        story:
+          "Text exposes the full nine-value weight scale per the typography contract. Note: rendering quality at weights 100-200 and 800-900 depends on the loaded font supporting those weights; otherwise the browser synthesizes glyphs that may appear blurry.",
+      },
       source: {
         code: `
 <Stack className="gap-3">
+  <Text weight="thin">Thin (100)</Text>
+  <Text weight="extralight">Extralight (200)</Text>
+  <Text weight="light">Light (300)</Text>
   <Text weight="regular">Regular (400), default</Text>
   <Text weight="medium">Medium (500)</Text>
   <Text weight="semibold">Semibold (600)</Text>
   <Text weight="bold">Bold (700)</Text>
+  <Text weight="extrabold">Extrabold (800)</Text>
+  <Text weight="black">Black (900)</Text>
 </Stack>
         `.trim(),
       },
@@ -109,10 +152,15 @@ export const AllWeights: Story = {
   },
   render: () => (
     <Stack className="gap-3">
+      <Text weight="thin">Thin (100)</Text>
+      <Text weight="extralight">Extralight (200)</Text>
+      <Text weight="light">Light (300)</Text>
       <Text weight="regular">Regular (400), default</Text>
       <Text weight="medium">Medium (500)</Text>
       <Text weight="semibold">Semibold (600)</Text>
       <Text weight="bold">Bold (700)</Text>
+      <Text weight="extrabold">Extrabold (800)</Text>
+      <Text weight="black">Black (900)</Text>
     </Stack>
   ),
 };
@@ -250,6 +298,61 @@ export const PolymorphicAs: Story = {
       <Text as="time" size="sm" color="muted">
         as=&quot;time&quot;: 2026-04-04
       </Text>
+    </Stack>
+  ),
+};
+
+export const SemanticElements: Story = {
+  name: "Semantic Elements",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Text accepts the full phrasing and flow element set sanctioned by the typography contract (docs/TYPOGRAPHY.md). This story showcases representative elements that are less common than p/span/label but legitimate in prose.",
+      },
+      source: {
+        code: `
+<Stack className="gap-3">
+  <Text as="blockquote" color="muted">Blockquote content</Text>
+  <Text as="pre" family="code">Preformatted code block</Text>
+  <Text as="address">Contact info</Text>
+  <Text>
+    Inline phrasing like <Text as="strong">strong</Text>,
+    <Text as="em">emphasis</Text>, <Text as="cite">citations</Text>,
+    <Text as="mark">marks</Text>, and
+    <Text as="time">absolute time</Text>.
+  </Text>
+  <dl>
+    <Text as="dt" weight="semibold">Term</Text>
+    <Text as="dd">Definition</Text>
+  </dl>
+  <Text as="output">Form output</Text>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
+  render: () => (
+    <Stack className="gap-3">
+      <Text as="blockquote" color="muted">
+        Blockquote content
+      </Text>
+      <Text as="pre" family="code">
+        Preformatted code block
+      </Text>
+      <Text as="address">Contact info</Text>
+      <Text>
+        Inline phrasing like <Text as="strong">strong</Text>,{" "}
+        <Text as="em">emphasis</Text>, <Text as="cite">citations</Text>,{" "}
+        <Text as="mark">marks</Text>, and <Text as="time">absolute time</Text>.
+      </Text>
+      <dl>
+        <Text as="dt" weight="semibold">
+          Term
+        </Text>
+        <Text as="dd">Definition</Text>
+      </dl>
+      <Text as="output">Form output</Text>
     </Stack>
   ),
 };

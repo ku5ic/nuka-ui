@@ -158,6 +158,7 @@ function AccordionSingle({
       <div
         ref={composedRef}
         className={className}
+        data-slot="root"
         onKeyDown={(e) => {
           handleKeyboardNavigation(e, rootRef);
           onKeyDown?.(e);
@@ -211,6 +212,7 @@ function AccordionMultiple({
       <div
         ref={composedRef}
         className={className}
+        data-slot="root"
         onKeyDown={(e) => {
           handleKeyboardNavigation(e, rootRef);
           onKeyDown?.(e);

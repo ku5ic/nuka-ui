@@ -199,4 +199,57 @@ describe("Stack", () => {
       expect(cls).toContain("gap-4");
     });
   });
+
+  describe("as", () => {
+    it("renders a section when as='section'", () => {
+      render(
+        <Stack as="section" data-testid="stack">
+          Content
+        </Stack>,
+      );
+      expect(screen.getByTestId("stack").tagName).toBe("SECTION");
+    });
+
+    it("renders a nav when as='nav'", () => {
+      render(
+        <Stack as="nav" aria-label="Primary" data-testid="stack">
+          Content
+        </Stack>,
+      );
+      expect(screen.getByTestId("stack").tagName).toBe("NAV");
+    });
+
+    it("forwards ref when as is a non-div element", () => {
+      const ref = React.createRef<HTMLElement>();
+      render(
+        <Stack as="section" ref={ref}>
+          Content
+        </Stack>,
+      );
+      expect(ref.current).toBeInstanceOf(HTMLElement);
+      expect(ref.current?.tagName).toBe("SECTION");
+    });
+
+    it("asChild overrides as (renders child element, not as value)", () => {
+      render(
+        <Stack asChild as="section">
+          <article data-testid="child">Content</article>
+        </Stack>,
+      );
+      expect(screen.getByTestId("child").tagName).toBe("ARTICLE");
+    });
+
+    it("rejects interactive elements at compile time", () => {
+      render(
+        // @ts-expect-error -- `button` is not a member of LayoutElement
+        <Stack as="button" data-testid="stack">
+          Content
+        </Stack>,
+      );
+      // Runtime still renders (React accepts any string tag); the assertion
+      // above is a type-level lock: if LayoutElement ever accepts "button",
+      // typecheck fails because the expected error is no longer present.
+      expect(screen.getByTestId("stack")).toBeInTheDocument();
+    });
+  });
 });

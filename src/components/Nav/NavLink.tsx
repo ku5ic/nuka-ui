@@ -26,7 +26,7 @@ function NavLink({
       className={cn(
         "flex items-center",
         "rounded-(--radius-md) px-(--space-3) py-(--space-2)",
-        "text-sm font-medium",
+        "text-sm font-[number:var(--font-weight-medium)]",
         "text-(--nuka-text-base)",
         "select-none",
         "hover:bg-(--nuka-bg-muted)",
@@ -35,6 +35,7 @@ function NavLink({
         active && "text-(--nuka-accent-text)",
         className,
       )}
+      data-slot="link"
       {...props}
     />
   );

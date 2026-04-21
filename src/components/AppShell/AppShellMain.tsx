@@ -22,6 +22,7 @@ function AppShellMain({
         padded && "p-(--space-6) lg:p-(--space-8)",
         className,
       )}
+      data-slot="main"
       {...props}
     />
   );

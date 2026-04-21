@@ -145,6 +145,7 @@ function DatePickerCalendar({
         style={ctx.floatingStyles}
         role="dialog"
         aria-label="Date picker"
+        data-slot="calendar"
         {...(floatingProps as React.HTMLAttributes<HTMLDivElement>)}
         className={cn(
           "z-(--nuka-z-dropdown) rounded-(--radius-md) border border-(--nuka-border-base)",
@@ -153,13 +154,17 @@ function DatePickerCalendar({
           className,
         )}
       >
-        <div className="flex items-center justify-between mb-(--space-2)">
+        <div
+          className="flex items-center justify-between mb-(--space-2)"
+          data-slot="calendar-header"
+        >
           <Button
             variant="ghost"
             size="sm"
             onClick={goToPrevMonth}
             disabled={!canGoPrev}
             aria-label="Previous month"
+            data-slot="prev-button"
           >
             <Icon size="sm">
               <svg
@@ -175,7 +180,12 @@ function DatePickerCalendar({
               </svg>
             </Icon>
           </Button>
-          <Text as="span" size="sm" weight="medium">
+          <Text
+            as="span"
+            size="sm"
+            weight="medium"
+            data-slot="month-year-label"
+          >
             {headerLabel}
           </Text>
           <Button
@@ -184,6 +194,7 @@ function DatePickerCalendar({
             onClick={goToNextMonth}
             disabled={!canGoNext}
             aria-label="Next month"
+            data-slot="next-button"
           >
             <Icon size="sm">
               <svg
@@ -205,18 +216,21 @@ function DatePickerCalendar({
           role="grid"
           aria-label={headerLabel}
           id={`${ctx.baseId}-grid`}
+          data-slot="grid"
           onKeyDown={handleKeyDown}
         >
           <div
             role="row"
             aria-hidden="true"
             className="grid grid-cols-7 mb-(--space-1)"
+            data-slot="weekday-row"
           >
             {weekdayLabels.map((day) => (
               <abbr
                 key={day.short}
                 title={day.long}
                 className="flex items-center justify-center text-xs text-(--nuka-text-muted) no-underline py-(--space-1)"
+                data-slot="weekday"
               >
                 {day.short}
               </abbr>
@@ -224,7 +238,12 @@ function DatePickerCalendar({
           </div>
 
           {weeks.map((week, weekIndex) => (
-            <div role="row" key={weekIndex} className="grid grid-cols-7">
+            <div
+              role="row"
+              key={weekIndex}
+              className="grid grid-cols-7"
+              data-slot="week-row"
+            >
               {week.map((day, dayIndex) => {
                 if (day === null) {
                   return (
@@ -232,6 +251,7 @@ function DatePickerCalendar({
                       role="gridcell"
                       key={`empty-${String(dayIndex)}`}
                       aria-hidden="true"
+                      data-slot="day-cell"
                     >
                       <span className="block size-9" />
                     </div>
@@ -248,7 +268,7 @@ function DatePickerCalendar({
                 const dayLabel = labelFormatter.format(date);
 
                 return (
-                  <div role="gridcell" key={day}>
+                  <div role="gridcell" key={day} data-slot="day-cell">
                     <button
                       ref={isFocused ? focusedDayRef : undefined}
                       type="button"
@@ -258,6 +278,7 @@ function DatePickerCalendar({
                       aria-disabled={disabled || undefined}
                       disabled={disabled}
                       onClick={() => selectDay(date)}
+                      data-slot="day-button"
                       className={cn(
                         "flex items-center justify-center size-9 rounded-(--radius-md) text-sm",
                         "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--nuka-border-focus)",

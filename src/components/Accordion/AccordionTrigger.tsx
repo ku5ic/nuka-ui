@@ -23,7 +23,7 @@ function AccordionTrigger({
   const HeadingTag = headingLevel;
 
   return (
-    <HeadingTag className="flex">
+    <HeadingTag className="flex" data-slot="trigger-heading">
       <CollapsibleTrigger
         ref={ref}
         data-accordion-trigger=""

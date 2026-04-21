@@ -37,6 +37,7 @@ function ComboboxListbox({
     <div
       ref={composedRef}
       id={ctx.listboxId}
+      data-slot="listbox"
       role="listbox"
       aria-label="Options"
       className={cn("max-h-[280px] overflow-y-auto p-(--space-1)", className)}

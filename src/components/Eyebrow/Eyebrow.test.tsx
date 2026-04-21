@@ -53,6 +53,76 @@ describe("Eyebrow", () => {
         "text-(--nuka-accent-text)",
       );
     });
+
+    it("applies subtle color", () => {
+      render(<Eyebrow color="subtle">Subtle</Eyebrow>);
+      expect(screen.getByText("Subtle").className).toContain(
+        "text-(--nuka-text-subtle)",
+      );
+    });
+
+    it("applies inverse color", () => {
+      render(<Eyebrow color="inverse">Inverse</Eyebrow>);
+      expect(screen.getByText("Inverse").className).toContain(
+        "text-(--nuka-text-inverse)",
+      );
+    });
+
+    it("applies disabled color", () => {
+      render(<Eyebrow color="disabled">Disabled</Eyebrow>);
+      expect(screen.getByText("Disabled").className).toContain(
+        "text-(--nuka-text-disabled)",
+      );
+    });
+
+    it("applies danger color", () => {
+      render(<Eyebrow color="danger">Danger</Eyebrow>);
+      expect(screen.getByText("Danger").className).toContain(
+        "text-(--nuka-danger-text)",
+      );
+    });
+
+    it("applies success color", () => {
+      render(<Eyebrow color="success">Success</Eyebrow>);
+      expect(screen.getByText("Success").className).toContain(
+        "text-(--nuka-success-text)",
+      );
+    });
+
+    it("applies warning color", () => {
+      render(<Eyebrow color="warning">Warning</Eyebrow>);
+      expect(screen.getByText("Warning").className).toContain(
+        "text-(--nuka-warning-text)",
+      );
+    });
+  });
+
+  describe("weight", () => {
+    it("applies semibold weight by default", () => {
+      render(<Eyebrow>Default</Eyebrow>);
+      expect(screen.getByText("Default").className).toContain(
+        "font-[number:var(--font-weight-semibold)]",
+      );
+    });
+
+    const weightCases = [
+      ["thin", "font-[number:var(--font-weight-thin)]"],
+      ["extralight", "font-[number:var(--font-weight-extralight)]"],
+      ["light", "font-[number:var(--font-weight-light)]"],
+      ["regular", "font-[number:var(--font-weight-regular)]"],
+      ["medium", "font-[number:var(--font-weight-medium)]"],
+      ["semibold", "font-[number:var(--font-weight-semibold)]"],
+      ["bold", "font-[number:var(--font-weight-bold)]"],
+      ["extrabold", "font-[number:var(--font-weight-extrabold)]"],
+      ["black", "font-[number:var(--font-weight-black)]"],
+    ] as const;
+
+    for (const [weight, expected] of weightCases) {
+      it(`applies ${weight} weight`, () => {
+        render(<Eyebrow weight={weight}>Label</Eyebrow>);
+        expect(screen.getByText("Label").className).toContain(expected);
+      });
+    }
   });
 
   describe("className override", () => {

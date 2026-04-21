@@ -25,6 +25,7 @@ function TooltipTrigger({
     <Comp
       ref={composedRef}
       type={asChild ? undefined : "button"}
+      data-slot="trigger"
       // Safe: Floating UI getReferenceProps() returns Record<string, unknown>;
       // values are standard DOM event handlers.
       {...(triggerProps as React.ButtonHTMLAttributes<HTMLButtonElement>)}

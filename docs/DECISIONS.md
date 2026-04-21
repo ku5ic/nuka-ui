@@ -1595,3 +1595,375 @@ These conditions are enforced by the `nuka/require-use-client` ESLint rule intro
 **Keep the server-safe subset, relax the ESLint rule for ref-only components**: rejected. Ref serialization from a Server Component is the exact failure class 1.1.2 hit. Allowing ref-only components to skip the directive reintroduces that class in a narrower but still production-breaking form. The rule must be uniform to be useful.
 
 **Move to a barrel-level directive (single `"use client";` on `src/index.ts`)**: rejected. A barrel-level directive would force every consumer to go through the full library bundle even when they import a single component, because the directive makes the whole file a client module. Per-file directives preserve tree-shaking and allow Next.js to include only the components a page actually uses.
+
+## ADR-049: Generated Tailwind safelist for runtime-constructed responsive classes
+
+**Date:** 2026-04-19
+**Status:** Accepted
+
+### Context
+
+`src/utils/responsive.ts` exposes layout-primitive lookups (`gapClasses`, `directionClasses`, `textSizeClasses`, etc.) that components consume via the `Responsive<T>` prop pattern (ADR-021, ADR-022). Each lookup is produced by a `buildLookup<T>()` call that takes a base map like `{ none: "gap-0", xs: "gap-1", ... }` and builds a breakpoint-keyed `{ base, sm, md, lg, xl, "2xl" }` record at module init time, prefixing each base token with the matching Tailwind breakpoint (`"sm:"`, `"md:"`, etc.).
+
+Tailwind v4's scanner reads source files and includes a class in the compiled CSS only if it appears as a complete string literal in the source. `buildLookup` constructs its outputs at runtime by string concatenation, so `"sm:gap-4"` is never visible to the scanner as a literal even though it is returned by the lookup.
+
+Empirical measurement of the 1.1.3 `dist/styles.css` against every class the lookups can emit:
+
+- `aspectRatioClasses`: 100 percent coverage (36 of 36), because a hand-authored `_aspectRatioSafelist` array was embedded at the bottom of `responsive.ts` for exactly this purpose.
+- Every other lookup: 17 to 31 percent coverage. The responsive variants that happened to appear in the compiled bundle did so only because some Storybook story or component source coincidentally contained the literal string; there was no mechanism ensuring every variant was covered.
+- Aggregate: 228 of 324 originally expected classes were missing.
+
+Consumer impact: `<Stack gap={{ base: "sm", md: "lg" }}>` returns the strings `gap-2` and `md:gap-6`. If the consumer's own sources do not happen to contain the literal `md:gap-6`, no CSS rule exists and the component renders with no gap at `md` and up. Every layout primitive accepting a `Responsive<T>` prop was affected.
+
+### Decision
+
+Split the base maps into a shared module and generate a safelist file from them on every build.
+
+- `src/utils/responsive-maps.ts` is the single source of truth. It exports every base map, the `BREAKPOINT_PREFIXES` object, all type aliases (`GapScale`, `Direction`, ...), and an `ALL_BASE_MAPS` array that enumerates every base map by name.
+- `src/utils/responsive.ts` imports the base maps and passes each to `buildLookup<T>()`. Runtime behavior is unchanged. Public exports remain identical in name, type, and value.
+- `tools/generate-safelist.mjs` loads `responsive-maps.ts` via `esbuild.transformSync` plus a data-URL dynamic import (zero new dependencies; esbuild is already a transitive Vite dep), computes the full cross-product of breakpoint prefixes and whitespace-split base tokens, and writes `src/utils/_tailwind-safelist.ts`. The generator sorts, deduplicates, and formats the output with prettier so byte-for-byte determinism holds across runs.
+- `_tailwind-safelist.ts` exports a single `_safelist` array of string literals. Tailwind's scanner sees the literals. Nothing in `src/` imports it at runtime; the generator verifies this with an import-shaped regex across `src/` and fails if any runtime file pulls it in.
+- An npm `prebuild` lifecycle script wires the generator into every build path (`npm run build`, `npm run prepare`, `npm run test:dist`, `npm run release`). A `check:safelist` script runs the generator in dry-run mode and fails if the on-disk file is out of date. It is chained first in `test:all` because it is the cheapest signal with the clearest message when a developer forgot to regenerate.
+- A verification test at `tests/dist/responsive-safelist.test.ts` reads the actual `dist/styles.css`, recomputes the expected set from `ALL_BASE_MAPS`, and asserts every expected class appears as a correctly escaped rule in the bundle. It runs as part of `test:dist`, which runs against the built output.
+
+### Consequences
+
+- Every class that `buildLookup` can return at runtime is guaranteed to have a matching rule in `dist/styles.css`. The `<Stack gap={{ md: "lg" }}>` class of bug is extinguished for every `buildLookup` consumer.
+- The hand-authored `_aspectRatioSafelist` block is removed. The generated safelist is the single mechanism.
+- Adding a new lookup requires: add the base map and types to `responsive-maps.ts`, add an entry to `ALL_BASE_MAPS`, wire the lookup in `responsive.ts`, run `npm run build:safelist`, commit both files. The CI `check:safelist` step catches forgotten regenerations.
+- The safelist file's exact byte contents are tied to the installed prettier version. A prettier upgrade that changes formatting defaults will surface as a `check:safelist` failure in otherwise unrelated PRs. The fix is to regenerate and commit; no behavior changes.
+- Generator placement is npm-lifecycle rather than Vite-plugin. The scanner-visibility guarantee is a language-level concern (every emitted class appears as a source literal), not a bundler-level one. Running the generator as an npm script means Storybook, Vitest, and any future consumer build pipeline invoking `npm run build` inherits the guarantee for free.
+
+### Invariant enforced by the verification test
+
+For every base map entry in `ALL_BASE_MAPS`, for every prefix in `BREAKPOINT_PREFIXES`, for every whitespace-split token in every value of that map, the prefixed token appears as a CSS rule in `dist/styles.css` using Tailwind v4's escape form (`.\32 xl\:aspect-\[4\/3\]` and similar). The test also asserts that the generated `_safelist` contains exactly the expected set, so generator drift is caught independently of CSS coverage.
+
+### Alternatives considered
+
+**Extend the hand-authored safelist to all lookups**: rejected. The array would be roughly 500 lines and every base-map edit would require a manual, error-prone sync. The 228 missing classes in 1.1.3 are exactly the failure mode the hand-authored approach produces at scale.
+
+**Tailwind config-level safelist**: not available. Tailwind v4 does not expose a configuration-level safelist analogous to v3's `safelist` option. Literal-in-source is the only supported mechanism.
+
+**Parse `responsive.ts` for object literals in the generator**: rejected. The task brief allowed this as a fallback. Parsing TypeScript AST for literals couples generator correctness to code-shape details that the runtime refactor is free to change. Extracting the base maps into a dedicated module removes that coupling entirely for a single-file cost.
+
+**Vite plugin instead of npm script**: rejected. The scanner-visibility guarantee is not bundler-specific. An npm-lifecycle generator runs under every tool that invokes `npm run build`; a Vite plugin would only run under Vite.
+
+## ADR-050: Surface-aware focus ring via data-surface attribute cascade
+
+**Date:** 2026-04-19
+**Status:** Accepted
+
+### Context
+
+`--nuka-border-focus` is a single value per theme: accent-500 in light mode, accent-400 in dark mode. Components that render a focus ring reference this token directly.
+
+When a dark block appears inside a light page (a `<Section background="emphasis">`, a hero panel, a CTA strip), the light-theme focus ring fails WCAG 2.2 AA against the dark background. The computed ratio is ~2.3:1, below the 3:1 minimum for UI components. Symmetric failure exists in dark theme on inverse (white) blocks at ~2.6:1.
+
+The zanakadric port documented this by override: 8+ sites used `[--nuka-border-focus:...]` inline on buttons inside dark sections. That pattern is a workaround, not a solution.
+
+Adding a per-component `focusIntent` prop would propagate the fix to every interactive component (Button, Input, Select, Checkbox, Radio, Switch, Tabs trigger, Menu item, NavigationMenu trigger, every dismiss button). Each component would grow an identical prop, identical documentation, and identical tests for an identical concern. That is the wrong shape for a uniform cross-cutting token.
+
+### Decision
+
+Redefine `--nuka-border-focus` inside any subtree that carries the attribute `data-surface="inverse"`. The redefinition happens in `src/styles/tokens.css` via attribute selectors scoped to each theme:
+
+```css
+[data-theme="light"] [data-surface="inverse"],
+:root [data-surface="inverse"] {
+  --nuka-border-focus: var(--color-accent-400);
+}
+
+[data-theme="dark"] [data-surface="inverse"] {
+  --nuka-border-focus: var(--color-accent-500);
+}
+```
+
+`<Section background="emphasis">` emits `data-surface="inverse"` automatically in its render. The common case requires zero consumer action. Consumers who build custom dark surfaces set the attribute themselves.
+
+**Contrast ratios:**
+
+- Light inverse: accent-400 on neutral-900, ~6.9:1 (passes AA 3:1 for UI components)
+- Dark inverse: accent-500 on neutral-0, ~7.8:1 (passes AA 3:1 for UI components)
+
+### Consequences
+
+- `data-surface` becomes part of the library's public theming contract. **Removing or renaming it is a major version bump.**
+- `data-theme` and `data-surface` compose via CSS cascade. Both can appear on different ancestor elements in the tree. When both apply to the same subtree, the surface rule wins because its selector specificity `[data-theme="x"] [data-surface="inverse"]` is (0, 2, 0) vs the theme rule's (0, 1, 0).
+- Consumers learn one new attribute convention. `Section background="emphasis"` auto-wires, so most consumers do not need to see the attribute directly.
+- Zero interactive-component source code changes. Focus-ring resolution was already token-based; this task changes what the token resolves to in a given subtree.
+- If new tokens later need surface-scoped redefinition (for example `--nuka-text-base` on an emphasis surface), the mechanism is in place and only the override block is extended.
+- The mechanism does not support setting `data-theme` and `data-surface` on the same element. Consumers who need inverse-on-root nest: `<html data-theme="dark"><div data-surface="inverse">...</div></html>`. Documented in `docs/THEMING.md`.
+
+### Alternatives considered
+
+**Per-component `focusIntent` prop**: rejected. Scales poorly (one prop per interactive component, identical semantics in each), invites inconsistency (some components forget to add it), and puts burden on consumers to set it per instance.
+
+**Per-instance className override (`[--nuka-border-focus:...]`)**: rejected. Forces every consumer to rediscover the fix independently. Does not compose with nested dark surfaces. Was the exact pattern that produced the 8-site workaround in zanakadric.
+
+**Automatic detection via `color-mix()` or JS luminance inspection**: rejected. No reliable CSS-only path exists to inspect computed background luminance inside a selector. JS-based detection via `getComputedStyle` is fragile (does not re-run on prop changes, adds a hydration step), framework-coupled, and imposes a runtime cost on every focusable element.
+
+**`focusRingVariant` CVA variant per component**: rejected for the same scaling reasons as the prop option, plus adds compound-variant combinations that do not correspond to real design decisions.
+
+## ADR-051: 24x24 CSS px touch target invariant enforced via CSS, test, and lint
+
+**Date:** 2026-04-19
+**Status:** Accepted
+
+### Context
+
+WCAG 2.2 Level AA Success Criterion 2.5.8 (Target Size Minimum) requires each pointer target to be at least 24x24 CSS pixels. A cluster-5 audit of nuka-ui's interactive primitives surfaced one concrete failure: Switch at the `md` size rendered a 20x36 track, below the 24 px height minimum.
+
+The failure was easy to miss during development because:
+
+- jsdom does not compute CSS layout, so component unit tests cannot measure the rendered box.
+- The Storybook a11y addon does not enforce 2.5.8 by default.
+- A conformance gap on one size variant of one component is invisible in the variant matrix.
+
+The Switch fix revealed a secondary concern: the `sm`/`md`/`lg` size ramp, built around different heights (24/20/24), collapsed visually when md was raised to 24. The rebalance grows md and lg in all three axes (track height, track width, thumb size) to restore a clear visual progression.
+
+### Decision
+
+Defense in depth: three independent enforcement mechanisms.
+
+1. **CSS contract.** Each component's size variants declare classes that produce ≥24 px on the interactive element. Documented in `docs/ACCESSIBILITY.md`.
+2. **Regression test.** `tests/a11y/touch-targets.test.tsx` renders every interactive primitive at every size and asserts height ≥24 via a className→pixel lookup. jsdom cannot lay out CSS; className parsing is the substitute.
+3. **Lint rule.** `nuka/no-sub-touch-target-sizes` flags Tailwind classes `h-1..h-5`, `min-h-1..min-h-5`, `size-1..size-5`, and arbitrary-value equivalents inside CVA `variants.*.*` positions within `*.variants.ts` files. Indicator-inside-wrapper exemptions use `eslint-disable-next-line`.
+
+**Switch scale rebalance (concrete):**
+
+| Size | Track              | Thumb            | Fill ratio |
+| ---- | ------------------ | ---------------- | ---------- |
+| sm   | 24×40 (`h-6 w-10`) | 16×16 (`size-4`) | 67%        |
+| md   | 28×48 (`h-7 w-12`) | 20×20 (`size-5`) | 71%        |
+| lg   | 32×56 (`h-8 w-14`) | 24×24 (`size-6`) | 75%        |
+
+All three sizes pass 2.5.8 AA; each size is visually distinct.
+
+### Consequences
+
+- The Switch `md` fix and rebalance bring the library to full 2.5.8 AA compliance.
+- `md` and `lg` Switches are taller than in 1.1.3. Consumers with tight vertical layouts around these components may need to adjust. `sm` stays unchanged and remains the compact option.
+- Adding a new interactive primitive now requires passing the regression test and not tripping the lint rule. The cost is a handful of extra lines in a pull request.
+- The lint rule is a heuristic; it operates on string literals and will miss dynamic class composition. The regression test is the ground truth.
+- The test relies on a static Tailwind-class → pixel map. If the project switches Tailwind config values for the spacing or typography scale, the map must be updated. Current scale is default Tailwind (0.25rem = 4 px per step at 16 px root).
+
+### Alternatives considered
+
+**Storybook test-runner with real layout measurement**: rejected. Requires new infrastructure (test-runner config, headless browser in CI), high value but out of scope for a single-violation fix.
+
+**Per-component inline size assertions**: rejected. Scales poorly as the number of components grows. A shared regression test over a table of primitives is one place to change when the touch-target rule itself changes.
+
+**Trust the a11y-addon alone**: rejected. The addon does not enforce 2.5.8 by default, and even with enforcement enabled it runs only in Storybook runs, not in unit-test CI.
+
+**Naive Switch fix (h-5 → h-6 only)**: rejected in favor of the rebalance. Keeping all three tracks at the same 24 px height collapsed the visual ramp to width-only differences of 4-8 px, producing three toggles that looked nearly identical. The rebalance grows each size in three axes so the progression is obvious.
+
+## ADR-052: Typography contract and nine-value weight scale
+
+**Date:** 2026-04-19
+**Status:** Accepted
+
+### Context
+
+Before this ADR, four typography inconsistencies had accumulated across the component library:
+
+1. `Text.as` accepted 8 elements. Semantic HTML has roughly three times as many phrasing and flow elements that legitimately want typographic control.
+2. Font-weight scales were partial: Text and Heading accepted 4 weight values (regular / medium / semibold / bold). Eyebrow, Label, CardTitle, CardDescription, and EmptyState internals exposed nothing and hardcoded their own defaults. Button, Badge, Tag, Chip, Avatar, and 13 other chrome components hardcoded `font-medium` as a Tailwind literal, bypassing the `--font-weight-*` token contract.
+3. Color vocabularies differed across components. Text accepted 9 color values. Eyebrow accepted 3. Same semantic axis, different reachable set.
+4. There was no written document stating which component exposes which axis. The rule "new typography components should match existing ones" was implicit, relied on review, and had already drifted.
+
+The four-value weight scale was the most visible gap. Per MDN, CSS `font-weight` has nine common named steps (100, 200, 300, 400, 500, 600, 700, 800, 900) corresponding to the OpenType `usWeightClass` specification. Port feedback cited 48-72 px italic display numbers and 128 px hero treatments that require weights 800 or 900. Weight 950 is sometimes cited (Google Fonts) but is not in the CSS specification; MDN documents the nine-step ramp as canonical.
+
+### Decision
+
+1. **Contract document.** Add `docs/TYPOGRAPHY.md`. Specifies the canonical scale per axis (family, weight, size, color, align, truncate), a per-component exposure matrix, invariants new components must satisfy, and a rendering caveat about synthesized-weight fallback.
+
+2. **Nine-value weight token scale.** Extend `--font-weight-*` tokens in `tokens.css` and `root.css` from 4 values to 9: `thin` (100), `extralight` (200), `light` (300), `regular` (400, existing), `medium` (500, existing), `semibold` (600, existing), `bold` (700, existing), `extrabold` (800), `black` (900). The four existing tokens keep their names and values, so this is purely additive.
+
+3. **Full scale on every typography component.** Text, Heading, Eyebrow, and Label each expose a `weight` prop accepting all 9 values. No subsetting; subsets encode judgments nobody remembers. CardTitle, CardDescription, and EmptyState forward optional weight props to their internal Text or Heading instance so consumers can override typography through compound APIs.
+
+4. **Eyebrow color alignment.** Widen Eyebrow's `color` from 3 values to the full 9-value set that Text accepts. Same semantic axis, same reachable set.
+
+5. **Tokenize all chrome font-weight classes.** Replace every Tailwind font-weight literal (`font-medium`, `font-semibold`, etc.) in production component files with the arbitrary-value tokenized form `font-[number:var(--font-weight-<name>)]`. 15 occurrences across 14 files. A machine-executable grep guard in cmd-test enforces that no Tailwind font-weight keyword appears in any authored class string under `src/components/**/*.{ts,tsx}` (excluding stories and tests).
+
+6. **Chrome components do not expose weight props.** Button, Badge, Tag, Chip, Avatar, Nav, NavigationMenu triggers / links, MenubarTrigger, SkipLink, Stepper indicators, Table header / footer, BreadcrumbPage, CommandMenuGroup, and menu label variants hardcode their weight by design. Weight variation within a button group or badge row would look like a bug.
+
+### Consequences
+
+- Contributors have a single reference document for typography API shape. Future coherence reviews compare component implementations against `docs/TYPOGRAPHY.md` instead of against memory or against whichever sibling component a reviewer happens to remember.
+- Consumers can express the full CSS weight range through tokens, including sub-regular weights for editorial light body text and display-heavy weights for hero treatments. The tokens are customizable so a consumer can retune any weight value.
+- Consumers are responsible for loading font files that support the weights they use. The library exposes every CSS-spec weight but does not ship font files. Synthesized fallback glyphs (what the browser produces when the loaded font lacks a requested weight) are lower quality than hinted faces; at weights 100 and 200 combined with low contrast, MDN warns they may be unreadable. The contract document surfaces this risk.
+- API symmetry: every weight-bearing prop across Text, Heading, Eyebrow, Label accepts the same 9 values. Cross-component memorization is one mental model.
+- Chrome components cannot be retuned at the prop level. Consumers who need a display-light button label need a different primitive (Text-as-button, a Link composite, etc.). The library considers this the correct outcome; mixed weights in a button row signal a bug.
+- The grep guard catches regressions at cmd-test time, not at review time. New components that land with a `font-medium` literal fail CI.
+
+### Alternatives considered
+
+**Keep the four-value weight scale.** Rejected. Omits weights port feedback actively needs. Pushes consumers to `className` overrides that silently leak past the token system.
+
+**Subset the scale per component.** Rejected. A component accepting `regular / medium / semibold / bold / extrabold / black` looks intentional but encodes a judgment ("we don't think `thin` and `extralight` are ever useful for headings") that nobody remembers later. The partial-scale pattern is exactly what this ADR exists to eliminate.
+
+**Include weight 950.** Rejected. Not in the CSS specification per MDN. Google Fonts supports it, other foundries do not. Including it in the canonical scale would create a token consumers could legitimately use in a value that degrades inconsistently across font sources.
+
+**No contract document; rely on code review.** Rejected. Current state is the counter-example. Eyebrow's 3-value color enum survived multiple reviews.
+
+**Runtime enforcement (throw if a component passes a weight outside the canonical scale).** Rejected. The contract is a social artifact for maintainers, not a runtime check for consumers. TypeScript's structural type system already produces compile-time errors for out-of-union values.
+
+**Hardcoded-weight components expose the prop with a "recommended" subset.** Rejected. Violates invariant #1 of the contract (no subsetting). Also contradicts the goal: if variation looks like a bug in a button row, exposing it with a smaller menu does not change that.
+
+**Do Piece 5 (literal replacement) only in the five originally-named files.** Rejected during preflight. The goal of the cluster is eliminating token-bypass leaks; leaving 13 other sites with the same leak defeats the purpose. Bundling all sites into one refactor commit keeps the diff reviewable and the grep guard tractable.
+
+## ADR-053: Callout primitive for pulled quotations and editorial emphasis
+
+**Date:** 2026-04-19
+**Status:** Accepted
+
+### Context
+
+Three port cases converge on a single primitive need:
+
+1. Pulled quotations from testimonials or case studies. A block of emphasized text attributed to a source. Semantically a `<blockquote>` with a `<cite>` child. Visually raised or bordered.
+2. Inline editorial asides. Short "note", "warning", or "tip" blocks that interrupt main-body prose. Visual treatment varies by intent; no urgency (not a live region).
+3. Marketing emphasis blocks. A sentence or paragraph pulled from surrounding copy to draw the eye, often with an accent border and larger type.
+
+Alert nearly serves cases 2 and 3 but fails case 1 (no citation, no blockquote semantics) and carries `role="alert"`, which announces the content in the live region. Editorial content should not interrupt screen reader flow. No existing component provides a blockquote primitive. The Cluster 1 TextElement union (ADR-052) added `blockquote` and `cite` specifically to enable this component.
+
+### Decision
+
+1. **New `Callout` component.** Default root `<blockquote>` (HTMLQuoteElement). 4-variant display-primitive shape (`primary`, `secondary`, `outline`, `ghost`) matching Alert, Badge, Tag, Chip. 4-intent (`default`, `danger`, `success`, `warning`). 3-size (`sm`, `md`, `lg`). Reuses `intentCompoundVariants({ secondaryDefault: [accent tokens] })` with the same secondary-default cell as Alert.
+
+2. **Optional `citation` prop.** Renders through `<Text as="cite">` with hardcoded `color="muted"` and `size="sm"`. Produces a `<cite>` child below the main body. Named `citation` (not `cite`) to avoid collision with the native HTML `cite` attribute on `<blockquote>`, which takes a source URL and stays reachable through prop spread.
+
+3. **`asChild` escape hatch.** Uses `Slot` from `@nuka/utils/slot` for a clean root swap. When `asChild` is true, the consumer's tree renders verbatim with Callout classes merged. The `citation` prop is ignored in this path; consumers compose their own figure+figcaption structure. A dev-mode `console.warn` fires when both `asChild` and `citation` are passed.
+
+4. **Body and citation both inherit color from the parent.** Body children render directly in the `<blockquote>` (matches Alert: consumer content is not structural chrome). The citation renders as a bare `<cite className="text-sm">` so it inherits the CVA intent color. Wrapping either body or citation in `<Text>` would emit a color class from Text's `defaultVariants.color = "base"` that overrides the intent color on the parent; `color="muted"` has the same problem since muted gray has insufficient contrast on primary+danger / primary+success / primary+warning colored backgrounds. Body font-size comes from CVA size variants (`text-sm / text-base / text-lg`); citation is hardcoded at `text-sm` with the browser default `<cite>` italic for visual hierarchy.
+
+5. **No icon slot.** Editorial callouts rarely benefit from a severity icon. Consumers who need iconography compose with `asChild` + `<figure>`.
+
+6. **No `role="alert"`.** Screen readers announce Callout as a standard blockquote region. Editorial content does not interrupt live-region speech.
+
+### Consequences
+
+- Consumers have a dedicated primitive for pulled / emphasized content distinct from Alert. Editorial content no longer reaches for `role="alert"`.
+- The citation pattern is structured (dedicated prop) for the simple case and composable (asChild with figure + figcaption) for the full HTML-spec-recommended case.
+- Validates the Cluster 1 typography work. Callout is the first component to render internal content through `<Text as="cite">`; the TextElement union addition in ADR-052 was made for exactly this use case.
+- Callout does not expose typographic props. Consumers who need custom weight, family, or color inside the body compose with their own Text children instead of a bare string.
+- Consumers who need the native HTML `cite` attribute (source URL) pass it via prop spread. The name collision between our `citation` display-text prop and the native `cite` URL attribute is resolved in favor of preserving both axes.
+
+### Alternatives considered
+
+**Extend Alert with a `citation` prop and a `role` prop override.** Rejected. Conflates urgent feedback (live region) with editorial emphasis. Role is not a prop and should not be consumer-swappable on a feedback component.
+
+**Render Callout as `<aside>`.** Rejected. `<aside>` is for tangentially related content (sidebars, page-level asides). A pulled quotation is the `<blockquote>` semantic.
+
+**Name the prop `cite` and `Omit<..., "cite">` from the base HTML attributes.** Rejected. Drops a native HTML attribute without replacement. `citation` preserves both axes and reads clearly.
+
+**Include an icon slot matching Alert.** Rejected. Editorial content rarely benefits from a severity icon; it reads as visual noise. Consumers who want iconography compose with `asChild` + `<figure>`.
+
+**Expose `weight`, `color`, and `family` props directly on Callout.** Rejected. Duplicates the Text API. Contract compliance means Callout defers to internal Text defaults. Consumers who need per-instance typographic control compose with their own Text inside Callout's children or use `asChild`.
+
+**Wrap body children in `<Text as="p">` to satisfy the compound-component Text-usage rule.** Rejected. The typography contract rule applies to structural text slots the component owns (titles, descriptions, labels), not to arbitrary consumer-provided children. Alert does not wrap its children either. More importantly, Text's `defaultVariants.color = "base"` emits `text-(--nuka-text-base)` unconditionally, which would override Callout's CVA intent color on the parent. The body correctly inherits from the blockquote.
+
+**Render citation through `<Text as="cite" color="muted">`.** Rejected. `muted` is a neutral gray token chosen for recede-on-neutral-surfaces; it fails WCAG 4.5:1 contrast on primary+danger, primary+success, and primary+warning colored backgrounds. Any fixed Text color choice has the same problem on at least some of the 16 variant x intent cells. Citation is rendered as a bare `<cite className="text-sm">` so it inherits the intent color from the parent blockquote. Hierarchy comes from size (smaller) and the browser default italic styling of `<cite>`. Font-family, weight, and color all propagate through inheritance, satisfying the token-tracking goal of the compound-component Text-usage rule without introducing a cross-variant contrast regression.
+
+---
+
+## ADR-054: `data-slot` attribute contract for compound components
+
+**Date:** 2026-04-20
+**Status:** Accepted
+
+### Context
+
+Consumers that want to target internal parts of compound components currently have three brittle paths:
+
+1. `className` on an exported sub-component. Works when the part is exported. Fails for parts that are not independently exported: Dialog's overlay, Select's listbox when closed, Accordion's connector line, Timeline's marker, every inline element inside a composite.
+2. Descendant selectors over DOM structure. `[&>div:nth-child(2)]` works until the internal DOM changes.
+3. CVA class names. Brittle: CVA output is not part of the library's public API and changes per release.
+
+The zanakadric downstream port accumulated eight sites using one of these approaches across Dialog, Select, Sheet, and Tabs. Each site is a maintenance timebomb. A refactor of any internal DOM structure breaks consumers silently.
+
+The ecosystem convention (Radix `data-radix-*`, shadcn/ui `data-slot` since late-2024) is a stable data-attribute contract.
+
+### Decision
+
+Every compound component emits a `data-slot="<name>"` attribute on every nameable internal DOM element. Slot names are kebab-case, describe role not implementation, and become part of the library's public API. Rename is a major version bump. Addition is a minor.
+
+Shared primitives emit `data-slot` from the base:
+
+- `src/utils/modal-primitive.tsx` emits `trigger`, `title`, `description`, `close`. Dialog and Sheet inherit. DialogContent and SheetContent add `overlay` and `content`.
+- `src/components/Menu/*Base.tsx` emit `item`, `checkbox-item`, `radio-item`, `group`, `label`, `separator`, `item-indicator`. DropdownMenu, ContextMenu, and Menubar inherit.
+
+Single-part components do not emit `data-slot`. The root element is the whole component; there is no ambiguity. Excluded: Button, Badge, Tag, Chip, Text, Heading, Label, Eyebrow, VisuallyHidden, Spinner, Skeleton, Progress, Icon, Kbd, Divider, Code, Section, Input, Textarea, Avatar, AspectRatio, Container, Grid, Stack, Banner, Alert, SkipLink.
+
+Pure context providers (Dialog, Sheet, Tooltip, Popover, DropdownMenu, ContextMenu, MenubarMenu, Combobox, CommandMenu when closed, DatePicker) do not emit a `root` slot because they render no DOM.
+
+CSS-only parts (ScrollArea scrollbar and thumb per ADR-040) do not emit slots. ScrollArea emits `root` only.
+
+Consumer-supplied slots are not attributed. SplitLayout emits `root` only; main and side are consumer-supplied children.
+
+`asChild`-composed parts forward `data-slot` through `src/utils/slot.tsx`. `mergeProps` spreads slot-provided props first; the consumer's child only overrides if it also sets `data-slot`, which is opt-in. Forwarding is locked by `src/utils/slot.test.tsx`.
+
+Accordion retains its existing `data-accordion-trigger=""` attribute (ADR-027 keyboard navigation) and adds `data-slot="trigger"` alongside. Two attributes, two purposes. Replacing `data-accordion-trigger` with a scoped `data-slot="trigger"` query would require every Accordion keyboard handler to ancestor-scope via `closest("[data-slot='root']")` before `querySelectorAll(...)` to avoid matching DialogTrigger, TooltipTrigger, and every other `trigger` in the tree. The dedicated attribute is safer and simpler.
+
+### Slot naming table
+
+The full table (approximately 140 rows) is enforced by `tests/contracts/data-slots.test.tsx` and mirrored in `docs/CUSTOMIZATION.md`. Summary by family:
+
+**Modal (Dialog, Sheet):** `trigger`, `title`, `description`, `close`, `content`, `overlay`. Sheet additionally coexists with `data-side`.
+
+**Floating (Tooltip, Popover):** `trigger`, `content`. No arrow element.
+
+**Menu (DropdownMenu, ContextMenu, Menubar):** `trigger`, `content`, `item`, `checkbox-item`, `radio-item`, `group`, `label`, `separator`, `item-indicator`. Menubar additionally emits `root` on its menu bar container. All three families share the item-level slot vocabulary; consumer disambiguation is by trigger-anchored ancestor scope.
+
+**Listbox:** Select `root`, `trigger`, `content`, `item`, `separator`. Combobox `trigger`, `input-wrapper`, `input`, `content`, `listbox`, `item`, `group`, `empty`.
+
+**Palette (CommandMenu):** `overlay`, `dialog`, `input-wrapper`, `input`, `list`, `item`, `group`, `group-heading`, `empty`, `shortcut`. Uses `dialog` not `content` because CommandMenu is a modal palette, not a drawer or popover.
+
+**Disclosure:** Card `root`, `header`, `title`, `description`, `body`, `footer`. Accordion `root`, `item`, `trigger-heading`, `trigger`, `content`. Collapsible `root`, `trigger`, `content`, `content-inner`. Tabs `root`, `list`, `trigger`, `content`.
+
+**Ordered display:** Timeline `root`, `item`, `item-marker-wrapper`, `item-marker`, `item-connector`, `item-content`, `item-timestamp`, `item-title`, `item-description`. Stepper `root`, `list`, `separator` (horizontal connector), `item`, `indicator`, `title`, `description`, `content`.
+
+**Navigation:** Breadcrumb `root`, `list`, `item`, `link`, `page`, `separator`, `ellipsis`. Pagination `root`, `list`, `item`, `link`, `previous`, `next`, `ellipsis`. Nav `root`, `list`, `item`, `link`, `trigger`, `submenu`. NavigationMenu `root`, `list`, `item`, `trigger`, `content`, `link`. No indicator or viewport elements in NavigationMenu; scope-list entries for them do not correspond to rendered DOM.
+
+**Tabular:** Table `root` (scroll wrapper), `table` (nested element), `caption`, `header`, `head-cell`, `body`, `row`, `cell`, `footer`. DataTable inherits Table and Pagination slots; no new attributes.
+
+**Form controls with internal parts:** RadioGroup `root`. Radio `item`, `item-input`, `item-indicator`, `item-label`. Checkbox `root`, `input`, `indicator`, `label`. Switch `root`, `thumb`, `label`. Slider `root`, `input`, `track`, `fill`, `thumb`, `value`. FileInput `root`, `zone`, `input`, `file-list`, `file-item`, `file-name`, `file-size`, `file-remove-button`. NumberInput `root`, `input`, `decrement`, `increment`.
+
+**Structural and remaining:** FormField `root`, `hint`, `error`. Sidebar `provider`, `root`, `header`, `content`, `footer`, `group`, `group-label`, `inset`, `menu`, `menu-item`, `menu-button`, `trigger`. AppShell `root`, `header`, `body`, `main`. EmptyState `root`, `visual`, `heading`, `description`, `action`. Callout `root`, `citation`. DatePicker: DatePickerInput `input-root`, `input`, `toggle`; DatePickerCalendar `calendar`, `calendar-header`, `prev-button`, `month-year-label`, `next-button`, `grid`, `weekday-row`, `weekday`, `week-row`, `day-cell`, `day-button`. Toast `toast`, `message`, `action`, `close`. Toaster `toaster`.
+
+### Consequences
+
+- Consumers target internal parts via `[data-slot="overlay"]` in plain CSS or `[&_[data-slot=overlay]]:...` in Tailwind arbitrary variants, without depending on class names or DOM structure.
+- Slot names are semver-protected. Renaming a slot is a breaking change and requires a major version bump.
+- Internal DOM can refactor freely as long as slot names remain on the correct elements.
+- Every existing `data-*` attribute (`data-state`, `data-theme`, `data-surface`, `data-variant`, `data-side`, `data-expanded`, `data-collapsed`, `data-accordion-trigger`) coexists with `data-slot` without collision. Each attribute serves a distinct purpose: structural identity, runtime state, context cascade, or style variant.
+- `data-testid` attributes on Slider (`slider-fill`, `slider-thumb`) and FileInput (`file-input-zone`) remain in place. No breaking change.
+- ScrollArea cannot target its scrollbar or thumb via `data-slot`. Those are pseudo-elements only per ADR-040; `::-webkit-scrollbar-thumb` and the `scrollbar-color` property are the consumer-facing hooks.
+- SplitLayout emits `root` only because main and side are consumer-supplied children. Consumers who want to attribute those parts do it themselves.
+- New compound components must register their slots in `tests/contracts/data-slots.test.tsx`. Missing registration is detectable in review.
+
+### Alternatives considered
+
+**Class-based targeting.** Rejected. CVA outputs are not public API. Class strings mutate between releases and break consumers silently.
+
+**Descendant tag-position selectors (`[&>div:nth-child(2)]`).** Rejected. Couples to DOM order. Breaks on any internal structure change.
+
+**Expose every internal as a public sub-component (`<DialogOverlay>`, `<TimelineMarker>`).** Rejected. Explodes the API surface without benefit. Dialog's overlay is not a standalone primitive; it is the backdrop of a specific modal. Timeline's marker is an inline column of its item; it does not compose elsewhere.
+
+**`data-radix-*` namespace for cross-library compatibility.** Rejected. nuka-ui has never depended on Radix. Inheriting the Radix namespace implies a relationship that does not exist and does not help consumers who are not using Radix.
+
+**`data-nuka-slot` prefix to future-proof against namespace collisions.** Rejected. `data-slot` is the ecosystem convention (shadcn/ui since late-2024). Matching the convention lowers consumer cognitive load.
+
+**Runtime slot derivation from `displayName`.** Rejected. `displayName` is dev-mode-only and not stable through minification. Static attribute is simpler, cheaper, and production-safe.
+
+**Differentiated slot vocabulary per menu family (`dropdown-menu-item`, `context-menu-item`).** Rejected. All three emit the same role (`menuitem`) and serve the same consumer purpose. Differentiation is handled by ancestor scoping; shared vocabulary matches the shared semantic.
+
+### F8 deferred (Timeline and Stepper component tokens)
+
+The zanakadric port backlog F8 proposed component-level tokens for Timeline marker size, Timeline connector thickness, Stepper indicator size, and Stepper connector thickness.
+
+ADR-004 states: "Components reference semantic tokens directly. Component-level tokens are added only when a component has styling needs that cannot be expressed through existing semantic tokens."
+
+Timeline markers use `w-8 h-8 rounded-full` + `border-2` with semantic tokens for color (`--nuka-accent-bg`, `--nuka-border-base`). The dimensions match the `Icon size="sm"` (32px) that the marker contains. Stepper's indicator uses the same size for the same reason. No consumer on record has requested override of these dimensions; the port itself never needed one. Adding four new tokens per component, each verified against every variant and surface, multiplies the contract doc surface area without concrete demand.
+
+F8 is filed as deferred, not rejected. If a future consumer raises a documented use case (a dense Timeline in a narrow panel that needs smaller markers, for instance), revisit with that use case in hand. For now, `className` escape hatch is sufficient for one-off sizing.

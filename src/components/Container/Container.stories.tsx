@@ -245,3 +245,34 @@ export const PageLayout: Story = {
     },
   },
 };
+
+export const AsMain: Story = {
+  name: "as main",
+  render: () => (
+    <Container as="main" size="lg" aria-labelledby="page-heading">
+      <Stack gap="md">
+        <Heading id="page-heading" size="2xl">
+          Page title
+        </Heading>
+        <Text>
+          Page content renders inside a semantic main landmark, announced by
+          assistive technology as the primary content of the page.
+        </Text>
+      </Stack>
+    </Container>
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Container as="main" size="lg" aria-labelledby="page-heading">
+  <Stack gap="md">
+    <Heading id="page-heading" size="2xl">Page title</Heading>
+    <Text>Page content renders inside a semantic main landmark.</Text>
+  </Stack>
+</Container>
+        `.trim(),
+      },
+    },
+  },
+};

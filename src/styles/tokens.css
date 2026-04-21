@@ -137,10 +137,15 @@
   --line-height-normal: 1.5;
   --line-height-relaxed: 1.625;
 
+  --font-weight-thin: 100;
+  --font-weight-extralight: 200;
+  --font-weight-light: 300;
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  --font-weight-black: 900;
 
   --font-family-sans: ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-family-serif: ui-serif, Georgia, Cambria, serif;
@@ -355,4 +360,20 @@
   --nuka-info-border: var(--color-info-400);
   --nuka-info-fg: var(--color-neutral-950);
   /* Dark fg on lighter dark-mode info surface. Symmetric with danger/success/warning. */
+}
+
+/* Surface-level overrides: redefine focus ring for inverse surfaces inside each
+   theme scope. The descendant selector (0,2,0) wins over the theme rule (0,1,0)
+   when a [data-surface="inverse"] descendant is inside a themed subtree. See
+   ADR-050 for the reasoning and the contrast ratios below. */
+
+[data-theme="light"] [data-surface="inverse"],
+:root [data-surface="inverse"] {
+  /* accent-400 on neutral-900: ~6.9:1, passes WCAG 2.2 AA 3:1 for UI components */
+  --nuka-border-focus: var(--color-accent-400);
+}
+
+[data-theme="dark"] [data-surface="inverse"] {
+  /* accent-500 on neutral-0: ~7.8:1, passes WCAG 2.2 AA 3:1 for UI components */
+  --nuka-border-focus: var(--color-accent-500);
 }

@@ -12,6 +12,7 @@ function NavList({ ref, className, ...props }: NavListProps) {
     <ul
       ref={ref}
       className={cn("flex items-center list-none gap-(--space-1)", className)}
+      data-slot="list"
       {...props}
     />
   );

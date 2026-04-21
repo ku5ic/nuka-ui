@@ -83,8 +83,12 @@ export type {
   CardTitleProps,
   CardDescriptionProps,
   CardBodyProps,
+  CardBodyPadding,
   CardFooterProps,
 } from "./components/Card";
+
+export { Callout, calloutVariants } from "./components/Callout";
+export type { CalloutProps, CalloutVariantProps } from "./components/Callout";
 
 export {
   Checkbox,

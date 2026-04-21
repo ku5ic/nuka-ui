@@ -56,6 +56,11 @@ describe("AspectRatio", () => {
       render(<AspectRatio ratio="9/16" data-testid="ar" />);
       expect(screen.getByTestId("ar").className).toContain("aspect-[9/16]");
     });
+
+    it("applies aspect-[4/5] for '4/5'", () => {
+      render(<AspectRatio ratio="4/5" data-testid="ar" />);
+      expect(screen.getByTestId("ar").className).toContain("aspect-[4/5]");
+    });
   });
 
   describe("responsive ratio", () => {

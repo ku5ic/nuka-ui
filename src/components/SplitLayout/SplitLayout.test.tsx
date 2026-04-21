@@ -213,4 +213,16 @@ describe("SplitLayout", () => {
       warnSpy.mockRestore();
     });
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot='root' on the wrapper", () => {
+      const { container } = render(
+        <SplitLayout>
+          <div>Main</div>
+          <div>Side</div>
+        </SplitLayout>,
+      );
+      expect(container.querySelector('[data-slot="root"]')).not.toBeNull();
+    });
+  });
 });

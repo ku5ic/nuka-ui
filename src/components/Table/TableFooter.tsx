@@ -14,9 +14,10 @@ function TableFooter({ ref, className, ...props }: TableFooterProps) {
       className={cn(
         "border-t border-(--nuka-border-base)",
         "bg-(--nuka-bg-subtle)",
-        "text-(--nuka-text-muted) font-medium",
+        "text-(--nuka-text-muted) font-[number:var(--font-weight-medium)]",
         className,
       )}
+      data-slot="footer"
       {...props}
     />
   );

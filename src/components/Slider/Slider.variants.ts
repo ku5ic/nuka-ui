@@ -16,13 +16,19 @@ export const sliderWrapperVariants = cva(
   },
 );
 
+// The track is the visual bar inside sliderWrapperVariants; the wrapper
+// (min-h-[24px]) plus the overlay input provide the touch target. The track
+// itself is a thin decorative sub-element.
 export const sliderTrackVariants = cva(
   ["relative w-full rounded-full", "bg-(--nuka-border-base)"],
   {
     variants: {
       size: {
+        // eslint-disable-next-line nuka/no-sub-touch-target-sizes
         sm: "h-1",
+        // eslint-disable-next-line nuka/no-sub-touch-target-sizes
         md: "h-1.5",
+        // eslint-disable-next-line nuka/no-sub-touch-target-sizes
         lg: "h-2",
       },
     },
@@ -69,9 +75,13 @@ export const sliderThumbVariants = cva(
         success: "bg-(--nuka-success-base)",
         warning: "bg-(--nuka-warning-base)",
       },
+      // Thumb sits inside the wrapper (sliderWrapperVariants) which provides
+      // the touch target together with the overlay <input> at inset-0.
       size: {
         sm: "w-6 h-6",
+        // eslint-disable-next-line nuka/no-sub-touch-target-sizes
         md: "w-[18px] h-[18px]",
+        // eslint-disable-next-line nuka/no-sub-touch-target-sizes
         lg: "w-[22px] h-[22px]",
       },
     },

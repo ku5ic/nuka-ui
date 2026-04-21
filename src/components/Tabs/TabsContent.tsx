@@ -22,6 +22,7 @@ function TabsContent({ ref, value, className, ...props }: TabsContentProps) {
       aria-labelledby={triggerId}
       hidden={!isActive ? true : undefined}
       tabIndex={0}
+      data-slot="content"
       data-state={isActive ? "active" : "inactive"}
       className={cn(
         "mt-(--space-2)",

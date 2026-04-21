@@ -267,4 +267,17 @@ describe("NumberInput", () => {
       );
     });
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on root, input, decrement, and increment", () => {
+      const { container } = render(
+        <NumberInput aria-label="Quantity" showControls />,
+      );
+
+      expect(container.querySelector('[data-slot="root"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="input"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="decrement"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="increment"]')).not.toBeNull();
+    });
+  });
 });

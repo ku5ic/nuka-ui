@@ -21,13 +21,14 @@ function Eyebrow({
   ref,
   as: Comp = "p",
   className,
+  weight,
   color,
   ...props
 }: EyebrowProps) {
   return (
     <Comp
       ref={ref as React.RefObject<never>}
-      className={cn(eyebrowVariants({ color }), className)}
+      className={cn(eyebrowVariants({ weight, color }), className)}
       {...props}
     />
   );

@@ -88,6 +88,7 @@ function MenubarContent({
         <div
           ref={composedRef}
           style={menu.floatingStyles}
+          data-slot="content"
           data-state="open"
           {...floatingProps}
           className={cn(menuContentVariants(), className)}

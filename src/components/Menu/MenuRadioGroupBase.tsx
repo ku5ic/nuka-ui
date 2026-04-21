@@ -40,7 +40,7 @@ function MenuRadioGroupBase({
 
   return (
     <MenuRadioGroupContext value={ctxValue}>
-      <div ref={ref} role="group" {...props}>
+      <div ref={ref} role="group" data-slot="group" {...props}>
         {children}
       </div>
     </MenuRadioGroupContext>

@@ -194,4 +194,21 @@ describe("full composition", () => {
     expect(screen.getByText("App Header")).toBeInTheDocument();
     expect(screen.getByText("Main content")).toBeInTheDocument();
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on root, header, body, and main", () => {
+      const { container } = render(
+        <AppShell>
+          <AppShellHeader>Header</AppShellHeader>
+          <AppShellBody>
+            <AppShellMain>Main</AppShellMain>
+          </AppShellBody>
+        </AppShell>,
+      );
+      expect(container.querySelector('[data-slot="root"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="header"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="body"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="main"]')).not.toBeNull();
+    });
+  });
 });

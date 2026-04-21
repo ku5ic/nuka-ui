@@ -7,7 +7,7 @@ import {
 export const tagVariants = cva(
   [
     "inline-flex items-center",
-    "font-medium leading-none whitespace-nowrap",
+    "font-[number:var(--font-weight-medium)] leading-none whitespace-nowrap",
     "rounded-(--radius-md)",
     "border",
   ],

@@ -49,6 +49,7 @@ function SidebarProvider({
       <div
         ref={ref}
         className={cn("flex min-h-svh w-full", className)}
+        data-slot="provider"
         {...props}
       >
         {children}

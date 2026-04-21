@@ -50,6 +50,42 @@ describe("Text", () => {
       render(<Text as="time">2026-04-04</Text>);
       expect(screen.getByText("2026-04-04").tagName).toBe("TIME");
     });
+
+    // Covers the full 31-element set added in the typography contract.
+    // Parameterized so the widened TextElement union stays honest as it evolves.
+    const newElements = [
+      ["blockquote", "BLOCKQUOTE"],
+      ["pre", "PRE"],
+      ["address", "ADDRESS"],
+      ["dt", "DT"],
+      ["dd", "DD"],
+      ["caption", "CAPTION"],
+      ["strong", "STRONG"],
+      ["em", "EM"],
+      ["b", "B"],
+      ["i", "I"],
+      ["u", "U"],
+      ["s", "S"],
+      ["small", "SMALL"],
+      ["mark", "MARK"],
+      ["cite", "CITE"],
+      ["q", "Q"],
+      ["dfn", "DFN"],
+      ["samp", "SAMP"],
+      ["var", "VAR"],
+      ["sub", "SUB"],
+      ["sup", "SUP"],
+      ["data", "DATA"],
+      ["legend", "LEGEND"],
+      ["output", "OUTPUT"],
+    ] as const;
+
+    for (const [as, tag] of newElements) {
+      it(`renders as ${tag.toLowerCase()} when as='${as}'`, () => {
+        render(<Text as={as}>Marker</Text>);
+        expect(screen.getByText("Marker").tagName).toBe(tag);
+      });
+    }
   });
 
   describe("sizes", () => {
@@ -129,6 +165,41 @@ describe("Text", () => {
       render(<Text weight="bold">Bold</Text>);
       expect(screen.getByText("Bold").className).toContain(
         "font-[number:var(--font-weight-bold)]",
+      );
+    });
+
+    it("applies thin weight", () => {
+      render(<Text weight="thin">Thin</Text>);
+      expect(screen.getByText("Thin").className).toContain(
+        "font-[number:var(--font-weight-thin)]",
+      );
+    });
+
+    it("applies extralight weight", () => {
+      render(<Text weight="extralight">Extralight</Text>);
+      expect(screen.getByText("Extralight").className).toContain(
+        "font-[number:var(--font-weight-extralight)]",
+      );
+    });
+
+    it("applies light weight", () => {
+      render(<Text weight="light">Light</Text>);
+      expect(screen.getByText("Light").className).toContain(
+        "font-[number:var(--font-weight-light)]",
+      );
+    });
+
+    it("applies extrabold weight", () => {
+      render(<Text weight="extrabold">Extrabold</Text>);
+      expect(screen.getByText("Extrabold").className).toContain(
+        "font-[number:var(--font-weight-extrabold)]",
+      );
+    });
+
+    it("applies black weight", () => {
+      render(<Text weight="black">Black</Text>);
+      expect(screen.getByText("Black").className).toContain(
+        "font-[number:var(--font-weight-black)]",
       );
     });
   });

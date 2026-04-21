@@ -17,6 +17,7 @@ function CommandMenuShortcut({
       ref={ref}
       aria-hidden="true"
       className={cn("ml-auto text-xs text-(--nuka-text-muted)", className)}
+      data-slot="shortcut"
       {...props}
     />
   );

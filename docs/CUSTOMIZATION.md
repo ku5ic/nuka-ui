@@ -153,6 +153,30 @@ Because theming is anchored to a `data-theme` attribute, you can nest different 
 
 Components inside the `data-theme="dark"` element pick up dark tokens automatically. No JavaScript required.
 
+### Surface-level token overrides
+
+When a dark block sits inside a light page (a hero, a footer, a CTA panel), interactive
+elements inside that block need a focus ring with enough contrast against the dark
+background. Setting per-instance styles on every button, input, and link would be
+tedious and error-prone.
+
+Mark the container with `data-surface="inverse"`:
+
+```html
+<div data-surface="inverse" class="bg-(--nuka-bg-emphasis) p-6">
+  <button>Tab into me</button>
+</div>
+```
+
+Every interactive nuka component inside picks up the inverse focus-ring value
+automatically. `<Section background="emphasis">` emits `data-surface="inverse"`
+for you, so the wrapper is only needed when you build a custom dark surface
+outside the Section component.
+
+See [THEMING.md](./THEMING.md#surface-level-token-overrides) for the full list of
+accepted values and the cascade semantics, and [ADR-050](./DECISIONS.md) for the
+design decision.
+
 ### Changing scrollbar appearance
 
 `ScrollArea` uses two semantic tokens for custom scrollbar styling:
@@ -396,7 +420,7 @@ nuka-ui form controls are standard HTML inputs. They work with any form library 
 
 ```tsx
 import { useForm } from "react-hook-form";
-import { Input, Textarea, FormField, Button } from "@nuka-ui/core";
+import { Input, Textarea, FormField, Label, Button } from "@nuka-ui/core";
 
 interface ContactForm {
   name: string;
@@ -412,14 +436,16 @@ function ContactPage() {
 
   return (
     <form onSubmit={handleSubmit((data) => console.log(data))}>
-      <FormField label="Name" error={errors.name?.message}>
+      <FormField error={errors.name?.message}>
+        <Label>Name</Label>
         <Input
           {...register("name", { required: "Name is required" })}
           intent={errors.name ? "danger" : "default"}
         />
       </FormField>
 
-      <FormField label="Message" error={errors.message?.message}>
+      <FormField error={errors.message?.message}>
+        <Label>Message</Label>
         <Textarea
           {...register("message", { required: "Message is required" })}
           intent={errors.message ? "danger" : "default"}
@@ -453,6 +479,7 @@ import {
   SelectItem,
   Checkbox,
   FormField,
+  Label,
   Button,
 } from "@nuka-ui/core";
 
@@ -470,7 +497,8 @@ function SettingsPage() {
 
   return (
     <form onSubmit={handleSubmit((data) => console.log(data))}>
-      <FormField label="Role" error={errors.role?.message}>
+      <FormField error={errors.role?.message}>
+        <Label>Role</Label>
         <Controller
           name="role"
           control={control}
@@ -539,10 +567,10 @@ Override them on `:root` or `[data-theme]` to change typography globally:
 The `Heading` component accepts a `family` prop to override the token per instance:
 
 ```tsx
-<Heading family="sans">Sans-serif heading</Heading>
+<Heading family="body">Body-family heading</Heading>
 ```
 
-When `family` is not provided, the component uses `font-[family-name:var(--nuka-font-heading)]`. The prop overrides the CSS variable with the selected primitive (`--font-family-sans`, `--font-family-serif`, `--font-family-mono`).
+When `family` is not provided, the component renders with its default `--nuka-font-heading`. The prop selects one of four semantic token classes: `heading` (`--nuka-font-heading`), `body` (`--nuka-font-body`), `ui` (`--nuka-font-ui`), or `code` (`--nuka-font-code`).
 
 ---
 
@@ -598,6 +626,74 @@ nuka-ui does not ship a `ThemeProvider` or `useTheme` hook. Switching themes is 
 
 ---
 
+## 9. Targeting internal parts with `data-slot`
+
+Every compound component in nuka-ui emits a `data-slot="<name>"` attribute on every nameable internal DOM element. This gives you a stable CSS selector to target parts that are not independently exported as sub-components (Dialog's overlay, Timeline's marker, Select's listbox), without depending on class names or DOM structure.
+
+Slot names are kebab-case and describe the role of the part, not its implementation (`overlay`, `indicator`, `connector`). They are part of the public API: a rename is a breaking change. The full naming table lives in ADR-054.
+
+### Plain CSS
+
+```css
+/* Add backdrop blur to every Dialog and Sheet overlay */
+[data-slot="overlay"] {
+  backdrop-filter: blur(4px);
+}
+
+/* Hide the connector line on a specific Timeline */
+.product-history [data-slot="item-connector"] {
+  display: none;
+}
+```
+
+### Tailwind arbitrary variants
+
+```tsx
+// Tint the overlay on a specific Dialog instance
+<Dialog>
+  <DialogContent className="[&_[data-slot=overlay]]:bg-blue-500/20">
+    {/* ... */}
+  </DialogContent>
+</Dialog>
+
+// Restyle Accordion triggers inside a specific container
+<div className="[&_[data-slot=trigger]]:text-lg [&_[data-slot=trigger]]:font-(number:var(--font-weight-semibold))">
+  <Accordion>
+    {/* ... */}
+  </Accordion>
+</div>
+```
+
+### Scoping to a specific compound root
+
+When two compound components on the same page share a slot name (every `trigger` or every `content`), scope the selector to the compound root:
+
+```css
+/* Only style Sheet overlays, not Dialog overlays */
+[data-slot="content"][data-side] [data-slot="overlay"] {
+  /* Sheet only: SheetContent carries data-side="left|right|top|bottom" */
+}
+
+/* Only style Dropdown items, not Context items, via the content wrapper */
+[data-slot="content"][data-state="open"] > [data-slot="item"] {
+  /* ... */
+}
+```
+
+### What not to do
+
+- **Do not rely on class names.** CVA outputs are not part of the public API; they change between releases.
+- **Do not rely on element order** (`[&>div:nth-child(2)]`). Internal DOM structure can change without notice as long as the slot attributes stay on the correct elements.
+- **Do not assume slot values between components** that do not share a contract. Dialog's `close` and DropdownMenu's `item` are unrelated despite both being rendered as buttons.
+
+### Limits
+
+Slots attach to rendered DOM only. `ScrollArea` scrollbar and thumb are CSS-only pseudo-elements (see ADR-040) and do not carry `data-slot`. `SplitLayout` main and side are consumer-supplied children; nuka-ui does not attribute them for you.
+
+Single-part components (Button, Badge, Text, Heading, and similar primitives) do not emit `data-slot` because the root element is the whole component. Target those components directly via class name.
+
+---
+
 ## Choosing the right approach
 
 | Goal                                                    | Approach                                                                               |
@@ -623,3 +719,5 @@ nuka-ui does not ship a `ThemeProvider` or `useTheme` hook. Switching themes is 
 | Create a two-column layout with sidebar                 | `SplitLayout` component with `sideWidth` and `sidebar` props                           |
 | Hide content visually but keep it accessible            | `VisuallyHidden` component                                                             |
 | Add a scrollable container with custom scrollbar        | `ScrollArea` component with `orientation` and `maxHeight`/`maxWidth`                   |
+| Target an internal part of a compound component         | `[data-slot="<name>"]` CSS or `[&_[data-slot=<name>]]:...` Tailwind arbitrary variant  |
+| Differentiate compounds that share a slot name          | Scope the selector via the compound's root or a sibling `data-*` attribute             |

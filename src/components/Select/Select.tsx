@@ -115,6 +115,7 @@ function Select({
     <SelectContext value={contextValue}>
       <div
         ref={composeRefs(ref, rootRef)}
+        data-slot="root"
         className="relative inline-block w-full"
       >
         {children}

@@ -19,6 +19,7 @@ function Pagination({
       ref={ref}
       aria-label={ariaLabel}
       className={cn("mx-auto flex w-full justify-center", className)}
+      data-slot="root"
       {...props}
     />
   );

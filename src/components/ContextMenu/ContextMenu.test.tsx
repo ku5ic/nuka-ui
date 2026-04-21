@@ -400,4 +400,49 @@ describe("ContextMenu", () => {
       expect(ref.current).toBeInstanceOf(HTMLDivElement);
     });
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on every compound sub-component", () => {
+      render(
+        <ContextMenu>
+          <ContextMenuTrigger>Right-click here</ContextMenuTrigger>
+          <ContextMenuContent>
+            <ContextMenuLabel>Section</ContextMenuLabel>
+            <ContextMenuItem>Copy</ContextMenuItem>
+            <ContextMenuSeparator />
+            <ContextMenuCheckboxItem checked>Show</ContextMenuCheckboxItem>
+            <ContextMenuRadioGroup value="a">
+              <ContextMenuRadioItem value="a">A</ContextMenuRadioItem>
+            </ContextMenuRadioGroup>
+          </ContextMenuContent>
+        </ContextMenu>,
+      );
+
+      const trigger = screen.getByText("Right-click here");
+      expect(trigger.getAttribute("data-slot")).toBe("trigger");
+
+      rightClick(trigger);
+
+      expect(
+        document.body.querySelector('[data-slot="content"]'),
+      ).not.toBeNull();
+      expect(document.body.querySelector('[data-slot="label"]')).not.toBeNull();
+      expect(document.body.querySelector('[data-slot="item"]')).not.toBeNull();
+      expect(
+        document.body.querySelector('[data-slot="separator"]'),
+      ).not.toBeNull();
+      expect(
+        document.body.querySelector('[data-slot="checkbox-item"]'),
+      ).not.toBeNull();
+      expect(
+        document.body.querySelector('[data-slot="radio-item"]'),
+      ).not.toBeNull();
+      expect(
+        document.body.querySelectorAll('[data-slot="item-indicator"]').length,
+      ).toBeGreaterThanOrEqual(2);
+      expect(
+        document.body.querySelector('[role="group"][data-slot="group"]'),
+      ).not.toBeNull();
+    });
+  });
 });

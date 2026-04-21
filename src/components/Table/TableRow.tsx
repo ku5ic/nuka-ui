@@ -37,6 +37,7 @@ function TableRow({
         selected && "bg-(--nuka-accent-bg-subtle)",
         className,
       )}
+      data-slot="row"
       {...props}
     />
   );

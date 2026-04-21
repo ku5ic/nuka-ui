@@ -252,3 +252,43 @@ export const CardGrid: Story = {
     },
   },
 };
+
+export const AsUnorderedList: Story = {
+  name: "as ul",
+  render: () => (
+    <Grid
+      as="ul"
+      cols={{ base: 1, sm: 2, lg: 3 }}
+      gap="md"
+      aria-label="Fruits"
+      className="m-0 list-none p-0"
+    >
+      {["Apples", "Oranges", "Bananas", "Pears", "Grapes", "Kiwi"].map(
+        (fruit) => (
+          <li
+            key={fruit}
+            className="rounded-md border border-(--nuka-border-base) bg-(--nuka-bg-muted) p-4 text-center"
+          >
+            {fruit}
+          </li>
+        ),
+      )}
+    </Grid>
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Grid as="ul" cols={{ base: 1, sm: 2, lg: 3 }} gap="md" aria-label="Fruits">
+  <li>Apples</li>
+  <li>Oranges</li>
+  <li>Bananas</li>
+  <li>Pears</li>
+  <li>Grapes</li>
+  <li>Kiwi</li>
+</Grid>
+        `.trim(),
+      },
+    },
+  },
+};

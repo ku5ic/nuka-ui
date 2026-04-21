@@ -19,6 +19,7 @@ function TableCell({ ref, className, ...props }: TableCellProps) {
         isBordered && "border-r border-(--nuka-border-base) last:border-r-0",
         className,
       )}
+      data-slot="cell"
       {...props}
     />
   );

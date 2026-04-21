@@ -34,6 +34,7 @@ function CollapsibleTrigger({
       aria-controls={contentId}
       disabled={disabled}
       aria-disabled={disabled || undefined}
+      data-slot="trigger"
       data-state={open ? "open" : "closed"}
       className={className}
       onClick={handleClick}

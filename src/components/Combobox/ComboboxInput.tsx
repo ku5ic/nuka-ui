@@ -100,6 +100,7 @@ function ComboboxInput({ ref, className, ...props }: ComboboxInputProps) {
 
   return (
     <div
+      data-slot="input-wrapper"
       className={cn(
         "flex items-center gap-(--space-2) px-(--space-3)",
         "border-b border-(--nuka-border-base)",
@@ -122,6 +123,7 @@ function ComboboxInput({ ref, className, ...props }: ComboboxInputProps) {
         {...props}
         ref={composedRef}
         id={ctx.inputId}
+        data-slot="input"
         role="combobox"
         aria-autocomplete="list"
         aria-expanded={ctx.open}

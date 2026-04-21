@@ -25,6 +25,7 @@ function DropdownMenuTrigger({
       type={asChild ? undefined : "button"}
       aria-haspopup="menu"
       aria-expanded={ctx.open}
+      data-slot="trigger"
       // Safe: Floating UI's getReferenceProps() returns Record<string, unknown>;
       // values are standard DOM event handlers (onClick, onKeyDown, etc.).
       {...(triggerProps as React.ButtonHTMLAttributes<HTMLButtonElement>)}

@@ -7,7 +7,9 @@ export interface SidebarMenuItemProps extends React.LiHTMLAttributes<HTMLLIEleme
 }
 
 function SidebarMenuItem({ ref, className, ...props }: SidebarMenuItemProps) {
-  return <li ref={ref} className={cn(className)} {...props} />;
+  return (
+    <li ref={ref} className={cn(className)} data-slot="menu-item" {...props} />
+  );
 }
 
 SidebarMenuItem.displayName = "SidebarMenuItem";

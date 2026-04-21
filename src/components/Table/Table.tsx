@@ -35,12 +35,15 @@ function Table({
     <TableContext value={contextValue}>
       <div
         ref={ref}
+        data-slot="root"
         data-variant={variant}
         className={cn(tableVariants({ variant }), className)}
         {...props}
       >
-        <table className="w-full border-collapse text-sm">
-          <caption className="sr-only">{caption}</caption>
+        <table data-slot="table" className="w-full border-collapse text-sm">
+          <caption data-slot="caption" className="sr-only">
+            {caption}
+          </caption>
           {children}
         </table>
       </div>

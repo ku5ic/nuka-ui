@@ -15,13 +15,13 @@ This document defines the full component scope for nuka-ui.
 
 ## Typography
 
-| Component | Status | Notes                                                   |
-| --------- | ------ | ------------------------------------------------------- |
-| `Heading` | Done   | `h1`-`h6` via `as` prop. Semantic size scale.           |
-| `Text`    | Done   | Typography component. size, weight, color variants.     |
-| `Code`    | Done   | Inline code. Monospace, subtle background.              |
-| `Kbd`     | Done   | Keyboard shortcut display.                              |
-| `Eyebrow` | Done   | Uppercase label. `color` variants: base, muted, accent. |
+| Component | Status | Notes                                               |
+| --------- | ------ | --------------------------------------------------- |
+| `Heading` | Done   | `h1`-`h6` via `as` prop. Semantic size scale.       |
+| `Text`    | Done   | Typography component. size, weight, color variants. |
+| `Code`    | Done   | Inline code. Monospace, subtle background.          |
+| `Kbd`     | Done   | Keyboard shortcut display.                          |
+| `Eyebrow` | Done   | Uppercase label. Full typography `color` scale.     |
 
 ---
 
@@ -67,16 +67,17 @@ This document defines the full component scope for nuka-ui.
 
 ## Display
 
-| Component    | Status | Notes                                                         |
-| ------------ | ------ | ------------------------------------------------------------- |
-| `Badge`      | Done   | Inline label. variant + intent. No interactive states.        |
-| `Tag`        | Done   | Dismissible Badge variant. Adds close button.                 |
-| `Avatar`     | Done   | Image with fallback initials. Size variants.                  |
-| `Icon`       | Done   | Wrapper for icon libraries. Size + color tokens.              |
-| `Divider`    | Done   | Horizontal/vertical separator. Optional label.                |
-| `EmptyState` | Done   | Blank slate. Illustration slot, heading, description, action. |
-| `Timeline`   | Done   | Vertical event sequence. Display-only.                        |
-| `ScrollArea` | Done   | Custom scrollbar container. Orientation, maxHeight/maxWidth.  |
+| Component    | Status | Notes                                                                                  |
+| ------------ | ------ | -------------------------------------------------------------------------------------- |
+| `Badge`      | Done   | Inline label. variant + intent. No interactive states.                                 |
+| `Tag`        | Done   | Dismissible Badge variant. Adds close button.                                          |
+| `Avatar`     | Done   | Image with fallback initials. Size variants.                                           |
+| `Icon`       | Done   | Wrapper for icon libraries. Size + color tokens.                                       |
+| `Divider`    | Done   | Horizontal/vertical separator. Optional label.                                         |
+| `EmptyState` | Done   | Blank slate. Illustration slot, heading, description, action.                          |
+| `Callout`    | Done   | Pulled quotation / editorial emphasis block. variant + intent + size. `citation` slot. |
+| `Timeline`   | Done   | Vertical event sequence. Display-only.                                                 |
+| `ScrollArea` | Done   | Custom scrollbar container. Orientation, maxHeight/maxWidth.                           |
 
 ---
 

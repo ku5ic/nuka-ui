@@ -87,6 +87,7 @@ function ContextMenuTrigger({
         "focus-visible:outline-(--nuka-border-focus)",
         className,
       )}
+      data-slot="trigger"
       {...(props as React.HTMLAttributes<HTMLDivElement>)}
     >
       {children}

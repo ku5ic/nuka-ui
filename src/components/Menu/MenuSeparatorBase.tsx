@@ -18,6 +18,7 @@ function MenuSeparatorBase({
       ref={ref}
       role="separator"
       className={cn(menuSeparatorVariants(), className)}
+      data-slot="separator"
       {...props}
     />
   );

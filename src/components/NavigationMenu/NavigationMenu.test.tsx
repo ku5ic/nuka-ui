@@ -482,4 +482,26 @@ describe("NavigationMenu", () => {
       ).toHaveClass("custom-nav");
     });
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on every NavigationMenu sub-component", async () => {
+      const user = userEvent.setup();
+      const { container } = renderNav();
+
+      expect(container.querySelector('[data-slot="root"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="list"]')).not.toBeNull();
+      expect(
+        container.querySelectorAll('[data-slot="item"]').length,
+      ).toBeGreaterThan(0);
+      expect(
+        container.querySelectorAll('[data-slot="trigger"]').length,
+      ).toBeGreaterThan(0);
+      expect(
+        container.querySelectorAll('[data-slot="link"]').length,
+      ).toBeGreaterThan(0);
+
+      await user.click(screen.getAllByRole("button")[0]!);
+      expect(container.querySelector('[data-slot="content"]')).not.toBeNull();
+    });
+  });
 });

@@ -18,7 +18,31 @@ const meta = {
     },
     color: {
       control: "select",
-      options: ["base", "muted", "accent"],
+      options: [
+        "base",
+        "muted",
+        "subtle",
+        "inverse",
+        "disabled",
+        "accent",
+        "danger",
+        "success",
+        "warning",
+      ],
+    },
+    weight: {
+      control: "select",
+      options: [
+        "thin",
+        "extralight",
+        "light",
+        "regular",
+        "medium",
+        "semibold",
+        "bold",
+        "extrabold",
+        "black",
+      ],
     },
   },
 } satisfies Meta<typeof Eyebrow>;
@@ -44,7 +68,15 @@ export const Colors: Story = {
     <Stack gap="md">
       <Eyebrow color="muted">Muted (default)</Eyebrow>
       <Eyebrow color="base">Base</Eyebrow>
+      <Eyebrow color="subtle">Subtle</Eyebrow>
+      <div className="p-(--space-3) bg-(--nuka-bg-emphasis) rounded-(--radius-md)">
+        <Eyebrow color="inverse">Inverse</Eyebrow>
+      </div>
+      <Eyebrow color="disabled">Disabled</Eyebrow>
       <Eyebrow color="accent">Accent</Eyebrow>
+      <Eyebrow color="danger">Danger</Eyebrow>
+      <Eyebrow color="success">Success</Eyebrow>
+      <Eyebrow color="warning">Warning</Eyebrow>
     </Stack>
   ),
   parameters: {
@@ -53,7 +85,44 @@ export const Colors: Story = {
         code: `
 <Eyebrow color="muted">Muted (default)</Eyebrow>
 <Eyebrow color="base">Base</Eyebrow>
+<Eyebrow color="subtle">Subtle</Eyebrow>
+<div className="p-(--space-3) bg-(--nuka-bg-emphasis) rounded-(--radius-md)">
+  <Eyebrow color="inverse">Inverse</Eyebrow>
+</div>
+<Eyebrow color="disabled">Disabled</Eyebrow>
 <Eyebrow color="accent">Accent</Eyebrow>
+<Eyebrow color="danger">Danger</Eyebrow>
+<Eyebrow color="success">Success</Eyebrow>
+<Eyebrow color="warning">Warning</Eyebrow>
+        `.trim(),
+      },
+    },
+  },
+};
+
+export const Weights: Story = {
+  render: () => (
+    <Stack gap="md">
+      <Eyebrow weight="regular">Regular</Eyebrow>
+      <Eyebrow weight="medium">Medium</Eyebrow>
+      <Eyebrow weight="semibold">Semibold (default)</Eyebrow>
+      <Eyebrow weight="bold">Bold</Eyebrow>
+      <Eyebrow weight="extrabold">Extrabold</Eyebrow>
+    </Stack>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Eyebrow exposes the full nine-value weight scale per the typography contract. The most common choices are medium, semibold, and bold; others are available for editorial treatments. Thin and light weights render subtly in uppercase and may be hard to read at the xs font size.",
+      },
+      source: {
+        code: `
+<Eyebrow weight="regular">Regular</Eyebrow>
+<Eyebrow weight="medium">Medium</Eyebrow>
+<Eyebrow weight="semibold">Semibold (default)</Eyebrow>
+<Eyebrow weight="bold">Bold</Eyebrow>
+<Eyebrow weight="extrabold">Extrabold</Eyebrow>
         `.trim(),
       },
     },

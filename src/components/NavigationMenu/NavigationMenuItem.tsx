@@ -100,6 +100,7 @@ function NavigationMenuItem({
         ref={ref}
         role="none"
         className={cn("relative", className)}
+        data-slot="item"
         {...props}
       >
         {children}

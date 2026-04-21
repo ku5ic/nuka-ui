@@ -568,4 +568,31 @@ describe("Select", () => {
       expect(SelectItem.displayName).toBe("SelectItem");
     });
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on every compound sub-component", async () => {
+      const user = userEvent.setup();
+      const { container } = render(
+        <Select>
+          <SelectTrigger placeholder="Pick" />
+          <SelectContent>
+            <SelectItem value="a">A</SelectItem>
+            <SelectSeparator />
+            <SelectItem value="b">B</SelectItem>
+          </SelectContent>
+        </Select>,
+      );
+
+      expect(container.querySelector('[data-slot="root"]')).not.toBeNull();
+      expect(screen.getByRole("combobox").getAttribute("data-slot")).toBe(
+        "trigger",
+      );
+
+      await user.click(screen.getByRole("combobox"));
+
+      expect(container.querySelector('[data-slot="content"]')).not.toBeNull();
+      expect(container.querySelectorAll('[data-slot="item"]').length).toBe(2);
+      expect(container.querySelector('[data-slot="separator"]')).not.toBeNull();
+    });
+  });
 });

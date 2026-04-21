@@ -8,7 +8,9 @@ export interface TableBodyProps extends React.HTMLAttributes<HTMLTableSectionEle
 }
 
 function TableBody({ ref, className, ...props }: TableBodyProps) {
-  return <tbody ref={ref} className={cn(className)} {...props} />;
+  return (
+    <tbody ref={ref} className={cn(className)} data-slot="body" {...props} />
+  );
 }
 
 TableBody.displayName = "TableBody";

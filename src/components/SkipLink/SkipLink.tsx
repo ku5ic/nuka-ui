@@ -26,7 +26,7 @@ function SkipLink({
         "inline-flex items-center",
         "rounded-(--radius-md) px-(--space-4) py-(--space-2)",
         "bg-(--nuka-accent-bg) text-(--nuka-accent-fg)",
-        "text-sm font-medium",
+        "text-sm font-[number:var(--font-weight-medium)]",
         "focus-visible:outline-2 focus-visible:outline-offset-2",
         "focus-visible:outline-(--nuka-border-focus)",
         className,

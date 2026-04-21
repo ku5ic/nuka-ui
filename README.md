@@ -279,13 +279,13 @@ WCAG 2.2 AA compliance is a hard constraint, not a goal. It is verified at the t
 
 ### Typography
 
-| Component | Description                                                |
-| --------- | ---------------------------------------------------------- |
-| `Heading` | `h1`-`h6` via `as` prop. Semantic size scale.              |
-| `Text`    | Typography component. Size, weight, color variants.        |
-| `Code`    | Inline code. Monospace, subtle background.                 |
-| `Kbd`     | Keyboard shortcut display.                                 |
-| `Eyebrow` | Uppercase label text. Color variants: base, muted, accent. |
+| Component | Description                                         |
+| --------- | --------------------------------------------------- |
+| `Heading` | `h1`-`h6` via `as` prop. Semantic size scale.       |
+| `Text`    | Typography component. Size, weight, color variants. |
+| `Code`    | Inline code. Monospace, subtle background.          |
+| `Kbd`     | Keyboard shortcut display.                          |
+| `Eyebrow` | Uppercase label text. Full typography color scale.  |
 
 ### Forms
 

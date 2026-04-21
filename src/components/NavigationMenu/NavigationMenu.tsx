@@ -66,6 +66,7 @@ function NavigationMenu({
         ref={ref}
         aria-label={ariaLabel}
         className={cn("relative", className)}
+        data-slot="root"
         {...props}
       >
         {children}

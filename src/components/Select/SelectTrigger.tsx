@@ -269,6 +269,7 @@ function SelectTrigger({
       ref={ref}
       type="button"
       id={field.resolvedId}
+      data-slot="trigger"
       role="combobox"
       aria-haspopup="listbox"
       aria-expanded={ctx.open}

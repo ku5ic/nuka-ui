@@ -187,4 +187,40 @@ describe("Slot", () => {
     expect(el.getAttribute("aria-label")).toBe("custom");
     expect(el.getAttribute("id")).toBe("slot-id");
   });
+
+  describe("data-slot forwarding (ADR-054)", () => {
+    it("forwards data-slot from Slot to the child element", () => {
+      render(
+        <Slot data-slot="trigger">
+          <button type="button">Click</button>
+        </Slot>,
+      );
+      const button = screen.getByRole("button", { name: "Click" });
+      expect(button.getAttribute("data-slot")).toBe("trigger");
+    });
+
+    it("forwards arbitrary additional data-* attributes alongside data-slot", () => {
+      render(
+        <Slot data-slot="content" data-state="open" data-side="right">
+          <div data-testid="panel" />
+        </Slot>,
+      );
+      const panel = screen.getByTestId("panel");
+      expect(panel.getAttribute("data-slot")).toBe("content");
+      expect(panel.getAttribute("data-state")).toBe("open");
+      expect(panel.getAttribute("data-side")).toBe("right");
+    });
+
+    it("lets the child override a data-slot set by Slot", () => {
+      render(
+        <Slot data-slot="trigger">
+          <button type="button" data-slot="custom">
+            Click
+          </button>
+        </Slot>,
+      );
+      const button = screen.getByRole("button", { name: "Click" });
+      expect(button.getAttribute("data-slot")).toBe("custom");
+    });
+  });
 });

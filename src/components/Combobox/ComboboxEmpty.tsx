@@ -20,6 +20,7 @@ function ComboboxEmpty({
       ref={ref}
       role="presentation"
       className={cn("py-(--space-8) text-center", className)}
+      data-slot="empty"
       {...props}
     >
       <Text size="sm" color="muted">

@@ -13,6 +13,7 @@ export type {
   CardTitleProps,
   CardDescriptionProps,
   CardBodyProps,
+  CardBodyPadding,
   CardFooterProps,
 } from "./Card";
 export type { CardVariantProps } from "@nuka/components/Card/Card.variants";

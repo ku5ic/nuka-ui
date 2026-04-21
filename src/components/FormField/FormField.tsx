@@ -46,16 +46,29 @@ function FormField({
       <div
         ref={ref}
         className={cn("flex flex-col gap-(--space-1)", className)}
+        data-slot="root"
         {...props}
       >
         {children}
         {hint && (
-          <Text as="p" size="sm" color="muted" id={contextValue.hintId}>
+          <Text
+            as="p"
+            size="sm"
+            color="muted"
+            id={contextValue.hintId}
+            data-slot="hint"
+          >
             {hint}
           </Text>
         )}
         {error && (
-          <Text as="p" size="sm" color="danger" id={contextValue.errorId}>
+          <Text
+            as="p"
+            size="sm"
+            color="danger"
+            id={contextValue.errorId}
+            data-slot="error"
+          >
             {error}
           </Text>
         )}

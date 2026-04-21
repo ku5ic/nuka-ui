@@ -89,6 +89,7 @@ function SplitLayout({
         ...resolveResponsiveClasses(gap, gapClasses),
         className,
       )}
+      data-slot="root"
       {...props}
     >
       {children}

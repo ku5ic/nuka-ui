@@ -29,6 +29,7 @@ function NavSubmenu({
         "py-(--space-1)",
         className,
       )}
+      data-slot="submenu"
       {...props}
     />
   );

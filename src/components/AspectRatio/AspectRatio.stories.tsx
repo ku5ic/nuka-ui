@@ -33,7 +33,7 @@ const meta = {
   argTypes: {
     ratio: {
       control: "select",
-      options: ["1/1", "16/9", "9/16", "4/3", "3/2", "2/1"],
+      options: ["1/1", "16/9", "9/16", "4/3", "3/2", "2/1", "4/5"],
     },
     asChild: {
       control: false,
@@ -67,16 +67,18 @@ export const NamedPresets: Story = {
   name: "Named Presets",
   render: () => (
     <Stack gap="lg" className="max-w-xs">
-      {(["16/9", "4/3", "1/1", "3/2", "9/16", "2/1"] as const).map((ratio) => (
-        <Stack key={ratio} gap="xs">
-          <Text size="xs" color="muted">
-            ratio=&quot;{ratio}&quot;
-          </Text>
-          <AspectRatio ratio={ratio}>
-            <Fill label={ratio} />
-          </AspectRatio>
-        </Stack>
-      ))}
+      {(["16/9", "4/3", "1/1", "3/2", "9/16", "2/1", "4/5"] as const).map(
+        (ratio) => (
+          <Stack key={ratio} gap="xs">
+            <Text size="xs" color="muted">
+              ratio=&quot;{ratio}&quot;
+            </Text>
+            <AspectRatio ratio={ratio}>
+              <Fill label={ratio} />
+            </AspectRatio>
+          </Stack>
+        ),
+      )}
     </Stack>
   ),
   parameters: {
@@ -89,6 +91,7 @@ export const NamedPresets: Story = {
 <AspectRatio ratio="3/2"><img ... /></AspectRatio>
 <AspectRatio ratio="9/16"><img ... /></AspectRatio>
 <AspectRatio ratio="2/1"><img ... /></AspectRatio>
+<AspectRatio ratio="4/5"><img ... /></AspectRatio>
         `.trim(),
       },
     },

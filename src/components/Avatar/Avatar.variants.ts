@@ -7,7 +7,7 @@ export const avatarVariants = cva(
     "border border-(--nuka-border-base)",
     "bg-(--nuka-bg-muted)",
     "text-(--nuka-text-muted)",
-    "font-medium",
+    "font-[number:var(--font-weight-medium)]",
   ],
   {
     variants: {

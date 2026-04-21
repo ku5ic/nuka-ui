@@ -61,6 +61,7 @@ function CommandMenuItem({
     <div
       ref={composedRef}
       id={itemId}
+      data-slot="item"
       role="option"
       aria-selected={isActive}
       aria-disabled={disabled || undefined}

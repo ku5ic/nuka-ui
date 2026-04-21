@@ -1,3 +1,4 @@
+import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { RadioGroup } from "@nuka/components/RadioGroup/RadioGroup";
 import { Radio } from "@nuka/components/RadioGroup/Radio";
@@ -26,24 +27,36 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  args: {
-    name: "fruit",
-    "aria-label": "Fruit",
-    children: undefined,
-  },
-  render: (args) => (
-    <RadioGroup {...args}>
+// Storybook autodocs renders the primary (first) story twice on the Docs
+// page: once in the Primary block at the top, once inline in the Stories
+// section below. Without scoping, both instances would share the same
+// `name` attribute, forming one native HTML radio group across the two
+// renders and breaking Tab reachability for the inline copy. `useId`
+// gives each instance a unique suffix. If the story order changes and a
+// different story becomes primary, it will need the same treatment.
+function DefaultStoryRender(args: React.ComponentProps<typeof RadioGroup>) {
+  const instanceId = React.useId();
+  return (
+    <RadioGroup {...args} name={`${args.name}-${instanceId}`}>
       <Radio value="apple">Apple</Radio>
       <Radio value="banana">Banana</Radio>
       <Radio value="cherry">Cherry</Radio>
     </RadioGroup>
-  ),
+  );
+}
+
+export const Default: Story = {
+  args: {
+    name: "fruit-default",
+    "aria-label": "Fruit",
+    children: undefined,
+  },
+  render: (args) => <DefaultStoryRender {...args} />,
   parameters: {
     docs: {
       source: {
         code: `
-<RadioGroup name="fruit" aria-label="Fruit">
+<RadioGroup name="fruit-default" aria-label="Fruit">
   <Radio value="apple">Apple</Radio>
   <Radio value="banana">Banana</Radio>
   <Radio value="cherry">Cherry</Radio>
@@ -55,9 +68,13 @@ export const Default: Story = {
 };
 
 export const WithDefault: Story = {
-  args: { name: "fruit", children: null },
+  args: { name: "fruit-with-default", children: null },
   render: () => (
-    <RadioGroup name="fruit" defaultValue="banana" aria-label="Fruit">
+    <RadioGroup
+      name="fruit-with-default"
+      defaultValue="banana"
+      aria-label="Fruit"
+    >
       <Radio value="apple">Apple</Radio>
       <Radio value="banana">Banana</Radio>
       <Radio value="cherry">Cherry</Radio>
@@ -67,7 +84,7 @@ export const WithDefault: Story = {
     docs: {
       source: {
         code: `
-<RadioGroup name="fruit" defaultValue="banana" aria-label="Fruit">
+<RadioGroup name="fruit-with-default" defaultValue="banana" aria-label="Fruit">
   <Radio value="apple">Apple</Radio>
   <Radio value="banana">Banana</Radio>
   <Radio value="cherry">Cherry</Radio>
@@ -79,9 +96,13 @@ export const WithDefault: Story = {
 };
 
 export const Horizontal: Story = {
-  args: { name: "fruit", children: null },
+  args: { name: "fruit-horizontal", children: null },
   render: () => (
-    <RadioGroup name="fruit" orientation="horizontal" aria-label="Fruit">
+    <RadioGroup
+      name="fruit-horizontal"
+      orientation="horizontal"
+      aria-label="Fruit"
+    >
       <Radio value="apple">Apple</Radio>
       <Radio value="banana">Banana</Radio>
       <Radio value="cherry">Cherry</Radio>
@@ -91,7 +112,7 @@ export const Horizontal: Story = {
     docs: {
       source: {
         code: `
-<RadioGroup name="fruit" orientation="horizontal" aria-label="Fruit">
+<RadioGroup name="fruit-horizontal" orientation="horizontal" aria-label="Fruit">
   <Radio value="apple">Apple</Radio>
   <Radio value="banana">Banana</Radio>
   <Radio value="cherry">Cherry</Radio>
@@ -157,9 +178,14 @@ export const AllSizes: Story = {
 };
 
 export const Disabled: Story = {
-  args: { name: "fruit", children: null },
+  args: { name: "fruit-disabled", children: null },
   render: () => (
-    <RadioGroup name="fruit" defaultValue="banana" disabled aria-label="Fruit">
+    <RadioGroup
+      name="fruit-disabled"
+      defaultValue="banana"
+      disabled
+      aria-label="Fruit"
+    >
       <Radio value="apple">Apple</Radio>
       <Radio value="banana">Banana</Radio>
       <Radio value="cherry">Cherry</Radio>
@@ -169,7 +195,7 @@ export const Disabled: Story = {
     docs: {
       source: {
         code: `
-<RadioGroup name="fruit" defaultValue="banana" disabled aria-label="Fruit">
+<RadioGroup name="fruit-disabled" defaultValue="banana" disabled aria-label="Fruit">
   <Radio value="apple">Apple</Radio>
   <Radio value="banana">Banana</Radio>
   <Radio value="cherry">Cherry</Radio>
@@ -182,9 +208,9 @@ export const Disabled: Story = {
 
 export const DisabledOption: Story = {
   name: "Disabled Option",
-  args: { name: "fruit", children: null },
+  args: { name: "fruit-disabled-option", children: null },
   render: () => (
-    <RadioGroup name="fruit" aria-label="Fruit">
+    <RadioGroup name="fruit-disabled-option" aria-label="Fruit">
       <Radio value="apple">Apple</Radio>
       <Radio value="banana" disabled>
         Banana (sold out)
@@ -196,7 +222,7 @@ export const DisabledOption: Story = {
     docs: {
       source: {
         code: `
-<RadioGroup name="fruit" aria-label="Fruit">
+<RadioGroup name="fruit-disabled-option" aria-label="Fruit">
   <Radio value="apple">Apple</Radio>
   <Radio value="banana" disabled>Banana (sold out)</Radio>
   <Radio value="cherry">Cherry</Radio>

@@ -65,11 +65,12 @@ function TableHead({
       scope="col"
       aria-sort={sortable ? ariaSortMap[sortDirection] : undefined}
       className={cn(
-        "text-left font-medium text-(--nuka-text-muted)",
+        "text-left font-[number:var(--font-weight-medium)] text-(--nuka-text-muted)",
         "px-(--space-4) py-(--space-3)",
         isBordered && "border-r border-(--nuka-border-base) last:border-r-0",
         className,
       )}
+      data-slot="head-cell"
       {...props}
     >
       {sortable ? (

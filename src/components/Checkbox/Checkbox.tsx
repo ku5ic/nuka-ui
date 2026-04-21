@@ -48,6 +48,7 @@ function Checkbox({
         resolvedDisabled ? "cursor-not-allowed" : undefined,
         className,
       )}
+      data-slot="root"
     >
       <input
         ref={ref}
@@ -55,6 +56,7 @@ function Checkbox({
         id={resolvedId}
         disabled={resolvedDisabled}
         className="peer sr-only"
+        data-slot="input"
         {...props}
         aria-invalid={ariaInvalid}
         aria-describedby={ariaDescribedBy}
@@ -63,6 +65,7 @@ function Checkbox({
       <span
         aria-hidden="true"
         className={cn(checkboxIndicatorVariants({ intent, size }))}
+        data-slot="indicator"
       >
         <svg
           className="hidden size-full p-0.5"
@@ -76,7 +79,11 @@ function Checkbox({
           <path d="M3.5 8.5L6.5 11.5L12.5 4.5" />
         </svg>
       </span>
-      {children && <Text as="span">{children}</Text>}
+      {children && (
+        <Text as="span" data-slot="label">
+          {children}
+        </Text>
+      )}
     </label>
   );
 }

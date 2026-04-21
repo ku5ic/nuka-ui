@@ -243,4 +243,28 @@ describe("Collapsible", () => {
       expect(region.className).toContain("grid");
     });
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on root, trigger, content, and content-inner", () => {
+      const { container } = render(
+        <Collapsible defaultOpen>
+          <CollapsibleTrigger>Toggle</CollapsibleTrigger>
+          <CollapsibleContent>Content</CollapsibleContent>
+        </Collapsible>,
+      );
+
+      expect(container.querySelector('[data-slot="root"]')).not.toBeNull();
+      expect(
+        screen
+          .getByRole("button", { name: "Toggle" })
+          .getAttribute("data-slot"),
+      ).toBe("trigger");
+      expect(screen.getByRole("region").getAttribute("data-slot")).toBe(
+        "content",
+      );
+      expect(
+        container.querySelector('[data-slot="content-inner"]'),
+      ).not.toBeNull();
+    });
+  });
 });

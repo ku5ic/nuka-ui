@@ -46,14 +46,16 @@ function CommandMenuGroup({
       aria-labelledby={heading != null ? headingId : undefined}
       hidden={!hasVisibleItems || undefined}
       className={cn(className)}
+      data-slot="group"
       {...props}
     >
       {heading != null && (
         <div
           id={headingId}
           role="presentation"
+          data-slot="group-heading"
           className={cn(
-            "text-xs font-medium text-(--nuka-text-muted)",
+            "text-xs font-[number:var(--font-weight-medium)] text-(--nuka-text-muted)",
             "px-(--space-3) py-(--space-2)",
           )}
         >

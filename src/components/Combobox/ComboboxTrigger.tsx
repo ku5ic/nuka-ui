@@ -107,6 +107,7 @@ function ComboboxTrigger({
       ref={composedRef}
       type="button"
       id={field.resolvedId}
+      data-slot="trigger"
       aria-haspopup="listbox"
       aria-expanded={ctx.open}
       aria-controls={ctx.open ? ctx.listboxId : undefined}

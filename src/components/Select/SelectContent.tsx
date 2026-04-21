@@ -18,6 +18,7 @@ function SelectContent({ ref, className, children }: SelectContentProps) {
     <div
       ref={ref}
       id={ctx.listboxId}
+      data-slot="content"
       role="listbox"
       hidden={!ctx.open}
       className={cn(

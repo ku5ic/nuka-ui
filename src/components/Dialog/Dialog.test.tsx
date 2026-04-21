@@ -377,4 +377,35 @@ describe("Dialog", () => {
       expect(ref.current).toBeInstanceOf(HTMLParagraphElement);
     });
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits the expected data-slot on every compound sub-component", async () => {
+      const user = userEvent.setup();
+      renderDialog();
+      await user.click(screen.getByRole("button", { name: "Open" }));
+
+      expect(
+        screen.getByRole("button", { name: "Open" }).getAttribute("data-slot"),
+      ).toBe("trigger");
+      expect(
+        document.body.querySelector('[data-slot="overlay"]'),
+      ).not.toBeNull();
+      expect(screen.getByRole("dialog").getAttribute("data-slot")).toBe(
+        "content",
+      );
+      expect(
+        screen
+          .getByRole("heading", { name: "Title" })
+          .getAttribute("data-slot"),
+      ).toBe("title");
+      expect(screen.getByText("Description").getAttribute("data-slot")).toBe(
+        "description",
+      );
+      expect(
+        screen
+          .getByRole("button", { name: "Cancel" })
+          .getAttribute("data-slot"),
+      ).toBe("close");
+    });
+  });
 });

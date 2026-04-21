@@ -214,4 +214,24 @@ describe("Tooltip", () => {
     await user.hover(screen.getByRole("button", { name: "Hover me" }));
     expect(screen.getByRole("tooltip")).toHaveClass("pointer-events-none");
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on trigger and content", async () => {
+      const user = userEvent.setup();
+      render(
+        <Tooltip delay={0}>
+          <TooltipTrigger>Hover me</TooltipTrigger>
+          <TooltipContent>Tooltip text</TooltipContent>
+        </Tooltip>,
+      );
+
+      const trigger = screen.getByRole("button", { name: "Hover me" });
+      expect(trigger.getAttribute("data-slot")).toBe("trigger");
+
+      await user.hover(trigger);
+      expect(screen.getByRole("tooltip").getAttribute("data-slot")).toBe(
+        "content",
+      );
+    });
+  });
 });

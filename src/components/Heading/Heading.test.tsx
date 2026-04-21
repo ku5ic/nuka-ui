@@ -157,6 +157,52 @@ describe("Heading", () => {
         screen.getByRole("heading", { name: "Semibold" }).className,
       ).toContain("font-[number:var(--font-weight-semibold)]");
     });
+
+    it("applies thin weight", () => {
+      render(<Heading weight="thin">Thin</Heading>);
+      expect(screen.getByRole("heading", { name: "Thin" }).className).toContain(
+        "font-[number:var(--font-weight-thin)]",
+      );
+    });
+
+    it("applies extralight weight", () => {
+      render(<Heading weight="extralight">Extralight</Heading>);
+      expect(
+        screen.getByRole("heading", { name: "Extralight" }).className,
+      ).toContain("font-[number:var(--font-weight-extralight)]");
+    });
+
+    it("applies light weight", () => {
+      render(<Heading weight="light">Light</Heading>);
+      expect(
+        screen.getByRole("heading", { name: "Light" }).className,
+      ).toContain("font-[number:var(--font-weight-light)]");
+    });
+
+    it("applies extrabold weight", () => {
+      render(<Heading weight="extrabold">Extrabold</Heading>);
+      expect(
+        screen.getByRole("heading", { name: "Extrabold" }).className,
+      ).toContain("font-[number:var(--font-weight-extrabold)]");
+    });
+
+    it("applies black weight", () => {
+      render(<Heading weight="black">Black</Heading>);
+      expect(
+        screen.getByRole("heading", { name: "Black" }).className,
+      ).toContain("font-[number:var(--font-weight-black)]");
+    });
+
+    // Regression: ensure a non-bold weight doesn't leave the bold class in
+    // the emitted className. If the base class array hardcodes a weight again,
+    // both classes land in the DOM and CSS source order (unpredictable) picks
+    // the winner.
+    it("does not emit bold class when weight overrides it", () => {
+      render(<Heading weight="thin">Thin only</Heading>);
+      expect(
+        screen.getByRole("heading", { name: "Thin only" }).className,
+      ).not.toContain("font-[number:var(--font-weight-bold)]");
+    });
   });
 
   describe("colors", () => {

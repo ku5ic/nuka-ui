@@ -12,6 +12,7 @@ function BreadcrumbItem({ ref, className, ...props }: BreadcrumbItemProps) {
     <li
       ref={ref}
       className={cn("inline-flex items-center gap-(--space-1.5)", className)}
+      data-slot="item"
       {...props}
     />
   );

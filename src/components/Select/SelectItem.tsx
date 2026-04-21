@@ -56,6 +56,7 @@ function SelectItem({
     <div
       ref={composedRef}
       id={optionId}
+      data-slot="item"
       role="option"
       aria-selected={isSelected}
       aria-disabled={disabled || undefined}

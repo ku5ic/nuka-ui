@@ -22,6 +22,7 @@ function TooltipContent({ ref, className, ...props }: TooltipContentProps) {
         ref={composeRefs(ref, ctx.refs.setFloating)}
         role="tooltip"
         style={ctx.floatingStyles}
+        data-slot="content"
         // Safe: Floating UI getFloatingProps() returns Record<string, unknown>;
         // values are standard DOM attributes and event handlers.
         {...(floatingProps as React.HTMLAttributes<HTMLDivElement>)}

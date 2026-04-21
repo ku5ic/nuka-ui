@@ -23,7 +23,7 @@ function StepperIndicator({ ref, className, ...props }: StepperIndicatorProps) {
         "flex items-center justify-center",
         "w-8 h-8 rounded-full",
         "border-2 shrink-0",
-        "text-sm font-medium",
+        "text-sm font-[number:var(--font-weight-medium)]",
         "transition-colors duration-150",
         state === "completed" &&
           "bg-(--nuka-accent-bg) border-(--nuka-accent-bg) text-(--nuka-accent-fg)",
@@ -35,6 +35,7 @@ function StepperIndicator({ ref, className, ...props }: StepperIndicatorProps) {
           "border-(--nuka-danger-base) text-(--nuka-danger-fg) bg-(--nuka-danger-base)",
         className,
       )}
+      data-slot="indicator"
       {...props}
     >
       {state === "completed" ? (

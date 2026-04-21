@@ -137,4 +137,11 @@ describe("ScrollArea", () => {
       );
     });
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot='root' on the wrapper", () => {
+      const { container } = render(<ScrollArea>Content</ScrollArea>);
+      expect(container.querySelector('[data-slot="root"]')).not.toBeNull();
+    });
+  });
 });

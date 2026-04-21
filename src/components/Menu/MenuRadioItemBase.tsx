@@ -67,11 +67,15 @@ function MenuRadioItemBase({
         disabled && "opacity-50 pointer-events-none",
         className,
       )}
+      data-slot="radio-item"
       onClick={handleClick}
       onKeyDown={handleKeyDown}
       {...props}
     >
-      <span className="inline-flex size-4 items-center justify-center shrink-0">
+      <span
+        className="inline-flex size-4 items-center justify-center shrink-0"
+        data-slot="item-indicator"
+      >
         {checked && (
           <Icon size="sm">
             <DotIcon />

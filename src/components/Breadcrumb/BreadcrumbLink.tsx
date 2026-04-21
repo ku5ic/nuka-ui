@@ -29,6 +29,7 @@ function BreadcrumbLink({
         "rounded-(--radius-sm)",
         className,
       )}
+      data-slot="link"
       {...props}
     />
   );

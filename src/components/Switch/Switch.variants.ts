@@ -13,10 +13,13 @@ export const switchVariants = cva(
   ],
   {
     variants: {
+      // sm stays at WCAG 2.5.8 minimum (24x40); md and lg step up in height,
+      // width, and thumb size so the ramp is visually distinct. All sizes pass
+      // the 24x24 touch-target minimum.
       size: {
         sm: "h-6 w-10",
-        md: "h-5 w-9",
-        lg: "h-6 w-11",
+        md: "h-7 w-12",
+        lg: "h-8 w-14",
       },
     },
     defaultVariants: {
@@ -33,11 +36,15 @@ export const switchThumbVariants = cva(
     "pointer-events-none",
   ],
   {
+    // Thumb sits inside the track (switchVariants). The track is the 24x24+
+    // touch target; the thumb is a decorative sub-element.
     variants: {
       size: {
+        // eslint-disable-next-line nuka/no-sub-touch-target-sizes
         sm: "size-4",
-        md: "size-4",
-        lg: "size-5",
+        // eslint-disable-next-line nuka/no-sub-touch-target-sizes
+        md: "size-5",
+        lg: "size-6",
       },
     },
     defaultVariants: {

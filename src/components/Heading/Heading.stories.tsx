@@ -21,7 +21,17 @@ const meta = {
     },
     weight: {
       control: "select",
-      options: ["regular", "medium", "semibold", "bold"],
+      options: [
+        "thin",
+        "extralight",
+        "light",
+        "regular",
+        "medium",
+        "semibold",
+        "bold",
+        "extrabold",
+        "black",
+      ],
     },
     color: {
       control: "select",
@@ -166,13 +176,22 @@ export const AllSizes: Story = {
 export const AllWeights: Story = {
   parameters: {
     docs: {
+      description: {
+        story:
+          'Heading exposes the full nine-value weight scale per the typography contract. **Rendering requires a font that supports the requested weight.** The default heading family resolves to the system serif stack (ui-serif / New York / Georgia / Cambria), which ships with only 4-5 hinted weights; thin, extralight, light, and extrabold may render identically or be synthesized. To demonstrate the full scale visibly, this story uses family="body" which resolves to the system sans stack (SF Pro / Segoe UI / etc.) and typically carries all 9 weights. See docs/TYPOGRAPHY.md for the rendering caveat.',
+      },
       source: {
         code: `
 <Stack className="gap-3">
-  <Heading weight="regular">Regular (400)</Heading>
-  <Heading weight="medium">Medium (500)</Heading>
-  <Heading weight="semibold">Semibold (600)</Heading>
-  <Heading weight="bold">Bold (700): default</Heading>
+  <Heading family="body" weight="thin">Thin (100)</Heading>
+  <Heading family="body" weight="extralight">Extralight (200)</Heading>
+  <Heading family="body" weight="light">Light (300)</Heading>
+  <Heading family="body" weight="regular">Regular (400)</Heading>
+  <Heading family="body" weight="medium">Medium (500)</Heading>
+  <Heading family="body" weight="semibold">Semibold (600)</Heading>
+  <Heading family="body" weight="bold">Bold (700): default</Heading>
+  <Heading family="body" weight="extrabold">Extrabold (800)</Heading>
+  <Heading family="body" weight="black">Black (900)</Heading>
 </Stack>
         `.trim(),
       },
@@ -180,10 +199,73 @@ export const AllWeights: Story = {
   },
   render: () => (
     <Stack className="gap-3">
+      <Heading family="body" weight="thin">
+        Thin (100)
+      </Heading>
+      <Heading family="body" weight="extralight">
+        Extralight (200)
+      </Heading>
+      <Heading family="body" weight="light">
+        Light (300)
+      </Heading>
+      <Heading family="body" weight="regular">
+        Regular (400)
+      </Heading>
+      <Heading family="body" weight="medium">
+        Medium (500)
+      </Heading>
+      <Heading family="body" weight="semibold">
+        Semibold (600)
+      </Heading>
+      <Heading family="body" weight="bold">
+        Bold (700): default
+      </Heading>
+      <Heading family="body" weight="extrabold">
+        Extrabold (800)
+      </Heading>
+      <Heading family="body" weight="black">
+        Black (900)
+      </Heading>
+    </Stack>
+  ),
+};
+
+export const AllWeightsDefaultFamily: Story = {
+  name: "All Weights (default serif family)",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "The same nine-value weight scale rendered with the **default** Heading family (serif). System serif fonts typically ship with fewer hinted weights, so several of these will look identical or near-identical. This is documented behavior, not a bug: the CSS output is correct (each Heading emits a distinct `font-[number:var(--font-weight-<name>)]` class); the visible result depends on the loaded font supporting that weight.",
+      },
+      source: {
+        code: `
+<Stack className="gap-3">
+  <Heading weight="thin">Thin (100)</Heading>
+  <Heading weight="extralight">Extralight (200)</Heading>
+  <Heading weight="light">Light (300)</Heading>
+  <Heading weight="regular">Regular (400)</Heading>
+  <Heading weight="medium">Medium (500)</Heading>
+  <Heading weight="semibold">Semibold (600)</Heading>
+  <Heading weight="bold">Bold (700): default</Heading>
+  <Heading weight="extrabold">Extrabold (800)</Heading>
+  <Heading weight="black">Black (900)</Heading>
+</Stack>
+        `.trim(),
+      },
+    },
+  },
+  render: () => (
+    <Stack className="gap-3">
+      <Heading weight="thin">Thin (100)</Heading>
+      <Heading weight="extralight">Extralight (200)</Heading>
+      <Heading weight="light">Light (300)</Heading>
       <Heading weight="regular">Regular (400)</Heading>
       <Heading weight="medium">Medium (500)</Heading>
       <Heading weight="semibold">Semibold (600)</Heading>
       <Heading weight="bold">Bold (700): default</Heading>
+      <Heading weight="extrabold">Extrabold (800)</Heading>
+      <Heading weight="black">Black (900)</Heading>
     </Stack>
   ),
 };

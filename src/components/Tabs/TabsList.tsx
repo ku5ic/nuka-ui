@@ -46,6 +46,7 @@ function TabsList({
         orientation === "vertical" && "flex-col",
         className,
       )}
+      data-slot="list"
       onKeyDown={handleKeyDown}
       {...props}
     >

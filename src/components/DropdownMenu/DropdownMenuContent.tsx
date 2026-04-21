@@ -57,6 +57,7 @@ function DropdownMenuContent({
         <div
           ref={composedRef}
           style={ctx.floatingStyles}
+          data-slot="content"
           data-state="open"
           {...floatingProps}
           className={cn(menuContentVariants(), className)}

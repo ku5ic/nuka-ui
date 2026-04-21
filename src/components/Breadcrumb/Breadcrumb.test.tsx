@@ -272,4 +272,36 @@ describe("Breadcrumb", () => {
       expect(screen.getByRole("list")).toHaveClass("custom-list");
     });
   });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on every Breadcrumb sub-component", () => {
+      const { container } = render(
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">Home</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbEllipsis />
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Current</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>,
+      );
+
+      expect(container.querySelector('[data-slot="root"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="list"]')).not.toBeNull();
+      expect(container.querySelectorAll('[data-slot="item"]').length).toBe(3);
+      expect(container.querySelector('[data-slot="link"]')).not.toBeNull();
+      expect(container.querySelectorAll('[data-slot="separator"]').length).toBe(
+        2,
+      );
+      expect(container.querySelector('[data-slot="ellipsis"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="page"]')).not.toBeNull();
+    });
+  });
 });

@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "@nuka/utils/variants";
 export const buttonVariants = cva(
   [
     "inline-flex items-center justify-center gap-(--space-2)",
-    "font-medium leading-none whitespace-nowrap",
+    "font-[number:var(--font-weight-medium)] leading-none whitespace-nowrap",
     "rounded-(--radius-md)",
     "border",
     "transition-colors duration-150",

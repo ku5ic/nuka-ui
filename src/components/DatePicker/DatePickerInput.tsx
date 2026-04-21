@@ -136,6 +136,7 @@ function DatePickerInput({
     <div
       ref={composedRef}
       className={cn("relative inline-flex w-full items-center", className)}
+      data-slot="input-root"
       {...props}
     >
       <Input
@@ -154,6 +155,7 @@ function DatePickerInput({
         aria-required={field.ariaRequired}
         className="pr-(--space-10)"
         autoComplete="off"
+        data-slot="input"
       />
       <button
         ref={composeRefs(
@@ -165,6 +167,7 @@ function DatePickerInput({
         onClick={handleToggle}
         disabled={ctx.disabled}
         aria-label="Open calendar"
+        data-slot="toggle"
         className={cn(
           "absolute right-0 top-0 bottom-0 flex items-center justify-center",
           "px-(--space-3) text-(--nuka-text-muted) hover:text-(--nuka-text-base)",

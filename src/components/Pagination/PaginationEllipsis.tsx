@@ -22,6 +22,7 @@ function PaginationEllipsis({
           "text-(--nuka-text-muted)",
           className,
         )}
+        data-slot="ellipsis"
         {...props}
       >
         ...

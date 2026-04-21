@@ -5,7 +5,9 @@ import { Slot } from "@nuka/utils/slot";
 import { cn } from "@nuka/utils/cn";
 import { Heading } from "@nuka/components/Heading";
 import type { HeadingElement } from "@nuka/components/Heading";
+import type { HeadingVariantProps } from "@nuka/components/Heading/Heading.variants";
 import { Text } from "@nuka/components/Text";
+import type { TextVariantProps } from "@nuka/components/Text/Text.variants";
 import { Stack } from "@nuka/components/Stack";
 import {
   cardVariants,
@@ -31,6 +33,7 @@ function Card({
     <Comp
       ref={ref}
       className={cn(cardVariants({ variant }), className)}
+      data-slot="root"
       {...props}
     />
   );
@@ -54,6 +57,7 @@ function CardHeader({
       <Slot
         ref={ref}
         className={cn("p-(--space-6) pb-0", className)}
+        data-slot="header"
         {...props}
       />
     );
@@ -65,6 +69,7 @@ function CardHeader({
       className={cn("p-(--space-6) pb-0", className)}
       direction="column"
       gap="xs"
+      data-slot="header"
       {...props}
     />
   );
@@ -78,11 +83,26 @@ export interface CardTitleProps extends Omit<
 > {
   ref?: React.Ref<HTMLElement> | undefined;
   as?: HeadingElement;
+  weight?: HeadingVariantProps["weight"];
 }
 
-function CardTitle({ ref, as = "h3", className, ...props }: CardTitleProps) {
+function CardTitle({
+  ref,
+  as = "h3",
+  className,
+  weight,
+  ...props
+}: CardTitleProps) {
   return (
-    <Heading ref={ref} as={as} size="xl" className={className} {...props} />
+    <Heading
+      ref={ref}
+      as={as}
+      size="xl"
+      className={className}
+      data-slot="title"
+      {...(weight !== undefined ? { weight } : {})}
+      {...props}
+    />
   );
 }
 
@@ -93,9 +113,15 @@ export interface CardDescriptionProps extends Omit<
   "color"
 > {
   ref?: React.Ref<HTMLElement> | undefined;
+  weight?: TextVariantProps["weight"];
 }
 
-function CardDescription({ ref, className, ...props }: CardDescriptionProps) {
+function CardDescription({
+  ref,
+  className,
+  weight,
+  ...props
+}: CardDescriptionProps) {
   return (
     <Text
       ref={ref}
@@ -103,6 +129,8 @@ function CardDescription({ ref, className, ...props }: CardDescriptionProps) {
       color="muted"
       size="sm"
       className={className}
+      data-slot="description"
+      {...(weight !== undefined ? { weight } : {})}
       {...props}
     />
   );
@@ -110,21 +138,37 @@ function CardDescription({ ref, className, ...props }: CardDescriptionProps) {
 
 CardDescription.displayName = "CardDescription";
 
+export type CardBodyPadding = "none" | "sm" | "md" | "lg";
+
+const cardBodyPaddingClasses: Record<CardBodyPadding, string> = {
+  none: "",
+  sm: "p-(--space-4)",
+  md: "p-(--space-6)",
+  lg: "p-(--space-8)",
+};
+
 export interface CardBodyProps extends React.HTMLAttributes<HTMLDivElement> {
   ref?: React.Ref<HTMLDivElement> | undefined;
   asChild?: boolean;
+  padding?: CardBodyPadding;
 }
 
 function CardBody({
   ref,
   className,
   asChild = false,
+  padding = "md",
   ...props
 }: CardBodyProps) {
   const Comp = asChild ? Slot : "div";
 
   return (
-    <Comp ref={ref} className={cn("p-(--space-6)", className)} {...props} />
+    <Comp
+      ref={ref}
+      className={cn(cardBodyPaddingClasses[padding], className)}
+      data-slot="body"
+      {...props}
+    />
   );
 }
 
@@ -146,6 +190,7 @@ function CardFooter({
       <Slot
         ref={ref}
         className={cn("p-(--space-6) pt-0", className)}
+        data-slot="footer"
         {...props}
       />
     );
@@ -158,6 +203,7 @@ function CardFooter({
       direction="row"
       gap="sm"
       justify="end"
+      data-slot="footer"
       {...props}
     />
   );

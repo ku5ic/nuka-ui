@@ -143,6 +143,20 @@ describe("CardTitle", () => {
   it("sets displayName correctly", () => {
     expect(CardTitle.displayName).toBe("CardTitle");
   });
+
+  it("forwards weight prop to Heading", () => {
+    render(<CardTitle weight="extrabold">Heavy</CardTitle>);
+    const title = screen.getByRole("heading", { name: "Heavy" });
+    expect(title.className).toContain(
+      "font-[number:var(--font-weight-extrabold)]",
+    );
+  });
+
+  it("preserves Heading's bold default when weight is omitted", () => {
+    render(<CardTitle>Default</CardTitle>);
+    const title = screen.getByRole("heading", { name: "Default" });
+    expect(title.className).toContain("font-[number:var(--font-weight-bold)]");
+  });
 });
 
 describe("CardDescription", () => {
@@ -156,6 +170,22 @@ describe("CardDescription", () => {
 
   it("sets displayName correctly", () => {
     expect(CardDescription.displayName).toBe("CardDescription");
+  });
+
+  it("forwards weight prop to Text", () => {
+    render(<CardDescription weight="semibold">Emphasized</CardDescription>);
+    const desc = screen.getByText("Emphasized");
+    expect(desc.className).toContain(
+      "font-[number:var(--font-weight-semibold)]",
+    );
+  });
+
+  it("preserves Text's regular default when weight is omitted", () => {
+    render(<CardDescription>Default</CardDescription>);
+    const desc = screen.getByText("Default");
+    expect(desc.className).toContain(
+      "font-[number:var(--font-weight-regular)]",
+    );
   });
 });
 
@@ -180,6 +210,63 @@ describe("CardBody", () => {
     const body = screen.getByTestId("body");
     expect(body.tagName).toBe("SECTION");
     expect(body).toHaveTextContent("Body content");
+  });
+
+  describe("padding", () => {
+    it("applies p-(--space-6) by default (md)", () => {
+      render(<CardBody data-testid="body">Body</CardBody>);
+      expect(screen.getByTestId("body").className).toContain("p-(--space-6)");
+    });
+
+    it("emits no padding class when padding is 'none'", () => {
+      render(
+        <CardBody data-testid="body" padding="none">
+          Body
+        </CardBody>,
+      );
+      const cls = screen.getByTestId("body").className;
+      expect(cls).not.toContain("p-(--space-4)");
+      expect(cls).not.toContain("p-(--space-6)");
+      expect(cls).not.toContain("p-(--space-8)");
+    });
+
+    it("applies p-(--space-4) when padding is 'sm'", () => {
+      render(
+        <CardBody data-testid="body" padding="sm">
+          Body
+        </CardBody>,
+      );
+      expect(screen.getByTestId("body").className).toContain("p-(--space-4)");
+    });
+
+    it("applies p-(--space-6) when padding is 'md'", () => {
+      render(
+        <CardBody data-testid="body" padding="md">
+          Body
+        </CardBody>,
+      );
+      expect(screen.getByTestId("body").className).toContain("p-(--space-6)");
+    });
+
+    it("applies p-(--space-8) when padding is 'lg'", () => {
+      render(
+        <CardBody data-testid="body" padding="lg">
+          Body
+        </CardBody>,
+      );
+      expect(screen.getByTestId("body").className).toContain("p-(--space-8)");
+    });
+
+    it("consumer className can override the default padding", () => {
+      render(
+        <CardBody data-testid="body" className="p-(--space-8)">
+          Body
+        </CardBody>,
+      );
+      const cls = screen.getByTestId("body").className;
+      expect(cls).toContain("p-(--space-8)");
+      expect(cls).not.toContain("p-(--space-6)");
+    });
   });
 });
 
@@ -238,5 +325,31 @@ describe("Card composition", () => {
     expect(screen.getByText("Description")).toBeInTheDocument();
     expect(screen.getByText("Body content")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Action" })).toBeInTheDocument();
+  });
+
+  describe("data-slot attributes (ADR-054)", () => {
+    it("emits data-slot on every Card sub-component", () => {
+      const { container } = render(
+        <Card data-testid="card">
+          <CardHeader>
+            <CardTitle>Title</CardTitle>
+            <CardDescription>Description</CardDescription>
+          </CardHeader>
+          <CardBody>Body</CardBody>
+          <CardFooter>
+            <button type="button">Action</button>
+          </CardFooter>
+        </Card>,
+      );
+
+      expect(container.querySelector('[data-slot="root"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="header"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="title"]')).not.toBeNull();
+      expect(
+        container.querySelector('[data-slot="description"]'),
+      ).not.toBeNull();
+      expect(container.querySelector('[data-slot="body"]')).not.toBeNull();
+      expect(container.querySelector('[data-slot="footer"]')).not.toBeNull();
+    });
   });
 });

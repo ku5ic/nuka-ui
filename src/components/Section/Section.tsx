@@ -39,6 +39,7 @@ function Section({
   return (
     <Tag
       ref={ref as React.RefObject<never>}
+      data-surface={background === "emphasis" ? "inverse" : undefined}
       className={cn(
         sectionVariants({ spacing, background, divider }),
         className,

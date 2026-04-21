@@ -7,7 +7,7 @@ export interface PaginationItemProps extends React.LiHTMLAttributes<HTMLLIElemen
 }
 
 function PaginationItem({ ref, ...props }: PaginationItemProps) {
-  return <li ref={ref} {...props} />;
+  return <li ref={ref} data-slot="item" {...props} />;
 }
 
 PaginationItem.displayName = "PaginationItem";

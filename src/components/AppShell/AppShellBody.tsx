@@ -12,6 +12,7 @@ function AppShellBody({ ref, className, ...props }: AppShellBodyProps) {
     <div
       ref={ref}
       className={cn("flex flex-1 h-full overflow-hidden", className)}
+      data-slot="body"
       {...props}
     />
   );

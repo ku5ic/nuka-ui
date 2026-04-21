@@ -159,6 +159,7 @@ function RadioGroup({
           "gap-(--space-2)",
           className,
         )}
+        data-slot="root"
         {...props}
         onKeyDown={handleKeyDown}
       >
