@@ -26,7 +26,7 @@ function PopoverTrigger({
       ref={composedRef}
       type={asChild ? undefined : "button"}
       data-slot="trigger"
-      {...(triggerProps as React.ButtonHTMLAttributes<HTMLButtonElement>)}
+      {...triggerProps}
     >
       {children}
     </Comp>

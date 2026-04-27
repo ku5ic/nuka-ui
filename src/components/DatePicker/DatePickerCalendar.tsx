@@ -146,7 +146,7 @@ function DatePickerCalendar({
         role="dialog"
         aria-label="Date picker"
         data-slot="calendar"
-        {...(floatingProps as React.HTMLAttributes<HTMLDivElement>)}
+        {...floatingProps}
         className={cn(
           "z-(--nuka-z-dropdown) rounded-(--radius-md) border border-(--nuka-border-base)",
           "bg-(--nuka-bg-base) shadow-md p-(--space-3)",

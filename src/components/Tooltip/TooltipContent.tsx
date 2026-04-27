@@ -25,7 +25,7 @@ function TooltipContent({ ref, className, ...props }: TooltipContentProps) {
         data-slot="content"
         // Safe: Floating UI getFloatingProps() returns Record<string, unknown>;
         // values are standard DOM attributes and event handlers.
-        {...(floatingProps as React.HTMLAttributes<HTMLDivElement>)}
+        {...floatingProps}
         className={cn(
           "z-(--nuka-z-dropdown) max-w-xs rounded-(--radius-md) px-(--space-2) py-(--space-1)",
           "text-xs bg-(--nuka-bg-emphasis) text-(--nuka-text-inverse)",

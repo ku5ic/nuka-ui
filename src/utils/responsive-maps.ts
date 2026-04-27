@@ -193,7 +193,7 @@ export const ALL_BASE_MAPS: readonly {
   { name: "align", map: alignBaseMap },
   { name: "justify", map: justifyBaseMap },
   { name: "wrap", map: wrapBaseMap },
-  { name: "cols", map: colsBaseMap as Record<string, string> },
+  { name: "cols", map: colsBaseMap },
   { name: "textSize", map: textSizeBaseMap },
   { name: "headingSize", map: headingSizeBaseMap },
   { name: "textAlign", map: textAlignBaseMap },

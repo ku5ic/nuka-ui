@@ -104,7 +104,7 @@ function NavigationMenuTrigger({
       data-state={itemCtx.open ? "open" : "closed"}
       // Safe: Floating UI getReferenceProps() returns Record<string, unknown>;
       // values are standard DOM event handlers.
-      {...(triggerProps as React.ButtonHTMLAttributes<HTMLButtonElement>)}
+      {...triggerProps}
       tabIndex={itemCtx.value === rootCtx.rovingValue ? 0 : -1}
     >
       {children}
