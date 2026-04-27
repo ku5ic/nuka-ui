@@ -95,7 +95,7 @@ function MenubarTrigger({
       data-state={menu.open ? "open" : "closed"}
       // Safe: Floating UI getReferenceProps() returns Record<string, unknown>;
       // values are standard DOM event handlers.
-      {...(triggerProps as React.ButtonHTMLAttributes<HTMLButtonElement>)}
+      {...triggerProps}
     >
       {children}
     </button>

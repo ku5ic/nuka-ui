@@ -133,7 +133,7 @@ function Divider({
         ...orientationClasses,
         className,
       )}
-      {...(props as React.ComponentPropsWithoutRef<"hr">)}
+      {...props}
     />
   );
 }

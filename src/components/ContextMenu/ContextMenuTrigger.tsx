@@ -88,7 +88,7 @@ function ContextMenuTrigger({
         className,
       )}
       data-slot="trigger"
-      {...(props as React.HTMLAttributes<HTMLDivElement>)}
+      {...props}
     >
       {children}
     </Comp>

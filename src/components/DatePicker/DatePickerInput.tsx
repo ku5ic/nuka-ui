@@ -163,7 +163,7 @@ function DatePickerInput({
           ctx.refs.setReference as React.Ref<HTMLButtonElement>,
         )}
         type="button"
-        {...(referenceProps as React.ButtonHTMLAttributes<HTMLButtonElement>)}
+        {...referenceProps}
         onClick={handleToggle}
         disabled={ctx.disabled}
         aria-label="Open calendar"

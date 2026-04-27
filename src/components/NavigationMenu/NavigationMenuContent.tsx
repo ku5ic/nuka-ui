@@ -46,7 +46,7 @@ function NavigationMenuContent({
         data-slot="content"
         // Safe: Floating UI getFloatingProps() returns Record<string, unknown>;
         // values are standard DOM attributes and event handlers.
-        {...(floatingProps as React.HTMLAttributes<HTMLDivElement>)}
+        {...floatingProps}
         className={cn(
           "z-(--nuka-z-dropdown) min-w-48",
           "rounded-(--radius-md) border border-(--nuka-border-base)",

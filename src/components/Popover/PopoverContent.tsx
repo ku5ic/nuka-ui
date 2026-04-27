@@ -54,7 +54,7 @@ function PopoverContent({
         data-slot="content"
         // Safe: Floating UI getFloatingProps() returns Record<string, unknown>;
         // values are standard DOM attributes and event handlers.
-        {...(floatingProps as React.HTMLAttributes<HTMLDivElement>)}
+        {...floatingProps}
         className={cn(
           "z-(--nuka-z-dropdown) rounded-(--radius-md) border border-(--nuka-border-base)",
           "bg-(--nuka-bg-base) shadow-md p-(--space-4)",

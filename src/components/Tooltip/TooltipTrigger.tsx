@@ -28,7 +28,7 @@ function TooltipTrigger({
       data-slot="trigger"
       // Safe: Floating UI getReferenceProps() returns Record<string, unknown>;
       // values are standard DOM event handlers.
-      {...(triggerProps as React.ButtonHTMLAttributes<HTMLButtonElement>)}
+      {...triggerProps}
     >
       {children}
     </Comp>

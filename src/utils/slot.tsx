@@ -87,10 +87,7 @@ function Slot({ ref: forwardedRef, children, ...slotProps }: SlotProps) {
   const childRef = childElement.props.ref;
   const composedRef = composeRefs(forwardedRef, childRef);
 
-  const mergedProps = mergeProps(
-    slotProps as Record<string, unknown>,
-    childElement.props as Record<string, unknown>,
-  );
+  const mergedProps = mergeProps(slotProps, childElement.props);
 
   const cloneProps: Record<string, unknown> & React.Attributes = {
     ...mergedProps,

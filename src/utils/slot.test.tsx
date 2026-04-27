@@ -171,7 +171,7 @@ describe("Slot", () => {
     const spy = vi.spyOn(console, "error").mockImplementation(vi.fn());
 
     expect(() => {
-      render(<Slot>{"just a string" as unknown as React.ReactElement}</Slot>);
+      render(<Slot>{"just a string"}</Slot>);
     }).toThrow("Slot requires a single valid React element as its child");
 
     spy.mockRestore();
