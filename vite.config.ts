@@ -29,7 +29,7 @@ export default defineConfig({
     tailwindcss(),
     dts({
       tsconfigPath: "./tsconfig.build.json",
-      outDir: "dist",
+      outDirs: ["dist"],
       entryRoot: "src",
     }),
     {
