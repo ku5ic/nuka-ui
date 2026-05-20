@@ -39,7 +39,7 @@ function SelectItem({
     return () => {
       ctx.unregisterOption(value);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- register once on mount, unregister on unmount
+    // eslint-disable-next-line react-hooks/exhaustive-deps, @eslint-react/exhaustive-deps -- register once on mount, unregister on unmount
   }, []);
 
   React.useEffect(() => {

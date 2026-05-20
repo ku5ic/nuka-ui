@@ -173,9 +173,17 @@ describe("Tag", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the span element", () => {
-      const ref = React.createRef<HTMLSpanElement>();
-      render(<Tag ref={ref}>Tag</Tag>);
-      expect(ref.current).toBeInstanceOf(HTMLSpanElement);
+      let ref: HTMLSpanElement | null = null;
+      render(
+        <Tag
+          ref={(el) => {
+            ref = el;
+          }}
+        >
+          Tag
+        </Tag>,
+      );
+      expect(ref).toBeInstanceOf(HTMLSpanElement);
     });
   });
 });

@@ -72,6 +72,7 @@ function PaginationNext({
 
     return (
       <Button asChild variant="ghost" size="sm" className={className}>
+        {/* eslint-disable-next-line @eslint-react/no-clone-element -- asChild pattern must merge props onto the consumer's element and replace its children with the label + icon; Slot handles prop merging but not child replacement */}
         {React.cloneElement(
           child,
           {

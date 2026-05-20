@@ -181,21 +181,41 @@ describe("Divider", () => {
 
   describe("ref forwarding", () => {
     it("ref resolves to an instance of HTMLElement", () => {
-      const ref = React.createRef<HTMLElement>();
-      render(<Divider ref={ref} />);
-      expect(ref.current).toBeInstanceOf(HTMLElement);
+      let ref: HTMLElement | null = null;
+      render(
+        <Divider
+          ref={(el) => {
+            ref = el;
+          }}
+        />,
+      );
+      expect(ref).toBeInstanceOf(HTMLElement);
     });
 
     it("ref resolves for vertical orientation", () => {
-      const ref = React.createRef<HTMLElement>();
-      render(<Divider ref={ref} orientation="vertical" />);
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      let ref: HTMLElement | null = null;
+      render(
+        <Divider
+          ref={(el) => {
+            ref = el;
+          }}
+          orientation="vertical"
+        />,
+      );
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
 
     it("ref resolves for labeled divider", () => {
-      const ref = React.createRef<HTMLElement>();
-      render(<Divider ref={ref} label="Section" />);
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      let ref: HTMLElement | null = null;
+      render(
+        <Divider
+          ref={(el) => {
+            ref = el;
+          }}
+          label="Section"
+        />,
+      );
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
   });
 });

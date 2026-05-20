@@ -18,11 +18,13 @@ function AccordionTrigger({
   children,
   ...props
 }: AccordionTriggerProps) {
+  // eslint-disable-next-line @eslint-react/static-components -- headingLevel is "h1"-"h6" from context; the rule flags uppercase-named variables used as JSX elements but this maps to a DOM element, not a component
   const { headingLevel } = useAccordionContext();
   const { open } = useAccordionItemContext();
   const HeadingTag = headingLevel;
 
   return (
+    // eslint-disable-next-line @eslint-react/static-components -- HeadingTag is a string ("h1"-"h6"), a DOM element not a React component; the rule cannot distinguish DOM tag strings from component definitions
     <HeadingTag className="flex" data-slot="trigger-heading">
       <CollapsibleTrigger
         ref={ref}

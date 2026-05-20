@@ -7,7 +7,6 @@ import { useEscapeKey } from "@nuka/hooks/use-escape-key";
 import { useControllableState } from "@nuka/hooks/use-controllable-state";
 import { getActiveElement } from "@nuka/utils/get-active-element";
 import { CommandMenuContext } from "@nuka/components/CommandMenu/CommandMenu.context";
-import { getVisibleItems } from "@nuka/components/CommandMenu/CommandMenu.utils";
 
 export interface CommandMenuProps {
   children: React.ReactNode;
@@ -30,7 +29,20 @@ function CommandMenu({
 
   const [filter, setFilter] = React.useState("");
   const [activeItemId, setActiveItemId] = React.useState<string | null>(null);
-  const [visibleCount, setVisibleCount] = React.useState(0);
+  const [visibleItemIds, setVisibleItemIds] = React.useState(
+    () => new Set<string>(),
+  );
+
+  // Reset filter and active item when the menu closes (setState during render,
+  // avoiding an extra paint cycle from useEffect).
+  const [prevOpen, setPrevOpen] = React.useState(open);
+  if (prevOpen !== open) {
+    setPrevOpen(open);
+    if (!open) {
+      setFilter("");
+      setActiveItemId(null);
+    }
+  }
 
   const baseId = React.useId();
   const listboxId = `${baseId}-listbox`;
@@ -45,12 +57,6 @@ function CommandMenu({
   );
 
   React.useEffect(() => {
-    if (!open) return;
-    const count = getVisibleItems(listRef).length;
-    setVisibleCount(count);
-  }, [open, filter]);
-
-  React.useEffect(() => {
     if (open) {
       restoreRef.current = getActiveElement() as HTMLElement | null;
     } else if (restoreRef.current != null) {
@@ -59,12 +65,29 @@ function CommandMenu({
     }
   }, [open]);
 
-  React.useEffect(() => {
-    if (!open) {
-      setFilter("");
-      setActiveItemId(null);
-    }
-  }, [open]);
+  const registerItemVisibility = React.useCallback(
+    (id: string, visible: boolean) => {
+      setVisibleItemIds((prev) => {
+        const next = new Set(prev);
+        if (visible) {
+          next.add(id);
+        } else {
+          next.delete(id);
+        }
+        return next;
+      });
+    },
+    [],
+  );
+
+  const unregisterItem = React.useCallback((id: string) => {
+    setVisibleItemIds((prev) => {
+      if (!prev.has(id)) return prev;
+      const next = new Set(prev);
+      next.delete(id);
+      return next;
+    });
+  }, []);
 
   const contextValue = React.useMemo(
     () => ({
@@ -74,7 +97,9 @@ function CommandMenu({
       setFilter,
       activeItemId,
       setActiveItemId,
-      visibleCount,
+      visibleCount: visibleItemIds.size,
+      registerItemVisibility,
+      unregisterItem,
       baseId,
       listboxId,
       inputId,
@@ -85,7 +110,9 @@ function CommandMenu({
       setOpen,
       filter,
       activeItemId,
-      visibleCount,
+      visibleItemIds.size,
+      registerItemVisibility,
+      unregisterItem,
       baseId,
       listboxId,
       inputId,

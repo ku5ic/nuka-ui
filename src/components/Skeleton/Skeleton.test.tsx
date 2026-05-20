@@ -52,9 +52,15 @@ describe("Skeleton", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the div element", () => {
-      const ref = React.createRef<HTMLDivElement>();
-      render(<Skeleton ref={ref} />);
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      let ref: HTMLDivElement | null = null;
+      render(
+        <Skeleton
+          ref={(el) => {
+            ref = el;
+          }}
+        />,
+      );
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
   });
 });

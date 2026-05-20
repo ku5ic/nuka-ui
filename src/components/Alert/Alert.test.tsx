@@ -131,9 +131,17 @@ describe("Alert", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the div element", () => {
-      const ref = React.createRef<HTMLDivElement>();
-      render(<Alert ref={ref}>Ref</Alert>);
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      let ref: HTMLDivElement | null = null;
+      render(
+        <Alert
+          ref={(el) => {
+            ref = el;
+          }}
+        >
+          Ref
+        </Alert>,
+      );
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
   });
 });

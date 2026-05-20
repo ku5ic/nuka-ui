@@ -170,9 +170,17 @@ describe("Stack", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the div element", () => {
-      const ref = React.createRef<HTMLDivElement>();
-      render(<Stack ref={ref}>Content</Stack>);
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      let ref: HTMLElement | null = null;
+      render(
+        <Stack
+          ref={(el) => {
+            ref = el;
+          }}
+        >
+          Content
+        </Stack>,
+      );
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
   });
 
@@ -220,14 +228,20 @@ describe("Stack", () => {
     });
 
     it("forwards ref when as is a non-div element", () => {
-      const ref = React.createRef<HTMLElement>();
+      let ref: HTMLElement | null = null;
       render(
-        <Stack as="section" ref={ref}>
+        <Stack
+          as="section"
+          ref={(el) => {
+            ref = el;
+          }}
+        >
           Content
         </Stack>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLElement);
-      expect(ref.current?.tagName).toBe("SECTION");
+      expect(ref).toBeInstanceOf(HTMLElement);
+      const typed = ref as HTMLElement | null;
+      expect(typed?.tagName).toBe("SECTION");
     });
 
     it("asChild overrides as (renders child element, not as value)", () => {

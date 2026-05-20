@@ -509,9 +509,14 @@ describe("TableCell", () => {
 
 describe("ref forwarding", () => {
   it("forwards ref on Table (to wrapper div)", () => {
-    const ref = React.createRef<HTMLDivElement>();
+    let ref: HTMLDivElement | null = null;
     render(
-      <Table ref={ref} caption="Test">
+      <Table
+        ref={(el) => {
+          ref = el;
+        }}
+        caption="Test"
+      >
         <TableBody>
           <TableRow>
             <TableCell>A</TableCell>
@@ -519,91 +524,119 @@ describe("ref forwarding", () => {
         </TableBody>
       </Table>,
     );
-    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+    expect(ref).toBeInstanceOf(HTMLDivElement);
   });
 
   it("forwards ref on TableHeader", () => {
-    const ref = React.createRef<HTMLTableSectionElement>();
+    let ref: HTMLTableSectionElement | null = null;
     render(
       <table>
-        <TableHeader ref={ref}>
+        <TableHeader
+          ref={(el) => {
+            ref = el;
+          }}
+        >
           <tr>
             <th>H</th>
           </tr>
         </TableHeader>
       </table>,
     );
-    expect(ref.current).toBeInstanceOf(HTMLTableSectionElement);
+    expect(ref).toBeInstanceOf(HTMLTableSectionElement);
   });
 
   it("forwards ref on TableBody", () => {
-    const ref = React.createRef<HTMLTableSectionElement>();
+    let ref: HTMLTableSectionElement | null = null;
     render(
       <table>
-        <TableBody ref={ref}>
+        <TableBody
+          ref={(el) => {
+            ref = el;
+          }}
+        >
           <tr>
             <td>A</td>
           </tr>
         </TableBody>
       </table>,
     );
-    expect(ref.current).toBeInstanceOf(HTMLTableSectionElement);
+    expect(ref).toBeInstanceOf(HTMLTableSectionElement);
   });
 
   it("forwards ref on TableFooter", () => {
-    const ref = React.createRef<HTMLTableSectionElement>();
+    let ref: HTMLTableSectionElement | null = null;
     render(
       <table>
-        <TableFooter ref={ref}>
+        <TableFooter
+          ref={(el) => {
+            ref = el;
+          }}
+        >
           <tr>
             <td>F</td>
           </tr>
         </TableFooter>
       </table>,
     );
-    expect(ref.current).toBeInstanceOf(HTMLTableSectionElement);
+    expect(ref).toBeInstanceOf(HTMLTableSectionElement);
   });
 
   it("forwards ref on TableRow", () => {
-    const ref = React.createRef<HTMLTableRowElement>();
+    let ref: HTMLTableRowElement | null = null;
     render(
       <table>
         <tbody>
-          <TableRow ref={ref}>
+          <TableRow
+            ref={(el) => {
+              ref = el;
+            }}
+          >
             <td>A</td>
           </TableRow>
         </tbody>
       </table>,
     );
-    expect(ref.current).toBeInstanceOf(HTMLTableRowElement);
+    expect(ref).toBeInstanceOf(HTMLTableRowElement);
   });
 
   it("forwards ref on TableHead", () => {
-    const ref = React.createRef<HTMLTableCellElement>();
+    let ref: HTMLTableCellElement | null = null;
     render(
       <table>
         <thead>
           <tr>
-            <TableHead ref={ref}>H</TableHead>
+            <TableHead
+              ref={(el) => {
+                ref = el;
+              }}
+            >
+              H
+            </TableHead>
           </tr>
         </thead>
       </table>,
     );
-    expect(ref.current).toBeInstanceOf(HTMLTableCellElement);
+    expect(ref).toBeInstanceOf(HTMLTableCellElement);
   });
 
   it("forwards ref on TableCell", () => {
-    const ref = React.createRef<HTMLTableCellElement>();
+    let ref: HTMLTableCellElement | null = null;
     render(
       <table>
         <tbody>
           <tr>
-            <TableCell ref={ref}>A</TableCell>
+            <TableCell
+              ref={(el) => {
+                ref = el;
+              }}
+            >
+              A
+            </TableCell>
           </tr>
         </tbody>
       </table>,
     );
-    expect(ref.current).toBeInstanceOf(HTMLTableCellElement);
+    expect(ref).toBeInstanceOf(HTMLTableCellElement);
   });
 });
 

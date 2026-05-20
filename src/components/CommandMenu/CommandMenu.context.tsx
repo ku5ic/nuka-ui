@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext } from "react";
+import { createContext, use } from "react";
 
 export interface CommandMenuContextValue {
   open: boolean;
@@ -9,6 +9,8 @@ export interface CommandMenuContextValue {
   activeItemId: string | null;
   setActiveItemId: (id: string | null) => void;
   visibleCount: number;
+  registerItemVisibility: (id: string, visible: boolean) => void;
+  unregisterItem: (id: string) => void;
   baseId: string;
   listboxId: string;
   inputId: string;
@@ -18,7 +20,7 @@ export interface CommandMenuContextValue {
 const CommandMenuContext = createContext<CommandMenuContextValue | null>(null);
 
 function useCommandMenuContext(): CommandMenuContextValue {
-  const ctx = useContext(CommandMenuContext);
+  const ctx = use(CommandMenuContext);
   if (ctx === null) {
     throw new Error(
       "CommandMenu compound components must be used within <CommandMenu>.",
@@ -27,4 +29,12 @@ function useCommandMenuContext(): CommandMenuContextValue {
   return ctx;
 }
 
-export { CommandMenuContext, useCommandMenuContext };
+export interface CommandMenuGroupContextValue {
+  registerItemVisibility: (id: string, visible: boolean) => void;
+  unregisterItem: (id: string) => void;
+}
+
+const CommandMenuGroupContext =
+  createContext<CommandMenuGroupContextValue | null>(null);
+
+export { CommandMenuContext, useCommandMenuContext, CommandMenuGroupContext };

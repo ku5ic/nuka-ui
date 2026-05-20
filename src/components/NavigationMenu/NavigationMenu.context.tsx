@@ -18,7 +18,7 @@ const NavigationMenuContext =
   React.createContext<NavigationMenuContextValue | null>(null);
 
 export function useNavigationMenuContext(): NavigationMenuContextValue {
-  const context = React.useContext(NavigationMenuContext);
+  const context = React.use(NavigationMenuContext);
   if (context === null) {
     throw new Error(
       "NavigationMenu compound components must be used within <NavigationMenu>",
@@ -42,7 +42,7 @@ const NavigationMenuItemContext =
   React.createContext<NavigationMenuItemContextValue | null>(null);
 
 export function useNavigationMenuItemContext(): NavigationMenuItemContextValue {
-  const context = React.useContext(NavigationMenuItemContext);
+  const context = React.use(NavigationMenuItemContext);
   if (context === null) {
     throw new Error(
       "NavigationMenuItem compound components must be used within <NavigationMenuItem>",
@@ -54,7 +54,7 @@ export function useNavigationMenuItemContext(): NavigationMenuItemContextValue {
 const NavigationMenuContentContext = React.createContext(false);
 
 export function useIsInsideContent(): boolean {
-  return React.useContext(NavigationMenuContentContext);
+  return React.use(NavigationMenuContentContext);
 }
 
 export {

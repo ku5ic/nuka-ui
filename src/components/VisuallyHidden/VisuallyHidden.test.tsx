@@ -64,19 +64,32 @@ describe("VisuallyHidden", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the rendered element", () => {
-      const ref = React.createRef<HTMLElement>();
-      render(<VisuallyHidden ref={ref}>Text</VisuallyHidden>);
-      expect(ref.current).toBeInstanceOf(HTMLSpanElement);
-    });
-
-    it("forwards ref with as prop", () => {
-      const ref = React.createRef<HTMLElement>();
+      let ref: HTMLElement | null = null;
       render(
-        <VisuallyHidden ref={ref} as="div">
+        <VisuallyHidden
+          ref={(el) => {
+            ref = el;
+          }}
+        >
           Text
         </VisuallyHidden>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      expect(ref).toBeInstanceOf(HTMLSpanElement);
+    });
+
+    it("forwards ref with as prop", () => {
+      let ref: HTMLElement | null = null;
+      render(
+        <VisuallyHidden
+          ref={(el) => {
+            ref = el;
+          }}
+          as="div"
+        >
+          Text
+        </VisuallyHidden>,
+      );
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
   });
 });

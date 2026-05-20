@@ -146,9 +146,15 @@ describe("Spinner", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the root span element", () => {
-      const ref = React.createRef<HTMLSpanElement>();
-      render(<Spinner ref={ref} />);
-      expect(ref.current).toBeInstanceOf(HTMLSpanElement);
+      let ref: HTMLSpanElement | null = null;
+      render(
+        <Spinner
+          ref={(el) => {
+            ref = el;
+          }}
+        />,
+      );
+      expect(ref).toBeInstanceOf(HTMLSpanElement);
     });
   });
 });

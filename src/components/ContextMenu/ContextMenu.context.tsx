@@ -15,7 +15,7 @@ const ContextMenuContext = React.createContext<
 >(undefined);
 
 function useContextMenuContext(): ContextMenuContextValue {
-  const context = React.useContext(ContextMenuContext);
+  const context = React.use(ContextMenuContext);
   if (context === undefined) {
     throw new Error(
       "useContextMenuContext must be used within a <ContextMenu> component",

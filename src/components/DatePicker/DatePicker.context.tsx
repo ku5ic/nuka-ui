@@ -29,7 +29,7 @@ const DatePickerContext = React.createContext<
 >(undefined);
 
 export function useDatePickerContext(): DatePickerContextValue {
-  const context = React.useContext(DatePickerContext);
+  const context = React.use(DatePickerContext);
   if (context === undefined) {
     throw new Error(
       "useDatePickerContext must be used within a <DatePicker> component",

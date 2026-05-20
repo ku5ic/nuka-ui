@@ -24,5 +24,5 @@ const defaultContext: FormFieldContextValue = {
 export const FormFieldContext = React.createContext(defaultContext);
 
 export function useFormField(): FormFieldContextValue {
-  return React.useContext(FormFieldContext);
+  return React.use(FormFieldContext);
 }

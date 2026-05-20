@@ -990,28 +990,36 @@ describe("DatePicker", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref on DatePickerInput", () => {
-      const ref = React.createRef<HTMLDivElement>();
+      let ref: HTMLDivElement | null = null;
       render(
         <DatePicker>
-          <DatePickerInput ref={ref} />
+          <DatePickerInput
+            ref={(el) => {
+              ref = el;
+            }}
+          />
           <DatePickerCalendar />
         </DatePicker>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
 
     it("forwards ref on DatePickerCalendar when open", async () => {
-      const ref = React.createRef<HTMLDivElement>();
+      let ref: HTMLDivElement | null = null;
       const user = userEvent.setup();
       render(
         <DatePicker>
           <DatePickerInput />
-          <DatePickerCalendar ref={ref} />
+          <DatePickerCalendar
+            ref={(el) => {
+              ref = el;
+            }}
+          />
         </DatePicker>,
       );
 
       await openCalendar(user);
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
   });
 

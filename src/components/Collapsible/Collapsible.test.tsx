@@ -187,36 +187,52 @@ describe("Collapsible", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to Collapsible root", () => {
-      const ref = React.createRef<HTMLDivElement>();
+      let ref: HTMLDivElement | null = null;
       render(
-        <Collapsible ref={ref}>
+        <Collapsible
+          ref={(el) => {
+            ref = el;
+          }}
+        >
           <CollapsibleTrigger>Toggle</CollapsibleTrigger>
           <CollapsibleContent>Content</CollapsibleContent>
         </Collapsible>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
 
     it("forwards ref to CollapsibleTrigger", () => {
-      const ref = React.createRef<HTMLButtonElement>();
+      let ref: HTMLButtonElement | null = null;
       render(
         <Collapsible>
-          <CollapsibleTrigger ref={ref}>Toggle</CollapsibleTrigger>
+          <CollapsibleTrigger
+            ref={(el) => {
+              ref = el;
+            }}
+          >
+            Toggle
+          </CollapsibleTrigger>
           <CollapsibleContent>Content</CollapsibleContent>
         </Collapsible>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLButtonElement);
+      expect(ref).toBeInstanceOf(HTMLButtonElement);
     });
 
     it("forwards ref to CollapsibleContent", () => {
-      const ref = React.createRef<HTMLDivElement>();
+      let ref: HTMLDivElement | null = null;
       render(
         <Collapsible>
           <CollapsibleTrigger>Toggle</CollapsibleTrigger>
-          <CollapsibleContent ref={ref}>Content</CollapsibleContent>
+          <CollapsibleContent
+            ref={(el) => {
+              ref = el;
+            }}
+          >
+            Content
+          </CollapsibleContent>
         </Collapsible>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
   });
 

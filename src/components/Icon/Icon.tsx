@@ -34,19 +34,6 @@ function Icon({
 
   const isLabelled = label !== undefined;
 
-  const child = React.isValidElement(children)
-    ? React.cloneElement(
-        // Safe: children prop is typed as React.ReactElement in the interface,
-        // so the generic parameter narrowing for cloneElement is safe (ADR-011).
-        children as React.ReactElement<Record<string, unknown>>,
-        {
-          "aria-hidden": "true" as const,
-          width: "100%",
-          height: "100%",
-        },
-      )
-    : children;
-
   return (
     <span
       ref={ref}
@@ -54,13 +41,14 @@ function Icon({
         ? { role: "img", "aria-label": label }
         : { "aria-hidden": "true" as const })}
       className={cn(
+        "[&>svg]:w-full [&>svg]:h-full",
         iconVariants({ size }),
         iconColorVariants({ color }),
         className,
       )}
       {...props}
     >
-      {child}
+      {children}
     </span>
   );
 }

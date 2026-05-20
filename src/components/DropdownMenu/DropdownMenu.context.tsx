@@ -16,7 +16,7 @@ const DropdownMenuContext = React.createContext<
 >(undefined);
 
 function useDropdownMenuContext(): DropdownMenuContextValue {
-  const context = React.useContext(DropdownMenuContext);
+  const context = React.use(DropdownMenuContext);
   if (context === undefined) {
     throw new Error(
       "useDropdownMenuContext must be used within a <DropdownMenu> component",

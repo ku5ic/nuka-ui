@@ -143,10 +143,13 @@ describe("Avatar", () => {
       expect(el.querySelector("svg")).not.toBeNull();
     });
 
-    it("icon SVG has aria-hidden='true'", () => {
+    it("icon fallback is hidden from screen readers via aria-hidden wrapper", () => {
       render(<Avatar data-testid="avatar" />);
-      const svg = screen.getByTestId("avatar").querySelector("svg");
-      expect(svg).toHaveAttribute("aria-hidden", "true");
+      const iconSpan = screen
+        .getByTestId("avatar")
+        .querySelector('[aria-hidden="true"]');
+      expect(iconSpan).not.toBeNull();
+      expect(iconSpan?.querySelector("svg")).not.toBeNull();
     });
   });
 
@@ -267,9 +270,15 @@ describe("Avatar", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to root <span>", () => {
-      const ref = React.createRef<HTMLSpanElement>();
-      render(<Avatar ref={ref} />);
-      expect(ref.current).toBeInstanceOf(HTMLSpanElement);
+      let ref: HTMLSpanElement | null = null;
+      render(
+        <Avatar
+          ref={(el) => {
+            ref = el;
+          }}
+        />,
+      );
+      expect(ref).toBeInstanceOf(HTMLSpanElement);
     });
   });
 

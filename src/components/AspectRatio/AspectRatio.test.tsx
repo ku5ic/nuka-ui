@@ -20,9 +20,15 @@ describe("AspectRatio", () => {
     });
 
     it("forwards ref to the outer element", () => {
-      const ref = React.createRef<HTMLDivElement>();
-      render(<AspectRatio ref={ref} />);
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      let ref: HTMLDivElement | null = null;
+      render(
+        <AspectRatio
+          ref={(el) => {
+            ref = el;
+          }}
+        />,
+      );
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
   });
 

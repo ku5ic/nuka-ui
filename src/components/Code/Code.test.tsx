@@ -125,9 +125,17 @@ describe("Code", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the code element", () => {
-      const ref = React.createRef<HTMLElement>();
-      render(<Code ref={ref}>code</Code>);
-      expect(ref.current).toBeInstanceOf(HTMLElement);
+      let ref: HTMLElement | null = null;
+      render(
+        <Code
+          ref={(el) => {
+            ref = el;
+          }}
+        >
+          code
+        </Code>,
+      );
+      expect(ref).toBeInstanceOf(HTMLElement);
     });
   });
 });

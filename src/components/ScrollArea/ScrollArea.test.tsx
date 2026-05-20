@@ -118,9 +118,17 @@ describe("ScrollArea", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the div element", () => {
-      const ref = React.createRef<HTMLDivElement>();
-      render(<ScrollArea ref={ref}>Content</ScrollArea>);
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      let ref: HTMLDivElement | null = null;
+      render(
+        <ScrollArea
+          ref={(el) => {
+            ref = el;
+          }}
+        >
+          Content
+        </ScrollArea>,
+      );
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
   });
 

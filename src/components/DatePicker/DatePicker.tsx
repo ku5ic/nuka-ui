@@ -95,7 +95,7 @@ function DatePicker({
 
   const baseId = React.useId();
   const triggerButtonRef = React.useRef<HTMLButtonElement>(null);
-  const focusCalendarOnOpen = React.useRef(false);
+  const focusCalendarOnOpenRef = React.useRef(false);
 
   const contextValue: DatePickerContextValue = React.useMemo(
     () => ({
@@ -114,7 +114,7 @@ function DatePicker({
       getFloatingProps,
       baseId,
       triggerButtonRef,
-      focusCalendarOnOpen,
+      focusCalendarOnOpen: focusCalendarOnOpenRef,
       formatDate: effectiveFormatDate,
       parseDate: effectiveParseDate,
       locale,
@@ -135,7 +135,7 @@ function DatePicker({
       getFloatingProps,
       baseId,
       triggerButtonRef,
-      focusCalendarOnOpen,
+      focusCalendarOnOpenRef,
       effectiveFormatDate,
       effectiveParseDate,
       locale,

@@ -387,17 +387,23 @@ describe("ContextMenu", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref on trigger", () => {
-      const ref = React.createRef<HTMLDivElement>();
+      let ref: HTMLDivElement | null = null;
       render(
         <ContextMenu>
-          <ContextMenuTrigger ref={ref}>Right-click here</ContextMenuTrigger>
+          <ContextMenuTrigger
+            ref={(el) => {
+              ref = el;
+            }}
+          >
+            Right-click here
+          </ContextMenuTrigger>
           <ContextMenuContent>
             <ContextMenuItem>Copy</ContextMenuItem>
           </ContextMenuContent>
         </ContextMenu>,
       );
 
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
   });
 

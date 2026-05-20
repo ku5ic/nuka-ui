@@ -103,9 +103,16 @@ describe("EmptyState", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the div element", () => {
-      const ref = React.createRef<HTMLDivElement>();
-      render(<EmptyState ref={ref} heading="No items" />);
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      let ref: HTMLDivElement | null = null;
+      render(
+        <EmptyState
+          ref={(el) => {
+            ref = el;
+          }}
+          heading="No items"
+        />,
+      );
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
   });
 

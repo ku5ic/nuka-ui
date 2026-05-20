@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext } from "react";
+import { createContext, use } from "react";
 
 type HeadingLevel = "h2" | "h3" | "h4";
 
@@ -14,7 +14,7 @@ interface AccordionContextValue {
 const AccordionContext = createContext<AccordionContextValue | null>(null);
 
 function useAccordionContext(): AccordionContextValue {
-  const context = useContext(AccordionContext);
+  const context = use(AccordionContext);
   if (context === null) {
     throw new Error(
       "Accordion compound components must be used within an <Accordion> parent.",
@@ -34,7 +34,7 @@ const AccordionItemContext = createContext<AccordionItemContextValue | null>(
 );
 
 function useAccordionItemContext(): AccordionItemContextValue {
-  const context = useContext(AccordionItemContext);
+  const context = use(AccordionItemContext);
   if (context === null) {
     throw new Error(
       "AccordionTrigger and AccordionContent must be used within an <AccordionItem> parent.",

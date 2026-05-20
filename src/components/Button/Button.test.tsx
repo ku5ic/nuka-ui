@@ -168,9 +168,17 @@ describe("Button", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the button element", () => {
-      const ref = React.createRef<HTMLButtonElement>();
-      render(<Button ref={ref}>Button</Button>);
-      expect(ref.current).toBeInstanceOf(HTMLButtonElement);
+      let ref: HTMLButtonElement | null = null;
+      render(
+        <Button
+          ref={(el) => {
+            ref = el;
+          }}
+        >
+          Button
+        </Button>,
+      );
+      expect(ref).toBeInstanceOf(HTMLButtonElement);
     });
   });
 

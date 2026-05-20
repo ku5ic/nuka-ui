@@ -47,40 +47,42 @@ function RadioGroup({
     onChange,
   );
 
-  const refsMap = React.useRef(new Map<string, HTMLInputElement>());
+  const inputRefsRef = React.useRef(new Map<string, HTMLInputElement>());
 
   const [focusedValue, setFocusedValue] = React.useState(currentValue);
 
-  // Incremented each time a Radio mounts and registers its ref. Used as a
-  // dependency for the first-focus effect below: refsMap is a ref (not state)
-  // so mutating it does not trigger a re-render. Without this counter the
-  // effect would run on mount before any radios have registered, read an
-  // empty map, and never set focusedValue, leaving all radios at tabIndex=-1.
-  const [registrationCount, setRegistrationCount] = React.useState(0);
+  // Track registered radio values in state so focusedValue can be derived
+  // during render (setState during render) rather than via a useEffect.
+  const [registeredValues, setRegisteredValues] = React.useState<string[]>([]);
 
   const registerRef = React.useCallback(
     (radioValue: string, node: HTMLInputElement | null) => {
       if (node) {
-        refsMap.current.set(radioValue, node);
-        setRegistrationCount((c) => c + 1);
+        inputRefsRef.current.set(radioValue, node);
+        setRegisteredValues((prev) =>
+          prev.includes(radioValue) ? prev : [...prev, radioValue],
+        );
       } else {
-        refsMap.current.delete(radioValue);
+        inputRefsRef.current.delete(radioValue);
+        setRegisteredValues((prev) => prev.filter((v) => v !== radioValue));
       }
     },
     [],
   );
 
-  // When the group has no selection, ensure the first non-disabled radio
-  // has tabIndex=0 so the group is reachable by Tab. Depends on
-  // registrationCount so it re-runs after radios mount and populate refsMap.
-  React.useEffect(() => {
-    if (focusedValue === undefined) {
-      const firstKey = Array.from(refsMap.current.keys())[0];
-      if (firstKey !== undefined) {
-        setFocusedValue(firstKey);
-      }
+  // When the group has no selection, ensure the first registered radio has
+  // tabIndex=0 so the group is reachable by Tab. Uses setState during render
+  // to avoid the extra paint cycle that a useEffect would introduce.
+  const [prevFirstRegistered, setPrevFirstRegistered] = React.useState<
+    string | undefined
+  >(registeredValues[0]);
+  const firstRegistered = registeredValues[0];
+  if (prevFirstRegistered !== firstRegistered) {
+    setPrevFirstRegistered(firstRegistered);
+    if (focusedValue === undefined && firstRegistered !== undefined) {
+      setFocusedValue(firstRegistered);
     }
-  }, [focusedValue, currentValue, registrationCount]);
+  }
 
   const handleChange = React.useCallback(
     (radioValue: string) => {
@@ -92,7 +94,7 @@ function RadioGroup({
 
   const getOrderedValues = React.useCallback((): string[] => {
     const values: string[] = [];
-    refsMap.current.forEach((node, radioValue) => {
+    inputRefsRef.current.forEach((node, radioValue) => {
       if (!node.disabled) {
         values.push(radioValue);
       }
@@ -120,7 +122,7 @@ function RadioGroup({
       if (nextValue === undefined) return;
       setFocusedValue(nextValue);
       handleChange(nextValue);
-      refsMap.current.get(nextValue)?.focus();
+      inputRefsRef.current.get(nextValue)?.focus();
     },
     [focusedValue, getOrderedValues, handleChange, props],
   );

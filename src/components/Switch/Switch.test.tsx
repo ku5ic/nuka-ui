@@ -178,9 +178,16 @@ describe("Switch", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to HTMLButtonElement", () => {
-      const ref = React.createRef<HTMLButtonElement>();
-      render(<Switch ref={ref} aria-label="Toggle" />);
-      expect(ref.current).toBeInstanceOf(HTMLButtonElement);
+      let ref: HTMLButtonElement | null = null;
+      render(
+        <Switch
+          ref={(el) => {
+            ref = el;
+          }}
+          aria-label="Toggle"
+        />,
+      );
+      expect(ref).toBeInstanceOf(HTMLButtonElement);
     });
   });
 

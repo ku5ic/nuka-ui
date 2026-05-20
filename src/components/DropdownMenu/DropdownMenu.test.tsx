@@ -577,17 +577,23 @@ describe("DropdownMenu", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref on trigger", () => {
-      const ref = React.createRef<HTMLButtonElement>();
+      let ref: HTMLButtonElement | null = null;
       render(
         <DropdownMenu>
-          <DropdownMenuTrigger ref={ref}>Actions</DropdownMenuTrigger>
+          <DropdownMenuTrigger
+            ref={(el) => {
+              ref = el;
+            }}
+          >
+            Actions
+          </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuItem>Edit</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>,
       );
 
-      expect(ref.current).toBeInstanceOf(HTMLButtonElement);
+      expect(ref).toBeInstanceOf(HTMLButtonElement);
     });
   });
 

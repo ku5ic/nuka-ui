@@ -2,7 +2,10 @@
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
 import type { ComboboxOptionProps } from "@nuka/components/Combobox/Combobox.types";
-import { useComboboxContext } from "@nuka/components/Combobox/Combobox.context";
+import {
+  useComboboxContext,
+  ComboboxGroupContext,
+} from "@nuka/components/Combobox/Combobox.context";
 import { getLabel } from "@nuka/components/Combobox/Combobox.utils";
 
 function ComboboxOption({
@@ -14,6 +17,7 @@ function ComboboxOption({
   onSelect,
 }: ComboboxOptionProps) {
   const ctx = useComboboxContext();
+  const groupCtx = React.use(ComboboxGroupContext);
   const internalRef = React.useRef<HTMLDivElement>(null);
 
   const composedRef = React.useCallback(
@@ -40,12 +44,21 @@ function ComboboxOption({
     return () => {
       ctx.unregisterOption(value);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- register once on mount, unregister on unmount
+    // eslint-disable-next-line react-hooks/exhaustive-deps, @eslint-react/exhaustive-deps -- register once on mount, unregister on unmount
   }, []);
 
   React.useEffect(() => {
     ctx.registerDisabledOption(value, disabled);
   }, [ctx, value, disabled]);
+
+  const groupRegister = groupCtx?.registerItemVisibility;
+  const groupUnregister = groupCtx?.unregisterItem;
+
+  React.useEffect(() => {
+    if (!groupRegister || !groupUnregister) return;
+    groupRegister(optionId, !isFiltered);
+    return () => groupUnregister(optionId);
+  }, [groupRegister, groupUnregister, optionId, isFiltered]);
 
   React.useEffect(() => {
     if (isActive && internalRef.current != null) {

@@ -69,7 +69,8 @@ function SplitLayout({
   ...props
 }: SplitLayoutProps) {
   if (process.env.NODE_ENV !== "production") {
-    const count = React.Children.count(children);
+    // eslint-disable-next-line @eslint-react/no-children-map -- counting direct children for a dev-only arity warning; no viable alternative without changing the component's public API
+    const count = React.Children.map(children, (c) => c)?.length ?? 0;
     if (count !== 2) {
       console.warn(
         `SplitLayout expects exactly 2 children (main + sidebar), received ${String(count)}.`,

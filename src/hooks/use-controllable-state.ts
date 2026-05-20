@@ -30,7 +30,7 @@ function useControllableState<T>(
     },
     // controlledValue is not read in the callback but must invalidate the closure
     // when the component switches between controlled and uncontrolled modes
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps, @eslint-react/exhaustive-deps
     [isControlled, onChange, controlledValue],
   );
 

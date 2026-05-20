@@ -176,14 +176,18 @@ describe("SplitLayout", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the rendered element", () => {
-      const ref = React.createRef<HTMLDivElement>();
+      let ref: HTMLDivElement | null = null;
       render(
-        <SplitLayout ref={ref}>
+        <SplitLayout
+          ref={(el) => {
+            ref = el;
+          }}
+        >
           <div>Main</div>
           <div>Side</div>
         </SplitLayout>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
   });
 

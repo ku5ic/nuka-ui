@@ -509,47 +509,60 @@ describe("Select", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the trigger button element", () => {
-      const ref = React.createRef<HTMLButtonElement>();
+      let ref: HTMLButtonElement | null = null;
       render(
         <Select>
-          <SelectTrigger ref={ref} placeholder="Choose" />
+          <SelectTrigger
+            ref={(el) => {
+              ref = el;
+            }}
+            placeholder="Choose"
+          />
           <SelectContent>
             <SelectItem value="a">Option A</SelectItem>
           </SelectContent>
         </Select>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLButtonElement);
+      expect(ref).toBeInstanceOf(HTMLButtonElement);
     });
 
     it("forwards ref to the root wrapper div", () => {
-      const ref = React.createRef<HTMLDivElement>();
+      let ref: HTMLDivElement | null = null;
       render(
-        <Select ref={ref}>
+        <Select
+          ref={(el) => {
+            ref = el;
+          }}
+        >
           <SelectTrigger placeholder="Choose" />
           <SelectContent>
             <SelectItem value="a">Option A</SelectItem>
           </SelectContent>
         </Select>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
 
     it("forwards ref on SelectSeparator", async () => {
       const user = userEvent.setup();
-      const ref = React.createRef<HTMLDivElement>();
+      let ref: HTMLDivElement | null = null;
       render(
         <Select>
           <SelectTrigger placeholder="Choose" />
           <SelectContent>
             <SelectItem value="a">Option A</SelectItem>
-            <SelectSeparator ref={ref} />
+            <SelectSeparator
+              ref={(el) => {
+                ref = el;
+              }}
+            />
             <SelectItem value="b">Option B</SelectItem>
           </SelectContent>
         </Select>,
       );
       await user.click(screen.getByRole("combobox"));
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
-      expect(ref.current).toHaveAttribute("role", "separator");
+      expect(ref).toBeInstanceOf(HTMLDivElement);
+      expect(ref).toHaveAttribute("role", "separator");
     });
   });
 

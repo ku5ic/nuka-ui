@@ -316,65 +316,87 @@ describe("Dialog", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to DialogTrigger", () => {
-      const ref = React.createRef<HTMLButtonElement>();
+      let ref: HTMLButtonElement | null = null;
       render(
         <Dialog>
-          <DialogTrigger ref={ref}>Open</DialogTrigger>
+          <DialogTrigger
+            ref={(el) => {
+              ref = el;
+            }}
+          >
+            Open
+          </DialogTrigger>
           <DialogContent>
             <DialogTitle>Title</DialogTitle>
           </DialogContent>
         </Dialog>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLButtonElement);
+      expect(ref).toBeInstanceOf(HTMLButtonElement);
     });
 
     it("forwards ref to DialogContent", async () => {
       const user = userEvent.setup();
-      const ref = React.createRef<HTMLDivElement>();
+      let ref: HTMLDivElement | null = null;
       render(
         <Dialog>
           <DialogTrigger>Open</DialogTrigger>
-          <DialogContent ref={ref}>
+          <DialogContent
+            ref={(el) => {
+              ref = el;
+            }}
+          >
             <DialogTitle>Title</DialogTitle>
           </DialogContent>
         </Dialog>,
       );
 
       await user.click(screen.getByRole("button", { name: "Open" }));
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
 
     it("forwards ref to DialogTitle", async () => {
       const user = userEvent.setup();
-      const ref = React.createRef<HTMLElement>();
+      let ref: HTMLElement | null = null;
       render(
         <Dialog>
           <DialogTrigger>Open</DialogTrigger>
           <DialogContent>
-            <DialogTitle ref={ref}>Title</DialogTitle>
+            <DialogTitle
+              ref={(el) => {
+                ref = el;
+              }}
+            >
+              Title
+            </DialogTitle>
           </DialogContent>
         </Dialog>,
       );
 
       await user.click(screen.getByRole("button", { name: "Open" }));
-      expect(ref.current).toBeInstanceOf(HTMLHeadingElement);
+      expect(ref).toBeInstanceOf(HTMLHeadingElement);
     });
 
     it("forwards ref to DialogDescription", async () => {
       const user = userEvent.setup();
-      const ref = React.createRef<HTMLElement>();
+      let ref: HTMLElement | null = null;
       render(
         <Dialog>
           <DialogTrigger>Open</DialogTrigger>
           <DialogContent>
             <DialogTitle>Title</DialogTitle>
-            <DialogDescription ref={ref}>Desc</DialogDescription>
+            <DialogDescription
+              ref={(el) => {
+                ref = el;
+              }}
+            >
+              Desc
+            </DialogDescription>
           </DialogContent>
         </Dialog>,
       );
 
       await user.click(screen.getByRole("button", { name: "Open" }));
-      expect(ref.current).toBeInstanceOf(HTMLParagraphElement);
+      expect(ref).toBeInstanceOf(HTMLParagraphElement);
     });
   });
 

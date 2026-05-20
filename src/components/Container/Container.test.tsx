@@ -154,9 +154,17 @@ describe("Container", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the div element", () => {
-      const ref = React.createRef<HTMLDivElement>();
-      render(<Container ref={ref}>Content</Container>);
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      let ref: HTMLElement | null = null;
+      render(
+        <Container
+          ref={(el) => {
+            ref = el;
+          }}
+        >
+          Content
+        </Container>,
+      );
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
   });
 
@@ -203,14 +211,20 @@ describe("Container", () => {
     });
 
     it("forwards ref when as is a non-div element", () => {
-      const ref = React.createRef<HTMLElement>();
+      let ref: HTMLElement | null = null;
       render(
-        <Container as="main" ref={ref}>
+        <Container
+          as="main"
+          ref={(el) => {
+            ref = el;
+          }}
+        >
           Content
         </Container>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLElement);
-      expect(ref.current?.tagName).toBe("MAIN");
+      expect(ref).toBeInstanceOf(HTMLElement);
+      const typed = ref as HTMLElement | null;
+      expect(typed?.tagName).toBe("MAIN");
     });
 
     it("asChild overrides as (renders child element, not as value)", () => {

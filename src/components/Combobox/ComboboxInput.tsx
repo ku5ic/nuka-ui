@@ -40,7 +40,7 @@ function ComboboxInput({ ref, className, ...props }: ComboboxInputProps) {
         }
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- runs once on mount when panel opens
+    // eslint-disable-next-line react-hooks/exhaustive-deps, @eslint-react/exhaustive-deps -- runs once on mount when panel opens
   }, []);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

@@ -138,13 +138,18 @@ describe("Banner", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the div element", () => {
-      const ref = React.createRef<HTMLDivElement>();
+      let ref: HTMLDivElement | null = null;
       render(
-        <Banner ref={ref} aria-label="Notice">
+        <Banner
+          ref={(el) => {
+            ref = el;
+          }}
+          aria-label="Notice"
+        >
           Ref
         </Banner>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
   });
 

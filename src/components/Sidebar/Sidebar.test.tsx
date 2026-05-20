@@ -286,27 +286,35 @@ describe("ref forwarding", () => {
   });
 
   it("forwards ref on SidebarProvider", () => {
-    const ref = React.createRef<HTMLDivElement>();
+    let ref: HTMLDivElement | null = null;
     render(
-      <SidebarProvider ref={ref}>
+      <SidebarProvider
+        ref={(el) => {
+          ref = el;
+        }}
+      >
         <Sidebar>
           <SidebarContent />
         </Sidebar>
       </SidebarProvider>,
     );
-    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+    expect(ref).toBeInstanceOf(HTMLDivElement);
   });
 
   it("forwards ref on Sidebar", () => {
-    const ref = React.createRef<HTMLElement>();
+    let ref: HTMLElement | null = null;
     render(
       <SidebarProvider>
-        <Sidebar ref={ref}>
+        <Sidebar
+          ref={(el) => {
+            ref = el;
+          }}
+        >
           <SidebarContent />
         </Sidebar>
       </SidebarProvider>,
     );
-    expect(ref.current).toBeInstanceOf(HTMLElement);
+    expect(ref).toBeInstanceOf(HTMLElement);
   });
 
   describe("data-slot attributes (ADR-054)", () => {

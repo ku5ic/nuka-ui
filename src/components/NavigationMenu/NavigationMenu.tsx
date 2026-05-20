@@ -16,9 +16,9 @@ function NavigationMenu({
   ...props
 }: NavigationMenuProps) {
   const [activeValue, setActiveValue] = React.useState<string | null>(null);
-  const itemRefs = React.useRef(new Map<string, HTMLElement>());
-  const itemValues = React.useRef<string[]>([]);
-  const itemLabels = React.useRef(new Map<string, string>());
+  const itemsRef = React.useRef(new Map<string, HTMLElement>());
+  const itemValuesRef = React.useRef<string[]>([]);
+  const itemLabelsRef = React.useRef(new Map<string, string>());
   const [rovingValue, setRovingValue] = React.useState<string | null>(null);
 
   const openMenu = React.useCallback((value: string) => {
@@ -32,14 +32,16 @@ function NavigationMenu({
   const registerItem = React.useCallback(
     (value: string, el: HTMLElement | null) => {
       if (el) {
-        itemRefs.current.set(value, el);
-        if (!itemValues.current.includes(value)) {
-          itemValues.current.push(value);
+        itemsRef.current.set(value, el);
+        if (!itemValuesRef.current.includes(value)) {
+          itemValuesRef.current.push(value);
           setRovingValue((prev) => prev ?? value);
         }
       } else {
-        itemRefs.current.delete(value);
-        itemValues.current = itemValues.current.filter((v) => v !== value);
+        itemsRef.current.delete(value);
+        itemValuesRef.current = itemValuesRef.current.filter(
+          (v) => v !== value,
+        );
       }
     },
     [],
@@ -51,9 +53,9 @@ function NavigationMenu({
       openMenu,
       closeMenu,
       registerItem,
-      itemValues,
-      itemRefs,
-      itemLabels,
+      itemValues: itemValuesRef,
+      itemRefs: itemsRef,
+      itemLabels: itemLabelsRef,
       rovingValue,
       setRovingValue,
     }),

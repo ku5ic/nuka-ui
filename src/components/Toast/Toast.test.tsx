@@ -320,11 +320,19 @@ describe("Toast", () => {
   });
 
   it("forwards ref to the status div", () => {
-    const ref = React.createRef<HTMLDivElement>();
+    let ref: HTMLDivElement | null = null;
     const onDismiss = vi.fn();
-    render(<Toast ref={ref} toast={baseToast} onDismiss={onDismiss} />);
-    expect(ref.current).toBeInstanceOf(HTMLDivElement);
-    expect(ref.current).toHaveAttribute("role", "status");
+    render(
+      <Toast
+        ref={(el) => {
+          ref = el;
+        }}
+        toast={baseToast}
+        onDismiss={onDismiss}
+      />,
+    );
+    expect(ref).toBeInstanceOf(HTMLDivElement);
+    expect(ref).toHaveAttribute("role", "status");
   });
 });
 
@@ -404,11 +412,17 @@ describe("Toaster", () => {
   });
 
   it("forwards ref to the notifications container", () => {
-    const ref = React.createRef<HTMLDivElement>();
+    let ref: HTMLDivElement | null = null;
     toast("msg");
-    render(<Toaster ref={ref} />);
-    expect(ref.current).toBeInstanceOf(HTMLDivElement);
-    expect(ref.current).toHaveAttribute("aria-label", "Notifications");
+    render(
+      <Toaster
+        ref={(el) => {
+          ref = el;
+        }}
+      />,
+    );
+    expect(ref).toBeInstanceOf(HTMLDivElement);
+    expect(ref).toHaveAttribute("aria-label", "Notifications");
   });
 
   describe("data-slot attributes (ADR-054)", () => {

@@ -289,48 +289,64 @@ describe("Sheet", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to SheetTrigger", () => {
-      const ref = React.createRef<HTMLButtonElement>();
+      let ref: HTMLButtonElement | null = null;
       render(
         <Sheet>
-          <SheetTrigger ref={ref}>Open</SheetTrigger>
+          <SheetTrigger
+            ref={(el) => {
+              ref = el;
+            }}
+          >
+            Open
+          </SheetTrigger>
           <SheetContent>
             <SheetTitle>Title</SheetTitle>
           </SheetContent>
         </Sheet>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLButtonElement);
+      expect(ref).toBeInstanceOf(HTMLButtonElement);
     });
 
     it("forwards ref to SheetContent", async () => {
       const user = userEvent.setup();
-      const ref = React.createRef<HTMLDivElement>();
+      let ref: HTMLDivElement | null = null;
       render(
         <Sheet>
           <SheetTrigger>Open</SheetTrigger>
-          <SheetContent ref={ref}>
+          <SheetContent
+            ref={(el) => {
+              ref = el;
+            }}
+          >
             <SheetTitle>Title</SheetTitle>
           </SheetContent>
         </Sheet>,
       );
 
       await user.click(screen.getByRole("button", { name: "Open" }));
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
 
     it("forwards ref to SheetTitle", async () => {
       const user = userEvent.setup();
-      const ref = React.createRef<HTMLElement>();
+      let ref: HTMLElement | null = null;
       render(
         <Sheet>
           <SheetTrigger>Open</SheetTrigger>
           <SheetContent>
-            <SheetTitle ref={ref}>Title</SheetTitle>
+            <SheetTitle
+              ref={(el) => {
+                ref = el;
+              }}
+            >
+              Title
+            </SheetTitle>
           </SheetContent>
         </Sheet>,
       );
 
       await user.click(screen.getByRole("button", { name: "Open" }));
-      expect(ref.current).toBeInstanceOf(HTMLHeadingElement);
+      expect(ref).toBeInstanceOf(HTMLHeadingElement);
     });
   });
 

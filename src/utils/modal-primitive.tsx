@@ -67,7 +67,7 @@ interface ModalPrimitiveResult {
 function createModalPrimitive(
   options: ModalPrimitiveOptions,
 ): ModalPrimitiveResult {
-  const { displayNamePrefix, closeLabel, Context, useContext } = options;
+  const { displayNamePrefix, closeLabel, Context, useContext: use } = options;
 
   function Root({
     children,
@@ -109,7 +109,7 @@ function createModalPrimitive(
     onClick,
     ...props
   }: ModalTriggerProps) {
-    const ctx = useContext();
+    const ctx = use();
     const Comp = asChild ? Slot : "button";
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -133,7 +133,7 @@ function createModalPrimitive(
   Trigger.displayName = `${displayNamePrefix}Trigger`;
 
   function Title({ ref, as = "h2", className, ...props }: ModalTitleProps) {
-    const ctx = useContext();
+    const ctx = use();
 
     return (
       <Heading
@@ -152,7 +152,7 @@ function createModalPrimitive(
   Title.displayName = `${displayNamePrefix}Title`;
 
   function Description({ ref, className, ...props }: ModalDescriptionProps) {
-    const ctx = useContext();
+    const ctx = use();
 
     const { setHasDescription } = ctx;
     React.useEffect(() => {
@@ -176,7 +176,7 @@ function createModalPrimitive(
   Description.displayName = `${displayNamePrefix}Description`;
 
   function Close({ ref, asChild = false, onClick, ...props }: ModalCloseProps) {
-    const ctx = useContext();
+    const ctx = use();
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
       ctx.onOpenChange(false);

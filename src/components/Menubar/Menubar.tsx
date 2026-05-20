@@ -10,23 +10,23 @@ export interface MenubarProps extends React.HTMLAttributes<HTMLDivElement> {
 
 function Menubar({ ref, className, children, ...props }: MenubarProps) {
   const [openValue, setOpenValue] = React.useState<string | null>(null);
-  const triggerRefs = React.useRef(new Map<string, HTMLButtonElement>());
-  const menuValues = React.useRef<string[]>([]);
+  const triggersRef = React.useRef(new Map<string, HTMLButtonElement>());
+  const menuValuesRef = React.useRef<string[]>([]);
 
   const registerTrigger = React.useCallback(
     (value: string, el: HTMLButtonElement | null) => {
       if (el) {
-        triggerRefs.current.set(value, el);
+        triggersRef.current.set(value, el);
       } else {
-        triggerRefs.current.delete(value);
+        triggersRef.current.delete(value);
       }
     },
     [],
   );
 
   const registerMenu = React.useCallback((value: string) => {
-    if (!menuValues.current.includes(value)) {
-      menuValues.current.push(value);
+    if (!menuValuesRef.current.includes(value)) {
+      menuValuesRef.current.push(value);
     }
   }, []);
 
@@ -43,9 +43,9 @@ function Menubar({ ref, className, children, ...props }: MenubarProps) {
       openValue,
       openMenu,
       closeMenu,
-      triggerRefs,
+      triggerRefs: triggersRef,
       registerTrigger,
-      menuValues,
+      menuValues: menuValuesRef,
       registerMenu,
     }),
     [openValue, openMenu, closeMenu, registerTrigger, registerMenu],

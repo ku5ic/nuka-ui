@@ -89,10 +89,19 @@ describe("Kbd", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the underlying <kbd> element", () => {
-      const ref = React.createRef<HTMLElement>();
-      const { container } = render(<Kbd ref={ref}>K</Kbd>);
-      expect(ref.current).toBe(container.querySelector("kbd"));
-      expect(ref.current?.tagName).toBe("KBD");
+      let ref: HTMLElement | null = null;
+      const { container } = render(
+        <Kbd
+          ref={(el) => {
+            ref = el;
+          }}
+        >
+          K
+        </Kbd>,
+      );
+      expect(ref).toBe(container.querySelector("kbd"));
+      const typed = ref as HTMLElement | null;
+      expect(typed?.tagName).toBe("KBD");
     });
   });
 });

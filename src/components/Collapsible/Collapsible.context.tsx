@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext } from "react";
+import { createContext, use } from "react";
 
 interface CollapsibleContextValue {
   open: boolean;
@@ -12,7 +12,7 @@ interface CollapsibleContextValue {
 const CollapsibleContext = createContext<CollapsibleContextValue | null>(null);
 
 function useCollapsibleContext(): CollapsibleContextValue {
-  const context = useContext(CollapsibleContext);
+  const context = use(CollapsibleContext);
   if (context === null) {
     throw new Error(
       "Collapsible compound components must be used within a <Collapsible> parent.",

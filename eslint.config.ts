@@ -1,7 +1,7 @@
 import eslint from "@eslint/js";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
-import reactPlugin from "eslint-plugin-react";
+import eslintReact from "@eslint-react/eslint-plugin";
 import reactHooks from "eslint-plugin-react-hooks";
 import prettierConfig from "eslint-config-prettier";
 import nukaPlugin from "./tools/eslint-plugin-nuka/index.js";
@@ -10,9 +10,10 @@ export default defineConfig(
   eslint.configs.recommended,
   tseslint.configs.strictTypeChecked,
   tseslint.configs.stylisticTypeChecked,
+  eslintReact.configs["recommended-typescript"],
+  eslintReact.configs["disable-conflict-eslint-plugin-react-hooks"],
   {
     plugins: {
-      react: reactPlugin,
       "react-hooks": reactHooks as never,
       nuka: nukaPlugin,
     },
@@ -22,13 +23,7 @@ export default defineConfig(
         tsconfigRootDir: import.meta.dirname,
       },
     },
-    settings: {
-      react: { version: "detect" },
-    },
     rules: {
-      ...reactPlugin.configs.recommended.rules,
-      "react/react-in-jsx-scope": "off",
-      "react/prop-types": "off",
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
       "@typescript-eslint/consistent-type-imports": [

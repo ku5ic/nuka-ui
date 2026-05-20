@@ -55,17 +55,23 @@ function DatePickerInput({
 
   const { selectedDate, open, formatDate: ctxFormatDate } = ctx;
 
-  const [inputText, setInputText] = React.useState(
+  const [inputText, setInputText] = React.useState(() =>
     selectedDate !== undefined ? ctxFormatDate(selectedDate) : "",
   );
 
-  React.useEffect(() => {
+  // Sync input text when the calendar closes or the selected date changes.
+  // Uses setState during render to avoid the extra paint cycle from useEffect.
+  const [prevOpen, setPrevOpen] = React.useState(open);
+  const [prevSelectedDate, setPrevSelectedDate] = React.useState(selectedDate);
+  if (prevOpen !== open || prevSelectedDate !== selectedDate) {
+    setPrevOpen(open);
+    setPrevSelectedDate(selectedDate);
     if (!open) {
       setInputText(
         selectedDate !== undefined ? ctxFormatDate(selectedDate) : "",
       );
     }
-  }, [selectedDate, open, ctxFormatDate]);
+  }
 
   const ariaInvalid = field.ariaInvalid ?? undefined;
 

@@ -166,9 +166,16 @@ describe("Checkbox", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to HTMLInputElement", () => {
-      const ref = React.createRef<HTMLInputElement>();
-      render(<Checkbox ref={ref} aria-label="Accept" />);
-      expect(ref.current).toBeInstanceOf(HTMLInputElement);
+      let ref: HTMLInputElement | null = null;
+      render(
+        <Checkbox
+          ref={(el) => {
+            ref = el;
+          }}
+          aria-label="Accept"
+        />,
+      );
+      expect(ref).toBeInstanceOf(HTMLInputElement);
     });
   });
 

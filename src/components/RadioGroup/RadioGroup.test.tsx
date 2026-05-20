@@ -324,15 +324,20 @@ describe("Radio", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to HTMLInputElement", () => {
-      const ref = React.createRef<HTMLInputElement>();
+      let ref: HTMLInputElement | null = null;
       render(
         <RadioGroup name="color" aria-label="Color">
-          <Radio ref={ref} value="red">
+          <Radio
+            ref={(el) => {
+              ref = el;
+            }}
+            value="red"
+          >
             Red
           </Radio>
         </RadioGroup>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLInputElement);
+      expect(ref).toBeInstanceOf(HTMLInputElement);
     });
   });
 

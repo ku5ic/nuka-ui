@@ -95,9 +95,17 @@ describe("Label", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the label element", () => {
-      const ref = React.createRef<HTMLLabelElement>();
-      render(<Label ref={ref}>Email</Label>);
-      expect(ref.current).toBeInstanceOf(HTMLLabelElement);
+      let ref: HTMLLabelElement | null = null;
+      render(
+        <Label
+          ref={(el) => {
+            ref = el;
+          }}
+        >
+          Email
+        </Label>,
+      );
+      expect(ref).toBeInstanceOf(HTMLLabelElement);
     });
   });
 
