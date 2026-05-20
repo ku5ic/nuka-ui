@@ -16,7 +16,7 @@ const PopoverContext = React.createContext<PopoverContextValue | undefined>(
 );
 
 export function usePopoverContext(): PopoverContextValue {
-  const context = React.useContext(PopoverContext);
+  const context = React.use(PopoverContext);
   if (context === undefined) {
     throw new Error(
       "usePopoverContext must be used within a <Popover> component",

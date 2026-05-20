@@ -132,11 +132,11 @@ function DatePickerCalendar({
   );
 
   const { handleKeyDown } = useCalendarKeyboard(ctx, navigateToDate, selectDay);
+  const today = React.useMemo(() => new Date(), []);
 
   if (!ctx.open) return null;
 
   const floatingProps = ctx.getFloatingProps(props);
-  const today = new Date();
 
   return (
     <Portal>
@@ -237,10 +237,10 @@ function DatePickerCalendar({
             ))}
           </div>
 
-          {weeks.map((week, weekIndex) => (
+          {weeks.map((week) => (
             <div
               role="row"
-              key={weekIndex}
+              key={`${String(displayedYear)}-${String(displayedMonth)}-${String(week.find((d) => d !== null) ?? 0)}`}
               className="grid grid-cols-7"
               data-slot="week-row"
             >

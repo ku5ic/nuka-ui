@@ -132,9 +132,15 @@ describe("Input", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the input element", () => {
-      const ref = React.createRef<HTMLInputElement>();
-      render(<Input ref={ref} />);
-      expect(ref.current).toBeInstanceOf(HTMLInputElement);
+      let ref: HTMLInputElement | null = null;
+      render(
+        <Input
+          ref={(el) => {
+            ref = el;
+          }}
+        />,
+      );
+      expect(ref).toBeInstanceOf(HTMLInputElement);
     });
   });
 

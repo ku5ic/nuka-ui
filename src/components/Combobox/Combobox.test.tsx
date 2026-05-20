@@ -671,10 +671,15 @@ describe("Combobox", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref on ComboboxTrigger", () => {
-      const ref = React.createRef<HTMLButtonElement>();
+      let ref: HTMLButtonElement | null = null;
       render(
         <Combobox>
-          <ComboboxTrigger ref={ref} placeholder="Select..." />
+          <ComboboxTrigger
+            ref={(el) => {
+              ref = el;
+            }}
+            placeholder="Select..."
+          />
           <ComboboxContent>
             <ComboboxInput />
             <ComboboxListbox>
@@ -683,16 +688,20 @@ describe("Combobox", () => {
           </ComboboxContent>
         </Combobox>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLButtonElement);
+      expect(ref).toBeInstanceOf(HTMLButtonElement);
     });
 
     it("forwards ref on ComboboxContent", async () => {
-      const ref = React.createRef<HTMLDivElement>();
+      let ref: HTMLDivElement | null = null;
       const user = userEvent.setup();
       render(
         <Combobox>
           <ComboboxTrigger placeholder="Select..." />
-          <ComboboxContent ref={ref}>
+          <ComboboxContent
+            ref={(el) => {
+              ref = el;
+            }}
+          >
             <ComboboxInput />
             <ComboboxListbox>
               <ComboboxOption value="a">A</ComboboxOption>
@@ -701,11 +710,11 @@ describe("Combobox", () => {
         </Combobox>,
       );
       await user.click(screen.getByRole("button", { name: "Select..." }));
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
 
     it("forwards ref on ComboboxOption", async () => {
-      const ref = React.createRef<HTMLDivElement>();
+      let ref: HTMLDivElement | null = null;
       const user = userEvent.setup();
       render(
         <Combobox>
@@ -713,7 +722,12 @@ describe("Combobox", () => {
           <ComboboxContent>
             <ComboboxInput />
             <ComboboxListbox>
-              <ComboboxOption ref={ref} value="a">
+              <ComboboxOption
+                ref={(el) => {
+                  ref = el;
+                }}
+                value="a"
+              >
                 A
               </ComboboxOption>
             </ComboboxListbox>
@@ -721,7 +735,7 @@ describe("Combobox", () => {
         </Combobox>,
       );
       await user.click(screen.getByRole("button", { name: "Select..." }));
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
   });
 

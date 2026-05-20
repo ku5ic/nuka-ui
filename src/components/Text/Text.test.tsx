@@ -318,19 +318,32 @@ describe("Text", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the rendered element", () => {
-      const ref = React.createRef<HTMLElement>();
-      render(<Text ref={ref}>Text</Text>);
-      expect(ref.current).toBeInstanceOf(HTMLElement);
+      let ref: HTMLElement | null = null;
+      render(
+        <Text
+          ref={(el) => {
+            ref = el;
+          }}
+        >
+          Text
+        </Text>,
+      );
+      expect(ref).toBeInstanceOf(HTMLElement);
     });
 
     it("forwards ref when using as prop", () => {
-      const ref = React.createRef<HTMLElement>();
+      let ref: HTMLElement | null = null;
       render(
-        <Text ref={ref} as="span">
+        <Text
+          ref={(el) => {
+            ref = el;
+          }}
+          as="span"
+        >
           Span
         </Text>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLSpanElement);
+      expect(ref).toBeInstanceOf(HTMLSpanElement);
     });
   });
 });

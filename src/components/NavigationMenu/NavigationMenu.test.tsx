@@ -418,44 +418,59 @@ describe("NavigationMenu", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref on NavigationMenu", () => {
-      const ref = React.createRef<HTMLElement>();
+      let ref: HTMLElement | null = null;
       render(
-        <NavigationMenu ref={ref}>
+        <NavigationMenu
+          ref={(el) => {
+            ref = el;
+          }}
+        >
           <NavigationMenuList />
         </NavigationMenu>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLElement);
+      expect(ref).toBeInstanceOf(HTMLElement);
     });
 
     it("forwards ref on NavigationMenuTrigger", () => {
-      const ref = React.createRef<HTMLButtonElement>();
+      let ref: HTMLButtonElement | null = null;
       render(
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem value="test">
-              <NavigationMenuTrigger ref={ref}>Test</NavigationMenuTrigger>
+              <NavigationMenuTrigger
+                ref={(el) => {
+                  ref = el;
+                }}
+              >
+                Test
+              </NavigationMenuTrigger>
               <NavigationMenuContent>Content</NavigationMenuContent>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLButtonElement);
+      expect(ref).toBeInstanceOf(HTMLButtonElement);
     });
 
     it("forwards ref on NavigationMenuLink", () => {
-      const ref = React.createRef<HTMLAnchorElement>();
+      let ref: HTMLAnchorElement | null = null;
       render(
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem value="link">
-              <NavigationMenuLink ref={ref} href="/test">
+              <NavigationMenuLink
+                ref={(el) => {
+                  ref = el;
+                }}
+                href="/test"
+              >
                 Link
               </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLAnchorElement);
+      expect(ref).toBeInstanceOf(HTMLAnchorElement);
     });
   });
 

@@ -26,10 +26,18 @@ describe("Slider", () => {
     });
 
     it("forwards ref to HTMLInputElement", () => {
-      const ref = React.createRef<HTMLInputElement>();
-      render(<Slider ref={ref} aria-label="Volume" />);
-      expect(ref.current).toBeInstanceOf(HTMLInputElement);
-      expect(ref.current?.type).toBe("range");
+      let ref: HTMLInputElement | null = null;
+      render(
+        <Slider
+          ref={(el) => {
+            ref = el;
+          }}
+          aria-label="Volume"
+        />,
+      );
+      expect(ref).toBeInstanceOf(HTMLInputElement);
+      const typed = ref as HTMLInputElement | null;
+      expect(typed?.type).toBe("range");
     });
   });
 

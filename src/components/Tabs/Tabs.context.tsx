@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext } from "react";
+import { createContext, use } from "react";
 
 export interface TabsContextValue {
   value: string | undefined;
@@ -14,7 +14,7 @@ export interface TabsContextValue {
 const TabsContext = createContext<TabsContextValue | null>(null);
 
 function useTabsContext(): TabsContextValue {
-  const context = useContext(TabsContext);
+  const context = use(TabsContext);
   if (context === null) {
     throw new Error("Tabs compound components must be used within <Tabs>");
   }

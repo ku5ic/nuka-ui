@@ -111,10 +111,17 @@ describe("Progress", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the outer track div", () => {
-      const ref = React.createRef<HTMLDivElement>();
-      render(<Progress ref={ref} value={50} />);
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
-      expect(ref.current).toHaveAttribute("role", "progressbar");
+      let ref: HTMLDivElement | null = null;
+      render(
+        <Progress
+          ref={(el) => {
+            ref = el;
+          }}
+          value={50}
+        />,
+      );
+      expect(ref).toBeInstanceOf(HTMLDivElement);
+      expect(ref).toHaveAttribute("role", "progressbar");
     });
   });
 });

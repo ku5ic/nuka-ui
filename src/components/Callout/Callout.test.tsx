@@ -235,9 +235,17 @@ describe("Callout", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the blockquote element", () => {
-      const ref = React.createRef<HTMLQuoteElement>();
-      render(<Callout ref={ref}>Body</Callout>);
-      expect(ref.current).toBeInstanceOf(HTMLQuoteElement);
+      let ref: HTMLQuoteElement | null = null;
+      render(
+        <Callout
+          ref={(el) => {
+            ref = el;
+          }}
+        >
+          Body
+        </Callout>,
+      );
+      expect(ref).toBeInstanceOf(HTMLQuoteElement);
     });
   });
 

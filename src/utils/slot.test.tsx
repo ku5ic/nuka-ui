@@ -133,26 +133,40 @@ describe("Slot", () => {
   });
 
   it("forwards ref to child element", () => {
-    const ref = React.createRef<HTMLButtonElement>();
+    let ref: HTMLElement | null = null;
 
     render(
-      <Slot ref={ref}>
+      <Slot
+        ref={(el) => {
+          ref = el;
+        }}
+      >
         <button type="button">Click</button>
       </Slot>,
     );
 
-    expect(ref.current).toBeInstanceOf(HTMLButtonElement);
-    expect(ref.current?.textContent).toBe("Click");
+    expect(ref).toBeInstanceOf(HTMLButtonElement);
+    const typed = ref as HTMLElement | null;
+    expect(typed?.textContent).toBe("Click");
   });
 
   it("composes two refs when child already has a ref", () => {
-    const slotRef = React.createRef<HTMLButtonElement>();
-    const childRef = React.createRef<HTMLButtonElement>();
+    let slotRef: HTMLElement | null = null;
+    let childRef: HTMLButtonElement | null = null;
 
     function TestCase() {
       return (
-        <Slot ref={slotRef}>
-          <button type="button" ref={childRef}>
+        <Slot
+          ref={(el) => {
+            slotRef = el;
+          }}
+        >
+          <button
+            type="button"
+            ref={(el) => {
+              childRef = el;
+            }}
+          >
             Click
           </button>
         </Slot>
@@ -161,9 +175,9 @@ describe("Slot", () => {
 
     render(<TestCase />);
 
-    expect(slotRef.current).toBeInstanceOf(HTMLButtonElement);
-    expect(childRef.current).toBeInstanceOf(HTMLButtonElement);
-    expect(slotRef.current).toBe(childRef.current);
+    expect(slotRef).toBeInstanceOf(HTMLButtonElement);
+    expect(childRef).toBeInstanceOf(HTMLButtonElement);
+    expect(slotRef).toBe(childRef);
   });
 
   it("throws in development when child is not a valid React element", () => {

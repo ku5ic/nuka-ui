@@ -416,55 +416,77 @@ describe("Accordion", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to Accordion root", () => {
-      const ref = React.createRef<HTMLDivElement>();
+      let ref: HTMLDivElement | null = null;
       render(
-        <Accordion ref={ref} type="single">
+        <Accordion
+          ref={(el) => {
+            ref = el;
+          }}
+          type="single"
+        >
           <AccordionItem value="item-1">
             <AccordionTrigger>Section 1</AccordionTrigger>
             <AccordionContent>Content 1</AccordionContent>
           </AccordionItem>
         </Accordion>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
 
     it("forwards ref to AccordionItem", () => {
-      const ref = React.createRef<HTMLDivElement>();
+      let ref: HTMLDivElement | null = null;
       render(
         <Accordion type="single">
-          <AccordionItem ref={ref} value="item-1">
+          <AccordionItem
+            ref={(el) => {
+              ref = el;
+            }}
+            value="item-1"
+          >
             <AccordionTrigger>Section 1</AccordionTrigger>
             <AccordionContent>Content 1</AccordionContent>
           </AccordionItem>
         </Accordion>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
 
     it("forwards ref to AccordionTrigger", () => {
-      const ref = React.createRef<HTMLButtonElement>();
+      let ref: HTMLButtonElement | null = null;
       render(
         <Accordion type="single">
           <AccordionItem value="item-1">
-            <AccordionTrigger ref={ref}>Section 1</AccordionTrigger>
+            <AccordionTrigger
+              ref={(el) => {
+                ref = el;
+              }}
+            >
+              Section 1
+            </AccordionTrigger>
             <AccordionContent>Content 1</AccordionContent>
           </AccordionItem>
         </Accordion>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLButtonElement);
+      expect(ref).toBeInstanceOf(HTMLButtonElement);
     });
 
     it("forwards ref to AccordionContent", () => {
-      const ref = React.createRef<HTMLDivElement>();
+      let ref: HTMLDivElement | null = null;
       render(
         <Accordion type="single">
           <AccordionItem value="item-1">
             <AccordionTrigger>Section 1</AccordionTrigger>
-            <AccordionContent ref={ref}>Content 1</AccordionContent>
+            <AccordionContent
+              ref={(el) => {
+                ref = el;
+              }}
+            >
+              Content 1
+            </AccordionContent>
           </AccordionItem>
         </Accordion>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
   });
 

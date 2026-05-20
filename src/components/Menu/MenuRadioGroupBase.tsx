@@ -19,7 +19,7 @@ const MenuRadioGroupContext = React.createContext<
 >(undefined);
 
 function useMenuRadioGroup() {
-  const ctx = React.useContext(MenuRadioGroupContext);
+  const ctx = React.use(MenuRadioGroupContext);
   if (ctx === undefined) {
     throw new Error("useMenuRadioGroup must be used within a MenuRadioGroup");
   }

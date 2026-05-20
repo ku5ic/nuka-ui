@@ -15,7 +15,7 @@ const TooltipContext = React.createContext<TooltipContextValue | undefined>(
 );
 
 export function useTooltipContext(): TooltipContextValue {
-  const context = React.useContext(TooltipContext);
+  const context = React.use(TooltipContext);
   if (context === undefined) {
     throw new Error(
       "useTooltipContext must be used within a <Tooltip> component",

@@ -25,8 +25,8 @@ function useMenuNavigation(
 ): UseMenuNavigationReturn {
   const { onEscape, onTab } = options;
   const itemsRef = useRef<(HTMLElement | null)[]>([]);
-  const typeAheadBuffer = useRef("");
-  const typeAheadTimer = useRef<ReturnType<typeof setTimeout> | undefined>(
+  const typeAheadBufferRef = useRef("");
+  const typeAheadTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(
     undefined,
   );
 
@@ -86,19 +86,19 @@ function useMenuNavigation(
 
   const handleTypeAhead = useCallback(
     (char: string, currentIndex: number) => {
-      if (typeAheadTimer.current) {
-        clearTimeout(typeAheadTimer.current);
+      if (typeAheadTimerRef.current) {
+        clearTimeout(typeAheadTimerRef.current);
       }
 
-      typeAheadBuffer.current += char.toLowerCase();
-      typeAheadTimer.current = setTimeout(() => {
-        typeAheadBuffer.current = "";
+      typeAheadBufferRef.current += char.toLowerCase();
+      typeAheadTimerRef.current = setTimeout(() => {
+        typeAheadBufferRef.current = "";
       }, 500);
 
       const items = getEnabledItems();
       if (items.length === 0) return;
 
-      const buffer = typeAheadBuffer.current;
+      const buffer = typeAheadBufferRef.current;
       const currentPos = items.findIndex((item) => item.index === currentIndex);
       const startPos = currentPos === -1 ? 0 : currentPos;
 
@@ -176,10 +176,10 @@ function useMenuNavigation(
   );
 
   const resetTypeAhead = useCallback(() => {
-    typeAheadBuffer.current = "";
-    if (typeAheadTimer.current) {
-      clearTimeout(typeAheadTimer.current);
-      typeAheadTimer.current = undefined;
+    typeAheadBufferRef.current = "";
+    if (typeAheadTimerRef.current) {
+      clearTimeout(typeAheadTimerRef.current);
+      typeAheadTimerRef.current = undefined;
     }
   }, []);
 

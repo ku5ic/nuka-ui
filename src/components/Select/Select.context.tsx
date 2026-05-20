@@ -28,7 +28,7 @@ const SelectContext = React.createContext<SelectContextValue | undefined>(
 );
 
 export function useSelect(): SelectContextValue {
-  const context = React.useContext(SelectContext);
+  const context = React.use(SelectContext);
   if (context === undefined) {
     throw new Error("useSelect must be used within a <Select> component");
   }

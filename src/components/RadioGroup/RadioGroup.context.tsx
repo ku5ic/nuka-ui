@@ -30,5 +30,5 @@ const defaultContext: RadioGroupContextValue = {
 export const RadioGroupContext = React.createContext(defaultContext);
 
 export function useRadioGroup(): RadioGroupContextValue {
-  return React.useContext(RadioGroupContext);
+  return React.use(RadioGroupContext);
 }

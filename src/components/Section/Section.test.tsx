@@ -243,20 +243,34 @@ describe("Section", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the rendered element", () => {
-      const ref = React.createRef<HTMLElement>();
-      render(<Section ref={ref}>Content</Section>);
-      expect(ref.current).toBeInstanceOf(HTMLElement);
-      expect(ref.current?.tagName).toBe("SECTION");
-    });
-
-    it("forwards ref with as prop", () => {
-      const ref = React.createRef<HTMLElement>();
+      let ref: HTMLElement | null = null;
       render(
-        <Section ref={ref} as="div">
+        <Section
+          ref={(el) => {
+            ref = el;
+          }}
+        >
           Content
         </Section>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      expect(ref).toBeInstanceOf(HTMLElement);
+      const typed = ref as HTMLElement | null;
+      expect(typed?.tagName).toBe("SECTION");
+    });
+
+    it("forwards ref with as prop", () => {
+      let ref: HTMLElement | null = null;
+      render(
+        <Section
+          ref={(el) => {
+            ref = el;
+          }}
+          as="div"
+        >
+          Content
+        </Section>,
+      );
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
   });
 });

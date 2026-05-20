@@ -206,26 +206,25 @@ describe("Icon", () => {
     });
   });
 
-  describe("child manipulation", () => {
-    it("child SVG receives aria-hidden='true' via cloneElement", () => {
+  describe("child rendering", () => {
+    it("SVG is hidden from screen readers via the wrapper span's aria-hidden", () => {
       render(
         <Icon data-testid="icon">
           <MockSvg />
         </Icon>,
       );
-      const svg = screen.getByTestId("icon").querySelector("svg");
-      expect(svg).toHaveAttribute("aria-hidden", "true");
+      expect(screen.getByTestId("icon")).toHaveAttribute("aria-hidden", "true");
+      expect(screen.getByTestId("icon").querySelector("svg")).not.toBeNull();
     });
 
-    it("child SVG receives width='100%' and height='100%' via cloneElement", () => {
+    it("wrapper span applies CSS classes to size child SVG to 100%", () => {
       render(
         <Icon data-testid="icon">
           <MockSvg />
         </Icon>,
       );
-      const svg = screen.getByTestId("icon").querySelector("svg");
-      expect(svg).toHaveAttribute("width", "100%");
-      expect(svg).toHaveAttribute("height", "100%");
+      expect(screen.getByTestId("icon").className).toContain("[&>svg]:w-full");
+      expect(screen.getByTestId("icon").className).toContain("[&>svg]:h-full");
     });
   });
 
@@ -263,13 +262,17 @@ describe("Icon", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to root <span>", () => {
-      const ref = React.createRef<HTMLSpanElement>();
+      let ref: HTMLSpanElement | null = null;
       render(
-        <Icon ref={ref}>
+        <Icon
+          ref={(el) => {
+            ref = el;
+          }}
+        >
           <MockSvg />
         </Icon>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLSpanElement);
+      expect(ref).toBeInstanceOf(HTMLSpanElement);
     });
   });
 });

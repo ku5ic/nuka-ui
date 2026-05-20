@@ -16,12 +16,19 @@ export function useCalendarNavigation(ctx: DatePickerContextValue) {
     ctx.focusedDate.getMonth(),
   );
 
-  React.useEffect(() => {
+  // Sync displayed month/year when the calendar opens or the focused date
+  // changes (e.g. user selects a date). Uses setState during render to avoid
+  // the extra paint cycle that a useEffect would introduce.
+  const [prevOpen, setPrevOpen] = React.useState(ctx.open);
+  const [prevFocusedDate, setPrevFocusedDate] = React.useState(ctx.focusedDate);
+  if (prevOpen !== ctx.open || prevFocusedDate !== ctx.focusedDate) {
+    setPrevOpen(ctx.open);
+    setPrevFocusedDate(ctx.focusedDate);
     if (ctx.open) {
       setDisplayedYear(ctx.focusedDate.getFullYear());
       setDisplayedMonth(ctx.focusedDate.getMonth());
     }
-  }, [ctx.open, ctx.focusedDate]);
+  }
 
   const canGoPrev = React.useMemo(() => {
     const prevMonth = displayedMonth - 1;

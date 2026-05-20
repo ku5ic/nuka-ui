@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext } from "react";
+import { createContext, use } from "react";
 
 export interface TableContextValue {
   variant: "default" | "bordered";
@@ -8,7 +8,7 @@ export interface TableContextValue {
 const TableContext = createContext<TableContextValue>({ variant: "default" });
 
 function useTableContext(): TableContextValue {
-  return useContext(TableContext);
+  return use(TableContext);
 }
 
 export { TableContext, useTableContext };

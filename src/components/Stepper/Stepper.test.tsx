@@ -345,27 +345,37 @@ describe("Stepper", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref on Stepper", () => {
-      const ref = React.createRef<HTMLElement>();
+      let ref: HTMLElement | null = null;
       render(
-        <Stepper ref={ref} currentStep={0}>
+        <Stepper
+          ref={(el) => {
+            ref = el;
+          }}
+          currentStep={0}
+        >
           <StepperItem step={0}>
             <StepperIndicator />
           </StepperItem>
         </Stepper>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLElement);
+      expect(ref).toBeInstanceOf(HTMLElement);
     });
 
     it("forwards ref on StepperItem", () => {
-      const ref = React.createRef<HTMLLIElement>();
+      let ref: HTMLLIElement | null = null;
       render(
         <Stepper currentStep={0}>
-          <StepperItem ref={ref} step={0}>
+          <StepperItem
+            ref={(el) => {
+              ref = el;
+            }}
+            step={0}
+          >
             <StepperIndicator />
           </StepperItem>
         </Stepper>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLLIElement);
+      expect(ref).toBeInstanceOf(HTMLLIElement);
     });
   });
 

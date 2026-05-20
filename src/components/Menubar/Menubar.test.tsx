@@ -323,9 +323,13 @@ describe("Menubar", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref on menubar root", () => {
-      const ref = React.createRef<HTMLDivElement>();
+      let ref: HTMLDivElement | null = null;
       render(
-        <Menubar ref={ref}>
+        <Menubar
+          ref={(el) => {
+            ref = el;
+          }}
+        >
           <MenubarMenu value="file">
             <MenubarTrigger>File</MenubarTrigger>
             <MenubarContent>
@@ -335,15 +339,21 @@ describe("Menubar", () => {
         </Menubar>,
       );
 
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
 
     it("forwards ref on trigger", () => {
-      const ref = React.createRef<HTMLButtonElement>();
+      let ref: HTMLButtonElement | null = null;
       render(
         <Menubar>
           <MenubarMenu value="file">
-            <MenubarTrigger ref={ref}>File</MenubarTrigger>
+            <MenubarTrigger
+              ref={(el) => {
+                ref = el;
+              }}
+            >
+              File
+            </MenubarTrigger>
             <MenubarContent>
               <MenubarItem>New</MenubarItem>
             </MenubarContent>
@@ -351,7 +361,7 @@ describe("Menubar", () => {
         </Menubar>,
       );
 
-      expect(ref.current).toBeInstanceOf(HTMLButtonElement);
+      expect(ref).toBeInstanceOf(HTMLButtonElement);
     });
   });
 

@@ -284,7 +284,7 @@ export const MultiSelect: Story = {
   render: function MultiSelectStory() {
     const tags = ["React", "TypeScript", "Tailwind", "Vitest", "Storybook"];
     const [selected, setSelected] = React.useState<Set<string>>(
-      new Set(["React", "Tailwind"]),
+      () => new Set(["React", "Tailwind"]),
     );
 
     const toggle = (tag: string) => {

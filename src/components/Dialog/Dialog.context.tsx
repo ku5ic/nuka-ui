@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext } from "react";
+import { createContext, use } from "react";
 
 export interface DialogContextValue {
   open: boolean;
@@ -13,7 +13,7 @@ export interface DialogContextValue {
 const DialogContext = createContext<DialogContextValue | null>(null);
 
 function useDialogContext(): DialogContextValue {
-  const context = useContext(DialogContext);
+  const context = use(DialogContext);
   if (context === null) {
     throw new Error("Dialog compound components must be used within <Dialog>");
   }

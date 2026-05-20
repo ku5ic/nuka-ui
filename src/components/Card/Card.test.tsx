@@ -68,9 +68,17 @@ describe("Card", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the root element", () => {
-      const ref = React.createRef<HTMLDivElement>();
-      render(<Card ref={ref}>Card</Card>);
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      let ref: HTMLDivElement | null = null;
+      render(
+        <Card
+          ref={(el) => {
+            ref = el;
+          }}
+        >
+          Card
+        </Card>,
+      );
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
   });
 

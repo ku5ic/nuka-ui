@@ -77,9 +77,15 @@ describe("SkipLink", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the anchor element", () => {
-      const ref = React.createRef<HTMLAnchorElement>();
-      render(<SkipLink ref={ref} />);
-      expect(ref.current).toBeInstanceOf(HTMLAnchorElement);
+      let ref: HTMLAnchorElement | null = null;
+      render(
+        <SkipLink
+          ref={(el) => {
+            ref = el;
+          }}
+        />,
+      );
+      expect(ref).toBeInstanceOf(HTMLAnchorElement);
     });
   });
 

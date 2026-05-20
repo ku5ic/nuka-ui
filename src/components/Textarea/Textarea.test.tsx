@@ -137,9 +137,15 @@ describe("Textarea", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the textarea element", () => {
-      const ref = React.createRef<HTMLTextAreaElement>();
-      render(<Textarea ref={ref} />);
-      expect(ref.current).toBeInstanceOf(HTMLTextAreaElement);
+      let ref: HTMLTextAreaElement | null = null;
+      render(
+        <Textarea
+          ref={(el) => {
+            ref = el;
+          }}
+        />,
+      );
+      expect(ref).toBeInstanceOf(HTMLTextAreaElement);
     });
   });
 

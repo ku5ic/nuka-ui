@@ -26,7 +26,7 @@ const MenuItemContext = React.createContext<MenuItemContextValue | undefined>(
 );
 
 function useMenuItemContext(): MenuItemContextValue {
-  const ctx = React.useContext(MenuItemContext);
+  const ctx = React.use(MenuItemContext);
   if (ctx === undefined) {
     throw new Error("Menu item must be used within a MenuContent component");
   }

@@ -17,7 +17,7 @@ const MenubarContext = React.createContext<MenubarContextValue | undefined>(
 );
 
 function useMenubarContext(): MenubarContextValue {
-  const context = React.useContext(MenubarContext);
+  const context = React.use(MenubarContext);
   if (context === undefined) {
     throw new Error(
       "useMenubarContext must be used within a <Menubar> component",
@@ -41,7 +41,7 @@ const MenubarMenuContext = React.createContext<
 >(undefined);
 
 function useMenubarMenuContext(): MenubarMenuContextValue {
-  const context = React.useContext(MenubarMenuContext);
+  const context = React.use(MenubarMenuContext);
   if (context === undefined) {
     throw new Error(
       "useMenubarMenuContext must be used within a <MenubarMenu> component",

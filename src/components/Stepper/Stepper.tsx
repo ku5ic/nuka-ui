@@ -46,7 +46,8 @@ function Stepper({
     [currentStep, orientation, onStepClick],
   );
 
-  const childArray = React.Children.toArray(children);
+  // eslint-disable-next-line @eslint-react/no-children-map -- inserting connector <li> elements between steps requires iterating children; no viable alternative without changing the component's public API
+  const childArray = React.Children.map(children, (c) => c) ?? [];
   let listChildren: React.ReactNode[];
 
   if (orientation === "horizontal") {

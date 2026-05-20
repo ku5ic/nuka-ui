@@ -136,19 +136,32 @@ describe("Eyebrow", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the rendered element", () => {
-      const ref = React.createRef<HTMLElement>();
-      render(<Eyebrow ref={ref}>Text</Eyebrow>);
-      expect(ref.current).toBeInstanceOf(HTMLParagraphElement);
+      let ref: HTMLElement | null = null;
+      render(
+        <Eyebrow
+          ref={(el) => {
+            ref = el;
+          }}
+        >
+          Text
+        </Eyebrow>,
+      );
+      expect(ref).toBeInstanceOf(HTMLParagraphElement);
     });
 
     it("forwards ref with as prop", () => {
-      const ref = React.createRef<HTMLElement>();
+      let ref: HTMLElement | null = null;
       render(
-        <Eyebrow ref={ref} as="span">
+        <Eyebrow
+          ref={(el) => {
+            ref = el;
+          }}
+          as="span"
+        >
           Span
         </Eyebrow>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLSpanElement);
+      expect(ref).toBeInstanceOf(HTMLSpanElement);
     });
   });
 });

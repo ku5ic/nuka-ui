@@ -213,31 +213,42 @@ describe("Popover", () => {
   });
 
   it("forwards ref on PopoverTrigger", () => {
-    const ref = React.createRef<HTMLButtonElement>();
+    let ref: HTMLButtonElement | null = null;
     render(
       <Popover>
-        <PopoverTrigger ref={ref}>Open</PopoverTrigger>
+        <PopoverTrigger
+          ref={(el) => {
+            ref = el;
+          }}
+        >
+          Open
+        </PopoverTrigger>
         <PopoverContent aria-label="Details">Panel content</PopoverContent>
       </Popover>,
     );
 
-    expect(ref.current).toBeInstanceOf(HTMLButtonElement);
+    expect(ref).toBeInstanceOf(HTMLButtonElement);
   });
 
   it("forwards ref on PopoverContent", async () => {
     const user = userEvent.setup();
-    const ref = React.createRef<HTMLDivElement>();
+    let ref: HTMLDivElement | null = null;
     render(
       <Popover>
         <PopoverTrigger>Open</PopoverTrigger>
-        <PopoverContent ref={ref} aria-label="Details">
+        <PopoverContent
+          ref={(el) => {
+            ref = el;
+          }}
+          aria-label="Details"
+        >
           Panel content
         </PopoverContent>
       </Popover>,
     );
 
     await user.click(screen.getByRole("button", { name: "Open" }));
-    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+    expect(ref).toBeInstanceOf(HTMLDivElement);
   });
 
   it("supports asChild on PopoverTrigger", async () => {

@@ -104,9 +104,17 @@ describe("FormField", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the root div", () => {
-      const ref = React.createRef<HTMLDivElement>();
-      render(<FormField ref={ref}>children</FormField>);
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      let ref: HTMLDivElement | null = null;
+      render(
+        <FormField
+          ref={(el) => {
+            ref = el;
+          }}
+        >
+          children
+        </FormField>,
+      );
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
   });
 

@@ -240,10 +240,17 @@ describe("FileInput", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the file input element", () => {
-      const ref = React.createRef<HTMLInputElement>();
-      render(<FileInput ref={ref} />);
-      expect(ref.current).toBeInstanceOf(HTMLInputElement);
-      expect(ref.current?.type).toBe("file");
+      let ref: HTMLInputElement | null = null;
+      render(
+        <FileInput
+          ref={(el) => {
+            ref = el;
+          }}
+        />,
+      );
+      expect(ref).toBeInstanceOf(HTMLInputElement);
+      const typed = ref as HTMLInputElement | null;
+      expect(typed?.type).toBe("file");
     });
   });
 

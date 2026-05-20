@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext } from "react";
+import { createContext, use } from "react";
 
 export interface SheetContextValue {
   open: boolean;
@@ -13,7 +13,7 @@ export interface SheetContextValue {
 const SheetContext = createContext<SheetContextValue | null>(null);
 
 function useSheetContext(): SheetContextValue {
-  const context = useContext(SheetContext);
+  const context = use(SheetContext);
   if (context === null) {
     throw new Error("Sheet compound components must be used within <Sheet>");
   }

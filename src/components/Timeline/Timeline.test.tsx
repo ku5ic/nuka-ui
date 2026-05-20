@@ -33,13 +33,18 @@ describe("Timeline", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref on Timeline", () => {
-      const ref = React.createRef<HTMLOListElement>();
+      let ref: HTMLOListElement | null = null;
       render(
-        <Timeline ref={ref} aria-label="Events">
+        <Timeline
+          ref={(el) => {
+            ref = el;
+          }}
+          aria-label="Events"
+        >
           <TimelineItem title="First" />
         </Timeline>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLOListElement);
+      expect(ref).toBeInstanceOf(HTMLOListElement);
     });
   });
 });
@@ -196,13 +201,18 @@ describe("TimelineItem", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref on TimelineItem", () => {
-      const ref = React.createRef<HTMLLIElement>();
+      let ref: HTMLLIElement | null = null;
       render(
         <Timeline aria-label="Events">
-          <TimelineItem ref={ref} title="Deployed" />
+          <TimelineItem
+            ref={(el) => {
+              ref = el;
+            }}
+            title="Deployed"
+          />
         </Timeline>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLLIElement);
+      expect(ref).toBeInstanceOf(HTMLLIElement);
     });
   });
 

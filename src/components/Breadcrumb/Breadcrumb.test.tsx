@@ -200,53 +200,72 @@ describe("Breadcrumb", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref on Breadcrumb", () => {
-      const ref = React.createRef<HTMLElement>();
+      let ref: HTMLElement | null = null;
       render(
-        <Breadcrumb ref={ref}>
+        <Breadcrumb
+          ref={(el) => {
+            ref = el;
+          }}
+        >
           <BreadcrumbList />
         </Breadcrumb>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLElement);
+      expect(ref).toBeInstanceOf(HTMLElement);
     });
 
     it("forwards ref on BreadcrumbList", () => {
-      const ref = React.createRef<HTMLOListElement>();
+      let ref: HTMLOListElement | null = null;
       render(
         <Breadcrumb>
-          <BreadcrumbList ref={ref} />
+          <BreadcrumbList
+            ref={(el) => {
+              ref = el;
+            }}
+          />
         </Breadcrumb>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLOListElement);
+      expect(ref).toBeInstanceOf(HTMLOListElement);
     });
 
     it("forwards ref on BreadcrumbLink", () => {
-      const ref = React.createRef<HTMLAnchorElement>();
+      let ref: HTMLAnchorElement | null = null;
       render(
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink ref={ref} href="/">
+              <BreadcrumbLink
+                ref={(el) => {
+                  ref = el;
+                }}
+                href="/"
+              >
                 Home
               </BreadcrumbLink>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLAnchorElement);
+      expect(ref).toBeInstanceOf(HTMLAnchorElement);
     });
 
     it("forwards ref on BreadcrumbPage", () => {
-      const ref = React.createRef<HTMLSpanElement>();
+      let ref: HTMLSpanElement | null = null;
       render(
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbPage ref={ref}>Current</BreadcrumbPage>
+              <BreadcrumbPage
+                ref={(el) => {
+                  ref = el;
+                }}
+              >
+                Current
+              </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLSpanElement);
+      expect(ref).toBeInstanceOf(HTMLSpanElement);
     });
   });
 

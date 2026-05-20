@@ -110,7 +110,9 @@ export const InsideFormField: Story = {
 };
 
 function ControlledDemo() {
-  const [date, setDate] = useState<Date | undefined>(new Date(2026, 3, 15));
+  const [date, setDate] = useState<Date | undefined>(
+    () => new Date(2026, 3, 15),
+  );
 
   return (
     <Stack gap="md">

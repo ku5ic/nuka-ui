@@ -439,59 +439,78 @@ describe("Tabs", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to Tabs root", () => {
-      const ref = React.createRef<HTMLDivElement>();
+      let ref: HTMLDivElement | null = null;
       render(
-        <Tabs ref={ref} defaultValue="tab-1">
+        <Tabs
+          ref={(el) => {
+            ref = el;
+          }}
+          defaultValue="tab-1"
+        >
           <TabsList>
             <TabsTrigger value="tab-1">Tab 1</TabsTrigger>
           </TabsList>
           <TabsContent value="tab-1">Panel 1</TabsContent>
         </Tabs>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
 
     it("forwards ref to TabsList", () => {
-      const ref = React.createRef<HTMLDivElement>();
+      let ref: HTMLDivElement | null = null;
       render(
         <Tabs defaultValue="tab-1">
-          <TabsList ref={ref}>
+          <TabsList
+            ref={(el) => {
+              ref = el;
+            }}
+          >
             <TabsTrigger value="tab-1">Tab 1</TabsTrigger>
           </TabsList>
           <TabsContent value="tab-1">Panel 1</TabsContent>
         </Tabs>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
 
     it("forwards ref to TabsTrigger", () => {
-      const ref = React.createRef<HTMLButtonElement>();
+      let ref: HTMLButtonElement | null = null;
       render(
         <Tabs defaultValue="tab-1">
           <TabsList>
-            <TabsTrigger ref={ref} value="tab-1">
+            <TabsTrigger
+              ref={(el) => {
+                ref = el;
+              }}
+              value="tab-1"
+            >
               Tab 1
             </TabsTrigger>
           </TabsList>
           <TabsContent value="tab-1">Panel 1</TabsContent>
         </Tabs>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLButtonElement);
+      expect(ref).toBeInstanceOf(HTMLButtonElement);
     });
 
     it("forwards ref to TabsContent", () => {
-      const ref = React.createRef<HTMLDivElement>();
+      let ref: HTMLDivElement | null = null;
       render(
         <Tabs defaultValue="tab-1">
           <TabsList>
             <TabsTrigger value="tab-1">Tab 1</TabsTrigger>
           </TabsList>
-          <TabsContent ref={ref} value="tab-1">
+          <TabsContent
+            ref={(el) => {
+              ref = el;
+            }}
+            value="tab-1"
+          >
             Panel 1
           </TabsContent>
         </Tabs>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
   });
 

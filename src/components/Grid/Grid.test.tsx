@@ -117,9 +117,17 @@ describe("Grid", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the div element", () => {
-      const ref = React.createRef<HTMLDivElement>();
-      render(<Grid ref={ref}>Content</Grid>);
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      let ref: HTMLElement | null = null;
+      render(
+        <Grid
+          ref={(el) => {
+            ref = el;
+          }}
+        >
+          Content
+        </Grid>,
+      );
+      expect(ref).toBeInstanceOf(HTMLDivElement);
     });
   });
 
@@ -167,14 +175,20 @@ describe("Grid", () => {
     });
 
     it("forwards ref when as is a non-div element", () => {
-      const ref = React.createRef<HTMLElement>();
+      let ref: HTMLElement | null = null;
       render(
-        <Grid as="ul" ref={ref}>
+        <Grid
+          as="ul"
+          ref={(el) => {
+            ref = el;
+          }}
+        >
           <li>one</li>
         </Grid>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLElement);
-      expect(ref.current?.tagName).toBe("UL");
+      expect(ref).toBeInstanceOf(HTMLElement);
+      const typed = ref as HTMLElement | null;
+      expect(typed?.tagName).toBe("UL");
     });
 
     it("asChild overrides as (renders child element, not as value)", () => {

@@ -190,9 +190,17 @@ describe("Chip", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the button element", () => {
-      const ref = React.createRef<HTMLButtonElement>();
-      render(<Chip ref={ref}>Chip</Chip>);
-      expect(ref.current).toBeInstanceOf(HTMLButtonElement);
+      let ref: HTMLButtonElement | null = null;
+      render(
+        <Chip
+          ref={(el) => {
+            ref = el;
+          }}
+        >
+          Chip
+        </Chip>,
+      );
+      expect(ref).toBeInstanceOf(HTMLButtonElement);
     });
   });
 });

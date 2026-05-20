@@ -224,10 +224,18 @@ describe("NumberInput", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the input element", () => {
-      const ref = React.createRef<HTMLInputElement>();
-      render(<NumberInput ref={ref} aria-label="Qty" />);
-      expect(ref.current).toBeInstanceOf(HTMLInputElement);
-      expect(ref.current?.type).toBe("number");
+      let ref: HTMLInputElement | null = null;
+      render(
+        <NumberInput
+          ref={(el) => {
+            ref = el;
+          }}
+          aria-label="Qty"
+        />,
+      );
+      expect(ref).toBeInstanceOf(HTMLInputElement);
+      const typed = ref as HTMLInputElement | null;
+      expect(typed?.type).toBe("number");
     });
   });
 

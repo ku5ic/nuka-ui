@@ -159,29 +159,41 @@ describe("Tooltip", () => {
   });
 
   it("forwards ref on TooltipTrigger", () => {
-    const ref = React.createRef<HTMLButtonElement>();
+    let ref: HTMLButtonElement | null = null;
     render(
       <Tooltip>
-        <TooltipTrigger ref={ref}>Hover me</TooltipTrigger>
+        <TooltipTrigger
+          ref={(el) => {
+            ref = el;
+          }}
+        >
+          Hover me
+        </TooltipTrigger>
         <TooltipContent>Tooltip text</TooltipContent>
       </Tooltip>,
     );
 
-    expect(ref.current).toBeInstanceOf(HTMLButtonElement);
+    expect(ref).toBeInstanceOf(HTMLButtonElement);
   });
 
   it("forwards ref on TooltipContent", async () => {
     const user = userEvent.setup();
-    const ref = React.createRef<HTMLDivElement>();
+    let ref: HTMLDivElement | null = null;
     render(
       <Tooltip delay={0}>
         <TooltipTrigger>Hover me</TooltipTrigger>
-        <TooltipContent ref={ref}>Tooltip text</TooltipContent>
+        <TooltipContent
+          ref={(el) => {
+            ref = el;
+          }}
+        >
+          Tooltip text
+        </TooltipContent>
       </Tooltip>,
     );
 
     await user.hover(screen.getByRole("button", { name: "Hover me" }));
-    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+    expect(ref).toBeInstanceOf(HTMLDivElement);
   });
 
   it("supports asChild on TooltipTrigger", async () => {

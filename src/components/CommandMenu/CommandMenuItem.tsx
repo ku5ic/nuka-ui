@@ -1,7 +1,10 @@
 "use client";
 import * as React from "react";
 import { cn } from "@nuka/utils/cn";
-import { useCommandMenuContext } from "@nuka/components/CommandMenu/CommandMenu.context";
+import {
+  useCommandMenuContext,
+  CommandMenuGroupContext,
+} from "@nuka/components/CommandMenu/CommandMenu.context";
 
 export interface CommandMenuItemProps extends Omit<
   React.HTMLAttributes<HTMLDivElement>,
@@ -23,6 +26,7 @@ function CommandMenuItem({
   ...props
 }: CommandMenuItemProps) {
   const ctx = useCommandMenuContext();
+  const groupCtx = React.use(CommandMenuGroupContext);
   const itemId = React.useId();
   const internalRef = React.useRef<HTMLDivElement>(null);
 
@@ -44,6 +48,22 @@ function CommandMenuItem({
     !value.toLowerCase().includes(ctx.filter.toLowerCase());
 
   const isActive = ctx.activeItemId === itemId;
+
+  const { registerItemVisibility, unregisterItem } = ctx;
+
+  React.useEffect(() => {
+    registerItemVisibility(itemId, !isFiltered);
+    return () => unregisterItem(itemId);
+  }, [registerItemVisibility, unregisterItem, itemId, isFiltered]);
+
+  const groupRegister = groupCtx?.registerItemVisibility;
+  const groupUnregister = groupCtx?.unregisterItem;
+
+  React.useEffect(() => {
+    if (!groupRegister || !groupUnregister) return;
+    groupRegister(itemId, !isFiltered);
+    return () => groupUnregister(itemId);
+  }, [groupRegister, groupUnregister, itemId, isFiltered]);
 
   React.useEffect(() => {
     if (isActive && internalRef.current != null) {

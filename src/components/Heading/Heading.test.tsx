@@ -284,20 +284,34 @@ describe("Heading", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the rendered element", () => {
-      const ref = React.createRef<HTMLElement>();
-      render(<Heading ref={ref}>Heading</Heading>);
-      expect(ref.current).toBeInstanceOf(HTMLHeadingElement);
+      let ref: HTMLElement | null = null;
+      render(
+        <Heading
+          ref={(el) => {
+            ref = el;
+          }}
+        >
+          Heading
+        </Heading>,
+      );
+      expect(ref).toBeInstanceOf(HTMLHeadingElement);
     });
 
     it("forwards ref when using as prop", () => {
-      const ref = React.createRef<HTMLElement>();
+      let ref: HTMLElement | null = null;
       render(
-        <Heading ref={ref} as="h4">
+        <Heading
+          ref={(el) => {
+            ref = el;
+          }}
+          as="h4"
+        >
           H4
         </Heading>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLHeadingElement);
-      expect(ref.current?.tagName).toBe("H4");
+      expect(ref).toBeInstanceOf(HTMLHeadingElement);
+      const typed = ref as HTMLElement | null;
+      expect(typed?.tagName).toBe("H4");
     });
   });
 });

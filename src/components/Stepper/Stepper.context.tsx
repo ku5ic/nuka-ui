@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext } from "react";
+import { createContext, use } from "react";
 
 export type StepperOrientation = "horizontal" | "vertical";
 export type StepState = "completed" | "current" | "upcoming" | "error";
@@ -19,7 +19,7 @@ export interface StepperItemContextValue {
 const StepperContext = createContext<StepperContextValue | null>(null);
 
 function useStepperContext(): StepperContextValue {
-  const context = useContext(StepperContext);
+  const context = use(StepperContext);
   if (context === null) {
     throw new Error(
       "Stepper compound components must be used within <Stepper>",
@@ -31,7 +31,7 @@ function useStepperContext(): StepperContextValue {
 const StepperItemContext = createContext<StepperItemContextValue | null>(null);
 
 function useStepperItemContext(): StepperItemContextValue {
-  const context = useContext(StepperItemContext);
+  const context = use(StepperItemContext);
   if (context === null) {
     throw new Error(
       "StepperIndicator/StepperContent must be used within <StepperItem>",

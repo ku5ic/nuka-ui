@@ -154,27 +154,59 @@ describe("AppShellMain", () => {
 
 describe("ref forwarding", () => {
   it("forwards ref on AppShell", () => {
-    const ref = React.createRef<HTMLDivElement>();
-    render(<AppShell ref={ref}>content</AppShell>);
-    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+    let ref: HTMLDivElement | null = null;
+    render(
+      <AppShell
+        ref={(el) => {
+          ref = el;
+        }}
+      >
+        content
+      </AppShell>,
+    );
+    expect(ref).toBeInstanceOf(HTMLDivElement);
   });
 
   it("forwards ref on AppShellHeader", () => {
-    const ref = React.createRef<HTMLElement>();
-    render(<AppShellHeader ref={ref}>header</AppShellHeader>);
-    expect(ref.current).toBeInstanceOf(HTMLElement);
+    let ref: HTMLElement | null = null;
+    render(
+      <AppShellHeader
+        ref={(el) => {
+          ref = el;
+        }}
+      >
+        header
+      </AppShellHeader>,
+    );
+    expect(ref).toBeInstanceOf(HTMLElement);
   });
 
   it("forwards ref on AppShellBody", () => {
-    const ref = React.createRef<HTMLDivElement>();
-    render(<AppShellBody ref={ref}>body</AppShellBody>);
-    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+    let ref: HTMLDivElement | null = null;
+    render(
+      <AppShellBody
+        ref={(el) => {
+          ref = el;
+        }}
+      >
+        body
+      </AppShellBody>,
+    );
+    expect(ref).toBeInstanceOf(HTMLDivElement);
   });
 
   it("forwards ref on AppShellMain", () => {
-    const ref = React.createRef<HTMLElement>();
-    render(<AppShellMain ref={ref}>main</AppShellMain>);
-    expect(ref.current).toBeInstanceOf(HTMLElement);
+    let ref: HTMLElement | null = null;
+    render(
+      <AppShellMain
+        ref={(el) => {
+          ref = el;
+        }}
+      >
+        main
+      </AppShellMain>,
+    );
+    expect(ref).toBeInstanceOf(HTMLElement);
   });
 });
 

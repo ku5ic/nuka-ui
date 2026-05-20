@@ -8,7 +8,7 @@ const ComboboxContext = React.createContext<ComboboxContextValue | undefined>(
 );
 
 export function useComboboxContext(): ComboboxContextValue {
-  const context = React.useContext(ComboboxContext);
+  const context = React.use(ComboboxContext);
   if (context === undefined) {
     throw new Error(
       "useComboboxContext must be used within a <Combobox> component",
@@ -17,5 +17,13 @@ export function useComboboxContext(): ComboboxContextValue {
   return context;
 }
 
-export { ComboboxContext };
+export interface ComboboxGroupContextValue {
+  registerItemVisibility: (id: string, visible: boolean) => void;
+  unregisterItem: (id: string) => void;
+}
+
+const ComboboxGroupContext =
+  React.createContext<ComboboxGroupContextValue | null>(null);
+
+export { ComboboxContext, ComboboxGroupContext };
 export type { ComboboxContextValue };

@@ -30,11 +30,12 @@ describe("DismissButton", () => {
     expect(handleClick).toHaveBeenCalledOnce();
   });
 
-  it("renders SVG with aria-hidden='true'", () => {
+  it("SVG is hidden from screen readers via the Icon wrapper's aria-hidden", () => {
     render(<DismissButton onClick={vi.fn()} />);
     const button = screen.getByRole("button", { name: "Dismiss" });
-    const svg = button.querySelector("svg");
-    expect(svg).toHaveAttribute("aria-hidden", "true");
+    const iconSpan = button.querySelector('[aria-hidden="true"]');
+    expect(iconSpan).not.toBeNull();
+    expect(iconSpan?.querySelector("svg")).not.toBeNull();
   });
 
   it("applies className to the button element", () => {

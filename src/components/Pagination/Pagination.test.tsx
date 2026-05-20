@@ -289,39 +289,52 @@ describe("Pagination", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref on Pagination", () => {
-      const ref = React.createRef<HTMLElement>();
+      let ref: HTMLElement | null = null;
       render(
-        <Pagination ref={ref}>
+        <Pagination
+          ref={(el) => {
+            ref = el;
+          }}
+        >
           <PaginationContent />
         </Pagination>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLElement);
+      expect(ref).toBeInstanceOf(HTMLElement);
     });
 
     it("forwards ref on PaginationContent", () => {
-      const ref = React.createRef<HTMLUListElement>();
+      let ref: HTMLUListElement | null = null;
       render(
         <Pagination>
-          <PaginationContent ref={ref} />
+          <PaginationContent
+            ref={(el) => {
+              ref = el;
+            }}
+          />
         </Pagination>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLUListElement);
+      expect(ref).toBeInstanceOf(HTMLUListElement);
     });
 
     it("forwards ref on PaginationLink", () => {
-      const ref = React.createRef<HTMLAnchorElement>();
+      let ref: HTMLAnchorElement | null = null;
       render(
         <Pagination>
           <PaginationContent>
             <PaginationItem>
-              <PaginationLink ref={ref} href="/test">
+              <PaginationLink
+                ref={(el) => {
+                  ref = el;
+                }}
+                href="/test"
+              >
                 1
               </PaginationLink>
             </PaginationItem>
           </PaginationContent>
         </Pagination>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLAnchorElement);
+      expect(ref).toBeInstanceOf(HTMLAnchorElement);
     });
   });
 

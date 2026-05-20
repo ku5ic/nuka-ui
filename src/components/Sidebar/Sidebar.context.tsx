@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext } from "react";
+import { createContext, use } from "react";
 
 export interface SidebarContextValue {
   expanded: boolean;
@@ -12,7 +12,7 @@ export interface SidebarContextValue {
 const SidebarContext = createContext<SidebarContextValue | null>(null);
 
 function useSidebarContext(): SidebarContextValue {
-  const context = useContext(SidebarContext);
+  const context = use(SidebarContext);
   if (context === null) {
     throw new Error(
       "Sidebar compound components must be used within <SidebarProvider>",

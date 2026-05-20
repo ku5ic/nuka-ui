@@ -56,14 +56,19 @@ describe("Nav", () => {
     });
 
     it("forwards ref", () => {
-      const ref = React.createRef<HTMLElement>();
+      let ref: HTMLElement | null = null;
       render(
-        <Nav ref={ref}>
+        <Nav
+          ref={(el) => {
+            ref = el;
+          }}
+        >
           <NavList />
         </Nav>,
       );
-      expect(ref.current).toBeInstanceOf(HTMLElement);
-      expect(ref.current?.tagName).toBe("NAV");
+      expect(ref).toBeInstanceOf(HTMLElement);
+      const typed = ref as HTMLElement | null;
+      expect(typed?.tagName).toBe("NAV");
     });
   });
 });
@@ -77,13 +82,17 @@ describe("NavList", () => {
   });
 
   it("forwards ref", () => {
-    const ref = React.createRef<HTMLUListElement>();
+    let ref: HTMLUListElement | null = null;
     render(
       <Nav>
-        <NavList ref={ref} />
+        <NavList
+          ref={(el) => {
+            ref = el;
+          }}
+        />
       </Nav>,
     );
-    expect(ref.current).toBeInstanceOf(HTMLUListElement);
+    expect(ref).toBeInstanceOf(HTMLUListElement);
   });
 
   it("merges className", () => {
@@ -109,15 +118,21 @@ describe("NavItem", () => {
   });
 
   it("forwards ref", () => {
-    const ref = React.createRef<HTMLLIElement>();
+    let ref: HTMLLIElement | null = null;
     render(
       <Nav>
         <NavList>
-          <NavItem ref={ref}>Content</NavItem>
+          <NavItem
+            ref={(el) => {
+              ref = el;
+            }}
+          >
+            Content
+          </NavItem>
         </NavList>
       </Nav>,
     );
-    expect(ref.current).toBeInstanceOf(HTMLLIElement);
+    expect(ref).toBeInstanceOf(HTMLLIElement);
   });
 
   it("accepts hasSubmenu prop without changing output", () => {
@@ -176,19 +191,24 @@ describe("NavLink", () => {
   });
 
   it("forwards ref", () => {
-    const ref = React.createRef<HTMLAnchorElement>();
+    let ref: HTMLAnchorElement | null = null;
     render(
       <Nav>
         <NavList>
           <NavItem>
-            <NavLink ref={ref} href="/test">
+            <NavLink
+              ref={(el) => {
+                ref = el;
+              }}
+              href="/test"
+            >
               Link
             </NavLink>
           </NavItem>
         </NavList>
       </Nav>,
     );
-    expect(ref.current).toBeInstanceOf(HTMLAnchorElement);
+    expect(ref).toBeInstanceOf(HTMLAnchorElement);
   });
 
   it("merges className", () => {
@@ -240,17 +260,23 @@ describe("NavTrigger", () => {
   });
 
   it("forwards ref", () => {
-    const ref = React.createRef<HTMLButtonElement>();
+    let ref: HTMLButtonElement | null = null;
     render(
       <Nav>
         <NavList>
           <NavItem>
-            <NavTrigger ref={ref}>Trigger</NavTrigger>
+            <NavTrigger
+              ref={(el) => {
+                ref = el;
+              }}
+            >
+              Trigger
+            </NavTrigger>
           </NavItem>
         </NavList>
       </Nav>,
     );
-    expect(ref.current).toBeInstanceOf(HTMLButtonElement);
+    expect(ref).toBeInstanceOf(HTMLButtonElement);
   });
 
   it("merges className", () => {
@@ -323,12 +349,16 @@ describe("NavSubmenu", () => {
   });
 
   it("forwards ref", () => {
-    const ref = React.createRef<HTMLUListElement>();
+    let ref: HTMLUListElement | null = null;
     render(
       <Nav>
         <NavList>
           <NavItem>
-            <NavSubmenu ref={ref}>
+            <NavSubmenu
+              ref={(el) => {
+                ref = el;
+              }}
+            >
               <NavItem>
                 <NavLink href="/a">A</NavLink>
               </NavItem>
@@ -337,7 +367,7 @@ describe("NavSubmenu", () => {
         </NavList>
       </Nav>,
     );
-    expect(ref.current).toBeInstanceOf(HTMLUListElement);
+    expect(ref).toBeInstanceOf(HTMLUListElement);
   });
 });
 

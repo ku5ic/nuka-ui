@@ -512,7 +512,10 @@ function WideTableExample() {
         {rows.map((row) => (
           <TableRow key={row[0]}>
             {row.map((cell, i) => (
-              <TableCell key={i} className="whitespace-nowrap">
+              <TableCell
+                key={`${String(row[0])}-col-${String(i)}`}
+                className="whitespace-nowrap"
+              >
                 {cell}
               </TableCell>
             ))}

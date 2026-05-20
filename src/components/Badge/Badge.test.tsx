@@ -117,9 +117,17 @@ describe("Badge", () => {
 
   describe("ref forwarding", () => {
     it("forwards ref to the span element", () => {
-      const ref = React.createRef<HTMLSpanElement>();
-      render(<Badge ref={ref}>Badge</Badge>);
-      expect(ref.current).toBeInstanceOf(HTMLSpanElement);
+      let ref: HTMLSpanElement | null = null;
+      render(
+        <Badge
+          ref={(el) => {
+            ref = el;
+          }}
+        >
+          Badge
+        </Badge>,
+      );
+      expect(ref).toBeInstanceOf(HTMLSpanElement);
     });
   });
 
