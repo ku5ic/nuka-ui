@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import { Button } from "@nuka/components/Button";
 import { Stack } from "@nuka/components/Stack";
 
@@ -305,5 +306,15 @@ export const InverseSurface: Story = {
         `.trim(),
       },
     },
+  },
+};
+
+// Proves that the Tailwind stylesheet loaded. A plain toBeVisible() cannot catch a missing sheet.
+// cursor-pointer is applied directly without a CSS variable, so 0px fallback is not possible.
+export const CssCheck: Story = {
+  args: { children: "Submit" },
+  play: async ({ canvas }) => {
+    const button = canvas.getByRole("button", { name: /submit/i });
+    await expect(getComputedStyle(button).cursor).toBe("pointer");
   },
 };
