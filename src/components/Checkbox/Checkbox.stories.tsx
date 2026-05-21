@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import { Checkbox } from "@nuka/components/Checkbox";
 import { FormField } from "@nuka/components/FormField";
 import { Label } from "@nuka/components/Label";
@@ -154,6 +155,18 @@ export const InFormField: Story = {
       <Checkbox intent="danger">Subscribe to newsletter</Checkbox>
     </FormField>
   ),
+};
+
+export const ToggleBehavior: Story = {
+  render: () => <Checkbox>Accept terms</Checkbox>,
+  play: async ({ canvas, userEvent }) => {
+    const checkbox = canvas.getByRole("checkbox", { name: "Accept terms" });
+    await expect(checkbox).not.toBeChecked();
+    await userEvent.click(checkbox);
+    await expect(checkbox).toBeChecked();
+    await userEvent.keyboard(" ");
+    await expect(checkbox).not.toBeChecked();
+  },
 };
 
 export const TermsAcceptance: Story = {

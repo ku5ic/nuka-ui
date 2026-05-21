@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import {
   Tabs,
   TabsList,
@@ -491,6 +492,41 @@ export const DisabledTab: Story = {
       </TabsContent>
     </Tabs>
   ),
+};
+
+export const KeyboardNavigation: Story = {
+  render: () => (
+    <Tabs defaultValue="account">
+      <TabsList>
+        <TabsTrigger value="account">Account</TabsTrigger>
+        <TabsTrigger value="password">Password</TabsTrigger>
+        <TabsTrigger value="notifications">Notifications</TabsTrigger>
+      </TabsList>
+      <TabsContent value="account">
+        <Text>Account panel</Text>
+      </TabsContent>
+      <TabsContent value="password">
+        <Text>Password panel</Text>
+      </TabsContent>
+      <TabsContent value="notifications">
+        <Text>Notifications panel</Text>
+      </TabsContent>
+    </Tabs>
+  ),
+  play: async ({ canvas, userEvent }) => {
+    const passwordTab = canvas.getByRole("tab", { name: "Password" });
+    const notificationsTab = canvas.getByRole("tab", { name: "Notifications" });
+
+    // Click selects the tab and shows its panel
+    await userEvent.click(passwordTab);
+    await expect(passwordTab).toHaveAttribute("aria-selected", "true");
+    await canvas.findByText("Password panel");
+
+    // ArrowRight moves focus and selection in automatic mode
+    await userEvent.keyboard("{ArrowRight}");
+    await expect(document.activeElement).toBe(notificationsTab);
+    await expect(notificationsTab).toHaveAttribute("aria-selected", "true");
+  },
 };
 
 export const SettingsPage: Story = {
