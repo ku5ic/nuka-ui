@@ -1,5 +1,6 @@
 import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, waitFor, within } from "storybook/test";
 import {
   Combobox,
   ComboboxTrigger,
@@ -288,6 +289,53 @@ const manyOptions = Array.from({ length: 50 }, (_, i) => ({
   value: `option-${String(i + 1)}`,
   label: `Option ${String(i + 1)}`,
 }));
+
+export const KeyboardNavigation: Story = {
+  render: () => (
+    <div className="w-64">
+      <Combobox>
+        <ComboboxTrigger placeholder="Select framework..." />
+        <ComboboxContent>
+          <ComboboxInput placeholder="Search..." />
+          <ComboboxListbox>
+            <ComboboxEmpty>No results found.</ComboboxEmpty>
+            {frameworks.map((f) => (
+              <ComboboxOption key={f.value} value={f.value}>
+                {f.label}
+              </ComboboxOption>
+            ))}
+          </ComboboxListbox>
+        </ComboboxContent>
+      </Combobox>
+    </div>
+  ),
+  play: async ({ canvas, canvasElement, userEvent }) => {
+    const body = within(canvasElement.ownerDocument.body);
+    const trigger = canvas.getByRole("button", { name: /select framework/i });
+
+    await expect(trigger).toHaveAttribute("aria-expanded", "false");
+    await userEvent.click(trigger);
+    await expect(trigger).toHaveAttribute("aria-expanded", "true");
+
+    // Input auto-focuses when portal opens
+    const input = await body.findByRole("combobox");
+    await waitFor(async () => {
+      await expect(document.activeElement).toBe(input);
+    });
+
+    // ArrowDown sets aria-activedescendant (highlights first option)
+    await userEvent.keyboard("{ArrowDown}");
+    await waitFor(async () => {
+      await expect(input).toHaveAttribute("aria-activedescendant");
+    });
+
+    // Escape closes and returns focus to trigger
+    await userEvent.keyboard("{Escape}");
+    await waitFor(async () => {
+      await expect(trigger).toHaveAttribute("aria-expanded", "false");
+    });
+  },
+};
 
 export const ManyOptions: Story = {
   render: () => (

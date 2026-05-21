@@ -1,5 +1,6 @@
 import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, waitFor } from "storybook/test";
 import { Select } from "@nuka/components/Select/Select";
 import { SelectTrigger } from "@nuka/components/Select/SelectTrigger";
 import { SelectContent } from "@nuka/components/Select/SelectContent";
@@ -605,4 +606,35 @@ function Example() {
     },
   },
   render: () => <FilterFormExample />,
+};
+
+export const SelectOption: Story = {
+  render: () => (
+    <div className="w-64">
+      <Select>
+        <SelectTrigger placeholder="Choose an option" />
+        <SelectContent>
+          <SelectItem value="a">Option A</SelectItem>
+          <SelectItem value="b">Option B</SelectItem>
+          <SelectItem value="c">Option C</SelectItem>
+        </SelectContent>
+      </Select>
+    </div>
+  ),
+  play: async ({ canvas, userEvent }) => {
+    const trigger = canvas.getByRole("combobox");
+
+    await expect(trigger).toHaveAttribute("aria-expanded", "false");
+    await userEvent.click(trigger);
+    await expect(trigger).toHaveAttribute("aria-expanded", "true");
+
+    // Listbox renders inline (not in a portal)
+    await canvas.findByRole("listbox");
+
+    // Click an option; listbox closes after selection
+    await userEvent.click(canvas.getByRole("option", { name: "Option B" }));
+    await waitFor(async () => {
+      await expect(trigger).toHaveAttribute("aria-expanded", "false");
+    });
+  },
 };
