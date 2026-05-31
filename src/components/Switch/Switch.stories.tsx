@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import { Switch } from "@nuka/components/Switch";
 import { Stack } from "@nuka/components/Stack";
 import { Text } from "@nuka/components/Text";
@@ -113,6 +114,18 @@ export const InFormField: Story = {
         `.trim(),
       },
     },
+  },
+};
+
+export const ToggleBehavior: Story = {
+  render: () => <Switch aria-label="Dark mode">Dark mode</Switch>,
+  play: async ({ canvas, userEvent }) => {
+    const toggle = canvas.getByRole("switch", { name: "Dark mode" });
+    await expect(toggle).toHaveAttribute("aria-checked", "false");
+    await userEvent.click(toggle);
+    await expect(toggle).toHaveAttribute("aria-checked", "true");
+    await userEvent.keyboard(" ");
+    await expect(toggle).toHaveAttribute("aria-checked", "false");
   },
 };
 

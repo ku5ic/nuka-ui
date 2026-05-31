@@ -1,5 +1,6 @@
 import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, waitFor, within } from "storybook/test";
 import { Button } from "@nuka/components/Button";
 import {
   DropdownMenu,
@@ -376,5 +377,40 @@ function Example() {
         `.trim(),
       },
     },
+  },
+};
+
+export const KeyboardNavigation: Story = {
+  render: () => (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline">Options</Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuItem>Edit</DropdownMenuItem>
+        <DropdownMenuItem>Duplicate</DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>Archive</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  ),
+  play: async ({ canvas, canvasElement, userEvent }) => {
+    const body = within(canvasElement.ownerDocument.body);
+    const trigger = canvas.getByRole("button", { name: "Options" });
+
+    await expect(trigger).toHaveAttribute("aria-expanded", "false");
+    await userEvent.click(trigger);
+    await expect(trigger).toHaveAttribute("aria-expanded", "true");
+
+    // Menu renders in portal; first item auto-focuses via requestAnimationFrame
+    await body.findByRole("menu");
+    await waitFor(async () => {
+      await expect(document.activeElement).toHaveAttribute("role", "menuitem");
+    });
+
+    await userEvent.keyboard("{Escape}");
+    await waitFor(async () => {
+      await expect(trigger).toHaveAttribute("aria-expanded", "false");
+    });
   },
 };

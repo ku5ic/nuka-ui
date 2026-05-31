@@ -1,5 +1,6 @@
 import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import { RadioGroup } from "@nuka/components/RadioGroup/RadioGroup";
 import { Radio } from "@nuka/components/RadioGroup/Radio";
 import { Stack } from "@nuka/components/Stack";
@@ -261,6 +262,30 @@ export const InFormField: Story = {
         `.trim(),
       },
     },
+  },
+};
+
+export const KeyboardNavigation: Story = {
+  args: { name: "fruit-nav", children: null },
+  render: () => (
+    <RadioGroup name="fruit-nav" aria-label="Fruit">
+      <Radio value="apple">Apple</Radio>
+      <Radio value="banana">Banana</Radio>
+      <Radio value="cherry">Cherry</Radio>
+    </RadioGroup>
+  ),
+  play: async ({ canvas, userEvent }) => {
+    const banana = canvas.getByRole("radio", { name: "Banana" });
+    const cherry = canvas.getByRole("radio", { name: "Cherry" });
+
+    // Click selects the radio
+    await userEvent.click(banana);
+    await expect(banana).toBeChecked();
+
+    // ArrowDown moves focus and selection to the next option
+    await userEvent.keyboard("{ArrowDown}");
+    await expect(cherry).toBeChecked();
+    await expect(document.activeElement).toBe(cherry);
   },
 };
 

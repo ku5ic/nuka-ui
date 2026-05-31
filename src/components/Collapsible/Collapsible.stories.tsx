@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import {
   Collapsible,
   CollapsibleTrigger,
@@ -197,6 +198,32 @@ function Example() {
         </Collapsible>
       </Stack>
     );
+  },
+};
+
+export const ToggleBehavior: Story = {
+  render: () => (
+    <Collapsible className="w-80">
+      <CollapsibleTrigger asChild>
+        <Button variant="secondary" className="w-full justify-between">
+          Toggle section
+        </Button>
+      </CollapsibleTrigger>
+      <CollapsibleContent className="pt-(--space-2)">
+        <Text size="sm" color="muted">
+          Hidden content
+        </Text>
+      </CollapsibleContent>
+    </Collapsible>
+  ),
+  play: async ({ canvas, userEvent }) => {
+    const trigger = canvas.getByRole("button", { name: "Toggle section" });
+    await expect(trigger).toHaveAttribute("aria-expanded", "false");
+    await userEvent.click(trigger);
+    await expect(trigger).toHaveAttribute("aria-expanded", "true");
+    await canvas.findByText("Hidden content");
+    await userEvent.click(trigger);
+    await expect(trigger).toHaveAttribute("aria-expanded", "false");
   },
 };
 

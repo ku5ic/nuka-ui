@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, waitFor, within } from "storybook/test";
 import {
   Dialog,
   DialogTrigger,
@@ -475,4 +476,41 @@ function Example() {
     },
   },
   render: () => <ControlledExample />,
+};
+
+export const FocusAndDismiss: Story = {
+  render: () => (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button>Open dialog</Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogTitle>Focus test dialog</DialogTitle>
+        <DialogDescription>
+          Verifies focus trap and Escape to dismiss.
+        </DialogDescription>
+      </DialogContent>
+    </Dialog>
+  ),
+  play: async ({ canvas, canvasElement, userEvent }) => {
+    const body = within(canvasElement.ownerDocument.body);
+
+    await userEvent.click(canvas.getByRole("button", { name: "Open dialog" }));
+
+    const dialog = await body.findByRole("dialog");
+    await expect(dialog).toHaveAttribute("aria-modal", "true");
+
+    // Focus trap moves focus to the dismiss button via requestAnimationFrame
+    await waitFor(async () => {
+      await expect(document.activeElement).toHaveAttribute(
+        "aria-label",
+        "Close dialog",
+      );
+    });
+
+    await userEvent.keyboard("{Escape}");
+    await waitFor(async () => {
+      await expect(body.queryByRole("dialog")).not.toBeInTheDocument();
+    });
+  },
 };

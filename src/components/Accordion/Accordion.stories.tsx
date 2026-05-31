@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import {
   Accordion,
   AccordionItem,
@@ -372,6 +373,43 @@ function Example() {
         </Accordion>
       </Stack>
     );
+  },
+};
+
+export const KeyboardNavigation: Story = {
+  args: { type: "single" },
+  render: () => (
+    <Accordion type="single" collapsible className="w-96">
+      <AccordionItem value="item-1">
+        <AccordionTrigger>Section one</AccordionTrigger>
+        <AccordionContent>
+          <Text size="sm" color="muted">
+            First panel content.
+          </Text>
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-2">
+        <AccordionTrigger>Section two</AccordionTrigger>
+        <AccordionContent>
+          <Text size="sm" color="muted">
+            Second panel content.
+          </Text>
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  ),
+  play: async ({ canvas, userEvent }) => {
+    const trigger1 = canvas.getByRole("button", { name: /section one/i });
+    const trigger2 = canvas.getByRole("button", { name: /section two/i });
+
+    // Click expands the first item
+    await userEvent.click(trigger1);
+    await expect(trigger1).toHaveAttribute("aria-expanded", "true");
+
+    // ArrowDown from focused first trigger moves focus to second
+    trigger1.focus();
+    await userEvent.keyboard("{ArrowDown}");
+    await expect(document.activeElement).toBe(trigger2);
   },
 };
 
