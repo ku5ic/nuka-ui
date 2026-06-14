@@ -179,8 +179,10 @@ describe("Menubar", () => {
 
       await user.keyboard("{ArrowRight}");
 
+      // rAF in useAutoFocusFirstItem moves focus to the first item of the
+      // opened menu; asserting the trigger (transient state) is environment-flaky.
       await vi.waitFor(() => {
-        expect(screen.getByRole("menuitem", { name: "Edit" })).toHaveFocus();
+        expect(screen.getByRole("menuitem", { name: "Undo" })).toHaveFocus();
       });
     });
 
@@ -195,8 +197,10 @@ describe("Menubar", () => {
 
       await user.keyboard("{ArrowLeft}");
 
+      // rAF in useAutoFocusFirstItem moves focus to the first item of the
+      // opened menu; asserting the trigger (transient state) is environment-flaky.
       await vi.waitFor(() => {
-        expect(screen.getByRole("menuitem", { name: "File" })).toHaveFocus();
+        expect(screen.getByRole("menuitem", { name: "New" })).toHaveFocus();
       });
     });
   });
