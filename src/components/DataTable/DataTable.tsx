@@ -172,6 +172,7 @@ function DataTable<TRow extends object>({
           </TableHeader>
           <TableBody>
             {pageData.map((row, rowIndex) => (
+              // eslint-disable-next-line @eslint-react/no-array-index-key -- index is the intentional fallback when no rowKey is supplied; pass rowKey for a stable identity across sort/filter
               <TableRow key={rowKey != null ? String(row[rowKey]) : rowIndex}>
                 {columns.map((col) => (
                   <TableCell key={col.key}>
