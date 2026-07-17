@@ -75,6 +75,9 @@ jobs:
       - name: Create release PR or publish
         uses: changesets/action@v1
         with:
+          # version: regenerates package-lock.json after the bump so the lockfile
+          # never lags package.json (changeset version alone does not touch it).
+          version: npm run version
           publish: npm run release
           title: "chore: version packages"
           commit: "chore: version packages"
