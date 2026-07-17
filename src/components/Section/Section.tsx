@@ -9,13 +9,7 @@ import {
 } from "@nuka/components/Section/Section.variants";
 
 type SectionElement =
-  | "section"
-  | "div"
-  | "article"
-  | "aside"
-  | "main"
-  | "header"
-  | "footer";
+  "section" | "div" | "article" | "aside" | "main" | "header" | "footer";
 
 export interface SectionProps
   extends React.HTMLAttributes<HTMLElement>, SectionVariantProps {
