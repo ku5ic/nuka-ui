@@ -74,12 +74,7 @@ export const alignBaseMap: Record<Align, string> = {
 };
 
 export type Justify =
-  | "start"
-  | "center"
-  | "end"
-  | "between"
-  | "around"
-  | "evenly";
+  "start" | "center" | "end" | "between" | "around" | "evenly";
 
 export const justifyBaseMap: Record<Justify, string> = {
   start: "justify-start",
@@ -158,13 +153,7 @@ export const dividerOrientationBaseMaps: Record<
 };
 
 export type AspectRatioValue =
-  | "1/1"
-  | "16/9"
-  | "4/3"
-  | "3/2"
-  | "2/1"
-  | "9/16"
-  | "4/5";
+  "1/1" | "16/9" | "4/3" | "3/2" | "2/1" | "9/16" | "4/5";
 
 export const aspectRatioBaseMap: Record<AspectRatioValue, string> = {
   "1/1": "aspect-square",
