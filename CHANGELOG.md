@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.8
+
+### Patch Changes
+
+- b8320d0: Update @floating-ui/react to 0.27.20, which nuka-ui's floating positioning primitives rely on for popover, tooltip, and menu placement (Tooltip, Popover, DropdownMenu, ContextMenu, Menubar, NavigationMenu, Combobox, DatePicker). No public API changes.
+
 ## 1.1.7
 
 ### Patch Changes
