@@ -73,7 +73,7 @@ jobs:
       # and publishes provenance automatically. GITHUB_TOKEN is still required for the
       # Changesets version PR and GitHub release.
       - name: Create release PR or publish
-        uses: changesets/action@v1
+        uses: changesets/action@v2
         with:
           # version: regenerates package-lock.json after the bump so the lockfile
           # never lags package.json (changeset version alone does not touch it).
