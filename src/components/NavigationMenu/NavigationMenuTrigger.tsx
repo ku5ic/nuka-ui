@@ -25,7 +25,7 @@ function NavigationMenuTrigger({
   const itemCtx = useNavigationMenuItemContext();
   const composedRef = composeRefs(
     ref,
-    itemCtx.refs.setReference,
+    (node) => itemCtx.refs.setReference(node),
     (el: HTMLButtonElement | null) => {
       rootCtx.registerItem(itemCtx.value, el);
       if (el) {

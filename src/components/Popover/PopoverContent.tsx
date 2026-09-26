@@ -21,7 +21,9 @@ function PopoverContent({
 }: PopoverContentProps) {
   const ctx = usePopoverContext();
   const contentRef = React.useRef<HTMLDivElement>(null);
-  const composedRef = composeRefs(ref, contentRef, ctx.refs.setFloating);
+  const composedRef = composeRefs(ref, contentRef, (node) =>
+    ctx.refs.setFloating(node),
+  );
 
   React.useEffect(() => {
     if (

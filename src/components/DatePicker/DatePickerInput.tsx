@@ -164,9 +164,8 @@ function DatePickerInput({
         data-slot="input"
       />
       <button
-        ref={composeRefs(
-          ctx.triggerButtonRef,
-          ctx.refs.setReference as React.Ref<HTMLButtonElement>,
+        ref={composeRefs(ctx.triggerButtonRef, (node) =>
+          ctx.refs.setReference(node),
         )}
         type="button"
         {...referenceProps}

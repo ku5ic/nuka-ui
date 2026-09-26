@@ -15,7 +15,7 @@ function PopoverTrigger({
   ...props
 }: PopoverTriggerProps) {
   const ctx = usePopoverContext();
-  const composedRef = composeRefs(ref, ctx.refs.setReference);
+  const composedRef = composeRefs(ref, (node) => ctx.refs.setReference(node));
 
   const Comp = asChild ? Slot : "button";
 

@@ -19,7 +19,7 @@ function TooltipContent({ ref, className, ...props }: TooltipContentProps) {
   return (
     <Portal>
       <div
-        ref={composeRefs(ref, ctx.refs.setFloating)}
+        ref={composeRefs(ref, (node) => ctx.refs.setFloating(node))}
         role="tooltip"
         style={ctx.floatingStyles}
         data-slot="content"
