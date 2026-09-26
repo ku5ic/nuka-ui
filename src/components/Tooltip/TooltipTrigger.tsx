@@ -15,7 +15,7 @@ function TooltipTrigger({
   ...props
 }: TooltipTriggerProps) {
   const ctx = useTooltipContext();
-  const composedRef = composeRefs(ref, ctx.refs.setReference);
+  const composedRef = composeRefs(ref, (node) => ctx.refs.setReference(node));
 
   const Comp = asChild ? Slot : "button";
 

@@ -22,7 +22,7 @@ function MenubarTrigger({
   const menu = useMenubarMenuContext();
   const composedRef = composeRefs(
     ref,
-    menu.refs.setReference,
+    (node) => menu.refs.setReference(node),
     (el: HTMLButtonElement | null) => {
       bar.registerTrigger(menu.value, el);
     },

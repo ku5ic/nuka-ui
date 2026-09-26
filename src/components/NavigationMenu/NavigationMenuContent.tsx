@@ -25,7 +25,9 @@ function NavigationMenuContent({
   const rootCtx = useNavigationMenuContext();
   const itemCtx = useNavigationMenuItemContext();
   const contentRef = React.useRef<HTMLDivElement>(null);
-  const composedRef = composeRefs(ref, contentRef, itemCtx.refs.setFloating);
+  const composedRef = composeRefs(ref, contentRef, (node) =>
+    itemCtx.refs.setFloating(node),
+  );
 
   useFocusFirstInteractive(contentRef, itemCtx.open);
 

@@ -27,7 +27,9 @@ function MenubarContent({
   const bar = useMenubarContext();
   const menu = useMenubarMenuContext();
   const contentRef = React.useRef<HTMLDivElement>(null);
-  const composedRef = composeRefs(ref, contentRef, menu.refs.setFloating);
+  const composedRef = composeRefs(ref, contentRef, (node) =>
+    menu.refs.setFloating(node),
+  );
 
   const handleEscape = React.useCallback(() => {
     menu.onOpenChange(false);

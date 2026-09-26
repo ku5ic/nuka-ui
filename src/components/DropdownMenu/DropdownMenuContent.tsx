@@ -23,7 +23,9 @@ function DropdownMenuContent({
 }: DropdownMenuContentProps) {
   const ctx = useDropdownMenuContext();
   const contentRef = React.useRef<HTMLDivElement>(null);
-  const composedRef = composeRefs(ref, contentRef, ctx.refs.setFloating);
+  const composedRef = composeRefs(ref, contentRef, (node) =>
+    ctx.refs.setFloating(node),
+  );
 
   const { getItemProps, focusItem, itemsRef, resetTypeAhead } =
     useMenuNavigation({
